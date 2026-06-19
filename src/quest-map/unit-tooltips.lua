@@ -86,6 +86,9 @@ local function AddCluster(index, quest, dbQuest, cluster)
     if not cluster then
         return
     end
+    if not QuestMap:ShouldShowObjectiveCluster(quest, cluster, "tooltip") then
+        return
+    end
     if cluster.k and not TOOLTIP_CLUSTER_KINDS[cluster.k] then
         return
     end

@@ -10,6 +10,7 @@ end
 
 local function GetQuestObjectives(index)
     local objectives = {}
+    local completedByIndex = {}
     local previousSelection
 
     if GetQuestLogSelection then
@@ -30,12 +31,22 @@ local function GetQuestObjectives(index)
 
     if ok and type(count) == "number" then
         for objectiveIndex = 1, count do
-            local objectiveOk, description = CallOptional(GetQuestLogLeaderBoard, objectiveIndex, index)
+            local objectiveOk, description, _, isComplete = CallOptional(GetQuestLogLeaderBoard, objectiveIndex, index)
             if not objectiveOk then
-                objectiveOk, description = CallOptional(GetQuestLogLeaderBoard, objectiveIndex)
+                objectiveOk, description, _, isComplete = CallOptional(GetQuestLogLeaderBoard, objectiveIndex)
             end
             if objectiveOk and description and description ~= "" then
                 objectives[#objectives + 1] = description
+                if isComplete ~= nil then
+                    completedByIndex[objectiveIndex] = isComplete == true or isComplete == 1
+                else
+                    local current, total = string.match(description, "(%d+)%s*/%s*(%d+)")
+                    current = tonumber(current)
+                    total = tonumber(total)
+                    if current and total and total > 0 then
+                        completedByIndex[objectiveIndex] = current >= total
+                    end
+                end
             end
         end
     end
@@ -44,7 +55,7 @@ local function GetQuestObjectives(index)
         pcall(SelectQuestLogEntry, previousSelection)
     end
 
-    return objectives
+    return objectives, completedByIndex
 end
 
 function QuestMap:GetQuestLogSnapshot()
@@ -56,19 +67,42 @@ function QuestMap:GetQuestLogSnapshot()
         if title and not isHeader then
             questNumber = questNumber + 1
             if questId and questId > 0 then
+                local objectives, completedObjectives = GetQuestObjectives(index)
                 quests[#quests + 1] = {
                     id = questId,
                     index = index,
                     title = title,
                     number = questNumber,
                     isComplete = isComplete == 1 or isComplete == true,
-                    objectives = GetQuestObjectives(index),
+                    objectives = objectives,
+                    completedObjectives = completedObjectives,
                 }
             end
         end
     end
 
     return quests
+end
+
+function QuestMap:ShouldShowObjectiveCluster(quest, cluster, surface)
+    if not quest or not cluster then
+        return true
+    end
+
+    local settings = self:GetSettings()
+    if surface == "tooltip" and settings.showCompletedTooltipObjectives then
+        return true
+    end
+    if surface ~= "tooltip" and settings.showCompletedMapObjectives then
+        return true
+    end
+
+    local objectiveIndex = cluster.oi
+    if not objectiveIndex or not quest.completedObjectives then
+        return true
+    end
+
+    return quest.completedObjectives[objectiveIndex] ~= true
 end
 
 local function FindQuestLogIndex(questId)

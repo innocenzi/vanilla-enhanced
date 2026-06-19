@@ -6,11 +6,26 @@ local defaults = {
     keepQuestLogWithMap = true,
     scale = 1,
     opacity = 1,
-    showCompletedObjectives = true,
+    showCompletedMapObjectives = false,
+    showCompletedTooltipObjectives = true,
 }
 
 function QuestMap:GetSettings()
-    return VanillaEnhanced:GetModuleSettings("quest-map", defaults)
+    local addonSettings = VanillaEnhanced:GetSettings()
+    local moduleSettings = addonSettings.modules and addonSettings.modules["quest-map"]
+    local oldShowCompletedObjectives = type(moduleSettings) == "table" and moduleSettings.showCompletedObjectives
+    local settings = VanillaEnhanced:GetModuleSettings("quest-map", defaults)
+
+    if not settings.completedObjectiveVisibilitySplitMigrated then
+        if oldShowCompletedObjectives ~= nil then
+            settings.showCompletedMapObjectives = oldShowCompletedObjectives == true
+            settings.showCompletedTooltipObjectives = oldShowCompletedObjectives == true
+        end
+        settings.showCompletedObjectives = nil
+        settings.completedObjectiveVisibilitySplitMigrated = true
+    end
+
+    return settings
 end
 
 function QuestMap:SetEnabled(enabled)

@@ -487,10 +487,18 @@ function QuestMap:ClearPins()
 end
 
 function QuestMap:AddPins(uiMapId, clusters, quest)
-    for _, cluster in ipairs(MergeIconClusters(uiMapId, clusters)) do
+    local visibleClusters = {}
+
+    for _, cluster in ipairs(clusters) do
+        if self:ShouldShowObjectiveCluster(quest, cluster, "map") then
+            visibleClusters[#visibleClusters + 1] = cluster
+        end
+    end
+
+    for _, cluster in ipairs(MergeIconClusters(uiMapId, visibleClusters)) do
         self:AddPin(uiMapId, cluster.x, cluster.y, quest, cluster)
     end
-    for _, cluster in ipairs(clusters) do
+    for _, cluster in ipairs(visibleClusters) do
         self:AddMinimapPin(uiMapId, cluster.x, cluster.y, quest, cluster)
     end
 end
