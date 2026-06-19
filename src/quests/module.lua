@@ -1,5 +1,5 @@
 local VanillaEnhanced = _G.VanillaEnhanced
-local Quests = VanillaEnhanced:CreateModule("quests", "Quests")
+local Quests = VanillaEnhanced:CreateModule("quests", VanillaEnhanced:T("module.quests"))
 
 Quests.mediaPath = VanillaEnhanced.mediaPath
 Quests.refreshQueued = Quests.refreshQueued or false

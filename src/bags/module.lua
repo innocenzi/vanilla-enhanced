@@ -1,5 +1,5 @@
 local VanillaEnhanced = _G.VanillaEnhanced
-local Bags = VanillaEnhanced:CreateModule("bags", "Bags")
+local Bags = VanillaEnhanced:CreateModule("bags", VanillaEnhanced:T("module.bags"))
 
 local defaults = {
     enabled = true,
@@ -20,6 +20,10 @@ local BAG_FUNCTIONS = {
 }
 
 local updateFrame = CreateFrame("Frame")
+
+local function T(key, vars)
+    return VanillaEnhanced:T(key, vars)
+end
 
 function Bags:GetSettings()
     return VanillaEnhanced:GetModuleSettings("bags", defaults)
@@ -74,8 +78,8 @@ local function ShowTooltip(frame)
     end
 
     GameTooltip:SetOwner(frame, "ANCHOR_RIGHT")
-    GameTooltip:SetText("Sort bags")
-    GameTooltip:AddLine("Sorts your backpack and equipped bags.", 1, 1, 1, true)
+    GameTooltip:SetText(T("bags.sort.tooltipTitle"))
+    GameTooltip:AddLine(T("bags.sort.tooltipBody"), 1, 1, 1, true)
     GameTooltip:Show()
 end
 
@@ -92,7 +96,7 @@ function Bags:EnsureButton()
 
     local button = CreateFrame("Button", "VanillaEnhancedBagsSortButton", UIParent, "UIPanelButtonTemplate")
     button:SetSize(46, 20)
-    button:SetText("Sort")
+    button:SetText(T("bags.sort.button"))
     button:SetFrameStrata("HIGH")
     button:Hide()
 

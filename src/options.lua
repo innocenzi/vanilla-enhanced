@@ -7,6 +7,10 @@ local OPTION_WITH_HELP_OFFSET = -15
 local CHECK_TEXT_OFFSET_X = 3
 local CHECK_TEXT_LEFT_FALLBACK = 27
 
+local function T(key, vars)
+    return VanillaEnhanced:T(key, vars)
+end
+
 local function GetCheckText(check)
     return check.Text or _G[check:GetName() .. "Text"]
 end
@@ -303,21 +307,21 @@ local function CreateHelpText(panel, text, anchor)
 end
 
 local mainPanel = CreatePanel("VanillaEnhancedOptionsPanel", VanillaEnhanced.displayName)
-CreateSubtitle(mainPanel, "Turn modules on or off and adjust their options.")
+CreateSubtitle(mainPanel, T("options.main.subtitle"))
 
-local questsPanel = CreatePanel("VanillaEnhancedQuestsOptionsPanel", "Quests")
+local questsPanel = CreatePanel("VanillaEnhancedQuestsOptionsPanel", T("module.quests"))
 questsPanel.parent = VanillaEnhanced.displayName
-local questsSubtitle = CreateSubtitle(questsPanel, "Improves the quest tracker, quest log, maps, and tooltips.")
+local questsSubtitle = CreateSubtitle(questsPanel, T("options.quests.subtitle"))
 local questsEnabledCheck = CreateModuleEnabledCheck(
     questsPanel,
     "VanillaEnhancedOptionsQuestsEnabled",
     "quests",
-    "Enable",
+    T("options.quests.enable.label"),
     questsSubtitle
 )
 CreateHelpText(
     questsPanel,
-    "Turn on the quest tracker, map, and tooltip changes.",
+    T("options.quests.enable.help"),
     questsEnabledCheck
 )
 local questsKeepQuestLogWithMapCheck = CreateModuleSettingCheck(
@@ -325,13 +329,13 @@ local questsKeepQuestLogWithMapCheck = CreateModuleSettingCheck(
     "VanillaEnhancedOptionsQuestsKeepQuestLogWithMap",
     "quests",
     "keepQuestLogWithMap",
-    "Show quest log with map",
+    T("options.quests.keepQuestLogWithMap.label"),
     questsEnabledCheck
 )
 AnchorBelowHelp(questsKeepQuestLogWithMapCheck, questsEnabledCheck)
 CreateHelpText(
     questsPanel,
-    "Open the quest log beside the world map when possible.",
+    T("options.quests.keepQuestLogWithMap.help"),
     questsKeepQuestLogWithMapCheck
 )
 local questsEnableQuestTrackerClicksCheck = CreateModuleSettingCheck(
@@ -339,13 +343,13 @@ local questsEnableQuestTrackerClicksCheck = CreateModuleSettingCheck(
     "VanillaEnhancedOptionsQuestsEnableQuestTrackerClicks",
     "quests",
     "enableQuestTrackerClicks",
-    "Clickable quest tracker",
+    T("options.quests.enableQuestTrackerClicks.label"),
     questsKeepQuestLogWithMapCheck
 )
 AnchorBelowHelp(questsEnableQuestTrackerClicksCheck, questsKeepQuestLogWithMapCheck)
 CreateHelpText(
     questsPanel,
-    "Click a watched quest to open it in your quest log.",
+    T("options.quests.enableQuestTrackerClicks.help"),
     questsEnableQuestTrackerClicksCheck
 )
 local questsShowMapMarkersCheck = CreateModuleSettingCheck(
@@ -353,13 +357,13 @@ local questsShowMapMarkersCheck = CreateModuleSettingCheck(
     "VanillaEnhancedOptionsQuestsShowMapMarkers",
     "quests",
     "showMapMarkers",
-    "Quest markers on maps",
+    T("options.quests.showMapMarkers.label"),
     questsEnableQuestTrackerClicksCheck
 )
 AnchorBelowHelp(questsShowMapMarkersCheck, questsEnableQuestTrackerClicksCheck)
 CreateHelpText(
     questsPanel,
-    "Show quest locations on the world map and minimap.",
+    T("options.quests.showMapMarkers.help"),
     questsShowMapMarkersCheck
 )
 local questsSpreadOverlappingMarkersCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
@@ -367,13 +371,13 @@ local questsSpreadOverlappingMarkersCheck = SetSettingCheckEnabledWhen(CreateMod
     "VanillaEnhancedOptionsQuestsSpreadOverlappingMarkers",
     "quests",
     "spreadOverlappingMarkers",
-    "Separate stacked markers",
+    T("options.quests.spreadOverlappingMarkers.label"),
     questsShowMapMarkersCheck
 ), "quests", "showMapMarkers")
 AnchorBelowHelp(questsSpreadOverlappingMarkersCheck, questsShowMapMarkersCheck)
 CreateHelpText(
     questsPanel,
-    "Spread nearby world map markers while you hover one.",
+    T("options.quests.spreadOverlappingMarkers.help"),
     questsSpreadOverlappingMarkersCheck
 )
 local questsShowCompletedMapObjectivesCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
@@ -381,13 +385,13 @@ local questsShowCompletedMapObjectivesCheck = SetSettingCheckEnabledWhen(CreateM
     "VanillaEnhancedOptionsQuestsShowCompletedMapObjectives",
     "quests",
     "showCompletedMapObjectives",
-    "Completed objectives on maps",
+    T("options.quests.showCompletedMapObjectives.label"),
     questsSpreadOverlappingMarkersCheck
 ), "quests", "showMapMarkers")
 AnchorBelowHelp(questsShowCompletedMapObjectivesCheck, questsSpreadOverlappingMarkersCheck)
 CreateHelpText(
     questsPanel,
-    "Keep finished objective locations visible. Turn-in locations still appear.",
+    T("options.quests.showCompletedMapObjectives.help"),
     questsShowCompletedMapObjectivesCheck
 )
 local questsShowCompletedTooltipObjectivesCheck = CreateModuleSettingCheck(
@@ -395,29 +399,29 @@ local questsShowCompletedTooltipObjectivesCheck = CreateModuleSettingCheck(
     "VanillaEnhancedOptionsQuestsShowCompletedTooltipObjectives",
     "quests",
     "showCompletedTooltipObjectives",
-    "Completed objectives in tooltips",
+    T("options.quests.showCompletedTooltipObjectives.label"),
     questsShowCompletedMapObjectivesCheck
 )
 AnchorBelowHelp(questsShowCompletedTooltipObjectivesCheck, questsShowCompletedMapObjectivesCheck)
 CreateHelpText(
     questsPanel,
-    "Keep tooltip hints for objectives you have already finished.",
+    T("options.quests.showCompletedTooltipObjectives.help"),
     questsShowCompletedTooltipObjectivesCheck
 )
 
-local targetThreatPanel = CreatePanel("VanillaEnhancedTargetThreatOptionsPanel", "Target threat")
+local targetThreatPanel = CreatePanel("VanillaEnhancedTargetThreatOptionsPanel", T("module.targetThreat"))
 targetThreatPanel.parent = VanillaEnhanced.displayName
-local targetThreatSubtitle = CreateSubtitle(targetThreatPanel, "Shows your threat percentage on the target frame.")
+local targetThreatSubtitle = CreateSubtitle(targetThreatPanel, T("options.targetThreat.subtitle"))
 local targetThreatEnabledCheck = CreateModuleEnabledCheck(
     targetThreatPanel,
     "VanillaEnhancedOptionsTargetThreatEnabled",
     "target-threat",
-    "Enable",
+    T("options.targetThreat.enable.label"),
     targetThreatSubtitle
 )
 CreateHelpText(
     targetThreatPanel,
-    "Show your threat percentage near the target frame.",
+    T("options.targetThreat.enable.help"),
     targetThreatEnabledCheck
 )
 local targetThreatAlwaysShowCheck = CreateModuleSettingCheck(
@@ -425,30 +429,30 @@ local targetThreatAlwaysShowCheck = CreateModuleSettingCheck(
     "VanillaEnhancedOptionsTargetThreatAlwaysShow",
     "target-threat",
     "alwaysShow",
-    "Show out of combat",
+    T("options.targetThreat.alwaysShow.label"),
     targetThreatEnabledCheck
 )
 AnchorBelowHelp(targetThreatAlwaysShowCheck, targetThreatEnabledCheck)
 CreateHelpText(
     targetThreatPanel,
-    "Keep the threat text visible when you have a target, even outside combat.",
+    T("options.targetThreat.alwaysShow.help"),
     targetThreatAlwaysShowCheck
 )
 
-local bagsPanel = CreatePanel("VanillaEnhancedBagsOptionsPanel", "Bags")
+local bagsPanel = CreatePanel("VanillaEnhancedBagsOptionsPanel", T("module.bags"))
 bagsPanel.parent = VanillaEnhanced.displayName
-local bagsSubtitle = CreateSubtitle(bagsPanel, "Adds bag sorting options.")
+local bagsSubtitle = CreateSubtitle(bagsPanel, T("options.bags.subtitle"))
 local bagsSortEnabledCheck = CreateModuleSettingCheck(
     bagsPanel,
     "VanillaEnhancedOptionsBagsSortEnabled",
     "bags",
     "sortEnabled",
-    "Enable sorting",
+    T("options.bags.sortEnabled.label"),
     bagsSubtitle
 )
 CreateHelpText(
     bagsPanel,
-    "Turn on bag sorting.",
+    T("options.bags.sortEnabled.help"),
     bagsSortEnabledCheck
 )
 local bagsShowSortButtonCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
@@ -456,13 +460,13 @@ local bagsShowSortButtonCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCh
     "VanillaEnhancedOptionsBagsShowSortButton",
     "bags",
     "showSortButton",
-    "Sort button",
+    T("options.bags.showSortButton.label"),
     bagsSortEnabledCheck
 ), "bags", "sortEnabled")
 AnchorBelowHelp(bagsShowSortButtonCheck, bagsSortEnabledCheck)
 CreateHelpText(
     bagsPanel,
-    "Show a sort button near the backpack.",
+    T("options.bags.showSortButton.help"),
     bagsShowSortButtonCheck
 )
 local bagsAutoSortAfterLootCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
@@ -470,13 +474,13 @@ local bagsAutoSortAfterLootCheck = SetSettingCheckEnabledWhen(CreateModuleSettin
     "VanillaEnhancedOptionsBagsAutoSortAfterLoot",
     "bags",
     "autoSortAfterLoot",
-    "Sort after looting",
+    T("options.bags.autoSortAfterLoot.label"),
     bagsShowSortButtonCheck
 ), "bags", "sortEnabled")
 AnchorBelowHelp(bagsAutoSortAfterLootCheck, bagsShowSortButtonCheck)
 CreateHelpText(
     bagsPanel,
-    "Sort your bags after the loot window closes.",
+    T("options.bags.autoSortAfterLoot.help"),
     bagsAutoSortAfterLootCheck
 )
 local bagsAutoSortOnOpenCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
@@ -484,13 +488,13 @@ local bagsAutoSortOnOpenCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCh
     "VanillaEnhancedOptionsBagsAutoSortOnOpen",
     "bags",
     "autoSortOnOpen",
-    "Sort when bags open",
+    T("options.bags.autoSortOnOpen.label"),
     bagsAutoSortAfterLootCheck
 ), "bags", "sortEnabled")
 AnchorBelowHelp(bagsAutoSortOnOpenCheck, bagsAutoSortAfterLootCheck)
 CreateHelpText(
     bagsPanel,
-    "Sort your bags when you open them.",
+    T("options.bags.autoSortOnOpen.help"),
     bagsAutoSortOnOpenCheck
 )
 local bagsSortOrderDropdown = CreateModuleDropdown(
@@ -498,11 +502,11 @@ local bagsSortOrderDropdown = CreateModuleDropdown(
     "VanillaEnhancedOptionsBagsSortOrder",
     "bags",
     "sortOrder",
-    "Sort by",
+    T("options.bags.sortOrder.label"),
     {
-        { value = "category", label = "Category" },
-        { value = "quality", label = "Quality" },
-        { value = "name", label = "Name" },
+        { value = "category", label = T("options.bags.sortOrder.category") },
+        { value = "quality", label = T("options.bags.sortOrder.quality") },
+        { value = "name", label = T("options.bags.sortOrder.name") },
     },
     bagsAutoSortOnOpenCheck
 )
@@ -511,7 +515,7 @@ bagsSortOrderDropdown.enabledWhen = function()
 end
 CreateHelpText(
     bagsPanel,
-    "Choose how items are ordered when the addon sorts your bags.",
+    T("options.bags.sortOrder.help"),
     bagsSortOrderDropdown
 )
 

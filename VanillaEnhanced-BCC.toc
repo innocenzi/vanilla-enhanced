@@ -1,6 +1,7 @@
 ## Interface: 20505
 ## Title: Vanilla Enhanced
 ## Notes: Lightweight vanilla-era utility enhancements.
+## Notes-frFR: Améliorations de l'interface pour une meilleure expérience de jeu tout en gardant un feeling classique.
 ## Author: Hylmew
 ## Version: 0.1.0
 ## SavedVariables: VanillaEnhancedSettings
@@ -15,6 +16,7 @@ libs\here-be-dragons\here-be-dragons-2.0.lua
 libs\here-be-dragons\here-be-dragons-pins-2.0.lua
 
 core.lua
+src\localization.lua
 data\quests\locations.lua
 data\quests\locales.lua
 src\quests\module.lua

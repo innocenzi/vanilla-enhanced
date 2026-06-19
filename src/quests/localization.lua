@@ -1,26 +1,12 @@
 local VanillaEnhanced = _G.VanillaEnhanced
 local Quests = VanillaEnhanced:GetModule("quests")
 
-local STATIC_LABELS = {
-    frFR = {
-        turnin = "Rendre la quête",
-        nearby = "objectifs proches",
-        area = "points d'objectif dans cette zone",
-    },
-    enUS = {
-        turnin = "Turn in",
-        nearby = "nearby objectives",
-        area = "objective points in this area",
-    },
-}
-
-local function CurrentLocale()
-    local locale = GetLocale and GetLocale() or "enUS"
-    return locale == "frFR" and "frFR" or "enUS"
+local function T(key, vars)
+    return VanillaEnhanced:T(key, vars)
 end
 
 local function LocaleData()
-    local locale = CurrentLocale()
+    local locale = VanillaEnhanced:GetLocaleKey()
     if locale == "frFR" and VanillaEnhancedQuestsLocaleDB and VanillaEnhancedQuestsLocaleDB.frFR then
         return VanillaEnhancedQuestsLocaleDB.frFR, locale
     end
@@ -94,9 +80,8 @@ function Quests:GetLocalizedObjective(quest, cluster)
         return sourceName
     end
 
-    local _, locale = LocaleData()
     if cluster and cluster.k == "turnin" then
-        return STATIC_LABELS[locale].turnin
+        return T("quests.static.turnin")
     end
 
     if cluster and cluster.o and cluster.o ~= "" then
@@ -137,10 +122,8 @@ function Quests:GetLocalizedCountText(kind, count)
         return nil
     end
 
-    local _, locale = LocaleData()
-    local labels = STATIC_LABELS[locale]
     if kind == "nearby" then
-        return count .. " " .. labels.nearby
+        return count .. " " .. T("quests.static.nearbyObjectives")
     end
-    return count .. " " .. labels.area
+    return count .. " " .. T("quests.static.areaObjectives")
 end

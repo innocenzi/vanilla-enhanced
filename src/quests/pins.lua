@@ -118,7 +118,7 @@ local function BuildMergedCluster(group)
         r = 0,
         c = group.c,
         k = group.k,
-        o = #group.objectives > 1 and "Multiple objectives" or group.objectives[1],
+        o = #group.objectives > 1 and VanillaEnhanced:T("quests.static.multipleObjectives") or group.objectives[1],
         objectives = group.objectives,
         parts = group.clusters,
         merged = true,

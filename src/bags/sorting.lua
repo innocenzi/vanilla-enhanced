@@ -10,9 +10,23 @@ local AUTO_SORT_DELAY = 0.25
 local sortFrame = CreateFrame("Frame")
 local autoSortFrame = CreateFrame("Frame")
 
+local function T(key, vars)
+    return VanillaEnhanced:T(key, vars)
+end
+
+local function LocalizedSortReason(reason)
+    if reason == "open" then
+        return T("bags.sort.reasonOpen")
+    end
+    if reason == "loot" then
+        return T("bags.sort.reasonLoot")
+    end
+    return reason or T("bags.sort.reasonTrigger")
+end
+
 local function DebugSort(message)
     if Bags.debugSorting then
-        Bags:PrintMessage("Bags debug: " .. message)
+        Bags:PrintMessage(T("bags.sort.debugPrefix", { message = message }))
     end
 end
 
@@ -245,7 +259,7 @@ local function FindNextMove(groups)
                         return sourceSlot, targetSlot
                     end
                 end
-                return nil, nil, "Bag sorting stopped because item positions changed unexpectedly."
+                return nil, nil, T("bags.sort.errorChanged")
             end
         end
     end
@@ -259,7 +273,7 @@ function Bags:SortItems()
     end
 
     if self.sorting then
-        self:PrintMessage("Bag sorting is already running.")
+        self:PrintMessage(T("bags.sort.errorRunning"))
         return
     end
 
@@ -285,7 +299,9 @@ function Bags:QueueAutoSort(reason)
 
         frame:SetScript("OnUpdate", nil)
         if not Bags.sorting and Bags:IsSortEnabled() then
-            DebugSort("auto sorting after " .. (Bags.pendingAutoSortReason or "trigger"))
+            DebugSort(T("bags.sort.debugAutoSort", {
+                reason = LocalizedSortReason(Bags.pendingAutoSortReason),
+            }))
             Bags.pendingAutoSortReason = nil
             Bags:SortItems()
         end
@@ -321,12 +337,12 @@ function Bags:StartManualSort()
     end
 
     if not self.Api or not self.Api:HasManualSortApis() then
-        self:PrintMessage("Manual bag sorting is not available on this client.")
+        self:PrintMessage(T("bags.sort.errorUnavailableClient"))
         return
     end
 
     if self.Api:HasCursorItem() then
-        self:PrintMessage("Bag sorting is unavailable while an item is on your cursor.")
+        self:PrintMessage(T("bags.sort.errorCursor"))
         return
     end
 
@@ -354,14 +370,19 @@ end
 
 function Bags:MoveItem(sourceSlot, targetSlot)
     if self.Api:HasCursorItem() then
-        return false, "Bag sorting is unavailable while an item is on your cursor."
+        return false, T("bags.sort.errorCursor")
     end
 
-    DebugSort("moving bag " .. sourceSlot.bagID .. " slot " .. sourceSlot.slot .. " to bag " .. targetSlot.bagID .. " slot " .. targetSlot.slot)
+    DebugSort(T("bags.sort.debugMove", {
+        sourceBag = sourceSlot.bagID,
+        sourceSlot = sourceSlot.slot,
+        targetBag = targetSlot.bagID,
+        targetSlot = targetSlot.slot,
+    }))
 
     local ok = pcall(self.Api.PickupContainerItem, self.Api, sourceSlot.bagID, sourceSlot.slot)
     if not ok then
-        return false, "Bag sorting stopped because an item could not be picked up."
+        return false, T("bags.sort.errorPickup")
     end
 
     ok = pcall(self.Api.PickupContainerItem, self.Api, targetSlot.bagID, targetSlot.slot)
@@ -369,13 +390,13 @@ function Bags:MoveItem(sourceSlot, targetSlot)
         if self.Api:HasCursorItem() then
             pcall(self.Api.PickupContainerItem, self.Api, sourceSlot.bagID, sourceSlot.slot)
         end
-        return false, "Bag sorting stopped because an item could not be moved."
+        return false, T("bags.sort.errorMove")
     end
 
     if self.Api:HasCursorItem() then
         pcall(self.Api.PickupContainerItem, self.Api, sourceSlot.bagID, sourceSlot.slot)
         if self.Api:HasCursorItem() then
-            return false, "Bag sorting stopped because an item could not be moved."
+            return false, T("bags.sort.errorMove")
         end
     end
 
@@ -393,9 +414,9 @@ function Bags:WaitForLockedSlot(lockInfo)
         self.lockWaitStarted = now
         self.lockWaitBagID = lockInfo.bagID
         self.lockWaitSlot = lockInfo.slot
-        DebugSort("waiting for locked bag " .. lockInfo.bagID .. " slot " .. lockInfo.slot)
+        DebugSort(T("bags.sort.debugWaitLocked", { bag = lockInfo.bagID, slot = lockInfo.slot }))
     elseif now - self.lockWaitStarted >= LOCK_RETRY_TIMEOUT then
-        self:StopManualSort("Bag sorting stopped because bag " .. lockInfo.bagID .. " slot " .. lockInfo.slot .. " stayed locked.")
+        self:StopManualSort(T("bags.sort.errorLocked", { bag = lockInfo.bagID, slot = lockInfo.slot }))
         return
     end
 
@@ -411,7 +432,7 @@ function Bags:ContinueManualSort()
     sortFrame:SetScript("OnUpdate", nil)
 
     if self.Api:HasCursorItem() then
-        self:StopManualSort("Bag sorting is unavailable while an item is on your cursor.")
+        self:StopManualSort(T("bags.sort.errorCursor"))
         return
     end
 
