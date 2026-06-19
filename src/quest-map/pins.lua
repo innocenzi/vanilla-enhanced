@@ -158,7 +158,55 @@ local function MergeIconClusters(uiMapId, clusters)
     return merged
 end
 
+local function SetAreaRevealed(frame, revealed)
+    if not frame or frame.kind ~= "area" then
+        return
+    end
+
+    frame:SetAlpha(revealed and 1 or 0)
+    frame:EnableMouse(false)
+end
+
+local function ShouldRevealArea(frame)
+    local data = frame and frame.questMapData
+    if not data then
+        return false
+    end
+
+    return frame.questMapHovered == true
+        or (QuestMap.selectedQuestAreaQuestId and data.questId == QuestMap.selectedQuestAreaQuestId)
+end
+
+function QuestMap:RefreshQuestAreaVisibility(targetFrame)
+    if targetFrame then
+        SetAreaRevealed(targetFrame, ShouldRevealArea(targetFrame))
+        return
+    end
+
+    for _, frame in ipairs(self.frames) do
+        if frame.kind == "area" then
+            SetAreaRevealed(frame, ShouldRevealArea(frame))
+        end
+    end
+end
+
+function QuestMap:SetSelectedQuestAreaQuest(questId)
+    self.selectedQuestAreaQuestId = questId
+    self:RefreshQuestAreaVisibility()
+end
+
+local function SetHoveredArea(self, hovered)
+    local area = self.questMapAreaFrame
+    if not area then
+        return
+    end
+
+    area.questMapHovered = hovered == true
+    QuestMap:RefreshQuestAreaVisibility(area)
+end
+
 local function HideTooltip(self)
+    SetHoveredArea(self, false)
     if GameTooltip:IsOwned(self) then
         GameTooltip:Hide()
     end
@@ -178,6 +226,7 @@ local function ShowTooltip(self)
         return
     end
 
+    SetHoveredArea(self, true)
     GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
     GameTooltip:SetText(data.number .. ". " .. data.title, 1, 1, 1)
     if data.objectives and #data.objectives > 1 then
@@ -425,6 +474,10 @@ local function AcquireFrame(kind, poolKind, parent)
     if frame then
         frame.kind = kind
         frame.poolKind = poolKind
+        frame.questMapAreaFrame = nil
+        frame.questMapHovered = nil
+        frame:SetAlpha(1)
+        frame:EnableMouse(true)
         frame:Show()
         return frame
     end
@@ -472,12 +525,20 @@ function QuestMap:ClearPins()
         for _, frame in ipairs(self.frames) do
             self.hbdPins:RemoveWorldMapIcon(self, frame)
             frame.questMapData = nil
+            frame.questMapAreaFrame = nil
+            frame.questMapHovered = nil
+            frame:SetAlpha(1)
+            frame:EnableMouse(true)
             frame:Hide()
             self.pool[frame.poolKind][#self.pool[frame.poolKind] + 1] = frame
         end
         for _, frame in ipairs(self.minimapFrames) do
             self.hbdPins:RemoveMinimapIcon(self, frame)
             frame.questMapData = nil
+            frame.questMapAreaFrame = nil
+            frame.questMapHovered = nil
+            frame:SetAlpha(1)
+            frame:EnableMouse(true)
             frame:Hide()
             self.pool[frame.poolKind][#self.pool[frame.poolKind] + 1] = frame
         end
@@ -535,21 +596,21 @@ function QuestMap:AddPin(uiMapId, x, y, quest, cluster)
     local kind = cluster.k or "object"
     local areaOnly = kind == "slay" or kind == "loot"
     local pinData = BuildPinData(quest, cluster)
+    local area
 
     if areaOnly or (cluster.r or 0) > 2 then
-        local area = AcquireFrame("area", "area", WorldMapFrame)
+        area = AcquireFrame("area", "area", WorldMapFrame)
         area.questMapData = pinData
+        area.questMapHovered = false
         ConfigureArea(area, cluster, quest, kind)
         self.hbdPins:AddWorldMapIconMap(self, area, uiMapId, x / 100, y / 100, showFlag)
         self.frames[#self.frames + 1] = area
-    end
-
-    if areaOnly then
-        return
+        self:RefreshQuestAreaVisibility(area)
     end
 
     local marker = AcquireFrame("marker", "marker", WorldMapFrame)
     marker.questMapData = pinData
+    marker.questMapAreaFrame = area
     if ICON_TEXTURES[kind] then
         ConfigureIcon(marker, ICON_TEXTURES[kind])
     else

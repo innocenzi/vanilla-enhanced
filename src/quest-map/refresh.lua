@@ -29,6 +29,11 @@ function QuestMap:Refresh()
             end
         end
     end
+    if self.UpdateSelectedQuestAreaFromLog then
+        self:UpdateSelectedQuestAreaFromLog()
+    elseif self.RefreshQuestAreaVisibility then
+        self:RefreshQuestAreaVisibility()
+    end
 end
 
 function QuestMap:QueueRefresh()

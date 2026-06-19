@@ -249,6 +249,10 @@ function QuestMap:ApplyQuestLogWithMapSetting()
 end
 
 function QuestMap:HookQuestLogWithMapFrames()
+    if self.HookQuestLogSelection then
+        self:HookQuestLogSelection()
+    end
+
     if self.questLogWithMapHooksInstalled then
         self:ApplyQuestLogWithMapSetting()
         return

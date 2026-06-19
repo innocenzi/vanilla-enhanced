@@ -1,11 +1,76 @@
 local VanillaEnhanced = _G.VanillaEnhanced
 local QuestMap = VanillaEnhanced:GetModule("quest-map")
 
+QuestMap.suppressQuestLogSelectionSync = QuestMap.suppressQuestLogSelectionSync or 0
+
 local function CallOptional(func, ...)
     if not func then
         return false, nil
     end
     return pcall(func, ...)
+end
+
+local function IsQuestLogShown()
+    return QuestLogFrame and QuestLogFrame.IsShown and QuestLogFrame:IsShown()
+end
+
+local function HookFrameScript(frame, scriptName, handler)
+    if not frame or not handler then
+        return false
+    end
+
+    if frame.HookScript then
+        frame:HookScript(scriptName, handler)
+        return true
+    end
+
+    local previous = frame:GetScript(scriptName)
+    frame:SetScript(scriptName, function(...)
+        if previous then
+            previous(...)
+        end
+        handler(...)
+    end)
+    return true
+end
+
+local function QueueSelectedQuestRefresh()
+    if (QuestMap.suppressQuestLogSelectionSync or 0) > 0 then
+        return
+    end
+
+    if C_Timer and C_Timer.After then
+        C_Timer.After(0, function()
+            QuestMap:UpdateSelectedQuestAreaFromLog()
+        end)
+    else
+        QuestMap:UpdateSelectedQuestAreaFromLog()
+    end
+end
+
+local function PushSelectionSuppression()
+    QuestMap.suppressQuestLogSelectionSync = (QuestMap.suppressQuestLogSelectionSync or 0) + 1
+end
+
+local function PopSelectionSuppression()
+    QuestMap.suppressQuestLogSelectionSync = math.max((QuestMap.suppressQuestLogSelectionSync or 1) - 1, 0)
+end
+
+local function GetSelectedQuestId()
+    if not IsQuestLogShown() or not GetQuestLogSelection or not GetQuestLogTitle then
+        return nil
+    end
+
+    local ok, selected = pcall(GetQuestLogSelection)
+    if not ok or not selected then
+        return nil
+    end
+
+    local title, _, _, isHeader, _, _, _, questId = GetQuestLogTitle(selected)
+    if title and not isHeader and questId and questId > 0 then
+        return questId
+    end
+    return nil
 end
 
 local function GetQuestObjectives(index)
@@ -21,6 +86,7 @@ local function GetQuestObjectives(index)
     end
 
     if SelectQuestLogEntry then
+        PushSelectionSuppression()
         pcall(SelectQuestLogEntry, index)
     end
 
@@ -53,6 +119,9 @@ local function GetQuestObjectives(index)
 
     if previousSelection and SelectQuestLogEntry then
         pcall(SelectQuestLogEntry, previousSelection)
+    end
+    if SelectQuestLogEntry then
+        PopSelectionSuppression()
     end
 
     return objectives, completedByIndex
@@ -152,4 +221,52 @@ function QuestMap:OpenQuestLogToQuest(questId)
     if QuestLog_Update then
         pcall(QuestLog_Update)
     end
+    self:UpdateSelectedQuestAreaFromLog()
 end
+
+function QuestMap:UpdateSelectedQuestAreaFromLog()
+    if (self.suppressQuestLogSelectionSync or 0) > 0 then
+        return
+    end
+    if not self.SetSelectedQuestAreaQuest then
+        return
+    end
+
+    self:SetSelectedQuestAreaQuest(GetSelectedQuestId())
+end
+
+function QuestMap:ClearSelectedQuestAreaQuest()
+    if self.SetSelectedQuestAreaQuest then
+        self:SetSelectedQuestAreaQuest(nil)
+    else
+        self.selectedQuestAreaQuestId = nil
+    end
+end
+
+function QuestMap:HookQuestLogSelection()
+    local hookedFunction = false
+
+    if not self.questLogSelectionFunctionHooksInstalled and type(hooksecurefunc) == "function" then
+        if QuestLog_SetSelection then
+            local ok = pcall(hooksecurefunc, "QuestLog_SetSelection", QueueSelectedQuestRefresh)
+            hookedFunction = hookedFunction or ok
+        end
+        if SelectQuestLogEntry then
+            local ok = pcall(hooksecurefunc, "SelectQuestLogEntry", QueueSelectedQuestRefresh)
+            hookedFunction = hookedFunction or ok
+        end
+        self.questLogSelectionFunctionHooksInstalled = hookedFunction
+    end
+
+    if not self.questLogSelectionFrameHooksInstalled and QuestLogFrame then
+        local hookedShow = HookFrameScript(QuestLogFrame, "OnShow", QueueSelectedQuestRefresh)
+        local hookedHide = HookFrameScript(QuestLogFrame, "OnHide", function()
+            QuestMap:ClearSelectedQuestAreaQuest()
+        end)
+        self.questLogSelectionFrameHooksInstalled = hookedShow or hookedHide
+    end
+
+    self:UpdateSelectedQuestAreaFromLog()
+end
+
+QuestMap:HookQuestLogSelection()
