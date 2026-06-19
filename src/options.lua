@@ -1,6 +1,7 @@
 local VanillaEnhanced = _G.VanillaEnhanced
 
 local moduleChecks = {}
+local settingChecks = {}
 
 local function GetCheckText(check)
     return check.Text or _G[check:GetName() .. "Text"]
@@ -12,6 +13,40 @@ local function ApplyModuleEnabled(moduleKey, enabled)
         module:SetEnabled(enabled)
     else
         VanillaEnhanced:SetModuleEnabled(moduleKey, enabled)
+    end
+end
+
+local function GetModuleOptionSettings(moduleKey)
+    local module = VanillaEnhanced:GetModule(moduleKey)
+    if module and module.GetSettings then
+        return module:GetSettings()
+    end
+    return VanillaEnhanced:GetModuleSettings(moduleKey, {
+        enabled = true,
+    })
+end
+
+local function ApplyModuleSetting(moduleKey, settingKey, value)
+    local settings = GetModuleOptionSettings(moduleKey)
+    settings[settingKey] = not not value
+
+    local module = VanillaEnhanced:GetModule(moduleKey)
+    if module and module.Update then
+        module:Update()
+    end
+
+    if VanillaEnhanced.RefreshOptions then
+        VanillaEnhanced:RefreshOptions()
+    end
+end
+
+local function SetCheckEnabled(check, enabled)
+    if check.SetEnabled then
+        check:SetEnabled(enabled)
+    elseif enabled and check.Enable then
+        check:Enable()
+    elseif check.Disable then
+        check:Disable()
     end
 end
 
@@ -52,6 +87,25 @@ local function CreateModuleEnabledCheck(panel, name, moduleKey, label, anchor)
     return check
 end
 
+local function CreateModuleSettingCheck(panel, name, moduleKey, settingKey, label, anchor)
+    local check = CreateFrame("CheckButton", name, panel, "InterfaceOptionsCheckButtonTemplate")
+    check:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -12)
+    check.moduleKey = moduleKey
+    check.settingKey = settingKey
+
+    local text = GetCheckText(check)
+    if text then
+        text:SetText(label)
+    end
+
+    check:SetScript("OnClick", function(self)
+        ApplyModuleSetting(self.moduleKey, self.settingKey, self:GetChecked())
+    end)
+
+    table.insert(settingChecks, check)
+    return check
+end
+
 local mainPanel = CreatePanel("VanillaEnhancedOptionsPanel", VanillaEnhanced.displayName)
 CreateSubtitle(mainPanel, "Select a module from the sidebar.")
 
@@ -69,17 +123,30 @@ CreateModuleEnabledCheck(
 local targetThreatPanel = CreatePanel("VanillaEnhancedTargetThreatOptionsPanel", "Target Threat")
 targetThreatPanel.parent = VanillaEnhanced.displayName
 local targetThreatSubtitle = CreateSubtitle(targetThreatPanel, "Module settings")
-CreateModuleEnabledCheck(
+local targetThreatEnabledCheck = CreateModuleEnabledCheck(
     targetThreatPanel,
     "VanillaEnhancedOptionsTargetThreatEnabled",
     "target-threat",
     "Enable Target Threat",
     targetThreatSubtitle
 )
+CreateModuleSettingCheck(
+    targetThreatPanel,
+    "VanillaEnhancedOptionsTargetThreatAlwaysShow",
+    "target-threat",
+    "alwaysShow",
+    "Show when not in combat",
+    targetThreatEnabledCheck
+)
 
 function VanillaEnhanced:RefreshOptions()
     for moduleKey, check in pairs(moduleChecks) do
         check:SetChecked(self:IsModuleEnabled(moduleKey))
+    end
+    for _, check in ipairs(settingChecks) do
+        local settings = GetModuleOptionSettings(check.moduleKey)
+        check:SetChecked(settings[check.settingKey] == true)
+        SetCheckEnabled(check, self:IsModuleEnabled(check.moduleKey))
     end
 end
 
