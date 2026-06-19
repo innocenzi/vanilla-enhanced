@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "build:db": "bun run tools/build-db.ts",
+    "test": "bun test"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "^1.3.14"
+  }
+}

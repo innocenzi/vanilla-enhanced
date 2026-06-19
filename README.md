@@ -23,8 +23,18 @@ Disable the external `TargetsThreat` addon when using the `target-threat` module
 
 ## Regenerate The Database
 
+Requires Bun, Git, and a Lua 5.1-compatible CLI (`lua` or `luajit`) on `PATH`.
+
 ```powershell
-bun run tools/build-db.ts --questie "D:\Games\Blizzard\World of Warcraft\_anniversary_\Interface\AddOns\Questie" --out data/quest-map/quest-locations.lua --locale-out data/quest-map/quest-locales.lua
+bun run build:db
+```
+
+The tool downloads the pinned Questie ref from `tools/questie-source.json` into `tools/.cache/`, executes Questie's Lua database and validation pipeline, then generates `data/quest-map/quest-locations.lua` and `data/quest-map/quest-locales.lua`. Use `--questie-ref <tag-or-sha>` to intentionally update the source data, `--refresh-questie` to refetch the cache, or `--questie-path <path>` for local Questie debugging.
+
+Run tooling tests with:
+
+```powershell
+bun test
 ```
 
 ## In Game
