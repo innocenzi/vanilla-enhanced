@@ -11,6 +11,84 @@ local function GetCheckText(check)
     return check.Text or _G[check:GetName() .. "Text"]
 end
 
+local function IsCheckEnabled(check)
+    if check.IsEnabled then
+        local enabled = check:IsEnabled()
+        return enabled ~= false and enabled ~= 0
+    end
+    return true
+end
+
+local function ClickCheck(check)
+    if not IsCheckEnabled(check) then
+        return
+    end
+
+    if check.Click then
+        check:Click()
+        return
+    end
+
+    check:SetChecked(not check:GetChecked())
+    local onClick = check.GetScript and check:GetScript("OnClick")
+    if onClick then
+        onClick(check)
+    end
+end
+
+local function RegisterCheckClickTarget(check, target)
+    check.clickTargets = check.clickTargets or {}
+    check.clickTargets[#check.clickTargets + 1] = target
+    target:EnableMouse(true)
+    target:SetScript("OnClick", function()
+        ClickCheck(check)
+    end)
+end
+
+local function GetRegionWidth(region, fallback)
+    local width = region.GetStringWidth and region:GetStringWidth() or nil
+    if not width or width <= 0 then
+        width = region.GetWidth and region:GetWidth() or fallback
+    end
+    return width or fallback
+end
+
+local function GetRegionHeight(region, fallback)
+    local height = region.GetStringHeight and region:GetStringHeight() or nil
+    if not height or height <= 0 then
+        height = region.GetHeight and region:GetHeight() or fallback
+    end
+    return height or fallback
+end
+
+local function CreateCheckTextClickTarget(check, text)
+    if not text or not check.GetParent then
+        return
+    end
+
+    local target = CreateFrame("Button", nil, check:GetParent())
+    local width = GetRegionWidth(text, 1)
+    local height = GetRegionHeight(text, 12)
+    target:SetPoint("LEFT", text, "LEFT", 0, 0)
+    target:SetSize(math.max(1, width), math.max(12, height))
+    target:SetFrameLevel((check:GetFrameLevel() or 0) + 1)
+    RegisterCheckClickTarget(check, target)
+end
+
+local function CreateHelpClickTarget(help, check)
+    if not help or not check or not check.GetParent then
+        return
+    end
+
+    local target = CreateFrame("Button", nil, check:GetParent())
+    local width = GetRegionWidth(help, 430)
+    local height = GetRegionHeight(help, 12)
+    target:SetPoint("TOPLEFT", help, "TOPLEFT", 0, 0)
+    target:SetSize(math.max(1, width), math.max(12, height))
+    target:SetFrameLevel((check:GetFrameLevel() or 0) + 1)
+    RegisterCheckClickTarget(check, target)
+end
+
 local function ConfigureCheckText(check, label)
     local text = GetCheckText(check)
     if not text then
@@ -20,6 +98,7 @@ local function ConfigureCheckText(check, label)
     text:SetText(label)
     text:ClearAllPoints()
     text:SetPoint("LEFT", check, "RIGHT", CHECK_TEXT_OFFSET_X, 0)
+    CreateCheckTextClickTarget(check, text)
 end
 
 local function ApplyModuleEnabled(moduleKey, enabled)
@@ -81,6 +160,11 @@ local function SetCheckEnabled(check, enabled)
         check:Enable()
     elseif check.Disable then
         check:Disable()
+    end
+    for _, target in ipairs(check.clickTargets or {}) do
+        if target.SetEnabled then
+            target:SetEnabled(enabled)
+        end
     end
 end
 
@@ -211,97 +295,129 @@ local function CreateHelpText(panel, text, anchor)
     bottomAnchor:SetPoint("TOPLEFT", help, "BOTTOMLEFT", -textLeftOffset, nextOffset)
     anchor.optionHelpBottomAnchor = bottomAnchor
 
+    if anchor.GetChecked and anchor.SetChecked then
+        CreateHelpClickTarget(help, anchor)
+    end
+
     return help
 end
 
 local mainPanel = CreatePanel("VanillaEnhancedOptionsPanel", VanillaEnhanced.displayName)
-CreateSubtitle(mainPanel, "Choose which Vanilla Enhanced modules are active and tune how they behave.")
+CreateSubtitle(mainPanel, "Turn modules on or off and adjust their options.")
 
-local questMapPanel = CreatePanel("VanillaEnhancedQuestMapOptionsPanel", "Quest Map")
-questMapPanel.parent = VanillaEnhanced.displayName
-local questMapSubtitle = CreateSubtitle(questMapPanel, "Shows quest objective locations on maps and adds quest hints to relevant unit tooltips.")
-local questMapEnabledCheck = CreateModuleEnabledCheck(
-    questMapPanel,
-    "VanillaEnhancedOptionsQuestMapEnabled",
-    "quest-map",
-    "Enable Quest Map",
-    questMapSubtitle
+local questsPanel = CreatePanel("VanillaEnhancedQuestsOptionsPanel", "Quests")
+questsPanel.parent = VanillaEnhanced.displayName
+local questsSubtitle = CreateSubtitle(questsPanel, "Improves the quest tracker, quest log, maps, and tooltips.")
+local questsEnabledCheck = CreateModuleEnabledCheck(
+    questsPanel,
+    "VanillaEnhancedOptionsQuestsEnabled",
+    "quests",
+    "Enable",
+    questsSubtitle
 )
 CreateHelpText(
-    questMapPanel,
-    "Adds numbered world-map markers and nearby minimap pins for active quests.",
-    questMapEnabledCheck
+    questsPanel,
+    "Turn on the quest tracker, map, and tooltip changes.",
+    questsEnabledCheck
 )
-local questMapKeepQuestLogWithMapCheck = CreateModuleSettingCheck(
-    questMapPanel,
-    "VanillaEnhancedOptionsQuestMapKeepQuestLogWithMap",
-    "quest-map",
+local questsKeepQuestLogWithMapCheck = CreateModuleSettingCheck(
+    questsPanel,
+    "VanillaEnhancedOptionsQuestsKeepQuestLogWithMap",
+    "quests",
     "keepQuestLogWithMap",
-    "Keep quest log open with map",
-    questMapEnabledCheck
+    "Show quest log with map",
+    questsEnabledCheck
 )
-AnchorBelowHelp(questMapKeepQuestLogWithMapCheck, questMapEnabledCheck)
+AnchorBelowHelp(questsKeepQuestLogWithMapCheck, questsEnabledCheck)
 CreateHelpText(
-    questMapPanel,
-    "Keeps the quest log visible beside the world map when both can be shown.",
-    questMapKeepQuestLogWithMapCheck
+    questsPanel,
+    "Open the quest log beside the world map when possible.",
+    questsKeepQuestLogWithMapCheck
 )
-local questMapSpreadOverlappingMarkersCheck = CreateModuleSettingCheck(
-    questMapPanel,
-    "VanillaEnhancedOptionsQuestMapSpreadOverlappingMarkers",
-    "quest-map",
+local questsEnableQuestTrackerClicksCheck = CreateModuleSettingCheck(
+    questsPanel,
+    "VanillaEnhancedOptionsQuestsEnableQuestTrackerClicks",
+    "quests",
+    "enableQuestTrackerClicks",
+    "Clickable quest tracker",
+    questsKeepQuestLogWithMapCheck
+)
+AnchorBelowHelp(questsEnableQuestTrackerClicksCheck, questsKeepQuestLogWithMapCheck)
+CreateHelpText(
+    questsPanel,
+    "Click a watched quest to open it in your quest log.",
+    questsEnableQuestTrackerClicksCheck
+)
+local questsShowMapMarkersCheck = CreateModuleSettingCheck(
+    questsPanel,
+    "VanillaEnhancedOptionsQuestsShowMapMarkers",
+    "quests",
+    "showMapMarkers",
+    "Quest markers on maps",
+    questsEnableQuestTrackerClicksCheck
+)
+AnchorBelowHelp(questsShowMapMarkersCheck, questsEnableQuestTrackerClicksCheck)
+CreateHelpText(
+    questsPanel,
+    "Show quest locations on the world map and minimap.",
+    questsShowMapMarkersCheck
+)
+local questsSpreadOverlappingMarkersCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
+    questsPanel,
+    "VanillaEnhancedOptionsQuestsSpreadOverlappingMarkers",
+    "quests",
     "spreadOverlappingMarkers",
-    "Spread overlapping markers on hover",
-    questMapKeepQuestLogWithMapCheck
-)
-AnchorBelowHelp(questMapSpreadOverlappingMarkersCheck, questMapKeepQuestLogWithMapCheck)
+    "Separate stacked markers",
+    questsShowMapMarkersCheck
+), "quests", "showMapMarkers")
+AnchorBelowHelp(questsSpreadOverlappingMarkersCheck, questsShowMapMarkersCheck)
 CreateHelpText(
-    questMapPanel,
-    "Temporarily fans out nearby world-map markers while hovering one of them.",
-    questMapSpreadOverlappingMarkersCheck
+    questsPanel,
+    "Spread nearby world map markers while you hover one.",
+    questsSpreadOverlappingMarkersCheck
 )
-local questMapShowCompletedMapObjectivesCheck = CreateModuleSettingCheck(
-    questMapPanel,
-    "VanillaEnhancedOptionsQuestMapShowCompletedMapObjectives",
-    "quest-map",
+local questsShowCompletedMapObjectivesCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
+    questsPanel,
+    "VanillaEnhancedOptionsQuestsShowCompletedMapObjectives",
+    "quests",
     "showCompletedMapObjectives",
-    "Show completed objectives on maps",
-    questMapSpreadOverlappingMarkersCheck
-)
-AnchorBelowHelp(questMapShowCompletedMapObjectivesCheck, questMapSpreadOverlappingMarkersCheck)
+    "Completed objectives on maps",
+    questsSpreadOverlappingMarkersCheck
+), "quests", "showMapMarkers")
+AnchorBelowHelp(questsShowCompletedMapObjectivesCheck, questsSpreadOverlappingMarkersCheck)
 CreateHelpText(
-    questMapPanel,
-    "When unchecked, completed objective pins are hidden from the world map and minimap. Completed quests still show turn-in locations.",
-    questMapShowCompletedMapObjectivesCheck
+    questsPanel,
+    "Keep finished objective locations visible. Turn-in locations still appear.",
+    questsShowCompletedMapObjectivesCheck
 )
-local questMapShowCompletedTooltipObjectivesCheck = CreateModuleSettingCheck(
-    questMapPanel,
-    "VanillaEnhancedOptionsQuestMapShowCompletedTooltipObjectives",
-    "quest-map",
+local questsShowCompletedTooltipObjectivesCheck = CreateModuleSettingCheck(
+    questsPanel,
+    "VanillaEnhancedOptionsQuestsShowCompletedTooltipObjectives",
+    "quests",
     "showCompletedTooltipObjectives",
-    "Show completed objectives in tooltips",
-    questMapShowCompletedMapObjectivesCheck
+    "Completed objectives in tooltips",
+    questsShowCompletedMapObjectivesCheck
 )
-AnchorBelowHelp(questMapShowCompletedTooltipObjectivesCheck, questMapShowCompletedMapObjectivesCheck)
+AnchorBelowHelp(questsShowCompletedTooltipObjectivesCheck, questsShowCompletedMapObjectivesCheck)
 CreateHelpText(
-    questMapPanel,
-    "When unchecked, unit tooltips only show quest hints for objectives that still need progress.",
-    questMapShowCompletedTooltipObjectivesCheck
+    questsPanel,
+    "Keep tooltip hints for objectives you have already finished.",
+    questsShowCompletedTooltipObjectivesCheck
 )
 
-local targetThreatPanel = CreatePanel("VanillaEnhancedTargetThreatOptionsPanel", "Target Threat")
+local targetThreatPanel = CreatePanel("VanillaEnhancedTargetThreatOptionsPanel", "Target threat")
 targetThreatPanel.parent = VanillaEnhanced.displayName
-local targetThreatSubtitle = CreateSubtitle(targetThreatPanel, "Shows your current threat percentage on the target frame.")
+local targetThreatSubtitle = CreateSubtitle(targetThreatPanel, "Shows your threat percentage on the target frame.")
 local targetThreatEnabledCheck = CreateModuleEnabledCheck(
     targetThreatPanel,
     "VanillaEnhancedOptionsTargetThreatEnabled",
     "target-threat",
-    "Enable Target Threat",
+    "Enable",
     targetThreatSubtitle
 )
 CreateHelpText(
     targetThreatPanel,
-    "Adds a compact threat percentage near your current target.",
+    "Show your threat percentage near the target frame.",
     targetThreatEnabledCheck
 )
 local targetThreatAlwaysShowCheck = CreateModuleSettingCheck(
@@ -309,30 +425,30 @@ local targetThreatAlwaysShowCheck = CreateModuleSettingCheck(
     "VanillaEnhancedOptionsTargetThreatAlwaysShow",
     "target-threat",
     "alwaysShow",
-    "Show when not in combat",
+    "Show out of combat",
     targetThreatEnabledCheck
 )
 AnchorBelowHelp(targetThreatAlwaysShowCheck, targetThreatEnabledCheck)
 CreateHelpText(
     targetThreatPanel,
-    "Keeps the threat widget visible outside combat when you have a target.",
+    "Keep the threat text visible when you have a target, even outside combat.",
     targetThreatAlwaysShowCheck
 )
 
 local bagsPanel = CreatePanel("VanillaEnhancedBagsOptionsPanel", "Bags")
 bagsPanel.parent = VanillaEnhanced.displayName
-local bagsSubtitle = CreateSubtitle(bagsPanel, "Provides inventory improvements.")
+local bagsSubtitle = CreateSubtitle(bagsPanel, "Adds bag sorting options.")
 local bagsSortEnabledCheck = CreateModuleSettingCheck(
     bagsPanel,
     "VanillaEnhancedOptionsBagsSortEnabled",
     "bags",
     "sortEnabled",
-    "Enable sort",
+    "Enable sorting",
     bagsSubtitle
 )
 CreateHelpText(
     bagsPanel,
-    "Enable bag sorting features.",
+    "Turn on bag sorting.",
     bagsSortEnabledCheck
 )
 local bagsShowSortButtonCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
@@ -340,13 +456,13 @@ local bagsShowSortButtonCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCh
     "VanillaEnhancedOptionsBagsShowSortButton",
     "bags",
     "showSortButton",
-    "Show sort button",
+    "Sort button",
     bagsSortEnabledCheck
 ), "bags", "sortEnabled")
 AnchorBelowHelp(bagsShowSortButtonCheck, bagsSortEnabledCheck)
 CreateHelpText(
     bagsPanel,
-    "Shows the sort button below the backpack.",
+    "Show a sort button near the backpack.",
     bagsShowSortButtonCheck
 )
 local bagsAutoSortAfterLootCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
@@ -354,13 +470,13 @@ local bagsAutoSortAfterLootCheck = SetSettingCheckEnabledWhen(CreateModuleSettin
     "VanillaEnhancedOptionsBagsAutoSortAfterLoot",
     "bags",
     "autoSortAfterLoot",
-    "Auto sort after looting",
+    "Sort after looting",
     bagsShowSortButtonCheck
 ), "bags", "sortEnabled")
 AnchorBelowHelp(bagsAutoSortAfterLootCheck, bagsShowSortButtonCheck)
 CreateHelpText(
     bagsPanel,
-    "Starts sorting after loot is closed.",
+    "Sort your bags after the loot window closes.",
     bagsAutoSortAfterLootCheck
 )
 local bagsAutoSortOnOpenCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
@@ -368,13 +484,13 @@ local bagsAutoSortOnOpenCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCh
     "VanillaEnhancedOptionsBagsAutoSortOnOpen",
     "bags",
     "autoSortOnOpen",
-    "Auto sort when bags open",
+    "Sort when bags open",
     bagsAutoSortAfterLootCheck
 ), "bags", "sortEnabled")
 AnchorBelowHelp(bagsAutoSortOnOpenCheck, bagsAutoSortAfterLootCheck)
 CreateHelpText(
     bagsPanel,
-    "Starts sorting when your bags are opened.",
+    "Sort your bags when you open them.",
     bagsAutoSortOnOpenCheck
 )
 local bagsSortOrderDropdown = CreateModuleDropdown(
@@ -382,7 +498,7 @@ local bagsSortOrderDropdown = CreateModuleDropdown(
     "VanillaEnhancedOptionsBagsSortOrder",
     "bags",
     "sortOrder",
-    "Sort order",
+    "Sort by",
     {
         { value = "category", label = "Category" },
         { value = "quality", label = "Quality" },
@@ -395,7 +511,7 @@ bagsSortOrderDropdown.enabledWhen = function()
 end
 CreateHelpText(
     bagsPanel,
-    "Controls how the manual sorter orders items when native bag sorting is unavailable.",
+    "Choose how items are ordered when the addon sorts your bags.",
     bagsSortOrderDropdown
 )
 
@@ -448,13 +564,13 @@ local function RefreshOnShow()
 end
 
 mainPanel:SetScript("OnShow", RefreshOnShow)
-questMapPanel:SetScript("OnShow", RefreshOnShow)
+questsPanel:SetScript("OnShow", RefreshOnShow)
 targetThreatPanel:SetScript("OnShow", RefreshOnShow)
 bagsPanel:SetScript("OnShow", RefreshOnShow)
 
-local function RegisterLegacyOptions()
+local function RegisterInterfaceOptions()
     InterfaceOptions_AddCategory(mainPanel)
-    InterfaceOptions_AddCategory(questMapPanel)
+    InterfaceOptions_AddCategory(questsPanel)
     InterfaceOptions_AddCategory(targetThreatPanel)
     InterfaceOptions_AddCategory(bagsPanel)
 end
@@ -468,11 +584,11 @@ local function RegisterSettingsOptions()
     }
 
     if type(Settings.RegisterCanvasLayoutSubcategory) == "function" then
-        local questOk, questMapCategory = pcall(
+        local questOk, questsCategory = pcall(
             Settings.RegisterCanvasLayoutSubcategory,
             mainCategory,
-            questMapPanel,
-            questMapPanel.name
+            questsPanel,
+            questsPanel.name
         )
         local targetOk, targetThreatCategory = pcall(
             Settings.RegisterCanvasLayoutSubcategory,
@@ -488,27 +604,27 @@ local function RegisterSettingsOptions()
         )
 
         if questOk and targetOk and bagsOk then
-            VanillaEnhanced.optionsCategories.questMap = questMapCategory
+            VanillaEnhanced.optionsCategories.quests = questsCategory
             VanillaEnhanced.optionsCategories.targetThreat = targetThreatCategory
             VanillaEnhanced.optionsCategories.bags = bagsCategory
             return
         end
     end
 
-    local questMapCategory = Settings.RegisterCanvasLayoutCategory(questMapPanel, questMapPanel.name)
+    local questsCategory = Settings.RegisterCanvasLayoutCategory(questsPanel, questsPanel.name)
     local targetThreatCategory = Settings.RegisterCanvasLayoutCategory(targetThreatPanel, targetThreatPanel.name)
     local bagsCategory = Settings.RegisterCanvasLayoutCategory(bagsPanel, bagsPanel.name)
-    Settings.RegisterAddOnCategory(questMapCategory)
+    Settings.RegisterAddOnCategory(questsCategory)
     Settings.RegisterAddOnCategory(targetThreatCategory)
     Settings.RegisterAddOnCategory(bagsCategory)
 
-    VanillaEnhanced.optionsCategories.questMap = questMapCategory
+    VanillaEnhanced.optionsCategories.quests = questsCategory
     VanillaEnhanced.optionsCategories.targetThreat = targetThreatCategory
     VanillaEnhanced.optionsCategories.bags = bagsCategory
 end
 
 if type(InterfaceOptions_AddCategory) == "function" then
-    RegisterLegacyOptions()
+    RegisterInterfaceOptions()
 elseif Settings and Settings.RegisterCanvasLayoutCategory and Settings.RegisterAddOnCategory then
     RegisterSettingsOptions()
 end

@@ -22,21 +22,7 @@ local BAG_FUNCTIONS = {
 local updateFrame = CreateFrame("Frame")
 
 function Bags:GetSettings()
-    local settings = VanillaEnhanced:GetModuleSettings("bags", defaults)
-
-    if not settings.sortEnabledMigrated then
-        settings.sortEnabled = settings.enabled ~= false
-        settings.enabled = true
-        settings.sortEnabledMigrated = true
-    end
-    if not settings.autoSortSplitMigrated then
-        settings.autoSortAfterLoot = settings.autoSort == "loot"
-        settings.autoSortOnOpen = settings.autoSort == "open"
-        settings.autoSort = nil
-        settings.autoSortSplitMigrated = true
-    end
-
-    return settings
+    return VanillaEnhanced:GetModuleSettings("bags", defaults)
 end
 
 function Bags:IsSortEnabled()

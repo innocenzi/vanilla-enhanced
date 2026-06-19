@@ -1,5 +1,5 @@
 local VanillaEnhanced = _G.VanillaEnhanced
-local TargetThreat = VanillaEnhanced:CreateModule("target-threat", "Target Threat")
+local TargetThreat = VanillaEnhanced:CreateModule("target-threat", "Target threat")
 
 local DISPLAY_HOLD = 2.0
 local TICK_RATE = 0.15

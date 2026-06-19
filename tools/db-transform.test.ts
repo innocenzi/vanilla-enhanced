@@ -1,7 +1,7 @@
 import { expect, test } from "bun:test";
 import { spawnSync } from "node:child_process";
 import { resolve } from "node:path";
-import { buildQuestMapArtifacts, type NormalizedQuestieDb } from "./db-transform";
+import { buildQuestsArtifacts, type NormalizedQuestieDb } from "./db-transform";
 
 function fixture(): NormalizedQuestieDb {
   return {
@@ -68,8 +68,8 @@ function fixture(): NormalizedQuestieDb {
   };
 }
 
-test("builds compact quest-map Lua from normalized Questie data", () => {
-  const artifacts = buildQuestMapArtifacts(fixture(), { minQuestCount: 0 });
+test("builds compact quests Lua from normalized Questie data", () => {
+  const artifacts = buildQuestsArtifacts(fixture(), { minQuestCount: 0 });
 
   expect(artifacts.questCount).toBe(8);
   expect(artifacts.locationLua).toContain('questieRef = "test-ref"');
@@ -89,25 +89,25 @@ test("fails when a referenced NPC is missing", () => {
   const db = fixture();
   delete db.data.npcs["101"];
 
-  expect(() => buildQuestMapArtifacts(db, { minQuestCount: 0 })).toThrow("Missing NPC 101");
+  expect(() => buildQuestsArtifacts(db, { minQuestCount: 0 })).toThrow("Missing NPC 101");
 });
 
 test("fails on unmapped area ids", () => {
   const db = fixture();
   db.zones.areaToUi = {};
 
-  expect(() => buildQuestMapArtifacts(db, { minQuestCount: 0 })).toThrow("unmapped area id 12");
+  expect(() => buildQuestsArtifacts(db, { minQuestCount: 0 })).toThrow("unmapped area id 12");
 });
 
 test("fails on malformed coordinates", () => {
   const db = fixture();
   db.data.npcs["101"] = ["Wolf", null, null, null, null, null, { "12": [[120, 10]] }];
 
-  expect(() => buildQuestMapArtifacts(db, { minQuestCount: 0 })).toThrow("invalid coordinate");
+  expect(() => buildQuestsArtifacts(db, { minQuestCount: 0 })).toThrow("invalid coordinate");
 });
 
 test("fails below minimum quest count", () => {
-  expect(() => buildQuestMapArtifacts(fixture(), { minQuestCount: 99 })).toThrow("below minimum 99");
+  expect(() => buildQuestsArtifacts(fixture(), { minQuestCount: 99 })).toThrow("below minimum 99");
 });
 
 function findLua(): string | undefined {

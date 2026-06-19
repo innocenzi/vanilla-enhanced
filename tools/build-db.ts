@@ -2,7 +2,7 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, renameSync, rmSync, w
 import { dirname, isAbsolute, join, relative, resolve } from "node:path";
 import { tmpdir } from "node:os";
 import { spawnSync } from "node:child_process";
-import { buildQuestMapArtifacts } from "./db-transform";
+import { buildQuestsArtifacts } from "./db-transform";
 
 type SourceConfig = {
   repo: string;
@@ -23,8 +23,8 @@ type Args = {
 const ROOT = resolve(import.meta.dir, "..");
 const CONFIG_PATH = join(import.meta.dir, "questie-source.json");
 const EXPORTER_PATH = join(import.meta.dir, "export-questie-db.lua");
-const LOCATION_DB_PATH = "data/quest-map/quest-locations.lua";
-const LOCALE_DB_PATH = "data/quest-map/quest-locales.lua";
+const LOCATION_DB_PATH = "data/quests/locations.lua";
+const LOCALE_DB_PATH = "data/quests/locales.lua";
 
 function parseArgs(): Args {
   const args = Bun.argv.slice(2);
@@ -184,7 +184,7 @@ function main(): void {
   exportNormalizedDb(lua, questie, config, normalizedPath);
 
   const normalized = JSON.parse(readFileSync(normalizedPath, "utf8"));
-  const artifacts = buildQuestMapArtifacts(normalized, { minQuestCount: config.minQuestCount });
+  const artifacts = buildQuestsArtifacts(normalized, { minQuestCount: config.minQuestCount });
   if (!artifacts.localeLua) throw new Error("Normalized data did not include locale lookups.");
 
   writeGeneratedPair(artifacts.locationLua, artifacts.localeLua);

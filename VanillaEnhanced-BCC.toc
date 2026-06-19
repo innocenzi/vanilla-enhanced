@@ -15,16 +15,16 @@ libs\here-be-dragons\here-be-dragons-2.0.lua
 libs\here-be-dragons\here-be-dragons-pins-2.0.lua
 
 core.lua
-data\quest-map\quest-locations.lua
-data\quest-map\quest-locales.lua
-src\quest-map\module.lua
-src\quest-map\settings.lua
-src\quest-map\localization.lua
-src\quest-map\quest-log.lua
-src\quest-map\quest-tracker.lua
-src\quest-map\unit-tooltips.lua
-src\quest-map\pins.lua
-src\quest-map\refresh.lua
+data\quests\locations.lua
+data\quests\locales.lua
+src\quests\module.lua
+src\quests\settings.lua
+src\quests\localization.lua
+src\quests\quest-log.lua
+src\quests\quest-tracker.lua
+src\quests\unit-tooltips.lua
+src\quests\pins.lua
+src\quests\refresh.lua
 src\bags\module.lua
 src\bags\api.lua
 src\bags\sorting.lua
