@@ -25,5 +25,8 @@ src\quest-map\quest-tracker.lua
 src\quest-map\unit-tooltips.lua
 src\quest-map\pins.lua
 src\quest-map\refresh.lua
+src\bags\module.lua
+src\bags\api.lua
+src\bags\sorting.lua
 src\target-threat\module.lua
 src\options.lua

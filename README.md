@@ -5,6 +5,7 @@ A lightweight standalone Burning Crusade Classic utility addon.
 Current modules:
 
 - `quest-map` adds numbered quest objective markers to the world map and minimap.
+- `bags` adds a sort button to the default bag UI.
 - `target-threat` adds a numeric threat percent widget to the target frame.
 
 The addon does not depend on Questie at runtime. Its compact database is generated offline from a local Questie install for private/local use.

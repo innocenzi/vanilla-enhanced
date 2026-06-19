@@ -2,6 +2,7 @@ local VanillaEnhanced = _G.VanillaEnhanced
 
 local moduleChecks = {}
 local settingChecks = {}
+local dropdowns = {}
 local OPTION_WITH_HELP_OFFSET = -15
 local CHECK_TEXT_OFFSET_X = 3
 local CHECK_TEXT_LEFT_FALLBACK = 27
@@ -43,6 +44,25 @@ end
 local function ApplyModuleSetting(moduleKey, settingKey, value)
     local settings = GetModuleOptionSettings(moduleKey)
     settings[settingKey] = not not value
+
+    local module = VanillaEnhanced:GetModule(moduleKey)
+    if module and module.Update then
+        module:Update()
+    end
+
+    if VanillaEnhanced.RefreshOptions then
+        VanillaEnhanced:RefreshOptions()
+    end
+end
+
+local function IsSettingEnabled(moduleKey, settingKey)
+    local settings = GetModuleOptionSettings(moduleKey)
+    return settings[settingKey] ~= false
+end
+
+local function ApplyModuleDropdownSetting(moduleKey, settingKey, value)
+    local settings = GetModuleOptionSettings(moduleKey)
+    settings[settingKey] = value
 
     local module = VanillaEnhanced:GetModule(moduleKey)
     if module and module.Update then
@@ -123,19 +143,72 @@ local function CreateModuleSettingCheck(panel, name, moduleKey, settingKey, labe
     return check
 end
 
+local function SetSettingCheckEnabledWhen(check, moduleKey, settingKey)
+    check.enabledWhen = function()
+        return IsSettingEnabled(moduleKey, settingKey)
+    end
+    return check
+end
+
+local function CreateModuleDropdown(panel, name, moduleKey, settingKey, label, options, anchor)
+    local labelText = panel:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+    labelText:SetPoint("TOPLEFT", anchor.optionHelpBottomAnchor or anchor, "BOTTOMLEFT", 0, -18)
+    labelText:SetText(label)
+
+    local dropdown = CreateFrame("Frame", name, panel, "UIDropDownMenuTemplate")
+    dropdown:SetPoint("TOPLEFT", labelText, "BOTTOMLEFT", -16, -4)
+    dropdown.moduleKey = moduleKey
+    dropdown.settingKey = settingKey
+    dropdown.options = options
+    dropdown.labelText = labelText
+    dropdown.enabledWhen = nil
+    dropdown.optionHelpTextAnchor = labelText
+    dropdown.optionHelpLeftOffset = 0
+    dropdown.optionHelpNextOffset = -22
+
+    local helpPointAnchor = CreateFrame("Frame", nil, panel)
+    helpPointAnchor:SetSize(1, 1)
+    helpPointAnchor:SetPoint("TOPLEFT", dropdown, "BOTTOMLEFT", 16, 0)
+    dropdown.optionHelpPointAnchor = helpPointAnchor
+    dropdown.optionHelpBottomAnchor = helpPointAnchor
+
+    UIDropDownMenu_SetWidth(dropdown, 150)
+    UIDropDownMenu_Initialize(dropdown, function(self)
+        local settings = GetModuleOptionSettings(self.moduleKey)
+        local selected = settings[self.settingKey]
+
+        for _, option in ipairs(self.options) do
+            local optionValue = option.value
+            local info = UIDropDownMenu_CreateInfo()
+            info.text = option.label
+            info.value = optionValue
+            info.checked = selected == optionValue
+            info.func = function()
+                ApplyModuleDropdownSetting(self.moduleKey, self.settingKey, optionValue)
+            end
+            UIDropDownMenu_AddButton(info)
+        end
+    end)
+
+    table.insert(dropdowns, dropdown)
+    return dropdown
+end
+
 local function CreateHelpText(panel, text, anchor)
     local help = panel:CreateFontString(nil, "ARTWORK", "GameFontDisableSmall")
-    local textAnchor = GetCheckText(anchor) or anchor
+    local textAnchor = anchor.optionHelpTextAnchor or GetCheckText(anchor) or anchor
     local checkWidth = anchor.GetWidth and anchor:GetWidth() or 0
-    local textLeftOffset = checkWidth > 0 and checkWidth + CHECK_TEXT_OFFSET_X or CHECK_TEXT_LEFT_FALLBACK
+    local textLeftOffset = anchor.optionHelpLeftOffset
+        or (checkWidth > 0 and checkWidth + CHECK_TEXT_OFFSET_X or CHECK_TEXT_LEFT_FALLBACK)
     local bottomAnchor = CreateFrame("Frame", nil, panel)
+    local nextOffset = anchor.optionHelpNextOffset or 0
 
-    help:SetPoint("TOPLEFT", textAnchor, "BOTTOMLEFT", 0, -5)
+    help:SetPoint("TOPLEFT", anchor.optionHelpPointAnchor or anchor.optionHelpBottomAnchor or textAnchor, "BOTTOMLEFT", 0, -5)
     help:SetWidth(430)
     help:SetJustifyH("LEFT")
     help:SetText(text)
     bottomAnchor:SetSize(1, 1)
-    bottomAnchor:SetPoint("TOPLEFT", help, "BOTTOMLEFT", -textLeftOffset, 0)
+    bottomAnchor:SetPoint("TOPLEFT", help, "BOTTOMLEFT", -textLeftOffset, nextOffset)
     anchor.optionHelpBottomAnchor = bottomAnchor
 
     return help
@@ -246,14 +319,127 @@ CreateHelpText(
     targetThreatAlwaysShowCheck
 )
 
+local bagsPanel = CreatePanel("VanillaEnhancedBagsOptionsPanel", "Bags")
+bagsPanel.parent = VanillaEnhanced.displayName
+local bagsSubtitle = CreateSubtitle(bagsPanel, "Provides inventory improvements.")
+local bagsSortEnabledCheck = CreateModuleSettingCheck(
+    bagsPanel,
+    "VanillaEnhancedOptionsBagsSortEnabled",
+    "bags",
+    "sortEnabled",
+    "Enable sort",
+    bagsSubtitle
+)
+CreateHelpText(
+    bagsPanel,
+    "Enable bag sorting features.",
+    bagsSortEnabledCheck
+)
+local bagsShowSortButtonCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
+    bagsPanel,
+    "VanillaEnhancedOptionsBagsShowSortButton",
+    "bags",
+    "showSortButton",
+    "Show sort button",
+    bagsSortEnabledCheck
+), "bags", "sortEnabled")
+AnchorBelowHelp(bagsShowSortButtonCheck, bagsSortEnabledCheck)
+CreateHelpText(
+    bagsPanel,
+    "Shows the sort button below the backpack.",
+    bagsShowSortButtonCheck
+)
+local bagsAutoSortAfterLootCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
+    bagsPanel,
+    "VanillaEnhancedOptionsBagsAutoSortAfterLoot",
+    "bags",
+    "autoSortAfterLoot",
+    "Auto sort after looting",
+    bagsShowSortButtonCheck
+), "bags", "sortEnabled")
+AnchorBelowHelp(bagsAutoSortAfterLootCheck, bagsShowSortButtonCheck)
+CreateHelpText(
+    bagsPanel,
+    "Starts sorting after loot is closed.",
+    bagsAutoSortAfterLootCheck
+)
+local bagsAutoSortOnOpenCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
+    bagsPanel,
+    "VanillaEnhancedOptionsBagsAutoSortOnOpen",
+    "bags",
+    "autoSortOnOpen",
+    "Auto sort when bags open",
+    bagsAutoSortAfterLootCheck
+), "bags", "sortEnabled")
+AnchorBelowHelp(bagsAutoSortOnOpenCheck, bagsAutoSortAfterLootCheck)
+CreateHelpText(
+    bagsPanel,
+    "Starts sorting when your bags are opened.",
+    bagsAutoSortOnOpenCheck
+)
+local bagsSortOrderDropdown = CreateModuleDropdown(
+    bagsPanel,
+    "VanillaEnhancedOptionsBagsSortOrder",
+    "bags",
+    "sortOrder",
+    "Sort order",
+    {
+        { value = "category", label = "Category" },
+        { value = "quality", label = "Quality" },
+        { value = "name", label = "Name" },
+    },
+    bagsAutoSortOnOpenCheck
+)
+bagsSortOrderDropdown.enabledWhen = function()
+    return IsSettingEnabled("bags", "sortEnabled")
+end
+CreateHelpText(
+    bagsPanel,
+    "Controls how the manual sorter orders items when native bag sorting is unavailable.",
+    bagsSortOrderDropdown
+)
+
 function VanillaEnhanced:RefreshOptions()
     for moduleKey, check in pairs(moduleChecks) do
         check:SetChecked(self:IsModuleEnabled(moduleKey))
     end
     for _, check in ipairs(settingChecks) do
         local settings = GetModuleOptionSettings(check.moduleKey)
+        local enabled = self:IsModuleEnabled(check.moduleKey)
+        if check.enabledWhen then
+            enabled = enabled and check.enabledWhen()
+        end
         check:SetChecked(settings[check.settingKey] == true)
-        SetCheckEnabled(check, self:IsModuleEnabled(check.moduleKey))
+        SetCheckEnabled(check, enabled)
+    end
+    for _, dropdown in ipairs(dropdowns) do
+        local settings = GetModuleOptionSettings(dropdown.moduleKey)
+        local selected = settings[dropdown.settingKey]
+        local selectedLabel = selected
+        local enabled = self:IsModuleEnabled(dropdown.moduleKey)
+        if dropdown.enabledWhen then
+            enabled = enabled and dropdown.enabledWhen()
+        end
+
+        for _, option in ipairs(dropdown.options) do
+            if option.value == selected then
+                selectedLabel = option.label
+                break
+            end
+        end
+
+        UIDropDownMenu_SetText(dropdown, selectedLabel)
+        if enabled then
+            UIDropDownMenu_EnableDropDown(dropdown)
+            if dropdown.labelText then
+                dropdown.labelText:SetTextColor(1, 1, 1)
+            end
+        else
+            UIDropDownMenu_DisableDropDown(dropdown)
+            if dropdown.labelText then
+                dropdown.labelText:SetTextColor(0.5, 0.5, 0.5)
+            end
+        end
     end
 end
 
@@ -264,11 +450,13 @@ end
 mainPanel:SetScript("OnShow", RefreshOnShow)
 questMapPanel:SetScript("OnShow", RefreshOnShow)
 targetThreatPanel:SetScript("OnShow", RefreshOnShow)
+bagsPanel:SetScript("OnShow", RefreshOnShow)
 
 local function RegisterLegacyOptions()
     InterfaceOptions_AddCategory(mainPanel)
     InterfaceOptions_AddCategory(questMapPanel)
     InterfaceOptions_AddCategory(targetThreatPanel)
+    InterfaceOptions_AddCategory(bagsPanel)
 end
 
 local function RegisterSettingsOptions()
@@ -292,21 +480,31 @@ local function RegisterSettingsOptions()
             targetThreatPanel,
             targetThreatPanel.name
         )
+        local bagsOk, bagsCategory = pcall(
+            Settings.RegisterCanvasLayoutSubcategory,
+            mainCategory,
+            bagsPanel,
+            bagsPanel.name
+        )
 
-        if questOk and targetOk then
+        if questOk and targetOk and bagsOk then
             VanillaEnhanced.optionsCategories.questMap = questMapCategory
             VanillaEnhanced.optionsCategories.targetThreat = targetThreatCategory
+            VanillaEnhanced.optionsCategories.bags = bagsCategory
             return
         end
     end
 
     local questMapCategory = Settings.RegisterCanvasLayoutCategory(questMapPanel, questMapPanel.name)
     local targetThreatCategory = Settings.RegisterCanvasLayoutCategory(targetThreatPanel, targetThreatPanel.name)
+    local bagsCategory = Settings.RegisterCanvasLayoutCategory(bagsPanel, bagsPanel.name)
     Settings.RegisterAddOnCategory(questMapCategory)
     Settings.RegisterAddOnCategory(targetThreatCategory)
+    Settings.RegisterAddOnCategory(bagsCategory)
 
     VanillaEnhanced.optionsCategories.questMap = questMapCategory
     VanillaEnhanced.optionsCategories.targetThreat = targetThreatCategory
+    VanillaEnhanced.optionsCategories.bags = bagsCategory
 end
 
 if type(InterfaceOptions_AddCategory) == "function" then
