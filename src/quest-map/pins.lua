@@ -26,6 +26,9 @@ local AREA_COLOR = { 0.5, 0.7, 0.9 }
 local AREA_FILL_ALPHA = 0.5
 local AREA_FILL_STEP = 4
 local AREA_OUTLINE_THICKNESS = 1.5
+local MARKER_SPREAD_DETECTION_RADIUS = 8
+local MARKER_SPREAD_RADIUS = 6
+local MARKER_SPREAD_RESET_DELAY = 0.08
 local WHITE_TEXTURE = [[Interface\Buttons\WHITE8X8]]
 
 local function Atan2(y, x)
@@ -205,8 +208,152 @@ local function SetHoveredArea(self, hovered)
     QuestMap:RefreshQuestAreaVisibility(area)
 end
 
+local function IsWorldMapMarker(frame)
+    return frame and frame.kind == "marker" and frame.poolKind == "marker"
+end
+
+local function GetMarkerAnchorCenter(frame)
+    local parent = frame and frame:GetParent()
+    if parent and parent.GetCenter then
+        return parent:GetCenter()
+    end
+    if frame and frame.GetCenter then
+        return frame:GetCenter()
+    end
+    return nil, nil
+end
+
+local function ResetMarkerOffset(frame)
+    if not IsWorldMapMarker(frame) then
+        return
+    end
+
+    local parent = frame:GetParent()
+    if not parent then
+        return
+    end
+
+    frame:ClearAllPoints()
+    frame:SetPoint("CENTER", parent, "CENTER", 0, 0)
+    frame.questMapSpreadActive = nil
+    frame.questMapSpreadHovered = nil
+end
+
+local function ApplyMarkerOffset(frame, xOffset, yOffset)
+    if not IsWorldMapMarker(frame) then
+        return
+    end
+
+    local parent = frame:GetParent()
+    if not parent then
+        return
+    end
+
+    frame:ClearAllPoints()
+    frame:SetPoint("CENTER", parent, "CENTER", xOffset or 0, yOffset or 0)
+    frame.questMapSpreadActive = true
+end
+
+local function CompareMarkerAngles(a, b)
+    if a.angle == b.angle then
+        return tostring(a.frame) < tostring(b.frame)
+    end
+    return a.angle < b.angle
+end
+
+function QuestMap:ResetMarkerSpread()
+    for _, frame in ipairs(self.markerSpreadFrames or {}) do
+        ResetMarkerOffset(frame)
+    end
+    wipe(self.markerSpreadFrames or {})
+end
+
+local function HasHoveredSpreadMarker()
+    for _, frame in ipairs(QuestMap.markerSpreadFrames or {}) do
+        if frame.questMapSpreadHovered then
+            return true
+        end
+    end
+    return false
+end
+
+function QuestMap:ScheduleMarkerSpreadReset()
+    self.markerSpreadResetToken = (self.markerSpreadResetToken or 0) + 1
+    local token = self.markerSpreadResetToken
+
+    if not C_Timer or not C_Timer.After then
+        self:ResetMarkerSpread()
+        return
+    end
+
+    C_Timer.After(MARKER_SPREAD_RESET_DELAY, function()
+        if QuestMap.markerSpreadResetToken == token and not HasHoveredSpreadMarker() then
+            QuestMap:ResetMarkerSpread()
+        end
+    end)
+end
+
+function QuestMap:SpreadNearbyMarkers(origin)
+    if not IsWorldMapMarker(origin) then
+        return
+    end
+
+    local settings = self:GetSettings()
+    if settings.spreadOverlappingMarkers ~= true then
+        return
+    end
+
+    self.markerSpreadResetToken = (self.markerSpreadResetToken or 0) + 1
+    self:ResetMarkerSpread()
+    self.markerSpreadFrames = self.markerSpreadFrames or {}
+
+    local originX, originY = GetMarkerAnchorCenter(origin)
+    if not originX or not originY then
+        return
+    end
+
+    local cluster = {}
+    for _, frame in ipairs(self.frames) do
+        if IsWorldMapMarker(frame) and frame:IsShown() then
+            local x, y = GetMarkerAnchorCenter(frame)
+            if x and y then
+                local distance = math.sqrt(((x - originX) ^ 2) + ((y - originY) ^ 2))
+                if distance <= MARKER_SPREAD_DETECTION_RADIUS then
+                    local angle = Atan2(y - originY, x - originX)
+                    cluster[#cluster + 1] = {
+                        frame = frame,
+                        angle = angle,
+                    }
+                end
+            end
+        end
+    end
+
+    if #cluster < 2 then
+        return
+    end
+
+    table.sort(cluster, CompareMarkerAngles)
+    local step = (math.pi * 2) / #cluster
+    local start = -math.pi / 2
+
+    for index, entry in ipairs(cluster) do
+        local frame = entry.frame
+        local angle = start + ((index - 1) * step)
+        local radius = frame == origin and 0 or MARKER_SPREAD_RADIUS
+
+        ApplyMarkerOffset(frame, math.cos(angle) * radius, math.sin(angle) * radius)
+        frame.questMapSpreadHovered = frame == origin
+        self.markerSpreadFrames[#self.markerSpreadFrames + 1] = frame
+    end
+end
+
 local function HideTooltip(self)
     SetHoveredArea(self, false)
+    if IsWorldMapMarker(self) then
+        self.questMapSpreadHovered = false
+        QuestMap:ScheduleMarkerSpreadReset()
+    end
     if GameTooltip:IsOwned(self) then
         GameTooltip:Hide()
     end
@@ -227,6 +374,12 @@ local function ShowTooltip(self)
     end
 
     SetHoveredArea(self, true)
+    if IsWorldMapMarker(self) then
+        self.questMapSpreadHovered = true
+        if not self.questMapSpreadActive then
+            QuestMap:SpreadNearbyMarkers(self)
+        end
+    end
     GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
     GameTooltip:SetText(data.number .. ". " .. data.title, 1, 1, 1)
     if data.objectives and #data.objectives > 1 then
@@ -243,11 +396,17 @@ local function ShowTooltip(self)
 end
 
 local function ConfigureMarkerText(fontString, symbol, settings)
+    fontString:Show()
     fontString:SetText(tostring(symbol))
     fontString:SetTextColor(MARKER_COLOR[1], MARKER_COLOR[2], MARKER_COLOR[3], settings.opacity or 1)
     fontString:SetFont(STANDARD_TEXT_FONT, math.max(8, math.floor(MARKER_FONT_SIZE * (settings.scale or 1))), "OUTLINE")
     fontString:SetShadowColor(0, 0, 0, 0.9)
     fontString:SetShadowOffset(1, -1)
+end
+
+local function HideMarkerText(fontString)
+    fontString:SetText("")
+    fontString:Hide()
 end
 
 local HideTextures
@@ -408,7 +567,7 @@ local function ConfigurePolygonArea(frame, cluster, quest)
     frame:SetSize(math.max(32, (maxX * 2) + 16), math.max(32, (maxY * 2) + 16))
     ConfigureMarkerFrame(frame, settings, false)
     frame.texture:Hide()
-    ConfigureMarkerText(frame.text, quest.number, settings)
+    HideMarkerText(frame.text)
 
     local firstLine = AcquireAreaLine(frame, 1)
     if not firstLine.SetRotation then
@@ -458,7 +617,7 @@ local function ConfigureCircleArea(frame, radius, quest)
     end
     frame.texture:SetAllPoints(frame)
     frame.texture:SetVertexColor(color[1], color[2], color[3], math.min(0.95, (settings.opacity or 0.85) * 0.9))
-    ConfigureMarkerText(frame.text, quest.number, settings)
+    HideMarkerText(frame.text)
 end
 
 local function ConfigureArea(frame, cluster, quest, kind)
@@ -476,6 +635,8 @@ local function AcquireFrame(kind, poolKind, parent)
         frame.poolKind = poolKind
         frame.questMapAreaFrame = nil
         frame.questMapHovered = nil
+        frame.questMapSpreadActive = nil
+        frame.questMapSpreadHovered = nil
         frame:SetAlpha(1)
         frame:EnableMouse(true)
         frame:Show()
@@ -521,12 +682,18 @@ local function BuildPinData(quest, cluster)
 end
 
 function QuestMap:ClearPins()
+    if self.ResetMarkerSpread then
+        self:ResetMarkerSpread()
+    end
+
     if self.hbdPins then
         for _, frame in ipairs(self.frames) do
             self.hbdPins:RemoveWorldMapIcon(self, frame)
             frame.questMapData = nil
             frame.questMapAreaFrame = nil
             frame.questMapHovered = nil
+            frame.questMapSpreadActive = nil
+            frame.questMapSpreadHovered = nil
             frame:SetAlpha(1)
             frame:EnableMouse(true)
             frame:Hide()
@@ -537,6 +704,8 @@ function QuestMap:ClearPins()
             frame.questMapData = nil
             frame.questMapAreaFrame = nil
             frame.questMapHovered = nil
+            frame.questMapSpreadActive = nil
+            frame.questMapSpreadHovered = nil
             frame:SetAlpha(1)
             frame:EnableMouse(true)
             frame:Hide()

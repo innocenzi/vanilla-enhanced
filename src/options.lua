@@ -173,15 +173,29 @@ CreateHelpText(
     "Keeps the quest log visible beside the world map when both can be shown.",
     questMapKeepQuestLogWithMapCheck
 )
+local questMapSpreadOverlappingMarkersCheck = CreateModuleSettingCheck(
+    questMapPanel,
+    "VanillaEnhancedOptionsQuestMapSpreadOverlappingMarkers",
+    "quest-map",
+    "spreadOverlappingMarkers",
+    "Spread overlapping markers on hover",
+    questMapKeepQuestLogWithMapCheck
+)
+AnchorBelowHelp(questMapSpreadOverlappingMarkersCheck, questMapKeepQuestLogWithMapCheck)
+CreateHelpText(
+    questMapPanel,
+    "Temporarily fans out nearby world-map markers while hovering one of them.",
+    questMapSpreadOverlappingMarkersCheck
+)
 local questMapShowCompletedMapObjectivesCheck = CreateModuleSettingCheck(
     questMapPanel,
     "VanillaEnhancedOptionsQuestMapShowCompletedMapObjectives",
     "quest-map",
     "showCompletedMapObjectives",
     "Show completed objectives on maps",
-    questMapKeepQuestLogWithMapCheck
+    questMapSpreadOverlappingMarkersCheck
 )
-AnchorBelowHelp(questMapShowCompletedMapObjectivesCheck, questMapKeepQuestLogWithMapCheck)
+AnchorBelowHelp(questMapShowCompletedMapObjectivesCheck, questMapSpreadOverlappingMarkersCheck)
 CreateHelpText(
     questMapPanel,
     "When unchecked, completed objective pins are hidden from the world map and minimap. Completed quests still show turn-in locations.",

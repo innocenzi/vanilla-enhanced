@@ -8,6 +8,7 @@ local defaults = {
     opacity = 1,
     showCompletedMapObjectives = false,
     showCompletedTooltipObjectives = true,
+    spreadOverlappingMarkers = true,
 }
 
 function QuestMap:GetSettings()
@@ -49,6 +50,9 @@ end
 function QuestMap:Update()
     if self.ApplyQuestLogWithMapSetting then
         self:ApplyQuestLogWithMapSetting()
+    end
+    if self.ResetMarkerSpread then
+        self:ResetMarkerSpread()
     end
     self:Refresh()
 end
