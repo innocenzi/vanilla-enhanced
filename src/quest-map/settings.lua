@@ -3,6 +3,7 @@ local QuestMap = VanillaEnhanced:GetModule("quest-map")
 
 local defaults = {
     enabled = true,
+    keepQuestLogWithMap = true,
     scale = 1,
     opacity = 1,
     showCompletedObjectives = true,
@@ -15,6 +16,10 @@ end
 function QuestMap:SetEnabled(enabled)
     VanillaEnhanced:SetModuleEnabled("quest-map", enabled)
 
+    if self.ApplyQuestLogWithMapSetting then
+        self:ApplyQuestLogWithMapSetting()
+    end
+
     if enabled then
         self:Refresh()
         self:RefreshQuestTrackerClicks()
@@ -24,4 +29,11 @@ function QuestMap:SetEnabled(enabled)
     self:ClearPins()
     self:RebuildUnitTooltipIndex({})
     self:RefreshQuestTrackerClicks()
+end
+
+function QuestMap:Update()
+    if self.ApplyQuestLogWithMapSetting then
+        self:ApplyQuestLogWithMapSetting()
+    end
+    self:Refresh()
 end

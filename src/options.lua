@@ -112,12 +112,20 @@ CreateSubtitle(mainPanel, "Select a module from the sidebar.")
 local questMapPanel = CreatePanel("VanillaEnhancedQuestMapOptionsPanel", "Quest Map")
 questMapPanel.parent = VanillaEnhanced.displayName
 local questMapSubtitle = CreateSubtitle(questMapPanel, "Module settings")
-CreateModuleEnabledCheck(
+local questMapEnabledCheck = CreateModuleEnabledCheck(
     questMapPanel,
     "VanillaEnhancedOptionsQuestMapEnabled",
     "quest-map",
     "Enable Quest Map",
     questMapSubtitle
+)
+CreateModuleSettingCheck(
+    questMapPanel,
+    "VanillaEnhancedOptionsQuestMapKeepQuestLogWithMap",
+    "quest-map",
+    "keepQuestLogWithMap",
+    "Keep quest log open with map",
+    questMapEnabledCheck
 )
 
 local targetThreatPanel = CreatePanel("VanillaEnhancedTargetThreatOptionsPanel", "Target Threat")

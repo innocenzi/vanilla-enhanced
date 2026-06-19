@@ -91,12 +91,22 @@ function QuestMap:OpenQuestLogToQuest(questId)
         return
     end
 
-    if QuestLogFrame and ShowUIPanel then
-        ShowUIPanel(QuestLogFrame)
-    elseif QuestLogFrame and not QuestLogFrame:IsShown() then
-        QuestLogFrame:Show()
-    elseif ToggleQuestLog then
-        ToggleQuestLog()
+    local openedWithMap = QuestMap.IsQuestLogWithMapEnabled
+        and QuestMap:IsQuestLogWithMapEnabled()
+        and WorldMapFrame
+        and WorldMapFrame.IsShown
+        and WorldMapFrame:IsShown()
+        and QuestMap.ShowQuestLogWithMap
+        and QuestMap:ShowQuestLogWithMap()
+
+    if not openedWithMap then
+        if QuestLogFrame and ShowUIPanel then
+            ShowUIPanel(QuestLogFrame)
+        elseif QuestLogFrame and not QuestLogFrame:IsShown() then
+            QuestLogFrame:Show()
+        elseif ToggleQuestLog then
+            ToggleQuestLog()
+        end
     end
 
     if QuestLog_SetSelection then
