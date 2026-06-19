@@ -19,12 +19,11 @@ data\quest-map\quest-locations.lua
 data\quest-map\quest-locales.lua
 src\quest-map\module.lua
 src\quest-map\settings.lua
-src\quest-map\chat.lua
 src\quest-map\localization.lua
 src\quest-map\quest-log.lua
 src\quest-map\quest-tracker.lua
 src\quest-map\unit-tooltips.lua
 src\quest-map\pins.lua
 src\quest-map\refresh.lua
-src\quest-map\commands.lua
 src\target-threat\module.lua
+src\options.lua

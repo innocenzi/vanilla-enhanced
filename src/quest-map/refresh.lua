@@ -14,7 +14,6 @@ function QuestMap:Refresh()
 
     if not VanillaEnhancedQuestMapDB or not VanillaEnhancedQuestMapDB.quests then
         self:RebuildUnitTooltipIndex({})
-        self:Print("database is missing")
         return
     end
 
@@ -40,10 +39,4 @@ function QuestMap:QueueRefresh()
     C_Timer.After(0.15, function()
         QuestMap:Refresh()
     end)
-end
-
-function QuestMap:Status()
-    local settings = self:GetSettings()
-    local questCount = VanillaEnhancedQuestMapDB and VanillaEnhancedQuestMapDB.meta and VanillaEnhancedQuestMapDB.meta.questCount or 0
-    self:Print((settings.enabled and "enabled" or "disabled") .. ", " .. questCount .. " quests known")
 end

@@ -8,21 +8,20 @@ local defaults = {
     showCompletedObjectives = true,
 }
 
-local function CopyDefaults(target, source)
-    if type(target) ~= "table" then
-        target = {}
-    end
-    for key, value in pairs(source) do
-        if target[key] == nil then
-            target[key] = value
-        end
-    end
-    return target
+function QuestMap:GetSettings()
+    return VanillaEnhanced:GetModuleSettings("quest-map", defaults)
 end
 
-function QuestMap:GetSettings()
-    VanillaEnhancedSettings = VanillaEnhancedSettings or {}
-    VanillaEnhancedSettings.modules = VanillaEnhancedSettings.modules or {}
-    VanillaEnhancedSettings.modules["quest-map"] = CopyDefaults(VanillaEnhancedSettings.modules["quest-map"], defaults)
-    return VanillaEnhancedSettings.modules["quest-map"]
+function QuestMap:SetEnabled(enabled)
+    VanillaEnhanced:SetModuleEnabled("quest-map", enabled)
+
+    if enabled then
+        self:Refresh()
+        self:RefreshQuestTrackerClicks()
+        return
+    end
+
+    self:ClearPins()
+    self:RebuildUnitTooltipIndex({})
+    self:RefreshQuestTrackerClicks()
 end

@@ -7,7 +7,18 @@ VanillaEnhanced.addonName = addonName or VanillaEnhanced.addonName or "VanillaEn
 VanillaEnhanced.displayName = "Vanilla Enhanced"
 VanillaEnhanced.mediaPath = "Interface\\AddOns\\" .. VanillaEnhanced.addonName .. "\\media\\"
 VanillaEnhanced.modules = VanillaEnhanced.modules or {}
-VanillaEnhanced.commandHandlers = VanillaEnhanced.commandHandlers or {}
+
+local function CopyDefaults(target, source)
+    if type(target) ~= "table" then
+        target = {}
+    end
+    for key, value in pairs(source or {}) do
+        if target[key] == nil then
+            target[key] = value
+        end
+    end
+    return target
+end
 
 function VanillaEnhanced:CreateModule(key, displayName)
     local module = self.modules[key] or {}
@@ -22,55 +33,36 @@ function VanillaEnhanced:GetModule(key)
     return self.modules[key] or self:CreateModule(key)
 end
 
-function VanillaEnhanced:Print(message)
-    DEFAULT_CHAT_FRAME:AddMessage("|cff33ff99" .. self.displayName .. "|r: " .. tostring(message))
-end
-
-function VanillaEnhanced:RegisterCommand(key, handler, helpText)
-    self.commandHandlers[key] = {
-        handler = handler,
-        helpText = helpText,
-    }
-end
-
-local function Trim(value)
-    if strtrim then
-        return strtrim(value or "")
+function VanillaEnhanced:GetSettings()
+    VanillaEnhancedSettings = CopyDefaults(VanillaEnhancedSettings, {
+        modules = {},
+    })
+    if type(VanillaEnhancedSettings.modules) ~= "table" then
+        VanillaEnhancedSettings.modules = {}
     end
-    return string.match(value or "", "^%s*(.-)%s*$")
+    return VanillaEnhancedSettings
 end
 
-local function SplitCommand(input)
-    input = string.lower(Trim(input))
-    local key, rest = string.match(input, "^(%S+)%s*(.*)$")
-    return key, Trim(rest)
+function VanillaEnhanced:GetModuleSettings(moduleKey, defaults)
+    local settings = self:GetSettings()
+    settings.modules[moduleKey] = CopyDefaults(settings.modules[moduleKey], defaults)
+    return settings.modules[moduleKey]
 end
 
-local function PrintCommandHelp()
-    VanillaEnhanced:Print("commands:")
-    for key, command in pairs(VanillaEnhanced.commandHandlers) do
-        VanillaEnhanced:Print(command.helpText or ("/ve " .. key))
+function VanillaEnhanced:IsModuleEnabled(moduleKey)
+    local settings = self:GetModuleSettings(moduleKey, {
+        enabled = true,
+    })
+    return settings.enabled ~= false
+end
+
+function VanillaEnhanced:SetModuleEnabled(moduleKey, enabled)
+    local settings = self:GetModuleSettings(moduleKey, {
+        enabled = true,
+    })
+    settings.enabled = not not enabled
+
+    if self.RefreshOptions then
+        self:RefreshOptions()
     end
 end
-
-local function SlashCommand(input)
-    local key, rest = SplitCommand(input)
-    local command = key and VanillaEnhanced.commandHandlers[key]
-
-    if command then
-        command.handler(rest)
-        return
-    end
-
-    local questMapCommand = VanillaEnhanced.commandHandlers["quest-map"]
-    if questMapCommand and (key == "on" or key == "off" or key == "refresh" or key == "status") then
-        questMapCommand.handler(key .. (rest ~= "" and (" " .. rest) or ""))
-        return
-    end
-
-    PrintCommandHelp()
-end
-
-SlashCmdList.VANILLAENHANCED = SlashCommand
-SLASH_VANILLAENHANCED1 = "/vanillaenhanced"
-SLASH_VANILLAENHANCED2 = "/ve"

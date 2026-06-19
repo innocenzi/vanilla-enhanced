@@ -8,29 +8,10 @@ TargetThreat.lastText = nil
 TargetThreat.lastStatus = nil
 TargetThreat.lastTime = 0
 
-local function CopyDefaults(target, source)
-    if type(target) ~= "table" then
-        target = {}
-    end
-    for key, value in pairs(source) do
-        if target[key] == nil then
-            target[key] = value
-        end
-    end
-    return target
-end
-
 function TargetThreat:GetSettings()
-    VanillaEnhancedSettings = VanillaEnhancedSettings or {}
-    VanillaEnhancedSettings.modules = VanillaEnhancedSettings.modules or {}
-    VanillaEnhancedSettings.modules["target-threat"] = CopyDefaults(VanillaEnhancedSettings.modules["target-threat"], {
+    return VanillaEnhanced:GetModuleSettings("target-threat", {
         enabled = true,
     })
-    return VanillaEnhancedSettings.modules["target-threat"]
-end
-
-function TargetThreat:Print(message)
-    VanillaEnhanced:Print(message)
 end
 
 local function TargetValid()
@@ -162,6 +143,9 @@ function TargetThreat:StartTicker()
     if self.ticker then
         return
     end
+    if not self:GetSettings().enabled then
+        return
+    end
     if C_Timer and C_Timer.NewTicker then
         self.ticker = C_Timer.NewTicker(TICK_RATE, function()
             TargetThreat:Update()
@@ -177,14 +161,43 @@ function TargetThreat:StartTicker()
     end
 end
 
+function TargetThreat:StopTicker()
+    if self.ticker and self.ticker.Cancel then
+        self.ticker:Cancel()
+    end
+    self.ticker = nil
+
+    if self.eventFrame then
+        self.eventFrame:SetScript("OnUpdate", nil)
+    end
+end
+
+function TargetThreat:SetEnabled(enabled)
+    VanillaEnhanced:SetModuleEnabled("target-threat", enabled)
+
+    if enabled then
+        self:StartTicker()
+        self:Update()
+        return
+    end
+
+    self:StopTicker()
+    self:ResetCache()
+    self:Hide()
+end
+
 local eventFrame = CreateFrame("Frame")
 TargetThreat.eventFrame = eventFrame
 
 eventFrame:SetScript("OnEvent", function(_, event)
     if event == "PLAYER_ENTERING_WORLD" then
-        TargetThreat:EnsureUI()
-        TargetThreat:StartTicker()
-        TargetThreat:Update()
+        if TargetThreat:GetSettings().enabled then
+            TargetThreat:EnsureUI()
+            TargetThreat:StartTicker()
+            TargetThreat:Update()
+        else
+            TargetThreat:Hide()
+        end
     elseif event == "PLAYER_TARGET_CHANGED" then
         TargetThreat:ResetCache()
         TargetThreat:Update()
@@ -197,30 +210,3 @@ eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 eventFrame:RegisterEvent("PLAYER_TARGET_CHANGED")
 eventFrame:RegisterEvent("UNIT_THREAT_LIST_UPDATE")
 eventFrame:RegisterEvent("UNIT_THREAT_SITUATION_UPDATE")
-
-local function SlashCommand(input)
-    input = string.lower(strtrim(input or ""))
-    local settings = TargetThreat:GetSettings()
-
-    if input == "on" then
-        settings.enabled = true
-        TargetThreat:Print("target-threat enabled")
-        TargetThreat:StartTicker()
-        TargetThreat:Update()
-    elseif input == "off" then
-        settings.enabled = false
-        TargetThreat:ResetCache()
-        TargetThreat:Hide()
-        TargetThreat:Print("target-threat disabled")
-    elseif input == "refresh" then
-        TargetThreat:ResetCache()
-        TargetThreat:Update()
-        TargetThreat:Print("target-threat refreshed")
-    elseif input == "status" then
-        TargetThreat:Print("target-threat " .. (settings.enabled and "enabled" or "disabled"))
-    else
-        TargetThreat:Print("/ve target-threat on, /ve target-threat off, /ve target-threat refresh, /ve target-threat status")
-    end
-end
-
-VanillaEnhanced:RegisterCommand("target-threat", SlashCommand, "/ve target-threat on|off|refresh|status")
