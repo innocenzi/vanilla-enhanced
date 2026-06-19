@@ -6,6 +6,7 @@ Current modules:
 
 - Quests (`quests`) improves questing UIs with tracker clicks, quest log/map pairing, map markers, and tooltip quest hints.
 - `bags` adds a sort button to the default bag UI.
+- `merchants` adds a merchant button and optional auto-sell for conservative scrap selling.
 - `target-threat` adds a numeric threat percent widget to the target frame.
 
 The addon does not depend on Questie at runtime. Its compact database is generated offline from a local Questie install for private/local use.

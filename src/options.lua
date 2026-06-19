@@ -519,6 +519,139 @@ CreateHelpText(
     bagsSortOrderDropdown
 )
 
+local merchantsPanel = CreatePanel("VanillaEnhancedMerchantsOptionsPanel", T("module.merchants"))
+merchantsPanel.parent = VanillaEnhanced.displayName
+local merchantsSubtitle = CreateSubtitle(merchantsPanel, T("options.merchants.subtitle"))
+local merchantsEnabledCheck = CreateModuleEnabledCheck(
+    merchantsPanel,
+    "VanillaEnhancedOptionsMerchantsEnabled",
+    "merchants",
+    T("options.merchants.enable.label"),
+    merchantsSubtitle
+)
+CreateHelpText(
+    merchantsPanel,
+    T("options.merchants.enable.help"),
+    merchantsEnabledCheck
+)
+local merchantsSellScrapsCheck = CreateModuleSettingCheck(
+    merchantsPanel,
+    "VanillaEnhancedOptionsMerchantsSellScraps",
+    "merchants",
+    "sellScrapsEnabled",
+    T("options.merchants.sellScraps.label"),
+    merchantsEnabledCheck
+)
+AnchorBelowHelp(merchantsSellScrapsCheck, merchantsEnabledCheck)
+CreateHelpText(
+    merchantsPanel,
+    T("options.merchants.sellScraps.help"),
+    merchantsSellScrapsCheck
+)
+local merchantsScrapStrategyDropdown = CreateModuleDropdown(
+    merchantsPanel,
+    "VanillaEnhancedOptionsMerchantsScrapStrategy",
+    "merchants",
+    "scrapStrategy",
+    T("options.merchants.scrapStrategy.label"),
+    {
+        { value = "poor-sellable", label = T("options.merchants.scrapStrategy.poorSellable") },
+        { value = "poor-unusable-equipment", label = T("options.merchants.scrapStrategy.poorUnusableEquipment") },
+        { value = "poor-low-consumables", label = T("options.merchants.scrapStrategy.poorLowConsumables") },
+        { value = "poor-low-equipment", label = T("options.merchants.scrapStrategy.poorLowEquipment") },
+        { value = "smart", label = T("options.merchants.scrapStrategy.smart") },
+    },
+    merchantsSellScrapsCheck
+)
+merchantsScrapStrategyDropdown.enabledWhen = function()
+    return IsSettingEnabled("merchants", "sellScrapsEnabled")
+end
+UIDropDownMenu_SetWidth(merchantsScrapStrategyDropdown, 190)
+CreateHelpText(
+    merchantsPanel,
+    T("options.merchants.scrapStrategy.help"),
+    merchantsScrapStrategyDropdown
+)
+local merchantsSafeManualSellCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
+    merchantsPanel,
+    "VanillaEnhancedOptionsMerchantsSafeManualSell",
+    "merchants",
+    "safeManualSell",
+    T("options.merchants.safeManualSell.label"),
+    merchantsScrapStrategyDropdown
+), "merchants", "sellScrapsEnabled")
+AnchorBelowHelp(merchantsSafeManualSellCheck, merchantsScrapStrategyDropdown)
+CreateHelpText(
+    merchantsPanel,
+    T("options.merchants.safeManualSell.help"),
+    merchantsSafeManualSellCheck
+)
+local merchantsSortBagsAfterSellingScrapsCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
+    merchantsPanel,
+    "VanillaEnhancedOptionsMerchantsSortBagsAfterSellingScraps",
+    "merchants",
+    "sortBagsAfterSellingScraps",
+    T("options.merchants.sortBagsAfterSellingScraps.label"),
+    merchantsSafeManualSellCheck
+), "merchants", "sellScrapsEnabled")
+merchantsSortBagsAfterSellingScrapsCheck.enabledWhen = function()
+    return IsSettingEnabled("merchants", "sellScrapsEnabled")
+        and VanillaEnhanced:IsModuleEnabled("bags")
+        and IsSettingEnabled("bags", "sortEnabled")
+end
+AnchorBelowHelp(merchantsSortBagsAfterSellingScrapsCheck, merchantsSafeManualSellCheck)
+CreateHelpText(
+    merchantsPanel,
+    T("options.merchants.sortBagsAfterSellingScraps.help"),
+    merchantsSortBagsAfterSellingScrapsCheck
+)
+local merchantsAutoSellScrapsCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
+    merchantsPanel,
+    "VanillaEnhancedOptionsMerchantsAutoSellScraps",
+    "merchants",
+    "autoSellScraps",
+    T("options.merchants.autoSellScraps.label"),
+    merchantsSortBagsAfterSellingScrapsCheck
+), "merchants", "sellScrapsEnabled")
+AnchorBelowHelp(merchantsAutoSellScrapsCheck, merchantsSortBagsAfterSellingScrapsCheck)
+CreateHelpText(
+    merchantsPanel,
+    T("options.merchants.autoSellScraps.help"),
+    merchantsAutoSellScrapsCheck
+)
+local merchantsAutoRepairCheck = CreateModuleSettingCheck(
+    merchantsPanel,
+    "VanillaEnhancedOptionsMerchantsAutoRepair",
+    "merchants",
+    "autoRepair",
+    T("options.merchants.autoRepair.label"),
+    merchantsAutoSellScrapsCheck
+)
+AnchorBelowHelp(merchantsAutoRepairCheck, merchantsAutoSellScrapsCheck)
+CreateHelpText(
+    merchantsPanel,
+    T("options.merchants.autoRepair.help"),
+    merchantsAutoRepairCheck
+)
+local merchantsSafeAutoSellCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
+    merchantsPanel,
+    "VanillaEnhancedOptionsMerchantsSafeAutoSell",
+    "merchants",
+    "safeAutoSell",
+    T("options.merchants.safeAutoSell.label"),
+    merchantsAutoRepairCheck
+), "merchants", "autoSellScraps")
+merchantsSafeAutoSellCheck.enabledWhen = function()
+    return IsSettingEnabled("merchants", "sellScrapsEnabled")
+        and IsSettingEnabled("merchants", "autoSellScraps")
+end
+AnchorBelowHelp(merchantsSafeAutoSellCheck, merchantsAutoRepairCheck)
+CreateHelpText(
+    merchantsPanel,
+    T("options.merchants.safeAutoSell.help"),
+    merchantsSafeAutoSellCheck
+)
+
 function VanillaEnhanced:RefreshOptions()
     for moduleKey, check in pairs(moduleChecks) do
         check:SetChecked(self:IsModuleEnabled(moduleKey))
@@ -571,12 +704,14 @@ mainPanel:SetScript("OnShow", RefreshOnShow)
 questsPanel:SetScript("OnShow", RefreshOnShow)
 targetThreatPanel:SetScript("OnShow", RefreshOnShow)
 bagsPanel:SetScript("OnShow", RefreshOnShow)
+merchantsPanel:SetScript("OnShow", RefreshOnShow)
 
 local function RegisterInterfaceOptions()
     InterfaceOptions_AddCategory(mainPanel)
     InterfaceOptions_AddCategory(questsPanel)
     InterfaceOptions_AddCategory(targetThreatPanel)
     InterfaceOptions_AddCategory(bagsPanel)
+    InterfaceOptions_AddCategory(merchantsPanel)
 end
 
 local function RegisterSettingsOptions()
@@ -606,11 +741,18 @@ local function RegisterSettingsOptions()
             bagsPanel,
             bagsPanel.name
         )
+        local merchantsOk, merchantsCategory = pcall(
+            Settings.RegisterCanvasLayoutSubcategory,
+            mainCategory,
+            merchantsPanel,
+            merchantsPanel.name
+        )
 
-        if questOk and targetOk and bagsOk then
+        if questOk and targetOk and bagsOk and merchantsOk then
             VanillaEnhanced.optionsCategories.quests = questsCategory
             VanillaEnhanced.optionsCategories.targetThreat = targetThreatCategory
             VanillaEnhanced.optionsCategories.bags = bagsCategory
+            VanillaEnhanced.optionsCategories.merchants = merchantsCategory
             return
         end
     end
@@ -618,13 +760,16 @@ local function RegisterSettingsOptions()
     local questsCategory = Settings.RegisterCanvasLayoutCategory(questsPanel, questsPanel.name)
     local targetThreatCategory = Settings.RegisterCanvasLayoutCategory(targetThreatPanel, targetThreatPanel.name)
     local bagsCategory = Settings.RegisterCanvasLayoutCategory(bagsPanel, bagsPanel.name)
+    local merchantsCategory = Settings.RegisterCanvasLayoutCategory(merchantsPanel, merchantsPanel.name)
     Settings.RegisterAddOnCategory(questsCategory)
     Settings.RegisterAddOnCategory(targetThreatCategory)
     Settings.RegisterAddOnCategory(bagsCategory)
+    Settings.RegisterAddOnCategory(merchantsCategory)
 
     VanillaEnhanced.optionsCategories.quests = questsCategory
     VanillaEnhanced.optionsCategories.targetThreat = targetThreatCategory
     VanillaEnhanced.optionsCategories.bags = bagsCategory
+    VanillaEnhanced.optionsCategories.merchants = merchantsCategory
 end
 
 if type(InterfaceOptions_AddCategory) == "function" then

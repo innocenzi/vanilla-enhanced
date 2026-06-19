@@ -21,6 +21,9 @@ local function LocalizedSortReason(reason)
     if reason == "loot" then
         return T("bags.sort.reasonLoot")
     end
+    if reason == "merchant" then
+        return T("bags.sort.reasonMerchant")
+    end
     return reason or T("bags.sort.reasonTrigger")
 end
 

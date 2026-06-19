@@ -30,5 +30,8 @@ src\quests\refresh.lua
 src\bags\module.lua
 src\bags\api.lua
 src\bags\sorting.lua
+src\merchants\module.lua
+src\merchants\api.lua
+src\merchants\strategies.lua
 src\target-threat\module.lua
 src\options.lua
