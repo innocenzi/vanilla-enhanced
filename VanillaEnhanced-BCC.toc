@@ -1,6 +1,6 @@
 ## Interface: 20505
 ## Title: Vanilla Enhanced
-## Notes: Lightweight vanilla-era utility enhancements.
+## Notes: Lightweight improvements for a better experience while keeping a classic feeling.
 ## Notes-frFR: Améliorations de l'interface pour une meilleure expérience de jeu tout en gardant un feeling classique.
 ## Author: Hylmew
 ## Version: 0.1.0

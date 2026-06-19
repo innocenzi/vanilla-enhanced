@@ -1,0 +1,15 @@
+package-as: VanillaEnhanced
+
+manual-changelog: CHANGELOG.md
+
+ignore:
+  - .agents
+  - .release
+  - AGENTS.md
+  - bun.lock
+  - cliff.toml
+  - icon.af
+  - node_modules
+  - package.json
+  - tools
+  - tsconfig.json

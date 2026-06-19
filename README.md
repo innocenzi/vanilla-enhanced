@@ -1,53 +1,25 @@
 # Vanilla Enhanced
 
-A lightweight standalone Burning Crusade Classic utility addon.
+A lightweight utility addon for Burning Crusade Classic. It keeps the default UI familiar while adding a handful of practical quality-of-life improvements for questing, bags, merchants, and target threat.
 
-Current modules:
+> [!INFO]
+> I did not write a single line of code. Read the source at your own risks. I will not be responsible for your ophtalmologist bill.
 
-- Quests (`quests`) improves questing UIs with tracker clicks, quest log/map pairing, map markers, and tooltip quest hints.
-- `bags` adds a sort button to the default bag UI.
-- `merchants` adds a merchant button and optional auto-sell for conservative scrap selling.
-- `target-threat` adds a numeric threat percent widget to the target frame.
+## Features
 
-The addon does not depend on Questie at runtime. Its compact database is generated offline from a local Questie install for private/local use.
-
-The Quests module currently supports English and French display text. English is the base data; French is selected automatically when the game client locale is `frFR`.
-
-Slay and loot objectives are shown as areas on the world map only, while precise talk, turn-in, object, and event markers also appear on the minimap when nearby.
-
-NPC and mob tooltips show active quest objective lines when the hovered unit is part of one of your current quests.
+- Quest tracker clicks that open the matching quest in your quest log.
+- Quest log and world map pairing when supported by the client.
+- Quest objective markers on the world map and minimap.
+- NPC and mob tooltips that show relevant active quest objectives.
+- A sort button and optional automatic sorting for the default bag UI.
+- Merchant tools for selling conservative scrap items and repairing equipment.
+- A numeric threat percentage on the target frame.
 
 ## Install
 
-Copy this folder into your TBC Classic `Interface\AddOns` directory as `VanillaEnhanced`.
+Install from CurseForge when available, or install manually:
 
-Disable the external `TargetsThreat` addon when using the `target-threat` module to avoid duplicate widgets.
-
-## Regenerate The Database
-
-Requires Bun, Git, and a Lua 5.1-compatible CLI (`lua` or `luajit`) on `PATH`.
-
-```powershell
-bun run build:db
-```
-
-The tool downloads the pinned Questie ref from `tools/questie-source.json` into `tools/.cache/`, executes Questie's Lua database and validation pipeline, then generates `data/quests/locations.lua` and `data/quests/locales.lua`. Use `--questie-ref <tag-or-sha>` to intentionally update the source data, `--refresh-questie` to refetch the cache, or `--questie-path <path>` for local Questie debugging.
-
-Run tooling tests with:
-
-```powershell
-bun test
-```
-
-## In Game
-
-- `/ve quests on`
-- `/ve quests off`
-- `/ve quests refresh`
-- `/ve quests status`
-- `/ve target-threat on`
-- `/ve target-threat off`
-- `/ve target-threat refresh`
-- `/ve target-threat status`
-
-The TBC client should load `VanillaEnhanced-BCC.toc`.
+1. Download the latest release zip.
+2. Extract it into your TBC Classic `Interface\AddOns` directory.
+3. Make sure the addon folder is named `VanillaEnhanced`.
+4. Restart the game or run `/reload`.
