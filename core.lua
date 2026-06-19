@@ -36,6 +36,7 @@ end
 function VanillaEnhanced:GetSettings()
     VanillaEnhancedSettings = CopyDefaults(VanillaEnhancedSettings, {
         modules = {},
+        showChatMessagePrefix = true,
     })
     if type(VanillaEnhancedSettings.modules) ~= "table" then
         VanillaEnhancedSettings.modules = {}
@@ -65,4 +66,21 @@ function VanillaEnhanced:SetModuleEnabled(moduleKey, enabled)
     if self.RefreshOptions then
         self:RefreshOptions()
     end
+end
+
+function VanillaEnhanced:IsChatMessagePrefixEnabled()
+    return self:GetSettings().showChatMessagePrefix ~= false
+end
+
+function VanillaEnhanced:PrintMessage(message)
+    if not (DEFAULT_CHAT_FRAME and DEFAULT_CHAT_FRAME.AddMessage) then
+        return
+    end
+
+    if self:IsChatMessagePrefixEnabled() then
+        DEFAULT_CHAT_FRAME:AddMessage("|cffffd200" .. self.displayName .. ":|r " .. message)
+        return
+    end
+
+    DEFAULT_CHAT_FRAME:AddMessage(message)
 end

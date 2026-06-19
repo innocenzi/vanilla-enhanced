@@ -35,9 +35,7 @@ function Bags:IsSortEnabled()
 end
 
 function Bags:PrintMessage(message)
-    if DEFAULT_CHAT_FRAME and DEFAULT_CHAT_FRAME.AddMessage then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffffd200Vanilla Enhanced:|r " .. message)
-    end
+    VanillaEnhanced:PrintMessage(message)
 end
 
 local function IsShown(frame)

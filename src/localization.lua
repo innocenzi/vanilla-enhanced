@@ -8,6 +8,8 @@ local STRINGS = {
         ["module.merchants"] = "Merchants",
 
         ["options.main.subtitle"] = "Turn modules on or off and adjust their options.",
+        ["options.main.showChatMessagePrefix.label"] = "Show addon name in chat",
+        ["options.main.showChatMessagePrefix.help"] = "Prefix addon chat messages with Vanilla Enhanced.",
 
         ["options.quests.subtitle"] = "Improves the quest tracker, quest log, maps, and tooltips.",
         ["options.quests.enable.label"] = "Enable",
@@ -110,6 +112,8 @@ local STRINGS = {
         ["module.merchants"] = "Marchands",
 
         ["options.main.subtitle"] = "Activez ou désactivez les modules et ajustez leurs options.",
+        ["options.main.showChatMessagePrefix.label"] = "Afficher le nom de l'addon dans le chat",
+        ["options.main.showChatMessagePrefix.help"] = "Préfixe les messages de l'addon avec Vanilla Enhanced.",
 
         ["options.quests.subtitle"] = "Améliore le suivi des quêtes, le journal, les cartes et les infobulles.",
         ["options.quests.enable.label"] = "Activer",

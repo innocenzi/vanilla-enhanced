@@ -114,9 +114,7 @@ function Merchants:AutoRepair()
 end
 
 function Merchants:PrintMessage(message)
-    if DEFAULT_CHAT_FRAME and DEFAULT_CHAT_FRAME.AddMessage then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffffd200Vanilla Enhanced:|r " .. message)
-    end
+    VanillaEnhanced:PrintMessage(message)
 end
 
 function Merchants:RegisterScrapStrategy(strategy)

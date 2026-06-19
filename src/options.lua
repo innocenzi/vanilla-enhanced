@@ -2,6 +2,7 @@ local VanillaEnhanced = _G.VanillaEnhanced
 
 local moduleChecks = {}
 local settingChecks = {}
+local addonSettingChecks = {}
 local dropdowns = {}
 local OPTION_WITH_HELP_OFFSET = -15
 local CHECK_TEXT_OFFSET_X = 3
@@ -138,6 +139,15 @@ local function ApplyModuleSetting(moduleKey, settingKey, value)
     end
 end
 
+local function ApplyAddonSetting(settingKey, value)
+    local settings = VanillaEnhanced:GetSettings()
+    settings[settingKey] = not not value
+
+    if VanillaEnhanced.RefreshOptions then
+        VanillaEnhanced:RefreshOptions()
+    end
+end
+
 local function IsSettingEnabled(moduleKey, settingKey)
     local settings = GetModuleOptionSettings(moduleKey)
     return settings[settingKey] ~= false
@@ -231,6 +241,21 @@ local function CreateModuleSettingCheck(panel, name, moduleKey, settingKey, labe
     return check
 end
 
+local function CreateAddonSettingCheck(panel, name, settingKey, label, anchor)
+    local check = CreateFrame("CheckButton", name, panel, "InterfaceOptionsCheckButtonTemplate")
+    check:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -12)
+    check.settingKey = settingKey
+
+    ConfigureCheckText(check, label)
+
+    check:SetScript("OnClick", function(self)
+        ApplyAddonSetting(self.settingKey, self:GetChecked())
+    end)
+
+    table.insert(addonSettingChecks, check)
+    return check
+end
+
 local function SetSettingCheckEnabledWhen(check, moduleKey, settingKey)
     check.enabledWhen = function()
         return IsSettingEnabled(moduleKey, settingKey)
@@ -307,7 +332,19 @@ local function CreateHelpText(panel, text, anchor)
 end
 
 local mainPanel = CreatePanel("VanillaEnhancedOptionsPanel", VanillaEnhanced.displayName)
-CreateSubtitle(mainPanel, T("options.main.subtitle"))
+local mainSubtitle = CreateSubtitle(mainPanel, T("options.main.subtitle"))
+local mainShowChatMessagePrefixCheck = CreateAddonSettingCheck(
+    mainPanel,
+    "VanillaEnhancedOptionsMainShowChatMessagePrefix",
+    "showChatMessagePrefix",
+    T("options.main.showChatMessagePrefix.label"),
+    mainSubtitle
+)
+CreateHelpText(
+    mainPanel,
+    T("options.main.showChatMessagePrefix.help"),
+    mainShowChatMessagePrefixCheck
+)
 
 local questsPanel = CreatePanel("VanillaEnhancedQuestsOptionsPanel", T("module.quests"))
 questsPanel.parent = VanillaEnhanced.displayName
@@ -653,6 +690,11 @@ CreateHelpText(
 )
 
 function VanillaEnhanced:RefreshOptions()
+    local addonSettings = self:GetSettings()
+    for _, check in ipairs(addonSettingChecks) do
+        check:SetChecked(addonSettings[check.settingKey] ~= false)
+        SetCheckEnabled(check, true)
+    end
     for moduleKey, check in pairs(moduleChecks) do
         check:SetChecked(self:IsModuleEnabled(moduleKey))
     end
