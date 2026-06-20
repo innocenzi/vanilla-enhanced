@@ -3,7 +3,6 @@ local Bags = VanillaEnhanced:CreateModule("bags", VanillaEnhanced:T("module.bags
 
 local defaults = {
     enabled = true,
-    sortEnabled = true,
     showSortButton = true,
     sortOrder = "category",
     autoSortAfterLoot = false,
@@ -27,12 +26,17 @@ local function T(key, vars)
 end
 
 function Bags:GetSettings()
-    return VanillaEnhanced:GetModuleSettings("bags", defaults)
+    local settings = VanillaEnhanced:GetModuleSettings("bags", defaults)
+    if settings.sortEnabled == false and settings.enabled ~= false then
+        settings.enabled = false
+    end
+    settings.sortEnabled = nil
+    return settings
 end
 
 function Bags:IsSortEnabled()
     local settings = self:GetSettings()
-    return settings.enabled ~= false and settings.sortEnabled ~= false
+    return settings.enabled ~= false
 end
 
 function Bags:PrintMessage(message)

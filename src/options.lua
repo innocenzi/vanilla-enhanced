@@ -5,6 +5,8 @@ local settingChecks = {}
 local addonSettingChecks = {}
 local dropdowns = {}
 local OPTION_WITH_HELP_OFFSET = -15
+local OPTION_INDENT_WIDTH = 18
+local OPTION_HELP_WIDTH = 430
 local CHECK_TEXT_OFFSET_X = 3
 local CHECK_TEXT_LEFT_FALLBACK = 27
 
@@ -64,6 +66,27 @@ local function GetRegionHeight(region, fallback)
         height = region.GetHeight and region:GetHeight() or fallback
     end
     return height or fallback
+end
+
+local function GetOptionIndentLevel(option)
+    return option and option.optionIndentLevel or 0
+end
+
+local function SetOptionIndentLevel(option, indentLevel)
+    option.optionIndentLevel = indentLevel or 0
+    return option
+end
+
+local function GetOptionIndentOffset(option, anchor)
+    return (GetOptionIndentLevel(option) - GetOptionIndentLevel(anchor)) * OPTION_INDENT_WIDTH
+end
+
+local function GetOptionHelpWidth(option)
+    local width = OPTION_HELP_WIDTH - (GetOptionIndentLevel(option) * OPTION_INDENT_WIDTH)
+    if width < 300 then
+        width = 300
+    end
+    return width
 end
 
 local function CreateCheckTextClickTarget(check, text)
@@ -203,11 +226,15 @@ local function CreateSubtitle(panel, text)
     return subtitle
 end
 
-local function AnchorBelowHelp(check, anchor)
+local function AnchorBelowHelp(check, anchor, indentLevel)
     local bottomAnchor = anchor.optionHelpBottomAnchor or anchor
 
+    if indentLevel then
+        SetOptionIndentLevel(check, indentLevel)
+    end
+
     check:ClearAllPoints()
-    check:SetPoint("TOPLEFT", bottomAnchor, "BOTTOMLEFT", 0, OPTION_WITH_HELP_OFFSET)
+    check:SetPoint("TOPLEFT", bottomAnchor, "BOTTOMLEFT", GetOptionIndentOffset(check, anchor), OPTION_WITH_HELP_OFFSET)
 end
 
 local function CreateModuleEnabledCheck(panel, name, moduleKey, label, anchor)
@@ -225,9 +252,10 @@ local function CreateModuleEnabledCheck(panel, name, moduleKey, label, anchor)
     return check
 end
 
-local function CreateModuleSettingCheck(panel, name, moduleKey, settingKey, label, anchor)
+local function CreateModuleSettingCheck(panel, name, moduleKey, settingKey, label, anchor, indentLevel)
     local check = CreateFrame("CheckButton", name, panel, "InterfaceOptionsCheckButtonTemplate")
-    check:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -12)
+    SetOptionIndentLevel(check, indentLevel or GetOptionIndentLevel(anchor))
+    check:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", GetOptionIndentOffset(check, anchor), -12)
     check.moduleKey = moduleKey
     check.settingKey = settingKey
 
@@ -263,12 +291,20 @@ local function SetSettingCheckEnabledWhen(check, moduleKey, settingKey)
     return check
 end
 
-local function CreateModuleDropdown(panel, name, moduleKey, settingKey, label, options, anchor)
+local function CreateModuleDropdown(panel, name, moduleKey, settingKey, label, options, anchor, indentLevel)
+    local dropdownIndentAnchor = anchor
     local labelText = panel:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
-    labelText:SetPoint("TOPLEFT", anchor.optionHelpBottomAnchor or anchor, "BOTTOMLEFT", 0, -18)
     labelText:SetText(label)
 
     local dropdown = CreateFrame("Frame", name, panel, "UIDropDownMenuTemplate")
+    SetOptionIndentLevel(dropdown, indentLevel or GetOptionIndentLevel(anchor))
+    labelText:SetPoint(
+        "TOPLEFT",
+        dropdownIndentAnchor.optionHelpBottomAnchor or dropdownIndentAnchor,
+        "BOTTOMLEFT",
+        GetOptionIndentOffset(dropdown, dropdownIndentAnchor),
+        -18
+    )
     dropdown:SetPoint("TOPLEFT", labelText, "BOTTOMLEFT", -16, -4)
     dropdown.moduleKey = moduleKey
     dropdown.settingKey = settingKey
@@ -277,7 +313,7 @@ local function CreateModuleDropdown(panel, name, moduleKey, settingKey, label, o
     dropdown.enabledWhen = nil
     dropdown.optionHelpTextAnchor = labelText
     dropdown.optionHelpLeftOffset = 0
-    dropdown.optionHelpNextOffset = -22
+    dropdown.optionHelpNextOffset = 0
 
     local helpPointAnchor = CreateFrame("Frame", nil, panel)
     helpPointAnchor:SetSize(1, 1)
@@ -317,7 +353,7 @@ local function CreateHelpText(panel, text, anchor)
     local nextOffset = anchor.optionHelpNextOffset or 0
 
     help:SetPoint("TOPLEFT", anchor.optionHelpPointAnchor or anchor.optionHelpBottomAnchor or textAnchor, "BOTTOMLEFT", 0, -5)
-    help:SetWidth(430)
+    help:SetWidth(GetOptionHelpWidth(anchor))
     help:SetJustifyH("LEFT")
     help:SetText(text)
     bottomAnchor:SetSize(1, 1)
@@ -367,7 +403,8 @@ local questsKeepQuestLogWithMapCheck = CreateModuleSettingCheck(
     "quests",
     "keepQuestLogWithMap",
     T("options.quests.keepQuestLogWithMap.label"),
-    questsEnabledCheck
+    questsEnabledCheck,
+    0
 )
 AnchorBelowHelp(questsKeepQuestLogWithMapCheck, questsEnabledCheck)
 CreateHelpText(
@@ -381,7 +418,8 @@ local questsEnableQuestTrackerClicksCheck = CreateModuleSettingCheck(
     "quests",
     "enableQuestTrackerClicks",
     T("options.quests.enableQuestTrackerClicks.label"),
-    questsKeepQuestLogWithMapCheck
+    questsKeepQuestLogWithMapCheck,
+    0
 )
 AnchorBelowHelp(questsEnableQuestTrackerClicksCheck, questsKeepQuestLogWithMapCheck)
 CreateHelpText(
@@ -395,7 +433,8 @@ local questsShowMapMarkersCheck = CreateModuleSettingCheck(
     "quests",
     "showMapMarkers",
     T("options.quests.showMapMarkers.label"),
-    questsEnableQuestTrackerClicksCheck
+    questsEnableQuestTrackerClicksCheck,
+    0
 )
 AnchorBelowHelp(questsShowMapMarkersCheck, questsEnableQuestTrackerClicksCheck)
 CreateHelpText(
@@ -409,7 +448,8 @@ local questsShowMinimapObjectiveAreasCheck = SetSettingCheckEnabledWhen(CreateMo
     "quests",
     "showMinimapObjectiveAreas",
     T("options.quests.showMinimapObjectiveAreas.label"),
-    questsShowMapMarkersCheck
+    questsShowMapMarkersCheck,
+    1
 ), "quests", "showMapMarkers")
 AnchorBelowHelp(questsShowMinimapObjectiveAreasCheck, questsShowMapMarkersCheck)
 CreateHelpText(
@@ -423,7 +463,8 @@ local questsShowAvailableQuestsCheck = SetSettingCheckEnabledWhen(CreateModuleSe
     "quests",
     "showAvailableQuests",
     T("options.quests.showAvailableQuests.label"),
-    questsShowMinimapObjectiveAreasCheck
+    questsShowMinimapObjectiveAreasCheck,
+    1
 ), "quests", "showMapMarkers")
 AnchorBelowHelp(questsShowAvailableQuestsCheck, questsShowMinimapObjectiveAreasCheck)
 CreateHelpText(
@@ -437,7 +478,8 @@ local questsOnlyShowNearbyAvailableQuestsCheck = SetSettingCheckEnabledWhen(Crea
     "quests",
     "onlyShowNearbyAvailableQuests",
     T("options.quests.onlyShowNearbyAvailableQuests.label"),
-    questsShowAvailableQuestsCheck
+    questsShowAvailableQuestsCheck,
+    2
 ), "quests", "showAvailableQuests")
 AnchorBelowHelp(questsOnlyShowNearbyAvailableQuestsCheck, questsShowAvailableQuestsCheck)
 questsOnlyShowNearbyAvailableQuestsCheck.enabledWhen = function()
@@ -455,7 +497,8 @@ local questsOnlyShowAvailableQuestsAroundPlayerLevelCheck = SetSettingCheckEnabl
     "quests",
     "onlyShowAvailableQuestsAroundPlayerLevel",
     T("options.quests.onlyShowAvailableQuestsAroundPlayerLevel.label"),
-    questsOnlyShowNearbyAvailableQuestsCheck
+    questsOnlyShowNearbyAvailableQuestsCheck,
+    2
 ), "quests", "showAvailableQuests")
 AnchorBelowHelp(questsOnlyShowAvailableQuestsAroundPlayerLevelCheck, questsOnlyShowNearbyAvailableQuestsCheck)
 questsOnlyShowAvailableQuestsAroundPlayerLevelCheck.enabledWhen = function()
@@ -473,7 +516,8 @@ local questsShowCompletedMapObjectivesCheck = SetSettingCheckEnabledWhen(CreateM
     "quests",
     "showCompletedMapObjectives",
     T("options.quests.showCompletedMapObjectives.label"),
-    questsOnlyShowAvailableQuestsAroundPlayerLevelCheck
+    questsOnlyShowAvailableQuestsAroundPlayerLevelCheck,
+    1
 ), "quests", "showMapMarkers")
 AnchorBelowHelp(questsShowCompletedMapObjectivesCheck, questsOnlyShowAvailableQuestsAroundPlayerLevelCheck)
 CreateHelpText(
@@ -487,7 +531,8 @@ local questsShowCompletedTooltipObjectivesCheck = CreateModuleSettingCheck(
     "quests",
     "showCompletedTooltipObjectives",
     T("options.quests.showCompletedTooltipObjectives.label"),
-    questsShowCompletedMapObjectivesCheck
+    questsShowCompletedMapObjectivesCheck,
+    0
 )
 AnchorBelowHelp(questsShowCompletedTooltipObjectivesCheck, questsShowCompletedMapObjectivesCheck)
 CreateHelpText(
@@ -517,7 +562,8 @@ local targetThreatAlwaysShowCheck = CreateModuleSettingCheck(
     "target-threat",
     "alwaysShow",
     T("options.targetThreat.alwaysShow.label"),
-    targetThreatEnabledCheck
+    targetThreatEnabledCheck,
+    0
 )
 AnchorBelowHelp(targetThreatAlwaysShowCheck, targetThreatEnabledCheck)
 CreateHelpText(
@@ -529,41 +575,42 @@ CreateHelpText(
 local bagsPanel = CreatePanel("VanillaEnhancedBagsOptionsPanel", T("module.bags"))
 bagsPanel.parent = VanillaEnhanced.displayName
 local bagsSubtitle = CreateSubtitle(bagsPanel, T("options.bags.subtitle"))
-local bagsSortEnabledCheck = CreateModuleSettingCheck(
+local bagsEnabledCheck = CreateModuleEnabledCheck(
     bagsPanel,
-    "VanillaEnhancedOptionsBagsSortEnabled",
+    "VanillaEnhancedOptionsBagsEnabled",
     "bags",
-    "sortEnabled",
-    T("options.bags.sortEnabled.label"),
+    T("options.bags.enable.label"),
     bagsSubtitle
 )
 CreateHelpText(
     bagsPanel,
-    T("options.bags.sortEnabled.help"),
-    bagsSortEnabledCheck
+    T("options.bags.enable.help"),
+    bagsEnabledCheck
 )
-local bagsShowSortButtonCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
+local bagsShowSortButtonCheck = CreateModuleSettingCheck(
     bagsPanel,
     "VanillaEnhancedOptionsBagsShowSortButton",
     "bags",
     "showSortButton",
     T("options.bags.showSortButton.label"),
-    bagsSortEnabledCheck
-), "bags", "sortEnabled")
-AnchorBelowHelp(bagsShowSortButtonCheck, bagsSortEnabledCheck)
+    bagsEnabledCheck,
+    0
+)
+AnchorBelowHelp(bagsShowSortButtonCheck, bagsEnabledCheck)
 CreateHelpText(
     bagsPanel,
     T("options.bags.showSortButton.help"),
     bagsShowSortButtonCheck
 )
-local bagsAutoSortAfterLootCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
+local bagsAutoSortAfterLootCheck = CreateModuleSettingCheck(
     bagsPanel,
     "VanillaEnhancedOptionsBagsAutoSortAfterLoot",
     "bags",
     "autoSortAfterLoot",
     T("options.bags.autoSortAfterLoot.label"),
-    bagsShowSortButtonCheck
-), "bags", "sortEnabled")
+    bagsShowSortButtonCheck,
+    0
+)
 AnchorBelowHelp(bagsAutoSortAfterLootCheck, bagsShowSortButtonCheck)
 CreateHelpText(
     bagsPanel,
@@ -580,25 +627,26 @@ local bagsAutoSortAfterLootModeDropdown = CreateModuleDropdown(
         { value = "tidy", label = T("options.bags.autoSortAfterLootMode.tidy") },
         { value = "full", label = T("options.bags.autoSortAfterLootMode.full") },
     },
-    bagsAutoSortAfterLootCheck
+    bagsAutoSortAfterLootCheck,
+    1
 )
 bagsAutoSortAfterLootModeDropdown.enabledWhen = function()
-    return IsSettingEnabled("bags", "sortEnabled")
-        and IsSettingEnabled("bags", "autoSortAfterLoot")
+    return IsSettingEnabled("bags", "autoSortAfterLoot")
 end
 CreateHelpText(
     bagsPanel,
     T("options.bags.autoSortAfterLootMode.help"),
     bagsAutoSortAfterLootModeDropdown
 )
-local bagsAutoSortOnOpenCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
+local bagsAutoSortOnOpenCheck = CreateModuleSettingCheck(
     bagsPanel,
     "VanillaEnhancedOptionsBagsAutoSortOnOpen",
     "bags",
     "autoSortOnOpen",
     T("options.bags.autoSortOnOpen.label"),
-    bagsAutoSortAfterLootModeDropdown
-), "bags", "sortEnabled")
+    bagsAutoSortAfterLootModeDropdown,
+    0
+)
 AnchorBelowHelp(bagsAutoSortOnOpenCheck, bagsAutoSortAfterLootModeDropdown)
 CreateHelpText(
     bagsPanel,
@@ -616,11 +664,9 @@ local bagsSortOrderDropdown = CreateModuleDropdown(
         { value = "quality", label = T("options.bags.sortOrder.quality") },
         { value = "name", label = T("options.bags.sortOrder.name") },
     },
-    bagsAutoSortOnOpenCheck
+    bagsAutoSortOnOpenCheck,
+    0
 )
-bagsSortOrderDropdown.enabledWhen = function()
-    return IsSettingEnabled("bags", "sortEnabled")
-end
 CreateHelpText(
     bagsPanel,
     T("options.bags.sortOrder.help"),
@@ -648,7 +694,8 @@ local merchantsSellScrapsCheck = CreateModuleSettingCheck(
     "merchants",
     "sellScrapsEnabled",
     T("options.merchants.sellScraps.label"),
-    merchantsEnabledCheck
+    merchantsEnabledCheck,
+    0
 )
 AnchorBelowHelp(merchantsSellScrapsCheck, merchantsEnabledCheck)
 CreateHelpText(
@@ -669,7 +716,8 @@ local merchantsScrapStrategyDropdown = CreateModuleDropdown(
         { value = "poor-low-equipment", label = T("options.merchants.scrapStrategy.poorLowEquipment") },
         { value = "smart", label = T("options.merchants.scrapStrategy.smart") },
     },
-    merchantsSellScrapsCheck
+    merchantsSellScrapsCheck,
+    1
 )
 merchantsScrapStrategyDropdown.enabledWhen = function()
     return IsSettingEnabled("merchants", "sellScrapsEnabled")
@@ -686,7 +734,8 @@ local merchantsSafeManualSellCheck = SetSettingCheckEnabledWhen(CreateModuleSett
     "merchants",
     "safeManualSell",
     T("options.merchants.safeManualSell.label"),
-    merchantsScrapStrategyDropdown
+    merchantsScrapStrategyDropdown,
+    1
 ), "merchants", "sellScrapsEnabled")
 AnchorBelowHelp(merchantsSafeManualSellCheck, merchantsScrapStrategyDropdown)
 CreateHelpText(
@@ -700,12 +749,12 @@ local merchantsSortBagsAfterSellingScrapsCheck = SetSettingCheckEnabledWhen(Crea
     "merchants",
     "sortBagsAfterSellingScraps",
     T("options.merchants.sortBagsAfterSellingScraps.label"),
-    merchantsSafeManualSellCheck
+    merchantsSafeManualSellCheck,
+    1
 ), "merchants", "sellScrapsEnabled")
 merchantsSortBagsAfterSellingScrapsCheck.enabledWhen = function()
     return IsSettingEnabled("merchants", "sellScrapsEnabled")
         and VanillaEnhanced:IsModuleEnabled("bags")
-        and IsSettingEnabled("bags", "sortEnabled")
 end
 AnchorBelowHelp(merchantsSortBagsAfterSellingScrapsCheck, merchantsSafeManualSellCheck)
 CreateHelpText(
@@ -719,7 +768,8 @@ local merchantsAutoSellScrapsCheck = SetSettingCheckEnabledWhen(CreateModuleSett
     "merchants",
     "autoSellScraps",
     T("options.merchants.autoSellScraps.label"),
-    merchantsSortBagsAfterSellingScrapsCheck
+    merchantsSortBagsAfterSellingScrapsCheck,
+    1
 ), "merchants", "sellScrapsEnabled")
 AnchorBelowHelp(merchantsAutoSellScrapsCheck, merchantsSortBagsAfterSellingScrapsCheck)
 CreateHelpText(
@@ -727,37 +777,39 @@ CreateHelpText(
     T("options.merchants.autoSellScraps.help"),
     merchantsAutoSellScrapsCheck
 )
-local merchantsAutoRepairCheck = CreateModuleSettingCheck(
-    merchantsPanel,
-    "VanillaEnhancedOptionsMerchantsAutoRepair",
-    "merchants",
-    "autoRepair",
-    T("options.merchants.autoRepair.label"),
-    merchantsAutoSellScrapsCheck
-)
-AnchorBelowHelp(merchantsAutoRepairCheck, merchantsAutoSellScrapsCheck)
-CreateHelpText(
-    merchantsPanel,
-    T("options.merchants.autoRepair.help"),
-    merchantsAutoRepairCheck
-)
 local merchantsSafeAutoSellCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
     merchantsPanel,
     "VanillaEnhancedOptionsMerchantsSafeAutoSell",
     "merchants",
     "safeAutoSell",
     T("options.merchants.safeAutoSell.label"),
-    merchantsAutoRepairCheck
+    merchantsAutoSellScrapsCheck,
+    2
 ), "merchants", "autoSellScraps")
 merchantsSafeAutoSellCheck.enabledWhen = function()
     return IsSettingEnabled("merchants", "sellScrapsEnabled")
         and IsSettingEnabled("merchants", "autoSellScraps")
 end
-AnchorBelowHelp(merchantsSafeAutoSellCheck, merchantsAutoRepairCheck)
+AnchorBelowHelp(merchantsSafeAutoSellCheck, merchantsAutoSellScrapsCheck)
 CreateHelpText(
     merchantsPanel,
     T("options.merchants.safeAutoSell.help"),
     merchantsSafeAutoSellCheck
+)
+local merchantsAutoRepairCheck = CreateModuleSettingCheck(
+    merchantsPanel,
+    "VanillaEnhancedOptionsMerchantsAutoRepair",
+    "merchants",
+    "autoRepair",
+    T("options.merchants.autoRepair.label"),
+    merchantsSafeAutoSellCheck,
+    0
+)
+AnchorBelowHelp(merchantsAutoRepairCheck, merchantsSafeAutoSellCheck)
+CreateHelpText(
+    merchantsPanel,
+    T("options.merchants.autoRepair.help"),
+    merchantsAutoRepairCheck
 )
 
 function VanillaEnhanced:RefreshOptions()
