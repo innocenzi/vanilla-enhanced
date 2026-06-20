@@ -9,9 +9,45 @@ local OPTION_INDENT_WIDTH = 18
 local OPTION_HELP_WIDTH = 430
 local CHECK_TEXT_OFFSET_X = 3
 local CHECK_TEXT_LEFT_FALLBACK = 27
+local SCROLL_BAR_WIDTH = 28
+local SCROLL_BOTTOM_PADDING = 24
 
 local function T(key, vars)
     return VanillaEnhanced:T(key, vars)
+end
+
+local function GetPanelContent(panel)
+    return panel.optionContent or panel
+end
+
+local function UpdatePanelScrollContentSize(panel)
+    local scrollFrame = panel.optionScrollFrame
+    local content = panel.optionContent
+    if not scrollFrame or not content then
+        return
+    end
+
+    local width = scrollFrame:GetWidth()
+    if width and width > 0 then
+        content:SetWidth(width)
+    end
+
+    local visibleHeight = scrollFrame:GetHeight() or 1
+    local contentHeight = visibleHeight
+    local top = content.GetTop and content:GetTop() or nil
+    local bottomAnchor = panel.optionBottomAnchor
+    local bottom = bottomAnchor and bottomAnchor.GetBottom and bottomAnchor:GetBottom() or nil
+
+    if top and bottom then
+        local measuredHeight = math.ceil(top - bottom + SCROLL_BOTTOM_PADDING)
+        if measuredHeight > contentHeight then
+            contentHeight = measuredHeight
+        end
+    end
+
+    if contentHeight > 0 then
+        content:SetHeight(contentHeight)
+    end
 end
 
 local function GetCheckText(check)
@@ -209,7 +245,25 @@ local function CreatePanel(name, titleText)
     local panel = CreateFrame("Frame", name, UIParent)
     panel.name = titleText
 
-    local title = panel:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+    local scrollFrame = CreateFrame("ScrollFrame", name .. "ScrollFrame", panel, "UIPanelScrollFrameTemplate")
+    scrollFrame:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, 0)
+    scrollFrame:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -SCROLL_BAR_WIDTH, 0)
+
+    local content = CreateFrame("Frame", name .. "Content", scrollFrame)
+    content:SetSize(1, 1)
+    scrollFrame:SetScrollChild(content)
+
+    panel.optionScrollFrame = scrollFrame
+    panel.optionContent = content
+
+    scrollFrame:SetScript("OnShow", function(self)
+        UpdatePanelScrollContentSize(self:GetParent())
+    end)
+    scrollFrame:SetScript("OnSizeChanged", function(self)
+        UpdatePanelScrollContentSize(self:GetParent())
+    end)
+
+    local title = content:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
     title:SetPoint("TOPLEFT", 16, -16)
     title:SetText(titleText)
     panel.title = title
@@ -218,7 +272,7 @@ local function CreatePanel(name, titleText)
 end
 
 local function CreateSubtitle(panel, text)
-    local subtitle = panel:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+    local subtitle = GetPanelContent(panel):CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
     subtitle:SetPoint("TOPLEFT", panel.title, "BOTTOMLEFT", 0, -8)
     subtitle:SetWidth(430)
     subtitle:SetJustifyH("LEFT")
@@ -238,7 +292,7 @@ local function AnchorBelowHelp(check, anchor, indentLevel)
 end
 
 local function CreateModuleEnabledCheck(panel, name, moduleKey, label, anchor)
-    local check = CreateFrame("CheckButton", name, panel, "InterfaceOptionsCheckButtonTemplate")
+    local check = CreateFrame("CheckButton", name, GetPanelContent(panel), "InterfaceOptionsCheckButtonTemplate")
     check:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -12)
     check.moduleKey = moduleKey
 
@@ -253,7 +307,7 @@ local function CreateModuleEnabledCheck(panel, name, moduleKey, label, anchor)
 end
 
 local function CreateModuleSettingCheck(panel, name, moduleKey, settingKey, label, anchor, indentLevel)
-    local check = CreateFrame("CheckButton", name, panel, "InterfaceOptionsCheckButtonTemplate")
+    local check = CreateFrame("CheckButton", name, GetPanelContent(panel), "InterfaceOptionsCheckButtonTemplate")
     SetOptionIndentLevel(check, indentLevel or GetOptionIndentLevel(anchor))
     check:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", GetOptionIndentOffset(check, anchor), -12)
     check.moduleKey = moduleKey
@@ -270,7 +324,7 @@ local function CreateModuleSettingCheck(panel, name, moduleKey, settingKey, labe
 end
 
 local function CreateAddonSettingCheck(panel, name, settingKey, label, anchor)
-    local check = CreateFrame("CheckButton", name, panel, "InterfaceOptionsCheckButtonTemplate")
+    local check = CreateFrame("CheckButton", name, GetPanelContent(panel), "InterfaceOptionsCheckButtonTemplate")
     check:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -12)
     check.settingKey = settingKey
 
@@ -292,11 +346,12 @@ local function SetSettingCheckEnabledWhen(check, moduleKey, settingKey)
 end
 
 local function CreateModuleDropdown(panel, name, moduleKey, settingKey, label, options, anchor, indentLevel)
+    local content = GetPanelContent(panel)
     local dropdownIndentAnchor = anchor
-    local labelText = panel:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+    local labelText = content:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
     labelText:SetText(label)
 
-    local dropdown = CreateFrame("Frame", name, panel, "UIDropDownMenuTemplate")
+    local dropdown = CreateFrame("Frame", name, content, "UIDropDownMenuTemplate")
     SetOptionIndentLevel(dropdown, indentLevel or GetOptionIndentLevel(anchor))
     labelText:SetPoint(
         "TOPLEFT",
@@ -315,7 +370,7 @@ local function CreateModuleDropdown(panel, name, moduleKey, settingKey, label, o
     dropdown.optionHelpLeftOffset = 0
     dropdown.optionHelpNextOffset = 0
 
-    local helpPointAnchor = CreateFrame("Frame", nil, panel)
+    local helpPointAnchor = CreateFrame("Frame", nil, content)
     helpPointAnchor:SetSize(1, 1)
     helpPointAnchor:SetPoint("TOPLEFT", dropdown, "BOTTOMLEFT", 16, 0)
     dropdown.optionHelpPointAnchor = helpPointAnchor
@@ -344,12 +399,13 @@ local function CreateModuleDropdown(panel, name, moduleKey, settingKey, label, o
 end
 
 local function CreateHelpText(panel, text, anchor)
-    local help = panel:CreateFontString(nil, "ARTWORK", "GameFontDisableSmall")
+    local content = GetPanelContent(panel)
+    local help = content:CreateFontString(nil, "ARTWORK", "GameFontDisableSmall")
     local textAnchor = anchor.optionHelpTextAnchor or GetCheckText(anchor) or anchor
     local checkWidth = anchor.GetWidth and anchor:GetWidth() or 0
     local textLeftOffset = anchor.optionHelpLeftOffset
         or (checkWidth > 0 and checkWidth + CHECK_TEXT_OFFSET_X or CHECK_TEXT_LEFT_FALLBACK)
-    local bottomAnchor = CreateFrame("Frame", nil, panel)
+    local bottomAnchor = CreateFrame("Frame", nil, content)
     local nextOffset = anchor.optionHelpNextOffset or 0
 
     help:SetPoint("TOPLEFT", anchor.optionHelpPointAnchor or anchor.optionHelpBottomAnchor or textAnchor, "BOTTOMLEFT", 0, -5)
@@ -359,6 +415,7 @@ local function CreateHelpText(panel, text, anchor)
     bottomAnchor:SetSize(1, 1)
     bottomAnchor:SetPoint("TOPLEFT", help, "BOTTOMLEFT", -textLeftOffset, nextOffset)
     anchor.optionHelpBottomAnchor = bottomAnchor
+    panel.optionBottomAnchor = bottomAnchor
 
     if anchor.GetChecked and anchor.SetChecked then
         CreateHelpClickTarget(help, anchor)
@@ -861,8 +918,9 @@ function VanillaEnhanced:RefreshOptions()
     end
 end
 
-local function RefreshOnShow()
+local function RefreshOnShow(panel)
     VanillaEnhanced:RefreshOptions()
+    UpdatePanelScrollContentSize(panel)
 end
 
 mainPanel:SetScript("OnShow", RefreshOnShow)
