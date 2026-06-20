@@ -35,6 +35,7 @@ src\quests\pin-markers.lua
 src\quests\pin-minimap-areas.lua
 src\quests\pin-clusters.lua
 src\quests\pins.lua
+src\quests\available-events.lua
 src\quests\available-eligibility.lua
 src\quests\available.lua
 src\quests\refresh.lua
