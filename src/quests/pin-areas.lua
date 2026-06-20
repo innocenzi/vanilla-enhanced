@@ -137,6 +137,34 @@ local function ShouldRevealArea(frame)
         or (Quests.selectedQuestAreaQuestId and data.questId == Quests.selectedQuestAreaQuestId)
 end
 
+local function PinDataMatchesQuestId(data, questId)
+    if not data or not questId then
+        return false
+    end
+
+    if data.questId == questId then
+        return true
+    end
+
+    if data.entries then
+        for _, entry in ipairs(data.entries) do
+            if entry.data and entry.data.questId == questId then
+                return true
+            end
+        end
+    end
+
+    return false
+end
+
+local function ShouldHighlightMarker(frame)
+    if not frame or frame.kind ~= "marker" then
+        return false
+    end
+
+    return PinDataMatchesQuestId(frame.questsData, Quests.selectedQuestAreaQuestId)
+end
+
 local function ConfigurePolygonArea(frame, cluster)
     local settings = Quests:GetSettings()
     local color = AREA_COLOR
@@ -250,9 +278,29 @@ function Quests:RefreshQuestAreaVisibility(targetFrame)
     end
 end
 
+function Quests:RefreshQuestMarkerHighlights(targetFrame)
+    if targetFrame then
+        if self.SetPinMarkerHighlighted then
+            self:SetPinMarkerHighlighted(targetFrame, ShouldHighlightMarker(targetFrame))
+        end
+        return
+    end
+
+    if not self.SetPinMarkerHighlighted then
+        return
+    end
+
+    for _, frame in ipairs(self.frames) do
+        if frame.kind == "marker" then
+            self:SetPinMarkerHighlighted(frame, ShouldHighlightMarker(frame))
+        end
+    end
+end
+
 function Quests:SetSelectedQuestAreaQuest(questId)
     self.selectedQuestAreaQuestId = questId
     self:RefreshQuestAreaVisibility()
+    self:RefreshQuestMarkerHighlights()
 end
 
 function Quests:ConfigureWorldMapPinArea(frame, cluster)

@@ -242,6 +242,9 @@ function Quests:RenderMarkerGroups()
                 marker.x = nil
                 marker.y = nil
             end
+            if self.RefreshQuestMarkerHighlights then
+                self:RefreshQuestMarkerHighlights(marker)
+            end
             self.hbdPins:AddWorldMapIconMap(self, marker, uiMapId, group.x / 100, group.y / 100, showFlag)
             self:TrackWorldMapPinFrame(marker)
         end
