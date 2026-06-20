@@ -39,6 +39,7 @@ src\quests\available-events.lua
 src\quests\available-player.lua
 src\quests\available-prerequisites.lua
 src\quests\available-filters.lua
+src\quests\available-evaluator.lua
 src\quests\available-eligibility.lua
 src\quests\available.lua
 src\quests\refresh.lua

@@ -37,11 +37,12 @@ end
 
 local function RebuildAvailableQuestCache(self, quests, settings)
     local active, completed = self:BuildAvailableQuestState(quests)
-    local context = self:BuildAvailableQuestEligibilityContext(settings)
+    local context = self:BuildAvailableQuestEvaluatorContext(settings, active, completed)
+    local evaluator = self:CreateAvailableQuestEvaluator(context)
     local questIds = {}
 
     for questId, dbQuest in pairs(VanillaEnhancedQuestsDB.quests) do
-        if self:IsQuestAvailable(questId, dbQuest, active, completed, context) then
+        if evaluator:IsEligible(questId, dbQuest) then
             questIds[#questIds + 1] = questId
         end
     end
