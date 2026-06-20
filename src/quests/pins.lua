@@ -907,7 +907,11 @@ local function ConfigureMinimapArea(frame, uiMapId, cluster)
         ConfigureMinimapCircleArea(frame, cluster, xScale or 0, yScale or 0, minimapRadius or 0)
     end
 
-    frame:EnableMouse(false)
+    frame.questsPassThroughClicks = true
+    frame:EnableMouse(true)
+    if frame.SetPropagateMouseClicks then
+        frame:SetPropagateMouseClicks(true)
+    end
 end
 
 local function ConfigureArea(frame, cluster, quest, kind)
