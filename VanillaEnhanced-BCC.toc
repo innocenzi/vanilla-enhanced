@@ -30,6 +30,7 @@ src\quests\pin-data.lua
 src\quests\pin-tooltips.lua
 src\quests\pin-frames.lua
 src\quests\pin-areas.lua
+src\quests\pin-markers.lua
 src\quests\pins.lua
 src\quests\available.lua
 src\quests\refresh.lua

@@ -1,6 +1,11 @@
 local VanillaEnhanced = _G.VanillaEnhanced
 local Quests = VanillaEnhanced:GetModule("quests")
 
+local MARKER_FRAME_SIZE = 16
+local MARKER_COLOR = { 1, 0.82, 0.15 }
+local MARKER_FONT_SIZE = 9
+local MARKER_ICON_SIZE = 12
+
 Quests.frames = Quests.frames or {}
 Quests.minimapFrames = Quests.minimapFrames or {}
 Quests.pool = Quests.pool or {
@@ -41,6 +46,37 @@ local function ReleasePinFrame(self, frame)
     self.pool[frame.poolKind][#self.pool[frame.poolKind] + 1] = frame
 end
 
+local function HideTextures(textures)
+    if not textures then
+        return
+    end
+
+    for _, texture in ipairs(textures) do
+        texture:Hide()
+    end
+end
+
+local function ConfigureMarkerFrame(frame, settings, resizeFrame)
+    local size = math.max(12, math.floor(MARKER_FRAME_SIZE * (settings.scale or 1)))
+
+    if resizeFrame then
+        frame:SetSize(size, size)
+    end
+    frame.background:Hide()
+end
+
+local function ConfigureMarkerText(fontString, symbol, settings, opacityMultiplier, color)
+    local opacity = (settings.opacity or 1) * (opacityMultiplier or 1)
+    color = color or MARKER_COLOR
+
+    fontString:Show()
+    fontString:SetText(tostring(symbol))
+    fontString:SetTextColor(color[1], color[2], color[3], opacity)
+    fontString:SetFont(STANDARD_TEXT_FONT, math.max(8, math.floor(MARKER_FONT_SIZE * (settings.scale or 1))), "OUTLINE")
+    fontString:SetShadowColor(0, 0, 0, 0.9)
+    fontString:SetShadowOffset(1, -1)
+end
+
 function Quests:AcquirePinFrame(kind, poolKind, parent)
     local frame = table.remove(self.pool[poolKind])
     if frame then
@@ -79,6 +115,32 @@ end
 
 function Quests:TrackMinimapPinFrame(frame)
     self.minimapFrames[#self.minimapFrames + 1] = frame
+end
+
+function Quests:ConfigurePinSymbol(frame, symbol, opacityMultiplier, color)
+    local settings = self:GetSettings()
+
+    ConfigureMarkerFrame(frame, settings, true)
+    frame.texture:Hide()
+    HideTextures(frame.lines)
+    HideTextures(frame.fills)
+    ConfigureMarkerText(frame.text, symbol, settings, opacityMultiplier, color)
+end
+
+function Quests:ConfigurePinIcon(frame, texture)
+    local settings = self:GetSettings()
+    local size = math.max(10, math.floor(MARKER_ICON_SIZE * (settings.scale or 1)))
+
+    ConfigureMarkerFrame(frame, settings, true)
+    HideTextures(frame.lines)
+    HideTextures(frame.fills)
+    frame.text:SetText("")
+    frame.texture:Show()
+    frame.texture:SetTexture(texture)
+    frame.texture:ClearAllPoints()
+    frame.texture:SetSize(size, size)
+    frame.texture:SetPoint("CENTER", frame, "CENTER", 0, 0)
+    frame.texture:SetVertexColor(1, 1, 1, settings.opacity or 1)
 end
 
 function Quests:ClearPins()

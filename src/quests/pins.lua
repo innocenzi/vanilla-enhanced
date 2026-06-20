@@ -12,9 +12,6 @@ local ICON_TEXTURES = {
 
 local PARENT_MAP_ICON_MERGE_DISTANCE = 13
 local MARKER_FRAME_SIZE = 16
-local MARKER_COLOR = { 1, 0.82, 0.15 }
-local MARKER_FONT_SIZE = 9
-local MARKER_ICON_SIZE = 12
 local AREA_COLOR = { 0.5, 0.7, 0.9 }
 local AREA_FILL_STEP = 4
 local AREA_OUTLINE_THICKNESS = 1.5
@@ -22,9 +19,7 @@ local MINIMAP_AREA_MIN_SIZE = 14
 local MINIMAP_AREA_PADDING = 6
 local MINIMAP_AREA_CLIP_PADDING = 3
 local MINIMAP_AREA_CLIP_SEGMENTS = 48
-local MARKER_CLUSTER_PIXEL_DISTANCE = 18
 local WHITE_TEXTURE = [[Interface\Buttons\WHITE8X8]]
-local WORLD_MAP_ID = 947
 local MINIMAP_SIZE = {
     indoor = {
         [0] = 300,
@@ -174,18 +169,6 @@ local function MergeIconClusters(uiMapId, clusters)
     return merged
 end
 
-local function ConfigureMarkerText(fontString, symbol, settings, opacityMultiplier, color)
-    local opacity = (settings.opacity or 1) * (opacityMultiplier or 1)
-    color = color or MARKER_COLOR
-
-    fontString:Show()
-    fontString:SetText(tostring(symbol))
-    fontString:SetTextColor(color[1], color[2], color[3], opacity)
-    fontString:SetFont(STANDARD_TEXT_FONT, math.max(8, math.floor(MARKER_FONT_SIZE * (settings.scale or 1))), "OUTLINE")
-    fontString:SetShadowColor(0, 0, 0, 0.9)
-    fontString:SetShadowOffset(1, -1)
-end
-
 local function HideMarkerText(fontString)
     fontString:SetText("")
     fontString:Hide()
@@ -200,32 +183,6 @@ local function ConfigureMarkerFrame(frame, settings, resizeFrame)
         frame:SetSize(size, size)
     end
     frame.background:Hide()
-end
-
-local function ConfigureSymbol(frame, symbol, opacityMultiplier, color)
-    local settings = Quests:GetSettings()
-
-    ConfigureMarkerFrame(frame, settings, true)
-    frame.texture:Hide()
-    HideTextures(frame.lines)
-    HideTextures(frame.fills)
-    ConfigureMarkerText(frame.text, symbol, settings, opacityMultiplier, color)
-end
-
-local function ConfigureIcon(frame, texture)
-    local settings = Quests:GetSettings()
-    local size = math.max(10, math.floor(MARKER_ICON_SIZE * (settings.scale or 1)))
-
-    ConfigureMarkerFrame(frame, settings, true)
-    HideTextures(frame.lines)
-    HideTextures(frame.fills)
-    frame.text:SetText("")
-    frame.texture:Show()
-    frame.texture:SetTexture(texture)
-    frame.texture:ClearAllPoints()
-    frame.texture:SetSize(size, size)
-    frame.texture:SetPoint("CENTER", frame, "CENTER", 0, 0)
-    frame.texture:SetVertexColor(1, 1, 1, settings.opacity or 1)
 end
 
 function HideTextures(textures)
@@ -625,239 +582,8 @@ local function ConfigureMinimapArea(frame, uiMapId, cluster)
     end
 end
 
-local function MarkerCandidateDistance(a, b, xScale, yScale)
-    return math.sqrt(((((a.x or 0) - (b.x or 0)) * xScale) ^ 2) + ((((a.y or 0) - (b.y or 0)) * yScale) ^ 2))
-end
-
 local function GetMarkerSymbol(kind, fallback)
     return MARKER_SYMBOLS[kind] or fallback
-end
-
-local function AddUniqueAreaFrame(areaFrames, area)
-    if not area then
-        return
-    end
-
-    for _, existing in ipairs(areaFrames) do
-        if existing == area then
-            return
-        end
-    end
-
-    areaFrames[#areaFrames + 1] = area
-end
-
-local function AddMarkerToGroup(group, candidate)
-    local count = #group.entries
-
-    group.x = ((group.x * count) + candidate.x) / (count + 1)
-    group.y = ((group.y * count) + candidate.y) / (count + 1)
-    group.entries[#group.entries + 1] = candidate
-    AddUniqueAreaFrame(group.areaFrames, candidate.areaFrame)
-end
-
-local function GroupContainsChildMapEntries(group, uiMapId)
-    for _, entry in ipairs(group.entries) do
-        if entry.uiMapId ~= uiMapId then
-            return true
-        end
-    end
-    return false
-end
-
-local function SetMarkerPassThroughClicks(frame, passThrough)
-    frame.questsPassThroughClicks = passThrough == true
-
-    if frame.SetPropagateMouseClicks then
-        frame:EnableMouse(true)
-        frame:SetPropagateMouseClicks(passThrough == true)
-    else
-        frame:EnableMouse(passThrough ~= true)
-    end
-end
-
-local function BuildCombinedMarkerSymbol(entries)
-    local hasTurnin
-    local hasAvailable
-    local hasOther
-    local fallbackSymbol
-
-    for _, entry in ipairs(entries) do
-        if entry.symbol == MARKER_SYMBOLS.turnin then
-            hasTurnin = true
-        elseif entry.symbol == MARKER_SYMBOLS.available then
-            hasAvailable = true
-        else
-            hasOther = true
-            fallbackSymbol = fallbackSymbol or entry.symbol
-        end
-    end
-
-    local symbol = ""
-    if hasTurnin then
-        symbol = symbol .. MARKER_SYMBOLS.turnin
-    end
-    if hasAvailable then
-        symbol = symbol .. MARKER_SYMBOLS.available
-    end
-    if hasOther then
-        if symbol ~= "" then
-            symbol = symbol .. "+"
-        elseif #entries == 1 then
-            symbol = fallbackSymbol or "+"
-        else
-            symbol = "+"
-        end
-    end
-
-    return symbol ~= "" and symbol or "+"
-end
-
-local function FindFirstQuestId(entries)
-    for _, entry in ipairs(entries) do
-        if entry.data and entry.data.questId then
-            return entry.data.questId
-        end
-    end
-    return nil
-end
-
-local function BuildCombinedMarkerData(entries)
-    return {
-        questId = FindFirstQuestId(entries),
-        entries = entries,
-    }
-end
-
-function Quests:AddMarkerCandidate(uiMapId, x, y, data, symbol, areaFrame, opacityMultiplier, color, texture)
-    self.markerCandidates = self.markerCandidates or {}
-
-    self.markerCandidates[#self.markerCandidates + 1] = {
-        uiMapId = uiMapId,
-        x = x,
-        y = y,
-        data = data,
-        symbol = symbol,
-        areaFrame = areaFrame,
-        opacityMultiplier = opacityMultiplier,
-        color = color,
-        texture = texture,
-    }
-end
-
-local function BuildMarkerRenderCandidate(candidate, currentMapId)
-    local renderCandidate = {
-        uiMapId = candidate.uiMapId,
-        renderMapId = candidate.uiMapId,
-        x = candidate.x,
-        y = candidate.y,
-        data = candidate.data,
-        symbol = candidate.symbol,
-        areaFrame = candidate.areaFrame,
-        opacityMultiplier = candidate.opacityMultiplier,
-        color = candidate.color,
-        texture = candidate.texture,
-    }
-
-    if currentMapId and Quests.hbd and Quests.hbd.TranslateZoneCoordinates then
-        local displayX, displayY = Quests.hbd:TranslateZoneCoordinates(
-            (candidate.x or 0) / 100,
-            (candidate.y or 0) / 100,
-            candidate.uiMapId,
-            currentMapId,
-            false
-        )
-
-        if displayX and displayY then
-            renderCandidate.renderMapId = currentMapId
-            renderCandidate.x = displayX * 100
-            renderCandidate.y = displayY * 100
-        end
-    end
-
-    return renderCandidate
-end
-
-local function AddMarkerRenderCandidate(groupsByMap, candidate, xScale, yScale)
-    local groups = groupsByMap[candidate.renderMapId]
-    if not groups then
-        groups = {}
-        groupsByMap[candidate.renderMapId] = groups
-    end
-
-    for _, group in ipairs(groups) do
-        if MarkerCandidateDistance(group, candidate, xScale, yScale) <= MARKER_CLUSTER_PIXEL_DISTANCE then
-            AddMarkerToGroup(group, candidate)
-            return
-        end
-    end
-
-    groups[#groups + 1] = {
-        x = candidate.x,
-        y = candidate.y,
-        entries = { candidate },
-        areaFrames = {},
-    }
-    AddUniqueAreaFrame(groups[#groups].areaFrames, candidate.areaFrame)
-end
-
-function Quests:RenderMarkerGroups()
-    if not self.hbdPins or not self.markerCandidates then
-        return
-    end
-
-    local currentMapId = GetCurrentMapId()
-    local xScale, yScale = self:GetWorldMapPixelScale()
-    local groupsByMap = {}
-
-    for _, candidate in ipairs(self.markerCandidates) do
-        AddMarkerRenderCandidate(groupsByMap, BuildMarkerRenderCandidate(candidate, currentMapId), xScale, yScale)
-    end
-
-    for uiMapId, groups in pairs(groupsByMap) do
-        local showFlag = currentMapId and uiMapId == currentMapId
-            and (HBD_PINS_WORLDMAP_SHOW_CURRENT or -1)
-            or (HBD_PINS_WORLDMAP_SHOW_WORLD or 3)
-        for _, group in ipairs(groups) do
-            local marker = self:AcquirePinFrame("marker", "marker", WorldMapFrame)
-            local first = group.entries[1]
-
-            marker.questsAreaFrame = nil
-            marker.questsAreaFrames = nil
-            SetMarkerPassThroughClicks(marker, currentMapId and uiMapId == currentMapId and GroupContainsChildMapEntries(group, uiMapId))
-
-            if #group.entries == 1 then
-                marker.questsData = first.data
-                marker.questsAreaFrame = first.areaFrame
-                if first.texture then
-                    ConfigureIcon(marker, first.texture)
-                else
-                    ConfigureSymbol(marker, first.symbol, first.opacityMultiplier, first.color)
-                end
-            else
-                local symbol = BuildCombinedMarkerSymbol(group.entries)
-
-                marker.questsData = BuildCombinedMarkerData(group.entries)
-                if #group.areaFrames > 0 then
-                    marker.questsAreaFrames = group.areaFrames
-                end
-                ConfigureSymbol(marker, symbol)
-            end
-
-            if uiMapId == WORLD_MAP_ID and currentMapId == WORLD_MAP_ID then
-                -- HBD's world-map path can use explicit Azeroth map coordinates from the icon.
-                marker.UiMapID = WORLD_MAP_ID
-                marker.x = group.x
-                marker.y = group.y
-            else
-                marker.UiMapID = nil
-                marker.x = nil
-                marker.y = nil
-            end
-            self.hbdPins:AddWorldMapIconMap(self, marker, uiMapId, group.x / 100, group.y / 100, showFlag)
-            self:TrackWorldMapPinFrame(marker)
-        end
-    end
 end
 
 function Quests:AddPins(uiMapId, clusters, quest)
@@ -939,9 +665,9 @@ function Quests:AddMinimapPin(uiMapId, x, y, quest, cluster)
     local marker = self:AcquirePinFrame("marker", "minimapMarker", Minimap)
     marker.questsData = pinData
     if ICON_TEXTURES[kind] then
-        ConfigureIcon(marker, ICON_TEXTURES[kind])
+        self:ConfigurePinIcon(marker, ICON_TEXTURES[kind])
     else
-        ConfigureSymbol(marker, MARKER_SYMBOLS[kind] or quest.number)
+        self:ConfigurePinSymbol(marker, MARKER_SYMBOLS[kind] or quest.number)
     end
 
     marker:Hide()
