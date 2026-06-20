@@ -44,6 +44,17 @@ local function FindApi(namespace, methodName)
     return nil
 end
 
+local function CacheApi(cache, namespace, methodName)
+    local cached = cache[methodName]
+    if cached ~= nil then
+        return cached ~= false and cached or nil
+    end
+
+    local api = FindApi(namespace, methodName)
+    cache[methodName] = api or false
+    return api
+end
+
 local function PackReturns(keys, ...)
     local first = ...
     if first == nil then
@@ -60,12 +71,15 @@ local function PackReturns(keys, ...)
     return info
 end
 
+local containerApiCache = {}
+local itemApiCache = {}
+
 function Api:FindContainer(methodName)
-    return FindApi(C_Container, methodName)
+    return CacheApi(containerApiCache, C_Container, methodName)
 end
 
 function Api:FindItem(methodName)
-    return FindApi(C_Item, methodName)
+    return CacheApi(itemApiCache, C_Item, methodName)
 end
 
 function Api:HasManualSortApis()

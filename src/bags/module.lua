@@ -7,6 +7,7 @@ local defaults = {
     showSortButton = true,
     sortOrder = "category",
     autoSortAfterLoot = false,
+    autoSortAfterLootMode = "tidy",
     autoSortOnOpen = false,
 }
 
