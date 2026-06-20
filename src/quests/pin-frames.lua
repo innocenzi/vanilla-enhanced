@@ -7,6 +7,8 @@ local MARKER_FONT_SIZE = 9
 local MARKER_ICON_SIZE = 12
 local MARKER_SHADOW_COLOR = { 0, 0, 0, 0.9 }
 local SELECTED_MARKER_COLOR = { 1, 1, 1 }
+local WORLD_MAP_MARKER_FRAME_LEVEL_OFFSET = 100
+local MINIMAP_MARKER_FRAME_LEVEL_OFFSET = 80
 
 Quests.frames = Quests.frames or {}
 Quests.minimapFrames = Quests.minimapFrames or {}
@@ -56,6 +58,16 @@ local function HideTextures(textures)
 
     for _, texture in ipairs(textures) do
         texture:Hide()
+    end
+end
+
+local function IsWorldMapMarkerFrame(frame)
+    return frame and frame.poolKind == "marker"
+end
+
+local function SafeFrameCall(method, owner, ...)
+    if method and owner then
+        pcall(method, owner, ...)
     end
 end
 
@@ -112,6 +124,11 @@ function Quests:AcquirePinFrame(kind, poolKind, parent)
     frame:SetScript("OnClick", function(self)
         Quests:OpenPinQuestLog(self)
     end)
+    frame:SetScript("OnShow", function(self)
+        if IsWorldMapMarkerFrame(self) then
+            Quests:RaiseWorldMapMarkerFrame(self)
+        end
+    end)
     frame:RegisterForClicks("LeftButtonUp")
     frame:EnableMouse(true)
     return frame
@@ -123,6 +140,50 @@ end
 
 function Quests:TrackMinimapPinFrame(frame)
     self.minimapFrames[#self.minimapFrames + 1] = frame
+end
+
+function Quests:RaiseWorldMapMarkerFrame(frame)
+    if not IsWorldMapMarkerFrame(frame) then
+        return
+    end
+
+    local pin = frame.GetParent and frame:GetParent()
+    if not pin or pin == UIParent or pin == WorldMapFrame then
+        return
+    end
+
+    if pin.SetFrameStrata then
+        SafeFrameCall(pin.SetFrameStrata, pin, "HIGH")
+    end
+    if frame.SetFrameStrata then
+        SafeFrameCall(frame.SetFrameStrata, frame, "HIGH")
+    end
+    if pin.SetFrameLevel and pin.GetFrameLevel then
+        local pinLevel = (pin:GetFrameLevel() or 0) + WORLD_MAP_MARKER_FRAME_LEVEL_OFFSET
+
+        SafeFrameCall(pin.SetFrameLevel, pin, pinLevel)
+        if frame.SetFrameLevel then
+            SafeFrameCall(frame.SetFrameLevel, frame, pinLevel + 1)
+        end
+    end
+end
+
+function Quests:RaiseMinimapMarkerFrame(frame)
+    if not frame then
+        return
+    end
+
+    if frame.SetFrameStrata then
+        SafeFrameCall(frame.SetFrameStrata, frame, "HIGH")
+    end
+    if frame.SetFrameLevel then
+        local baseLevel = 0
+
+        if Minimap and Minimap.GetFrameLevel then
+            baseLevel = Minimap:GetFrameLevel() or 0
+        end
+        SafeFrameCall(frame.SetFrameLevel, frame, baseLevel + MINIMAP_MARKER_FRAME_LEVEL_OFFSET)
+    end
 end
 
 function Quests:ConfigurePinSymbol(frame, symbol, opacityMultiplier, color)

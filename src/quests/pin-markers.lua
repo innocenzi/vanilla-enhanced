@@ -273,6 +273,7 @@ function Quests:RenderMarkerGroups()
                 self:RefreshQuestMarkerHighlights(marker)
             end
             self.hbdPins:AddWorldMapIconMap(self, marker, uiMapId, group.x / 100, group.y / 100, showFlag)
+            self:RaiseWorldMapMarkerFrame(marker)
             self:TrackWorldMapPinFrame(marker)
         end
     end

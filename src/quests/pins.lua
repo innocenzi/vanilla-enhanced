@@ -76,6 +76,7 @@ function Quests:AddMinimapPin(uiMapId, x, y, quest, cluster)
     end
 
     marker:Hide()
+    self:RaiseMinimapMarkerFrame(marker)
     self.hbdPins:AddMinimapIconMap(self, marker, uiMapId, x / 100, y / 100, true, false)
     self:TrackMinimapPinFrame(marker)
 end
@@ -146,6 +147,7 @@ function Quests:AddAvailableMinimapPin(uiMapId, x, y, questId, dbQuest, cluster,
     marker.questsData = self:BuildAvailableQuestPinData(questId, dbQuest)
     self:ConfigurePinSymbol(marker, self:GetPinMarkerSymbol(cluster.k, self:GetPinMarkerSymbol("available")), opacityMultiplier, color)
     marker:Hide()
+    self:RaiseMinimapMarkerFrame(marker)
     self.hbdPins:AddMinimapIconMap(self, marker, uiMapId, x / 100, y / 100, true, false)
     self:TrackMinimapPinFrame(marker)
 end
