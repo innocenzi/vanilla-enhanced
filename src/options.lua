@@ -556,15 +556,36 @@ CreateHelpText(
     T("options.bags.autoSortAfterLoot.help"),
     bagsAutoSortAfterLootCheck
 )
+local bagsAutoSortAfterLootModeDropdown = CreateModuleDropdown(
+    bagsPanel,
+    "VanillaEnhancedOptionsBagsAutoSortAfterLootMode",
+    "bags",
+    "autoSortAfterLootMode",
+    T("options.bags.autoSortAfterLootMode.label"),
+    {
+        { value = "tidy", label = T("options.bags.autoSortAfterLootMode.tidy") },
+        { value = "full", label = T("options.bags.autoSortAfterLootMode.full") },
+    },
+    bagsAutoSortAfterLootCheck
+)
+bagsAutoSortAfterLootModeDropdown.enabledWhen = function()
+    return IsSettingEnabled("bags", "sortEnabled")
+        and IsSettingEnabled("bags", "autoSortAfterLoot")
+end
+CreateHelpText(
+    bagsPanel,
+    T("options.bags.autoSortAfterLootMode.help"),
+    bagsAutoSortAfterLootModeDropdown
+)
 local bagsAutoSortOnOpenCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
     bagsPanel,
     "VanillaEnhancedOptionsBagsAutoSortOnOpen",
     "bags",
     "autoSortOnOpen",
     T("options.bags.autoSortOnOpen.label"),
-    bagsAutoSortAfterLootCheck
+    bagsAutoSortAfterLootModeDropdown
 ), "bags", "sortEnabled")
-AnchorBelowHelp(bagsAutoSortOnOpenCheck, bagsAutoSortAfterLootCheck)
+AnchorBelowHelp(bagsAutoSortOnOpenCheck, bagsAutoSortAfterLootModeDropdown)
 CreateHelpText(
     bagsPanel,
     T("options.bags.autoSortOnOpen.help"),
