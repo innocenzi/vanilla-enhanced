@@ -270,13 +270,15 @@ local function FindNextMove(groups)
     return nil, nil, nil
 end
 
-function Bags:SortItems()
+function Bags:SortItems(suppressErrors)
     if not self:IsSortEnabled() then
         return
     end
 
     if self.sorting then
-        self:PrintMessage(T("bags.sort.errorRunning"))
+        if not suppressErrors then
+            self:PrintMessage(T("bags.sort.errorRunning"))
+        end
         return
     end
 
@@ -284,7 +286,7 @@ function Bags:SortItems()
         return
     end
 
-    self:StartManualSort()
+    self:StartManualSort(suppressErrors)
 end
 
 function Bags:QueueAutoSort(reason)
@@ -306,7 +308,7 @@ function Bags:QueueAutoSort(reason)
                 reason = LocalizedSortReason(Bags.pendingAutoSortReason),
             }))
             Bags.pendingAutoSortReason = nil
-            Bags:SortItems()
+            Bags:SortItems(true)
         end
     end)
 end
@@ -318,7 +320,10 @@ function Bags:ClearAutoSort()
 end
 
 function Bags:StopManualSort(message)
+    local suppressErrors = self.suppressSortErrors == true
+
     self.sorting = false
+    self.suppressSortErrors = nil
     self.sortWaiting = false
     self.sortWaitElapsed = 0
     self.lockWaitStarted = nil
@@ -328,24 +333,33 @@ function Bags:StopManualSort(message)
     self:SetSortButtonBusy(false)
     self:QueueUpdate()
 
-    if message then
+    if message and not suppressErrors then
         self:PrintMessage(message)
     end
 end
 
-function Bags:StartManualSort()
+function Bags:StartManualSort(suppressErrors)
+    self.suppressSortErrors = suppressErrors == true
+
     if not self:IsSortEnabled() then
         self:ClearAutoSort()
+        self.suppressSortErrors = nil
         return
     end
 
     if not self.Api or not self.Api:HasManualSortApis() then
-        self:PrintMessage(T("bags.sort.errorUnavailableClient"))
+        if not self.suppressSortErrors then
+            self:PrintMessage(T("bags.sort.errorUnavailableClient"))
+        end
+        self.suppressSortErrors = nil
         return
     end
 
     if self.Api:HasCursorItem() then
-        self:PrintMessage(T("bags.sort.errorCursor"))
+        if not self.suppressSortErrors then
+            self:PrintMessage(T("bags.sort.errorCursor"))
+        end
+        self.suppressSortErrors = nil
         return
     end
 
