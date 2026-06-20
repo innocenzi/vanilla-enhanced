@@ -28,6 +28,7 @@ src\quests\quest-tracker.lua
 src\quests\unit-tooltips.lua
 src\quests\pin-data.lua
 src\quests\pin-tooltips.lua
+src\quests\pin-frames.lua
 src\quests\pins.lua
 src\quests\available.lua
 src\quests\refresh.lua

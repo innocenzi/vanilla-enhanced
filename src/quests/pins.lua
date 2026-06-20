@@ -1,19 +1,6 @@
 local VanillaEnhanced = _G.VanillaEnhanced
 local Quests = VanillaEnhanced:GetModule("quests")
 
-Quests.frames = Quests.frames or {}
-Quests.minimapFrames = Quests.minimapFrames or {}
-Quests.pool = Quests.pool or {
-    area = {},
-    marker = {},
-    minimapArea = {},
-    minimapMarker = {},
-}
-Quests.pool.area = Quests.pool.area or {}
-Quests.pool.marker = Quests.pool.marker or {}
-Quests.pool.minimapArea = Quests.pool.minimapArea or {}
-Quests.pool.minimapMarker = Quests.pool.minimapMarker or {}
-
 local MARKER_SYMBOLS = {
     available = "!",
     turnin = "?",
@@ -784,49 +771,6 @@ local function ConfigureArea(frame, cluster, quest, kind)
     ConfigureCircleArea(frame, cluster.r, quest)
 end
 
-local function AcquireFrame(kind, poolKind, parent)
-    local frame = table.remove(Quests.pool[poolKind])
-    if frame then
-        frame.kind = kind
-        frame.poolKind = poolKind
-        frame.questsAreaFrame = nil
-        frame.questsAreaFrames = nil
-        frame.questsHovered = nil
-        frame.questsPassThroughClicks = nil
-        frame.UiMapID = nil
-        frame.x = nil
-        frame.y = nil
-        frame:SetAlpha(1)
-        frame:EnableMouse(true)
-        if frame.SetPropagateMouseClicks then
-            frame:SetPropagateMouseClicks(false)
-        end
-        frame:Show()
-        return frame
-    end
-
-    frame = CreateFrame("Button", nil, parent)
-    frame.kind = kind
-    frame.poolKind = poolKind
-    frame.background = frame:CreateTexture(nil, "ARTWORK")
-    frame.background:Hide()
-    frame.texture = frame:CreateTexture(nil, kind == "area" and "ARTWORK" or "OVERLAY")
-    frame.text = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-    frame.text:SetPoint("CENTER", frame, "CENTER", 0, 0)
-    frame:SetScript("OnEnter", function(self)
-        Quests:ShowPinTooltip(self)
-    end)
-    frame:SetScript("OnLeave", function(self)
-        Quests:HidePinTooltip(self)
-    end)
-    frame:SetScript("OnClick", function(self)
-        Quests:OpenPinQuestLog(self)
-    end)
-    frame:RegisterForClicks("LeftButtonUp")
-    frame:EnableMouse(true)
-    return frame
-end
-
 local function MarkerCandidateDistance(a, b, xScale, yScale)
     return math.sqrt(((((a.x or 0) - (b.x or 0)) * xScale) ^ 2) + ((((a.y or 0) - (b.y or 0)) * yScale) ^ 2))
 end
@@ -1021,7 +965,7 @@ function Quests:RenderMarkerGroups()
             and (HBD_PINS_WORLDMAP_SHOW_CURRENT or -1)
             or (HBD_PINS_WORLDMAP_SHOW_WORLD or 3)
         for _, group in ipairs(groups) do
-            local marker = AcquireFrame("marker", "marker", WorldMapFrame)
+            local marker = self:AcquirePinFrame("marker", "marker", WorldMapFrame)
             local first = group.entries[1]
 
             marker.questsAreaFrame = nil
@@ -1057,57 +1001,9 @@ function Quests:RenderMarkerGroups()
                 marker.y = nil
             end
             self.hbdPins:AddWorldMapIconMap(self, marker, uiMapId, group.x / 100, group.y / 100, showFlag)
-            self.frames[#self.frames + 1] = marker
+            self:TrackWorldMapPinFrame(marker)
         end
     end
-end
-
-function Quests:ClearPins()
-    if self.hbdPins then
-        for _, frame in ipairs(self.frames) do
-            self.hbdPins:RemoveWorldMapIcon(self, frame)
-            frame.questsData = nil
-            frame.questsAreaFrame = nil
-            frame.questsAreaFrames = nil
-            frame.questsHovered = nil
-            frame.questsPassThroughClicks = nil
-            frame.questsMinimapArea = nil
-            frame.questsMinimapBasePoints = nil
-            frame.questsMinimapAreaRadius = nil
-            frame.questsMinimapClipRadius = nil
-            frame:SetAlpha(1)
-            frame:EnableMouse(true)
-            frame:SetScript("OnUpdate", nil)
-            if frame.SetPropagateMouseClicks then
-                frame:SetPropagateMouseClicks(false)
-            end
-            frame:Hide()
-            self.pool[frame.poolKind][#self.pool[frame.poolKind] + 1] = frame
-        end
-        for _, frame in ipairs(self.minimapFrames) do
-            self.hbdPins:RemoveMinimapIcon(self, frame)
-            frame.questsData = nil
-            frame.questsAreaFrame = nil
-            frame.questsAreaFrames = nil
-            frame.questsHovered = nil
-            frame.questsPassThroughClicks = nil
-            frame.questsMinimapArea = nil
-            frame.questsMinimapBasePoints = nil
-            frame.questsMinimapAreaRadius = nil
-            frame.questsMinimapClipRadius = nil
-            frame:SetAlpha(1)
-            frame:EnableMouse(true)
-            frame:SetScript("OnUpdate", nil)
-            if frame.SetPropagateMouseClicks then
-                frame:SetPropagateMouseClicks(false)
-            end
-            frame:Hide()
-            self.pool[frame.poolKind][#self.pool[frame.poolKind] + 1] = frame
-        end
-    end
-    wipe(self.frames)
-    wipe(self.minimapFrames)
-    self.markerCandidates = {}
 end
 
 function Quests:AddPins(uiMapId, clusters, quest)
@@ -1156,14 +1052,14 @@ function Quests:AddMinimapArea(uiMapId, x, y, pinData, cluster)
         return nil
     end
 
-    local area = AcquireFrame("area", "minimapArea", Minimap)
+    local area = self:AcquirePinFrame("area", "minimapArea", Minimap)
     area.questsData = pinData
     area.questsHovered = false
     ConfigureMinimapArea(area, uiMapId, cluster)
 
     area:Hide()
     self.hbdPins:AddMinimapIconMap(self, area, uiMapId, x / 100, y / 100, true, true)
-    self.minimapFrames[#self.minimapFrames + 1] = area
+    self:TrackMinimapPinFrame(area)
     return area
 end
 
@@ -1186,7 +1082,7 @@ function Quests:AddMinimapPin(uiMapId, x, y, quest, cluster)
         return
     end
 
-    local marker = AcquireFrame("marker", "minimapMarker", Minimap)
+    local marker = self:AcquirePinFrame("marker", "minimapMarker", Minimap)
     marker.questsData = pinData
     if ICON_TEXTURES[kind] then
         ConfigureIcon(marker, ICON_TEXTURES[kind])
@@ -1196,7 +1092,7 @@ function Quests:AddMinimapPin(uiMapId, x, y, quest, cluster)
 
     marker:Hide()
     self.hbdPins:AddMinimapIconMap(self, marker, uiMapId, x / 100, y / 100, true, false)
-    self.minimapFrames[#self.minimapFrames + 1] = marker
+    self:TrackMinimapPinFrame(marker)
 end
 
 function Quests:AddPin(uiMapId, x, y, quest, cluster)
@@ -1210,12 +1106,12 @@ function Quests:AddPin(uiMapId, x, y, quest, cluster)
     local area
 
     if areaOnly or (cluster.r or 0) > 2 then
-        area = AcquireFrame("area", "area", WorldMapFrame)
+        area = self:AcquirePinFrame("area", "area", WorldMapFrame)
         area.questsData = pinData
         area.questsHovered = false
         ConfigureArea(area, cluster, quest, kind)
         self.hbdPins:AddWorldMapIconMap(self, area, uiMapId, x / 100, y / 100, HBD_PINS_WORLDMAP_SHOW_CURRENT or -1)
-        self.frames[#self.frames + 1] = area
+        self:TrackWorldMapPinFrame(area)
         self:RefreshQuestAreaVisibility(area)
     end
 
