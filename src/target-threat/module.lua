@@ -91,7 +91,7 @@ function TargetThreat:EnsureUI()
     local anchor = TargetFrameManaBar or TargetFrameHealthBar or parent
     local ui = CreateFrame("Frame", "VanillaEnhancedTargetThreatFrame", parent, BackdropTemplateMixin and "BackdropTemplate" or nil)
     ui:SetSize(58, 22)
-    ui:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", -2, -5)
+    ui:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", -2, -35)
     ui:SetFrameStrata(parent:GetFrameStrata() or "LOW")
     ui:SetFrameLevel((parent:GetFrameLevel() or 0) + 50)
     ui:Hide()
