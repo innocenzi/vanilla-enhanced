@@ -95,6 +95,7 @@ Do not package development-only files such as `.git`, `.agents`, `.release`, `no
 - Prefer existing addon helpers on `_G.VanillaEnhanced` for settings, modules, printing, and localization.
 - Keep modules independent where practical. Shared behavior belongs in `core.lua` only when it is genuinely common.
 - Localize player-facing strings through `src/localization.lua`.
+- Use proper French spelling with accents for new or edited `frFR` translations.
 - Keep generated quest data out of manual edits; update the generator instead.
 - Preserve embedded library files unless intentionally updating the library.
 - When changing runtime behavior, check the TOC load order and SavedVariables defaults.
@@ -102,6 +103,6 @@ Do not package development-only files such as `.git`, `.agents`, `.release`, `no
 
 ## Current Caveats
 
-- Some French strings in existing files appear mojibaked. Do not make broad encoding rewrites unless the task is specifically about localization cleanup.
+- Some French strings in existing files appear mojibaked. New or edited French translations should still use correct accents; do not make broad encoding rewrites unless the task is specifically about localization cleanup.
 - The addon is targeted at Burning Crusade Classic via `VanillaEnhanced-BCC.toc` and `## Interface: 20505`.
 - The GitHub README is meant for humans. Keep implementation notes here rather than in `README.md`.
