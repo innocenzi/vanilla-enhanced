@@ -21,7 +21,13 @@ local function GetAvailableQuestLevel(dbQuest)
         return nil
     end
 
-    return dbQuest.ql or dbQuest.rl
+    if dbQuest.ql and dbQuest.ql > 0 then
+        return dbQuest.ql
+    end
+    if dbQuest.rl and dbQuest.rl > 0 then
+        return dbQuest.rl
+    end
+    return nil
 end
 
 local function GetDbQuest(quest)
@@ -123,12 +129,13 @@ end
 function Quests:BuildAvailableQuestPinData(questId, dbQuest)
     local metadataLines = {}
 
-    local hasQuestLevel = dbQuest.ql and dbQuest.ql > 0
+    local questLevel = GetAvailableQuestLevel(dbQuest)
+    local hasQuestLevel = questLevel and questLevel > 0
     local questLabel = VanillaEnhanced:T("quests.static.available")
     local levelLabel
 
     if hasQuestLevel then
-        metadataLines[#metadataLines + 1] = VanillaEnhanced:T("quests.static.availableQuestLevel", { level = dbQuest.ql })
+        metadataLines[#metadataLines + 1] = VanillaEnhanced:T("quests.static.availableQuestLevel", { level = questLevel })
     elseif dbQuest.rl and dbQuest.rl > 0 then
         levelLabel = VanillaEnhanced:T("quests.static.requiresLevel", { level = dbQuest.rl })
     end

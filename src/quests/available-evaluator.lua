@@ -44,7 +44,7 @@ function AvailableQuestEvaluator:MeetsConfiguredLevelWindow(dbQuest)
         return true
     end
 
-    return self.owner:IsAvailableQuestAroundPlayerLevel(dbQuest, GetPlayerLevel(context))
+    return self.owner:IsAvailableQuestAroundPlayerLevel(dbQuest, GetPlayerLevel(context), context)
 end
 
 function AvailableQuestEvaluator:IsEligible(questId, dbQuest)
@@ -123,6 +123,8 @@ function Quests:BuildAvailableQuestEvaluatorContext(settings, active, completed,
 
     if settings then
         context.onlyAroundPlayerLevel = settings.onlyShowAvailableQuestsAroundPlayerLevel == true
+        context.availableQuestLevelsBelowPlayer = settings.availableQuestLevelsBelowPlayer
+        context.availableQuestLevelsAbovePlayer = settings.availableQuestLevelsAbovePlayer
     elseif context.onlyAroundPlayerLevel == nil then
         context.onlyAroundPlayerLevel = false
     end

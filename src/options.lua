@@ -4,6 +4,7 @@ local moduleChecks = {}
 local settingChecks = {}
 local addonSettingChecks = {}
 local dropdowns = {}
+local sliders = {}
 local OPTION_WITH_HELP_OFFSET = -15
 local OPTION_INDENT_WIDTH = 18
 local OPTION_HELP_WIDTH = 430
@@ -11,6 +12,8 @@ local CHECK_TEXT_OFFSET_X = 3
 local CHECK_TEXT_LEFT_FALLBACK = 27
 local SCROLL_BAR_WIDTH = 28
 local SCROLL_BOTTOM_PADDING = 24
+local SLIDER_THUMB_EDGE_PADDING = 13
+local SLIDER_VISIBLE_OFFSET_X = 10
 
 local function T(key, vars)
     return VanillaEnhanced:T(key, vars)
@@ -255,6 +258,100 @@ local function ApplyModuleDropdownSetting(moduleKey, settingKey, value)
     end
 end
 
+local function NormalizeSliderValue(value, minValue, maxValue, step, defaultValue)
+    minValue = tonumber(minValue) or 0
+    maxValue = tonumber(maxValue) or minValue
+    step = tonumber(step) or 1
+    defaultValue = tonumber(defaultValue)
+    if defaultValue == nil then
+        defaultValue = minValue
+    end
+
+    value = tonumber(value)
+    if value == nil then
+        value = defaultValue
+    end
+
+    if maxValue < minValue then
+        maxValue = minValue
+    end
+    if value < minValue then
+        value = minValue
+    elseif value > maxValue then
+        value = maxValue
+    end
+
+    if step > 0 then
+        value = minValue + (math.floor(((value - minValue) / step) + 0.5) * step)
+        if value < minValue then
+            value = minValue
+        elseif value > maxValue then
+            value = maxValue
+        end
+    end
+
+    return value
+end
+
+local function FormatSliderValue(slider, value)
+    if slider.valueKey then
+        return T(slider.valueKey, { value = value })
+    end
+    return tostring(value)
+end
+
+local function UpdateSliderValueText(slider, value)
+    if slider.valueText then
+        slider.valueText:SetText(FormatSliderValue(slider, value))
+    end
+end
+
+local function SetSliderTrackColor(slider, enabled)
+    if not slider.trackBackground then
+        return
+    end
+
+    local borderAlpha = enabled and 0.85 or 0.35
+    if slider.trackFill then
+        slider.trackFill:SetTexture("Interface\\Buttons\\WHITE8X8")
+        if slider.trackFill.SetVertexColor then
+            slider.trackFill:SetVertexColor(0, 0, 0, enabled and 0.55 or 0.35)
+        end
+    end
+    if slider.trackBorder then
+        for _, border in pairs(slider.trackBorder) do
+            border:SetTexture("Interface\\Buttons\\WHITE8X8")
+            if border.SetVertexColor then
+                border:SetVertexColor(0.65, 0.65, 0.6, borderAlpha * 0.75)
+            end
+        end
+    end
+    if slider.trackBackground.SetBackdropColor then
+        slider.trackBackground:SetBackdropColor(0, 0, 0, enabled and 0.55 or 0.35)
+    end
+    if slider.trackBackground.SetBackdropBorderColor then
+        slider.trackBackground:SetBackdropBorderColor(0.65, 0.65, 0.6, borderAlpha)
+    end
+
+    if slider.trackShine and slider.trackShine.SetVertexColor then
+        slider.trackShine:SetVertexColor(1, 1, 1, enabled and 0.12 or 0.04)
+    end
+end
+
+local function ApplyModuleSliderSetting(moduleKey, settingKey, value)
+    local settings = GetModuleOptionSettings(moduleKey)
+    settings[settingKey] = value
+
+    local module = VanillaEnhanced:GetModule(moduleKey)
+    if module and module.Update then
+        module:Update()
+    end
+
+    if VanillaEnhanced.RefreshOptions then
+        VanillaEnhanced:RefreshOptions()
+    end
+end
+
 local function SetCheckEnabled(check, enabled)
     if check.SetEnabled then
         check:SetEnabled(enabled)
@@ -267,6 +364,41 @@ local function SetCheckEnabled(check, enabled)
         if target.SetEnabled then
             target:SetEnabled(enabled)
         end
+    end
+end
+
+local function SetSliderEnabled(slider, enabled)
+    if slider.SetEnabled then
+        slider:SetEnabled(enabled)
+    elseif enabled and slider.Enable then
+        slider:Enable()
+    elseif slider.Disable then
+        slider:Disable()
+    end
+
+    if slider.EnableMouse then
+        slider:EnableMouse(enabled)
+    end
+
+    local red, green, blue = 0.5, 0.5, 0.5
+    if enabled then
+        red, green, blue = 1, 1, 1
+    end
+
+    if slider.labelText then
+        slider.labelText:SetTextColor(red, green, blue)
+    end
+    if slider.valueText then
+        slider.valueText:SetTextColor(red, green, blue)
+    end
+    if slider.lowText then
+        slider.lowText:SetTextColor(red, green, blue)
+    end
+    if slider.highText then
+        slider.highText:SetTextColor(red, green, blue)
+    end
+    if slider.trackBackground then
+        SetSliderTrackColor(slider, enabled)
     end
 end
 
@@ -441,6 +573,148 @@ local function CreateModuleDropdown(panel, name, moduleKey, settingKey, label, o
     return dropdown
 end
 
+local function CreateModuleSlider(panel, option, moduleKey, label, anchor)
+    local content = GetPanelContent(panel)
+    local slider = CreateFrame("Slider", option.name, content, "OptionsSliderTemplate")
+    local minValue = option.min or 0
+    local maxValue = option.max or minValue
+    local step = option.step or 1
+    local trackWidth = option.width or 220
+    local thumbEdgePadding = option.thumbEdgePadding or SLIDER_THUMB_EDGE_PADDING
+    local visibleOffsetX = option.visibleOffsetX or SLIDER_VISIBLE_OFFSET_X
+
+    SetOptionIndentLevel(slider, option.indent or GetOptionIndentLevel(anchor))
+    slider:SetPoint(
+        "TOPLEFT",
+        anchor.optionHelpBottomAnchor or anchor,
+        "BOTTOMLEFT",
+        GetOptionIndentOffset(slider, anchor) + visibleOffsetX - thumbEdgePadding,
+        -42
+    )
+    slider:SetWidth(trackWidth + (thumbEdgePadding * 2))
+    slider:SetHeight(16)
+    slider:SetMinMaxValues(minValue, maxValue)
+    slider:SetValueStep(step)
+    if slider.SetObeyStepOnDrag then
+        slider:SetObeyStepOnDrag(true)
+    end
+
+    if slider.SetThumbTexture then
+        slider:SetThumbTexture("Interface\\Buttons\\UI-SliderBar-Button-Horizontal")
+    end
+    local thumb = slider.GetThumbTexture and slider:GetThumbTexture() or nil
+    if thumb and thumb.SetSize then
+        thumb:SetSize(32, 32)
+    end
+
+    slider.trackBackground = CreateFrame("Frame", nil, slider)
+    if slider.trackBackground.SetFrameLevel and slider.GetFrameLevel then
+        slider.trackBackground:SetFrameLevel(math.max((slider:GetFrameLevel() or 1) - 1, 0))
+    end
+    slider.trackBackground:SetPoint("LEFT", slider, "LEFT", thumbEdgePadding, 0)
+    slider.trackBackground:SetPoint("RIGHT", slider, "RIGHT", -thumbEdgePadding, 0)
+    slider.trackBackground:SetHeight(6)
+    if slider.trackBackground.SetBackdrop then
+        slider.trackBackground:SetBackdrop({
+            bgFile = "Interface\\Buttons\\WHITE8X8",
+            edgeFile = "Interface\\Buttons\\WHITE8X8",
+            edgeSize = 1,
+        })
+    end
+
+    slider.trackFill = slider.trackBackground:CreateTexture(nil, "BACKGROUND")
+    slider.trackFill:SetPoint("TOPLEFT", slider.trackBackground, "TOPLEFT", 0, -1)
+    slider.trackFill:SetPoint("BOTTOMRIGHT", slider.trackBackground, "BOTTOMRIGHT", 0, 1)
+    slider.trackBorder = {}
+    slider.trackBorder.top = slider.trackBackground:CreateTexture(nil, "BORDER")
+    slider.trackBorder.top:SetPoint("TOPLEFT", slider.trackBackground, "TOPLEFT", 0, 0)
+    slider.trackBorder.top:SetPoint("TOPRIGHT", slider.trackBackground, "TOPRIGHT", 0, 0)
+    slider.trackBorder.top:SetHeight(1)
+    slider.trackBorder.bottom = slider.trackBackground:CreateTexture(nil, "BORDER")
+    slider.trackBorder.bottom:SetPoint("BOTTOMLEFT", slider.trackBackground, "BOTTOMLEFT", 0, 0)
+    slider.trackBorder.bottom:SetPoint("BOTTOMRIGHT", slider.trackBackground, "BOTTOMRIGHT", 0, 0)
+    slider.trackBorder.bottom:SetHeight(1)
+    slider.trackBorder.left = slider.trackBackground:CreateTexture(nil, "BORDER")
+    slider.trackBorder.left:SetPoint("TOPLEFT", slider.trackBackground, "TOPLEFT", 0, 0)
+    slider.trackBorder.left:SetPoint("BOTTOMLEFT", slider.trackBackground, "BOTTOMLEFT", 0, 0)
+    slider.trackBorder.left:SetWidth(1)
+    slider.trackBorder.right = slider.trackBackground:CreateTexture(nil, "BORDER")
+    slider.trackBorder.right:SetPoint("TOPRIGHT", slider.trackBackground, "TOPRIGHT", 0, 0)
+    slider.trackBorder.right:SetPoint("BOTTOMRIGHT", slider.trackBackground, "BOTTOMRIGHT", 0, 0)
+    slider.trackBorder.right:SetWidth(1)
+
+    slider.trackShine = slider.trackBackground:CreateTexture(nil, "ARTWORK")
+    slider.trackShine:SetPoint("TOPLEFT", slider.trackBackground, "TOPLEFT", 0, -1)
+    slider.trackShine:SetPoint("TOPRIGHT", slider.trackBackground, "TOPRIGHT", 0, -1)
+    slider.trackShine:SetHeight(1)
+    slider.trackShine:SetTexture("Interface\\Buttons\\WHITE8X8")
+    SetSliderTrackColor(slider, true)
+
+    slider.moduleKey = moduleKey
+    slider.settingKey = option.settingKey
+    slider.minValue = minValue
+    slider.maxValue = maxValue
+    slider.step = step
+    slider.defaultValue = option.defaultValue
+    if slider.defaultValue == nil then
+        slider.defaultValue = minValue
+    end
+    slider.valueKey = option.valueKey
+    slider.labelText = _G[option.name .. "Text"]
+    slider.lowText = _G[option.name .. "Low"]
+    slider.highText = _G[option.name .. "High"]
+    slider.optionHelpTextAnchor = slider.labelText or slider
+    slider.optionHelpLeftOffset = visibleOffsetX
+    slider.optionHelpTopOffset = -16
+    slider.optionHelpNextOffset = 0
+
+    local helpPointAnchor = CreateFrame("Frame", nil, content)
+    helpPointAnchor:SetSize(1, 1)
+    helpPointAnchor:SetPoint("TOPLEFT", slider, "BOTTOMLEFT", thumbEdgePadding, 10)
+    slider.optionHelpPointAnchor = helpPointAnchor
+
+    if slider.labelText then
+        slider.labelText:SetText(label)
+        slider.labelText:ClearAllPoints()
+        slider.labelText:SetPoint("BOTTOMLEFT", slider, "TOPLEFT", thumbEdgePadding, 6)
+        slider.labelText:SetJustifyH("LEFT")
+    end
+    if slider.lowText then
+        slider.lowText:SetText("")
+        slider.lowText:Hide()
+    end
+    if slider.highText then
+        slider.highText:SetText("")
+        slider.highText:Hide()
+    end
+
+    slider.valueText = content:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+    slider.valueText:SetPoint("LEFT", slider.trackBackground, "RIGHT", 14, 0)
+
+    slider:SetScript("OnValueChanged", function(self, value)
+        local normalized = NormalizeSliderValue(value, self.minValue, self.maxValue, self.step, self.defaultValue)
+        UpdateSliderValueText(self, normalized)
+
+        if self.refreshing then
+            return
+        end
+        if normalized ~= value then
+            self.refreshing = true
+            self:SetValue(normalized)
+            self.refreshing = false
+        end
+        if self.currentValue == normalized then
+            return
+        end
+
+        self.currentValue = normalized
+        ApplyModuleSliderSetting(self.moduleKey, self.settingKey, normalized)
+    end)
+
+    table.insert(sliders, slider)
+    return slider
+end
+
 local function CreateHelpText(panel, text, anchor)
     local content = GetPanelContent(panel)
     local help = content:CreateFontString(nil, "ARTWORK", "GameFontDisableSmall")
@@ -525,6 +799,8 @@ local function BuildOptionControl(panel, option, anchor, moduleKey)
         if option.width then
             UIDropDownMenu_SetWidth(control, option.width)
         end
+    elseif option.type == "slider" then
+        control = CreateModuleSlider(panel, option, optionModuleKey, T(option.labelKey), anchor)
     else
         control = CreateModuleSettingCheck(
             panel,
@@ -656,6 +932,32 @@ local questsPanel = BuildOptionsPanel({
             helpKey = "options.quests.onlyShowAvailableQuestsAroundPlayerLevel.help",
             enabledWhenSettings = { "showMapMarkers", "showAvailableQuests" },
             indent = 2,
+        },
+        {
+            type = "slider",
+            name = "VanillaEnhancedOptionsQuestsAvailableQuestLevelsBelowPlayer",
+            settingKey = "availableQuestLevelsBelowPlayer",
+            labelKey = "options.quests.availableQuestLevelsBelowPlayer.label",
+            helpKey = "options.quests.availableQuestLevelsBelowPlayer.help",
+            enabledWhenSettings = { "showMapMarkers", "showAvailableQuests", "onlyShowAvailableQuestsAroundPlayerLevel" },
+            indent = 3,
+            min = 0,
+            max = 10,
+            step = 1,
+            defaultValue = 5,
+        },
+        {
+            type = "slider",
+            name = "VanillaEnhancedOptionsQuestsAvailableQuestLevelsAbovePlayer",
+            settingKey = "availableQuestLevelsAbovePlayer",
+            labelKey = "options.quests.availableQuestLevelsAbovePlayer.label",
+            helpKey = "options.quests.availableQuestLevelsAbovePlayer.help",
+            enabledWhenSettings = { "showMapMarkers", "showAvailableQuests", "onlyShowAvailableQuestsAroundPlayerLevel" },
+            indent = 3,
+            min = 0,
+            max = 10,
+            step = 1,
+            defaultValue = 3,
         },
         {
             name = "VanillaEnhancedOptionsQuestsShowCompletedMapObjectives",
@@ -889,6 +1191,27 @@ function VanillaEnhanced:RefreshOptions()
                 dropdown.labelText:SetTextColor(0.5, 0.5, 0.5)
             end
         end
+    end
+    for _, slider in ipairs(sliders) do
+        local settings = GetModuleOptionSettings(slider.moduleKey)
+        local selected = NormalizeSliderValue(
+            settings[slider.settingKey],
+            slider.minValue,
+            slider.maxValue,
+            slider.step,
+            slider.defaultValue
+        )
+        local enabled = self:IsModuleEnabled(slider.moduleKey)
+        if slider.enabledWhen then
+            enabled = enabled and slider.enabledWhen()
+        end
+
+        slider.refreshing = true
+        slider:SetValue(selected)
+        slider.refreshing = false
+        slider.currentValue = selected
+        UpdateSliderValueText(slider, selected)
+        SetSliderEnabled(slider, enabled)
     end
 end
 

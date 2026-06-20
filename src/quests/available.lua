@@ -18,6 +18,8 @@ local function BuildAvailableQuestRenderContext(settings, eligibilityContext)
         playerLevel = eligibilityContext and eligibilityContext.playerLevel or (UnitLevel and UnitLevel("player") or 0),
         onlyNearby = settings.onlyShowNearbyAvailableQuests == true,
         onlyAroundPlayerLevel = settings.onlyShowAvailableQuestsAroundPlayerLevel == true,
+        availableQuestLevelsBelowPlayer = settings.availableQuestLevelsBelowPlayer,
+        availableQuestLevelsAbovePlayer = settings.availableQuestLevelsAbovePlayer,
     }
 
     if context.onlyNearby then
