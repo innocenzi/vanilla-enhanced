@@ -48,11 +48,15 @@ function Quests:AddMinimapPin(uiMapId, x, y, quest, cluster)
 
     local pinData = self:BuildQuestPinData(quest, cluster)
     if self:IsQuestObjectiveAreaKind(kind) then
-        if self:GetSettings().showMinimapObjectiveAreas == false then
-            return
+        local hasAreaGeometry = (cluster.p and #cluster.p >= 3) or (cluster.r and cluster.r > 0)
+        if hasAreaGeometry then
+            if self:GetSettings().showMinimapObjectiveAreas == false then
+                return
+            end
+            if self:AddMinimapArea(uiMapId, x, y, pinData, cluster) then
+                return
+            end
         end
-        self:AddMinimapArea(uiMapId, x, y, pinData, cluster)
-        return
     end
 
     local marker = self:AcquirePinFrame("marker", "minimapMarker", Minimap)
