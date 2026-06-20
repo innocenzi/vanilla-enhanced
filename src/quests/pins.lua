@@ -22,6 +22,7 @@ function Quests:AddAvailablePins(questId, dbQuest, context)
         return
     end
 
+    local settings = self:GetSettings()
     for uiMapId, clusters in pairs(dbQuest.starts) do
         local visibleClusters = {}
         for _, cluster in ipairs(clusters) do
@@ -31,6 +32,11 @@ function Quests:AddAvailablePins(questId, dbQuest, context)
         end
         for _, cluster in ipairs(self:MergeParentMapIconClusters(uiMapId, visibleClusters)) do
             self:AddAvailablePin(uiMapId, cluster.x, cluster.y, questId, dbQuest, cluster, context)
+        end
+        if settings.showAvailableQuestsOnMinimap == true then
+            for _, cluster in ipairs(visibleClusters) do
+                self:AddAvailableMinimapPin(uiMapId, cluster.x, cluster.y, questId, dbQuest, cluster, context)
+            end
         end
     end
 end
@@ -126,4 +132,20 @@ function Quests:AddAvailablePin(uiMapId, x, y, questId, dbQuest, cluster, contex
         opacityMultiplier,
         color
     )
+end
+
+function Quests:AddAvailableMinimapPin(uiMapId, x, y, questId, dbQuest, cluster, context)
+    if not self.hbdPins or not uiMapId or not x or not y then
+        return
+    end
+
+    local opacityMultiplier = self:GetAvailableQuestMarkerOpacity(dbQuest, context)
+    local color = self:GetRepeatableQuestMarkerColor(dbQuest) or self:GetAvailableQuestMarkerColor(dbQuest, context)
+    local marker = self:AcquirePinFrame("marker", "minimapMarker", Minimap)
+
+    marker.questsData = self:BuildAvailableQuestPinData(questId, dbQuest)
+    self:ConfigurePinSymbol(marker, self:GetPinMarkerSymbol(cluster.k, self:GetPinMarkerSymbol("available")), opacityMultiplier, color)
+    marker:Hide()
+    self.hbdPins:AddMinimapIconMap(self, marker, uiMapId, x / 100, y / 100, true, false)
+    self:TrackMinimapPinFrame(marker)
 end

@@ -15,6 +15,7 @@ local defaults = {
     showMapMarkers = true,
     showRepeatableQuests = true,
     showAvailableQuests = false,
+    showAvailableQuestsOnMinimap = false,
     showMinimapObjectiveAreas = true,
     onlyShowNearbyAvailableQuests = false,
     onlyShowAvailableQuestsAroundPlayerLevel = false,
