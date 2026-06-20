@@ -403,15 +403,29 @@ CreateHelpText(
     T("options.quests.showMapMarkers.help"),
     questsShowMapMarkersCheck
 )
+local questsShowMinimapObjectiveAreasCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
+    questsPanel,
+    "VanillaEnhancedOptionsQuestsShowMinimapObjectiveAreas",
+    "quests",
+    "showMinimapObjectiveAreas",
+    T("options.quests.showMinimapObjectiveAreas.label"),
+    questsShowMapMarkersCheck
+), "quests", "showMapMarkers")
+AnchorBelowHelp(questsShowMinimapObjectiveAreasCheck, questsShowMapMarkersCheck)
+CreateHelpText(
+    questsPanel,
+    T("options.quests.showMinimapObjectiveAreas.help"),
+    questsShowMinimapObjectiveAreasCheck
+)
 local questsShowAvailableQuestsCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
     questsPanel,
     "VanillaEnhancedOptionsQuestsShowAvailableQuests",
     "quests",
     "showAvailableQuests",
     T("options.quests.showAvailableQuests.label"),
-    questsShowMapMarkersCheck
+    questsShowMinimapObjectiveAreasCheck
 ), "quests", "showMapMarkers")
-AnchorBelowHelp(questsShowAvailableQuestsCheck, questsShowMapMarkersCheck)
+AnchorBelowHelp(questsShowAvailableQuestsCheck, questsShowMinimapObjectiveAreasCheck)
 CreateHelpText(
     questsPanel,
     T("options.quests.showAvailableQuests.help"),

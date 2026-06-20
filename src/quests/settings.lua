@@ -9,6 +9,7 @@ local defaults = {
     opacity = 1,
     showMapMarkers = true,
     showAvailableQuests = false,
+    showMinimapObjectiveAreas = true,
     onlyShowNearbyAvailableQuests = false,
     onlyShowAvailableQuestsAroundPlayerLevel = false,
     showCompletedMapObjectives = false,
