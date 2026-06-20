@@ -26,11 +26,6 @@ local ICON_TEXTURES = {
 local PARENT_MAP_ICON_MERGE_DISTANCE = 13
 local MARKER_FRAME_SIZE = 16
 local MARKER_COLOR = { 1, 0.82, 0.15 }
-local HIGH_LEVEL_AVAILABLE_MARKER_ORANGE_COLOR = { 1, 0.48, 0.05 }
-local HIGH_LEVEL_AVAILABLE_MARKER_RED_COLOR = { 1, 0.18, 0.12 }
-local HIGH_LEVEL_AVAILABLE_MARKER_ORANGE_LEVEL_DELTA = 3
-local HIGH_LEVEL_AVAILABLE_MARKER_RED_LEVEL_DELTA = 6
-local LOW_LEVEL_AVAILABLE_MARKER_ALPHA = 0.30
 local MARKER_FONT_SIZE = 9
 local MARKER_ICON_SIZE = 12
 local AREA_COLOR = { 0.5, 0.7, 0.9 }
@@ -46,14 +41,6 @@ local TOOLTIP_TITLE_COLOR = { 1, 1, 1 }
 local TOOLTIP_OBJECTIVE_COLOR = { 0.9, 0.82, 0.55 }
 local TOOLTIP_METADATA_COLOR = { 0.56, 0.64, 0.72 }
 local TOOLTIP_COUNT_COLOR = { 0.65, 0.85, 1 }
-local TOOLTIP_AVAILABLE_FALLBACK_COLOR = { 0.7, 0.9, 0.65 }
-local TOOLTIP_DIFFICULTY_COLORS = {
-    trivial = { 0.55, 0.55, 0.55 },
-    easy = { 0.25, 0.75, 0.25 },
-    normal = { 1, 0.82, 0 },
-    hard = { 1, 0.45, 0 },
-    impossible = { 1, 0.1, 0.1 },
-}
 local WHITE_TEXTURE = [[Interface\Buttons\WHITE8X8]]
 local WORLD_MAP_ID = 947
 local MINIMAP_SIZE = {
@@ -959,148 +946,12 @@ local function AcquireFrame(kind, poolKind, parent)
     return frame
 end
 
-local function BuildPinData(quest, cluster)
-    local localizedObjectives = Quests:GetLocalizedObjectives(quest, cluster)
-    local localizedObjective = localizedObjectives and localizedObjectives[1] or cluster.o
-    local kind = cluster.k or "object"
-    local countText
-
-    if kind ~= "slay" and kind ~= "loot" then
-        countText = Quests:GetLocalizedCountText(cluster.merged and "nearby" or "area", cluster.c)
-    end
-
-    return {
-        questId = quest.id,
-        number = quest.number,
-        title = Quests:GetLocalizedQuestTitle(quest, quest.id, quest.title),
-        objective = localizedObjective,
-        objectives = localizedObjectives,
-        merged = cluster.merged,
-        count = cluster.c,
-        countText = countText,
-    }
-end
-
-local function GetAvailableQuestLevel(dbQuest)
-    if not dbQuest then
-        return nil
-    end
-
-    return dbQuest.ql or dbQuest.rl
-end
-
-local function PastelizeColor(color)
-    if not color then
-        return TOOLTIP_AVAILABLE_FALLBACK_COLOR
-    end
-
-    local blend = 0.35
-    return {
-        color[1] + ((1 - color[1]) * blend),
-        color[2] + ((1 - color[2]) * blend),
-        color[3] + ((1 - color[3]) * blend),
-    }
-end
-
-local function GetAvailableQuestTitleColor(dbQuest)
-    local level = GetAvailableQuestLevel(dbQuest)
-
-    if level and GetQuestDifficultyColor then
-        local ok, color = pcall(GetQuestDifficultyColor, level)
-        if ok and color then
-            local red = color.r or color[1]
-            local green = color.g or color[2]
-            local blue = color.b or color[3]
-            if red and green and blue then
-                return PastelizeColor({ red, green, blue })
-            end
-        end
-    end
-
-    local playerLevel = UnitLevel and UnitLevel("player") or nil
-    if not level or not playerLevel or playerLevel <= 0 then
-        return TOOLTIP_AVAILABLE_FALLBACK_COLOR
-    end
-
-    local delta = level - playerLevel
-    if delta >= 5 then
-        return PastelizeColor(TOOLTIP_DIFFICULTY_COLORS.impossible)
-    end
-    if delta >= 3 then
-        return PastelizeColor(TOOLTIP_DIFFICULTY_COLORS.hard)
-    end
-    if delta >= -2 then
-        return PastelizeColor(TOOLTIP_DIFFICULTY_COLORS.normal)
-    end
-    if delta >= -5 then
-        return PastelizeColor(TOOLTIP_DIFFICULTY_COLORS.easy)
-    end
-    return PastelizeColor(TOOLTIP_DIFFICULTY_COLORS.trivial)
-end
-
-local function BuildAvailablePinData(questId, dbQuest)
-    local metadataLines = {}
-
-    local hasQuestLevel = dbQuest.ql and dbQuest.ql > 0
-    local questLabel = VanillaEnhanced:T("quests.static.available")
-    local levelLabel
-
-    if hasQuestLevel then
-        metadataLines[#metadataLines + 1] = VanillaEnhanced:T("quests.static.availableQuestLevel", { level = dbQuest.ql })
-    elseif dbQuest.rl and dbQuest.rl > 0 then
-        levelLabel = VanillaEnhanced:T("quests.static.requiresLevel", { level = dbQuest.rl })
-    end
-
-    if not hasQuestLevel then
-        metadataLines[#metadataLines + 1] = levelLabel and (questLabel .. " - " .. levelLabel) or questLabel
-    end
-    if hasQuestLevel and dbQuest.rl and dbQuest.rl > 0 and UnitLevel and UnitLevel("player") < dbQuest.rl then
-        metadataLines[#metadataLines + 1] = VanillaEnhanced:T("quests.static.requiresLevel", { level = dbQuest.rl })
-    end
-
-    return {
-        availableQuestId = questId,
-        title = Quests:GetLocalizedQuestTitle(nil, questId, dbQuest.t),
-        titleColor = GetAvailableQuestTitleColor(dbQuest),
-        metadataLines = metadataLines,
-    }
-end
-
 local function MarkerCandidateDistance(a, b, xScale, yScale)
     return math.sqrt(((((a.x or 0) - (b.x or 0)) * xScale) ^ 2) + ((((a.y or 0) - (b.y or 0)) * yScale) ^ 2))
 end
 
 local function GetMarkerSymbol(kind, fallback)
     return MARKER_SYMBOLS[kind] or fallback
-end
-
-local function InterpolateColor(fromColor, toColor, progress)
-    return {
-        fromColor[1] + ((toColor[1] - fromColor[1]) * progress),
-        fromColor[2] + ((toColor[2] - fromColor[2]) * progress),
-        fromColor[3] + ((toColor[3] - fromColor[3]) * progress),
-    }
-end
-
-local function GetHighLevelAvailableMarkerColor(dbQuest, context)
-    local playerLevel = context and context.playerLevel or (UnitLevel and UnitLevel("player") or 0)
-    local questLevel = GetAvailableQuestLevel(dbQuest)
-
-    if not playerLevel or playerLevel <= 0 or not questLevel or questLevel <= 0 then
-        return nil
-    end
-
-    local levelDelta = questLevel - playerLevel
-    if levelDelta < HIGH_LEVEL_AVAILABLE_MARKER_ORANGE_LEVEL_DELTA then
-        return nil
-    end
-    if levelDelta >= HIGH_LEVEL_AVAILABLE_MARKER_RED_LEVEL_DELTA then
-        return HIGH_LEVEL_AVAILABLE_MARKER_RED_COLOR
-    end
-
-    local progress = (levelDelta - HIGH_LEVEL_AVAILABLE_MARKER_ORANGE_LEVEL_DELTA)
-        / (HIGH_LEVEL_AVAILABLE_MARKER_RED_LEVEL_DELTA - HIGH_LEVEL_AVAILABLE_MARKER_ORANGE_LEVEL_DELTA)
-    return InterpolateColor(HIGH_LEVEL_AVAILABLE_MARKER_ORANGE_COLOR, HIGH_LEVEL_AVAILABLE_MARKER_RED_COLOR, progress)
 end
 
 local function AddUniqueAreaFrame(areaFrames, area)
@@ -1445,7 +1296,7 @@ function Quests:AddMinimapPin(uiMapId, x, y, quest, cluster)
         return
     end
 
-    local pinData = BuildPinData(quest, cluster)
+    local pinData = self:BuildQuestPinData(quest, cluster)
     if kind == "slay" or kind == "loot" then
         if self:GetSettings().showMinimapObjectiveAreas == false then
             return
@@ -1474,7 +1325,7 @@ function Quests:AddPin(uiMapId, x, y, quest, cluster)
 
     local kind = cluster.k or "object"
     local areaOnly = kind == "slay" or kind == "loot"
-    local pinData = BuildPinData(quest, cluster)
+    local pinData = self:BuildQuestPinData(quest, cluster)
     local area
 
     if areaOnly or (cluster.r or 0) > 2 then
@@ -1495,17 +1346,14 @@ function Quests:AddAvailablePin(uiMapId, x, y, questId, dbQuest, cluster, contex
         return
     end
 
-    local opacityMultiplier = self.IsAvailableQuestBelowPlayerLevel
-        and self:IsAvailableQuestBelowPlayerLevel(dbQuest, context)
-        and LOW_LEVEL_AVAILABLE_MARKER_ALPHA
-        or 1
-    local color = GetHighLevelAvailableMarkerColor(dbQuest, context)
+    local opacityMultiplier = self:GetAvailableQuestMarkerOpacity(dbQuest, context)
+    local color = self:GetAvailableQuestMarkerColor(dbQuest, context)
 
     self:AddMarkerCandidate(
         uiMapId,
         x,
         y,
-        BuildAvailablePinData(questId, dbQuest),
+        self:BuildAvailableQuestPinData(questId, dbQuest),
         GetMarkerSymbol(cluster.k, MARKER_SYMBOLS.available),
         nil,
         opacityMultiplier,
