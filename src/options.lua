@@ -207,6 +207,35 @@ local function ApplyAddonSetting(settingKey, value)
     end
 end
 
+local function ResetAddonSettings()
+    if VanillaEnhanced.ResetSettings then
+        VanillaEnhanced:ResetSettings()
+    end
+    VanillaEnhanced:PrintMessage(T("options.main.resetSettings.done"))
+end
+
+local function ConfirmResetAddonSettings()
+    if StaticPopupDialogs and StaticPopup_Show then
+        StaticPopupDialogs.VANILLAENHANCED_RESET_SETTINGS = StaticPopupDialogs.VANILLAENHANCED_RESET_SETTINGS or {
+            text = T("options.main.resetSettings.confirm"),
+            button1 = T("options.main.resetSettings.accept"),
+            button2 = CANCEL or T("options.main.resetSettings.cancel"),
+            OnAccept = ResetAddonSettings,
+            timeout = 0,
+            whileDead = true,
+            hideOnEscape = true,
+            preferredIndex = 3,
+        }
+        StaticPopupDialogs.VANILLAENHANCED_RESET_SETTINGS.text = T("options.main.resetSettings.confirm")
+        StaticPopupDialogs.VANILLAENHANCED_RESET_SETTINGS.button1 = T("options.main.resetSettings.accept")
+        StaticPopupDialogs.VANILLAENHANCED_RESET_SETTINGS.button2 = CANCEL or T("options.main.resetSettings.cancel")
+        StaticPopup_Show("VANILLAENHANCED_RESET_SETTINGS")
+        return
+    end
+
+    ResetAddonSettings()
+end
+
 local function IsSettingEnabled(moduleKey, settingKey)
     local settings = GetModuleOptionSettings(moduleKey)
     return settings[settingKey] ~= false
@@ -338,6 +367,20 @@ local function CreateAddonSettingCheck(panel, name, settingKey, label, anchor)
     return check
 end
 
+local function CreateAddonActionButton(panel, name, label, anchor, onClick)
+    local button = CreateFrame("Button", name, GetPanelContent(panel), "UIPanelButtonTemplate")
+    local bottomAnchor = anchor.optionHelpBottomAnchor or anchor
+    button:SetPoint("TOPLEFT", bottomAnchor, "BOTTOMLEFT", 0, -16)
+    button:SetSize(140, 22)
+    button:SetText(label)
+    button:SetScript("OnClick", onClick)
+    button.optionHelpPointAnchor = button
+    button.optionHelpLeftOffset = -1
+    button.optionHelpTopOffset = -4
+    panel.optionBottomAnchor = button
+    return button
+end
+
 local function SetSettingCheckEnabledWhen(check, moduleKey, settingKey)
     check.enabledWhen = function()
         return IsSettingEnabled(moduleKey, settingKey)
@@ -406,9 +449,10 @@ local function CreateHelpText(panel, text, anchor)
     local textLeftOffset = anchor.optionHelpLeftOffset
         or (checkWidth > 0 and checkWidth + CHECK_TEXT_OFFSET_X or CHECK_TEXT_LEFT_FALLBACK)
     local bottomAnchor = CreateFrame("Frame", nil, content)
+    local topOffset = anchor.optionHelpTopOffset or -5
     local nextOffset = anchor.optionHelpNextOffset or 0
 
-    help:SetPoint("TOPLEFT", anchor.optionHelpPointAnchor or anchor.optionHelpBottomAnchor or textAnchor, "BOTTOMLEFT", 0, -5)
+    help:SetPoint("TOPLEFT", anchor.optionHelpPointAnchor or anchor.optionHelpBottomAnchor or textAnchor, "BOTTOMLEFT", 0, topOffset)
     help:SetWidth(GetOptionHelpWidth(anchor))
     help:SetJustifyH("LEFT")
     help:SetText(text)
@@ -463,6 +507,8 @@ local function BuildOptionControl(panel, option, anchor, moduleKey)
 
     if option.type == "addonCheck" then
         control = CreateAddonSettingCheck(panel, option.name, option.settingKey, T(option.labelKey), anchor)
+    elseif option.type == "addonAction" then
+        control = CreateAddonActionButton(panel, option.name, T(option.labelKey), anchor, option.onClick)
     elseif option.type == "moduleEnabled" then
         control = CreateModuleEnabledCheck(panel, option.name, optionModuleKey, T(option.labelKey), anchor)
     elseif option.type == "dropdown" then
@@ -526,6 +572,13 @@ local mainPanel = BuildOptionsPanel({
             settingKey = "showChatMessagePrefix",
             labelKey = "options.main.showChatMessagePrefix.label",
             helpKey = "options.main.showChatMessagePrefix.help",
+        },
+        {
+            type = "addonAction",
+            name = "VanillaEnhancedOptionsMainResetSettings",
+            labelKey = "options.main.resetSettings.label",
+            helpKey = "options.main.resetSettings.help",
+            onClick = ConfirmResetAddonSettings,
         },
     },
 })

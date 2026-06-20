@@ -8,12 +8,19 @@ VanillaEnhanced.displayName = "Vanilla Enhanced"
 VanillaEnhanced.mediaPath = "Interface\\AddOns\\" .. VanillaEnhanced.addonName .. "\\media\\"
 VanillaEnhanced.modules = VanillaEnhanced.modules or {}
 
+local DEFAULT_SETTINGS = {
+    modules = {},
+    showChatMessagePrefix = false,
+}
+
 local function CopyDefaults(target, source)
     if type(target) ~= "table" then
         target = {}
     end
     for key, value in pairs(source or {}) do
-        if target[key] == nil then
+        if type(value) == "table" then
+            target[key] = CopyDefaults(target[key], value)
+        elseif target[key] == nil then
             target[key] = value
         end
     end
@@ -34,10 +41,7 @@ function VanillaEnhanced:GetModule(key)
 end
 
 function VanillaEnhanced:GetSettings()
-    VanillaEnhancedSettings = CopyDefaults(VanillaEnhancedSettings, {
-        modules = {},
-        showChatMessagePrefix = true,
-    })
+    VanillaEnhancedSettings = CopyDefaults(VanillaEnhancedSettings, DEFAULT_SETTINGS)
     if type(VanillaEnhancedSettings.modules) ~= "table" then
         VanillaEnhancedSettings.modules = {}
     end
@@ -83,4 +87,39 @@ function VanillaEnhanced:PrintMessage(message)
     end
 
     DEFAULT_CHAT_FRAME:AddMessage(message)
+end
+
+function VanillaEnhanced:ResetSettings()
+    VanillaEnhancedSettings = nil
+    self:GetSettings()
+
+    for _, module in pairs(self.modules or {}) do
+        if type(module) == "table" then
+            if module.ResetSettings then
+                module:ResetSettings()
+            elseif module.settings ~= nil then
+                module.settings = nil
+            end
+
+            if module.GetSettings then
+                module:GetSettings()
+            end
+        end
+    end
+
+    for moduleKey, module in pairs(self.modules or {}) do
+        if type(module) == "table" then
+            if module.SetEnabled then
+                module:SetEnabled(self:IsModuleEnabled(moduleKey))
+            elseif module.Update then
+                module:Update()
+            end
+        end
+    end
+
+    if self.RefreshOptions then
+        self:RefreshOptions()
+    end
+
+    return VanillaEnhancedSettings
 end
