@@ -16,7 +16,6 @@ local MARKER_COLOR = { 1, 0.82, 0.15 }
 local MARKER_FONT_SIZE = 9
 local MARKER_ICON_SIZE = 12
 local AREA_COLOR = { 0.5, 0.7, 0.9 }
-local AREA_FILL_ALPHA = 0.5
 local AREA_FILL_STEP = 4
 local AREA_OUTLINE_THICKNESS = 1.5
 local MINIMAP_AREA_MIN_SIZE = 14
@@ -175,43 +174,6 @@ local function MergeIconClusters(uiMapId, clusters)
     return merged
 end
 
-local function SetAreaRevealed(frame, revealed)
-    if not frame or frame.kind ~= "area" then
-        return
-    end
-
-    frame:SetAlpha(revealed and 1 or 0)
-    frame:EnableMouse(false)
-end
-
-local function ShouldRevealArea(frame)
-    local data = frame and frame.questsData
-    if not data then
-        return false
-    end
-
-    return frame.questsHovered == true
-        or (Quests.selectedQuestAreaQuestId and data.questId == Quests.selectedQuestAreaQuestId)
-end
-
-function Quests:RefreshQuestAreaVisibility(targetFrame)
-    if targetFrame then
-        SetAreaRevealed(targetFrame, ShouldRevealArea(targetFrame))
-        return
-    end
-
-    for _, frame in ipairs(self.frames) do
-        if frame.kind == "area" then
-            SetAreaRevealed(frame, ShouldRevealArea(frame))
-        end
-    end
-end
-
-function Quests:SetSelectedQuestAreaQuest(questId)
-    self.selectedQuestAreaQuestId = questId
-    self:RefreshQuestAreaVisibility()
-end
-
 local function ConfigureMarkerText(fontString, symbol, settings, opacityMultiplier, color)
     local opacity = (settings.opacity or 1) * (opacityMultiplier or 1)
     color = color or MARKER_COLOR
@@ -264,25 +226,6 @@ local function ConfigureIcon(frame, texture)
     frame.texture:SetSize(size, size)
     frame.texture:SetPoint("CENTER", frame, "CENTER", 0, 0)
     frame.texture:SetVertexColor(1, 1, 1, settings.opacity or 1)
-end
-
-local function GetWorldMapContentFrame()
-    if WorldMapFrame then
-        if WorldMapFrame.ScrollContainer and WorldMapFrame.ScrollContainer.Child then
-            return WorldMapFrame.ScrollContainer.Child
-        end
-        if WorldMapDetailFrame then
-            return WorldMapDetailFrame
-        end
-    end
-    return WorldMapFrame
-end
-
-local function GetMapPixelScale()
-    local frame = GetWorldMapContentFrame()
-    local width = frame and frame:GetWidth() or 700
-    local height = frame and frame:GetHeight() or width
-    return width / 100, height / 100
 end
 
 function HideTextures(textures)
@@ -358,87 +301,6 @@ local function ConfigurePolygonFill(frame, points, minY, maxY, color, alpha, fil
     for index = fillIndex, #(frame.fills or {}) do
         frame.fills[index]:Hide()
     end
-end
-
-local function ConfigurePolygonArea(frame, cluster, quest)
-    local settings = Quests:GetSettings()
-    local color = AREA_COLOR
-    local xScale, yScale = GetMapPixelScale()
-    local points = {}
-    local maxX = 0
-    local maxY = 0
-    local minY
-    local maxFillY
-
-    for index, point in ipairs(cluster.p) do
-        local x = point[1] or point.x
-        local y = point[2] or point.y
-        local dx = x - cluster.x
-        local dy = y - cluster.y
-        local px = dx * xScale
-        local py = -dy * yScale
-
-        points[index] = { x = px, y = py }
-        maxX = math.max(maxX, math.abs(px))
-        maxY = math.max(maxY, math.abs(py))
-        minY = minY and math.min(minY, py) or py
-        maxFillY = maxFillY and math.max(maxFillY, py) or py
-    end
-
-    frame:SetSize(math.max(32, (maxX * 2) + 16), math.max(32, (maxY * 2) + 16))
-    ConfigureMarkerFrame(frame, settings, false)
-    frame.texture:Hide()
-    HideMarkerText(frame.text)
-
-    local firstLine = AcquireAreaLine(frame, 1)
-    if not firstLine.SetRotation then
-        HideTextures(frame.lines)
-        return false
-    end
-
-    ConfigurePolygonFill(frame, points, minY or 0, maxFillY or 0, color, math.min(0.28, (settings.opacity or 0.85) * AREA_FILL_ALPHA))
-
-    for index, point in ipairs(points) do
-        local nextPoint = points[(index % #points) + 1]
-        local dx = nextPoint.x - point.x
-        local dy = nextPoint.y - point.y
-        local length = math.sqrt((dx * dx) + (dy * dy))
-        local line = AcquireAreaLine(frame, index)
-
-        line:ClearAllPoints()
-        line:SetSize(length, AREA_OUTLINE_THICKNESS)
-        line:SetPoint("CENTER", frame, "CENTER", point.x + (dx / 2), point.y + (dy / 2))
-        line:SetRotation(Atan2(dy, dx))
-        line:SetVertexColor(color[1], color[2], color[3], math.min(0.95, (settings.opacity or 0.85) * 0.95))
-    end
-
-    for index = #points + 1, #(frame.lines or {}) do
-        frame.lines[index]:Hide()
-    end
-    return true
-end
-
-local function ConfigureCircleArea(frame, radius, quest)
-    local settings = Quests:GetSettings()
-    local xScale, yScale = GetMapPixelScale()
-    local size = math.max(38, math.min(260, math.floor(((radius or 0) * 2 * math.min(xScale, yScale)) + 12)))
-    local color = AREA_COLOR
-
-    HideTextures(frame.lines)
-    HideTextures(frame.fills)
-    frame:SetSize(size, size)
-    ConfigureMarkerFrame(frame, settings, false)
-    frame.texture:Show()
-    frame.texture:SetTexture(Quests.mediaPath .. "area-circle")
-    if frame.texture.SetDrawLayer then
-        frame.texture:SetDrawLayer("ARTWORK", -7)
-    end
-    if frame.texture.SetBlendMode then
-        frame.texture:SetBlendMode("BLEND")
-    end
-    frame.texture:SetAllPoints(frame)
-    frame.texture:SetVertexColor(color[1], color[2], color[3], math.min(0.95, (settings.opacity or 0.85) * 0.9))
-    HideMarkerText(frame.text)
 end
 
 local function GetMinimapMapRadius()
@@ -763,14 +625,6 @@ local function ConfigureMinimapArea(frame, uiMapId, cluster)
     end
 end
 
-local function ConfigureArea(frame, cluster, quest, kind)
-    if cluster.p and #cluster.p >= 3 and ConfigurePolygonArea(frame, cluster, quest) then
-        return
-    end
-
-    ConfigureCircleArea(frame, cluster.r, quest)
-end
-
 local function MarkerCandidateDistance(a, b, xScale, yScale)
     return math.sqrt(((((a.x or 0) - (b.x or 0)) * xScale) ^ 2) + ((((a.y or 0) - (b.y or 0)) * yScale) ^ 2))
 end
@@ -953,7 +807,7 @@ function Quests:RenderMarkerGroups()
     end
 
     local currentMapId = GetCurrentMapId()
-    local xScale, yScale = GetMapPixelScale()
+    local xScale, yScale = self:GetWorldMapPixelScale()
     local groupsByMap = {}
 
     for _, candidate in ipairs(self.markerCandidates) do
@@ -1109,7 +963,7 @@ function Quests:AddPin(uiMapId, x, y, quest, cluster)
         area = self:AcquirePinFrame("area", "area", WorldMapFrame)
         area.questsData = pinData
         area.questsHovered = false
-        ConfigureArea(area, cluster, quest, kind)
+        self:ConfigureWorldMapPinArea(area, cluster)
         self.hbdPins:AddWorldMapIconMap(self, area, uiMapId, x / 100, y / 100, HBD_PINS_WORLDMAP_SHOW_CURRENT or -1)
         self:TrackWorldMapPinFrame(area)
         self:RefreshQuestAreaVisibility(area)
