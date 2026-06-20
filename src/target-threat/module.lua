@@ -2,17 +2,23 @@ local VanillaEnhanced = _G.VanillaEnhanced
 local TargetThreat = VanillaEnhanced:CreateModule("target-threat", VanillaEnhanced:T("module.targetThreat"))
 
 local DISPLAY_HOLD = 2.0
-local TICK_RATE = 0.15
+local TICK_RATE = 0.35
 
 TargetThreat.lastText = nil
 TargetThreat.lastStatus = nil
 TargetThreat.lastTime = 0
+TargetThreat.renderedText = nil
+TargetThreat.renderedStatus = nil
+TargetThreat.renderedVisible = false
 
 function TargetThreat:GetSettings()
-    return VanillaEnhanced:GetModuleSettings("target-threat", {
-        enabled = true,
-        alwaysShow = true,
-    })
+    if not self.settings then
+        self.settings = VanillaEnhanced:GetModuleSettings("target-threat", {
+            enabled = true,
+            alwaysShow = true,
+        })
+    end
+    return self.settings
 end
 
 local function TargetValid()
@@ -130,6 +136,27 @@ function TargetThreat:Hide()
     if self.ui then
         self.ui:Hide()
     end
+    self.renderedVisible = false
+end
+
+function TargetThreat:Render(text, status)
+    local ui = self.ui
+    if self.renderedText ~= text then
+        ui.text:SetText(text)
+        ui.text:SetTextColor(1, 1, 1)
+        self.renderedText = text
+    end
+
+    if self.renderedStatus ~= status then
+        local r, g, b = ThreatColor(status)
+        ui.bg:SetVertexColor(r, g, b, 0.9)
+        self.renderedStatus = status
+    end
+
+    if not self.renderedVisible then
+        ui:Show()
+        self.renderedVisible = true
+    end
 end
 
 function TargetThreat:Update()
@@ -142,9 +169,9 @@ function TargetThreat:Update()
         return
     end
 
-    local ui = self.ui
     if not TargetValid() then
-        ui:Hide()
+        self:Hide()
+        self:StopTicker()
         return
     end
 
@@ -160,7 +187,8 @@ function TargetThreat:Update()
             text = "0%"
             status = nil
         elseif not self.lastText or (now - self.lastTime) > DISPLAY_HOLD then
-            ui:Hide()
+            self:Hide()
+            self:StopTicker()
             return
         else
             text = self.lastText
@@ -168,11 +196,7 @@ function TargetThreat:Update()
         end
     end
 
-    ui.text:SetText(text)
-    ui.text:SetTextColor(1, 1, 1)
-    local r, g, b = ThreatColor(status)
-    ui.bg:SetVertexColor(r, g, b, 0.9)
-    ui:Show()
+    self:Render(text, status)
 end
 
 function TargetThreat:StartTicker()
@@ -180,6 +204,9 @@ function TargetThreat:StartTicker()
         return
     end
     if not self:GetSettings().enabled then
+        return
+    end
+    if not TargetValid() then
         return
     end
     if C_Timer and C_Timer.NewTicker then
@@ -236,8 +263,10 @@ eventFrame:SetScript("OnEvent", function(_, event)
         end
     elseif event == "PLAYER_TARGET_CHANGED" then
         TargetThreat:ResetCache()
+        TargetThreat:StartTicker()
         TargetThreat:Update()
     else
+        TargetThreat:StartTicker()
         TargetThreat:Update()
     end
 end)
