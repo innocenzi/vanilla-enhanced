@@ -1,5 +1,4 @@
-local VanillaEnhanced = _G.VanillaEnhanced
-local Quests = VanillaEnhanced:GetModule("quests")
+local Quests = _G.VanillaEnhanced:GetModule("quests")
 
 local MARKER_SYMBOLS = {
     available = "!",
@@ -9,116 +8,6 @@ local MARKER_SYMBOLS = {
 local ICON_TEXTURES = {
     talk = [[Interface\GossipFrame\GossipGossipIcon]],
 }
-
-local PARENT_MAP_ICON_MERGE_DISTANCE = 13
-
-local function GetCurrentMapId()
-    if WorldMapFrame then
-        if WorldMapFrame.GetMapID then
-            return WorldMapFrame:GetMapID()
-        end
-        if WorldMapFrame.mapID then
-            return WorldMapFrame.mapID
-        end
-    end
-    return nil
-end
-
-local function ShouldMergeIcons(uiMapId, kind)
-    local currentMapId = GetCurrentMapId()
-    return ICON_TEXTURES[kind] and currentMapId and currentMapId ~= uiMapId
-end
-
-local function Distance(a, b)
-    return math.sqrt(((a.x or 0) - (b.x or 0)) ^ 2 + ((a.y or 0) - (b.y or 0)) ^ 2)
-end
-
-local function AddUniqueObjective(objectives, objective)
-    if not objective or objective == "" then
-        return
-    end
-
-    for _, existing in ipairs(objectives) do
-        if existing == objective then
-            return
-        end
-    end
-    objectives[#objectives + 1] = objective
-end
-
-local function NewClusterGroup(cluster)
-    return {
-        x = cluster.x,
-        y = cluster.y,
-        c = cluster.c or 1,
-        k = cluster.k,
-        r = cluster.r or 0,
-        objectives = { cluster.o },
-        clusters = { cluster },
-    }
-end
-
-local function AddToClusterGroup(group, cluster)
-    local weight = cluster.c or 1
-    local total = group.c + weight
-
-    group.x = ((group.x * group.c) + ((cluster.x or 0) * weight)) / total
-    group.y = ((group.y * group.c) + ((cluster.y or 0) * weight)) / total
-    group.c = total
-    group.clusters[#group.clusters + 1] = cluster
-    group.r = math.max(group.r or 0, Distance(group, cluster) + (cluster.r or 0))
-    AddUniqueObjective(group.objectives, cluster.o)
-end
-
-local function BuildMergedCluster(group)
-    return {
-        x = group.x,
-        y = group.y,
-        r = 0,
-        c = group.c,
-        k = group.k,
-        o = #group.objectives > 1 and VanillaEnhanced:T("quests.static.multipleObjectives") or group.objectives[1],
-        objectives = group.objectives,
-        parts = group.clusters,
-        merged = true,
-    }
-end
-
-local function MergeIconClusters(uiMapId, clusters)
-    local groups = {}
-    local changed = false
-
-    for _, cluster in ipairs(clusters) do
-        local kind = cluster.k or "object"
-        local target
-
-        if ShouldMergeIcons(uiMapId, kind) then
-            for _, group in ipairs(groups) do
-                if group.k == kind and Distance(group, cluster) <= PARENT_MAP_ICON_MERGE_DISTANCE then
-                    target = group
-                    break
-                end
-            end
-        end
-
-        if target then
-            AddToClusterGroup(target, cluster)
-            changed = true
-        else
-            groups[#groups + 1] = NewClusterGroup(cluster)
-        end
-    end
-
-    if not changed then
-        return clusters
-    end
-
-    local merged = {}
-    for _, group in ipairs(groups) do
-        merged[#merged + 1] = #group.clusters > 1 and BuildMergedCluster(group) or group.clusters[1]
-    end
-    return merged
-end
 
 local function GetMarkerSymbol(kind, fallback)
     return MARKER_SYMBOLS[kind] or fallback
@@ -133,7 +22,7 @@ function Quests:AddPins(uiMapId, clusters, quest)
         end
     end
 
-    for _, cluster in ipairs(MergeIconClusters(uiMapId, visibleClusters)) do
+    for _, cluster in ipairs(self:MergeParentMapIconClusters(uiMapId, visibleClusters)) do
         self:AddPin(uiMapId, cluster.x, cluster.y, quest, cluster)
     end
     for _, cluster in ipairs(visibleClusters) do
@@ -153,7 +42,7 @@ function Quests:AddAvailablePins(questId, dbQuest, context)
                 visibleClusters[#visibleClusters + 1] = cluster
             end
         end
-        for _, cluster in ipairs(MergeIconClusters(uiMapId, visibleClusters)) do
+        for _, cluster in ipairs(self:MergeParentMapIconClusters(uiMapId, visibleClusters)) do
             self:AddAvailablePin(uiMapId, cluster.x, cluster.y, questId, dbQuest, cluster, context)
         end
     end

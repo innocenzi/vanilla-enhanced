@@ -32,6 +32,7 @@ src\quests\pin-frames.lua
 src\quests\pin-areas.lua
 src\quests\pin-markers.lua
 src\quests\pin-minimap-areas.lua
+src\quests\pin-clusters.lua
 src\quests\pins.lua
 src\quests\available.lua
 src\quests\refresh.lua
