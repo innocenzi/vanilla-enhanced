@@ -193,6 +193,18 @@ local function materialize_lookup(value)
     return value or {}
 end
 
+local function materialize_blacklist(value)
+    local blacklist = {}
+
+    for quest_id, flag in pairs(value or {}) do
+        if flag then
+            blacklist[quest_id] = true
+        end
+    end
+
+    return blacklist
+end
+
 require("cli.dump")
 WOW_PROJECT_ID = 5
 
@@ -237,6 +249,7 @@ QuestieConfig = {}
 
 local QuestieDB = QuestieLoader:ImportModule("QuestieDB")
 local QuestieCorrections = QuestieLoader:ImportModule("QuestieCorrections")
+local QuestieQuestBlacklist = QuestieLoader:ImportModule("QuestieQuestBlacklist")
 local ZoneDB = QuestieLoader:ImportModule("ZoneDB")
 local l10n = QuestieLoader:ImportModule("l10n")
 
@@ -295,6 +308,9 @@ local normalized = {
     zones = {
         areaToUi = area_to_ui,
         parentArea = parent_area,
+    },
+    blacklist = {
+        quests = materialize_blacklist(QuestieQuestBlacklist:Load()),
     },
     data = {
         quests = QuestieDB.questData,

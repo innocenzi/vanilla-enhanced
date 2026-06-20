@@ -95,6 +95,9 @@ export type NormalizedQuestieDb = {
     areaToUi: Record<string, JsonValue>;
     parentArea: Record<string, JsonValue>;
   };
+  blacklist?: {
+    quests?: Record<string, JsonValue>;
+  };
   data: {
     quests: Record<string, JsonValue>;
     npcs: Record<string, JsonValue>;
@@ -776,6 +779,10 @@ function addReferences(references: BuildArtifacts["references"], questId: number
   }
 }
 
+function isBlacklistedQuest(db: NormalizedQuestieDb, questId: number): boolean {
+  return db.blacklist?.quests?.[String(questId)] === true;
+}
+
 function localizedQuestTitle(value: JsonValue | undefined): string {
   return text(at(value, 1));
 }
@@ -934,6 +941,8 @@ export function buildQuestsArtifacts(input: unknown, options: TransformOptions =
 
   for (const [rawQuestId, questValue] of Object.entries(db.data.quests)) {
     const questId = Number(rawQuestId);
+    if (isBlacklistedQuest(db, questId)) continue;
+
     const objectivePoints = collectPoints(questId, questValue, db, errors, allowUnmappedAreaIds);
     const turnInPoints = collectTurnInPoints(questValue, db, errors, allowUnmappedAreaIds);
     const starterPoints = collectStarterPoints(questValue, db, errors, allowUnmappedAreaIds);

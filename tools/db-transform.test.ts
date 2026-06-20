@@ -141,6 +141,23 @@ test("builds compact quests Lua from normalized Questie data", () => {
   expect(artifacts.localeLua).not.toContain("Unused");
 });
 
+test("skips quests blacklisted by Questie", () => {
+  const db = fixture();
+  db.blacklist = {
+    quests: {
+      "1": true,
+      "2": false,
+    },
+  };
+
+  const artifacts = buildQuestsArtifacts(db, { minQuestCount: 0 });
+
+  expect(artifacts.questCount).toBe(7);
+  expect(artifacts.locationLua).not.toContain('t = "Kill Quest"');
+  expect(artifacts.locationLua).toContain('t = "Loot Quest"');
+  expect(artifacts.localeLua).not.toContain("Quete tuer");
+});
+
 test("fails when a referenced NPC is missing", () => {
   const db = fixture();
   delete db.data.npcs["101"];
