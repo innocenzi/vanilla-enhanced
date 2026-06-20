@@ -326,16 +326,27 @@ RegisterEventIfAvailable(eventFrame, "ADDON_LOADED")
 RegisterEventIfAvailable(eventFrame, "PLAYER_LOGIN")
 RegisterEventIfAvailable(eventFrame, "PLAYER_ENTERING_WORLD")
 RegisterEventIfAvailable(eventFrame, "QUEST_LOG_UPDATE")
+RegisterEventIfAvailable(eventFrame, "QUEST_TURNED_IN")
+RegisterEventIfAvailable(eventFrame, "PLAYER_STOPPED_MOVING")
 RegisterEventIfAvailable(eventFrame, "ZONE_CHANGED_NEW_AREA")
+RegisterEventIfAvailable(eventFrame, "UPDATE_FACTION")
+RegisterEventIfAvailable(eventFrame, "SKILL_LINES_CHANGED")
+RegisterEventIfAvailable(eventFrame, "SPELLS_CHANGED")
+RegisterEventIfAvailable(eventFrame, "LEARNED_SPELL_IN_TAB")
 
 eventFrame:SetScript("OnEvent", function(_, event, loadedAddonName)
     if event == "ADDON_LOADED" and loadedAddonName == VanillaEnhanced.addonName then
         Quests:GetSettings()
         Quests:HookQuestLogWithMapFrames()
+        Quests.hbd = LibStub and LibStub("HereBeDragons-2.0", true)
         Quests.hbdPins = LibStub and LibStub("HereBeDragons-Pins-2.0", true)
     elseif event == "PLAYER_LOGIN" then
         Quests:HookQuestLogWithMapFrames()
         Quests:QueueRefresh()
+    elseif event == "PLAYER_STOPPED_MOVING" then
+        if Quests.ShouldRefreshNearbyAvailableQuestsOnMovement and Quests:ShouldRefreshNearbyAvailableQuestsOnMovement() then
+            Quests:QueueRefresh()
+        end
     elseif event ~= "ADDON_LOADED" then
         Quests:HookQuestLogWithMapFrames()
         Quests:QueueRefresh()

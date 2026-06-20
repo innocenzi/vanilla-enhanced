@@ -4,6 +4,16 @@ import { resolve } from "node:path";
 import { buildQuestsArtifacts, type NormalizedQuestieDb } from "./db-transform";
 
 function fixture(): NormalizedQuestieDb {
+  const killQuest = ["Kill Quest", [[106]], null, 5, 7, 77, 1, null, null, [[[101, "Wolf slain"]]], null, [8], [2], null, null, [3], 12] as any[];
+  killQuest[17] = [185, 50];
+  killQuest[18] = [609, 3000];
+  killQuest[19] = [609, 42000];
+  killQuest[26] = 9;
+  killQuest[27] = [10, 11];
+  killQuest[29] = -1234;
+  killQuest[30] = 202;
+  killQuest[34] = [[185, 2], [202, -4]];
+
   return {
     meta: {
       questieRef: "test-ref",
@@ -15,12 +25,35 @@ function fixture(): NormalizedQuestieDb {
     keys: {
       quests: {
         name: 1,
+        startedBy: 2,
         finishedBy: 3,
+        requiredLevel: 4,
+        questLevel: 5,
+        requiredRaces: 6,
+        requiredClasses: 7,
+        requiredSkill: 18,
+        requiredMinRep: 19,
+        requiredMaxRep: 20,
         triggerEnd: 9,
         objectives: 10,
+        preQuestGroup: 12,
+        preQuestSingle: 13,
+        exclusiveTo: 16,
         zoneOrSort: 17,
         requiredSourceItems: 21,
+        nextQuestInChain: 22,
+        specialFlags: 24,
+        parentQuest: 25,
+        breadcrumbForQuestId: 27,
+        breadcrumbs: 28,
         extraObjectives: 29,
+        requiredSpell: 30,
+        requiredSpecialization: 31,
+        requiredMaxLevel: 32,
+        availableUntilCompleted: 33,
+        availableStartingWith: 34,
+        requiredRanks: 35,
+        disabledByQuest: 36,
       },
       npcs: { name: 1, spawns: 7 },
       objects: { name: 1, spawns: 4 },
@@ -32,7 +65,7 @@ function fixture(): NormalizedQuestieDb {
     },
     data: {
       quests: {
-        "1": ["Kill Quest", null, null, null, null, null, null, null, null, [[[101, "Wolf slain"]]], null, null, null, null, null, null, 12],
+        "1": killQuest,
         "2": ["Loot Quest", null, null, null, null, null, null, null, null, [null, null, [[201, "Wolf pelt"]]], null, null, null, null, null, null, 12],
         "3": ["Object Quest", null, null, null, null, null, null, null, null, [null, [[301, "Open crate"]]], null, null, null, null, null, null, 12],
         "4": ["Trigger Quest", null, null, null, null, null, null, null, ["Discover camp", { "12": [[50, 50]] }], null, null, null, null, null, null, null, 12],
@@ -47,6 +80,7 @@ function fixture(): NormalizedQuestieDb {
         "103": ["Captive A", null, null, null, null, null, { "12": [[40, 40]] }],
         "104": ["Captive B", null, null, null, null, null, { "12": [[41, 41]] }],
         "105": ["Quest Finisher", null, null, null, null, null, { "12": [[60, 60]] }],
+        "106": ["Quest Starter", null, null, null, null, null, { "12": [[15, 15]] }],
       },
       objects: {
         "301": ["Crate", null, null, { "12": [[70, 70]] }],
@@ -74,6 +108,23 @@ test("builds compact quests Lua from normalized Questie data", () => {
   expect(artifacts.questCount).toBe(8);
   expect(artifacts.locationLua).toContain('questieRef = "test-ref"');
   expect(artifacts.locationLua).toContain('[1] = { t = "Kill Quest"');
+  expect(artifacts.locationLua).toContain('rl = 5');
+  expect(artifacts.locationLua).toContain('ql = 7');
+  expect(artifacts.locationLua).toContain('rr = 77');
+  expect(artifacts.locationLua).toContain('rc = 1');
+  expect(artifacts.locationLua).toContain('sk = {185,50}');
+  expect(artifacts.locationLua).toContain('rmin = {609,3000}');
+  expect(artifacts.locationLua).toContain('rmax = {609,42000}');
+  expect(artifacts.locationLua).toContain('pg = {8}');
+  expect(artifacts.locationLua).toContain('ps = {2}');
+  expect(artifacts.locationLua).toContain('ex = {3}');
+  expect(artifacts.locationLua).toContain('bf = 9');
+  expect(artifacts.locationLua).toContain('bc = {10,11}');
+  expect(artifacts.locationLua).toContain('spell = -1234');
+  expect(artifacts.locationLua).toContain('spec = 202');
+  expect(artifacts.locationLua).toContain('rk = {{185,2},{202,-4}}');
+  expect(artifacts.locationLua).toContain("starts = {");
+  expect(artifacts.locationLua).toContain('k = "available"');
   expect(artifacts.locationLua).toContain('k = "slay"');
   expect(artifacts.locationLua).toContain('k = "loot"');
   expect(artifacts.locationLua).toContain('k = "object"');

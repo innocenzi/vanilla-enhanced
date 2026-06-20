@@ -26,6 +26,7 @@ src\quests\quest-log.lua
 src\quests\quest-tracker.lua
 src\quests\unit-tooltips.lua
 src\quests\pins.lua
+src\quests\available.lua
 src\quests\refresh.lua
 src\bags\module.lua
 src\bags\api.lua

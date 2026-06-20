@@ -36,8 +36,44 @@ type OutlinePoint = {
   y: number;
 };
 
-type ObjectiveKind = "slay" | "loot" | "event" | "object" | "talk" | "turnin";
+type ObjectiveKind = "slay" | "loot" | "event" | "object" | "talk" | "turnin" | "available";
 type SourceType = "npc" | "object" | "item";
+
+type QuestAvailability = {
+  requiredLevel?: number;
+  questLevel?: number;
+  requiredRaces?: number;
+  requiredClasses?: number;
+  requiredSkill?: NumberPair;
+  requiredMinRep?: NumberPair;
+  requiredMaxRep?: NumberPair;
+  preQuestGroup?: number[];
+  preQuestSingle?: number[];
+  exclusiveTo?: number[];
+  nextQuestInChain?: number;
+  specialFlags?: number;
+  breadcrumbForQuestId?: number;
+  breadcrumbs?: number[];
+  requiredSpell?: number;
+  requiredSpecialization?: number;
+  parentQuest?: number;
+  requiredMaxLevel?: number;
+  availableUntilCompleted?: number;
+  availableStartingWith?: number;
+  requiredRanks?: NumberPair[];
+  disabledByQuest?: number;
+};
+
+type NumberPair = [number, number];
+
+type CompactQuest = {
+  t: string;
+  z: number;
+  maps: Record<number, Cluster[]>;
+  turnins?: Record<number, Cluster[]>;
+  starts?: Record<number, Cluster[]>;
+  availability?: QuestAvailability;
+};
 
 export type NormalizedQuestieDb = {
   meta: {
@@ -475,6 +511,90 @@ function collectTurnInPoints(
   return points;
 }
 
+function collectStarterPoints(
+  quest: JsonValue,
+  db: NormalizedQuestieDb,
+  errors: string[],
+  allowUnmappedAreaIds: Set<number>,
+): Point[] {
+  const points: Point[] = [];
+  const starters = byKey(quest, db.keys.quests, "startedBy");
+
+  for (const npcId of values(at(starters, QUEST_GIVER.creature))) {
+    resolveNpc(points, int(npcId), "Available quest", db, errors, allowUnmappedAreaIds, undefined, "available");
+  }
+  for (const objectId of values(at(starters, QUEST_GIVER.object))) {
+    resolveObject(points, int(objectId), "Available quest", db, errors, allowUnmappedAreaIds, undefined, "available");
+  }
+
+  return points;
+}
+
+function numericList(value: JsonValue | undefined): number[] | undefined {
+  const list = values(value).map(int).filter(Boolean);
+  return list.length ? list : undefined;
+}
+
+function numericPair(value: JsonValue | undefined): NumberPair | undefined {
+  const pair = asTable(value);
+  if (!pair) return undefined;
+  const first = int(at(pair, 1));
+  const second = int(at(pair, 2));
+  return first ? [first, second] : undefined;
+}
+
+function numericPairList(value: JsonValue | undefined): NumberPair[] | undefined {
+  const pairs = values(value)
+    .map(numericPair)
+    .filter((pair): pair is NumberPair => !!pair);
+  return pairs.length ? pairs : undefined;
+}
+
+function collectAvailability(quest: JsonValue, db: NormalizedQuestieDb): QuestAvailability | undefined {
+  const availability: QuestAvailability = {};
+  const setNumber = (field: keyof QuestAvailability, key: string) => {
+    const value = int(byKey(quest, db.keys.quests, key));
+    if (value) (availability[field] as number) = value;
+  };
+  const setList = (field: keyof QuestAvailability, key: string) => {
+    const value = numericList(byKey(quest, db.keys.quests, key));
+    if (value) (availability[field] as number[]) = value;
+  };
+  const setPair = (field: keyof QuestAvailability, key: string) => {
+    const value = numericPair(byKey(quest, db.keys.quests, key));
+    if (value) (availability[field] as NumberPair) = value;
+  };
+  const setPairList = (field: keyof QuestAvailability, key: string) => {
+    const value = numericPairList(byKey(quest, db.keys.quests, key));
+    if (value) (availability[field] as NumberPair[]) = value;
+  };
+
+  setNumber("requiredLevel", "requiredLevel");
+  setNumber("questLevel", "questLevel");
+  setNumber("requiredRaces", "requiredRaces");
+  setNumber("requiredClasses", "requiredClasses");
+  setPair("requiredSkill", "requiredSkill");
+  setPair("requiredMinRep", "requiredMinRep");
+  setPair("requiredMaxRep", "requiredMaxRep");
+  setList("preQuestGroup", "preQuestGroup");
+  setList("preQuestSingle", "preQuestSingle");
+  setList("exclusiveTo", "exclusiveTo");
+  setNumber("nextQuestInChain", "nextQuestInChain");
+  setNumber("specialFlags", "specialFlags");
+  setNumber("breadcrumbForQuestId", "breadcrumbForQuestId");
+  setList("breadcrumbs", "breadcrumbs");
+  setNumber("requiredSpell", "requiredSpell");
+  setNumber("requiredSpecialization", "requiredSpecialization");
+  setNumber("parentQuest", "parentQuest");
+  setNumber("requiredMaxLevel", "requiredMaxLevel");
+  setNumber("availableUntilCompleted", "availableUntilCompleted");
+  setNumber("availableStartingWith", "availableStartingWith");
+  setPairList("requiredRanks", "requiredRanks");
+  setNumber("disabledByQuest", "disabledByQuest");
+
+  return Object.keys(availability).length ? availability : undefined;
+}
+
 function cluster(points: Point[]): Record<number, Cluster[]> {
   const grouped: Record<string, Point[]> = {};
   for (const point of points) {
@@ -662,7 +782,55 @@ function localizedLookupName(value: JsonValue | undefined): string {
   return text(at(value, 1));
 }
 
-function renderLocationLua(db: NormalizedQuestieDb, compact: Map<number, { t: string; z: number; maps: Record<number, Cluster[]>; turnins?: Record<number, Cluster[]> }>): string {
+function formatNumberList(list: number[]): string {
+  return `{${list.join(",")}}`;
+}
+
+function formatNumberPair(pair: NumberPair): string {
+  return `{${pair[0]},${pair[1]}}`;
+}
+
+function formatNumberPairList(list: NumberPair[]): string {
+  return `{${list.map(formatNumberPair).join(",")}}`;
+}
+
+function formatAvailability(availability: QuestAvailability | undefined): string[] {
+  if (!availability) return [];
+  const fields: string[] = [];
+  if (availability.requiredLevel) fields.push(`rl = ${availability.requiredLevel}`);
+  if (availability.questLevel) fields.push(`ql = ${availability.questLevel}`);
+  if (availability.requiredRaces) fields.push(`rr = ${availability.requiredRaces}`);
+  if (availability.requiredClasses) fields.push(`rc = ${availability.requiredClasses}`);
+  if (availability.requiredSkill) fields.push(`sk = ${formatNumberPair(availability.requiredSkill)}`);
+  if (availability.requiredMinRep) fields.push(`rmin = ${formatNumberPair(availability.requiredMinRep)}`);
+  if (availability.requiredMaxRep) fields.push(`rmax = ${formatNumberPair(availability.requiredMaxRep)}`);
+  if (availability.preQuestGroup?.length) fields.push(`pg = ${formatNumberList(availability.preQuestGroup)}`);
+  if (availability.preQuestSingle?.length) fields.push(`ps = ${formatNumberList(availability.preQuestSingle)}`);
+  if (availability.exclusiveTo?.length) fields.push(`ex = ${formatNumberList(availability.exclusiveTo)}`);
+  if (availability.nextQuestInChain) fields.push(`nc = ${availability.nextQuestInChain}`);
+  if (availability.specialFlags) fields.push(`sf = ${availability.specialFlags}`);
+  if (availability.breadcrumbForQuestId) fields.push(`bf = ${availability.breadcrumbForQuestId}`);
+  if (availability.breadcrumbs?.length) fields.push(`bc = ${formatNumberList(availability.breadcrumbs)}`);
+  if (availability.requiredSpell) fields.push(`spell = ${availability.requiredSpell}`);
+  if (availability.requiredSpecialization) fields.push(`spec = ${availability.requiredSpecialization}`);
+  if (availability.parentQuest) fields.push(`pq = ${availability.parentQuest}`);
+  if (availability.requiredMaxLevel) fields.push(`mx = ${availability.requiredMaxLevel}`);
+  if (availability.availableUntilCompleted) fields.push(`au = ${availability.availableUntilCompleted}`);
+  if (availability.availableStartingWith) fields.push(`as = ${availability.availableStartingWith}`);
+  if (availability.requiredRanks?.length) fields.push(`rk = ${formatNumberPairList(availability.requiredRanks)}`);
+  if (availability.disabledByQuest) fields.push(`db = ${availability.disabledByQuest}`);
+  return fields;
+}
+
+function renderMapClusters(lines: string[], name: string, maps: Record<number, Cluster[]>): void {
+  lines.push(`    ${name} = {`);
+  for (const uiMap of Object.keys(maps).map(Number).sort((a, b) => a - b)) {
+    lines.push(`      [${uiMap}] = {${maps[uiMap].map(formatCluster).join(", ")}},`);
+  }
+  lines.push("    },");
+}
+
+function renderLocationLua(db: NormalizedQuestieDb, compact: Map<number, CompactQuest>): string {
   const lines: string[] = [
     "-- AUTO GENERATED by tools/build-db.ts. Do not edit by hand.",
     "VanillaEnhancedQuestsDB = {",
@@ -679,17 +847,17 @@ function renderLocationLua(db: NormalizedQuestieDb, compact: Map<number, { t: st
 
   for (const questId of [...compact.keys()].sort((a, b) => a - b)) {
     const quest = compact.get(questId)!;
-    lines.push(`    [${questId}] = { t = ${luaString(quest.t)}, z = ${quest.z}, maps = {`);
+    const fields = [`t = ${luaString(quest.t)}`, `z = ${quest.z}`, ...formatAvailability(quest.availability)];
+    lines.push(`    [${questId}] = { ${fields.join(", ")}, maps = {`);
     for (const uiMap of Object.keys(quest.maps).map(Number).sort((a, b) => a - b)) {
       lines.push(`      [${uiMap}] = {${quest.maps[uiMap].map(formatCluster).join(", ")}},`);
     }
     lines.push("    },");
     if (quest.turnins) {
-      lines.push("    turnins = {");
-      for (const uiMap of Object.keys(quest.turnins).map(Number).sort((a, b) => a - b)) {
-        lines.push(`      [${uiMap}] = {${quest.turnins[uiMap].map(formatCluster).join(", ")}},`);
-      }
-      lines.push("    },");
+      renderMapClusters(lines, "turnins", quest.turnins);
+    }
+    if (quest.starts) {
+      renderMapClusters(lines, "starts", quest.starts);
     }
     lines.push("    },");
   }
@@ -753,18 +921,19 @@ export function buildQuestsArtifacts(input: unknown, options: TransformOptions =
   const db = assertNormalizedDb(input);
   const errors: string[] = [];
   const allowUnmappedAreaIds = new Set([...(options.allowUnmappedAreaIds ?? []), ...DEFAULT_ALLOW_UNMAPPED_AREA_IDS]);
-  const compact = new Map<number, { t: string; z: number; maps: Record<number, Cluster[]>; turnins?: Record<number, Cluster[]> }>();
+  const compact = new Map<number, CompactQuest>();
   const references = { quests: new Set<number>(), npcs: new Set<number>(), objects: new Set<number>(), items: new Set<number>() };
 
   for (const [rawQuestId, questValue] of Object.entries(db.data.quests)) {
     const questId = Number(rawQuestId);
     const objectivePoints = collectPoints(questId, questValue, db, errors, allowUnmappedAreaIds);
     const turnInPoints = collectTurnInPoints(questValue, db, errors, allowUnmappedAreaIds);
+    const starterPoints = collectStarterPoints(questValue, db, errors, allowUnmappedAreaIds);
     const points = objectivePoints.length ? objectivePoints : turnInPoints;
-    if (!points.length) continue;
+    if (!points.length && !starterPoints.length) continue;
 
-    const maps = cluster(points);
-    if (!Object.keys(maps).length) {
+    const maps = points.length ? cluster(points) : {};
+    if (points.length && !Object.keys(maps).length) {
       validationError(errors, `Quest ${questId}: produced no map clusters`);
       continue;
     }
@@ -774,10 +943,13 @@ export function buildQuestsArtifacts(input: unknown, options: TransformOptions =
       z: int(byKey(questValue, db.keys.quests, "zoneOrSort")),
       maps,
       turnins: turnInPoints.length ? cluster(turnInPoints) : undefined,
+      starts: starterPoints.length ? cluster(starterPoints) : undefined,
+      availability: collectAvailability(questValue, db),
     });
     const entry = compact.get(questId)!;
     addReferences(references, questId, entry.maps);
     addReferences(references, questId, entry.turnins);
+    addReferences(references, questId, entry.starts);
   }
 
   const minQuestCount = options.minQuestCount ?? 0;

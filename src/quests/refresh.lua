@@ -34,6 +34,12 @@ function Quests:Refresh()
             end
         end
     end
+    if self.AddAvailableQuestPins then
+        self:AddAvailableQuestPins(quests)
+    end
+    if self.RenderMarkerGroups then
+        self:RenderMarkerGroups()
+    end
     if self.UpdateSelectedQuestAreaFromLog then
         self:UpdateSelectedQuestAreaFromLog()
     elseif self.RefreshQuestAreaVisibility then

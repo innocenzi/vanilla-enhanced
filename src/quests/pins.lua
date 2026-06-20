@@ -10,6 +10,7 @@ Quests.pool = Quests.pool or {
 }
 
 local MARKER_SYMBOLS = {
+    available = "!",
     turnin = "?",
 }
 
@@ -20,16 +21,32 @@ local ICON_TEXTURES = {
 local PARENT_MAP_ICON_MERGE_DISTANCE = 13
 local MARKER_FRAME_SIZE = 16
 local MARKER_COLOR = { 1, 0.82, 0.15 }
+local HIGH_LEVEL_AVAILABLE_MARKER_ORANGE_COLOR = { 1, 0.48, 0.05 }
+local HIGH_LEVEL_AVAILABLE_MARKER_RED_COLOR = { 1, 0.18, 0.12 }
+local HIGH_LEVEL_AVAILABLE_MARKER_ORANGE_LEVEL_DELTA = 3
+local HIGH_LEVEL_AVAILABLE_MARKER_RED_LEVEL_DELTA = 6
+local LOW_LEVEL_AVAILABLE_MARKER_ALPHA = 0.30
 local MARKER_FONT_SIZE = 9
 local MARKER_ICON_SIZE = 12
 local AREA_COLOR = { 0.5, 0.7, 0.9 }
 local AREA_FILL_ALPHA = 0.5
 local AREA_FILL_STEP = 4
 local AREA_OUTLINE_THICKNESS = 1.5
-local MARKER_SPREAD_DETECTION_RADIUS = 8
-local MARKER_SPREAD_RADIUS = 6
-local MARKER_SPREAD_RESET_DELAY = 0.08
+local MARKER_CLUSTER_PIXEL_DISTANCE = 18
+local TOOLTIP_TITLE_COLOR = { 1, 1, 1 }
+local TOOLTIP_OBJECTIVE_COLOR = { 0.9, 0.82, 0.55 }
+local TOOLTIP_METADATA_COLOR = { 0.56, 0.64, 0.72 }
+local TOOLTIP_COUNT_COLOR = { 0.65, 0.85, 1 }
+local TOOLTIP_AVAILABLE_FALLBACK_COLOR = { 0.7, 0.9, 0.65 }
+local TOOLTIP_DIFFICULTY_COLORS = {
+    trivial = { 0.55, 0.55, 0.55 },
+    easy = { 0.25, 0.75, 0.25 },
+    normal = { 1, 0.82, 0 },
+    hard = { 1, 0.45, 0 },
+    impossible = { 1, 0.1, 0.1 },
+}
 local WHITE_TEXTURE = [[Interface\Buttons\WHITE8X8]]
+local WORLD_MAP_ID = 947
 
 local function Atan2(y, x)
     if math.atan2 then
@@ -199,6 +216,14 @@ function Quests:SetSelectedQuestAreaQuest(questId)
 end
 
 local function SetHoveredArea(self, hovered)
+    if self.questsAreaFrames then
+        for _, area in ipairs(self.questsAreaFrames) do
+            area.questsHovered = hovered == true
+            Quests:RefreshQuestAreaVisibility(area)
+        end
+        return
+    end
+
     local area = self.questsAreaFrame
     if not area then
         return
@@ -208,163 +233,65 @@ local function SetHoveredArea(self, hovered)
     Quests:RefreshQuestAreaVisibility(area)
 end
 
-local function IsWorldMapMarker(frame)
-    return frame and frame.kind == "marker" and frame.poolKind == "marker"
-end
-
-local function GetMarkerAnchorCenter(frame)
-    local parent = frame and frame:GetParent()
-    if parent and parent.GetCenter then
-        return parent:GetCenter()
-    end
-    if frame and frame.GetCenter then
-        return frame:GetCenter()
-    end
-    return nil, nil
-end
-
-local function ResetMarkerOffset(frame)
-    if not IsWorldMapMarker(frame) then
-        return
-    end
-
-    local parent = frame:GetParent()
-    if not parent then
-        return
-    end
-
-    frame:ClearAllPoints()
-    frame:SetPoint("CENTER", parent, "CENTER", 0, 0)
-    frame.questsSpreadActive = nil
-    frame.questsSpreadHovered = nil
-end
-
-local function ApplyMarkerOffset(frame, xOffset, yOffset)
-    if not IsWorldMapMarker(frame) then
-        return
-    end
-
-    local parent = frame:GetParent()
-    if not parent then
-        return
-    end
-
-    frame:ClearAllPoints()
-    frame:SetPoint("CENTER", parent, "CENTER", xOffset or 0, yOffset or 0)
-    frame.questsSpreadActive = true
-end
-
-local function CompareMarkerAngles(a, b)
-    if a.angle == b.angle then
-        return tostring(a.frame) < tostring(b.frame)
-    end
-    return a.angle < b.angle
-end
-
-function Quests:ResetMarkerSpread()
-    for _, frame in ipairs(self.markerSpreadFrames or {}) do
-        ResetMarkerOffset(frame)
-    end
-    wipe(self.markerSpreadFrames or {})
-end
-
-local function HasHoveredSpreadMarker()
-    for _, frame in ipairs(Quests.markerSpreadFrames or {}) do
-        if frame.questsSpreadHovered then
-            return true
-        end
-    end
-    return false
-end
-
-function Quests:ScheduleMarkerSpreadReset()
-    self.markerSpreadResetToken = (self.markerSpreadResetToken or 0) + 1
-    local token = self.markerSpreadResetToken
-
-    if not C_Timer or not C_Timer.After then
-        self:ResetMarkerSpread()
-        return
-    end
-
-    C_Timer.After(MARKER_SPREAD_RESET_DELAY, function()
-        if Quests.markerSpreadResetToken == token and not HasHoveredSpreadMarker() then
-            Quests:ResetMarkerSpread()
-        end
-    end)
-end
-
-function Quests:SpreadNearbyMarkers(origin)
-    if not IsWorldMapMarker(origin) then
-        return
-    end
-
-    local settings = self:GetSettings()
-    if settings.spreadOverlappingMarkers ~= true then
-        return
-    end
-
-    self.markerSpreadResetToken = (self.markerSpreadResetToken or 0) + 1
-    self:ResetMarkerSpread()
-    self.markerSpreadFrames = self.markerSpreadFrames or {}
-
-    local originX, originY = GetMarkerAnchorCenter(origin)
-    if not originX or not originY then
-        return
-    end
-
-    local cluster = {}
-    for _, frame in ipairs(self.frames) do
-        if IsWorldMapMarker(frame) and frame:IsShown() then
-            local x, y = GetMarkerAnchorCenter(frame)
-            if x and y then
-                local distance = math.sqrt(((x - originX) ^ 2) + ((y - originY) ^ 2))
-                if distance <= MARKER_SPREAD_DETECTION_RADIUS then
-                    local angle = Atan2(y - originY, x - originX)
-                    cluster[#cluster + 1] = {
-                        frame = frame,
-                        angle = angle,
-                    }
-                end
-            end
-        end
-    end
-
-    if #cluster < 2 then
-        return
-    end
-
-    table.sort(cluster, CompareMarkerAngles)
-    local step = (math.pi * 2) / #cluster
-    local start = -math.pi / 2
-
-    for index, entry in ipairs(cluster) do
-        local frame = entry.frame
-        local angle = start + ((index - 1) * step)
-        local radius = frame == origin and 0 or MARKER_SPREAD_RADIUS
-
-        ApplyMarkerOffset(frame, math.cos(angle) * radius, math.sin(angle) * radius)
-        frame.questsSpreadHovered = frame == origin
-        self.markerSpreadFrames[#self.markerSpreadFrames + 1] = frame
-    end
-end
-
 local function HideTooltip(self)
     SetHoveredArea(self, false)
-    if IsWorldMapMarker(self) then
-        self.questsSpreadHovered = false
-        Quests:ScheduleMarkerSpreadReset()
-    end
     if GameTooltip:IsOwned(self) then
         GameTooltip:Hide()
     end
 end
 
 local function OpenQuestLog(self)
+    if self.questsPassThroughClicks then
+        return
+    end
+
     local data = self.questsData
     if not data or not data.questId then
         return
     end
     Quests:OpenQuestLogToQuest(data.questId)
+end
+
+local function AddTooltipLine(tooltip, text, color, wrap)
+    if not text or text == "" then
+        return
+    end
+
+    color = color or TOOLTIP_TITLE_COLOR
+    tooltip:AddLine(text, color[1], color[2], color[3], wrap == true)
+end
+
+local function AddTooltipLines(tooltip, lines, color)
+    if not lines then
+        return
+    end
+
+    for _, line in ipairs(lines) do
+        AddTooltipLine(tooltip, line, color, true)
+    end
+end
+
+local function AddPinTooltipEntry(tooltip, data)
+    if not data then
+        return
+    end
+
+    local title = data.title
+    if data.prefix then
+        title = data.prefix .. " " .. title
+    end
+
+    AddTooltipLine(tooltip, title, data.titleColor or TOOLTIP_TITLE_COLOR, true)
+    AddTooltipLines(tooltip, data.metadataLines, TOOLTIP_METADATA_COLOR)
+    AddTooltipLines(tooltip, data.lines, TOOLTIP_OBJECTIVE_COLOR)
+
+    if data.objectives and #data.objectives > 1 then
+        AddTooltipLines(tooltip, data.objectives, TOOLTIP_OBJECTIVE_COLOR)
+    else
+        AddTooltipLine(tooltip, data.objective, TOOLTIP_OBJECTIVE_COLOR, true)
+    end
+
+    AddTooltipLine(tooltip, data.countText, TOOLTIP_COUNT_COLOR)
 end
 
 local function ShowTooltip(self)
@@ -374,31 +301,48 @@ local function ShowTooltip(self)
     end
 
     SetHoveredArea(self, true)
-    if IsWorldMapMarker(self) then
-        self.questsSpreadHovered = true
-        if not self.questsSpreadActive then
-            Quests:SpreadNearbyMarkers(self)
-        end
-    end
     GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-    GameTooltip:SetText(data.number .. ". " .. data.title, 1, 1, 1)
-    if data.objectives and #data.objectives > 1 then
-        for _, objective in ipairs(data.objectives) do
-            GameTooltip:AddLine(objective, 0.9, 0.82, 0.55, true)
+    if data.entries then
+        GameTooltip:SetText(VanillaEnhanced:T("quests.static.nearbyMarkers"), 1, 1, 1)
+        GameTooltip:AddLine(" ")
+        for index, entry in ipairs(data.entries) do
+            local entryData = entry.data
+            if index > 1 then
+                GameTooltip:AddLine(" ")
+            end
+            AddPinTooltipEntry(GameTooltip, entryData)
         end
-    elseif data.objective and data.objective ~= "" then
-        GameTooltip:AddLine(data.objective, 0.9, 0.82, 0.55, true)
+        GameTooltip:Show()
+        return
     end
-    if data.countText then
-        GameTooltip:AddLine(data.countText, 0.65, 0.85, 1)
+
+    local title = data.title
+    if data.prefix then
+        title = data.prefix .. " " .. title
     end
+
+    local titleColor = data.titleColor or TOOLTIP_TITLE_COLOR
+    GameTooltip:SetText(title, titleColor[1], titleColor[2], titleColor[3])
+    AddTooltipLines(GameTooltip, data.metadataLines, TOOLTIP_METADATA_COLOR)
+    AddTooltipLines(GameTooltip, data.lines, TOOLTIP_OBJECTIVE_COLOR)
+
+    if data.objectives and #data.objectives > 1 then
+        AddTooltipLines(GameTooltip, data.objectives, TOOLTIP_OBJECTIVE_COLOR)
+    else
+        AddTooltipLine(GameTooltip, data.objective, TOOLTIP_OBJECTIVE_COLOR, true)
+    end
+
+    AddTooltipLine(GameTooltip, data.countText, TOOLTIP_COUNT_COLOR)
     GameTooltip:Show()
 end
 
-local function ConfigureMarkerText(fontString, symbol, settings)
+local function ConfigureMarkerText(fontString, symbol, settings, opacityMultiplier, color)
+    local opacity = (settings.opacity or 1) * (opacityMultiplier or 1)
+    color = color or MARKER_COLOR
+
     fontString:Show()
     fontString:SetText(tostring(symbol))
-    fontString:SetTextColor(MARKER_COLOR[1], MARKER_COLOR[2], MARKER_COLOR[3], settings.opacity or 1)
+    fontString:SetTextColor(color[1], color[2], color[3], opacity)
     fontString:SetFont(STANDARD_TEXT_FONT, math.max(8, math.floor(MARKER_FONT_SIZE * (settings.scale or 1))), "OUTLINE")
     fontString:SetShadowColor(0, 0, 0, 0.9)
     fontString:SetShadowOffset(1, -1)
@@ -420,14 +364,14 @@ local function ConfigureMarkerFrame(frame, settings, resizeFrame)
     frame.background:Hide()
 end
 
-local function ConfigureSymbol(frame, symbol)
+local function ConfigureSymbol(frame, symbol, opacityMultiplier, color)
     local settings = Quests:GetSettings()
 
     ConfigureMarkerFrame(frame, settings, true)
     frame.texture:Hide()
     HideTextures(frame.lines)
     HideTextures(frame.fills)
-    ConfigureMarkerText(frame.text, symbol, settings)
+    ConfigureMarkerText(frame.text, symbol, settings, opacityMultiplier, color)
 end
 
 local function ConfigureIcon(frame, texture)
@@ -634,11 +578,17 @@ local function AcquireFrame(kind, poolKind, parent)
         frame.kind = kind
         frame.poolKind = poolKind
         frame.questsAreaFrame = nil
+        frame.questsAreaFrames = nil
         frame.questsHovered = nil
-        frame.questsSpreadActive = nil
-        frame.questsSpreadHovered = nil
+        frame.questsPassThroughClicks = nil
+        frame.UiMapID = nil
+        frame.x = nil
+        frame.y = nil
         frame:SetAlpha(1)
         frame:EnableMouse(true)
+        if frame.SetPropagateMouseClicks then
+            frame:SetPropagateMouseClicks(false)
+        end
         frame:Show()
         return frame
     end
@@ -681,21 +631,369 @@ local function BuildPinData(quest, cluster)
     }
 end
 
-function Quests:ClearPins()
-    if self.ResetMarkerSpread then
-        self:ResetMarkerSpread()
+local function GetAvailableQuestLevel(dbQuest)
+    if not dbQuest then
+        return nil
     end
 
+    return dbQuest.ql or dbQuest.rl
+end
+
+local function PastelizeColor(color)
+    if not color then
+        return TOOLTIP_AVAILABLE_FALLBACK_COLOR
+    end
+
+    local blend = 0.35
+    return {
+        color[1] + ((1 - color[1]) * blend),
+        color[2] + ((1 - color[2]) * blend),
+        color[3] + ((1 - color[3]) * blend),
+    }
+end
+
+local function GetAvailableQuestTitleColor(dbQuest)
+    local level = GetAvailableQuestLevel(dbQuest)
+
+    if level and GetQuestDifficultyColor then
+        local ok, color = pcall(GetQuestDifficultyColor, level)
+        if ok and color then
+            local red = color.r or color[1]
+            local green = color.g or color[2]
+            local blue = color.b or color[3]
+            if red and green and blue then
+                return PastelizeColor({ red, green, blue })
+            end
+        end
+    end
+
+    local playerLevel = UnitLevel and UnitLevel("player") or nil
+    if not level or not playerLevel or playerLevel <= 0 then
+        return TOOLTIP_AVAILABLE_FALLBACK_COLOR
+    end
+
+    local delta = level - playerLevel
+    if delta >= 5 then
+        return PastelizeColor(TOOLTIP_DIFFICULTY_COLORS.impossible)
+    end
+    if delta >= 3 then
+        return PastelizeColor(TOOLTIP_DIFFICULTY_COLORS.hard)
+    end
+    if delta >= -2 then
+        return PastelizeColor(TOOLTIP_DIFFICULTY_COLORS.normal)
+    end
+    if delta >= -5 then
+        return PastelizeColor(TOOLTIP_DIFFICULTY_COLORS.easy)
+    end
+    return PastelizeColor(TOOLTIP_DIFFICULTY_COLORS.trivial)
+end
+
+local function BuildAvailablePinData(questId, dbQuest)
+    local metadataLines = {}
+
+    local hasQuestLevel = dbQuest.ql and dbQuest.ql > 0
+    local questLabel = VanillaEnhanced:T("quests.static.available")
+    local levelLabel
+
+    if hasQuestLevel then
+        metadataLines[#metadataLines + 1] = VanillaEnhanced:T("quests.static.availableQuestLevel", { level = dbQuest.ql })
+    elseif dbQuest.rl and dbQuest.rl > 0 then
+        levelLabel = VanillaEnhanced:T("quests.static.requiresLevel", { level = dbQuest.rl })
+    end
+
+    if not hasQuestLevel then
+        metadataLines[#metadataLines + 1] = levelLabel and (questLabel .. " - " .. levelLabel) or questLabel
+    end
+    if hasQuestLevel and dbQuest.rl and dbQuest.rl > 0 and UnitLevel and UnitLevel("player") < dbQuest.rl then
+        metadataLines[#metadataLines + 1] = VanillaEnhanced:T("quests.static.requiresLevel", { level = dbQuest.rl })
+    end
+
+    return {
+        availableQuestId = questId,
+        title = Quests:GetLocalizedQuestTitle(nil, questId, dbQuest.t),
+        titleColor = GetAvailableQuestTitleColor(dbQuest),
+        metadataLines = metadataLines,
+    }
+end
+
+local function MarkerCandidateDistance(a, b, xScale, yScale)
+    return math.sqrt(((((a.x or 0) - (b.x or 0)) * xScale) ^ 2) + ((((a.y or 0) - (b.y or 0)) * yScale) ^ 2))
+end
+
+local function GetMarkerSymbol(kind, fallback)
+    return MARKER_SYMBOLS[kind] or fallback
+end
+
+local function InterpolateColor(fromColor, toColor, progress)
+    return {
+        fromColor[1] + ((toColor[1] - fromColor[1]) * progress),
+        fromColor[2] + ((toColor[2] - fromColor[2]) * progress),
+        fromColor[3] + ((toColor[3] - fromColor[3]) * progress),
+    }
+end
+
+local function GetHighLevelAvailableMarkerColor(dbQuest, context)
+    local playerLevel = context and context.playerLevel or (UnitLevel and UnitLevel("player") or 0)
+    local questLevel = GetAvailableQuestLevel(dbQuest)
+
+    if not playerLevel or playerLevel <= 0 or not questLevel or questLevel <= 0 then
+        return nil
+    end
+
+    local levelDelta = questLevel - playerLevel
+    if levelDelta < HIGH_LEVEL_AVAILABLE_MARKER_ORANGE_LEVEL_DELTA then
+        return nil
+    end
+    if levelDelta >= HIGH_LEVEL_AVAILABLE_MARKER_RED_LEVEL_DELTA then
+        return HIGH_LEVEL_AVAILABLE_MARKER_RED_COLOR
+    end
+
+    local progress = (levelDelta - HIGH_LEVEL_AVAILABLE_MARKER_ORANGE_LEVEL_DELTA)
+        / (HIGH_LEVEL_AVAILABLE_MARKER_RED_LEVEL_DELTA - HIGH_LEVEL_AVAILABLE_MARKER_ORANGE_LEVEL_DELTA)
+    return InterpolateColor(HIGH_LEVEL_AVAILABLE_MARKER_ORANGE_COLOR, HIGH_LEVEL_AVAILABLE_MARKER_RED_COLOR, progress)
+end
+
+local function AddUniqueAreaFrame(areaFrames, area)
+    if not area then
+        return
+    end
+
+    for _, existing in ipairs(areaFrames) do
+        if existing == area then
+            return
+        end
+    end
+
+    areaFrames[#areaFrames + 1] = area
+end
+
+local function AddMarkerToGroup(group, candidate)
+    local count = #group.entries
+
+    group.x = ((group.x * count) + candidate.x) / (count + 1)
+    group.y = ((group.y * count) + candidate.y) / (count + 1)
+    group.entries[#group.entries + 1] = candidate
+    AddUniqueAreaFrame(group.areaFrames, candidate.areaFrame)
+end
+
+local function GroupContainsChildMapEntries(group, uiMapId)
+    for _, entry in ipairs(group.entries) do
+        if entry.uiMapId ~= uiMapId then
+            return true
+        end
+    end
+    return false
+end
+
+local function SetMarkerPassThroughClicks(frame, passThrough)
+    frame.questsPassThroughClicks = passThrough == true
+
+    if frame.SetPropagateMouseClicks then
+        frame:EnableMouse(true)
+        frame:SetPropagateMouseClicks(passThrough == true)
+    else
+        frame:EnableMouse(passThrough ~= true)
+    end
+end
+
+local function BuildCombinedMarkerSymbol(entries)
+    local hasTurnin
+    local hasAvailable
+    local hasOther
+    local fallbackSymbol
+
+    for _, entry in ipairs(entries) do
+        if entry.symbol == MARKER_SYMBOLS.turnin then
+            hasTurnin = true
+        elseif entry.symbol == MARKER_SYMBOLS.available then
+            hasAvailable = true
+        else
+            hasOther = true
+            fallbackSymbol = fallbackSymbol or entry.symbol
+        end
+    end
+
+    local symbol = ""
+    if hasTurnin then
+        symbol = symbol .. MARKER_SYMBOLS.turnin
+    end
+    if hasAvailable then
+        symbol = symbol .. MARKER_SYMBOLS.available
+    end
+    if hasOther then
+        if symbol ~= "" then
+            symbol = symbol .. "+"
+        elseif #entries == 1 then
+            symbol = fallbackSymbol or "+"
+        else
+            symbol = "+"
+        end
+    end
+
+    return symbol ~= "" and symbol or "+"
+end
+
+local function FindFirstQuestId(entries)
+    for _, entry in ipairs(entries) do
+        if entry.data and entry.data.questId then
+            return entry.data.questId
+        end
+    end
+    return nil
+end
+
+local function BuildCombinedMarkerData(entries)
+    return {
+        questId = FindFirstQuestId(entries),
+        entries = entries,
+    }
+end
+
+function Quests:AddMarkerCandidate(uiMapId, x, y, data, symbol, areaFrame, opacityMultiplier, color, texture)
+    self.markerCandidates = self.markerCandidates or {}
+
+    self.markerCandidates[#self.markerCandidates + 1] = {
+        uiMapId = uiMapId,
+        x = x,
+        y = y,
+        data = data,
+        symbol = symbol,
+        areaFrame = areaFrame,
+        opacityMultiplier = opacityMultiplier,
+        color = color,
+        texture = texture,
+    }
+end
+
+local function BuildMarkerRenderCandidate(candidate, currentMapId)
+    local renderCandidate = {
+        uiMapId = candidate.uiMapId,
+        renderMapId = candidate.uiMapId,
+        x = candidate.x,
+        y = candidate.y,
+        data = candidate.data,
+        symbol = candidate.symbol,
+        areaFrame = candidate.areaFrame,
+        opacityMultiplier = candidate.opacityMultiplier,
+        color = candidate.color,
+        texture = candidate.texture,
+    }
+
+    if currentMapId and Quests.hbd and Quests.hbd.TranslateZoneCoordinates then
+        local displayX, displayY = Quests.hbd:TranslateZoneCoordinates(
+            (candidate.x or 0) / 100,
+            (candidate.y or 0) / 100,
+            candidate.uiMapId,
+            currentMapId,
+            false
+        )
+
+        if displayX and displayY then
+            renderCandidate.renderMapId = currentMapId
+            renderCandidate.x = displayX * 100
+            renderCandidate.y = displayY * 100
+        end
+    end
+
+    return renderCandidate
+end
+
+local function AddMarkerRenderCandidate(groupsByMap, candidate, xScale, yScale)
+    local groups = groupsByMap[candidate.renderMapId]
+    if not groups then
+        groups = {}
+        groupsByMap[candidate.renderMapId] = groups
+    end
+
+    for _, group in ipairs(groups) do
+        if MarkerCandidateDistance(group, candidate, xScale, yScale) <= MARKER_CLUSTER_PIXEL_DISTANCE then
+            AddMarkerToGroup(group, candidate)
+            return
+        end
+    end
+
+    groups[#groups + 1] = {
+        x = candidate.x,
+        y = candidate.y,
+        entries = { candidate },
+        areaFrames = {},
+    }
+    AddUniqueAreaFrame(groups[#groups].areaFrames, candidate.areaFrame)
+end
+
+function Quests:RenderMarkerGroups()
+    if not self.hbdPins or not self.markerCandidates then
+        return
+    end
+
+    local currentMapId = GetCurrentMapId()
+    local xScale, yScale = GetMapPixelScale()
+    local groupsByMap = {}
+
+    for _, candidate in ipairs(self.markerCandidates) do
+        AddMarkerRenderCandidate(groupsByMap, BuildMarkerRenderCandidate(candidate, currentMapId), xScale, yScale)
+    end
+
+    for uiMapId, groups in pairs(groupsByMap) do
+        local showFlag = currentMapId and uiMapId == currentMapId
+            and (HBD_PINS_WORLDMAP_SHOW_CURRENT or -1)
+            or (HBD_PINS_WORLDMAP_SHOW_WORLD or 3)
+        for _, group in ipairs(groups) do
+            local marker = AcquireFrame("marker", "marker", WorldMapFrame)
+            local first = group.entries[1]
+
+            marker.questsAreaFrame = nil
+            marker.questsAreaFrames = nil
+            SetMarkerPassThroughClicks(marker, currentMapId and uiMapId == currentMapId and GroupContainsChildMapEntries(group, uiMapId))
+
+            if #group.entries == 1 then
+                marker.questsData = first.data
+                marker.questsAreaFrame = first.areaFrame
+                if first.texture then
+                    ConfigureIcon(marker, first.texture)
+                else
+                    ConfigureSymbol(marker, first.symbol, first.opacityMultiplier, first.color)
+                end
+            else
+                local symbol = BuildCombinedMarkerSymbol(group.entries)
+
+                marker.questsData = BuildCombinedMarkerData(group.entries)
+                if #group.areaFrames > 0 then
+                    marker.questsAreaFrames = group.areaFrames
+                end
+                ConfigureSymbol(marker, symbol)
+            end
+
+            if uiMapId == WORLD_MAP_ID and currentMapId == WORLD_MAP_ID then
+                -- HBD's world-map path can use explicit Azeroth map coordinates from the icon.
+                marker.UiMapID = WORLD_MAP_ID
+                marker.x = group.x
+                marker.y = group.y
+            else
+                marker.UiMapID = nil
+                marker.x = nil
+                marker.y = nil
+            end
+            self.hbdPins:AddWorldMapIconMap(self, marker, uiMapId, group.x / 100, group.y / 100, showFlag)
+            self.frames[#self.frames + 1] = marker
+        end
+    end
+end
+
+function Quests:ClearPins()
     if self.hbdPins then
         for _, frame in ipairs(self.frames) do
             self.hbdPins:RemoveWorldMapIcon(self, frame)
             frame.questsData = nil
             frame.questsAreaFrame = nil
+            frame.questsAreaFrames = nil
             frame.questsHovered = nil
-            frame.questsSpreadActive = nil
-            frame.questsSpreadHovered = nil
+            frame.questsPassThroughClicks = nil
             frame:SetAlpha(1)
             frame:EnableMouse(true)
+            if frame.SetPropagateMouseClicks then
+                frame:SetPropagateMouseClicks(false)
+            end
             frame:Hide()
             self.pool[frame.poolKind][#self.pool[frame.poolKind] + 1] = frame
         end
@@ -703,17 +1001,21 @@ function Quests:ClearPins()
             self.hbdPins:RemoveMinimapIcon(self, frame)
             frame.questsData = nil
             frame.questsAreaFrame = nil
+            frame.questsAreaFrames = nil
             frame.questsHovered = nil
-            frame.questsSpreadActive = nil
-            frame.questsSpreadHovered = nil
+            frame.questsPassThroughClicks = nil
             frame:SetAlpha(1)
             frame:EnableMouse(true)
+            if frame.SetPropagateMouseClicks then
+                frame:SetPropagateMouseClicks(false)
+            end
             frame:Hide()
             self.pool[frame.poolKind][#self.pool[frame.poolKind] + 1] = frame
         end
     end
     wipe(self.frames)
     wipe(self.minimapFrames)
+    self.markerCandidates = {}
 end
 
 function Quests:AddPins(uiMapId, clusters, quest)
@@ -730,6 +1032,24 @@ function Quests:AddPins(uiMapId, clusters, quest)
     end
     for _, cluster in ipairs(visibleClusters) do
         self:AddMinimapPin(uiMapId, cluster.x, cluster.y, quest, cluster)
+    end
+end
+
+function Quests:AddAvailablePins(questId, dbQuest, context)
+    if not dbQuest or not dbQuest.starts then
+        return
+    end
+
+    for uiMapId, clusters in pairs(dbQuest.starts) do
+        local visibleClusters = {}
+        for _, cluster in ipairs(clusters) do
+            if not self.ShouldShowAvailableQuestStart or self:ShouldShowAvailableQuestStart(uiMapId, cluster, context) then
+                visibleClusters[#visibleClusters + 1] = cluster
+            end
+        end
+        for _, cluster in ipairs(MergeIconClusters(uiMapId, visibleClusters)) do
+            self:AddAvailablePin(uiMapId, cluster.x, cluster.y, questId, dbQuest, cluster, context)
+        end
     end
 end
 
@@ -761,7 +1081,6 @@ function Quests:AddPin(uiMapId, x, y, quest, cluster)
         return
     end
 
-    local showFlag = HBD_PINS_WORLDMAP_SHOW_WORLD or 3
     local kind = cluster.k or "object"
     local areaOnly = kind == "slay" or kind == "loot"
     local pinData = BuildPinData(quest, cluster)
@@ -772,19 +1091,33 @@ function Quests:AddPin(uiMapId, x, y, quest, cluster)
         area.questsData = pinData
         area.questsHovered = false
         ConfigureArea(area, cluster, quest, kind)
-        self.hbdPins:AddWorldMapIconMap(self, area, uiMapId, x / 100, y / 100, showFlag)
+        self.hbdPins:AddWorldMapIconMap(self, area, uiMapId, x / 100, y / 100, HBD_PINS_WORLDMAP_SHOW_CURRENT or -1)
         self.frames[#self.frames + 1] = area
         self:RefreshQuestAreaVisibility(area)
     end
 
-    local marker = AcquireFrame("marker", "marker", WorldMapFrame)
-    marker.questsData = pinData
-    marker.questsAreaFrame = area
-    if ICON_TEXTURES[kind] then
-        ConfigureIcon(marker, ICON_TEXTURES[kind])
-    else
-        ConfigureSymbol(marker, MARKER_SYMBOLS[kind] or quest.number)
+    self:AddMarkerCandidate(uiMapId, x, y, pinData, GetMarkerSymbol(kind, quest.number), area, nil, nil, ICON_TEXTURES[kind])
+end
+
+function Quests:AddAvailablePin(uiMapId, x, y, questId, dbQuest, cluster, context)
+    if not self.hbdPins or not uiMapId or not x or not y then
+        return
     end
-    self.hbdPins:AddWorldMapIconMap(self, marker, uiMapId, x / 100, y / 100, showFlag)
-    self.frames[#self.frames + 1] = marker
+
+    local opacityMultiplier = self.IsAvailableQuestBelowPlayerLevel
+        and self:IsAvailableQuestBelowPlayerLevel(dbQuest, context)
+        and LOW_LEVEL_AVAILABLE_MARKER_ALPHA
+        or 1
+    local color = GetHighLevelAvailableMarkerColor(dbQuest, context)
+
+    self:AddMarkerCandidate(
+        uiMapId,
+        x,
+        y,
+        BuildAvailablePinData(questId, dbQuest),
+        GetMarkerSymbol(cluster.k, MARKER_SYMBOLS.available),
+        nil,
+        opacityMultiplier,
+        color
+    )
 end

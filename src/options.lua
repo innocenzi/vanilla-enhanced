@@ -403,19 +403,55 @@ CreateHelpText(
     T("options.quests.showMapMarkers.help"),
     questsShowMapMarkersCheck
 )
-local questsSpreadOverlappingMarkersCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
+local questsShowAvailableQuestsCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
     questsPanel,
-    "VanillaEnhancedOptionsQuestsSpreadOverlappingMarkers",
+    "VanillaEnhancedOptionsQuestsShowAvailableQuests",
     "quests",
-    "spreadOverlappingMarkers",
-    T("options.quests.spreadOverlappingMarkers.label"),
+    "showAvailableQuests",
+    T("options.quests.showAvailableQuests.label"),
     questsShowMapMarkersCheck
 ), "quests", "showMapMarkers")
-AnchorBelowHelp(questsSpreadOverlappingMarkersCheck, questsShowMapMarkersCheck)
+AnchorBelowHelp(questsShowAvailableQuestsCheck, questsShowMapMarkersCheck)
 CreateHelpText(
     questsPanel,
-    T("options.quests.spreadOverlappingMarkers.help"),
-    questsSpreadOverlappingMarkersCheck
+    T("options.quests.showAvailableQuests.help"),
+    questsShowAvailableQuestsCheck
+)
+local questsOnlyShowNearbyAvailableQuestsCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
+    questsPanel,
+    "VanillaEnhancedOptionsQuestsOnlyShowNearbyAvailableQuests",
+    "quests",
+    "onlyShowNearbyAvailableQuests",
+    T("options.quests.onlyShowNearbyAvailableQuests.label"),
+    questsShowAvailableQuestsCheck
+), "quests", "showAvailableQuests")
+AnchorBelowHelp(questsOnlyShowNearbyAvailableQuestsCheck, questsShowAvailableQuestsCheck)
+questsOnlyShowNearbyAvailableQuestsCheck.enabledWhen = function()
+    return IsSettingEnabled("quests", "showMapMarkers")
+        and IsSettingEnabled("quests", "showAvailableQuests")
+end
+CreateHelpText(
+    questsPanel,
+    T("options.quests.onlyShowNearbyAvailableQuests.help"),
+    questsOnlyShowNearbyAvailableQuestsCheck
+)
+local questsOnlyShowAvailableQuestsAroundPlayerLevelCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
+    questsPanel,
+    "VanillaEnhancedOptionsQuestsOnlyShowAvailableQuestsAroundPlayerLevel",
+    "quests",
+    "onlyShowAvailableQuestsAroundPlayerLevel",
+    T("options.quests.onlyShowAvailableQuestsAroundPlayerLevel.label"),
+    questsOnlyShowNearbyAvailableQuestsCheck
+), "quests", "showAvailableQuests")
+AnchorBelowHelp(questsOnlyShowAvailableQuestsAroundPlayerLevelCheck, questsOnlyShowNearbyAvailableQuestsCheck)
+questsOnlyShowAvailableQuestsAroundPlayerLevelCheck.enabledWhen = function()
+    return IsSettingEnabled("quests", "showMapMarkers")
+        and IsSettingEnabled("quests", "showAvailableQuests")
+end
+CreateHelpText(
+    questsPanel,
+    T("options.quests.onlyShowAvailableQuestsAroundPlayerLevel.help"),
+    questsOnlyShowAvailableQuestsAroundPlayerLevelCheck
 )
 local questsShowCompletedMapObjectivesCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
     questsPanel,
@@ -423,9 +459,9 @@ local questsShowCompletedMapObjectivesCheck = SetSettingCheckEnabledWhen(CreateM
     "quests",
     "showCompletedMapObjectives",
     T("options.quests.showCompletedMapObjectives.label"),
-    questsSpreadOverlappingMarkersCheck
+    questsOnlyShowAvailableQuestsAroundPlayerLevelCheck
 ), "quests", "showMapMarkers")
-AnchorBelowHelp(questsShowCompletedMapObjectivesCheck, questsSpreadOverlappingMarkersCheck)
+AnchorBelowHelp(questsShowCompletedMapObjectivesCheck, questsOnlyShowAvailableQuestsAroundPlayerLevelCheck)
 CreateHelpText(
     questsPanel,
     T("options.quests.showCompletedMapObjectives.help"),

@@ -8,9 +8,11 @@ local defaults = {
     scale = 1,
     opacity = 1,
     showMapMarkers = true,
+    showAvailableQuests = false,
+    onlyShowNearbyAvailableQuests = false,
+    onlyShowAvailableQuestsAroundPlayerLevel = false,
     showCompletedMapObjectives = false,
     showCompletedTooltipObjectives = true,
-    spreadOverlappingMarkers = true,
 }
 
 function Quests:GetSettings()
@@ -38,9 +40,6 @@ end
 function Quests:Update()
     if self.ApplyQuestLogWithMapSetting then
         self:ApplyQuestLogWithMapSetting()
-    end
-    if self.ResetMarkerSpread then
-        self:ResetMarkerSpread()
     end
     self:Refresh()
     self:RefreshQuestTrackerClicks()
