@@ -41,6 +41,7 @@ function Quests:AddMinimapPin(uiMapId, x, y, quest, cluster)
     end
 
     local kind = cluster.k or "object"
+    local dbQuest = VanillaEnhancedQuestsDB and VanillaEnhancedQuestsDB.quests and VanillaEnhancedQuestsDB.quests[quest.id]
     if kind == "turnin" then
         return
     end
@@ -57,10 +58,11 @@ function Quests:AddMinimapPin(uiMapId, x, y, quest, cluster)
     local marker = self:AcquirePinFrame("marker", "minimapMarker", Minimap)
     marker.questsData = pinData
     local texture = self:GetPinMarkerTexture(kind)
+    local color = self:GetRepeatableQuestMarkerColor(dbQuest)
     if texture then
-        self:ConfigurePinIcon(marker, texture)
+        self:ConfigurePinIcon(marker, texture, nil, color)
     else
-        self:ConfigurePinSymbol(marker, self:GetPinMarkerSymbol(kind, quest.number))
+        self:ConfigurePinSymbol(marker, self:GetPinMarkerSymbol(kind, quest.number), nil, color)
     end
 
     marker:Hide()
@@ -75,6 +77,7 @@ function Quests:AddPin(uiMapId, x, y, quest, cluster)
 
     local kind = cluster.k or "object"
     local areaOnly = self:IsQuestObjectiveAreaKind(kind)
+    local dbQuest = VanillaEnhancedQuestsDB and VanillaEnhancedQuestsDB.quests and VanillaEnhancedQuestsDB.quests[quest.id]
     local pinData = self:BuildQuestPinData(quest, cluster)
     local area
 
@@ -96,7 +99,7 @@ function Quests:AddPin(uiMapId, x, y, quest, cluster)
         self:GetPinMarkerSymbol(kind, quest.number),
         area,
         nil,
-        nil,
+        self:GetRepeatableQuestMarkerColor(dbQuest),
         self:GetPinMarkerTexture(kind)
     )
 end
@@ -107,7 +110,7 @@ function Quests:AddAvailablePin(uiMapId, x, y, questId, dbQuest, cluster, contex
     end
 
     local opacityMultiplier = self:GetAvailableQuestMarkerOpacity(dbQuest, context)
-    local color = self:GetAvailableQuestMarkerColor(dbQuest, context)
+    local color = self:GetRepeatableQuestMarkerColor(dbQuest) or self:GetAvailableQuestMarkerColor(dbQuest, context)
 
     self:AddMarkerCandidate(
         uiMapId,

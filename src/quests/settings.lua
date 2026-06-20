@@ -8,6 +8,7 @@ local defaults = {
     scale = 1,
     opacity = 1,
     showMapMarkers = true,
+    showRepeatableQuests = true,
     showAvailableQuests = false,
     showMinimapObjectiveAreas = true,
     onlyShowNearbyAvailableQuests = false,

@@ -8,6 +8,8 @@ function fixture(): NormalizedQuestieDb {
   killQuest[17] = [185, 50];
   killQuest[18] = [609, 3000];
   killQuest[19] = [609, 42000];
+  killQuest[22] = 4096;
+  killQuest[23] = 1;
   killQuest[26] = 9;
   killQuest[27] = [10, 11];
   killQuest[29] = -1234;
@@ -42,6 +44,7 @@ function fixture(): NormalizedQuestieDb {
         zoneOrSort: 17,
         requiredSourceItems: 21,
         nextQuestInChain: 22,
+        questFlags: 23,
         specialFlags: 24,
         parentQuest: 25,
         breadcrumbForQuestId: 27,
@@ -118,6 +121,8 @@ test("builds compact quests Lua from normalized Questie data", () => {
   expect(artifacts.locationLua).toContain('pg = {8}');
   expect(artifacts.locationLua).toContain('ps = {2}');
   expect(artifacts.locationLua).toContain('ex = {3}');
+  expect(artifacts.locationLua).toContain('rf = 4096');
+  expect(artifacts.locationLua).toContain('sf = 1');
   expect(artifacts.locationLua).toContain('bf = 9');
   expect(artifacts.locationLua).toContain('bc = {10,11}');
   expect(artifacts.locationLua).toContain('spell = -1234');

@@ -51,6 +51,7 @@ type QuestAvailability = {
   preQuestSingle?: number[];
   exclusiveTo?: number[];
   nextQuestInChain?: number;
+  resetFlags?: number;
   specialFlags?: number;
   breadcrumbForQuestId?: number;
   breadcrumbs?: number[];
@@ -167,6 +168,10 @@ const EXTRA_OBJECTIVE = {
 };
 
 const DEFAULT_ALLOW_UNMAPPED_AREA_IDS = new Set([0, 2257, 2917, 2918]);
+const QUEST_FLAG_DAILY = 4096;
+const QUEST_FLAG_WEEKLY = 32768;
+const QUEST_FLAG_MONTHLY = 65536;
+const QUEST_RESET_FLAGS = QUEST_FLAG_DAILY | QUEST_FLAG_WEEKLY | QUEST_FLAG_MONTHLY;
 
 function asTable(value: JsonValue | undefined): JsonTable | undefined {
   return value && typeof value === "object" ? (value as JsonTable) : undefined;
@@ -580,6 +585,8 @@ function collectAvailability(quest: JsonValue, db: NormalizedQuestieDb): QuestAv
   setList("preQuestSingle", "preQuestSingle");
   setList("exclusiveTo", "exclusiveTo");
   setNumber("nextQuestInChain", "nextQuestInChain");
+  const resetFlags = int(byKey(quest, db.keys.quests, "questFlags")) & QUEST_RESET_FLAGS;
+  if (resetFlags) availability.resetFlags = resetFlags;
   setNumber("specialFlags", "specialFlags");
   setNumber("breadcrumbForQuestId", "breadcrumbForQuestId");
   setList("breadcrumbs", "breadcrumbs");
@@ -808,6 +815,7 @@ function formatAvailability(availability: QuestAvailability | undefined): string
   if (availability.preQuestSingle?.length) fields.push(`ps = ${formatNumberList(availability.preQuestSingle)}`);
   if (availability.exclusiveTo?.length) fields.push(`ex = ${formatNumberList(availability.exclusiveTo)}`);
   if (availability.nextQuestInChain) fields.push(`nc = ${availability.nextQuestInChain}`);
+  if (availability.resetFlags) fields.push(`rf = ${availability.resetFlags}`);
   if (availability.specialFlags) fields.push(`sf = ${availability.specialFlags}`);
   if (availability.breadcrumbForQuestId) fields.push(`bf = ${availability.breadcrumbForQuestId}`);
   if (availability.breadcrumbs?.length) fields.push(`bc = ${formatNumberList(availability.breadcrumbs)}`);

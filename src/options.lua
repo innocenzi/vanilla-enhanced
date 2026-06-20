@@ -626,6 +626,14 @@ local questsPanel = BuildOptionsPanel({
             indent = 1,
         },
         {
+            name = "VanillaEnhancedOptionsQuestsShowRepeatableQuests",
+            settingKey = "showRepeatableQuests",
+            labelKey = "options.quests.showRepeatableQuests.label",
+            helpKey = "options.quests.showRepeatableQuests.help",
+            enabledWhenSetting = "showMapMarkers",
+            indent = 1,
+        },
+        {
             name = "VanillaEnhancedOptionsQuestsShowAvailableQuests",
             settingKey = "showAvailableQuests",
             labelKey = "options.quests.showAvailableQuests.label",

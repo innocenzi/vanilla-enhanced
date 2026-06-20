@@ -131,7 +131,10 @@ function Quests:BuildAvailableQuestState(quests)
 end
 
 function Quests:MeetsAvailableQuestPrerequisites(questId, dbQuest, active, completed)
-    if active[questId] or IsQuestCompleted(questId, completed) then
+    if active[questId] then
+        return false
+    end
+    if IsQuestCompleted(questId, completed) and (not self:IsRepeatableQuest(dbQuest) or self:IsResettableQuest(dbQuest)) then
         return false
     end
     if not IsPreQuestSingleFulfilled(dbQuest.ps, completed) then

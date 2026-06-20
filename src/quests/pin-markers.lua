@@ -101,6 +101,32 @@ local function BuildCombinedMarkerSymbol(entries)
     return symbol ~= "" and symbol or "+"
 end
 
+local function SameColor(left, right)
+    if not left or not right then
+        return false
+    end
+
+    return left[1] == right[1] and left[2] == right[2] and left[3] == right[3]
+end
+
+local function BuildCombinedMarkerColor(entries)
+    local color
+
+    for _, entry in ipairs(entries) do
+        if entry.color then
+            if not color then
+                color = entry.color
+            elseif not SameColor(color, entry.color) then
+                return nil
+            end
+        elseif color then
+            return nil
+        end
+    end
+
+    return color
+end
+
 local function FindFirstQuestId(entries)
     for _, entry in ipairs(entries) do
         if entry.data and entry.data.questId then
@@ -218,18 +244,19 @@ function Quests:RenderMarkerGroups()
                 marker.questsData = first.data
                 marker.questsAreaFrame = first.areaFrame
                 if first.texture then
-                    self:ConfigurePinIcon(marker, first.texture)
+                    self:ConfigurePinIcon(marker, first.texture, first.opacityMultiplier, first.color)
                 else
                     self:ConfigurePinSymbol(marker, first.symbol, first.opacityMultiplier, first.color)
                 end
             else
                 local symbol = BuildCombinedMarkerSymbol(group.entries)
+                local color = BuildCombinedMarkerColor(group.entries)
 
                 marker.questsData = BuildCombinedMarkerData(group.entries)
                 if #group.areaFrames > 0 then
                     marker.questsAreaFrames = group.areaFrames
                 end
-                self:ConfigurePinSymbol(marker, symbol)
+                self:ConfigurePinSymbol(marker, symbol, nil, color)
             end
 
             if uiMapId == WORLD_MAP_ID and currentMapId == WORLD_MAP_ID then

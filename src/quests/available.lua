@@ -72,7 +72,7 @@ function Quests:AddAvailableQuestPins(quests)
     local context = BuildAvailableQuestRenderContext(settings, cache.eligibilityContext)
     for _, questId in ipairs(cache.questIds or {}) do
         local dbQuest = VanillaEnhancedQuestsDB.quests[questId]
-        if dbQuest then
+        if dbQuest and self:ShouldShowRepeatableQuestOnMaps(dbQuest, settings) then
             self:AddAvailablePins(questId, dbQuest, context)
         end
     end

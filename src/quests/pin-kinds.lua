@@ -5,6 +5,12 @@ local MARKER_SYMBOLS = {
     turnin = "?",
 }
 
+local REPEATABLE_MARKER_COLOR = { 0.55, 0.85, 1 }
+local SPECIAL_FLAG_REPEATABLE = 1
+local QUEST_FLAG_DAILY = 4096
+local QUEST_FLAG_WEEKLY = 32768
+local QUEST_FLAG_MONTHLY = 65536
+
 local MARKER_TEXTURES = {
     talk = [[Interface\GossipFrame\GossipGossipIcon]],
 }
@@ -14,12 +20,36 @@ local AREA_KINDS = {
     slay = true,
 }
 
+local function HasFlag(mask, flag)
+    return mask and flag and flag > 0 and (mask % (flag * 2)) >= flag
+end
+
 function Quests:GetPinMarkerSymbol(kind, fallback)
     return MARKER_SYMBOLS[kind] or fallback
 end
 
 function Quests:GetPinMarkerTexture(kind)
     return MARKER_TEXTURES[kind]
+end
+
+function Quests:IsRepeatableQuest(dbQuest)
+    return HasFlag(dbQuest and dbQuest.sf, SPECIAL_FLAG_REPEATABLE)
+end
+
+function Quests:IsResettableQuest(dbQuest)
+    local flags = dbQuest and dbQuest.rf
+    return HasFlag(flags, QUEST_FLAG_DAILY) or HasFlag(flags, QUEST_FLAG_WEEKLY) or HasFlag(flags, QUEST_FLAG_MONTHLY)
+end
+
+function Quests:GetRepeatableQuestMarkerColor(dbQuest)
+    if self:IsRepeatableQuest(dbQuest) then
+        return REPEATABLE_MARKER_COLOR
+    end
+    return nil
+end
+
+function Quests:ShouldShowRepeatableQuestOnMaps(dbQuest, settings)
+    return not self:IsRepeatableQuest(dbQuest) or (settings or self:GetSettings()).showRepeatableQuests ~= false
 end
 
 function Quests:IsQuestObjectiveAreaKind(kind)

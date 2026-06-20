@@ -41,7 +41,7 @@ function Quests:Refresh()
 
     for _, quest in ipairs(quests) do
         local dbQuest = VanillaEnhancedQuestsDB.quests[quest.id]
-        if dbQuest and dbQuest.maps then
+        if dbQuest and dbQuest.maps and self:ShouldShowRepeatableQuestOnMaps(dbQuest, settings) then
             local maps = quest.isComplete and dbQuest.turnins or dbQuest.maps
             maps = maps or dbQuest.maps
             for uiMapId, clusters in pairs(maps) do

@@ -14,6 +14,7 @@ local TOOLTIP_DIFFICULTY_COLORS = {
     hard = { 1, 0.45, 0 },
     impossible = { 1, 0.1, 0.1 },
 }
+local REPEATABLE_TOOLTIP_ICON = [[Interface\Buttons\UI-RefreshButton]]
 
 local function GetAvailableQuestLevel(dbQuest)
     if not dbQuest then
@@ -21,6 +22,21 @@ local function GetAvailableQuestLevel(dbQuest)
     end
 
     return dbQuest.ql or dbQuest.rl
+end
+
+local function GetDbQuest(quest)
+    if not quest or not quest.id or not VanillaEnhancedQuestsDB or not VanillaEnhancedQuestsDB.quests then
+        return nil
+    end
+
+    return VanillaEnhancedQuestsDB.quests[quest.id]
+end
+
+local function GetRepeatableTitleIcon(dbQuest)
+    if Quests:IsRepeatableQuest(dbQuest) then
+        return REPEATABLE_TOOLTIP_ICON
+    end
+    return nil
 end
 
 local function PastelizeColor(color)
@@ -85,6 +101,7 @@ function Quests:BuildQuestPinData(quest, cluster)
     local localizedObjective = localizedObjectives and localizedObjectives[1] or cluster.o
     local kind = cluster.k or "object"
     local countText
+    local dbQuest = GetDbQuest(quest)
 
     if kind ~= "slay" and kind ~= "loot" then
         countText = self:GetLocalizedCountText(cluster.merged and "nearby" or "area", cluster.c)
@@ -94,6 +111,7 @@ function Quests:BuildQuestPinData(quest, cluster)
         questId = quest.id,
         number = quest.number,
         title = self:GetLocalizedQuestTitle(quest, quest.id, quest.title),
+        titleIcon = GetRepeatableTitleIcon(dbQuest),
         objective = localizedObjective,
         objectives = localizedObjectives,
         merged = cluster.merged,
@@ -125,6 +143,7 @@ function Quests:BuildAvailableQuestPinData(questId, dbQuest)
     return {
         availableQuestId = questId,
         title = self:GetLocalizedQuestTitle(nil, questId, dbQuest.t),
+        titleIcon = GetRepeatableTitleIcon(dbQuest),
         titleColor = GetAvailableQuestTitleColor(dbQuest),
         metadataLines = metadataLines,
     }

@@ -6,7 +6,7 @@ local MARKER_COLOR = { 1, 0.82, 0.15 }
 local MARKER_FONT_SIZE = 9
 local MARKER_ICON_SIZE = 12
 local MARKER_SHADOW_COLOR = { 0, 0, 0, 0.9 }
-local SELECTED_MARKER_COLOR = { 0.55, 0.85, 1 }
+local SELECTED_MARKER_COLOR = { 1, 1, 1 }
 
 Quests.frames = Quests.frames or {}
 Quests.minimapFrames = Quests.minimapFrames or {}
@@ -135,17 +135,18 @@ function Quests:ConfigurePinSymbol(frame, symbol, opacityMultiplier, color)
     ConfigureMarkerText(frame, symbol, settings, opacityMultiplier, color)
 end
 
-function Quests:ConfigurePinIcon(frame, texture)
+function Quests:ConfigurePinIcon(frame, texture, opacityMultiplier, color)
     local settings = self:GetSettings()
     local size = math.max(10, math.floor(MARKER_ICON_SIZE * (settings.scale or 1)))
-    local opacity = settings.opacity or 1
+    local opacity = (settings.opacity or 1) * (opacityMultiplier or 1)
+    color = color or { 1, 1, 1 }
 
     ConfigureMarkerFrame(frame, settings, true)
     HideTextures(frame.lines)
     HideTextures(frame.fills)
     frame.questsMarkerStyle = {
         kind = "icon",
-        color = { 1, 1, 1 },
+        color = color,
         opacity = opacity,
     }
     frame.text:SetText("")
@@ -154,7 +155,7 @@ function Quests:ConfigurePinIcon(frame, texture)
     frame.texture:ClearAllPoints()
     frame.texture:SetSize(size, size)
     frame.texture:SetPoint("CENTER", frame, "CENTER", 0, 0)
-    frame.texture:SetVertexColor(1, 1, 1, opacity)
+    frame.texture:SetVertexColor(color[1], color[2], color[3], opacity)
 end
 
 function Quests:SetPinMarkerHighlighted(frame, highlighted)

@@ -25,17 +25,25 @@ local function AddTooltipLines(tooltip, lines, color)
     end
 end
 
+local function FormatTooltipTitle(data)
+    local title = data.title
+
+    if data.prefix then
+        title = data.prefix .. " " .. title
+    end
+    if data.titleIcon then
+        title = "|T" .. data.titleIcon .. ":12:12:0:0|t " .. title
+    end
+
+    return title
+end
+
 local function AddPinTooltipEntry(tooltip, data)
     if not data then
         return
     end
 
-    local title = data.title
-    if data.prefix then
-        title = data.prefix .. " " .. title
-    end
-
-    AddTooltipLine(tooltip, title, data.titleColor or TOOLTIP_TITLE_COLOR, true)
+    AddTooltipLine(tooltip, FormatTooltipTitle(data), data.titleColor or TOOLTIP_TITLE_COLOR, true)
     AddTooltipLines(tooltip, data.metadataLines, TOOLTIP_METADATA_COLOR)
     AddTooltipLines(tooltip, data.lines, TOOLTIP_OBJECTIVE_COLOR)
 
@@ -107,13 +115,8 @@ function Quests:ShowPinTooltip(frame)
         return
     end
 
-    local title = data.title
-    if data.prefix then
-        title = data.prefix .. " " .. title
-    end
-
     local titleColor = data.titleColor or TOOLTIP_TITLE_COLOR
-    GameTooltip:SetText(title, titleColor[1], titleColor[2], titleColor[3])
+    GameTooltip:SetText(FormatTooltipTitle(data), titleColor[1], titleColor[2], titleColor[3])
     AddTooltipLines(GameTooltip, data.metadataLines, TOOLTIP_METADATA_COLOR)
     AddTooltipLines(GameTooltip, data.lines, TOOLTIP_OBJECTIVE_COLOR)
 
