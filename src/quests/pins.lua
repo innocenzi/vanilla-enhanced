@@ -37,10 +37,6 @@ local MINIMAP_AREA_PADDING = 6
 local MINIMAP_AREA_CLIP_PADDING = 3
 local MINIMAP_AREA_CLIP_SEGMENTS = 48
 local MARKER_CLUSTER_PIXEL_DISTANCE = 18
-local TOOLTIP_TITLE_COLOR = { 1, 1, 1 }
-local TOOLTIP_OBJECTIVE_COLOR = { 0.9, 0.82, 0.55 }
-local TOOLTIP_METADATA_COLOR = { 0.56, 0.64, 0.72 }
-local TOOLTIP_COUNT_COLOR = { 0.65, 0.85, 1 }
 local WHITE_TEXTURE = [[Interface\Buttons\WHITE8X8]]
 local WORLD_MAP_ID = 947
 local MINIMAP_SIZE = {
@@ -227,127 +223,6 @@ end
 function Quests:SetSelectedQuestAreaQuest(questId)
     self.selectedQuestAreaQuestId = questId
     self:RefreshQuestAreaVisibility()
-end
-
-local function SetHoveredArea(self, hovered)
-    if self.questsAreaFrames then
-        for _, area in ipairs(self.questsAreaFrames) do
-            area.questsHovered = hovered == true
-            Quests:RefreshQuestAreaVisibility(area)
-        end
-        return
-    end
-
-    local area = self.questsAreaFrame
-    if not area then
-        return
-    end
-
-    area.questsHovered = hovered == true
-    Quests:RefreshQuestAreaVisibility(area)
-end
-
-local function HideTooltip(self)
-    SetHoveredArea(self, false)
-    if GameTooltip:IsOwned(self) then
-        GameTooltip:Hide()
-    end
-end
-
-local function OpenQuestLog(self)
-    if self.questsPassThroughClicks then
-        return
-    end
-
-    local data = self.questsData
-    if not data or not data.questId then
-        return
-    end
-    Quests:OpenQuestLogToQuest(data.questId)
-end
-
-local function AddTooltipLine(tooltip, text, color, wrap)
-    if not text or text == "" then
-        return
-    end
-
-    color = color or TOOLTIP_TITLE_COLOR
-    tooltip:AddLine(text, color[1], color[2], color[3], wrap == true)
-end
-
-local function AddTooltipLines(tooltip, lines, color)
-    if not lines then
-        return
-    end
-
-    for _, line in ipairs(lines) do
-        AddTooltipLine(tooltip, line, color, true)
-    end
-end
-
-local function AddPinTooltipEntry(tooltip, data)
-    if not data then
-        return
-    end
-
-    local title = data.title
-    if data.prefix then
-        title = data.prefix .. " " .. title
-    end
-
-    AddTooltipLine(tooltip, title, data.titleColor or TOOLTIP_TITLE_COLOR, true)
-    AddTooltipLines(tooltip, data.metadataLines, TOOLTIP_METADATA_COLOR)
-    AddTooltipLines(tooltip, data.lines, TOOLTIP_OBJECTIVE_COLOR)
-
-    if data.objectives and #data.objectives > 1 then
-        AddTooltipLines(tooltip, data.objectives, TOOLTIP_OBJECTIVE_COLOR)
-    else
-        AddTooltipLine(tooltip, data.objective, TOOLTIP_OBJECTIVE_COLOR, true)
-    end
-
-    AddTooltipLine(tooltip, data.countText, TOOLTIP_COUNT_COLOR)
-end
-
-local function ShowTooltip(self)
-    local data = self.questsData
-    if not data then
-        return
-    end
-
-    SetHoveredArea(self, true)
-    GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-    if data.entries then
-        GameTooltip:SetText(VanillaEnhanced:T("quests.static.nearbyMarkers"), 1, 1, 1)
-        GameTooltip:AddLine(" ")
-        for index, entry in ipairs(data.entries) do
-            local entryData = entry.data
-            if index > 1 then
-                GameTooltip:AddLine(" ")
-            end
-            AddPinTooltipEntry(GameTooltip, entryData)
-        end
-        GameTooltip:Show()
-        return
-    end
-
-    local title = data.title
-    if data.prefix then
-        title = data.prefix .. " " .. title
-    end
-
-    local titleColor = data.titleColor or TOOLTIP_TITLE_COLOR
-    GameTooltip:SetText(title, titleColor[1], titleColor[2], titleColor[3])
-    AddTooltipLines(GameTooltip, data.metadataLines, TOOLTIP_METADATA_COLOR)
-    AddTooltipLines(GameTooltip, data.lines, TOOLTIP_OBJECTIVE_COLOR)
-
-    if data.objectives and #data.objectives > 1 then
-        AddTooltipLines(GameTooltip, data.objectives, TOOLTIP_OBJECTIVE_COLOR)
-    else
-        AddTooltipLine(GameTooltip, data.objective, TOOLTIP_OBJECTIVE_COLOR, true)
-    end
-
-    AddTooltipLine(GameTooltip, data.countText, TOOLTIP_COUNT_COLOR)
-    GameTooltip:Show()
 end
 
 local function ConfigureMarkerText(fontString, symbol, settings, opacityMultiplier, color)
@@ -938,9 +813,15 @@ local function AcquireFrame(kind, poolKind, parent)
     frame.texture = frame:CreateTexture(nil, kind == "area" and "ARTWORK" or "OVERLAY")
     frame.text = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
     frame.text:SetPoint("CENTER", frame, "CENTER", 0, 0)
-    frame:SetScript("OnEnter", ShowTooltip)
-    frame:SetScript("OnLeave", HideTooltip)
-    frame:SetScript("OnClick", OpenQuestLog)
+    frame:SetScript("OnEnter", function(self)
+        Quests:ShowPinTooltip(self)
+    end)
+    frame:SetScript("OnLeave", function(self)
+        Quests:HidePinTooltip(self)
+    end)
+    frame:SetScript("OnClick", function(self)
+        Quests:OpenPinQuestLog(self)
+    end)
     frame:RegisterForClicks("LeftButtonUp")
     frame:EnableMouse(true)
     return frame
