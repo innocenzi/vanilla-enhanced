@@ -322,11 +322,38 @@ local function RegisterEventIfAvailable(frame, eventName)
     pcall(frame.RegisterEvent, frame, eventName)
 end
 
+local QUEST_SNAPSHOT_EVENTS = {
+    PLAYER_LOGIN = true,
+    QUEST_LOG_UPDATE = true,
+    QUEST_TURNED_IN = true,
+}
+
+local AVAILABLE_QUEST_CACHE_EVENTS = {
+    PLAYER_LOGIN = true,
+    QUEST_LOG_UPDATE = true,
+    QUEST_TURNED_IN = true,
+    UPDATE_FACTION = true,
+    SKILL_LINES_CHANGED = true,
+    SPELLS_CHANGED = true,
+    LEARNED_SPELL_IN_TAB = true,
+    PLAYER_LEVEL_UP = true,
+}
+
+local function InvalidateRefreshCaches(event)
+    if QUEST_SNAPSHOT_EVENTS[event] and Quests.InvalidateQuestSnapshot then
+        Quests:InvalidateQuestSnapshot()
+    end
+    if AVAILABLE_QUEST_CACHE_EVENTS[event] and Quests.InvalidateAvailableQuestCache then
+        Quests:InvalidateAvailableQuestCache()
+    end
+end
+
 RegisterEventIfAvailable(eventFrame, "ADDON_LOADED")
 RegisterEventIfAvailable(eventFrame, "PLAYER_LOGIN")
 RegisterEventIfAvailable(eventFrame, "PLAYER_ENTERING_WORLD")
 RegisterEventIfAvailable(eventFrame, "QUEST_LOG_UPDATE")
 RegisterEventIfAvailable(eventFrame, "QUEST_TURNED_IN")
+RegisterEventIfAvailable(eventFrame, "PLAYER_LEVEL_UP")
 RegisterEventIfAvailable(eventFrame, "PLAYER_STOPPED_MOVING")
 RegisterEventIfAvailable(eventFrame, "ZONE_CHANGED_NEW_AREA")
 RegisterEventIfAvailable(eventFrame, "UPDATE_FACTION")
@@ -341,6 +368,7 @@ eventFrame:SetScript("OnEvent", function(_, event, loadedAddonName)
         Quests.hbd = LibStub and LibStub("HereBeDragons-2.0", true)
         Quests.hbdPins = LibStub and LibStub("HereBeDragons-Pins-2.0", true)
     elseif event == "PLAYER_LOGIN" then
+        InvalidateRefreshCaches(event)
         Quests:HookQuestLogWithMapFrames()
         Quests:QueueRefresh()
     elseif event == "PLAYER_STOPPED_MOVING" then
@@ -348,6 +376,7 @@ eventFrame:SetScript("OnEvent", function(_, event, loadedAddonName)
             Quests:QueueRefresh()
         end
     elseif event ~= "ADDON_LOADED" then
+        InvalidateRefreshCaches(event)
         Quests:HookQuestLogWithMapFrames()
         Quests:QueueRefresh()
     end

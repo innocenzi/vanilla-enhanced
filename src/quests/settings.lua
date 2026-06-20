@@ -22,6 +22,13 @@ end
 function Quests:SetEnabled(enabled)
     VanillaEnhanced:SetModuleEnabled("quests", enabled)
 
+    if self.InvalidateQuestSnapshot then
+        self:InvalidateQuestSnapshot()
+    end
+    if self.InvalidateAvailableQuestCache then
+        self:InvalidateAvailableQuestCache()
+    end
+
     if self.ApplyQuestLogWithMapSetting then
         self:ApplyQuestLogWithMapSetting()
     end
@@ -38,6 +45,13 @@ function Quests:SetEnabled(enabled)
 end
 
 function Quests:Update()
+    if self.InvalidateQuestSnapshot then
+        self:InvalidateQuestSnapshot()
+    end
+    if self.InvalidateAvailableQuestCache then
+        self:InvalidateAvailableQuestCache()
+    end
+
     if self.ApplyQuestLogWithMapSetting then
         self:ApplyQuestLogWithMapSetting()
     end

@@ -1,6 +1,21 @@
 local VanillaEnhanced = _G.VanillaEnhanced
 local Quests = VanillaEnhanced:GetModule("quests")
 
+Quests.questSnapshotDirty = Quests.questSnapshotDirty ~= false
+
+function Quests:InvalidateQuestSnapshot()
+    self.questSnapshotDirty = true
+end
+
+function Quests:GetCachedQuestLogSnapshot()
+    if self.questSnapshotDirty or not self.questSnapshot then
+        self.questSnapshot = self:GetQuestLogSnapshot()
+        self.questSnapshotDirty = false
+    end
+
+    return self.questSnapshot
+end
+
 function Quests:Refresh()
     self.refreshQueued = false
 
@@ -17,7 +32,7 @@ function Quests:Refresh()
         return
     end
 
-    local quests = self:GetQuestLogSnapshot()
+    local quests = self:GetCachedQuestLogSnapshot()
     self:RebuildUnitTooltipIndex(quests)
 
     if settings.showMapMarkers == false then
@@ -52,7 +67,12 @@ function Quests:QueueRefresh()
         return
     end
     self.refreshQueued = true
-    C_Timer.After(0.15, function()
-        Quests:Refresh()
-    end)
+    if C_Timer and C_Timer.After then
+        C_Timer.After(0.15, function()
+            Quests:Refresh()
+        end)
+        return
+    end
+
+    self:Refresh()
 end

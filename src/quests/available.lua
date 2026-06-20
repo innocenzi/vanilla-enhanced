@@ -27,8 +27,14 @@ local CLASS_MASKS = {
 }
 
 local NEARBY_AVAILABLE_QUEST_RADIUS_YARDS = 1200
+local NEARBY_AVAILABLE_REFRESH_MIN_INTERVAL = 1.0
+local NEARBY_AVAILABLE_REFRESH_MIN_DISTANCE_YARDS = 80
 local AVAILABLE_QUEST_LEVELS_BELOW_PLAYER = 5
 local AVAILABLE_QUEST_LEVELS_ABOVE_PLAYER = 3
+
+if Quests.availableQuestCacheDirty == nil then
+    Quests.availableQuestCacheDirty = true
+end
 
 local PROFESSION_NAMES = {
     [129] = "First Aid",
@@ -709,14 +715,23 @@ local function GetHBD()
     return Quests.hbd or (LibStub and LibStub("HereBeDragons-2.0", true))
 end
 
-local function BuildAvailableQuestContext(settings)
-    local context = {
+local function BuildAvailableQuestEligibilityContext(settings)
+    return {
         settings = settings,
         playerLevel = UnitLevel and UnitLevel("player") or 0,
-        onlyNearby = settings.onlyShowNearbyAvailableQuests == true,
+        onlyNearby = false,
         onlyAroundPlayerLevel = settings.onlyShowAvailableQuestsAroundPlayerLevel == true,
         professions = BuildPlayerProfessions(),
         reputations = BuildPlayerReputations(),
+    }
+end
+
+local function BuildAvailableQuestRenderContext(settings, eligibilityContext)
+    local context = {
+        settings = settings,
+        playerLevel = eligibilityContext and eligibilityContext.playerLevel or (UnitLevel and UnitLevel("player") or 0),
+        onlyNearby = settings.onlyShowNearbyAvailableQuests == true,
+        onlyAroundPlayerLevel = settings.onlyShowAvailableQuestsAroundPlayerLevel == true,
     }
 
     if context.onlyNearby then
@@ -880,6 +895,31 @@ function Quests:IsQuestAvailable(questId, dbQuest, active, completed, context)
     return true
 end
 
+function Quests:InvalidateAvailableQuestCache()
+    self.availableQuestCache = nil
+    self.availableQuestCacheDirty = true
+end
+
+local function RebuildAvailableQuestCache(self, quests, settings)
+    local active = BuildActiveQuestSet(quests)
+    local completed = GetCompletedQuests()
+    local context = BuildAvailableQuestEligibilityContext(settings)
+    local questIds = {}
+
+    for questId, dbQuest in pairs(VanillaEnhancedQuestsDB.quests) do
+        if self:IsQuestAvailable(questId, dbQuest, active, completed, context) then
+            questIds[#questIds + 1] = questId
+        end
+    end
+
+    self.availableQuestCache = {
+        questIds = questIds,
+        eligibilityContext = context,
+    }
+    self.availableQuestCacheDirty = false
+    return self.availableQuestCache
+end
+
 function Quests:AddAvailableQuestPins(quests)
     local settings = self:GetSettings()
     if settings.showAvailableQuests ~= true then
@@ -889,12 +929,15 @@ function Quests:AddAvailableQuestPins(quests)
         return
     end
 
-    local active = BuildActiveQuestSet(quests)
-    local completed = GetCompletedQuests()
-    local context = BuildAvailableQuestContext(settings)
+    local cache = self.availableQuestCache
+    if self.availableQuestCacheDirty or not cache then
+        cache = RebuildAvailableQuestCache(self, quests, settings)
+    end
 
-    for questId, dbQuest in pairs(VanillaEnhancedQuestsDB.quests) do
-        if self:IsQuestAvailable(questId, dbQuest, active, completed, context) then
+    local context = BuildAvailableQuestRenderContext(settings, cache.eligibilityContext)
+    for _, questId in ipairs(cache.questIds or {}) do
+        local dbQuest = VanillaEnhancedQuestsDB.quests[questId]
+        if dbQuest then
             self:AddAvailablePins(questId, dbQuest, context)
         end
     end
@@ -902,8 +945,47 @@ end
 
 function Quests:ShouldRefreshNearbyAvailableQuestsOnMovement()
     local settings = self:GetSettings()
-    return settings.enabled ~= false
+    if not (settings.enabled ~= false
         and settings.showMapMarkers ~= false
         and settings.showAvailableQuests == true
-        and settings.onlyShowNearbyAvailableQuests == true
+        and settings.onlyShowNearbyAvailableQuests == true) then
+        return false
+    end
+
+    local now = GetTime and GetTime() or 0
+    if now > 0
+        and self.lastNearbyAvailableQuestRefreshTime
+        and now - self.lastNearbyAvailableQuestRefreshTime < NEARBY_AVAILABLE_REFRESH_MIN_INTERVAL then
+        return false
+    end
+
+    local hbd = GetHBD()
+    if hbd and hbd.GetPlayerZonePosition then
+        local playerX, playerY, playerMapId = hbd:GetPlayerZonePosition(true)
+        local previous = self.lastNearbyAvailableQuestRefresh
+
+        if playerX and playerY and playerMapId and previous and previous.mapId == playerMapId then
+            local distance
+            if hbd.GetZoneDistance then
+                distance = hbd:GetZoneDistance(playerMapId, previous.x, previous.y, playerMapId, playerX, playerY)
+            end
+
+            if distance and distance < NEARBY_AVAILABLE_REFRESH_MIN_DISTANCE_YARDS then
+                return false
+            end
+        end
+
+        if playerX and playerY and playerMapId then
+            self.lastNearbyAvailableQuestRefresh = {
+                x = playerX,
+                y = playerY,
+                mapId = playerMapId,
+            }
+        end
+    end
+
+    if now > 0 then
+        self.lastNearbyAvailableQuestRefreshTime = now
+    end
+    return true
 end
