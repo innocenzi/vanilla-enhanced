@@ -5,9 +5,8 @@ local MARKER_FRAME_SIZE = 16
 local MARKER_COLOR = { 1, 0.82, 0.15 }
 local MARKER_FONT_SIZE = 9
 local MARKER_ICON_SIZE = 12
-local SELECTED_MARKER_HIGHLIGHT_SCALE = 1.9
-local SELECTED_MARKER_HIGHLIGHT_COLOR = { 1, 0.82, 0.15, 0.85 }
-local SELECTED_MARKER_HIGHLIGHT_TEXTURE = [[Interface\Buttons\UI-ActionButton-Border]]
+local MARKER_SHADOW_COLOR = { 0, 0, 0, 0.9 }
+local SELECTED_MARKER_COLOR = { 0.55, 0.85, 1 }
 
 Quests.frames = Quests.frames or {}
 Quests.minimapFrames = Quests.minimapFrames or {}
@@ -32,15 +31,13 @@ local function ResetPinFrame(frame)
     frame.questsMinimapBasePoints = nil
     frame.questsMinimapAreaRadius = nil
     frame.questsMinimapClipRadius = nil
+    frame.questsMarkerStyle = nil
     frame.UiMapID = nil
     frame.x = nil
     frame.y = nil
     frame:SetAlpha(1)
     frame:EnableMouse(true)
     frame:SetScript("OnUpdate", nil)
-    if frame.questsMarkerHighlight then
-        frame.questsMarkerHighlight:Hide()
-    end
     if frame.SetPropagateMouseClicks then
         frame:SetPropagateMouseClicks(false)
     end
@@ -69,54 +66,23 @@ local function ConfigureMarkerFrame(frame, settings, resizeFrame)
         frame:SetSize(size, size)
     end
     frame.background:Hide()
-    if frame.questsMarkerHighlight then
-        frame.questsMarkerHighlight:SetSize(size * SELECTED_MARKER_HIGHLIGHT_SCALE, size * SELECTED_MARKER_HIGHLIGHT_SCALE)
-        frame.questsMarkerHighlight:SetVertexColor(
-            SELECTED_MARKER_HIGHLIGHT_COLOR[1],
-            SELECTED_MARKER_HIGHLIGHT_COLOR[2],
-            SELECTED_MARKER_HIGHLIGHT_COLOR[3],
-            SELECTED_MARKER_HIGHLIGHT_COLOR[4] * (settings.opacity or 1)
-        )
-    end
 end
 
-local function ConfigureMarkerText(fontString, symbol, settings, opacityMultiplier, color)
+local function ConfigureMarkerText(frame, symbol, settings, opacityMultiplier, color)
     local opacity = (settings.opacity or 1) * (opacityMultiplier or 1)
     color = color or MARKER_COLOR
 
-    fontString:Show()
-    fontString:SetText(tostring(symbol))
-    fontString:SetTextColor(color[1], color[2], color[3], opacity)
-    fontString:SetFont(STANDARD_TEXT_FONT, math.max(8, math.floor(MARKER_FONT_SIZE * (settings.scale or 1))), "OUTLINE")
-    fontString:SetShadowColor(0, 0, 0, 0.9)
-    fontString:SetShadowOffset(1, -1)
-end
-
-local function CreateMarkerHighlight(frame)
-    local highlight = frame:CreateTexture(nil, "OVERLAY")
-    highlight:SetTexture(SELECTED_MARKER_HIGHLIGHT_TEXTURE)
-    highlight:SetPoint("CENTER", frame, "CENTER", 0, 0)
-    highlight:SetVertexColor(
-        SELECTED_MARKER_HIGHLIGHT_COLOR[1],
-        SELECTED_MARKER_HIGHLIGHT_COLOR[2],
-        SELECTED_MARKER_HIGHLIGHT_COLOR[3],
-        SELECTED_MARKER_HIGHLIGHT_COLOR[4]
-    )
-    if highlight.SetBlendMode then
-        highlight:SetBlendMode("ADD")
-    end
-    if highlight.SetDrawLayer then
-        highlight:SetDrawLayer("OVERLAY", -1)
-    end
-    highlight:Hide()
-    return highlight
-end
-
-local function EnsureMarkerHighlight(frame)
-    if not frame.questsMarkerHighlight then
-        frame.questsMarkerHighlight = CreateMarkerHighlight(frame)
-    end
-    return frame.questsMarkerHighlight
+    frame.questsMarkerStyle = {
+        kind = "symbol",
+        color = color,
+        opacity = opacity,
+    }
+    frame.text:Show()
+    frame.text:SetText(tostring(symbol))
+    frame.text:SetTextColor(color[1], color[2], color[3], opacity)
+    frame.text:SetFont(STANDARD_TEXT_FONT, math.max(8, math.floor(MARKER_FONT_SIZE * (settings.scale or 1))), "OUTLINE")
+    frame.text:SetShadowColor(MARKER_SHADOW_COLOR[1], MARKER_SHADOW_COLOR[2], MARKER_SHADOW_COLOR[3], MARKER_SHADOW_COLOR[4])
+    frame.text:SetShadowOffset(1, -1)
 end
 
 function Quests:AcquirePinFrame(kind, poolKind, parent)
@@ -135,9 +101,6 @@ function Quests:AcquirePinFrame(kind, poolKind, parent)
     frame.background = frame:CreateTexture(nil, "ARTWORK")
     frame.background:Hide()
     frame.texture = frame:CreateTexture(nil, kind == "area" and "ARTWORK" or "OVERLAY")
-    if kind == "marker" then
-        frame.questsMarkerHighlight = CreateMarkerHighlight(frame)
-    end
     frame.text = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
     frame.text:SetPoint("CENTER", frame, "CENTER", 0, 0)
     frame:SetScript("OnEnter", function(self)
@@ -169,23 +132,29 @@ function Quests:ConfigurePinSymbol(frame, symbol, opacityMultiplier, color)
     frame.texture:Hide()
     HideTextures(frame.lines)
     HideTextures(frame.fills)
-    ConfigureMarkerText(frame.text, symbol, settings, opacityMultiplier, color)
+    ConfigureMarkerText(frame, symbol, settings, opacityMultiplier, color)
 end
 
 function Quests:ConfigurePinIcon(frame, texture)
     local settings = self:GetSettings()
     local size = math.max(10, math.floor(MARKER_ICON_SIZE * (settings.scale or 1)))
+    local opacity = settings.opacity or 1
 
     ConfigureMarkerFrame(frame, settings, true)
     HideTextures(frame.lines)
     HideTextures(frame.fills)
+    frame.questsMarkerStyle = {
+        kind = "icon",
+        color = { 1, 1, 1 },
+        opacity = opacity,
+    }
     frame.text:SetText("")
     frame.texture:Show()
     frame.texture:SetTexture(texture)
     frame.texture:ClearAllPoints()
     frame.texture:SetSize(size, size)
     frame.texture:SetPoint("CENTER", frame, "CENTER", 0, 0)
-    frame.texture:SetVertexColor(1, 1, 1, settings.opacity or 1)
+    frame.texture:SetVertexColor(1, 1, 1, opacity)
 end
 
 function Quests:SetPinMarkerHighlighted(frame, highlighted)
@@ -193,11 +162,29 @@ function Quests:SetPinMarkerHighlighted(frame, highlighted)
         return
     end
 
-    local highlight = EnsureMarkerHighlight(frame)
+    local style = frame.questsMarkerStyle
+    if not style then
+        return
+    end
+
     if highlighted then
-        highlight:Show()
-    else
-        highlight:Hide()
+        if style.kind == "symbol" then
+            frame.text:SetTextColor(SELECTED_MARKER_COLOR[1], SELECTED_MARKER_COLOR[2], SELECTED_MARKER_COLOR[3], style.opacity or 1)
+        elseif style.kind == "icon" then
+            frame.texture:SetVertexColor(
+                SELECTED_MARKER_COLOR[1],
+                SELECTED_MARKER_COLOR[2],
+                SELECTED_MARKER_COLOR[3],
+                style.opacity or 1
+            )
+        end
+        return
+    end
+
+    if style.kind == "symbol" then
+        frame.text:SetTextColor(style.color[1], style.color[2], style.color[3], style.opacity or 1)
+    elseif style.kind == "icon" then
+        frame.texture:SetVertexColor(style.color[1], style.color[2], style.color[3], style.opacity or 1)
     end
 end
 
