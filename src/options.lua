@@ -424,450 +424,363 @@ local function CreateHelpText(panel, text, anchor)
     return help
 end
 
-local mainPanel = CreatePanel("VanillaEnhancedOptionsPanel", VanillaEnhanced.displayName)
-local mainSubtitle = CreateSubtitle(mainPanel, T("options.main.subtitle"))
-local mainShowChatMessagePrefixCheck = CreateAddonSettingCheck(
-    mainPanel,
-    "VanillaEnhancedOptionsMainShowChatMessagePrefix",
-    "showChatMessagePrefix",
-    T("options.main.showChatMessagePrefix.label"),
-    mainSubtitle
-)
-CreateHelpText(
-    mainPanel,
-    T("options.main.showChatMessagePrefix.help"),
-    mainShowChatMessagePrefixCheck
-)
-
-local questsPanel = CreatePanel("VanillaEnhancedQuestsOptionsPanel", T("module.quests"))
-questsPanel.parent = VanillaEnhanced.displayName
-local questsSubtitle = CreateSubtitle(questsPanel, T("options.quests.subtitle"))
-local questsEnabledCheck = CreateModuleEnabledCheck(
-    questsPanel,
-    "VanillaEnhancedOptionsQuestsEnabled",
-    "quests",
-    T("options.quests.enable.label"),
-    questsSubtitle
-)
-CreateHelpText(
-    questsPanel,
-    T("options.quests.enable.help"),
-    questsEnabledCheck
-)
-local questsKeepQuestLogWithMapCheck = CreateModuleSettingCheck(
-    questsPanel,
-    "VanillaEnhancedOptionsQuestsKeepQuestLogWithMap",
-    "quests",
-    "keepQuestLogWithMap",
-    T("options.quests.keepQuestLogWithMap.label"),
-    questsEnabledCheck,
-    0
-)
-AnchorBelowHelp(questsKeepQuestLogWithMapCheck, questsEnabledCheck)
-CreateHelpText(
-    questsPanel,
-    T("options.quests.keepQuestLogWithMap.help"),
-    questsKeepQuestLogWithMapCheck
-)
-local questsEnableQuestTrackerClicksCheck = CreateModuleSettingCheck(
-    questsPanel,
-    "VanillaEnhancedOptionsQuestsEnableQuestTrackerClicks",
-    "quests",
-    "enableQuestTrackerClicks",
-    T("options.quests.enableQuestTrackerClicks.label"),
-    questsKeepQuestLogWithMapCheck,
-    0
-)
-AnchorBelowHelp(questsEnableQuestTrackerClicksCheck, questsKeepQuestLogWithMapCheck)
-CreateHelpText(
-    questsPanel,
-    T("options.quests.enableQuestTrackerClicks.help"),
-    questsEnableQuestTrackerClicksCheck
-)
-local questsShowMapMarkersCheck = CreateModuleSettingCheck(
-    questsPanel,
-    "VanillaEnhancedOptionsQuestsShowMapMarkers",
-    "quests",
-    "showMapMarkers",
-    T("options.quests.showMapMarkers.label"),
-    questsEnableQuestTrackerClicksCheck,
-    0
-)
-AnchorBelowHelp(questsShowMapMarkersCheck, questsEnableQuestTrackerClicksCheck)
-CreateHelpText(
-    questsPanel,
-    T("options.quests.showMapMarkers.help"),
-    questsShowMapMarkersCheck
-)
-local questsShowMinimapObjectiveAreasCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
-    questsPanel,
-    "VanillaEnhancedOptionsQuestsShowMinimapObjectiveAreas",
-    "quests",
-    "showMinimapObjectiveAreas",
-    T("options.quests.showMinimapObjectiveAreas.label"),
-    questsShowMapMarkersCheck,
-    1
-), "quests", "showMapMarkers")
-AnchorBelowHelp(questsShowMinimapObjectiveAreasCheck, questsShowMapMarkersCheck)
-CreateHelpText(
-    questsPanel,
-    T("options.quests.showMinimapObjectiveAreas.help"),
-    questsShowMinimapObjectiveAreasCheck
-)
-local questsShowAvailableQuestsCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
-    questsPanel,
-    "VanillaEnhancedOptionsQuestsShowAvailableQuests",
-    "quests",
-    "showAvailableQuests",
-    T("options.quests.showAvailableQuests.label"),
-    questsShowMinimapObjectiveAreasCheck,
-    1
-), "quests", "showMapMarkers")
-AnchorBelowHelp(questsShowAvailableQuestsCheck, questsShowMinimapObjectiveAreasCheck)
-CreateHelpText(
-    questsPanel,
-    T("options.quests.showAvailableQuests.help"),
-    questsShowAvailableQuestsCheck
-)
-local questsOnlyShowNearbyAvailableQuestsCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
-    questsPanel,
-    "VanillaEnhancedOptionsQuestsOnlyShowNearbyAvailableQuests",
-    "quests",
-    "onlyShowNearbyAvailableQuests",
-    T("options.quests.onlyShowNearbyAvailableQuests.label"),
-    questsShowAvailableQuestsCheck,
-    2
-), "quests", "showAvailableQuests")
-AnchorBelowHelp(questsOnlyShowNearbyAvailableQuestsCheck, questsShowAvailableQuestsCheck)
-questsOnlyShowNearbyAvailableQuestsCheck.enabledWhen = function()
-    return IsSettingEnabled("quests", "showMapMarkers")
-        and IsSettingEnabled("quests", "showAvailableQuests")
+local function AreSettingsEnabled(moduleKey, settingKeys)
+    for _, settingKey in ipairs(settingKeys or {}) do
+        if not IsSettingEnabled(moduleKey, settingKey) then
+            return false
+        end
+    end
+    return true
 end
-CreateHelpText(
-    questsPanel,
-    T("options.quests.onlyShowNearbyAvailableQuests.help"),
-    questsOnlyShowNearbyAvailableQuestsCheck
-)
-local questsOnlyShowAvailableQuestsAroundPlayerLevelCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
-    questsPanel,
-    "VanillaEnhancedOptionsQuestsOnlyShowAvailableQuestsAroundPlayerLevel",
-    "quests",
-    "onlyShowAvailableQuestsAroundPlayerLevel",
-    T("options.quests.onlyShowAvailableQuestsAroundPlayerLevel.label"),
-    questsOnlyShowNearbyAvailableQuestsCheck,
-    2
-), "quests", "showAvailableQuests")
-AnchorBelowHelp(questsOnlyShowAvailableQuestsAroundPlayerLevelCheck, questsOnlyShowNearbyAvailableQuestsCheck)
-questsOnlyShowAvailableQuestsAroundPlayerLevelCheck.enabledWhen = function()
-    return IsSettingEnabled("quests", "showMapMarkers")
-        and IsSettingEnabled("quests", "showAvailableQuests")
+
+local function ApplyOptionEnabledWhen(control, option, moduleKey)
+    if option.enabledWhen then
+        control.enabledWhen = option.enabledWhen
+    elseif option.enabledWhenSettings then
+        control.enabledWhen = function()
+            return AreSettingsEnabled(moduleKey, option.enabledWhenSettings)
+        end
+    elseif option.enabledWhenSetting then
+        SetSettingCheckEnabledWhen(control, moduleKey, option.enabledWhenSetting)
+    end
+    return control
 end
-CreateHelpText(
-    questsPanel,
-    T("options.quests.onlyShowAvailableQuestsAroundPlayerLevel.help"),
-    questsOnlyShowAvailableQuestsAroundPlayerLevelCheck
-)
-local questsShowCompletedMapObjectivesCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
-    questsPanel,
-    "VanillaEnhancedOptionsQuestsShowCompletedMapObjectives",
-    "quests",
-    "showCompletedMapObjectives",
-    T("options.quests.showCompletedMapObjectives.label"),
-    questsOnlyShowAvailableQuestsAroundPlayerLevelCheck,
-    1
-), "quests", "showMapMarkers")
-AnchorBelowHelp(questsShowCompletedMapObjectivesCheck, questsOnlyShowAvailableQuestsAroundPlayerLevelCheck)
-CreateHelpText(
-    questsPanel,
-    T("options.quests.showCompletedMapObjectives.help"),
-    questsShowCompletedMapObjectivesCheck
-)
-local questsShowCompletedTooltipObjectivesCheck = CreateModuleSettingCheck(
-    questsPanel,
-    "VanillaEnhancedOptionsQuestsShowCompletedTooltipObjectives",
-    "quests",
-    "showCompletedTooltipObjectives",
-    T("options.quests.showCompletedTooltipObjectives.label"),
-    questsShowCompletedMapObjectivesCheck,
-    0
-)
-AnchorBelowHelp(questsShowCompletedTooltipObjectivesCheck, questsShowCompletedMapObjectivesCheck)
-CreateHelpText(
-    questsPanel,
-    T("options.quests.showCompletedTooltipObjectives.help"),
-    questsShowCompletedTooltipObjectivesCheck
-)
 
-local targetThreatPanel = CreatePanel("VanillaEnhancedTargetThreatOptionsPanel", T("module.targetThreat"))
-targetThreatPanel.parent = VanillaEnhanced.displayName
-local targetThreatSubtitle = CreateSubtitle(targetThreatPanel, T("options.targetThreat.subtitle"))
-local targetThreatEnabledCheck = CreateModuleEnabledCheck(
-    targetThreatPanel,
-    "VanillaEnhancedOptionsTargetThreatEnabled",
-    "target-threat",
-    T("options.targetThreat.enable.label"),
-    targetThreatSubtitle
-)
-CreateHelpText(
-    targetThreatPanel,
-    T("options.targetThreat.enable.help"),
-    targetThreatEnabledCheck
-)
-local targetThreatAlwaysShowCheck = CreateModuleSettingCheck(
-    targetThreatPanel,
-    "VanillaEnhancedOptionsTargetThreatAlwaysShow",
-    "target-threat",
-    "alwaysShow",
-    T("options.targetThreat.alwaysShow.label"),
-    targetThreatEnabledCheck,
-    0
-)
-AnchorBelowHelp(targetThreatAlwaysShowCheck, targetThreatEnabledCheck)
-CreateHelpText(
-    targetThreatPanel,
-    T("options.targetThreat.alwaysShow.help"),
-    targetThreatAlwaysShowCheck
-)
+local function BuildDropdownOptions(options)
+    local dropdownOptions = {}
+    for _, option in ipairs(options or {}) do
+        dropdownOptions[#dropdownOptions + 1] = {
+            value = option.value,
+            label = option.label or T(option.labelKey),
+        }
+    end
+    return dropdownOptions
+end
 
-local bagsPanel = CreatePanel("VanillaEnhancedBagsOptionsPanel", T("module.bags"))
-bagsPanel.parent = VanillaEnhanced.displayName
-local bagsSubtitle = CreateSubtitle(bagsPanel, T("options.bags.subtitle"))
-local bagsEnabledCheck = CreateModuleEnabledCheck(
-    bagsPanel,
-    "VanillaEnhancedOptionsBagsEnabled",
-    "bags",
-    T("options.bags.enable.label"),
-    bagsSubtitle
-)
-CreateHelpText(
-    bagsPanel,
-    T("options.bags.enable.help"),
-    bagsEnabledCheck
-)
-local bagsShowSortButtonCheck = CreateModuleSettingCheck(
-    bagsPanel,
-    "VanillaEnhancedOptionsBagsShowSortButton",
-    "bags",
-    "showSortButton",
-    T("options.bags.showSortButton.label"),
-    bagsEnabledCheck,
-    0
-)
-AnchorBelowHelp(bagsShowSortButtonCheck, bagsEnabledCheck)
-CreateHelpText(
-    bagsPanel,
-    T("options.bags.showSortButton.help"),
-    bagsShowSortButtonCheck
-)
-local bagsAutoSortAfterLootCheck = CreateModuleSettingCheck(
-    bagsPanel,
-    "VanillaEnhancedOptionsBagsAutoSortAfterLoot",
-    "bags",
-    "autoSortAfterLoot",
-    T("options.bags.autoSortAfterLoot.label"),
-    bagsShowSortButtonCheck,
-    0
-)
-AnchorBelowHelp(bagsAutoSortAfterLootCheck, bagsShowSortButtonCheck)
-CreateHelpText(
-    bagsPanel,
-    T("options.bags.autoSortAfterLoot.help"),
-    bagsAutoSortAfterLootCheck
-)
-local bagsAutoSortAfterLootModeDropdown = CreateModuleDropdown(
-    bagsPanel,
-    "VanillaEnhancedOptionsBagsAutoSortAfterLootMode",
-    "bags",
-    "autoSortAfterLootMode",
-    T("options.bags.autoSortAfterLootMode.label"),
-    {
-        { value = "tidy", label = T("options.bags.autoSortAfterLootMode.tidy") },
-        { value = "full", label = T("options.bags.autoSortAfterLootMode.full") },
+local function BuildOptionControl(panel, option, anchor, moduleKey)
+    local control
+    local optionModuleKey = option.moduleKey or moduleKey
+
+    if option.type == "addonCheck" then
+        control = CreateAddonSettingCheck(panel, option.name, option.settingKey, T(option.labelKey), anchor)
+    elseif option.type == "moduleEnabled" then
+        control = CreateModuleEnabledCheck(panel, option.name, optionModuleKey, T(option.labelKey), anchor)
+    elseif option.type == "dropdown" then
+        control = CreateModuleDropdown(
+            panel,
+            option.name,
+            optionModuleKey,
+            option.settingKey,
+            T(option.labelKey),
+            BuildDropdownOptions(option.options),
+            anchor,
+            option.indent
+        )
+        if option.width then
+            UIDropDownMenu_SetWidth(control, option.width)
+        end
+    else
+        control = CreateModuleSettingCheck(
+            panel,
+            option.name,
+            optionModuleKey,
+            option.settingKey,
+            T(option.labelKey),
+            anchor,
+            option.indent
+        )
+        AnchorBelowHelp(control, anchor, option.indent)
+    end
+
+    ApplyOptionEnabledWhen(control, option, optionModuleKey)
+
+    if option.helpKey then
+        CreateHelpText(panel, T(option.helpKey), control)
+    end
+
+    return control
+end
+
+local function BuildOptionsPanel(definition)
+    local panel = CreatePanel(definition.name, definition.title or T(definition.titleKey))
+    panel.parent = definition.parent
+
+    local subtitle = CreateSubtitle(panel, T(definition.subtitleKey))
+    local anchor = subtitle
+
+    for _, option in ipairs(definition.options or {}) do
+        anchor = BuildOptionControl(panel, option, anchor, definition.moduleKey)
+    end
+
+    return panel
+end
+
+local mainPanel = BuildOptionsPanel({
+    name = "VanillaEnhancedOptionsPanel",
+    title = VanillaEnhanced.displayName,
+    subtitleKey = "options.main.subtitle",
+    options = {
+        {
+            type = "addonCheck",
+            name = "VanillaEnhancedOptionsMainShowChatMessagePrefix",
+            settingKey = "showChatMessagePrefix",
+            labelKey = "options.main.showChatMessagePrefix.label",
+            helpKey = "options.main.showChatMessagePrefix.help",
+        },
     },
-    bagsAutoSortAfterLootCheck,
-    1
-)
-bagsAutoSortAfterLootModeDropdown.enabledWhen = function()
-    return IsSettingEnabled("bags", "autoSortAfterLoot")
-end
-CreateHelpText(
-    bagsPanel,
-    T("options.bags.autoSortAfterLootMode.help"),
-    bagsAutoSortAfterLootModeDropdown
-)
-local bagsAutoSortOnOpenCheck = CreateModuleSettingCheck(
-    bagsPanel,
-    "VanillaEnhancedOptionsBagsAutoSortOnOpen",
-    "bags",
-    "autoSortOnOpen",
-    T("options.bags.autoSortOnOpen.label"),
-    bagsAutoSortAfterLootModeDropdown,
-    0
-)
-AnchorBelowHelp(bagsAutoSortOnOpenCheck, bagsAutoSortAfterLootModeDropdown)
-CreateHelpText(
-    bagsPanel,
-    T("options.bags.autoSortOnOpen.help"),
-    bagsAutoSortOnOpenCheck
-)
-local bagsSortOrderDropdown = CreateModuleDropdown(
-    bagsPanel,
-    "VanillaEnhancedOptionsBagsSortOrder",
-    "bags",
-    "sortOrder",
-    T("options.bags.sortOrder.label"),
-    {
-        { value = "category", label = T("options.bags.sortOrder.category") },
-        { value = "quality", label = T("options.bags.sortOrder.quality") },
-        { value = "name", label = T("options.bags.sortOrder.name") },
-    },
-    bagsAutoSortOnOpenCheck,
-    0
-)
-CreateHelpText(
-    bagsPanel,
-    T("options.bags.sortOrder.help"),
-    bagsSortOrderDropdown
-)
+})
 
-local merchantsPanel = CreatePanel("VanillaEnhancedMerchantsOptionsPanel", T("module.merchants"))
-merchantsPanel.parent = VanillaEnhanced.displayName
-local merchantsSubtitle = CreateSubtitle(merchantsPanel, T("options.merchants.subtitle"))
-local merchantsEnabledCheck = CreateModuleEnabledCheck(
-    merchantsPanel,
-    "VanillaEnhancedOptionsMerchantsEnabled",
-    "merchants",
-    T("options.merchants.enable.label"),
-    merchantsSubtitle
-)
-CreateHelpText(
-    merchantsPanel,
-    T("options.merchants.enable.help"),
-    merchantsEnabledCheck
-)
-local merchantsSellScrapsCheck = CreateModuleSettingCheck(
-    merchantsPanel,
-    "VanillaEnhancedOptionsMerchantsSellScraps",
-    "merchants",
-    "sellScrapsEnabled",
-    T("options.merchants.sellScraps.label"),
-    merchantsEnabledCheck,
-    0
-)
-AnchorBelowHelp(merchantsSellScrapsCheck, merchantsEnabledCheck)
-CreateHelpText(
-    merchantsPanel,
-    T("options.merchants.sellScraps.help"),
-    merchantsSellScrapsCheck
-)
-local merchantsScrapStrategyDropdown = CreateModuleDropdown(
-    merchantsPanel,
-    "VanillaEnhancedOptionsMerchantsScrapStrategy",
-    "merchants",
-    "scrapStrategy",
-    T("options.merchants.scrapStrategy.label"),
-    {
-        { value = "poor-sellable", label = T("options.merchants.scrapStrategy.poorSellable") },
-        { value = "poor-unusable-equipment", label = T("options.merchants.scrapStrategy.poorUnusableEquipment") },
-        { value = "poor-low-consumables", label = T("options.merchants.scrapStrategy.poorLowConsumables") },
-        { value = "poor-low-equipment", label = T("options.merchants.scrapStrategy.poorLowEquipment") },
-        { value = "smart", label = T("options.merchants.scrapStrategy.smart") },
+local questsPanel = BuildOptionsPanel({
+    name = "VanillaEnhancedQuestsOptionsPanel",
+    titleKey = "module.quests",
+    subtitleKey = "options.quests.subtitle",
+    parent = VanillaEnhanced.displayName,
+    moduleKey = "quests",
+    options = {
+        {
+            type = "moduleEnabled",
+            name = "VanillaEnhancedOptionsQuestsEnabled",
+            labelKey = "options.quests.enable.label",
+            helpKey = "options.quests.enable.help",
+        },
+        {
+            name = "VanillaEnhancedOptionsQuestsKeepQuestLogWithMap",
+            settingKey = "keepQuestLogWithMap",
+            labelKey = "options.quests.keepQuestLogWithMap.label",
+            helpKey = "options.quests.keepQuestLogWithMap.help",
+            indent = 0,
+        },
+        {
+            name = "VanillaEnhancedOptionsQuestsEnableQuestTrackerClicks",
+            settingKey = "enableQuestTrackerClicks",
+            labelKey = "options.quests.enableQuestTrackerClicks.label",
+            helpKey = "options.quests.enableQuestTrackerClicks.help",
+            indent = 0,
+        },
+        {
+            name = "VanillaEnhancedOptionsQuestsShowMapMarkers",
+            settingKey = "showMapMarkers",
+            labelKey = "options.quests.showMapMarkers.label",
+            helpKey = "options.quests.showMapMarkers.help",
+            indent = 0,
+        },
+        {
+            name = "VanillaEnhancedOptionsQuestsShowMinimapObjectiveAreas",
+            settingKey = "showMinimapObjectiveAreas",
+            labelKey = "options.quests.showMinimapObjectiveAreas.label",
+            helpKey = "options.quests.showMinimapObjectiveAreas.help",
+            enabledWhenSetting = "showMapMarkers",
+            indent = 1,
+        },
+        {
+            name = "VanillaEnhancedOptionsQuestsShowAvailableQuests",
+            settingKey = "showAvailableQuests",
+            labelKey = "options.quests.showAvailableQuests.label",
+            helpKey = "options.quests.showAvailableQuests.help",
+            enabledWhenSetting = "showMapMarkers",
+            indent = 1,
+        },
+        {
+            name = "VanillaEnhancedOptionsQuestsOnlyShowNearbyAvailableQuests",
+            settingKey = "onlyShowNearbyAvailableQuests",
+            labelKey = "options.quests.onlyShowNearbyAvailableQuests.label",
+            helpKey = "options.quests.onlyShowNearbyAvailableQuests.help",
+            enabledWhenSettings = { "showMapMarkers", "showAvailableQuests" },
+            indent = 2,
+        },
+        {
+            name = "VanillaEnhancedOptionsQuestsOnlyShowAvailableQuestsAroundPlayerLevel",
+            settingKey = "onlyShowAvailableQuestsAroundPlayerLevel",
+            labelKey = "options.quests.onlyShowAvailableQuestsAroundPlayerLevel.label",
+            helpKey = "options.quests.onlyShowAvailableQuestsAroundPlayerLevel.help",
+            enabledWhenSettings = { "showMapMarkers", "showAvailableQuests" },
+            indent = 2,
+        },
+        {
+            name = "VanillaEnhancedOptionsQuestsShowCompletedMapObjectives",
+            settingKey = "showCompletedMapObjectives",
+            labelKey = "options.quests.showCompletedMapObjectives.label",
+            helpKey = "options.quests.showCompletedMapObjectives.help",
+            enabledWhenSetting = "showMapMarkers",
+            indent = 1,
+        },
+        {
+            name = "VanillaEnhancedOptionsQuestsShowCompletedTooltipObjectives",
+            settingKey = "showCompletedTooltipObjectives",
+            labelKey = "options.quests.showCompletedTooltipObjectives.label",
+            helpKey = "options.quests.showCompletedTooltipObjectives.help",
+            indent = 0,
+        },
     },
-    merchantsSellScrapsCheck,
-    1
-)
-merchantsScrapStrategyDropdown.enabledWhen = function()
-    return IsSettingEnabled("merchants", "sellScrapsEnabled")
-end
-UIDropDownMenu_SetWidth(merchantsScrapStrategyDropdown, 190)
-CreateHelpText(
-    merchantsPanel,
-    T("options.merchants.scrapStrategy.help"),
-    merchantsScrapStrategyDropdown
-)
-local merchantsSafeManualSellCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
-    merchantsPanel,
-    "VanillaEnhancedOptionsMerchantsSafeManualSell",
-    "merchants",
-    "safeManualSell",
-    T("options.merchants.safeManualSell.label"),
-    merchantsScrapStrategyDropdown,
-    1
-), "merchants", "sellScrapsEnabled")
-AnchorBelowHelp(merchantsSafeManualSellCheck, merchantsScrapStrategyDropdown)
-CreateHelpText(
-    merchantsPanel,
-    T("options.merchants.safeManualSell.help"),
-    merchantsSafeManualSellCheck
-)
-local merchantsSortBagsAfterSellingScrapsCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
-    merchantsPanel,
-    "VanillaEnhancedOptionsMerchantsSortBagsAfterSellingScraps",
-    "merchants",
-    "sortBagsAfterSellingScraps",
-    T("options.merchants.sortBagsAfterSellingScraps.label"),
-    merchantsSafeManualSellCheck,
-    1
-), "merchants", "sellScrapsEnabled")
-merchantsSortBagsAfterSellingScrapsCheck.enabledWhen = function()
-    return IsSettingEnabled("merchants", "sellScrapsEnabled")
-        and VanillaEnhanced:IsModuleEnabled("bags")
-end
-AnchorBelowHelp(merchantsSortBagsAfterSellingScrapsCheck, merchantsSafeManualSellCheck)
-CreateHelpText(
-    merchantsPanel,
-    T("options.merchants.sortBagsAfterSellingScraps.help"),
-    merchantsSortBagsAfterSellingScrapsCheck
-)
-local merchantsAutoSellScrapsCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
-    merchantsPanel,
-    "VanillaEnhancedOptionsMerchantsAutoSellScraps",
-    "merchants",
-    "autoSellScraps",
-    T("options.merchants.autoSellScraps.label"),
-    merchantsSortBagsAfterSellingScrapsCheck,
-    1
-), "merchants", "sellScrapsEnabled")
-AnchorBelowHelp(merchantsAutoSellScrapsCheck, merchantsSortBagsAfterSellingScrapsCheck)
-CreateHelpText(
-    merchantsPanel,
-    T("options.merchants.autoSellScraps.help"),
-    merchantsAutoSellScrapsCheck
-)
-local merchantsSafeAutoSellCheck = SetSettingCheckEnabledWhen(CreateModuleSettingCheck(
-    merchantsPanel,
-    "VanillaEnhancedOptionsMerchantsSafeAutoSell",
-    "merchants",
-    "safeAutoSell",
-    T("options.merchants.safeAutoSell.label"),
-    merchantsAutoSellScrapsCheck,
-    2
-), "merchants", "autoSellScraps")
-merchantsSafeAutoSellCheck.enabledWhen = function()
-    return IsSettingEnabled("merchants", "sellScrapsEnabled")
-        and IsSettingEnabled("merchants", "autoSellScraps")
-end
-AnchorBelowHelp(merchantsSafeAutoSellCheck, merchantsAutoSellScrapsCheck)
-CreateHelpText(
-    merchantsPanel,
-    T("options.merchants.safeAutoSell.help"),
-    merchantsSafeAutoSellCheck
-)
-local merchantsAutoRepairCheck = CreateModuleSettingCheck(
-    merchantsPanel,
-    "VanillaEnhancedOptionsMerchantsAutoRepair",
-    "merchants",
-    "autoRepair",
-    T("options.merchants.autoRepair.label"),
-    merchantsSafeAutoSellCheck,
-    0
-)
-AnchorBelowHelp(merchantsAutoRepairCheck, merchantsSafeAutoSellCheck)
-CreateHelpText(
-    merchantsPanel,
-    T("options.merchants.autoRepair.help"),
-    merchantsAutoRepairCheck
-)
+})
+
+local targetThreatPanel = BuildOptionsPanel({
+    name = "VanillaEnhancedTargetThreatOptionsPanel",
+    titleKey = "module.targetThreat",
+    subtitleKey = "options.targetThreat.subtitle",
+    parent = VanillaEnhanced.displayName,
+    moduleKey = "target-threat",
+    options = {
+        {
+            type = "moduleEnabled",
+            name = "VanillaEnhancedOptionsTargetThreatEnabled",
+            labelKey = "options.targetThreat.enable.label",
+            helpKey = "options.targetThreat.enable.help",
+        },
+        {
+            name = "VanillaEnhancedOptionsTargetThreatAlwaysShow",
+            settingKey = "alwaysShow",
+            labelKey = "options.targetThreat.alwaysShow.label",
+            helpKey = "options.targetThreat.alwaysShow.help",
+            indent = 0,
+        },
+    },
+})
+
+local bagsPanel = BuildOptionsPanel({
+    name = "VanillaEnhancedBagsOptionsPanel",
+    titleKey = "module.bags",
+    subtitleKey = "options.bags.subtitle",
+    parent = VanillaEnhanced.displayName,
+    moduleKey = "bags",
+    options = {
+        {
+            type = "moduleEnabled",
+            name = "VanillaEnhancedOptionsBagsEnabled",
+            labelKey = "options.bags.enable.label",
+            helpKey = "options.bags.enable.help",
+        },
+        {
+            name = "VanillaEnhancedOptionsBagsShowSortButton",
+            settingKey = "showSortButton",
+            labelKey = "options.bags.showSortButton.label",
+            helpKey = "options.bags.showSortButton.help",
+            indent = 0,
+        },
+        {
+            name = "VanillaEnhancedOptionsBagsAutoSortAfterLoot",
+            settingKey = "autoSortAfterLoot",
+            labelKey = "options.bags.autoSortAfterLoot.label",
+            helpKey = "options.bags.autoSortAfterLoot.help",
+            indent = 0,
+        },
+        {
+            type = "dropdown",
+            name = "VanillaEnhancedOptionsBagsAutoSortAfterLootMode",
+            settingKey = "autoSortAfterLootMode",
+            labelKey = "options.bags.autoSortAfterLootMode.label",
+            helpKey = "options.bags.autoSortAfterLootMode.help",
+            enabledWhenSetting = "autoSortAfterLoot",
+            indent = 1,
+            options = {
+                { value = "tidy", labelKey = "options.bags.autoSortAfterLootMode.tidy" },
+                { value = "full", labelKey = "options.bags.autoSortAfterLootMode.full" },
+            },
+        },
+        {
+            name = "VanillaEnhancedOptionsBagsAutoSortOnOpen",
+            settingKey = "autoSortOnOpen",
+            labelKey = "options.bags.autoSortOnOpen.label",
+            helpKey = "options.bags.autoSortOnOpen.help",
+            indent = 0,
+        },
+        {
+            type = "dropdown",
+            name = "VanillaEnhancedOptionsBagsSortOrder",
+            settingKey = "sortOrder",
+            labelKey = "options.bags.sortOrder.label",
+            helpKey = "options.bags.sortOrder.help",
+            indent = 0,
+            options = {
+                { value = "category", labelKey = "options.bags.sortOrder.category" },
+                { value = "quality", labelKey = "options.bags.sortOrder.quality" },
+                { value = "name", labelKey = "options.bags.sortOrder.name" },
+            },
+        },
+    },
+})
+
+local merchantsPanel = BuildOptionsPanel({
+    name = "VanillaEnhancedMerchantsOptionsPanel",
+    titleKey = "module.merchants",
+    subtitleKey = "options.merchants.subtitle",
+    parent = VanillaEnhanced.displayName,
+    moduleKey = "merchants",
+    options = {
+        {
+            type = "moduleEnabled",
+            name = "VanillaEnhancedOptionsMerchantsEnabled",
+            labelKey = "options.merchants.enable.label",
+            helpKey = "options.merchants.enable.help",
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsSellScraps",
+            settingKey = "sellScrapsEnabled",
+            labelKey = "options.merchants.sellScraps.label",
+            helpKey = "options.merchants.sellScraps.help",
+            indent = 0,
+        },
+        {
+            type = "dropdown",
+            name = "VanillaEnhancedOptionsMerchantsScrapStrategy",
+            settingKey = "scrapStrategy",
+            labelKey = "options.merchants.scrapStrategy.label",
+            helpKey = "options.merchants.scrapStrategy.help",
+            enabledWhenSetting = "sellScrapsEnabled",
+            indent = 1,
+            width = 190,
+            options = {
+                { value = "poor-sellable", labelKey = "options.merchants.scrapStrategy.poorSellable" },
+                { value = "poor-unusable-equipment", labelKey = "options.merchants.scrapStrategy.poorUnusableEquipment" },
+                { value = "poor-low-consumables", labelKey = "options.merchants.scrapStrategy.poorLowConsumables" },
+                { value = "poor-low-equipment", labelKey = "options.merchants.scrapStrategy.poorLowEquipment" },
+                { value = "smart", labelKey = "options.merchants.scrapStrategy.smart" },
+            },
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsSafeManualSell",
+            settingKey = "safeManualSell",
+            labelKey = "options.merchants.safeManualSell.label",
+            helpKey = "options.merchants.safeManualSell.help",
+            enabledWhenSetting = "sellScrapsEnabled",
+            indent = 1,
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsSortBagsAfterSellingScraps",
+            settingKey = "sortBagsAfterSellingScraps",
+            labelKey = "options.merchants.sortBagsAfterSellingScraps.label",
+            helpKey = "options.merchants.sortBagsAfterSellingScraps.help",
+            enabledWhen = function()
+                return IsSettingEnabled("merchants", "sellScrapsEnabled")
+                    and VanillaEnhanced:IsModuleEnabled("bags")
+            end,
+            indent = 1,
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsAutoSellScraps",
+            settingKey = "autoSellScraps",
+            labelKey = "options.merchants.autoSellScraps.label",
+            helpKey = "options.merchants.autoSellScraps.help",
+            enabledWhenSetting = "sellScrapsEnabled",
+            indent = 1,
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsSafeAutoSell",
+            settingKey = "safeAutoSell",
+            labelKey = "options.merchants.safeAutoSell.label",
+            helpKey = "options.merchants.safeAutoSell.help",
+            enabledWhenSettings = { "sellScrapsEnabled", "autoSellScraps" },
+            indent = 2,
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsAutoRepair",
+            settingKey = "autoRepair",
+            labelKey = "options.merchants.autoRepair.label",
+            helpKey = "options.merchants.autoRepair.help",
+            indent = 0,
+        },
+    },
+})
 
 function VanillaEnhanced:RefreshOptions()
     local addonSettings = self:GetSettings()

@@ -17,6 +17,7 @@ libs\here-be-dragons\here-be-dragons-pins-2.0.lua
 
 core.lua
 src\localization.lua
+src\inventory\api.lua
 data\quests\locations.lua
 data\quests\locales.lua
 src\quests\module.lua

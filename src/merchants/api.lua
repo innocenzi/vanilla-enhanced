@@ -1,71 +1,10 @@
 local VanillaEnhanced = _G.VanillaEnhanced
 local Merchants = VanillaEnhanced:GetModule("merchants")
 
+local InventoryApi = VanillaEnhanced.InventoryApi
+
 local Api = {}
 Merchants.Api = Api
-
-local CONTAINER_INFO_KEYS = {
-    "iconFileID",
-    "stackCount",
-    "isLocked",
-    "quality",
-    "isReadable",
-    "hasLoot",
-    "hyperlink",
-    "isFiltered",
-    "hasNoValue",
-    "itemID",
-    "isBound",
-}
-
-local ITEM_INFO_KEYS = {
-    "name",
-    "link",
-    "quality",
-    "itemLevel",
-    "minLevel",
-    "itemType",
-    "itemSubType",
-    "stackSize",
-    "equipLoc",
-    "texture",
-    "sellPrice",
-    "classID",
-    "subclassID",
-    "bindType",
-}
-
-local CONTAINER_QUEST_INFO_KEYS = {
-    "isQuestItem",
-    "questID",
-    "isActive",
-}
-
-local function FindApi(namespace, methodName)
-    if namespace and type(namespace[methodName]) == "function" then
-        return namespace[methodName]
-    end
-    if type(_G[methodName]) == "function" then
-        return _G[methodName]
-    end
-    return nil
-end
-
-local function PackReturns(keys, ...)
-    local first = ...
-    if first == nil then
-        return nil
-    end
-    if type(first) == "table" then
-        return first
-    end
-
-    local info = {}
-    for index, key in ipairs(keys) do
-        info[key] = select(index, ...)
-    end
-    return info
-end
 
 local function TooltipSaysBound(bagID, slot)
     if not ITEM_SOULBOUND or not CreateFrame then
@@ -95,88 +34,51 @@ local function TooltipSaysBound(bagID, slot)
 end
 
 function Api:FindContainer(methodName)
-    return FindApi(C_Container, methodName)
+    return InventoryApi:FindContainer(methodName)
 end
 
 function Api:FindItem(methodName)
-    return FindApi(C_Item, methodName)
+    return InventoryApi:FindItem(methodName)
 end
 
 function Api:GetContainerNumSlots(bagID)
-    local api = self:FindContainer("GetContainerNumSlots")
-    return api and api(bagID) or 0
+    return InventoryApi:GetContainerNumSlots(bagID) or 0
 end
 
 function Api:GetContainerItemInfo(bagID, slot)
-    local api = self:FindContainer("GetContainerItemInfo")
-    return api and PackReturns(CONTAINER_INFO_KEYS, api(bagID, slot)) or nil
+    return InventoryApi:GetContainerItemInfo(bagID, slot)
 end
 
 function Api:GetContainerItemLink(bagID, slot)
-    local api = self:FindContainer("GetContainerItemLink")
-    if api then
-        return api(bagID, slot)
-    end
-
-    local item = self:GetContainerItemInfo(bagID, slot)
-    return item and item.hyperlink
+    return InventoryApi:GetContainerItemLink(bagID, slot)
 end
 
 function Api:GetContainerItemID(bagID, slot)
-    local api = self:FindContainer("GetContainerItemID")
-    if api then
-        return api(bagID, slot)
-    end
-
-    local item = self:GetContainerItemInfo(bagID, slot)
-    return item and item.itemID
+    return InventoryApi:GetContainerItemID(bagID, slot)
 end
 
 function Api:GetContainerItemQuestInfo(bagID, slot)
-    local api = self:FindContainer("GetContainerItemQuestInfo")
-    return api and PackReturns(CONTAINER_QUEST_INFO_KEYS, api(bagID, slot)) or nil
+    return InventoryApi:GetContainerItemQuestInfo(bagID, slot)
 end
 
 function Api:GetItemInfo(item)
-    local api = self:FindItem("GetItemInfo")
-    return api and PackReturns(ITEM_INFO_KEYS, api(item)) or nil
+    return InventoryApi:GetItemInfo(item)
 end
 
 function Api:IsEquippableItem(item)
-    local api = self:FindItem("IsEquippableItem")
-    if api then
-        return api(item)
-    end
-    if type(IsEquippableItem) == "function" then
-        return IsEquippableItem(item)
-    end
-    return false
+    return InventoryApi:IsEquippableItem(item)
 end
 
 function Api:IsUsableItem(item)
-    if type(IsUsableItem) == "function" then
-        local usable = IsUsableItem(item)
-        return usable == true
-    end
-    return true
+    return InventoryApi:IsUsableItem(item)
 end
 
 function Api:UseContainerItem(bagID, slot)
-    local api = self:FindContainer("UseContainerItem")
-    if api then
-        return api(bagID, slot)
-    end
-    return nil
+    return InventoryApi:UseContainerItem(bagID, slot)
 end
 
 function Api:HasCursorItem()
-    if type(CursorHasItem) == "function" then
-        return CursorHasItem()
-    end
-    if C_Cursor and type(C_Cursor.GetCursorItem) == "function" then
-        return C_Cursor.GetCursorItem() ~= nil
-    end
-    return false
+    return InventoryApi:HasCursorItem()
 end
 
 function Api:ReadContainerItem(bagID, slot)
