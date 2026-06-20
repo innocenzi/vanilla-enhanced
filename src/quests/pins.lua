@@ -1,18 +1,5 @@
 local Quests = _G.VanillaEnhanced:GetModule("quests")
 
-local MARKER_SYMBOLS = {
-    available = "!",
-    turnin = "?",
-}
-
-local ICON_TEXTURES = {
-    talk = [[Interface\GossipFrame\GossipGossipIcon]],
-}
-
-local function GetMarkerSymbol(kind, fallback)
-    return MARKER_SYMBOLS[kind] or fallback
-end
-
 function Quests:AddPins(uiMapId, clusters, quest)
     local visibleClusters = {}
 
@@ -59,7 +46,7 @@ function Quests:AddMinimapPin(uiMapId, x, y, quest, cluster)
     end
 
     local pinData = self:BuildQuestPinData(quest, cluster)
-    if kind == "slay" or kind == "loot" then
+    if self:IsQuestObjectiveAreaKind(kind) then
         if self:GetSettings().showMinimapObjectiveAreas == false then
             return
         end
@@ -69,10 +56,11 @@ function Quests:AddMinimapPin(uiMapId, x, y, quest, cluster)
 
     local marker = self:AcquirePinFrame("marker", "minimapMarker", Minimap)
     marker.questsData = pinData
-    if ICON_TEXTURES[kind] then
-        self:ConfigurePinIcon(marker, ICON_TEXTURES[kind])
+    local texture = self:GetPinMarkerTexture(kind)
+    if texture then
+        self:ConfigurePinIcon(marker, texture)
     else
-        self:ConfigurePinSymbol(marker, MARKER_SYMBOLS[kind] or quest.number)
+        self:ConfigurePinSymbol(marker, self:GetPinMarkerSymbol(kind, quest.number))
     end
 
     marker:Hide()
@@ -86,7 +74,7 @@ function Quests:AddPin(uiMapId, x, y, quest, cluster)
     end
 
     local kind = cluster.k or "object"
-    local areaOnly = kind == "slay" or kind == "loot"
+    local areaOnly = self:IsQuestObjectiveAreaKind(kind)
     local pinData = self:BuildQuestPinData(quest, cluster)
     local area
 
@@ -100,7 +88,17 @@ function Quests:AddPin(uiMapId, x, y, quest, cluster)
         self:RefreshQuestAreaVisibility(area)
     end
 
-    self:AddMarkerCandidate(uiMapId, x, y, pinData, GetMarkerSymbol(kind, quest.number), area, nil, nil, ICON_TEXTURES[kind])
+    self:AddMarkerCandidate(
+        uiMapId,
+        x,
+        y,
+        pinData,
+        self:GetPinMarkerSymbol(kind, quest.number),
+        area,
+        nil,
+        nil,
+        self:GetPinMarkerTexture(kind)
+    )
 end
 
 function Quests:AddAvailablePin(uiMapId, x, y, questId, dbQuest, cluster, context)
@@ -116,7 +114,7 @@ function Quests:AddAvailablePin(uiMapId, x, y, questId, dbQuest, cluster, contex
         x,
         y,
         self:BuildAvailableQuestPinData(questId, dbQuest),
-        GetMarkerSymbol(cluster.k, MARKER_SYMBOLS.available),
+        self:GetPinMarkerSymbol(cluster.k, self:GetPinMarkerSymbol("available")),
         nil,
         opacityMultiplier,
         color

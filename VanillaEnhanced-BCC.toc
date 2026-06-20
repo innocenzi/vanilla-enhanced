@@ -26,6 +26,7 @@ src\quests\localization.lua
 src\quests\quest-log.lua
 src\quests\quest-tracker.lua
 src\quests\unit-tooltips.lua
+src\quests\pin-kinds.lua
 src\quests\pin-data.lua
 src\quests\pin-tooltips.lua
 src\quests\pin-frames.lua

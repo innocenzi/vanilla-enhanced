@@ -1,9 +1,5 @@
 local Quests = _G.VanillaEnhanced:GetModule("quests")
 
-local MARKER_SYMBOLS = {
-    available = "!",
-    turnin = "?",
-}
 local MARKER_CLUSTER_PIXEL_DISTANCE = 18
 local WORLD_MAP_ID = 947
 
@@ -71,11 +67,13 @@ local function BuildCombinedMarkerSymbol(entries)
     local hasAvailable
     local hasOther
     local fallbackSymbol
+    local turninSymbol = Quests:GetPinMarkerSymbol("turnin")
+    local availableSymbol = Quests:GetPinMarkerSymbol("available")
 
     for _, entry in ipairs(entries) do
-        if entry.symbol == MARKER_SYMBOLS.turnin then
+        if entry.symbol == turninSymbol then
             hasTurnin = true
-        elseif entry.symbol == MARKER_SYMBOLS.available then
+        elseif entry.symbol == availableSymbol then
             hasAvailable = true
         else
             hasOther = true
@@ -85,10 +83,10 @@ local function BuildCombinedMarkerSymbol(entries)
 
     local symbol = ""
     if hasTurnin then
-        symbol = symbol .. MARKER_SYMBOLS.turnin
+        symbol = symbol .. turninSymbol
     end
     if hasAvailable then
-        symbol = symbol .. MARKER_SYMBOLS.available
+        symbol = symbol .. availableSymbol
     end
     if hasOther then
         if symbol ~= "" then
