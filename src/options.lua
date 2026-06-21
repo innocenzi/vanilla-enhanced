@@ -918,14 +918,6 @@ local questsPanel = BuildOptionsPanel({
             indent = 1,
         },
         {
-            name = "VanillaEnhancedOptionsQuestsShowAvailableQuestsOnMinimap",
-            settingKey = "showAvailableQuestsOnMinimap",
-            labelKey = "options.quests.showAvailableQuestsOnMinimap.label",
-            helpKey = "options.quests.showAvailableQuestsOnMinimap.help",
-            enabledWhenSettings = { "showMapMarkers", "showAvailableQuests" },
-            indent = 2,
-        },
-        {
             name = "VanillaEnhancedOptionsQuestsOnlyShowNearbyAvailableQuests",
             settingKey = "onlyShowNearbyAvailableQuests",
             labelKey = "options.quests.onlyShowNearbyAvailableQuests.label",
