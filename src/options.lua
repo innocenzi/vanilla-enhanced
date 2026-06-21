@@ -894,6 +894,14 @@ local questsPanel = BuildOptionsPanel({
             indent = 0,
         },
         {
+            name = "VanillaEnhancedOptionsQuestsHideMapMarkersInFogOfWar",
+            settingKey = "hideMapMarkersInFogOfWar",
+            labelKey = "options.quests.hideMapMarkersInFogOfWar.label",
+            helpKey = "options.quests.hideMapMarkersInFogOfWar.help",
+            enabledWhenSetting = "showMapMarkers",
+            indent = 1,
+        },
+        {
             name = "VanillaEnhancedOptionsQuestsShowMinimapObjectiveAreas",
             settingKey = "showMinimapObjectiveAreas",
             labelKey = "options.quests.showMinimapObjectiveAreas.label",

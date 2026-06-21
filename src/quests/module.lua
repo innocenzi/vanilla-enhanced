@@ -373,6 +373,10 @@ eventFrame:SetScript("OnEvent", function(_, event, loadedAddonName)
         Quests:HookQuestLogWithMapFrames()
         Quests:QueueRefresh()
     elseif event == "PLAYER_STOPPED_MOVING" then
+        if Quests.IsQuestMapFogFilterEnabled and Quests:IsQuestMapFogFilterEnabled() then
+            Quests:QueueRefresh()
+            return
+        end
         if Quests.ShouldRefreshNearbyAvailableQuestsOnMovement and Quests:ShouldRefreshNearbyAvailableQuestsOnMovement() then
             Quests:QueueRefresh()
         end

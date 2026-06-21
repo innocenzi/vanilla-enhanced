@@ -21,6 +21,9 @@ function Quests:Refresh()
 
     local settings = self:GetSettings()
     self:ClearPins()
+    if self.ClearMapExplorationCache then
+        self:ClearMapExplorationCache()
+    end
 
     if not settings.enabled then
         self:RebuildUnitTooltipIndex({})

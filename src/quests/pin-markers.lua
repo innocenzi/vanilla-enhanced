@@ -173,7 +173,41 @@ local function BuildMarkerRenderCandidate(self, candidate, currentMapId)
         end
     end
 
+    if currentMapId
+        and renderCandidate.renderMapId ~= currentMapId
+        and self.hbd
+        and self.hbd.GetWorldCoordinatesFromZone
+        and self.hbd.GetZoneCoordinatesFromWorld then
+        local worldX, worldY = self.hbd:GetWorldCoordinatesFromZone(
+            (candidate.x or 0) / 100,
+            (candidate.y or 0) / 100,
+            candidate.uiMapId
+        )
+        if worldX and worldY then
+            local displayX, displayY = self.hbd:GetZoneCoordinatesFromWorld(worldX, worldY, currentMapId)
+            if displayX and displayY then
+                renderCandidate.renderMapId = currentMapId
+                renderCandidate.x = displayX * 100
+                renderCandidate.y = displayY * 100
+            end
+        end
+    end
+
     return renderCandidate
+end
+
+local function GetMarkerFogFilterPosition(self, candidate, renderCandidate)
+    local filterMapId = renderCandidate.renderMapId
+    local filterX = renderCandidate.x
+    local filterY = renderCandidate.y
+
+    if self.DoesQuestMapHaveFogData and not self:DoesQuestMapHaveFogData(filterMapId) then
+        filterMapId = candidate.uiMapId
+        filterX = candidate.x
+        filterY = candidate.y
+    end
+
+    return filterMapId, filterX, filterY, filterMapId == candidate.uiMapId
 end
 
 local function AddMarkerRenderCandidate(groupsByMap, candidate, xScale, yScale)
@@ -225,7 +259,17 @@ function Quests:RenderMarkerGroups()
     local groupsByMap = {}
 
     for _, candidate in ipairs(self.markerCandidates) do
-        AddMarkerRenderCandidate(groupsByMap, BuildMarkerRenderCandidate(self, candidate, currentMapId), xScale, yScale)
+        local renderCandidate = BuildMarkerRenderCandidate(self, candidate, currentMapId)
+
+        if not self.IsQuestWorldMapLocationVisible then
+            AddMarkerRenderCandidate(groupsByMap, renderCandidate, xScale, yScale)
+        else
+            local filterMapId, filterX, filterY, hideIfExplorationApiHasNoData =
+                GetMarkerFogFilterPosition(self, candidate, renderCandidate)
+            if self:IsQuestWorldMapLocationVisible(filterMapId, filterX, filterY, hideIfExplorationApiHasNoData) then
+                AddMarkerRenderCandidate(groupsByMap, renderCandidate, xScale, yScale)
+            end
+        end
     end
 
     for uiMapId, groups in pairs(groupsByMap) do

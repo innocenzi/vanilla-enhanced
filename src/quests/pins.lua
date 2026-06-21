@@ -79,6 +79,9 @@ function Quests:AddPin(uiMapId, x, y, quest, cluster)
     if not self.hbdPins or not uiMapId or not x or not y then
         return
     end
+    if self.IsQuestWorldMapLocationVisible and not self:IsQuestWorldMapLocationVisible(uiMapId, x, y, true) then
+        return
+    end
 
     local kind = cluster.k or "object"
     local areaOnly = self:IsQuestObjectiveAreaKind(kind)
@@ -110,6 +113,9 @@ function Quests:AddPin(uiMapId, x, y, quest, cluster)
 end
 function Quests:AddAvailablePin(uiMapId, x, y, questId, dbQuest, cluster, context)
     if not self.hbdPins or not uiMapId or not x or not y then
+        return
+    end
+    if self.IsQuestWorldMapLocationVisible and not self:IsQuestWorldMapLocationVisible(uiMapId, x, y, true) then
         return
     end
 
