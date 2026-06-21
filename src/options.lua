@@ -5,6 +5,8 @@ local settingChecks = {}
 local addonSettingChecks = {}
 local dropdowns = {}
 local sliders = {}
+local optionPanels = {}
+local moduleTitleKeys = {}
 local OPTION_WITH_HELP_OFFSET = -15
 local OPTION_INDENT_WIDTH = 18
 local OPTION_HELP_WIDTH = 430
@@ -206,6 +208,17 @@ local function ApplyAddonSetting(settingKey, value)
     settings[settingKey] = not not value
 
     if VanillaEnhanced.RefreshOptions then
+        VanillaEnhanced:RefreshOptions()
+    end
+end
+
+local function ApplyAddonDropdownSetting(settingKey, value)
+    local settings = VanillaEnhanced:GetSettings()
+    settings[settingKey] = value
+
+    if VanillaEnhanced.RefreshLocalizedOptions then
+        VanillaEnhanced:RefreshLocalizedOptions()
+    elseif VanillaEnhanced.RefreshOptions then
         VanillaEnhanced:RefreshOptions()
     end
 end
@@ -618,7 +631,35 @@ local function ConfigureDropdownTooltip(dropdown, name)
     HookDropdownTooltipTarget(_G[name .. "Button"], dropdown)
 end
 
-local function CreateModuleDropdown(panel, name, moduleKey, settingKey, label, helpText, options, anchor, indentLevel)
+local function GetDropdownSettings(dropdown)
+    if dropdown.settingScope == "addon" then
+        return VanillaEnhanced:GetSettings()
+    end
+    return GetModuleOptionSettings(dropdown.moduleKey)
+end
+
+local function IsDropdownOptionSelected(dropdown, selected, optionValue)
+    if selected == optionValue then
+        return true
+    end
+    return selected == nil and dropdown.defaultValue == optionValue
+end
+
+local function NormalizeDropdownSelectedValue(dropdown, selected)
+    if dropdown.defaultValue == nil or selected == nil then
+        return selected
+    end
+
+    for _, option in ipairs(dropdown.options or {}) do
+        if option.value == selected then
+            return selected
+        end
+    end
+
+    return dropdown.defaultValue
+end
+
+local function CreateDropdown(panel, name, settingScope, moduleKey, settingKey, label, helpText, options, anchor, indentLevel, defaultValue, optionsProvider)
     local content = GetPanelContent(panel)
     local dropdownIndentAnchor = anchor
     local labelText = content:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
@@ -634,9 +675,12 @@ local function CreateModuleDropdown(panel, name, moduleKey, settingKey, label, h
         -18
     )
     dropdown:SetPoint("TOPLEFT", labelText, "BOTTOMLEFT", -16, -4)
+    dropdown.settingScope = settingScope or "module"
     dropdown.moduleKey = moduleKey
     dropdown.settingKey = settingKey
     dropdown.options = options
+    dropdown.optionsProvider = optionsProvider
+    dropdown.defaultValue = defaultValue
     dropdown.label = label
     dropdown.helpText = helpText
     dropdown.tooltipTitle = label
@@ -654,15 +698,15 @@ local function CreateModuleDropdown(panel, name, moduleKey, settingKey, label, h
 
     UIDropDownMenu_SetWidth(dropdown, 150)
     UIDropDownMenu_Initialize(dropdown, function(self)
-        local settings = GetModuleOptionSettings(self.moduleKey)
-        local selected = settings[self.settingKey]
+        local settings = GetDropdownSettings(self)
+        local selected = NormalizeDropdownSelectedValue(self, settings[self.settingKey])
 
         for _, option in ipairs(self.options) do
             local optionValue = option.value
             local info = UIDropDownMenu_CreateInfo()
             info.text = option.label
             info.value = optionValue
-            info.checked = selected == optionValue
+            info.checked = IsDropdownOptionSelected(self, selected, optionValue)
             if option.description and option.description ~= "" then
                 info.tooltipTitle = option.label
                 info.tooltipText = option.description
@@ -670,6 +714,10 @@ local function CreateModuleDropdown(panel, name, moduleKey, settingKey, label, h
                 info.tooltipWhileDisabled = true
             end
             info.func = function()
+                if self.settingScope == "addon" then
+                    ApplyAddonDropdownSetting(self.settingKey, optionValue)
+                    return
+                end
                 ApplyModuleDropdownSetting(self.moduleKey, self.settingKey, optionValue)
             end
             UIDropDownMenu_AddButton(info)
@@ -877,7 +925,9 @@ local function BuildDropdownOptions(options)
     for _, option in ipairs(options or {}) do
         dropdownOptions[#dropdownOptions + 1] = {
             value = option.value,
-            label = option.label or T(option.labelKey),
+            labelKey = option.labelKey,
+            descriptionKey = option.descriptionKey,
+            label = option.label or (option.labelKey and T(option.labelKey)) or option.value,
             description = option.description or (option.descriptionKey and T(option.descriptionKey)) or nil,
         }
     end
@@ -887,6 +937,10 @@ end
 local function BuildOptionControl(panel, option, anchor, moduleKey)
     local control
     local optionModuleKey = option.moduleKey or moduleKey
+    local optionDefinitions = option.options
+    if option.optionsProvider then
+        optionDefinitions = option.optionsProvider()
+    end
 
     if option.type == "addonCheck" then
         control = CreateAddonSettingCheck(panel, option.name, option.settingKey, T(option.labelKey), anchor)
@@ -894,17 +948,20 @@ local function BuildOptionControl(panel, option, anchor, moduleKey)
         control = CreateAddonActionButton(panel, option.name, T(option.labelKey), anchor, option.onClick)
     elseif option.type == "moduleEnabled" then
         control = CreateModuleEnabledCheck(panel, option.name, optionModuleKey, T(option.labelKey), anchor)
-    elseif option.type == "dropdown" then
-        control = CreateModuleDropdown(
+    elseif option.type == "dropdown" or option.type == "addonDropdown" then
+        control = CreateDropdown(
             panel,
             option.name,
+            option.type == "addonDropdown" and "addon" or "module",
             optionModuleKey,
             option.settingKey,
             T(option.labelKey),
             option.helpKey and T(option.helpKey) or nil,
-            BuildDropdownOptions(option.options),
+            BuildDropdownOptions(optionDefinitions),
             anchor,
-            option.indent
+            option.indent,
+            option.defaultValue,
+            option.optionsProvider
         )
         if option.width then
             UIDropDownMenu_SetWidth(control, option.width)
@@ -924,10 +981,15 @@ local function BuildOptionControl(panel, option, anchor, moduleKey)
         AnchorBelowHelp(control, anchor, option.indent)
     end
 
+    control.optionType = option.type
+    control.labelKey = option.labelKey
+    control.helpKey = option.helpKey
+
     ApplyOptionEnabledWhen(control, option, optionModuleKey)
 
-    if option.helpKey and not (option.type == "dropdown" and control.helpText and control.helpText ~= "") then
-        CreateHelpText(panel, T(option.helpKey), control)
+    if option.helpKey
+        and not ((option.type == "dropdown" or option.type == "addonDropdown") and control.helpText and control.helpText ~= "") then
+        control.helpRegion = CreateHelpText(panel, T(option.helpKey), control)
     end
 
     return control
@@ -936,15 +998,108 @@ end
 local function BuildOptionsPanel(definition)
     local panel = CreatePanel(definition.name, definition.title or T(definition.titleKey))
     panel.parent = definition.parent
+    panel.titleKey = definition.titleKey
+    panel.staticTitle = definition.title
+    panel.subtitleKey = definition.subtitleKey
+    panel.localizedControls = {}
+
+    if definition.moduleKey and definition.titleKey then
+        moduleTitleKeys[definition.moduleKey] = definition.titleKey
+    end
 
     local subtitle = CreateSubtitle(panel, T(definition.subtitleKey))
+    panel.subtitle = subtitle
     local anchor = subtitle
 
     for _, option in ipairs(definition.options or {}) do
         anchor = BuildOptionControl(panel, option, anchor, definition.moduleKey)
+        panel.localizedControls[#panel.localizedControls + 1] = anchor
     end
 
+    optionPanels[#optionPanels + 1] = panel
     return panel
+end
+
+local function SetCheckText(check, label)
+    local text = GetCheckText(check)
+    if text then
+        text:SetText(label)
+    end
+end
+
+local function RefreshDropdownText(dropdown)
+    if dropdown.optionsProvider then
+        dropdown.options = BuildDropdownOptions(dropdown.optionsProvider())
+    else
+        for _, option in ipairs(dropdown.options or {}) do
+            if option.labelKey then
+                option.label = T(option.labelKey)
+            end
+            if option.descriptionKey then
+                option.description = T(option.descriptionKey)
+            end
+        end
+    end
+
+    if dropdown.labelKey then
+        local label = T(dropdown.labelKey)
+        dropdown.label = label
+        dropdown.tooltipTitle = label
+        if dropdown.labelText then
+            dropdown.labelText:SetText(label)
+        end
+    end
+    if dropdown.helpKey then
+        dropdown.helpText = T(dropdown.helpKey)
+    end
+end
+
+function VanillaEnhanced:RefreshLocalizedOptions()
+    for moduleKey, titleKey in pairs(moduleTitleKeys) do
+        local module = self:GetModule(moduleKey)
+        if module then
+            module.displayName = T(titleKey)
+        end
+    end
+
+    for _, panel in ipairs(optionPanels) do
+        local titleText = panel.staticTitle or (panel.titleKey and T(panel.titleKey)) or panel.name
+        panel.name = titleText
+        if panel.title then
+            panel.title:SetText(titleText)
+        end
+        if panel.subtitle and panel.subtitleKey then
+            panel.subtitle:SetText(T(panel.subtitleKey))
+        end
+
+        for _, control in ipairs(panel.localizedControls or {}) do
+            local label = control.labelKey and T(control.labelKey) or nil
+            if control.optionType == "addonAction" then
+                if label and control.SetText then
+                    control:SetText(label)
+                end
+            elseif control.optionType == "dropdown" or control.optionType == "addonDropdown" then
+                RefreshDropdownText(control)
+            elseif control.labelText then
+                if label then
+                    control.labelText:SetText(label)
+                end
+                if control.valueText then
+                    UpdateSliderValueText(control, control.currentValue or control:GetValue())
+                end
+            elseif label then
+                SetCheckText(control, label)
+            end
+
+            if control.helpRegion and control.helpKey then
+                control.helpRegion:SetText(T(control.helpKey))
+            end
+        end
+    end
+
+    if self.RefreshOptions then
+        self:RefreshOptions()
+    end
 end
 
 local mainPanel = BuildOptionsPanel({
@@ -952,6 +1107,18 @@ local mainPanel = BuildOptionsPanel({
     title = VanillaEnhanced.displayName,
     subtitleKey = "options.main.subtitle",
     options = {
+        {
+            type = "addonDropdown",
+            name = "VanillaEnhancedOptionsMainLocale",
+            settingKey = "locale",
+            labelKey = "options.main.locale.label",
+            helpKey = "options.main.locale.help",
+            defaultValue = "auto",
+            width = 150,
+            optionsProvider = function()
+                return VanillaEnhanced:GetLocaleOptions()
+            end,
+        },
         {
             type = "addonCheck",
             name = "VanillaEnhancedOptionsMainChatMessagesEnabled",
@@ -1465,16 +1632,20 @@ function VanillaEnhanced:RefreshOptions()
         SetCheckEnabled(check, enabled)
     end
     for _, dropdown in ipairs(dropdowns) do
-        local settings = GetModuleOptionSettings(dropdown.moduleKey)
-        local selected = settings[dropdown.settingKey]
+        local settings = GetDropdownSettings(dropdown)
+        local selected = NormalizeDropdownSelectedValue(dropdown, settings[dropdown.settingKey])
         local selectedLabel = selected
-        local enabled = self:IsModuleEnabled(dropdown.moduleKey)
+        if selected == nil then
+            selected = dropdown.defaultValue
+            selectedLabel = selected
+        end
+        local enabled = dropdown.settingScope == "addon" or self:IsModuleEnabled(dropdown.moduleKey)
         if dropdown.enabledWhen then
             enabled = enabled and dropdown.enabledWhen()
         end
 
         for _, option in ipairs(dropdown.options) do
-            if option.value == selected then
+            if IsDropdownOptionSelected(dropdown, selected, option.value) then
                 selectedLabel = option.label
                 break
             end

@@ -8,6 +8,14 @@ local STRINGS = {
         ["module.merchants"] = "Merchants",
 
         ["options.main.subtitle"] = "Turns modules on or off and adjusts their options.",
+        ["options.main.locale.label"] = "Language",
+        ["options.main.locale.help"] = "Chooses which language Vanilla Enhanced uses. Auto follows your WoW client language when supported.",
+        ["options.main.locale.auto"] = "Auto",
+        ["options.main.locale.auto.description"] = "Uses French on frFR clients and English otherwise.",
+        ["options.main.locale.enUS"] = "English",
+        ["options.main.locale.enUS.description"] = "Forces addon text to English.",
+        ["options.main.locale.frFR"] = "Français",
+        ["options.main.locale.frFR.description"] = "Forces addon text to French.",
         ["options.main.chatMessagesEnabled.label"] = "Show chat messages",
         ["options.main.chatMessagesEnabled.help"] = "Allows Vanilla Enhanced features to print notifications and errors in chat.",
         ["options.main.showChatMessagePrefix.label"] = "Show the addon name in chat",
@@ -201,6 +209,14 @@ local STRINGS = {
         ["module.merchants"] = "Marchands",
 
         ["options.main.subtitle"] = "Active ou désactive les modules et ajuste leurs options.",
+        ["options.main.locale.label"] = "Langue",
+        ["options.main.locale.help"] = "Choisit la langue utilisée par Vanilla Enhanced. Auto suit la langue du client WoW quand elle est prise en charge.",
+        ["options.main.locale.auto"] = "Auto",
+        ["options.main.locale.auto.description"] = "Utilise le français sur les clients frFR et l’anglais sinon.",
+        ["options.main.locale.enUS"] = "English",
+        ["options.main.locale.enUS.description"] = "Force les textes de l’addon en anglais.",
+        ["options.main.locale.frFR"] = "Français",
+        ["options.main.locale.frFR.description"] = "Force les textes de l’addon en français.",
         ["options.main.chatMessagesEnabled.label"] = "Afficher les messages",
         ["options.main.chatMessagesEnabled.help"] = "Autorise les fonctions de Vanilla Enhanced à afficher les notifications et erreurs dans le chat.",
         ["options.main.showChatMessagePrefix.label"] = "Afficher le nom dans le chat",
@@ -390,9 +406,45 @@ local STRINGS = {
 
 VanillaEnhanced.localeStrings = STRINGS
 
-function VanillaEnhanced:GetLocaleKey()
+local IMPLEMENTED_LOCALES = { "enUS", "frFR" }
+local SUPPORTED_LOCALES = {}
+
+for _, locale in ipairs(IMPLEMENTED_LOCALES) do
+    SUPPORTED_LOCALES[locale] = true
+end
+
+local function GetAutoLocaleKey()
     local locale = type(GetLocale) == "function" and GetLocale() or "enUS"
     return locale == "frFR" and "frFR" or "enUS"
+end
+
+function VanillaEnhanced:GetLocaleKey()
+    local settings = self.GetSettings and self:GetSettings() or nil
+    local locale = settings and settings.locale or "auto"
+    if locale ~= "auto" and SUPPORTED_LOCALES[locale] then
+        return locale
+    end
+    return GetAutoLocaleKey()
+end
+
+function VanillaEnhanced:GetLocaleOptions()
+    local options = {
+        {
+            value = "auto",
+            labelKey = "options.main.locale.auto",
+            descriptionKey = "options.main.locale.auto.description",
+        },
+    }
+
+    for _, locale in ipairs(IMPLEMENTED_LOCALES) do
+        options[#options + 1] = {
+            value = locale,
+            labelKey = "options.main.locale." .. locale,
+            descriptionKey = "options.main.locale." .. locale .. ".description",
+        }
+    end
+
+    return options
 end
 
 local function Lookup(locale, key)

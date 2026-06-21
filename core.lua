@@ -10,6 +10,7 @@ VanillaEnhanced.modules = VanillaEnhanced.modules or {}
 
 local DEFAULT_SETTINGS = {
     modules = {},
+    locale = "auto",
     chatMessagesEnabled = true,
     showChatMessagePrefix = false,
 }
@@ -126,7 +127,9 @@ function VanillaEnhanced:ResetSettings()
         end
     end
 
-    if self.RefreshOptions then
+    if self.RefreshLocalizedOptions then
+        self:RefreshLocalizedOptions()
+    elseif self.RefreshOptions then
         self:RefreshOptions()
     end
 
