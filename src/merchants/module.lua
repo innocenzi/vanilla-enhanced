@@ -182,6 +182,7 @@ end
 function Merchants:CloseMerchant()
     self.merchantOpen = false
     self:SetScrapMarkMode(false)
+    self.scrapMarkButtonHovered = false
     self.pendingAutoSellScraps = false
     self.pendingAutoRepair = false
     self.pendingSortBagsAfterSellingScraps = false
@@ -206,6 +207,7 @@ function Merchants:SetEnabled(enabled)
         self:RequestRefresh(0.2)
     else
         self:SetScrapMarkMode(false)
+        self.scrapMarkButtonHovered = false
         self:ClearScrapHighlights()
         if self.buttonContainer then
             self.buttonContainer:Hide()

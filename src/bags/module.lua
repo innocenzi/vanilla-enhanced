@@ -6,6 +6,7 @@ local defaults = {
     showSortButton = true,
     showSearchField = true,
     showScrapIcon = false,
+    showScrapToggleButton = false,
     sortOrder = "category",
     enableItemLocking = true,
     autoSortAfterLoot = false,
@@ -33,10 +34,16 @@ local updateFrame = CreateFrame("Frame")
 
 local SORT_BUTTON_WIDTH = 46
 local SORT_BUTTON_HEIGHT = 20
-local SEARCH_BOX_WIDTH = 112
+local SORT_BUTTON_COMPACT_LEFT_OFFSET = -1
+local SORT_BUTTON_COMPACT_RIGHT_OFFSET = 0
+local SCRAP_TOGGLE_BUTTON_SIZE = 20
+local SEARCH_BOX_WIDTH = 122
+local SEARCH_BOX_COMPACT_WIDTH = 108
 local SEARCH_BOX_HEIGHT = 20
 local SORT_BUTTON_SPACING = 4
+local SCRAP_TOGGLE_BUTTON_SPACING = 1
 local SORT_BUTTON_PADDING = SORT_BUTTON_SPACING
+local SCRAP_TOGGLE_BUTTON_PADDING = 3
 local SORT_CONTAINER_OFFSET_X = 0
 local SORT_CONTAINER_OFFSET_Y = -8
 local SEARCH_DIM_ALPHA = 0.55
@@ -45,6 +52,7 @@ local MAX_SEARCH_BUTTONS = 36
 local SEARCH_BOX_TEXTURE_LEFT_OFFSET = 5
 local SEARCH_BOX_TEXTURE_RIGHT_OFFSET = 0
 local SEARCH_BOX_TEXTURE_RIGHT_OFFSET_WITH_BUTTON = 5
+local SEARCH_BOX_TEXTURE_RIGHT_OFFSET_COMPACT = 0
 local SEARCH_BOX_TEXTURE_TOP_OFFSET = 0
 local SEARCH_BOX_TEXTURE_BOTTOM_OFFSET = 0
 
@@ -59,6 +67,11 @@ local SORT_BUTTON_CONTAINER_OPTIONS = {
 local BAG_CONTROL_CONTAINER_OPTIONS = {
     buttonSpacing = SORT_BUTTON_SPACING,
     padding = SORT_BUTTON_PADDING,
+}
+
+local BAG_CONTROL_COMPACT_CONTAINER_OPTIONS = {
+    buttonSpacing = SCRAP_TOGGLE_BUTTON_SPACING,
+    padding = SCRAP_TOGGLE_BUTTON_PADDING,
 }
 
 local function T(key, vars)
@@ -218,6 +231,22 @@ local function ShowSearchTooltip(frame)
     GameTooltip:Show()
 end
 
+local function ShowScrapToggleTooltip(frame)
+    local Merchants = VanillaEnhanced:GetModule("merchants")
+    if Merchants and Merchants.ShowScrapMarkButtonTooltip then
+        Merchants:ShowScrapMarkButtonTooltip(frame)
+    end
+end
+
+local function HideScrapToggleTooltip()
+    local Merchants = VanillaEnhanced:GetModule("merchants")
+    if Merchants and Merchants.HideScrapMarkButtonTooltip then
+        Merchants:HideScrapMarkButtonTooltip()
+    elseif GameTooltip then
+        GameTooltip:Hide()
+    end
+end
+
 local function HideTooltip()
     if GameTooltip then
         GameTooltip:Hide()
@@ -267,15 +296,37 @@ local function FitTextureAwareChild(child, component, leftOffset, rightOffset, t
     child:SetPoint("BOTTOMRIGHT", component, "BOTTOMRIGHT", rightOffset or 0, bottomOffset or 0)
 end
 
-local function FitSearchBox(searchBox, component, hasRightNeighbor)
+local function FitSearchBox(searchBox, component, hasRightNeighbor, compact)
     FitTextureAwareChild(
         searchBox,
         component,
         SEARCH_BOX_TEXTURE_LEFT_OFFSET,
-        hasRightNeighbor and SEARCH_BOX_TEXTURE_RIGHT_OFFSET_WITH_BUTTON or SEARCH_BOX_TEXTURE_RIGHT_OFFSET,
+        compact and SEARCH_BOX_TEXTURE_RIGHT_OFFSET_COMPACT
+            or (hasRightNeighbor and SEARCH_BOX_TEXTURE_RIGHT_OFFSET_WITH_BUTTON or SEARCH_BOX_TEXTURE_RIGHT_OFFSET),
         SEARCH_BOX_TEXTURE_TOP_OFFSET,
         SEARCH_BOX_TEXTURE_BOTTOM_OFFSET
     )
+end
+
+local function SetSearchComponentCompact(component, compact)
+    if component then
+        component:SetSize(compact and SEARCH_BOX_COMPACT_WIDTH or SEARCH_BOX_WIDTH, SEARCH_BOX_HEIGHT)
+    end
+end
+
+local function FitSortButton(button, component, compact)
+    if not button or not component then
+        return
+    end
+
+    button:ClearAllPoints()
+    if compact then
+        button:SetPoint("TOPLEFT", component, "TOPLEFT", SORT_BUTTON_COMPACT_LEFT_OFFSET, 0)
+        button:SetPoint("BOTTOMRIGHT", component, "BOTTOMRIGHT", SORT_BUTTON_COMPACT_RIGHT_OFFSET, 0)
+        return
+    end
+
+    button:SetAllPoints(component)
 end
 
 function Bags:EnsureButtonContainer()
@@ -299,7 +350,7 @@ function Bags:EnsureButton()
     local container = self:EnsureButtonContainer()
     local component = CreateControlComponent("VanillaEnhancedBagsSortButtonComponent", container, SORT_BUTTON_WIDTH, SORT_BUTTON_HEIGHT)
     local button = CreateFrame("Button", "VanillaEnhancedBagsSortButton", component, "UIPanelButtonTemplate")
-    button:SetAllPoints(component)
+    FitSortButton(button, component, false)
     button:SetText(T("bags.sort.button"))
     button:SetFrameStrata("HIGH")
     button:Hide()
@@ -364,6 +415,45 @@ function Bags:EnsureSearchBox()
     return searchBox
 end
 
+function Bags:EnsureScrapToggleButton()
+    if self.scrapToggleButton then
+        return self.scrapToggleButton
+    end
+
+    local container = self:EnsureButtonContainer()
+    local component = CreateControlComponent(
+        "VanillaEnhancedBagsScrapToggleButtonComponent",
+        container,
+        SCRAP_TOGGLE_BUTTON_SIZE,
+        SCRAP_TOGGLE_BUTTON_SIZE
+    )
+    local button = CreateFrame("Button", "VanillaEnhancedBagsScrapToggleButton", component, "UIPanelButtonTemplate")
+    button:SetAllPoints(component)
+    button:SetFrameStrata("HIGH")
+    button:Hide()
+
+    local Merchants = VanillaEnhanced:GetModule("merchants")
+    if Merchants and Merchants.ConfigureScrapMarkButton then
+        Merchants:ConfigureScrapMarkButton(button, SCRAP_TOGGLE_BUTTON_SIZE)
+    end
+
+    button:SetScript("OnClick", function()
+        local MerchantModule = VanillaEnhanced:GetModule("merchants")
+        if MerchantModule and MerchantModule.SetScrapMarkMode then
+            MerchantModule:SetScrapMarkMode(MerchantModule.scrapMarkMode ~= true)
+            if GameTooltip and GameTooltip:IsOwned(button) and MerchantModule.ShowScrapMarkButtonTooltip then
+                MerchantModule:ShowScrapMarkButtonTooltip(button)
+            end
+        end
+    end)
+    button:SetScript("OnEnter", ShowScrapToggleTooltip)
+    button:SetScript("OnLeave", HideScrapToggleTooltip)
+
+    self.scrapToggleButtonComponent = component
+    self.scrapToggleButton = button
+    return button
+end
+
 function Bags:HideControls()
     if self.button then
         self.button:Hide()
@@ -379,6 +469,12 @@ function Bags:HideControls()
     end
     if self.searchComponent then
         self.searchComponent:Hide()
+    end
+    if self.scrapToggleButton then
+        self.scrapToggleButton:Hide()
+    end
+    if self.scrapToggleButtonComponent then
+        self.scrapToggleButtonComponent:Hide()
     end
     if self.buttonContainer then
         self.buttonContainer:Hide()
@@ -549,6 +645,12 @@ function Bags:Update()
     local settings = self:GetSettings()
     local showSortButton = settings.showSortButton ~= false
     local showSearchField = settings.showSearchField == true
+    local Merchants = VanillaEnhanced:GetModule("merchants")
+    local showScrapToggleButton = settings.showScrapIcon == true
+        and settings.showScrapToggleButton == true
+        and Merchants
+        and Merchants.IsSellScrapsEnabled
+        and Merchants:IsSellScrapsEnabled()
 
     if not self:IsSortEnabled() then
         if self.ClearAutoSort then
@@ -587,7 +689,7 @@ function Bags:Update()
         self:ClearSearchText()
     end
 
-    if not showSortButton and not showSearchField then
+    if not showSortButton and not showSearchField and not showScrapToggleButton then
         if self.RefreshItemLockOverlays then
             self:RefreshItemLockOverlays()
         end
@@ -596,17 +698,30 @@ function Bags:Update()
     end
 
     local searchBox
+    local scrapToggleButton
     local button
     local controls = {}
     local container = self:EnsureButtonContainer()
 
     if showSearchField then
         searchBox = self:EnsureSearchBox()
+        SetSearchComponentCompact(self.searchComponent, showScrapToggleButton)
         controls[#controls + 1] = self.searchComponent or searchBox
     elseif self.searchBox then
+        SetSearchComponentCompact(self.searchComponent, false)
         self.searchBox:Hide()
         if self.searchComponent then
             self.searchComponent:Hide()
+        end
+    end
+
+    if showScrapToggleButton then
+        scrapToggleButton = self:EnsureScrapToggleButton()
+        controls[#controls + 1] = self.scrapToggleButtonComponent or scrapToggleButton
+    elseif self.scrapToggleButton then
+        self.scrapToggleButton:Hide()
+        if self.scrapToggleButtonComponent then
+            self.scrapToggleButtonComponent:Hide()
         end
     end
 
@@ -625,18 +740,32 @@ function Bags:Update()
     container:SetFrameLevel((bagFrame:GetFrameLevel() or 0) + 10)
     container:ClearAllPoints()
     container:SetPoint("TOPRIGHT", GetBagMoneyFrame(bagFrame), "BOTTOMRIGHT", SORT_CONTAINER_OFFSET_X, SORT_CONTAINER_OFFSET_Y)
-    VanillaEnhanced:LayoutButtonContainer(container, controls, BAG_CONTROL_CONTAINER_OPTIONS)
+    VanillaEnhanced:LayoutButtonContainer(
+        container,
+        controls,
+        showScrapToggleButton and BAG_CONTROL_COMPACT_CONTAINER_OPTIONS or BAG_CONTROL_CONTAINER_OPTIONS
+    )
     container:Show()
     if searchBox then
         if self.searchComponent then
-            FitSearchBox(searchBox, self.searchComponent, showSortButton)
+            FitSearchBox(searchBox, self.searchComponent, showScrapToggleButton or showSortButton, showScrapToggleButton)
             self.searchComponent:Show()
         end
         searchBox:Show()
         UpdateSearchPlaceholder(searchBox)
     end
+    if scrapToggleButton then
+        if self.scrapToggleButtonComponent then
+            self.scrapToggleButtonComponent:Show()
+        end
+        scrapToggleButton:Show()
+        if Merchants and Merchants.UpdateScrapMarkButtonState then
+            Merchants:UpdateScrapMarkButtonState()
+        end
+    end
     if button then
         if self.buttonComponent then
+            FitSortButton(button, self.buttonComponent, showScrapToggleButton)
             self.buttonComponent:Show()
         end
         button:Show()

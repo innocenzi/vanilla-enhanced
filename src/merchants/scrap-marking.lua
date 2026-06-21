@@ -5,7 +5,8 @@ local BUTTON_SIZE = 24
 local HIGHLIGHT_INSET = 2
 local HIGHLIGHT_MAX_BUTTONS = 100
 local SCRAP_MARK_CLICK_OVERLAY_LEVEL_OFFSET = 30
-local MARK_SCRAPS_ICON = "Interface\\Icons\\INV_Misc_Wrench_01"
+local MARK_SCRAPS_ICON = "Interface\\Minimap\\Tracking\\Banker"
+local MARK_SCRAPS_ICON_INSET = 4
 local SCRAP_MARK_CLICK_DEDUPE_SECONDS = 0.2
 
 local cursorFrame = CreateFrame("Frame")
@@ -102,30 +103,46 @@ local function FindHoveredBagItemButton()
     return nil
 end
 
-local function ConfigureMarkButton(button, size)
+function Merchants:ConfigureScrapMarkButton(button, size)
     button:SetSize(size or BUTTON_SIZE, size or BUTTON_SIZE)
     button:SetText("")
 
-    local icon = button:CreateTexture(nil, "ARTWORK")
+    local icon = button.icon
+    if not icon then
+        icon = button:CreateTexture(nil, "ARTWORK")
+        button.icon = icon
+    end
     icon:SetTexture(MARK_SCRAPS_ICON)
-    icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-    icon:SetPoint("TOPLEFT", button, "TOPLEFT", 3, -3)
-    icon:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -3, 3)
-    button.icon = icon
+    icon:SetTexCoord(0, 1, 0, 1)
+    icon:SetBlendMode("BLEND")
+    if icon.SetDesaturated then
+        icon:SetDesaturated(false)
+    end
+    icon:SetVertexColor(1, 1, 1, 1)
+    icon:ClearAllPoints()
+    icon:SetPoint("TOPLEFT", button, "TOPLEFT", MARK_SCRAPS_ICON_INSET, -MARK_SCRAPS_ICON_INSET)
+    icon:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -MARK_SCRAPS_ICON_INSET, MARK_SCRAPS_ICON_INSET)
 
-    local activeTexture = button:CreateTexture(nil, "OVERLAY")
+    local activeTexture = button.activeTexture
+    if not activeTexture then
+        activeTexture = button:CreateTexture(nil, "OVERLAY")
+        button.activeTexture = activeTexture
+    end
     activeTexture:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
+    activeTexture:ClearAllPoints()
     activeTexture:SetPoint("CENTER", button, "CENTER", 0, 0)
     activeTexture:SetSize((size or BUTTON_SIZE) + 2, (size or BUTTON_SIZE) + 2)
     activeTexture:Hide()
-    button.activeTexture = activeTexture
 
     if button.SetHighlightTexture then
         button:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
     end
+
+    self.scrapMarkButtons = self.scrapMarkButtons or {}
+    self.scrapMarkButtons[button] = true
 end
 
-local function ShowMarkTooltip(button)
+function Merchants:ShowScrapMarkTooltip(button)
     if not GameTooltip then
         return
     end
@@ -141,9 +158,26 @@ local function ShowMarkTooltip(button)
     GameTooltip:Show()
 end
 
-local function HideMarkTooltip()
+function Merchants:HideScrapMarkTooltip()
     if GameTooltip then
         GameTooltip:Hide()
+    end
+end
+
+function Merchants:ShowScrapMarkButtonTooltip(button)
+    self:ShowScrapMarkTooltip(button)
+    self.scrapMarkButtonHovered = true
+    self:RefreshScrapHighlights()
+end
+
+function Merchants:HideScrapMarkButtonTooltip()
+    self:HideScrapMarkTooltip()
+    self.scrapMarkButtonHovered = false
+    if self:ShouldShowScrapHighlights() then
+        self:RefreshScrapHighlights()
+    else
+        self:ClearScrapHighlightTextures()
+        self:ClearScrapMarkClickOverlays()
     end
 end
 
@@ -391,7 +425,9 @@ function Merchants:EnsureScrapMarkClickOverlay(button)
             Merchants:ShowScrapMarkItemTooltip(button)
             Merchants:ApplyScrapMarkCursorOverride(button)
         end)
-        overlay:SetScript("OnLeave", HideMarkTooltip)
+        overlay:SetScript("OnLeave", function()
+            Merchants:HideScrapMarkTooltip()
+        end)
         button.VanillaEnhancedScrapMarkClickOverlay = overlay
     end
 
@@ -426,7 +462,9 @@ function Merchants:IsSellButtonHovered()
 end
 
 function Merchants:ShouldShowScrapHighlights()
-    return self.sellButtonHovered == true or self.scrapMarkMode == true
+    return self.sellButtonHovered == true
+        or self.scrapMarkButtonHovered == true
+        or self.scrapMarkMode == true
 end
 
 function Merchants:ShowScrapHighlights()
@@ -438,7 +476,7 @@ function Merchants:RefreshScrapHighlights()
     self:ClearScrapHighlightTextures()
     self:ClearScrapMarkClickOverlays()
 
-    if not self:IsMerchantOpen() or not self:IsSellScrapsEnabled() then
+    if not self:IsSellScrapsEnabled() then
         return
     end
 
@@ -479,7 +517,7 @@ end
 
 function Merchants:ClearScrapHighlights()
     self.sellButtonHovered = false
-    if self.scrapMarkMode == true then
+    if self:ShouldShowScrapHighlights() then
         self:RefreshScrapHighlights()
         return
     end
@@ -488,22 +526,19 @@ function Merchants:ClearScrapHighlights()
 end
 
 function Merchants:UpdateScrapMarkButtonState()
-    local button = self.markButton
-    if not button then
-        return
-    end
-
-    if button.activeTexture then
-        if self.scrapMarkMode == true then
-            button.activeTexture:Show()
-        else
-            button.activeTexture:Hide()
+    for button in pairs(self.scrapMarkButtons or {}) do
+        if button.activeTexture then
+            if self.scrapMarkMode == true then
+                button.activeTexture:Show()
+            else
+                button.activeTexture:Hide()
+            end
         end
     end
 end
 
 function Merchants:SetScrapMarkMode(enabled)
-    self.scrapMarkMode = enabled == true and self:IsMerchantOpen() and self:IsSellScrapsEnabled()
+    self.scrapMarkMode = enabled == true and self:IsSellScrapsEnabled()
     self:SetScrapMarkCursorOverrideEnabled(self.scrapMarkMode == true)
     self:UpdateScrapMarkButtonState()
     if self.UpdateSellButtonState then
@@ -517,7 +552,9 @@ function Merchants:SetScrapMarkMode(enabled)
         self:RefreshScrapHighlights()
     else
         self:ClearScrapMarkClickOverlays()
-        if not self:IsSellButtonHovered() then
+        if self:ShouldShowScrapHighlights() then
+            self:RefreshScrapHighlights()
+        else
             self:ClearScrapHighlightTextures()
         end
     end
@@ -527,7 +564,7 @@ function Merchants:ShouldHandleScrapMarkItemHover(button)
     if self.scrapMarkMode ~= true then
         return false
     end
-    if not self:IsMerchantOpen() or not self:IsSellScrapsEnabled() then
+    if not self:IsSellScrapsEnabled() then
         return false
     end
 
@@ -574,7 +611,7 @@ function Merchants:HandleScrapMarkItemClick(button, mouseButton)
     if self.scrapMarkMode ~= true then
         return false
     end
-    if not self:IsMerchantOpen() or not self:IsSellScrapsEnabled() then
+    if not self:IsSellScrapsEnabled() then
         self:SetScrapMarkMode(false)
         return false
     end
@@ -624,18 +661,22 @@ function Merchants:EnsureMarkButton(size)
     end
 
     local markButton = CreateFrame("Button", "VanillaEnhancedMerchantsMarkScrapsButton", UIParent, "UIPanelButtonTemplate")
-    ConfigureMarkButton(markButton, size or BUTTON_SIZE)
+    self:ConfigureScrapMarkButton(markButton, size or BUTTON_SIZE)
     markButton:SetFrameStrata("HIGH")
     markButton:Hide()
 
     markButton:SetScript("OnClick", function()
         Merchants:SetScrapMarkMode(Merchants.scrapMarkMode ~= true)
         if GameTooltip and GameTooltip:IsOwned(markButton) then
-            ShowMarkTooltip(markButton)
+            Merchants:ShowScrapMarkButtonTooltip(markButton)
         end
     end)
-    markButton:SetScript("OnEnter", ShowMarkTooltip)
-    markButton:SetScript("OnLeave", HideMarkTooltip)
+    markButton:SetScript("OnEnter", function()
+        Merchants:ShowScrapMarkButtonTooltip(markButton)
+    end)
+    markButton:SetScript("OnLeave", function()
+        Merchants:HideScrapMarkButtonTooltip()
+    end)
 
     self.markButton = markButton
     return markButton

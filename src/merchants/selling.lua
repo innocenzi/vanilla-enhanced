@@ -228,9 +228,17 @@ function Merchants:UpdateButton()
     local sellButton = self.sellButton
     local markButton = self.markButton
 
-    if not self:IsMerchantOpen() or not self:IsSellScrapsEnabled() or not MerchantFrame then
+    if not self:IsSellScrapsEnabled() then
         self:SetScrapMarkMode(false)
+        self.scrapMarkButtonHovered = false
         self:ClearScrapHighlights()
+        container:Hide()
+        sellButton:Hide()
+        markButton:Hide()
+        return
+    end
+
+    if not self:IsMerchantOpen() or not MerchantFrame then
         container:Hide()
         sellButton:Hide()
         markButton:Hide()

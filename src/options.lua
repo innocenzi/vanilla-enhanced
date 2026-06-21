@@ -1490,6 +1490,14 @@ local bagsPanel = BuildOptionsPanel({
             indent = 0,
         },
         {
+            name = "VanillaEnhancedOptionsBagsShowScrapToggleButton",
+            settingKey = "showScrapToggleButton",
+            labelKey = "options.bags.showScrapToggleButton.label",
+            helpKey = "options.bags.showScrapToggleButton.help",
+            enabledWhenSetting = "showScrapIcon",
+            indent = 1,
+        },
+        {
             name = "VanillaEnhancedOptionsBagsAutoSortAfterLoot",
             settingKey = "autoSortAfterLoot",
             labelKey = "options.bags.autoSortAfterLoot.label",
