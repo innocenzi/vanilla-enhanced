@@ -427,6 +427,16 @@ function VanillaEnhanced:GetLocaleKey()
     return GetAutoLocaleKey()
 end
 
+function VanillaEnhanced:SetLocaleKey(locale)
+    if locale ~= "auto" and not SUPPORTED_LOCALES[locale] then
+        locale = "auto"
+    end
+
+    local settings = self:GetSettings()
+    settings.locale = locale
+    return settings.locale
+end
+
 function VanillaEnhanced:GetLocaleOptions()
     local options = {
         {

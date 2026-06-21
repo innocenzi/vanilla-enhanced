@@ -7,6 +7,7 @@ local dropdowns = {}
 local sliders = {}
 local optionPanels = {}
 local moduleTitleKeys = {}
+local categoryTitleKeys = {}
 local OPTION_WITH_HELP_OFFSET = -15
 local OPTION_INDENT_WIDTH = 18
 local OPTION_HELP_WIDTH = 430
@@ -214,7 +215,11 @@ end
 
 local function ApplyAddonDropdownSetting(settingKey, value)
     local settings = VanillaEnhanced:GetSettings()
-    settings[settingKey] = value
+    if settingKey == "locale" and VanillaEnhanced.SetLocaleKey then
+        VanillaEnhanced:SetLocaleKey(value)
+    else
+        settings[settingKey] = value
+    end
 
     if VanillaEnhanced.RefreshLocalizedOptions then
         VanillaEnhanced:RefreshLocalizedOptions()
@@ -998,10 +1003,18 @@ end
 local function BuildOptionsPanel(definition)
     local panel = CreatePanel(definition.name, definition.title or T(definition.titleKey))
     panel.parent = definition.parent
+    panel.categoryKey = definition.categoryKey
     panel.titleKey = definition.titleKey
     panel.staticTitle = definition.title
     panel.subtitleKey = definition.subtitleKey
     panel.localizedControls = {}
+
+    if definition.categoryKey then
+        categoryTitleKeys[definition.categoryKey] = {
+            titleKey = definition.titleKey,
+            staticTitle = definition.title,
+        }
+    end
 
     if definition.moduleKey and definition.titleKey then
         moduleTitleKeys[definition.moduleKey] = definition.titleKey
@@ -1018,6 +1031,48 @@ local function BuildOptionsPanel(definition)
 
     optionPanels[#optionPanels + 1] = panel
     return panel
+end
+
+local function GetCategoryTitle(categoryKey)
+    local definition = categoryTitleKeys[categoryKey]
+    if not definition then
+        return nil
+    end
+    return definition.staticTitle or (definition.titleKey and T(definition.titleKey)) or nil
+end
+
+local function SetRegisteredCategoryName(category, name)
+    if not category or not name then
+        return
+    end
+
+    category.name = name
+    if category.SetName then
+        pcall(category.SetName, category, name)
+    end
+    if category.SetTitle then
+        pcall(category.SetTitle, category, name)
+    end
+end
+
+local function RefreshOptionsNavigation()
+    local categories = VanillaEnhanced.optionsCategories
+    if categories then
+        for categoryKey, category in pairs(categories) do
+            SetRegisteredCategoryName(category, GetCategoryTitle(categoryKey))
+        end
+    end
+
+    if type(InterfaceOptionsFrameAddOns_Update) == "function" then
+        pcall(InterfaceOptionsFrameAddOns_Update)
+    end
+    if SettingsPanel and SettingsPanel.CategoryList then
+        if SettingsPanel.CategoryList.Refresh then
+            pcall(SettingsPanel.CategoryList.Refresh, SettingsPanel.CategoryList)
+        elseif SettingsPanel.CategoryList.Update then
+            pcall(SettingsPanel.CategoryList.Update, SettingsPanel.CategoryList)
+        end
+    end
 end
 
 local function SetCheckText(check, label)
@@ -1097,6 +1152,8 @@ function VanillaEnhanced:RefreshLocalizedOptions()
         end
     end
 
+    RefreshOptionsNavigation()
+
     if self.RefreshOptions then
         self:RefreshOptions()
     end
@@ -1104,6 +1161,7 @@ end
 
 local mainPanel = BuildOptionsPanel({
     name = "VanillaEnhancedOptionsPanel",
+    categoryKey = "main",
     title = VanillaEnhanced.displayName,
     subtitleKey = "options.main.subtitle",
     options = {
@@ -1148,6 +1206,7 @@ local mainPanel = BuildOptionsPanel({
 
 local questsPanel = BuildOptionsPanel({
     name = "VanillaEnhancedQuestsOptionsPanel",
+    categoryKey = "quests",
     titleKey = "module.quests",
     subtitleKey = "options.quests.subtitle",
     parent = VanillaEnhanced.displayName,
@@ -1358,6 +1417,7 @@ local questsPanel = BuildOptionsPanel({
 
 local targetThreatPanel = BuildOptionsPanel({
     name = "VanillaEnhancedTargetThreatOptionsPanel",
+    categoryKey = "targetThreat",
     titleKey = "module.targetThreat",
     subtitleKey = "options.targetThreat.subtitle",
     parent = VanillaEnhanced.displayName,
@@ -1381,6 +1441,7 @@ local targetThreatPanel = BuildOptionsPanel({
 
 local bagsPanel = BuildOptionsPanel({
     name = "VanillaEnhancedBagsOptionsPanel",
+    categoryKey = "bags",
     titleKey = "module.bags",
     subtitleKey = "options.bags.subtitle",
     parent = VanillaEnhanced.displayName,
@@ -1509,6 +1570,7 @@ local bagsPanel = BuildOptionsPanel({
 
 local merchantsPanel = BuildOptionsPanel({
     name = "VanillaEnhancedMerchantsOptionsPanel",
+    categoryKey = "merchants",
     titleKey = "module.merchants",
     subtitleKey = "options.merchants.subtitle",
     parent = VanillaEnhanced.displayName,
@@ -1704,6 +1766,14 @@ local function RegisterInterfaceOptions()
     InterfaceOptions_AddCategory(targetThreatPanel)
     InterfaceOptions_AddCategory(bagsPanel)
     InterfaceOptions_AddCategory(merchantsPanel)
+
+    VanillaEnhanced.optionsCategories = {
+        main = mainPanel,
+        quests = questsPanel,
+        targetThreat = targetThreatPanel,
+        bags = bagsPanel,
+        merchants = merchantsPanel,
+    }
 end
 
 local function RegisterSettingsOptions()
@@ -1769,3 +1839,13 @@ if type(InterfaceOptions_AddCategory) == "function" then
 elseif Settings and Settings.RegisterCanvasLayoutCategory and Settings.RegisterAddOnCategory then
     RegisterSettingsOptions()
 end
+
+local eventFrame = CreateFrame("Frame")
+eventFrame:RegisterEvent("ADDON_LOADED")
+eventFrame:SetScript("OnEvent", function(self, event, loadedAddonName)
+    if event == "ADDON_LOADED" and loadedAddonName == VanillaEnhanced.addonName then
+        self:UnregisterEvent("ADDON_LOADED")
+        VanillaEnhanced:GetSettings()
+        VanillaEnhanced:RefreshLocalizedOptions()
+    end
+end)
