@@ -55,19 +55,12 @@ local function GetContainerFrameCount()
 end
 
 local function GetVisibleBagFrame()
-    local fallback
-
     for index = 1, GetContainerFrameCount() do
         local frame = _G["ContainerFrame" .. index]
-        if IsShown(frame) then
-            if frame.GetID and frame:GetID() == 0 then
-                return frame
-            end
-            fallback = fallback or frame
+        if IsShown(frame) and frame.GetID and frame:GetID() == 0 then
+            return frame
         end
     end
-
-    return fallback
 end
 
 local function AnchorSortButton(button, bagFrame)
