@@ -520,7 +520,104 @@ local function SetSettingCheckEnabledWhen(check, moduleKey, settingKey)
     return check
 end
 
-local function CreateModuleDropdown(panel, name, moduleKey, settingKey, label, options, anchor, indentLevel)
+local function HasDropdownOptionDescriptions(dropdown)
+    for _, option in ipairs(dropdown.options or {}) do
+        if option.description and option.description ~= "" then
+            return true
+        end
+    end
+    return false
+end
+
+local function ShowDropdownTooltip(dropdown, owner)
+    if not GameTooltip or not dropdown then
+        return
+    end
+
+    local hasDescriptions = HasDropdownOptionDescriptions(dropdown)
+    if not hasDescriptions and (not dropdown.helpText or dropdown.helpText == "") then
+        return
+    end
+
+    GameTooltip:SetOwner(owner or dropdown, "ANCHOR_RIGHT")
+    GameTooltip:SetText(dropdown.tooltipTitle or dropdown.label or "", 1, 0.82, 0)
+
+    if dropdown.helpText and dropdown.helpText ~= "" then
+        GameTooltip:AddLine(dropdown.helpText, 1, 1, 1, true)
+    end
+
+    if hasDescriptions then
+        if dropdown.helpText and dropdown.helpText ~= "" then
+            GameTooltip:AddLine(" ")
+        end
+
+        local addedDescription = false
+        for _, option in ipairs(dropdown.options or {}) do
+            if option.description and option.description ~= "" then
+                if addedDescription then
+                    GameTooltip:AddLine(" ")
+                end
+                GameTooltip:AddLine(option.label, 1, 1, 1, true)
+                GameTooltip:AddLine(option.description, 1, 0.82, 0, true)
+                addedDescription = true
+            end
+        end
+    end
+
+    GameTooltip:Show()
+end
+
+local function HideDropdownTooltip()
+    if GameTooltip then
+        GameTooltip:Hide()
+    end
+end
+
+local function HookDropdownTooltipTarget(target, dropdown)
+    if not target or target.vanillaEnhancedDropdownTooltipHooked then
+        return
+    end
+
+    target.vanillaEnhancedDropdownTooltipHooked = true
+    if target.EnableMouse then
+        target:EnableMouse(true)
+    end
+
+    local function onEnter(self)
+        ShowDropdownTooltip(dropdown, self)
+    end
+    local function onLeave()
+        HideDropdownTooltip()
+    end
+
+    if target.HookScript then
+        target:HookScript("OnEnter", onEnter)
+        target:HookScript("OnLeave", onLeave)
+        return
+    end
+
+    local oldOnEnter = target.GetScript and target:GetScript("OnEnter") or nil
+    local oldOnLeave = target.GetScript and target:GetScript("OnLeave") or nil
+    target:SetScript("OnEnter", function(self, ...)
+        if oldOnEnter then
+            oldOnEnter(self, ...)
+        end
+        onEnter(self)
+    end)
+    target:SetScript("OnLeave", function(self, ...)
+        if oldOnLeave then
+            oldOnLeave(self, ...)
+        end
+        onLeave()
+    end)
+end
+
+local function ConfigureDropdownTooltip(dropdown, name)
+    HookDropdownTooltipTarget(dropdown, dropdown)
+    HookDropdownTooltipTarget(_G[name .. "Button"], dropdown)
+end
+
+local function CreateModuleDropdown(panel, name, moduleKey, settingKey, label, helpText, options, anchor, indentLevel)
     local content = GetPanelContent(panel)
     local dropdownIndentAnchor = anchor
     local labelText = content:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
@@ -539,6 +636,9 @@ local function CreateModuleDropdown(panel, name, moduleKey, settingKey, label, o
     dropdown.moduleKey = moduleKey
     dropdown.settingKey = settingKey
     dropdown.options = options
+    dropdown.label = label
+    dropdown.helpText = helpText
+    dropdown.tooltipTitle = label
     dropdown.labelText = labelText
     dropdown.enabledWhen = nil
     dropdown.optionHelpTextAnchor = labelText
@@ -562,6 +662,12 @@ local function CreateModuleDropdown(panel, name, moduleKey, settingKey, label, o
             info.text = option.label
             info.value = optionValue
             info.checked = selected == optionValue
+            if option.description and option.description ~= "" then
+                info.tooltipTitle = option.label
+                info.tooltipText = option.description
+                info.tooltipOnButton = true
+                info.tooltipWhileDisabled = true
+            end
             info.func = function()
                 ApplyModuleDropdownSetting(self.moduleKey, self.settingKey, optionValue)
             end
@@ -569,6 +675,7 @@ local function CreateModuleDropdown(panel, name, moduleKey, settingKey, label, o
         end
     end)
 
+    ConfigureDropdownTooltip(dropdown, name)
     table.insert(dropdowns, dropdown)
     return dropdown
 end
@@ -770,6 +877,7 @@ local function BuildDropdownOptions(options)
         dropdownOptions[#dropdownOptions + 1] = {
             value = option.value,
             label = option.label or T(option.labelKey),
+            description = option.description or (option.descriptionKey and T(option.descriptionKey)) or nil,
         }
     end
     return dropdownOptions
@@ -792,6 +900,7 @@ local function BuildOptionControl(panel, option, anchor, moduleKey)
             optionModuleKey,
             option.settingKey,
             T(option.labelKey),
+            option.helpKey and T(option.helpKey) or nil,
             BuildDropdownOptions(option.options),
             anchor,
             option.indent
@@ -991,9 +1100,21 @@ local questsPanel = BuildOptionsPanel({
             indent = 0,
             width = 210,
             options = {
-                { value = "disabled", labelKey = "options.quests.autoFollowQuestsMode.disabled" },
-                { value = "movement", labelKey = "options.quests.autoFollowQuestsMode.movement" },
-                { value = "zone", labelKey = "options.quests.autoFollowQuestsMode.zone" },
+                {
+                    value = "disabled",
+                    labelKey = "options.quests.autoFollowQuestsMode.disabled",
+                    descriptionKey = "options.quests.autoFollowQuestsMode.disabled.description",
+                },
+                {
+                    value = "movement",
+                    labelKey = "options.quests.autoFollowQuestsMode.movement",
+                    descriptionKey = "options.quests.autoFollowQuestsMode.movement.description",
+                },
+                {
+                    value = "zone",
+                    labelKey = "options.quests.autoFollowQuestsMode.zone",
+                    descriptionKey = "options.quests.autoFollowQuestsMode.zone.description",
+                },
             },
         },
         {
@@ -1008,9 +1129,21 @@ local questsPanel = BuildOptionsPanel({
             indent = 1,
             width = 220,
             options = {
-                { value = "replace-distant", labelKey = "options.quests.autoFollowQuestsBehavior.replaceDistant" },
-                { value = "auto-only", labelKey = "options.quests.autoFollowQuestsBehavior.autoOnly" },
-                { value = "fill-empty", labelKey = "options.quests.autoFollowQuestsBehavior.fillEmpty" },
+                {
+                    value = "replace-distant",
+                    labelKey = "options.quests.autoFollowQuestsBehavior.replaceDistant",
+                    descriptionKey = "options.quests.autoFollowQuestsBehavior.replaceDistant.description",
+                },
+                {
+                    value = "auto-only",
+                    labelKey = "options.quests.autoFollowQuestsBehavior.autoOnly",
+                    descriptionKey = "options.quests.autoFollowQuestsBehavior.autoOnly.description",
+                },
+                {
+                    value = "fill-empty",
+                    labelKey = "options.quests.autoFollowQuestsBehavior.fillEmpty",
+                    descriptionKey = "options.quests.autoFollowQuestsBehavior.fillEmpty.description",
+                },
             },
         },
         {
@@ -1025,9 +1158,21 @@ local questsPanel = BuildOptionsPanel({
             indent = 1,
             width = 180,
             options = {
-                { value = "close", labelKey = "options.quests.autoFollowQuestsRange.close" },
-                { value = "nearby", labelKey = "options.quests.autoFollowQuestsRange.nearby" },
-                { value = "wide", labelKey = "options.quests.autoFollowQuestsRange.wide" },
+                {
+                    value = "close",
+                    labelKey = "options.quests.autoFollowQuestsRange.close",
+                    descriptionKey = "options.quests.autoFollowQuestsRange.close.description",
+                },
+                {
+                    value = "nearby",
+                    labelKey = "options.quests.autoFollowQuestsRange.nearby",
+                    descriptionKey = "options.quests.autoFollowQuestsRange.nearby.description",
+                },
+                {
+                    value = "wide",
+                    labelKey = "options.quests.autoFollowQuestsRange.wide",
+                    descriptionKey = "options.quests.autoFollowQuestsRange.wide.description",
+                },
             },
         },
     },
@@ -1092,8 +1237,16 @@ local bagsPanel = BuildOptionsPanel({
             enabledWhenSetting = "autoSortAfterLoot",
             indent = 1,
             options = {
-                { value = "tidy", labelKey = "options.bags.autoSortAfterLootMode.tidy" },
-                { value = "full", labelKey = "options.bags.autoSortAfterLootMode.full" },
+                {
+                    value = "tidy",
+                    labelKey = "options.bags.autoSortAfterLootMode.tidy",
+                    descriptionKey = "options.bags.autoSortAfterLootMode.tidy.description",
+                },
+                {
+                    value = "full",
+                    labelKey = "options.bags.autoSortAfterLootMode.full",
+                    descriptionKey = "options.bags.autoSortAfterLootMode.full.description",
+                },
             },
         },
         {
@@ -1111,9 +1264,21 @@ local bagsPanel = BuildOptionsPanel({
             helpKey = "options.bags.sortOrder.help",
             indent = 0,
             options = {
-                { value = "category", labelKey = "options.bags.sortOrder.category" },
-                { value = "quality", labelKey = "options.bags.sortOrder.quality" },
-                { value = "name", labelKey = "options.bags.sortOrder.name" },
+                {
+                    value = "category",
+                    labelKey = "options.bags.sortOrder.category",
+                    descriptionKey = "options.bags.sortOrder.category.description",
+                },
+                {
+                    value = "quality",
+                    labelKey = "options.bags.sortOrder.quality",
+                    descriptionKey = "options.bags.sortOrder.quality.description",
+                },
+                {
+                    value = "name",
+                    labelKey = "options.bags.sortOrder.name",
+                    descriptionKey = "options.bags.sortOrder.name.description",
+                },
             },
         },
     },
@@ -1149,11 +1314,31 @@ local merchantsPanel = BuildOptionsPanel({
             indent = 1,
             width = 190,
             options = {
-                { value = "poor-sellable", labelKey = "options.merchants.scrapStrategy.poorSellable" },
-                { value = "poor-unusable-equipment", labelKey = "options.merchants.scrapStrategy.poorUnusableEquipment" },
-                { value = "poor-low-consumables", labelKey = "options.merchants.scrapStrategy.poorLowConsumables" },
-                { value = "poor-low-equipment", labelKey = "options.merchants.scrapStrategy.poorLowEquipment" },
-                { value = "smart", labelKey = "options.merchants.scrapStrategy.smart" },
+                {
+                    value = "poor-sellable",
+                    labelKey = "options.merchants.scrapStrategy.poorSellable",
+                    descriptionKey = "options.merchants.scrapStrategy.poorSellable.description",
+                },
+                {
+                    value = "poor-unusable-equipment",
+                    labelKey = "options.merchants.scrapStrategy.poorUnusableEquipment",
+                    descriptionKey = "options.merchants.scrapStrategy.poorUnusableEquipment.description",
+                },
+                {
+                    value = "poor-low-consumables",
+                    labelKey = "options.merchants.scrapStrategy.poorLowConsumables",
+                    descriptionKey = "options.merchants.scrapStrategy.poorLowConsumables.description",
+                },
+                {
+                    value = "poor-low-equipment",
+                    labelKey = "options.merchants.scrapStrategy.poorLowEquipment",
+                    descriptionKey = "options.merchants.scrapStrategy.poorLowEquipment.description",
+                },
+                {
+                    value = "smart",
+                    labelKey = "options.merchants.scrapStrategy.smart",
+                    descriptionKey = "options.merchants.scrapStrategy.smart.description",
+                },
             },
         },
         {
