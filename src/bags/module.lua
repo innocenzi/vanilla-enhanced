@@ -656,6 +656,9 @@ end
 
 function Bags:SetEnabled(enabled)
     VanillaEnhanced:SetModuleEnabled("bags", enabled)
+    if self.RefreshItemLockClickOverlays then
+        self:RefreshItemLockClickOverlays()
+    end
 
     if enabled then
         self:QueueUpdate()
@@ -746,6 +749,7 @@ eventFrame:SetScript("OnEvent", function(_, event, loadedAddonName)
 
     if event == "MERCHANT_SHOW" then
         Bags:AutoOpenBags("merchant")
+        Bags:QueueUpdate()
         return
     end
 

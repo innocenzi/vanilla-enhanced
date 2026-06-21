@@ -4,7 +4,9 @@ local Merchants = VanillaEnhanced:GetModule("merchants")
 local BUTTON_SIZE = 24
 local HIGHLIGHT_INSET = 2
 local HIGHLIGHT_MAX_BUTTONS = 100
+local SCRAP_MARK_CLICK_OVERLAY_LEVEL_OFFSET = 30
 local MARK_SCRAPS_ICON = "Interface\\Icons\\INV_Misc_Wrench_01"
+local SCRAP_MARK_CLICK_DEDUPE_SECONDS = 0.2
 
 local cursorFrame = CreateFrame("Frame")
 
@@ -158,12 +160,28 @@ local function GetButtonBagAndSlot(button)
     return parent:GetID(), button:GetID()
 end
 
+local function PositionClickOverlay(overlay, button)
+    overlay:ClearAllPoints()
+    overlay:SetAllPoints(button)
+    if overlay.SetFrameLevel and button.GetFrameLevel then
+        overlay:SetFrameLevel((button:GetFrameLevel() or 0) + SCRAP_MARK_CLICK_OVERLAY_LEVEL_OFFSET)
+    end
+end
+
 function Merchants:GetCustomScrapItemIds()
     local settings = self:GetSettings()
     if type(settings.customScrapItemIds) ~= "table" then
         settings.customScrapItemIds = {}
     end
     return settings.customScrapItemIds
+end
+
+function Merchants:GetIgnoredScrapItemIds()
+    local settings = self:GetSettings()
+    if type(settings.ignoredScrapItemIds) ~= "table" then
+        settings.ignoredScrapItemIds = {}
+    end
+    return settings.ignoredScrapItemIds
 end
 
 function Merchants:IsCustomScrapItem(itemContext)
@@ -176,6 +194,16 @@ function Merchants:IsCustomScrapItem(itemContext)
     return customScrapItemIds[itemID] == true or customScrapItemIds[tostring(itemID)] == true
 end
 
+function Merchants:IsIgnoredScrapItem(itemContext)
+    local itemID = itemContext and itemContext.itemID
+    if not itemID then
+        return false
+    end
+
+    local ignoredScrapItemIds = self:GetIgnoredScrapItemIds()
+    return ignoredScrapItemIds[itemID] == true or ignoredScrapItemIds[tostring(itemID)] == true
+end
+
 function Merchants:SetCustomScrapItem(itemID, enabled)
     itemID = tonumber(itemID)
     if not itemID then
@@ -185,6 +213,26 @@ function Merchants:SetCustomScrapItem(itemID, enabled)
     local customScrapItemIds = self:GetCustomScrapItemIds()
     customScrapItemIds[itemID] = enabled == true or nil
     customScrapItemIds[tostring(itemID)] = nil
+    if enabled == true then
+        self:SetIgnoredScrapItem(itemID, false)
+    end
+    return true
+end
+
+function Merchants:SetIgnoredScrapItem(itemID, enabled)
+    itemID = tonumber(itemID)
+    if not itemID then
+        return false
+    end
+
+    local ignoredScrapItemIds = self:GetIgnoredScrapItemIds()
+    ignoredScrapItemIds[itemID] = enabled == true or nil
+    ignoredScrapItemIds[tostring(itemID)] = nil
+    if enabled == true then
+        local customScrapItemIds = self:GetCustomScrapItemIds()
+        customScrapItemIds[itemID] = nil
+        customScrapItemIds[tostring(itemID)] = nil
+    end
     return true
 end
 
@@ -205,9 +253,35 @@ function Merchants:ToggleCustomScrapItem(itemContext)
         return false
     end
 
-    local isMarked = self:IsCustomScrapItem(itemContext)
-    if isMarked then
+    local isCustomMarked = self:IsCustomScrapItem(itemContext)
+    local isIgnored = self:IsIgnoredScrapItem(itemContext)
+    local strategy = self:GetScrapStrategy()
+    local isStrategyScrap = strategy and strategy.isScrap(itemContext) == true
+
+    if isIgnored then
+        if self:SetIgnoredScrapItem(itemContext.itemID, false) then
+            self:PrintMessage(T("merchants.scrapMark.marked", {
+                item = self:GetItemDisplayText(itemContext),
+            }))
+            self:RequestRefresh(0.2)
+            return true
+        end
+        return false
+    end
+
+    if isCustomMarked then
         if self:SetCustomScrapItem(itemContext.itemID, false) then
+            self:PrintMessage(T("merchants.scrapMark.unmarked", {
+                item = self:GetItemDisplayText(itemContext),
+            }))
+            self:RequestRefresh(0.2)
+            return true
+        end
+        return false
+    end
+
+    if isStrategyScrap then
+        if self:SetIgnoredScrapItem(itemContext.itemID, true) then
             self:PrintMessage(T("merchants.scrapMark.unmarked", {
                 item = self:GetItemDisplayText(itemContext),
             }))
@@ -236,6 +310,10 @@ function Merchants:ToggleCustomScrapItem(itemContext)
 end
 
 function Merchants:IsScrapItem(itemContext)
+    if self:IsIgnoredScrapItem(itemContext) then
+        return false
+    end
+
     if self:IsCustomScrapItem(itemContext) then
         return IsSellableScrapCandidate(itemContext)
     end
@@ -292,6 +370,44 @@ function Merchants:EnsureScrapMarkButtonHooks(button)
     button.VanillaEnhancedScrapMarkHooksInstalled = true
 end
 
+function Merchants:EnsureScrapMarkClickOverlay(button)
+    if not button then
+        return nil
+    end
+
+    local overlay = button.VanillaEnhancedScrapMarkClickOverlay
+    if not overlay then
+        overlay = CreateFrame("Button", nil, button)
+        overlay:RegisterForClicks("AnyUp")
+        overlay:EnableMouse(true)
+        overlay:SetScript("OnClick", function(_, mouseButton)
+            Merchants:HandleScrapMarkItemClick(button, mouseButton)
+        end)
+        overlay:SetScript("OnEnter", function()
+            Merchants:ShowScrapMarkItemTooltip(button)
+            Merchants:ApplyScrapMarkCursorOverride(button)
+        end)
+        overlay:SetScript("OnLeave", HideMarkTooltip)
+        button.VanillaEnhancedScrapMarkClickOverlay = overlay
+    end
+
+    PositionClickOverlay(overlay, button)
+    overlay:Show()
+
+    self.scrapMarkClickOverlayButtons = self.scrapMarkClickOverlayButtons or {}
+    self.scrapMarkClickOverlayButtons[button] = true
+    return overlay
+end
+
+function Merchants:ClearScrapMarkClickOverlays()
+    for button in pairs(self.scrapMarkClickOverlayButtons or {}) do
+        if button.VanillaEnhancedScrapMarkClickOverlay then
+            button.VanillaEnhancedScrapMarkClickOverlay:Hide()
+        end
+        self.scrapMarkClickOverlayButtons[button] = nil
+    end
+end
+
 function Merchants:ClearScrapHighlightTextures()
     for button in pairs(self.highlightedScrapButtons or {}) do
         if button.VanillaEnhancedScrapHighlight then
@@ -316,6 +432,7 @@ end
 
 function Merchants:RefreshScrapHighlights()
     self:ClearScrapHighlightTextures()
+    self:ClearScrapMarkClickOverlays()
 
     if not self:IsMerchantOpen() or not self:IsSellScrapsEnabled() then
         return
@@ -343,6 +460,9 @@ function Merchants:RefreshScrapHighlights()
 
                 local slot = button.GetID and button:GetID() or buttonIndex
                 local itemContext = IsShown(button) and self.Api and self.Api:ReadContainerItem(bagID, slot)
+                if self.scrapMarkMode == true and itemContext then
+                    self:EnsureScrapMarkClickOverlay(button)
+                end
                 if itemContext and self:IsScrapItem(itemContext) then
                     local highlight = EnsureHighlightTexture(button)
                     highlight:Show()
@@ -360,6 +480,7 @@ function Merchants:ClearScrapHighlights()
         return
     end
     self:ClearScrapHighlightTextures()
+    self:ClearScrapMarkClickOverlays()
 end
 
 function Merchants:UpdateScrapMarkButtonState()
@@ -384,10 +505,17 @@ function Merchants:SetScrapMarkMode(enabled)
     if self.UpdateSellButtonState then
         self:UpdateSellButtonState(self:GetScrapReportSafely())
     end
+    local Bags = VanillaEnhanced:GetModule("bags")
+    if Bags and Bags.RefreshItemLockOverlays then
+        Bags:RefreshItemLockOverlays()
+    end
     if self.scrapMarkMode == true then
         self:RefreshScrapHighlights()
-    elseif not self:IsSellButtonHovered() then
-        self:ClearScrapHighlightTextures()
+    else
+        self:ClearScrapMarkClickOverlays()
+        if not self:IsSellButtonHovered() then
+            self:ClearScrapHighlightTextures()
+        end
     end
 end
 
@@ -432,6 +560,10 @@ end
 
 function Merchants:HandleScrapMarkItemClick(button, mouseButton)
     if mouseButton == "LeftButton" and type(IsAltKeyDown) == "function" and IsAltKeyDown() then
+        local Bags = VanillaEnhanced:GetModule("bags")
+        if Bags and Bags.HandleItemLockClick then
+            return Bags:HandleItemLockClick(button, mouseButton)
+        end
         return false
     end
 
@@ -448,6 +580,20 @@ function Merchants:HandleScrapMarkItemClick(button, mouseButton)
         return false
     end
 
+    if mouseButton == "LeftButton" then
+        local now = type(GetTime) == "function" and GetTime() or nil
+        local slotKey = tostring(bagID) .. ":" .. tostring(slot)
+        if now
+            and self.lastScrapMarkClickSlotKey == slotKey
+            and self.lastScrapMarkClickTime
+            and now - self.lastScrapMarkClickTime <= SCRAP_MARK_CLICK_DEDUPE_SECONDS
+        then
+            return true
+        end
+        self.lastScrapMarkClickSlotKey = slotKey
+        self.lastScrapMarkClickTime = now
+    end
+
     local itemContext = self.Api and self.Api:ReadContainerItem(bagID, slot)
     if mouseButton == "LeftButton" and itemContext then
         self:ToggleCustomScrapItem(itemContext)
@@ -459,46 +605,13 @@ function Merchants:HandleScrapMarkItemClick(button, mouseButton)
 end
 
 function Merchants:InstallScrapMarkHooks()
-    local hooked = false
-    if type(ContainerFrameItemButton_OnClick) == "function" and not self.containerItemClickHookInstalled then
-        self.originalContainerFrameItemButtonOnClick = ContainerFrameItemButton_OnClick
-        ContainerFrameItemButton_OnClick = function(button, mouseButton, ...)
-            if Merchants:HandleScrapMarkItemClick(button, mouseButton) then
-                return
-            end
-            return Merchants.originalContainerFrameItemButtonOnClick(button, mouseButton, ...)
-        end
-        self.containerItemClickHookInstalled = true
-        hooked = true
+    if self.scrapMarkHooksInstalled then
+        return
     end
 
-    if type(ContainerFrameItemButton_OnModifiedClick) == "function" and not self.containerItemModifiedClickHookInstalled then
-        self.originalContainerFrameItemButtonOnModifiedClick = ContainerFrameItemButton_OnModifiedClick
-        ContainerFrameItemButton_OnModifiedClick = function(button, mouseButton, ...)
-            if Merchants:HandleScrapMarkItemClick(button, mouseButton) then
-                return true
-            end
-            return Merchants.originalContainerFrameItemButtonOnModifiedClick(button, mouseButton, ...)
-        end
-        self.containerItemModifiedClickHookInstalled = true
-        hooked = true
-    end
-
-    if type(ContainerFrameItemButton_OnEnter) == "function" and not self.containerItemEnterHookInstalled then
-        self.originalContainerFrameItemButtonOnEnter = ContainerFrameItemButton_OnEnter
-        ContainerFrameItemButton_OnEnter = function(button, ...)
-            if Merchants:ShouldHandleScrapMarkItemHover(button) then
-                Merchants:ShowScrapMarkItemTooltip(button)
-                return
-            end
-
-            return Merchants.originalContainerFrameItemButtonOnEnter(button, ...)
-        end
-        self.containerItemEnterHookInstalled = true
-        hooked = true
-    end
-
-    self.scrapMarkHooksInstalled = self.scrapMarkHooksInstalled or hooked
+    -- The old global container-button hooks tainted right-click item use.
+    -- Scrap mark mode now installs per-button child overlays only while active.
+    self.scrapMarkHooksInstalled = true
 end
 
 function Merchants:EnsureMarkButton(size)

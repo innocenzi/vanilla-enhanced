@@ -13,6 +13,7 @@ local defaults = {
     sortBagsAfterSellingScraps = false,
     scrapStrategy = "poor-sellable",
     customScrapItemIds = {},
+    ignoredScrapItemIds = {},
 }
 
 local eventFrame = CreateFrame("Frame")
@@ -159,6 +160,10 @@ function Merchants:OpenMerchant()
     self.pendingAutoRepair = self:GetSettings().autoRepair == true
     self:EnsureButton()
     self:InstallScrapMarkHooks()
+    local Bags = VanillaEnhanced:GetModule("bags")
+    if Bags and Bags.RefreshItemLockOverlays then
+        Bags:RefreshItemLockOverlays()
+    end
     self:RequestRefresh(MERCHANT_OPEN_REFRESH_SECONDS)
 end
 
@@ -236,7 +241,7 @@ eventFrame:SetScript("OnEvent", function(_, event, loadedAddonName)
         if Merchants:ShouldShowScrapHighlights() then
             Merchants:RefreshScrapHighlights()
         else
-            Merchants:ClearScrapHighlightTextures()
+            Merchants:ClearScrapHighlights()
         end
         Merchants:RequestRefresh(0.2)
         return

@@ -4,6 +4,9 @@ local Bags = VanillaEnhanced:GetModule("bags")
 local LOCK_ICON = "Interface\\Buttons\\LockButton-Locked-Up"
 local LOCK_SIZE = 25
 local MAX_CONTAINER_BUTTONS = 100
+local MODIFIER_REFRESH_INTERVAL = 0.05
+
+local modifierFrame = CreateFrame("Frame")
 
 local function T(key, vars)
     return VanillaEnhanced:T(key, vars)
@@ -155,6 +158,19 @@ local function EnsureLockOverlay(button)
     return overlay
 end
 
+local function PositionClickOverlay(overlay, button, levelOffset)
+    overlay:ClearAllPoints()
+    overlay:SetAllPoints(button)
+    if overlay.SetFrameLevel and button.GetFrameLevel then
+        overlay:SetFrameLevel((button:GetFrameLevel() or 0) + (levelOffset or 20))
+    end
+end
+
+local function IsScrapMarkModeActive()
+    local Merchants = VanillaEnhanced:GetModule("merchants")
+    return Merchants and Merchants.scrapMarkMode == true
+end
+
 function Bags:GetItemLocks()
     local settings = self:GetSettings()
     if type(settings.itemLocks) ~= "table" then
@@ -247,17 +263,71 @@ function Bags:ClearItemLockOverlays()
         end
         self.itemLockOverlayButtons[button] = nil
     end
+
+    for button in pairs(self.itemLockClickOverlayButtons or {}) do
+        if button.VanillaEnhancedItemLockClickOverlay then
+            button.VanillaEnhancedItemLockClickOverlay:Hide()
+        end
+        self.itemLockClickOverlayButtons[button] = nil
+    end
+end
+
+function Bags:HandleItemLockOverlayClick(button, mouseButton)
+    local bagID, slot = GetButtonBagAndSlot(button)
+    if bagID == nil or slot == nil then
+        return false
+    end
+
+    if IsAltLeftClick(mouseButton) then
+        return self:ToggleItemLock(bagID, slot)
+    end
+
+    if IsMerchantOpen() and self:IsItemLocked(bagID, slot) then
+        local message = mouseButton == "RightButton" and T("bags.lock.cannotSell") or T("bags.lock.cannotMove")
+        self:PrintMessage(message)
+        return true
+    end
+
+    return false
+end
+
+function Bags:EnsureItemLockClickOverlay(button)
+    if not button then
+        return nil
+    end
+
+    local overlay = button.VanillaEnhancedItemLockClickOverlay
+    if not overlay then
+        overlay = CreateFrame("Button", nil, button)
+        overlay:RegisterForClicks("AnyUp")
+        overlay:EnableMouse(true)
+        overlay:SetScript("OnClick", function(_, mouseButton)
+            Bags:HandleItemLockOverlayClick(button, mouseButton)
+        end)
+        button.VanillaEnhancedItemLockClickOverlay = overlay
+    end
+
+    PositionClickOverlay(overlay, button, 20)
+    overlay:Show()
+
+    self.itemLockClickOverlayButtons = self.itemLockClickOverlayButtons or {}
+    self.itemLockClickOverlayButtons[button] = true
+    return overlay
 end
 
 function Bags:RefreshItemLockOverlays()
     self:ClearItemLockOverlays()
     self.itemLockOverlayButtons = self.itemLockOverlayButtons or {}
+    self.itemLockClickOverlayButtons = self.itemLockClickOverlayButtons or {}
 
     if not self:IsItemLockingEnabled() then
         return
     end
 
     self:PruneItemLocks()
+    local altDown = type(IsAltKeyDown) == "function" and IsAltKeyDown()
+    local merchantOpen = IsMerchantOpen()
+    local suppressClickOverlays = IsScrapMarkModeActive()
 
     for frameIndex = 1, GetContainerFrameCount() do
         local frame = _G["ContainerFrame" .. frameIndex]
@@ -277,38 +347,20 @@ function Bags:RefreshItemLockOverlays()
                 end
 
                 local slot = button.GetID and button:GetID() or buttonIndex
-                if IsShown(button) and self:IsItemLocked(bagID, slot) then
+                local containerItem = IsShown(button) and self.Api and self.Api:GetContainerItemInfo(bagID, slot)
+                local hasItem = containerItem and (containerItem.hyperlink or containerItem.itemID or containerItem.iconFileID)
+                local locked = hasItem and self:IsItemLocked(bagID, slot)
+                if locked then
                     local overlay = EnsureLockOverlay(button)
                     overlay:Show()
                     self.itemLockOverlayButtons[button] = true
                 end
+                if hasItem and not suppressClickOverlays and (altDown or (merchantOpen and locked)) then
+                    self:EnsureItemLockClickOverlay(button)
+                end
             end
         end
     end
-end
-
-function Bags:ShouldBlockLockedItemClick(bagID, slot, mouseButton)
-    if not self:IsItemLocked(bagID, slot) then
-        return false, nil
-    end
-
-    if mouseButton == "RightButton" and IsMerchantOpen() then
-        return true, T("bags.lock.cannotSell")
-    end
-
-    if mouseButton == "RightButton" then
-        local link = self.Api and self.Api:GetContainerItemLink(bagID, slot)
-        if link and self.Api.IsEquippableItem and self.Api:IsEquippableItem(link) then
-            return true, T("bags.lock.cannotMove")
-        end
-        return false, nil
-    end
-
-    if mouseButton == "LeftButton" then
-        return true, T("bags.lock.cannotMove")
-    end
-
-    return false, nil
 end
 
 function Bags:HandleItemLockClick(button, mouseButton)
@@ -325,15 +377,16 @@ function Bags:HandleItemLockClick(button, mouseButton)
         return self:ToggleItemLock(bagID, slot)
     end
 
-    local blocked, message = self:ShouldBlockLockedItemClick(bagID, slot, mouseButton)
-    if blocked then
-        if message then
-            self:PrintMessage(message)
-        end
-        return true
-    end
-
     return false
+end
+
+function Bags:RefreshItemLockClickOverlays()
+    self:RefreshItemLockOverlays()
+
+    local Merchants = VanillaEnhanced:GetModule("merchants")
+    if Merchants and Merchants.RefreshScrapHighlights and Merchants.scrapMarkMode == true then
+        Merchants:RefreshScrapHighlights()
+    end
 end
 
 function Bags:InstallItemLockHooks()
@@ -341,28 +394,29 @@ function Bags:InstallItemLockHooks()
         return
     end
 
-    local hooked = false
-    if type(ContainerFrameItemButton_OnClick) == "function" then
-        self.originalContainerFrameItemButtonOnClick = ContainerFrameItemButton_OnClick
-        ContainerFrameItemButton_OnClick = function(button, mouseButton, ...)
-            if Bags:HandleItemLockClick(button, mouseButton) then
-                return
-            end
-            return Bags.originalContainerFrameItemButtonOnClick(button, mouseButton, ...)
+    -- Keep inventory item use untainted: never replace ContainerFrameItemButton_* globals here.
+    -- Temporary child overlays handle only the clicks this module must intercept.
+    self.lastItemLockAltDown = type(IsAltKeyDown) == "function" and IsAltKeyDown()
+    modifierFrame:RegisterEvent("MODIFIER_STATE_CHANGED")
+    modifierFrame:SetScript("OnEvent", function(_, _, key)
+        if key == "LALT" or key == "RALT" then
+            Bags:RefreshItemLockClickOverlays()
         end
-        hooked = true
-    end
-
-    if type(ContainerFrameItemButton_OnModifiedClick) == "function" then
-        self.originalContainerFrameItemButtonOnModifiedClick = ContainerFrameItemButton_OnModifiedClick
-        ContainerFrameItemButton_OnModifiedClick = function(button, mouseButton, ...)
-            if Bags:HandleItemLockClick(button, mouseButton) then
-                return true
-            end
-            return Bags.originalContainerFrameItemButtonOnModifiedClick(button, mouseButton, ...)
+    end)
+    modifierFrame:SetScript("OnUpdate", function(_, elapsed)
+        Bags.itemLockModifierRefreshElapsed = (Bags.itemLockModifierRefreshElapsed or 0) + (elapsed or 0)
+        if Bags.itemLockModifierRefreshElapsed < MODIFIER_REFRESH_INTERVAL then
+            return
         end
-        hooked = true
-    end
 
-    self.itemLockHooksInstalled = hooked
+        Bags.itemLockModifierRefreshElapsed = 0
+        local altDown = type(IsAltKeyDown) == "function" and IsAltKeyDown()
+        if altDown ~= Bags.lastItemLockAltDown then
+            Bags.lastItemLockAltDown = altDown
+            Bags:RefreshItemLockClickOverlays()
+        end
+    end)
+
+    self.itemLockHooksInstalled = true
+    self:RefreshItemLockClickOverlays()
 end
