@@ -264,6 +264,7 @@ function Merchants:ToggleCustomScrapItem(itemContext)
                 item = self:GetItemDisplayText(itemContext),
             }))
             self:RequestRefresh(0.2)
+            self:RefreshBagScrapIcons()
             return true
         end
         return false
@@ -275,6 +276,7 @@ function Merchants:ToggleCustomScrapItem(itemContext)
                 item = self:GetItemDisplayText(itemContext),
             }))
             self:RequestRefresh(0.2)
+            self:RefreshBagScrapIcons()
             return true
         end
         return false
@@ -286,6 +288,7 @@ function Merchants:ToggleCustomScrapItem(itemContext)
                 item = self:GetItemDisplayText(itemContext),
             }))
             self:RequestRefresh(0.2)
+            self:RefreshBagScrapIcons()
             return true
         end
         return false
@@ -303,6 +306,7 @@ function Merchants:ToggleCustomScrapItem(itemContext)
             item = self:GetItemDisplayText(itemContext),
         }))
         self:RequestRefresh(0.2)
+        self:RefreshBagScrapIcons()
         return true
     end
 

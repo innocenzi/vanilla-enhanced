@@ -45,6 +45,18 @@ function Merchants:PrintMessage(message)
     VanillaEnhanced:PrintMessage(message)
 end
 
+function Merchants:RefreshBagScrapIcons()
+    local Bags = VanillaEnhanced:GetModule("bags")
+    if Bags and Bags.RefreshScrapIconOverlays then
+        Bags:RefreshScrapIconOverlays()
+    end
+end
+
+function Merchants:Update()
+    self:RefreshBagScrapIcons()
+    self:RequestRefresh(0.2)
+end
+
 function Merchants:RegisterScrapStrategy(strategy)
     if type(strategy) ~= "table" or type(strategy.key) ~= "string" or type(strategy.isScrap) ~= "function" then
         return
@@ -189,6 +201,7 @@ end
 
 function Merchants:SetEnabled(enabled)
     VanillaEnhanced:SetModuleEnabled("merchants", enabled)
+    self:RefreshBagScrapIcons()
     if enabled then
         self:RequestRefresh(0.2)
     else

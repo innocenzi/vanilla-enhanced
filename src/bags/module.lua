@@ -5,6 +5,7 @@ local defaults = {
     enabled = true,
     showSortButton = true,
     showSearchField = true,
+    showScrapIcon = false,
     sortOrder = "category",
     enableItemLocking = true,
     autoSortAfterLoot = false,

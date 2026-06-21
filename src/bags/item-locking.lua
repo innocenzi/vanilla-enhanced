@@ -2,7 +2,13 @@ local VanillaEnhanced = _G.VanillaEnhanced
 local Bags = VanillaEnhanced:GetModule("bags")
 
 local LOCK_ICON = "Interface\\Buttons\\LockButton-Locked-Up"
+local SCRAP_ICON = "Interface\\Buttons\\UI-GroupLoot-Coin-Up"
 local LOCK_SIZE = 25
+local SCRAP_ICON_SIZE = 17
+local SCRAP_ICON_OFFSET_X = 2
+local SCRAP_ICON_OFFSET_Y = 2
+local SCRAP_ICON_FALLBACK_OFFSET_X = -1
+local SCRAP_ICON_FALLBACK_OFFSET_Y = -1
 local MAX_CONTAINER_BUTTONS = 100
 local MODIFIER_REFRESH_INTERVAL = 0.05
 
@@ -158,6 +164,27 @@ local function EnsureLockOverlay(button)
     return overlay
 end
 
+local function EnsureScrapIconOverlay(button)
+    if button.VanillaEnhancedScrapIconOverlay then
+        return button.VanillaEnhancedScrapIconOverlay
+    end
+
+    local overlay = button:CreateTexture(nil, "OVERLAY")
+    overlay:SetTexture(SCRAP_ICON)
+    overlay:SetSize(SCRAP_ICON_SIZE, SCRAP_ICON_SIZE)
+    overlay:Hide()
+
+    local icon = GetItemButtonIcon(button)
+    if icon then
+        overlay:SetPoint("TOPRIGHT", icon, "TOPRIGHT", SCRAP_ICON_OFFSET_X, SCRAP_ICON_OFFSET_Y)
+    else
+        overlay:SetPoint("TOPRIGHT", button, "TOPRIGHT", SCRAP_ICON_FALLBACK_OFFSET_X, SCRAP_ICON_FALLBACK_OFFSET_Y)
+    end
+
+    button.VanillaEnhancedScrapIconOverlay = overlay
+    return overlay
+end
+
 local function PositionClickOverlay(overlay, button, levelOffset)
     overlay:ClearAllPoints()
     overlay:SetAllPoints(button)
@@ -182,6 +209,16 @@ end
 function Bags:IsItemLockingEnabled()
     local settings = self:GetSettings()
     return self:IsSortEnabled() and settings.enableItemLocking ~= false
+end
+
+function Bags:IsScrapIconEnabled()
+    local settings = self:GetSettings()
+    if not self:IsSortEnabled() or settings.showScrapIcon ~= true then
+        return false
+    end
+
+    local Merchants = VanillaEnhanced:GetModule("merchants")
+    return Merchants and Merchants.IsSellScrapsEnabled and Merchants:IsSellScrapsEnabled()
 end
 
 function Bags:PruneItemLocks()
@@ -257,6 +294,8 @@ function Bags:ToggleItemLock(bagID, slot)
 end
 
 function Bags:ClearItemLockOverlays()
+    self:ClearScrapIconOverlays()
+
     for button in pairs(self.itemLockOverlayButtons or {}) do
         if button.VanillaEnhancedItemLockOverlay then
             button.VanillaEnhancedItemLockOverlay:Hide()
@@ -269,6 +308,15 @@ function Bags:ClearItemLockOverlays()
             button.VanillaEnhancedItemLockClickOverlay:Hide()
         end
         self.itemLockClickOverlayButtons[button] = nil
+    end
+end
+
+function Bags:ClearScrapIconOverlays()
+    for button in pairs(self.scrapIconOverlayButtons or {}) do
+        if button.VanillaEnhancedScrapIconOverlay then
+            button.VanillaEnhancedScrapIconOverlay:Hide()
+        end
+        self.scrapIconOverlayButtons[button] = nil
     end
 end
 
@@ -319,15 +367,21 @@ function Bags:RefreshItemLockOverlays()
     self:ClearItemLockOverlays()
     self.itemLockOverlayButtons = self.itemLockOverlayButtons or {}
     self.itemLockClickOverlayButtons = self.itemLockClickOverlayButtons or {}
+    self.scrapIconOverlayButtons = self.scrapIconOverlayButtons or {}
 
-    if not self:IsItemLockingEnabled() then
+    local lockEnabled = self:IsItemLockingEnabled()
+    local scrapIconEnabled = self:IsScrapIconEnabled()
+    if not lockEnabled and not scrapIconEnabled then
         return
     end
 
-    self:PruneItemLocks()
+    if lockEnabled then
+        self:PruneItemLocks()
+    end
     local altDown = type(IsAltKeyDown) == "function" and IsAltKeyDown()
     local merchantOpen = IsMerchantOpen()
     local suppressClickOverlays = IsScrapMarkModeActive()
+    local Merchants = scrapIconEnabled and VanillaEnhanced:GetModule("merchants") or nil
 
     for frameIndex = 1, GetContainerFrameCount() do
         local frame = _G["ContainerFrame" .. frameIndex]
@@ -349,18 +403,30 @@ function Bags:RefreshItemLockOverlays()
                 local slot = button.GetID and button:GetID() or buttonIndex
                 local containerItem = IsShown(button) and self.Api and self.Api:GetContainerItemInfo(bagID, slot)
                 local hasItem = containerItem and (containerItem.hyperlink or containerItem.itemID or containerItem.iconFileID)
-                local locked = hasItem and self:IsItemLocked(bagID, slot)
+                local locked = lockEnabled and hasItem and self:IsItemLocked(bagID, slot)
                 if locked then
                     local overlay = EnsureLockOverlay(button)
                     overlay:Show()
                     self.itemLockOverlayButtons[button] = true
                 end
-                if hasItem and not suppressClickOverlays and (altDown or (merchantOpen and locked)) then
+                if scrapIconEnabled and hasItem and Merchants and Merchants.Api and Merchants.Api.ReadContainerItem then
+                    local itemContext = Merchants.Api:ReadContainerItem(bagID, slot)
+                    if itemContext and Merchants.IsScrapItem and Merchants:IsScrapItem(itemContext) then
+                        local overlay = EnsureScrapIconOverlay(button)
+                        overlay:Show()
+                        self.scrapIconOverlayButtons[button] = true
+                    end
+                end
+                if lockEnabled and hasItem and not suppressClickOverlays and (altDown or (merchantOpen and locked)) then
                     self:EnsureItemLockClickOverlay(button)
                 end
             end
         end
     end
+end
+
+function Bags:RefreshScrapIconOverlays()
+    self:RefreshItemLockOverlays()
 end
 
 function Bags:HandleItemLockClick(button, mouseButton)
