@@ -982,6 +982,54 @@ local questsPanel = BuildOptionsPanel({
             helpKey = "options.quests.showCompletedTooltipObjectives.help",
             indent = 0,
         },
+        {
+            type = "dropdown",
+            name = "VanillaEnhancedOptionsQuestsAutoFollowQuestsMode",
+            settingKey = "autoFollowQuestsMode",
+            labelKey = "options.quests.autoFollowQuestsMode.label",
+            helpKey = "options.quests.autoFollowQuestsMode.help",
+            indent = 0,
+            width = 210,
+            options = {
+                { value = "disabled", labelKey = "options.quests.autoFollowQuestsMode.disabled" },
+                { value = "movement", labelKey = "options.quests.autoFollowQuestsMode.movement" },
+                { value = "zone", labelKey = "options.quests.autoFollowQuestsMode.zone" },
+            },
+        },
+        {
+            type = "dropdown",
+            name = "VanillaEnhancedOptionsQuestsAutoFollowQuestsBehavior",
+            settingKey = "autoFollowQuestsBehavior",
+            labelKey = "options.quests.autoFollowQuestsBehavior.label",
+            helpKey = "options.quests.autoFollowQuestsBehavior.help",
+            enabledWhen = function()
+                return GetModuleOptionSettings("quests").autoFollowQuestsMode ~= "disabled"
+            end,
+            indent = 1,
+            width = 220,
+            options = {
+                { value = "replace-distant", labelKey = "options.quests.autoFollowQuestsBehavior.replaceDistant" },
+                { value = "auto-only", labelKey = "options.quests.autoFollowQuestsBehavior.autoOnly" },
+                { value = "fill-empty", labelKey = "options.quests.autoFollowQuestsBehavior.fillEmpty" },
+            },
+        },
+        {
+            type = "dropdown",
+            name = "VanillaEnhancedOptionsQuestsAutoFollowQuestsRange",
+            settingKey = "autoFollowQuestsRange",
+            labelKey = "options.quests.autoFollowQuestsRange.label",
+            helpKey = "options.quests.autoFollowQuestsRange.help",
+            enabledWhen = function()
+                return GetModuleOptionSettings("quests").autoFollowQuestsMode ~= "disabled"
+            end,
+            indent = 1,
+            width = 180,
+            options = {
+                { value = "close", labelKey = "options.quests.autoFollowQuestsRange.close" },
+                { value = "nearby", labelKey = "options.quests.autoFollowQuestsRange.nearby" },
+                { value = "wide", labelKey = "options.quests.autoFollowQuestsRange.wide" },
+            },
+        },
     },
 })
 
