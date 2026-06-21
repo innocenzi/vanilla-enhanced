@@ -30,25 +30,6 @@ local function T(key, vars)
     return VanillaEnhanced:T(key, vars)
 end
 
-local function LocalizedSortReason(reason)
-    if reason == "open" then
-        return T("bags.sort.reasonOpen")
-    end
-    if reason == "loot" then
-        return T("bags.sort.reasonLoot")
-    end
-    if reason == "merchant" then
-        return T("bags.sort.reasonMerchant")
-    end
-    return reason or T("bags.sort.reasonTrigger")
-end
-
-local function DebugSort(message)
-    if Bags.debugSorting then
-        Bags:PrintMessage(T("bags.sort.debugPrefix", { message = message }))
-    end
-end
-
 local function GetItemID(link)
     if type(link) ~= "string" then
         return 0
@@ -488,9 +469,6 @@ function Bags:QueueAutoSort(reason)
         frame:SetScript("OnUpdate", nil)
         if not Bags.sorting and Bags:IsSortEnabled() then
             local reason = Bags.pendingAutoSortReason
-            DebugSort(T("bags.sort.debugAutoSort", {
-                reason = LocalizedSortReason(reason),
-            }))
             Bags.pendingAutoSortReason = nil
             Bags:SortItems(true, GetAutoSortStrategy(reason))
         end
@@ -593,13 +571,6 @@ function Bags:MoveItem(sourceSlot, targetSlot)
         return false, T("bags.lock.cannotMove")
     end
 
-    DebugSort(T("bags.sort.debugMove", {
-        sourceBag = sourceSlot.bagID,
-        sourceSlot = sourceSlot.slot,
-        targetBag = targetSlot.bagID,
-        targetSlot = targetSlot.slot,
-    }))
-
     local ok = pcall(self.Api.PickupContainerItem, self.Api, sourceSlot.bagID, sourceSlot.slot)
     if not ok then
         return false, T("bags.sort.errorPickup")
@@ -652,7 +623,6 @@ function Bags:WaitForLockedSlot(lockInfo)
         self.lockWaitStarted = now
         self.lockWaitBagID = lockInfo.bagID
         self.lockWaitSlot = lockInfo.slot
-        DebugSort(T("bags.sort.debugWaitLocked", { bag = lockInfo.bagID, slot = lockInfo.slot }))
     elseif now - self.lockWaitStarted >= LOCK_RETRY_TIMEOUT then
         IgnoreSortSlot(lockInfo.bagID, lockInfo.slot)
         self.lockWaitStarted = nil
@@ -661,7 +631,6 @@ function Bags:WaitForLockedSlot(lockInfo)
         self.sortGroups = nil
         self.pendingSortMove = nil
         self.pendingSortMoveStarted = nil
-        DebugSort(T("bags.sort.debugIgnoreLocked", { bag = lockInfo.bagID, slot = lockInfo.slot }))
         self:ContinueManualSort()
         return
     end
