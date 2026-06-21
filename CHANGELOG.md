@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.3.0 - 2026-06-21
+## 0.3.1 - 2026-06-21
 
 
 ### Features
@@ -35,6 +35,9 @@
 - Add bag search field
 - Support automatic bag opening
 - Add language switcher
+- Dim minimap markers on other floors
+- Add option to show scrap icon on items
+- Add scrap mark controls
 
 
 ### Fixes
@@ -53,6 +56,8 @@
 - Prevent item right click from no longer working
 - Properly item-drop objective zones
 - Remove circle around named npc objectives
+- Close bags if they were not opened before opening character sheet/merchant window
+- Make locked slot persistence more reliable
 
 
 ### Performance
