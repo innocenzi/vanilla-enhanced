@@ -97,6 +97,9 @@ function Merchants:TryHookMerchantFrame()
         end)
         MerchantFrame:HookScript("OnHide", function()
             if not Merchants:IsMerchantOpen() then
+                if Merchants.buttonContainer then
+                    Merchants.buttonContainer:Hide()
+                end
                 if Merchants.sellButton then
                     Merchants.sellButton:Hide()
                 end
@@ -168,6 +171,9 @@ function Merchants:CloseMerchant()
     self.refreshRemaining = 0
     refreshFrame:SetScript("OnUpdate", nil)
     self:ClearScrapHighlights()
+    if self.buttonContainer then
+        self.buttonContainer:Hide()
+    end
     if self.sellButton then
         self.sellButton:Hide()
     end
@@ -183,6 +189,9 @@ function Merchants:SetEnabled(enabled)
     else
         self:SetScrapMarkMode(false)
         self:ClearScrapHighlights()
+        if self.buttonContainer then
+            self.buttonContainer:Hide()
+        end
         if self.sellButton then
             self.sellButton:Hide()
         end

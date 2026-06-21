@@ -3,8 +3,15 @@ local Merchants = VanillaEnhanced:GetModule("merchants")
 
 local AUTO_SELL_LIMIT = 12
 local BUTTON_SIZE = 24
-local BUTTON_SPACING = 4
+local BUTTON_SPACING = 1
+local BUTTON_PADDING = 5
+local WINDOW_BUTTON_OFFSET_X = 0
+local WINDOW_BUTTON_OFFSET_Y = -2
 local SELL_SCRAPS_ICON = "Interface\\Icons\\INV_Misc_Coin_02"
+local CONTAINER_WIDTH = (BUTTON_SIZE * 2) + BUTTON_SPACING + (BUTTON_PADDING * 2)
+local CONTAINER_HEIGHT = BUTTON_SIZE + (BUTTON_PADDING * 2)
+local CONTAINER_BACKGROUND = "Interface\\DialogFrame\\UI-DialogBox-Background"
+local CONTAINER_BORDER = "Interface\\Tooltips\\UI-Tooltip-Border"
 
 local function T(key, vars)
     return VanillaEnhanced:T(key, vars)
@@ -34,6 +41,69 @@ local function ConfigureSellButton(button)
     if button.SetHighlightTexture then
         button:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
     end
+end
+
+local function ConfigureButtonContainer(container)
+    container:SetSize(CONTAINER_WIDTH, CONTAINER_HEIGHT)
+    if container.SetBackdrop then
+        container:SetBackdrop({
+            bgFile = CONTAINER_BACKGROUND,
+            edgeFile = CONTAINER_BORDER,
+            tile = true,
+            tileSize = 16,
+            edgeSize = 16,
+            insets = {
+                left = 5,
+                right = 5,
+                top = 5,
+                bottom = 5,
+            },
+        })
+        container:SetBackdropColor(0.20, 0.20, 0.20, 0.95)
+        container:SetBackdropBorderColor(0.55, 0.55, 0.55, 1)
+    else
+        local background = container:CreateTexture(nil, "BACKGROUND")
+        background:SetTexture(CONTAINER_BACKGROUND)
+        background:SetTexCoord(0.12, 0.88, 0.12, 0.88)
+        background:SetAllPoints(container)
+        container.background = background
+
+        local top = container:CreateTexture(nil, "BORDER")
+        top:SetTexture("Interface\\Buttons\\WHITE8X8")
+        top:SetVertexColor(0.58, 0.58, 0.58, 1)
+        top:SetPoint("TOPLEFT", container, "TOPLEFT", 1, -1)
+        top:SetPoint("TOPRIGHT", container, "TOPRIGHT", -1, -1)
+        top:SetHeight(2)
+
+        local bottom = container:CreateTexture(nil, "BORDER")
+        bottom:SetTexture("Interface\\Buttons\\WHITE8X8")
+        bottom:SetVertexColor(0.18, 0.16, 0.14, 1)
+        bottom:SetPoint("BOTTOMLEFT", container, "BOTTOMLEFT", 1, 1)
+        bottom:SetPoint("BOTTOMRIGHT", container, "BOTTOMRIGHT", -1, 1)
+        bottom:SetHeight(2)
+
+        local left = container:CreateTexture(nil, "BORDER")
+        left:SetTexture("Interface\\Buttons\\WHITE8X8")
+        left:SetVertexColor(0.58, 0.58, 0.58, 1)
+        left:SetPoint("TOPLEFT", container, "TOPLEFT", 1, -1)
+        left:SetPoint("BOTTOMLEFT", container, "BOTTOMLEFT", 1, 1)
+        left:SetWidth(2)
+
+        local right = container:CreateTexture(nil, "BORDER")
+        right:SetTexture("Interface\\Buttons\\WHITE8X8")
+        right:SetVertexColor(0.18, 0.16, 0.14, 1)
+        right:SetPoint("TOPRIGHT", container, "TOPRIGHT", -1, -1)
+        right:SetPoint("BOTTOMRIGHT", container, "BOTTOMRIGHT", -1, 1)
+        right:SetWidth(2)
+    end
+end
+
+local function CreateButtonContainer()
+    local ok, container = pcall(CreateFrame, "Frame", "VanillaEnhancedMerchantsButtonContainer", UIParent, "BackdropTemplate")
+    if ok and container then
+        return container
+    end
+    return CreateFrame("Frame", "VanillaEnhancedMerchantsButtonContainer", UIParent)
 end
 
 local function ShowSellTooltip(button)
@@ -140,14 +210,30 @@ function Merchants:UpdateSellButtonState(report)
     end
 end
 
+function Merchants:EnsureButtonContainer()
+    if self.buttonContainer then
+        return self.buttonContainer
+    end
+
+    local container = CreateButtonContainer()
+    ConfigureButtonContainer(container)
+    container:SetFrameStrata("HIGH")
+    container:Hide()
+
+    self.buttonContainer = container
+    return container
+end
+
 function Merchants:EnsureButton()
+    self:EnsureButtonContainer()
     if self.sellButton and self.markButton then
         return self.button
     end
 
+    local container = self.buttonContainer
     local sellButton = self.sellButton
     if not sellButton then
-        sellButton = CreateFrame("Button", "VanillaEnhancedMerchantsSellScrapsButton", UIParent, "UIPanelButtonTemplate")
+        sellButton = CreateFrame("Button", "VanillaEnhancedMerchantsSellScrapsButton", container, "UIPanelButtonTemplate")
         ConfigureSellButton(sellButton)
         sellButton:SetFrameStrata("HIGH")
         sellButton:Hide()
@@ -168,52 +254,54 @@ end
 
 function Merchants:AnchorButton()
     self:EnsureButton()
+    local container = self.buttonContainer
     local sellButton = self.sellButton
     local markButton = self.markButton
+    container:ClearAllPoints()
     sellButton:ClearAllPoints()
     markButton:ClearAllPoints()
 
     if MerchantFrame then
-        sellButton:SetParent(MerchantFrame)
-        markButton:SetParent(MerchantFrame)
-        sellButton:SetFrameStrata(MerchantFrame:GetFrameStrata() or "HIGH")
-        markButton:SetFrameStrata(MerchantFrame:GetFrameStrata() or "HIGH")
-        sellButton:SetFrameLevel((MerchantFrame:GetFrameLevel() or 0) + 50)
-        markButton:SetFrameLevel((MerchantFrame:GetFrameLevel() or 0) + 50)
+        container:SetParent(MerchantFrame)
+        container:SetFrameStrata(MerchantFrame:GetFrameStrata() or "HIGH")
+        container:SetFrameLevel((MerchantFrame:GetFrameLevel() or 0) + 50)
     else
-        sellButton:SetParent(UIParent)
-        markButton:SetParent(UIParent)
-        sellButton:SetFrameStrata("HIGH")
-        markButton:SetFrameStrata("HIGH")
-        sellButton:SetFrameLevel(100)
-        markButton:SetFrameLevel(100)
+        container:SetParent(UIParent)
+        container:SetFrameStrata("HIGH")
+        container:SetFrameLevel(100)
+    end
+    sellButton:SetParent(container)
+    markButton:SetParent(container)
+    sellButton:SetFrameLevel((container:GetFrameLevel() or 0) + 1)
+    markButton:SetFrameLevel((container:GetFrameLevel() or 0) + 1)
+
+    if MerchantFrame then
+        container:SetPoint("TOPRIGHT", MerchantFrame, "BOTTOMRIGHT", WINDOW_BUTTON_OFFSET_X, WINDOW_BUTTON_OFFSET_Y)
+    else
+        container:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
     end
 
-    if MerchantFrameCloseButton then
-        sellButton:SetPoint("TOPRIGHT", MerchantFrameCloseButton, "BOTTOMRIGHT", -10, 4)
-    elseif MerchantFrame then
-        sellButton:SetPoint("TOPRIGHT", MerchantFrame, "TOPRIGHT", -16, -24)
-    else
-        sellButton:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
-    end
-
-    markButton:SetPoint("RIGHT", sellButton, "LEFT", -BUTTON_SPACING, 0)
+    markButton:SetPoint("LEFT", container, "LEFT", BUTTON_PADDING, 0)
+    sellButton:SetPoint("LEFT", markButton, "RIGHT", BUTTON_SPACING, 0)
 end
 
 function Merchants:UpdateButton()
     self:EnsureButton()
+    local container = self.buttonContainer
     local sellButton = self.sellButton
     local markButton = self.markButton
 
     if not self:IsMerchantOpen() or not self:IsSellScrapsEnabled() or not MerchantFrame then
         self:SetScrapMarkMode(false)
         self:ClearScrapHighlights()
+        container:Hide()
         sellButton:Hide()
         markButton:Hide()
         return
     end
 
     self:AnchorButton()
+    container:Show()
     sellButton:Show()
     markButton:Show()
     self:UpdateScrapMarkButtonState()

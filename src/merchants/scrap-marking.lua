@@ -4,7 +4,7 @@ local Merchants = VanillaEnhanced:GetModule("merchants")
 local BUTTON_SIZE = 24
 local HIGHLIGHT_INSET = 2
 local HIGHLIGHT_MAX_BUTTONS = 100
-local MARK_SCRAPS_ICON = "Interface\\Icons\\INV_Misc_QuestionMark"
+local MARK_SCRAPS_ICON = "Interface\\Icons\\INV_Misc_Wrench_01"
 
 local cursorFrame = CreateFrame("Frame")
 
