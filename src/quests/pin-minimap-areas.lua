@@ -455,9 +455,8 @@ local function ConfigureMinimapArea(frame, uiMapId, cluster)
     end
 
     frame.questsPassThroughClicks = true
-    frame:EnableMouse(true)
-    if frame.SetPropagateMouseClicks then
-        frame:SetPropagateMouseClicks(true)
+    if Quests.SetPinFramePropagateMouseClicks then
+        Quests:SetPinFramePropagateMouseClicks(frame, true)
     end
 end
 

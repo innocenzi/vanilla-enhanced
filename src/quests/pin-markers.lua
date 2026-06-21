@@ -54,11 +54,8 @@ end
 local function SetMarkerPassThroughClicks(frame, passThrough)
     frame.questsPassThroughClicks = passThrough == true
 
-    if frame.SetPropagateMouseClicks then
-        frame:EnableMouse(true)
-        frame:SetPropagateMouseClicks(passThrough == true)
-    else
-        frame:EnableMouse(passThrough ~= true)
+    if Quests.SetPinFramePropagateMouseClicks then
+        Quests:SetPinFramePropagateMouseClicks(frame, passThrough == true)
     end
 end
 

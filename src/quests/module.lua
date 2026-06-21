@@ -355,6 +355,7 @@ RegisterEventIfAvailable(eventFrame, "QUEST_LOG_UPDATE")
 RegisterEventIfAvailable(eventFrame, "QUEST_TURNED_IN")
 RegisterEventIfAvailable(eventFrame, "PLAYER_LEVEL_UP")
 RegisterEventIfAvailable(eventFrame, "PLAYER_STOPPED_MOVING")
+RegisterEventIfAvailable(eventFrame, "PLAYER_REGEN_ENABLED")
 RegisterEventIfAvailable(eventFrame, "ZONE_CHANGED_NEW_AREA")
 RegisterEventIfAvailable(eventFrame, "MINIMAP_UPDATE_ZOOM")
 RegisterEventIfAvailable(eventFrame, "UPDATE_FACTION")
@@ -372,6 +373,10 @@ eventFrame:SetScript("OnEvent", function(_, event, loadedAddonName)
         InvalidateRefreshCaches(event)
         Quests:HookQuestLogWithMapFrames()
         Quests:QueueRefresh()
+    elseif event == "PLAYER_REGEN_ENABLED" then
+        if Quests.RunPendingRefreshAfterCombat then
+            Quests:RunPendingRefreshAfterCombat()
+        end
     elseif event == "PLAYER_STOPPED_MOVING" then
         if Quests.IsQuestMapFogFilterEnabled and Quests:IsQuestMapFogFilterEnabled() then
             Quests:QueueRefresh()

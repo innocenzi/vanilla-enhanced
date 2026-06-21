@@ -23,6 +23,36 @@ Quests.pool.marker = Quests.pool.marker or {}
 Quests.pool.minimapArea = Quests.pool.minimapArea or {}
 Quests.pool.minimapMarker = Quests.pool.minimapMarker or {}
 
+local function IsInCombatLockdown()
+    return InCombatLockdown and InCombatLockdown()
+end
+
+function Quests:SetPinFramePropagateMouseClicks(frame, propagate)
+    if not frame then
+        return false
+    end
+
+    local shouldPropagate = propagate == true
+
+    if frame.SetPropagateMouseClicks then
+        frame:EnableMouse(true)
+        if frame.questsPropagateMouseClicks == shouldPropagate then
+            return true
+        end
+        if IsInCombatLockdown() then
+            return false
+        end
+
+        frame:SetPropagateMouseClicks(shouldPropagate)
+        frame.questsPropagateMouseClicks = shouldPropagate
+        return true
+    end
+
+    frame:EnableMouse(not shouldPropagate)
+    frame.questsPropagateMouseClicks = shouldPropagate
+    return true
+end
+
 local function ResetPinFrame(frame)
     frame.questsData = nil
     frame.questsAreaFrame = nil
@@ -40,9 +70,7 @@ local function ResetPinFrame(frame)
     frame:SetAlpha(1)
     frame:EnableMouse(true)
     frame:SetScript("OnUpdate", nil)
-    if frame.SetPropagateMouseClicks then
-        frame:SetPropagateMouseClicks(false)
-    end
+    Quests:SetPinFramePropagateMouseClicks(frame, false)
 end
 
 local function ReleasePinFrame(self, frame)
@@ -110,6 +138,7 @@ function Quests:AcquirePinFrame(kind, poolKind, parent)
     frame = CreateFrame("Button", nil, parent)
     frame.kind = kind
     frame.poolKind = poolKind
+    frame.questsPropagateMouseClicks = false
     frame.background = frame:CreateTexture(nil, "ARTWORK")
     frame.background:Hide()
     frame.texture = frame:CreateTexture(nil, kind == "area" and "ARTWORK" or "OVERLAY")
@@ -251,11 +280,23 @@ function Quests:SetPinMarkerHighlighted(frame, highlighted)
 end
 
 function Quests:ClearPins()
+    if IsInCombatLockdown() then
+        self.refreshAfterCombat = true
+        return
+    end
+
     self:ClearWorldMapPins()
     self:ClearMinimapPins()
 end
 
 function Quests:ClearWorldMapPins()
+    if IsInCombatLockdown() then
+        if not self.refreshAfterCombat then
+            self.refreshWorldMapAfterCombat = true
+        end
+        return
+    end
+
     if self.hbdPins then
         if self.hbdPins.RemoveAllWorldMapIcons then
             self.hbdPins:RemoveAllWorldMapIcons(self)
@@ -272,6 +313,11 @@ function Quests:ClearWorldMapPins()
 end
 
 function Quests:ClearMinimapPins()
+    if IsInCombatLockdown() then
+        self.refreshAfterCombat = true
+        return
+    end
+
     if self.hbdPins then
         if self.hbdPins.RemoveAllMinimapIcons then
             self.hbdPins:RemoveAllMinimapIcons(self)

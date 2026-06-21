@@ -2,6 +2,12 @@ local VanillaEnhanced = _G.VanillaEnhanced
 local Quests = VanillaEnhanced:GetModule("quests")
 
 Quests.questSnapshotDirty = Quests.questSnapshotDirty ~= false
+Quests.refreshAfterCombat = Quests.refreshAfterCombat or false
+Quests.refreshWorldMapAfterCombat = Quests.refreshWorldMapAfterCombat or false
+
+local function IsInCombatLockdown()
+    return InCombatLockdown and InCombatLockdown()
+end
 
 function Quests:InvalidateQuestSnapshot()
     self.questSnapshotDirty = true
@@ -46,6 +52,13 @@ end
 
 function Quests:Refresh()
     self.refreshQueued = false
+
+    if IsInCombatLockdown() then
+        self.refreshAfterCombat = true
+        return
+    end
+    self.refreshAfterCombat = false
+    self.refreshWorldMapAfterCombat = false
 
     local settings = self:GetSettings()
     self:ClearPins()
@@ -94,6 +107,14 @@ function Quests:Refresh()
 end
 
 function Quests:RefreshWorldMapPins()
+    if IsInCombatLockdown() then
+        if not self.refreshAfterCombat then
+            self.refreshWorldMapAfterCombat = true
+        end
+        return
+    end
+    self.refreshWorldMapAfterCombat = false
+
     local settings = self:GetSettings()
     self:ClearWorldMapPins()
     if self.ClearMapExplorationCache then
@@ -115,6 +136,10 @@ function Quests:QueueRefresh()
     if self.refreshQueued then
         return
     end
+    if IsInCombatLockdown() then
+        self.refreshAfterCombat = true
+        return
+    end
     self.refreshQueued = true
     if C_Timer and C_Timer.After then
         C_Timer.After(0.15, function()
@@ -124,4 +149,18 @@ function Quests:QueueRefresh()
     end
 
     self:Refresh()
+end
+
+function Quests:RunPendingRefreshAfterCombat()
+    if self.refreshAfterCombat then
+        self.refreshAfterCombat = false
+        self.refreshWorldMapAfterCombat = false
+        self:QueueRefresh()
+        return
+    end
+
+    if self.refreshWorldMapAfterCombat then
+        self.refreshWorldMapAfterCombat = false
+        self:RefreshWorldMapPins()
+    end
 end
