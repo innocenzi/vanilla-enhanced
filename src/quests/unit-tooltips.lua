@@ -36,7 +36,39 @@ local function GetProgressText(objective)
     return nil
 end
 
-local function BuildTooltipEntry(quest, dbQuest, cluster)
+local function FormatDropText(rate)
+    rate = tonumber(rate)
+    if not rate then
+        return nil
+    end
+
+    if rate >= 10 then
+        return string.format("%.0f", rate)
+    elseif rate >= 2 then
+        return string.format("%.1f", rate)
+    elseif rate >= 0.01 then
+        return string.format("%.2f", rate)
+    end
+    return string.format("%.3f", rate)
+end
+
+local function GetDropRateText(cluster, npcId)
+    if cluster.k ~= "loot" or not cluster.dr or not npcId then
+        return ""
+    end
+
+    for _, entry in ipairs(cluster.dr) do
+        if entry[1] == npcId then
+            local rate = FormatDropText(entry[2])
+            if rate then
+                return " |cFF999999[" .. rate .. "%]|r"
+            end
+        end
+    end
+    return ""
+end
+
+local function BuildTooltipEntry(quest, dbQuest, cluster, npcId)
     local title = Quests:GetLocalizedQuestTitle(quest, quest.id, dbQuest and dbQuest.t or quest.title)
     local objectives = Quests:GetLocalizedObjectives(quest, cluster)
     local objective = objectives and objectives[1]
@@ -44,12 +76,13 @@ local function BuildTooltipEntry(quest, dbQuest, cluster)
     if cluster.k == "slay" or cluster.k == "loot" then
         local sourceName = Quests:GetLocalizedSourceName(cluster)
         local progress = GetProgressText(objective)
+        local dropRateText = GetDropRateText(cluster, npcId)
         local detail
 
         if progress and sourceName and sourceName ~= "" then
-            detail = "- " .. progress .. " " .. sourceName
+            detail = "- " .. progress .. " " .. sourceName .. dropRateText
         elseif objective and objective ~= "" then
-            detail = "- " .. objective
+            detail = "- " .. objective .. dropRateText
         end
 
         return {
@@ -74,7 +107,7 @@ local function AddEntry(index, quest, dbQuest, cluster, npcId)
     end
 
     index[npcId] = index[npcId] or {}
-    local entry = BuildTooltipEntry(quest, dbQuest, cluster)
+    local entry = BuildTooltipEntry(quest, dbQuest, cluster, npcId)
     local key = quest.id .. ":" .. tostring(cluster.oi or cluster.k or cluster.o or entry.title)
 
     if not index[npcId][key] then

@@ -252,6 +252,7 @@ local QuestieCorrections = QuestieLoader:ImportModule("QuestieCorrections")
 local QuestieQuestBlacklist = QuestieLoader:ImportModule("QuestieQuestBlacklist")
 local ZoneDB = QuestieLoader:ImportModule("ZoneDB")
 local l10n = QuestieLoader:ImportModule("l10n")
+local DropDB = QuestieLoader:ImportModule("DropDB")
 
 QuestieDB.npcData = assert(loadstring(QuestieDB.npcData))()
 QuestieDB.objectData = assert(loadstring(QuestieDB.objectData))()
@@ -290,6 +291,31 @@ local parent_area = overlay(
     load_private_table(ZoneDB, "subZoneToParentZoneOverride")
 )
 
+DropDB:Initialize()
+
+local function collect_item_drop_rates()
+    local rates = {}
+    local npc_drops_key = QuestieDB.itemKeys.npcDrops
+
+    for item_id, item in pairs(QuestieDB.itemData or {}) do
+        local npc_drops = type(item) == "table" and item[npc_drops_key] or nil
+        if type(npc_drops) == "table" then
+            for _, npc_id in pairs(npc_drops) do
+                if type(npc_id) == "number" then
+                    local drop_rate_data = QuestieDB.GetItemDroprate(item_id, npc_id)
+                    local drop_rate = type(drop_rate_data) == "table" and drop_rate_data[1] or nil
+                    if type(drop_rate) == "number" then
+                        rates[item_id] = rates[item_id] or {}
+                        rates[item_id][npc_id] = drop_rate
+                    end
+                end
+            end
+        end
+    end
+
+    return rates
+end
+
 local normalized = {
     meta = {
         source = "Questie",
@@ -317,6 +343,9 @@ local normalized = {
         npcs = QuestieDB.npcData,
         objects = QuestieDB.objectData,
         items = QuestieDB.itemData,
+    },
+    dropRates = {
+        items = collect_item_drop_rates(),
     },
     locale = {
         quests = materialize_lookup(l10n.questLookup[locale]),

@@ -13,9 +13,12 @@ type Point = {
   sourceType?: SourceType;
   sourceId?: number;
   tooltipNpcId?: number;
+  dropRate?: number;
   objectiveIndex?: number;
   split: boolean;
 };
+
+type DropRatePair = [number, number];
 
 export type Cluster = {
   x: number;
@@ -27,6 +30,7 @@ export type Cluster = {
   st?: SourceType;
   sid?: number;
   n?: number[];
+  dr?: DropRatePair[];
   oi?: number;
   p?: OutlinePoint[];
 };
@@ -103,6 +107,9 @@ export type NormalizedQuestieDb = {
     npcs: Record<string, JsonValue>;
     objects: Record<string, JsonValue>;
     items: Record<string, JsonValue>;
+  };
+  dropRates?: {
+    items?: Record<string, JsonValue>;
   };
   locale?: {
     quests?: Record<string, JsonValue>;
@@ -248,6 +255,7 @@ function addSpawns(
   sourceType: SourceType | undefined,
   sourceId: number | undefined,
   tooltipNpcId: number | undefined,
+  dropRate: number | undefined,
   objectiveIndex: number | undefined,
   split: boolean,
   db: NormalizedQuestieDb,
@@ -292,6 +300,7 @@ function addSpawns(
         sourceType,
         sourceId,
         tooltipNpcId,
+        dropRate,
         objectiveIndex,
         split,
       });
@@ -320,6 +329,7 @@ function resolveNpc(
   sourceType: SourceType = "npc",
   sourceId: number = npcId,
   tooltipNpcId?: number,
+  dropRate?: number,
 ): void {
   if (!npcId) return;
   const npc = getMapRecord(db.data.npcs, npcId);
@@ -336,6 +346,7 @@ function resolveNpc(
     sourceType,
     sourceId,
     tooltipNpcId,
+    dropRate,
     objectiveIndex,
     split,
     db,
@@ -374,6 +385,7 @@ function resolveObject(
     sourceType,
     sourceId,
     undefined,
+    undefined,
     objectiveIndex,
     split,
     db,
@@ -381,6 +393,12 @@ function resolveObject(
     `Object ${objectId}`,
     allowUnmappedAreaIds,
   );
+}
+
+function getItemNpcDropRate(db: NormalizedQuestieDb, itemId: number, npcId: number): number | undefined {
+  const itemRates = asRecord(db.dropRates?.items?.[String(itemId)]);
+  const rate = itemRates?.[String(npcId)];
+  return typeof rate === "number" && Number.isFinite(rate) ? rate : undefined;
 }
 
 function resolveItem(
@@ -406,7 +424,8 @@ function resolveItem(
 
   for (const npcId of values(byKey(item, db.keys.items, "npcDrops"))) {
     const sourceNpcId = int(npcId);
-    resolveNpc(points, sourceNpcId, itemLabel, db, errors, allowUnmappedAreaIds, itemGroup, "loot", objectiveIndex, false, "item", itemId, sourceNpcId);
+    const dropRate = getItemNpcDropRate(db, itemId, sourceNpcId);
+    resolveNpc(points, sourceNpcId, itemLabel, db, errors, allowUnmappedAreaIds, itemGroup, "loot", objectiveIndex, false, "item", itemId, sourceNpcId, dropRate);
   }
   for (const objectId of values(byKey(item, db.keys.items, "objectDrops"))) {
     resolveObject(points, int(objectId), itemLabel, db, errors, allowUnmappedAreaIds, itemGroup, "object", objectiveIndex, false, "item", itemId);
@@ -466,6 +485,7 @@ function collectPoints(
       undefined,
       undefined,
       undefined,
+      undefined,
       true,
       db,
       errors,
@@ -485,6 +505,7 @@ function collectPoints(
       text(at(extraValue, EXTRA_OBJECTIVE.text)),
       `extra:${text(at(extraValue, EXTRA_OBJECTIVE.text))}`,
       "event",
+      undefined,
       undefined,
       undefined,
       undefined,
@@ -665,6 +686,7 @@ function buildCluster(group: Point[]): Cluster {
   const radius = Math.max(...group.map((point) => Math.hypot(point.x - x, point.y - y)), 0);
   const label = group.find((point) => point.label)?.label ?? "Objective";
   const tooltipNpcIds = [...new Set(group.map((point) => point.tooltipNpcId).filter((id): id is number => !!id))].sort((a, b) => a - b);
+  const dropRates = buildClusterDropRates(group);
   return {
     x: Number(x.toFixed(2)),
     y: Number(y.toFixed(2)),
@@ -675,9 +697,20 @@ function buildCluster(group: Point[]): Cluster {
     st: group[0].sourceType,
     sid: group[0].sourceId,
     n: tooltipNpcIds.length ? tooltipNpcIds : undefined,
+    dr: dropRates,
     oi: group[0].objectiveIndex,
     p: buildOutline(group),
   };
+}
+
+function buildClusterDropRates(group: Point[]): DropRatePair[] | undefined {
+  const byNpc = new Map<number, number>();
+  for (const point of group) {
+    if (!point.tooltipNpcId || point.dropRate === undefined) continue;
+    byNpc.set(point.tooltipNpcId, Number(point.dropRate.toFixed(3)));
+  }
+  const pairs = [...byNpc.entries()].sort((a, b) => a[0] - b[0]);
+  return pairs.length ? pairs : undefined;
 }
 
 function buildOutline(group: Point[]): OutlinePoint[] | undefined {
@@ -762,6 +795,7 @@ function formatCluster(c: Cluster): string {
   if (c.st) fields.push(`st = ${luaString(c.st)}`);
   if (c.sid) fields.push(`sid = ${c.sid}`);
   if (c.n?.length) fields.push(`n = {${c.n.join(",")}}`);
+  if (c.dr?.length) fields.push(`dr = {${c.dr.map(([npcId, rate]) => `{${npcId},${rate}}`).join(",")}}`);
   if (c.oi) fields.push(`oi = ${c.oi}`);
   if (c.p) fields.push(`p = {${c.p.map((point) => `{${point.x.toFixed(2)},${point.y.toFixed(2)}}`).join(",")}}`);
   return `{ ${fields.join(", ")} }`;

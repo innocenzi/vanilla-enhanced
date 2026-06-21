@@ -93,6 +93,12 @@ function fixture(): NormalizedQuestieDb {
         "202": ["Relic", null, [301]],
       },
     },
+    dropRates: {
+      items: {
+        "201": { "102": 12.5, "999": 4.3 },
+        "202": { "102": 99 },
+      },
+    },
     locale: {
       quests: {
         "1": ["Quete tuer", ["Tuez des loups."]],
@@ -132,6 +138,8 @@ test("builds compact quests Lua from normalized Questie data", () => {
   expect(artifacts.locationLua).toContain('k = "available"');
   expect(artifacts.locationLua).toContain('k = "slay"');
   expect(artifacts.locationLua).toContain('k = "loot"');
+  expect(artifacts.locationLua).toContain('dr = {{102,12.5}}');
+  expect(artifacts.locationLua).not.toContain("999,4.3");
   expect(artifacts.locationLua).toContain('k = "object"');
   expect(artifacts.locationLua).toContain('k = "event"');
   expect(artifacts.locationLua).toContain('k = "turnin"');
@@ -139,6 +147,15 @@ test("builds compact quests Lua from normalized Questie data", () => {
   expect(artifacts.localeLua).toContain('[1] = { t = "Quete tuer"');
   expect(artifacts.localeLua).toContain('[101] = "Loup"');
   expect(artifacts.localeLua).not.toContain("Unused");
+});
+
+test("omits drop rate clusters when normalized data has no matching rate", () => {
+  const db = fixture();
+  delete db.dropRates;
+
+  const artifacts = buildQuestsArtifacts(db, { minQuestCount: 0 });
+
+  expect(artifacts.locationLua).not.toContain("dr =");
 });
 
 test("skips quests blacklisted by Questie", () => {
