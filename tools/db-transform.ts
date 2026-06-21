@@ -425,10 +425,10 @@ function resolveItem(
   for (const npcId of values(byKey(item, db.keys.items, "npcDrops"))) {
     const sourceNpcId = int(npcId);
     const dropRate = getItemNpcDropRate(db, itemId, sourceNpcId);
-    resolveNpc(points, sourceNpcId, itemLabel, db, errors, allowUnmappedAreaIds, itemGroup, "loot", objectiveIndex, false, "item", itemId, sourceNpcId, dropRate);
+    resolveNpc(points, sourceNpcId, itemLabel, db, errors, allowUnmappedAreaIds, itemGroup, "loot", objectiveIndex, true, "item", itemId, sourceNpcId, dropRate);
   }
   for (const objectId of values(byKey(item, db.keys.items, "objectDrops"))) {
-    resolveObject(points, int(objectId), itemLabel, db, errors, allowUnmappedAreaIds, itemGroup, "object", objectiveIndex, false, "item", itemId);
+    resolveObject(points, int(objectId), itemLabel, db, errors, allowUnmappedAreaIds, itemGroup, "object", objectiveIndex, true, "item", itemId);
   }
   for (const nestedItemId of values(byKey(item, db.keys.items, "itemDrops"))) {
     resolveItem(points, int(nestedItemId), itemLabel, db, errors, allowUnmappedAreaIds, objectiveIndex, seen);

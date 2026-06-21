@@ -80,6 +80,7 @@ function fixture(): NormalizedQuestieDb {
       npcs: {
         "101": ["Wolf", null, null, null, null, null, { "12": [[10, 10], [11, 11]] }],
         "102": ["Pelt Wolf", null, null, null, null, null, { "12": [[30, 30]] }],
+        "107": ["Far Pelt Wolf", null, null, null, null, null, { "12": [[80, 80], [81, 80]] }],
         "103": ["Captive A", null, null, null, null, null, { "12": [[40, 40]] }],
         "104": ["Captive B", null, null, null, null, null, { "12": [[41, 41]] }],
         "105": ["Quest Finisher", null, null, null, null, null, { "12": [[60, 60]] }],
@@ -89,13 +90,13 @@ function fixture(): NormalizedQuestieDb {
         "301": ["Crate", null, null, { "12": [[70, 70]] }],
       },
       items: {
-        "201": ["Wolf Pelt", [102], [301]],
+        "201": ["Wolf Pelt", [102, 107], [301]],
         "202": ["Relic", null, [301]],
       },
     },
     dropRates: {
       items: {
-        "201": { "102": 12.5, "999": 4.3 },
+        "201": { "102": 12.5, "107": 8, "999": 4.3 },
         "202": { "102": 99 },
       },
     },
@@ -156,6 +157,13 @@ test("omits drop rate clusters when normalized data has no matching rate", () =>
   const artifacts = buildQuestsArtifacts(db, { minQuestCount: 0 });
 
   expect(artifacts.locationLua).not.toContain("dr =");
+});
+
+test("spatially splits item drop clusters", () => {
+  const artifacts = buildQuestsArtifacts(fixture(), { minQuestCount: 0 });
+
+  expect(artifacts.locationLua).toContain('{ x = 30.00, y = 30.00, r = 0.00, c = 1, k = "loot", o = "Wolf pelt", st = "item", sid = 201, n = {102}, dr = {{102,12.5}}, oi = 1 }');
+  expect(artifacts.locationLua).toContain('{ x = 80.50, y = 80.00, r = 0.50, c = 2, k = "loot", o = "Wolf pelt", st = "item", sid = 201, n = {107}, dr = {{107,8}}, oi = 1 }');
 });
 
 test("skips quests blacklisted by Questie", () => {
