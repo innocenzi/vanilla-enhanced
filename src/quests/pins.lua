@@ -1,5 +1,9 @@
 local Quests = _G.VanillaEnhanced:GetModule("quests")
 
+local function HasAreaGeometry(cluster)
+    return (cluster.p and #cluster.p >= 3) or ((cluster.r or 0) > 0)
+end
+
 function Quests:AddPins(uiMapId, clusters, quest)
     local visibleClusters = {}
 
@@ -64,8 +68,7 @@ function Quests:AddMinimapPin(uiMapId, x, y, quest, cluster)
 
     local pinData = self:BuildQuestPinData(quest, cluster)
     if self:IsQuestObjectiveAreaKind(kind) then
-        local hasAreaGeometry = (cluster.p and #cluster.p >= 3) or (cluster.r and cluster.r > 0)
-        if hasAreaGeometry then
+        if HasAreaGeometry(cluster) then
             if self:GetSettings().showMinimapObjectiveAreas == false then
                 return
             end
@@ -105,7 +108,7 @@ function Quests:AddPin(uiMapId, x, y, quest, cluster)
     local pinData = self:BuildQuestPinData(quest, cluster)
     local area
 
-    if areaOnly or (cluster.r or 0) > 2 then
+    if HasAreaGeometry(cluster) and (areaOnly or (cluster.r or 0) > 2) then
         area = self:AcquirePinFrame("area", "area", WorldMapFrame)
         area.questsData = pinData
         area.questsHovered = false
