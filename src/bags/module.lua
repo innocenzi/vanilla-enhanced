@@ -296,9 +296,6 @@ eventFrame:SetScript("OnEvent", function(_, event, loadedAddonName)
     if Bags.InstallItemLockHooks then
         Bags:InstallItemLockHooks()
     end
-    if Bags.PruneItemLocks then
-        Bags:PruneItemLocks()
-    end
     Bags:HookBagFunctions()
     Bags:HookContainerFrames()
 

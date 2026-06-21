@@ -95,6 +95,22 @@ local function GetItemFingerprint(bagID, slot, itemContext)
     return nil, nil, nil
 end
 
+local function GetContainerSlotState(bagID, slot)
+    if not Bags.Api or not Bags.Api.GetContainerNumSlots then
+        return "unavailable"
+    end
+
+    local slotCount = Bags.Api:GetContainerNumSlots(bagID)
+    if type(slotCount) ~= "number" then
+        return "unavailable"
+    end
+    if slot > slotCount then
+        return "missing"
+    end
+
+    return "readable"
+end
+
 local function GetItemDisplayText(itemID, link)
     if link then
         return link
@@ -158,10 +174,11 @@ function Bags:PruneItemLocks()
 
     for slotKey, lock in pairs(locks) do
         local bagID, slot = ParseSlotKey(slotKey)
-        local fingerprint = bagID and slot and GetItemFingerprint(bagID, slot) or nil
+        local slotState = bagID and slot and GetContainerSlotState(bagID, slot) or "missing"
+        local fingerprint = slotState == "readable" and GetItemFingerprint(bagID, slot) or nil
         local lockFingerprint = type(lock) == "table" and lock.fingerprint or nil
 
-        if not fingerprint or fingerprint ~= lockFingerprint then
+        if slotState ~= "unavailable" and (not fingerprint or fingerprint ~= lockFingerprint) then
             locks[slotKey] = nil
             changed = true
         end
@@ -186,7 +203,9 @@ function Bags:IsItemLocked(bagID, slot, itemContext)
         return true
     end
 
-    locks[GetSlotKey(bagID, slot)] = nil
+    if GetContainerSlotState(bagID, slot) ~= "unavailable" then
+        locks[GetSlotKey(bagID, slot)] = nil
+    end
     return false
 end
 
