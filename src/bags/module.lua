@@ -21,6 +21,21 @@ local BAG_FUNCTIONS = {
 
 local updateFrame = CreateFrame("Frame")
 
+local SORT_BUTTON_WIDTH = 46
+local SORT_BUTTON_HEIGHT = 20
+local SORT_BUTTON_SPACING = 1
+local SORT_BUTTON_PADDING = 5
+local SORT_CONTAINER_OFFSET_X = 0
+local SORT_CONTAINER_OFFSET_Y = -8
+
+local SORT_BUTTON_CONTAINER_OPTIONS = {
+    buttonCount = 1,
+    buttonWidth = SORT_BUTTON_WIDTH,
+    buttonHeight = SORT_BUTTON_HEIGHT,
+    buttonSpacing = SORT_BUTTON_SPACING,
+    padding = SORT_BUTTON_PADDING,
+}
+
 local function T(key, vars)
     return VanillaEnhanced:T(key, vars)
 end
@@ -63,11 +78,6 @@ local function GetVisibleBagFrame()
     end
 end
 
-local function AnchorSortButton(button, bagFrame)
-    button:ClearAllPoints()
-    button:SetPoint("BOTTOMLEFT", bagFrame, "BOTTOMLEFT", 12, 9)
-end
-
 local function ShowTooltip(frame)
     if not GameTooltip then
         return
@@ -85,13 +95,36 @@ local function HideTooltip()
     end
 end
 
+local function GetBagMoneyFrame(bagFrame)
+    local frameName = bagFrame and bagFrame.GetName and bagFrame:GetName()
+    local moneyFrame = frameName and _G[frameName .. "MoneyFrame"] or nil
+    if moneyFrame then
+        return moneyFrame
+    end
+    return bagFrame
+end
+
+function Bags:EnsureButtonContainer()
+    if self.buttonContainer then
+        return self.buttonContainer
+    end
+
+    local container = VanillaEnhanced:CreateButtonContainer("VanillaEnhancedBagsButtonContainer", SORT_BUTTON_CONTAINER_OPTIONS)
+    container:SetFrameStrata("HIGH")
+    container:Hide()
+
+    self.buttonContainer = container
+    return container
+end
+
 function Bags:EnsureButton()
     if self.button then
         return self.button
     end
 
-    local button = CreateFrame("Button", "VanillaEnhancedBagsSortButton", UIParent, "UIPanelButtonTemplate")
-    button:SetSize(46, 20)
+    local container = self:EnsureButtonContainer()
+    local button = CreateFrame("Button", "VanillaEnhancedBagsSortButton", container, "UIPanelButtonTemplate")
+    button:SetSize(SORT_BUTTON_WIDTH, SORT_BUTTON_HEIGHT)
     button:SetText(T("bags.sort.button"))
     button:SetFrameStrata("HIGH")
     button:Hide()
@@ -104,6 +137,15 @@ function Bags:EnsureButton()
 
     self.button = button
     return button
+end
+
+function Bags:HideSortButton()
+    if self.button then
+        self.button:Hide()
+    end
+    if self.buttonContainer then
+        self.buttonContainer:Hide()
+    end
 end
 
 function Bags:SetSortButtonBusy(busy)
@@ -125,6 +167,7 @@ end
 
 function Bags:Update()
     local button = self:EnsureButton()
+    local container = self:EnsureButtonContainer()
 
     if not self:IsSortEnabled() then
         if self.ClearAutoSort then
@@ -133,14 +176,14 @@ function Bags:Update()
         if self.sorting and self.StopManualSort then
             self:StopManualSort()
         end
-        button:Hide()
+        self:HideSortButton()
         return
     end
 
     local bagFrame = GetVisibleBagFrame()
     if not bagFrame then
         self.bagsWereVisible = false
-        button:Hide()
+        self:HideSortButton()
         return
     end
 
@@ -152,14 +195,19 @@ function Bags:Update()
     end
 
     if self:GetSettings().showSortButton == false then
-        button:Hide()
+        self:HideSortButton()
         return
     end
 
-    button:SetParent(bagFrame)
-    button:SetFrameStrata(bagFrame:GetFrameStrata() or "HIGH")
-    button:SetFrameLevel((bagFrame:GetFrameLevel() or 0) + 10)
-    AnchorSortButton(button, bagFrame)
+    container:SetParent(bagFrame)
+    container:SetFrameStrata(bagFrame:GetFrameStrata() or "HIGH")
+    container:SetFrameLevel((bagFrame:GetFrameLevel() or 0) + 10)
+    container:ClearAllPoints()
+    container:SetPoint("TOPRIGHT", GetBagMoneyFrame(bagFrame), "BOTTOMRIGHT", SORT_CONTAINER_OFFSET_X, SORT_CONTAINER_OFFSET_Y)
+    VanillaEnhanced:LayoutButtonContainer(container, {
+        button,
+    }, SORT_BUTTON_CONTAINER_OPTIONS)
+    container:Show()
     button:Show()
     self:SetSortButtonBusy(self.sorting == true)
 end
@@ -183,9 +231,7 @@ function Bags:SetEnabled(enabled)
         self:StopManualSort()
     end
 
-    if self.button then
-        self.button:Hide()
-    end
+    self:HideSortButton()
 end
 
 function Bags:HookBagFunctions()
