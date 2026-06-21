@@ -926,7 +926,7 @@ local function BuildOptionControl(panel, option, anchor, moduleKey)
 
     ApplyOptionEnabledWhen(control, option, optionModuleKey)
 
-    if option.helpKey then
+    if option.helpKey and not (option.type == "dropdown" and control.helpText and control.helpText ~= "") then
         CreateHelpText(panel, T(option.helpKey), control)
     end
 
