@@ -48,3 +48,7 @@ end
 function Api:GetItemFamily(item)
     return InventoryApi:GetItemFamily(item)
 end
+
+function Api:IsEquippableItem(item)
+    return InventoryApi:IsEquippableItem(item)
+end

@@ -48,6 +48,7 @@ src\quests\available.lua
 src\quests\refresh.lua
 src\bags\module.lua
 src\bags\api.lua
+src\bags\item-locking.lua
 src\bags\sorting.lua
 src\merchants\module.lua
 src\merchants\api.lua

@@ -1222,6 +1222,13 @@ local bagsPanel = BuildOptionsPanel({
             indent = 0,
         },
         {
+            name = "VanillaEnhancedOptionsBagsEnableItemLocking",
+            settingKey = "enableItemLocking",
+            labelKey = "options.bags.enableItemLocking.label",
+            helpKey = "options.bags.enableItemLocking.help",
+            indent = 0,
+        },
+        {
             name = "VanillaEnhancedOptionsBagsAutoSortAfterLoot",
             settingKey = "autoSortAfterLoot",
             labelKey = "options.bags.autoSortAfterLoot.label",

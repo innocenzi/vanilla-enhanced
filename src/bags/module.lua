@@ -5,9 +5,11 @@ local defaults = {
     enabled = true,
     showSortButton = true,
     sortOrder = "category",
+    enableItemLocking = true,
     autoSortAfterLoot = false,
     autoSortAfterLootMode = "tidy",
     autoSortOnOpen = false,
+    itemLocks = {},
 }
 
 local BAG_FUNCTIONS = {
@@ -176,6 +178,9 @@ function Bags:Update()
         if self.sorting and self.StopManualSort then
             self:StopManualSort()
         end
+        if self.ClearItemLockOverlays then
+            self:ClearItemLockOverlays()
+        end
         self:HideSortButton()
         return
     end
@@ -183,6 +188,9 @@ function Bags:Update()
     local bagFrame = GetVisibleBagFrame()
     if not bagFrame then
         self.bagsWereVisible = false
+        if self.ClearItemLockOverlays then
+            self:ClearItemLockOverlays()
+        end
         self:HideSortButton()
         return
     end
@@ -195,6 +203,9 @@ function Bags:Update()
     end
 
     if self:GetSettings().showSortButton == false then
+        if self.RefreshItemLockOverlays then
+            self:RefreshItemLockOverlays()
+        end
         self:HideSortButton()
         return
     end
@@ -210,6 +221,9 @@ function Bags:Update()
     container:Show()
     button:Show()
     self:SetSortButtonBusy(self.sorting == true)
+    if self.RefreshItemLockOverlays then
+        self:RefreshItemLockOverlays()
+    end
 end
 
 function Bags:QueueUpdate()
@@ -231,6 +245,9 @@ function Bags:SetEnabled(enabled)
         self:StopManualSort()
     end
 
+    if self.ClearItemLockOverlays then
+        self:ClearItemLockOverlays()
+    end
     self:HideSortButton()
 end
 
@@ -276,6 +293,12 @@ eventFrame:SetScript("OnEvent", function(_, event, loadedAddonName)
     end
 
     Bags:GetSettings()
+    if Bags.InstallItemLockHooks then
+        Bags:InstallItemLockHooks()
+    end
+    if Bags.PruneItemLocks then
+        Bags:PruneItemLocks()
+    end
     Bags:HookBagFunctions()
     Bags:HookContainerFrames()
 

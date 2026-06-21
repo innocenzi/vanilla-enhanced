@@ -384,7 +384,9 @@ local function BuildSortGroups(strategy)
         local slotCount = Bags.Api:GetContainerNumSlots(bagID) or 0
 
         for slot = 1, slotCount do
-            if not IsIgnoredSortSlot(bagID, slot) then
+            if not IsIgnoredSortSlot(bagID, slot)
+                and not (Bags.IsItemLocked and Bags:IsItemLocked(bagID, slot))
+            then
                 local item, locked = ReadItem(bagID, slot)
                 if locked then
                     return nil, {
@@ -584,6 +586,11 @@ end
 function Bags:MoveItem(sourceSlot, targetSlot)
     if self.Api:HasCursorItem() then
         return false, T("bags.sort.errorCursor")
+    end
+    if self.IsItemLocked
+        and (self:IsItemLocked(sourceSlot.bagID, sourceSlot.slot) or self:IsItemLocked(targetSlot.bagID, targetSlot.slot))
+    then
+        return false, T("bags.lock.cannotMove")
     end
 
     DebugSort(T("bags.sort.debugMove", {

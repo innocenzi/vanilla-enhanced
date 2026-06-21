@@ -6,6 +6,11 @@ local InventoryApi = VanillaEnhanced.InventoryApi
 local Api = {}
 Merchants.Api = Api
 
+local function IsUserLockedItem(bagID, slot)
+    local Bags = VanillaEnhanced:GetModule("bags")
+    return Bags and Bags.IsItemLocked and Bags:IsItemLocked(bagID, slot) == true
+end
+
 local function TooltipSaysBound(bagID, slot)
     if not ITEM_SOULBOUND or not CreateFrame then
         return false
@@ -119,6 +124,7 @@ function Api:ReadContainerItem(bagID, slot)
         isUsable = self:IsUsableItem(item),
         isBound = isBound,
         isLocked = containerItem.isLocked == true,
+        isUserLocked = IsUserLockedItem(bagID, slot),
         isQuestItem = questInfo and questInfo.isQuestItem == true,
     }
 end

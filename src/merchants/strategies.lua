@@ -38,6 +38,7 @@ local EQUIPMENT_SLOTS = {
 local function IsSellableItem(itemContext)
     return itemContext
         and itemContext.isLocked ~= true
+        and itemContext.isUserLocked ~= true
         and itemContext.isQuestItem ~= true
         and (itemContext.sellPrice or 0) > 0
 end

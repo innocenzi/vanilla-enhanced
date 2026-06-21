@@ -26,6 +26,7 @@ end
 local function IsSellableScrapCandidate(itemContext)
     return itemContext
         and itemContext.isLocked ~= true
+        and itemContext.isUserLocked ~= true
         and itemContext.isQuestItem ~= true
         and (itemContext.sellPrice or 0) > 0
 end
@@ -430,6 +431,10 @@ function Merchants:ShowScrapMarkItemTooltip(button)
 end
 
 function Merchants:HandleScrapMarkItemClick(button, mouseButton)
+    if mouseButton == "LeftButton" and type(IsAltKeyDown) == "function" and IsAltKeyDown() then
+        return false
+    end
+
     if self.scrapMarkMode ~= true then
         return false
     end
