@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.0 - 2026-06-20
+## 0.3.0 - 2026-06-21
 
 
 ### Features
@@ -21,16 +21,43 @@
 - Add panel scrolling support
 - Add a way to reset settings
 - Highlight map markers when selecting quests
+- Display repeatable quests on the map
+- Make level difference configurable for map quest availability
+- Support displaying available quests on the minimap
+- Position quest markers above other markers
+- Show item drop rates
+- Hide map markers in fog of war
+- Add auto quest following based on location
+- Add tooltips
+- Support marking items as scrap
+- Item locking
+- Add option to disable printing messages
+- Add bag search field
+- Support automatic bag opening
+- Add language switcher
 
 
 ### Fixes
 - Improve translations
 - Tolerate delayed slot updates while sorting
 - Move away from buffs
+- Display broad objectives on the minimap
+- Black list event quests
+- Remove available quests from the minimap
+- Hide fogged quest markers
+- Hide sort button from keychain
+- Prevent selling during scrap selection
+- Defer pin refreshes during combat
+- Persist item locks accross sessions
+- Persist language selection and refresh options navigation
+- Prevent item right click from no longer working
+- Properly item-drop objective zones
+- Remove circle around named npc objectives
 
 
 ### Performance
 - Reduce refresh work
 - Reduce polling overhead
 - Cache bag API lookups
+- Improve marker performance
 
