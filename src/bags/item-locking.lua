@@ -11,6 +11,7 @@ local SCRAP_ICON_FALLBACK_OFFSET_X = -1
 local SCRAP_ICON_FALLBACK_OFFSET_Y = -1
 local MAX_CONTAINER_BUTTONS = 100
 local MODIFIER_REFRESH_INTERVAL = 0.05
+local STALE_LOCK_CONFIRM_SECONDS = 0.75
 
 local modifierFrame = CreateFrame("Frame")
 
@@ -31,6 +32,13 @@ end
 
 local function GetSlotKey(bagID, slot)
     return tostring(bagID) .. ":" .. tostring(slot)
+end
+
+local function GetStableTime()
+    if type(GetTime) == "function" then
+        return GetTime()
+    end
+    return nil
 end
 
 local function ParseSlotKey(slotKey)
@@ -118,6 +126,35 @@ local function GetContainerSlotState(bagID, slot)
     end
 
     return "readable"
+end
+
+local function ClearPendingItemLockPrune(slotKey)
+    if Bags.pendingItemLockPrunes then
+        Bags.pendingItemLockPrunes[slotKey] = nil
+    end
+end
+
+local function ShouldPruneItemLock(slotKey, reason, observedFingerprint)
+    local now = GetStableTime()
+    if not now then
+        return true
+    end
+
+    Bags.pendingItemLockPrunes = Bags.pendingItemLockPrunes or {}
+    local pending = Bags.pendingItemLockPrunes[slotKey]
+    if not pending
+        or pending.reason ~= reason
+        or pending.observedFingerprint ~= observedFingerprint
+    then
+        Bags.pendingItemLockPrunes[slotKey] = {
+            reason = reason,
+            observedFingerprint = observedFingerprint,
+            started = now,
+        }
+        return false
+    end
+
+    return now - (pending.started or now) >= STALE_LOCK_CONFIRM_SECONDS
 end
 
 local function GetItemDisplayText(itemID, link)
@@ -231,8 +268,11 @@ function Bags:PruneItemLocks()
         local fingerprint = slotState == "readable" and GetItemFingerprint(bagID, slot) or nil
         local lockFingerprint = type(lock) == "table" and lock.fingerprint or nil
 
-        if slotState ~= "unavailable" and (not fingerprint or fingerprint ~= lockFingerprint) then
+        if slotState ~= "readable" or not fingerprint or fingerprint == lockFingerprint then
+            ClearPendingItemLockPrune(slotKey)
+        elseif ShouldPruneItemLock(slotKey, slotState, fingerprint) then
             locks[slotKey] = nil
+            ClearPendingItemLockPrune(slotKey)
             changed = true
         end
     end
@@ -246,18 +286,27 @@ function Bags:IsItemLocked(bagID, slot, itemContext)
     end
 
     local locks = self:GetItemLocks()
-    local lock = locks[GetSlotKey(bagID, slot)]
+    local slotKey = GetSlotKey(bagID, slot)
+    local lock = locks[slotKey]
     if type(lock) ~= "table" or not lock.fingerprint then
         return false
     end
 
     local fingerprint = GetItemFingerprint(bagID, slot, itemContext)
     if fingerprint == lock.fingerprint then
+        ClearPendingItemLockPrune(slotKey)
         return true
     end
 
-    if GetContainerSlotState(bagID, slot) ~= "unavailable" then
-        locks[GetSlotKey(bagID, slot)] = nil
+    if not fingerprint then
+        ClearPendingItemLockPrune(slotKey)
+        return false
+    end
+
+    local slotState = GetContainerSlotState(bagID, slot)
+    if slotState == "readable" and ShouldPruneItemLock(slotKey, slotState, fingerprint) then
+        locks[slotKey] = nil
+        ClearPendingItemLockPrune(slotKey)
     end
     return false
 end
@@ -278,6 +327,7 @@ function Bags:ToggleItemLock(bagID, slot)
 
     if self:IsItemLocked(bagID, slot) then
         locks[slotKey] = nil
+        ClearPendingItemLockPrune(slotKey)
         self:PrintMessage(T("bags.lock.unlocked", { item = itemText }))
         self:RefreshItemLockOverlays()
         return true
@@ -288,6 +338,7 @@ function Bags:ToggleItemLock(bagID, slot)
         itemID = itemID,
         link = link,
     }
+    ClearPendingItemLockPrune(slotKey)
     self:PrintMessage(T("bags.lock.locked", { item = itemText }))
     self:RefreshItemLockOverlays()
     return true
