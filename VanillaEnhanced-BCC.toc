@@ -51,5 +51,8 @@ src\bags\sorting.lua
 src\merchants\module.lua
 src\merchants\api.lua
 src\merchants\strategies.lua
+src\merchants\scrap-marking.lua
+src\merchants\selling.lua
+src\merchants\repair.lua
 src\target-threat\module.lua
 src\options.lua
