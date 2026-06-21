@@ -65,6 +65,10 @@ bun run build:db -- --questie-path <path>
 
 CurseForge automatic packaging uses `.pkgmeta` and does not run Bun scripts. Before pushing a release tag manually, regenerate and commit `CHANGELOG.md`, generated quest data, and any runtime files that should be packaged. When using `bun run release`, the `bumpp` hook handles the TOC version and changelog before the release commit/tag.
 
+## Commit Guidelines
+
+Use conventional commits with one of these types only: `feat`, `perf`, `fix`, `refactor`, or `chore`. The commit scope must be the module being worked on, or `core` if none apply. The commit subject should describe the feature or behavior being changed, not the technical implementation details.
+
 ## Packaging Rules
 
 CurseForge expects a WoW addon zip with exactly one root folder and no version number in that folder name:
