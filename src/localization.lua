@@ -8,6 +8,8 @@ local STRINGS = {
         ["module.merchants"] = "Merchants",
 
         ["options.main.subtitle"] = "Turns modules on or off and adjusts their options.",
+        ["options.main.chatMessagesEnabled.label"] = "Show chat messages",
+        ["options.main.chatMessagesEnabled.help"] = "Allows Vanilla Enhanced features to print notifications and errors in chat.",
         ["options.main.showChatMessagePrefix.label"] = "Show the addon name in chat",
         ["options.main.showChatMessagePrefix.help"] = "Prefixes chat messages with Vanilla Enhanced.",
         ["options.main.resetSettings.label"] = "Reset settings",
@@ -193,6 +195,8 @@ local STRINGS = {
         ["module.merchants"] = "Marchands",
 
         ["options.main.subtitle"] = "Active ou désactive les modules et ajuste leurs options.",
+        ["options.main.chatMessagesEnabled.label"] = "Afficher les messages",
+        ["options.main.chatMessagesEnabled.help"] = "Autorise les fonctions de Vanilla Enhanced à afficher les notifications et erreurs dans le chat.",
         ["options.main.showChatMessagePrefix.label"] = "Afficher le nom dans le chat",
         ["options.main.showChatMessagePrefix.help"] = "Préfixe les messages de chat avec Vanilla Enhanced.",
         ["options.main.resetSettings.label"] = "Réinitialiser",

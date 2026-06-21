@@ -10,6 +10,7 @@ VanillaEnhanced.modules = VanillaEnhanced.modules or {}
 
 local DEFAULT_SETTINGS = {
     modules = {},
+    chatMessagesEnabled = true,
     showChatMessagePrefix = false,
 }
 
@@ -76,7 +77,15 @@ function VanillaEnhanced:IsChatMessagePrefixEnabled()
     return self:GetSettings().showChatMessagePrefix ~= false
 end
 
+function VanillaEnhanced:AreChatMessagesEnabled()
+    return self:GetSettings().chatMessagesEnabled ~= false
+end
+
 function VanillaEnhanced:PrintMessage(message)
+    if not self:AreChatMessagesEnabled() then
+        return
+    end
+
     if not (DEFAULT_CHAT_FRAME and DEFAULT_CHAT_FRAME.AddMessage) then
         return
     end

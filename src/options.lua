@@ -486,7 +486,8 @@ end
 
 local function CreateAddonSettingCheck(panel, name, settingKey, label, anchor)
     local check = CreateFrame("CheckButton", name, GetPanelContent(panel), "InterfaceOptionsCheckButtonTemplate")
-    check:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -12)
+    local bottomAnchor = anchor.optionHelpBottomAnchor or anchor
+    check:SetPoint("TOPLEFT", bottomAnchor, "BOTTOMLEFT", 0, -12)
     check.settingKey = settingKey
 
     ConfigureCheckText(check, label)
@@ -953,10 +954,20 @@ local mainPanel = BuildOptionsPanel({
     options = {
         {
             type = "addonCheck",
+            name = "VanillaEnhancedOptionsMainChatMessagesEnabled",
+            settingKey = "chatMessagesEnabled",
+            labelKey = "options.main.chatMessagesEnabled.label",
+            helpKey = "options.main.chatMessagesEnabled.help",
+        },
+        {
+            type = "addonCheck",
             name = "VanillaEnhancedOptionsMainShowChatMessagePrefix",
             settingKey = "showChatMessagePrefix",
             labelKey = "options.main.showChatMessagePrefix.label",
             helpKey = "options.main.showChatMessagePrefix.help",
+            enabledWhen = function()
+                return VanillaEnhanced:AreChatMessagesEnabled()
+            end,
         },
         {
             type = "addonAction",
@@ -1397,7 +1408,11 @@ function VanillaEnhanced:RefreshOptions()
     local addonSettings = self:GetSettings()
     for _, check in ipairs(addonSettingChecks) do
         check:SetChecked(addonSettings[check.settingKey] ~= false)
-        SetCheckEnabled(check, true)
+        local enabled = true
+        if check.enabledWhen then
+            enabled = check.enabledWhen()
+        end
+        SetCheckEnabled(check, enabled)
     end
     for moduleKey, check in pairs(moduleChecks) do
         check:SetChecked(self:IsModuleEnabled(moduleKey))
