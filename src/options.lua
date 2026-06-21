@@ -1256,6 +1256,14 @@ local questsPanel = BuildOptionsPanel({
             indent = 1,
         },
         {
+            name = "VanillaEnhancedOptionsQuestsDimMinimapMarkersOnOtherFloors",
+            settingKey = "dimMinimapMarkersOnOtherFloors",
+            labelKey = "options.quests.dimMinimapMarkersOnOtherFloors.label",
+            helpKey = "options.quests.dimMinimapMarkersOnOtherFloors.help",
+            enabledWhenSetting = "showMapMarkers",
+            indent = 1,
+        },
+        {
             name = "VanillaEnhancedOptionsQuestsShowRepeatableQuests",
             settingKey = "showRepeatableQuests",
             labelKey = "options.quests.showRepeatableQuests.label",

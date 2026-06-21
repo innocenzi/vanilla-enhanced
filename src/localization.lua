@@ -64,6 +64,8 @@ local STRINGS = {
         ["options.quests.hideMapMarkersInFogOfWar.help"] = "Hides world map quest markers when their location is still unexplored.",
         ["options.quests.showMinimapObjectiveAreas.label"] = "Objective areas on minimap",
         ["options.quests.showMinimapObjectiveAreas.help"] = "Shows slay and loot objective areas on the minimap.",
+        ["options.quests.dimMinimapMarkersOnOtherFloors.label"] = "Dim other floors on minimap",
+        ["options.quests.dimMinimapMarkersOnOtherFloors.help"] = "Dims minimap quest markers and objective areas when they are on another map floor.",
         ["options.quests.showRepeatableQuests.label"] = "Repeatable quests on maps",
         ["options.quests.showRepeatableQuests.help"] = "Shows repeatable quest markers on the world map and minimap.",
         ["options.quests.showAvailableQuests.label"] = "Available quests on world map",
@@ -200,6 +202,7 @@ local STRINGS = {
         ["quests.static.areaObjectives"] = "objective points in this area",
         ["quests.static.multipleObjectives"] = "Multiple objectives",
         ["quests.static.nearbyMarkers"] = "Nearby quests",
+        ["quests.static.objectiveDifferentLevel"] = "Objective is on a different level.",
     },
 
     frFR = {
@@ -265,6 +268,8 @@ local STRINGS = {
         ["options.quests.hideMapMarkersInFogOfWar.help"] = "Masque sur la carte du monde les marqueurs de quêtes placés dans des zones encore inexplorées.",
         ["options.quests.showMinimapObjectiveAreas.label"] = "Zones d'objectifs sur la minicarte",
         ["options.quests.showMinimapObjectiveAreas.help"] = "Affiche les zones d'objectifs à tuer et à ramasser sur la minicarte.",
+        ["options.quests.dimMinimapMarkersOnOtherFloors.label"] = "Atténuer les autres étages",
+        ["options.quests.dimMinimapMarkersOnOtherFloors.help"] = "Atténue sur la minicarte les marqueurs de quêtes et zones d'objectifs situés à un autre étage.",
         ["options.quests.showRepeatableQuests.label"] = "Quêtes répétables sur les cartes",
         ["options.quests.showRepeatableQuests.help"] = "Affiche les marqueurs de quêtes répétables sur la carte du monde et la minicarte.",
         ["options.quests.showAvailableQuests.label"] = "Quêtes disponibles sur la carte",
@@ -401,6 +406,7 @@ local STRINGS = {
         ["quests.static.areaObjectives"] = "points d'objectif dans cette zone",
         ["quests.static.multipleObjectives"] = "Objectifs multiples",
         ["quests.static.nearbyMarkers"] = "Quêtes proches",
+        ["quests.static.objectiveDifferentLevel"] = "L'objectif est à un autre étage.",
     },
 }
 

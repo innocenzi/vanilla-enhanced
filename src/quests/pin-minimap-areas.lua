@@ -474,7 +474,9 @@ function Quests:AddMinimapArea(uiMapId, x, y, pinData, cluster)
     local area = self:AcquirePinFrame("area", "minimapArea", Minimap)
     area.questsData = pinData
     area.questsHovered = false
+    area.questsMinimapUiMapId = uiMapId
     ConfigureMinimapArea(area, uiMapId, cluster)
+    self:ApplyMinimapFloorDimming(area)
 
     area:Hide()
     self.hbdPins:AddMinimapIconMap(self, area, uiMapId, x / 100, y / 100, true, true)

@@ -369,9 +369,15 @@ eventFrame:SetScript("OnEvent", function(_, event, loadedAddonName)
         Quests:HookQuestLogWithMapFrames()
         Quests.hbd = LibStub and LibStub("HereBeDragons-2.0", true)
         Quests.hbdPins = LibStub and LibStub("HereBeDragons-Pins-2.0", true)
+        if Quests.RegisterMinimapFloorDimmingCallbacks then
+            Quests:RegisterMinimapFloorDimmingCallbacks()
+        end
     elseif event == "PLAYER_LOGIN" then
         InvalidateRefreshCaches(event)
         Quests:HookQuestLogWithMapFrames()
+        if Quests.RegisterMinimapFloorDimmingCallbacks then
+            Quests:RegisterMinimapFloorDimmingCallbacks()
+        end
         Quests:QueueRefresh()
     elseif event == "PLAYER_REGEN_ENABLED" then
         if Quests.RunPendingRefreshAfterCombat then

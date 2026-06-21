@@ -9,6 +9,7 @@ local MARKER_SHADOW_COLOR = { 0, 0, 0, 0.9 }
 local SELECTED_MARKER_COLOR = { 1, 1, 1 }
 local WORLD_MAP_MARKER_FRAME_LEVEL_OFFSET = 100
 local MINIMAP_MARKER_FRAME_LEVEL_OFFSET = 80
+local OTHER_FLOOR_MINIMAP_ALPHA = 0.35
 
 Quests.frames = Quests.frames or {}
 Quests.minimapFrames = Quests.minimapFrames or {}
@@ -63,6 +64,7 @@ local function ResetPinFrame(frame)
     frame.questsMinimapBasePoints = nil
     frame.questsMinimapAreaRadius = nil
     frame.questsMinimapClipRadius = nil
+    frame.questsMinimapUiMapId = nil
     frame.questsMarkerStyle = nil
     frame.UiMapID = nil
     frame.x = nil
@@ -96,6 +98,120 @@ end
 local function SafeFrameCall(method, owner, ...)
     if method and owner then
         pcall(method, owner, ...)
+    end
+end
+
+local function GetMapData(mapId)
+    return Quests.hbd and Quests.hbd.mapData and Quests.hbd.mapData[mapId] or nil
+end
+
+local function GetMapType(mapId)
+    local data = GetMapData(mapId)
+    return data and data.mapType or nil
+end
+
+local function IsFloorMapType(mapType)
+    if not Enum or not Enum.UIMapType then
+        return false
+    end
+    return mapType == Enum.UIMapType.Dungeon or mapType == Enum.UIMapType.Micro
+end
+
+local function IsDescendantMap(childMapId, ancestorMapId)
+    if not childMapId or not ancestorMapId or childMapId == ancestorMapId then
+        return false
+    end
+
+    local data = GetMapData(childMapId)
+    local parentMapId = data and data.parent or nil
+    while parentMapId and GetMapData(parentMapId) do
+        if parentMapId == ancestorMapId then
+            return true
+        end
+        parentMapId = GetMapData(parentMapId).parent
+    end
+    return false
+end
+
+local function GetMapGroupId(mapId)
+    if not mapId or not C_Map or not C_Map.GetMapGroupID then
+        return nil
+    end
+
+    local ok, groupId = pcall(C_Map.GetMapGroupID, mapId)
+    if ok then
+        return groupId
+    end
+    return nil
+end
+
+local function AreDifferentFloorMaps(sourceMapId, playerMapId)
+    if not sourceMapId or not playerMapId or sourceMapId == playerMapId then
+        return false
+    end
+
+    local sourceGroupId = GetMapGroupId(sourceMapId)
+    local playerGroupId = GetMapGroupId(playerMapId)
+    if sourceGroupId
+        and playerGroupId
+        and sourceGroupId == playerGroupId
+        and (IsFloorMapType(GetMapType(sourceMapId)) or IsFloorMapType(GetMapType(playerMapId))) then
+        return true
+    end
+
+    if IsDescendantMap(sourceMapId, playerMapId) then
+        return IsFloorMapType(GetMapType(sourceMapId))
+    end
+    if IsDescendantMap(playerMapId, sourceMapId) then
+        return IsFloorMapType(GetMapType(playerMapId))
+    end
+    return false
+end
+
+function Quests:IsMinimapPinOnOtherFloor(frame, playerMapId)
+    local sourceMapId = frame and frame.questsMinimapUiMapId
+    if not sourceMapId then
+        return false
+    end
+    if not playerMapId and self.hbd and self.hbd.GetPlayerZone then
+        playerMapId = self.hbd:GetPlayerZone()
+    end
+    return AreDifferentFloorMaps(sourceMapId, playerMapId)
+end
+
+function Quests:ApplyMinimapFloorDimming(frame, playerMapId)
+    if not frame then
+        return
+    end
+
+    local settings = self:GetSettings()
+    if settings.dimMinimapMarkersOnOtherFloors == false then
+        frame:SetAlpha(1)
+        return
+    end
+
+    frame:SetAlpha(self:IsMinimapPinOnOtherFloor(frame, playerMapId) and OTHER_FLOOR_MINIMAP_ALPHA or 1)
+end
+
+function Quests:RefreshMinimapFloorDimming()
+    local playerMapId
+    if self.hbd and self.hbd.GetPlayerZone then
+        playerMapId = self.hbd:GetPlayerZone()
+    end
+
+    for _, frame in ipairs(self.minimapFrames or {}) do
+        self:ApplyMinimapFloorDimming(frame, playerMapId)
+    end
+end
+
+function Quests:RegisterMinimapFloorDimmingCallbacks()
+    if self.minimapFloorDimmingCallbacksRegistered or not self.hbd or not self.hbd.RegisterCallback then
+        return
+    end
+
+    local ok = pcall(self.hbd.RegisterCallback, self, "PlayerZoneChanged", "RefreshMinimapFloorDimming")
+    if ok then
+        self.minimapFloorDimmingCallbacksRegistered = true
     end
 end
 

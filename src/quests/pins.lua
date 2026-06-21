@@ -80,6 +80,7 @@ function Quests:AddMinimapPin(uiMapId, x, y, quest, cluster)
 
     local marker = self:AcquirePinFrame("marker", "minimapMarker", Minimap)
     marker.questsData = pinData
+    marker.questsMinimapUiMapId = uiMapId
     local texture = self:GetPinMarkerTexture(kind)
     local color = self:GetRepeatableQuestMarkerColor(dbQuest)
     if texture then
@@ -87,6 +88,7 @@ function Quests:AddMinimapPin(uiMapId, x, y, quest, cluster)
     else
         self:ConfigurePinSymbol(marker, self:GetPinMarkerSymbol(kind, quest.number), nil, color)
     end
+    self:ApplyMinimapFloorDimming(marker)
 
     marker:Hide()
     self:RaiseMinimapMarkerFrame(marker)

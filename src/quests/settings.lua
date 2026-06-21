@@ -41,6 +41,7 @@ local defaults = {
     showRepeatableQuests = true,
     showAvailableQuests = false,
     showMinimapObjectiveAreas = true,
+    dimMinimapMarkersOnOtherFloors = true,
     onlyShowNearbyAvailableQuests = false,
     onlyShowAvailableQuestsAroundPlayerLevel = false,
     availableQuestLevelsBelowPlayer = DEFAULT_AVAILABLE_QUEST_LEVELS_BELOW_PLAYER,

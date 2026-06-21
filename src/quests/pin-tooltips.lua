@@ -6,6 +6,14 @@ local TOOLTIP_OBJECTIVE_COLOR = { 0.9, 0.82, 0.55 }
 local TOOLTIP_METADATA_COLOR = { 0.56, 0.64, 0.72 }
 local TOOLTIP_COUNT_COLOR = { 0.65, 0.85, 1 }
 
+local function GetFloorHintTooltipLine(frame)
+    if not frame or not Quests.IsMinimapPinOnOtherFloor or not Quests:IsMinimapPinOnOtherFloor(frame) then
+        return nil
+    end
+
+    return VanillaEnhanced:T("quests.static.objectiveDifferentLevel")
+end
+
 local function AddTooltipLine(tooltip, text, color, wrap)
     if not text or text == "" then
         return
@@ -118,6 +126,7 @@ function Quests:ShowPinTooltip(frame)
     local titleColor = data.titleColor or TOOLTIP_TITLE_COLOR
     GameTooltip:SetText(FormatTooltipTitle(data), titleColor[1], titleColor[2], titleColor[3])
     AddTooltipLines(GameTooltip, data.metadataLines, TOOLTIP_METADATA_COLOR)
+    AddTooltipLine(GameTooltip, GetFloorHintTooltipLine(frame), TOOLTIP_METADATA_COLOR, true)
     AddTooltipLines(GameTooltip, data.lines, TOOLTIP_OBJECTIVE_COLOR)
 
     if data.objectives and #data.objectives > 1 then
