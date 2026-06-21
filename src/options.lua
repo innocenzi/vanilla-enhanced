@@ -1233,6 +1233,13 @@ local bagsPanel = BuildOptionsPanel({
             indent = 0,
         },
         {
+            name = "VanillaEnhancedOptionsBagsShowSearchField",
+            settingKey = "showSearchField",
+            labelKey = "options.bags.showSearchField.label",
+            helpKey = "options.bags.showSearchField.help",
+            indent = 0,
+        },
+        {
             name = "VanillaEnhancedOptionsBagsEnableItemLocking",
             settingKey = "enableItemLocking",
             labelKey = "options.bags.enableItemLocking.label",

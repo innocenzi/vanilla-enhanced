@@ -24,6 +24,59 @@ local function GetButtonCount(buttons)
     return count
 end
 
+local function GetPadding(options, side)
+    local padding = GetOption(options, "padding", DEFAULT_PADDING)
+    if side then
+        return GetOption(options, "padding" .. side, padding)
+    end
+    return padding
+end
+
+local function GetControlSize(control, widthFallback, heightFallback)
+    if not control then
+        return 0, 0
+    end
+
+    local width = widthFallback
+    local height = heightFallback
+    if control.GetWidth then
+        width = control:GetWidth() or width
+    end
+    if control.GetHeight then
+        height = control:GetHeight() or height
+    end
+    return width or 0, height or 0
+end
+
+local function GetButtonsSize(buttons, options)
+    local buttonWidth = GetOption(options, "buttonWidth", DEFAULT_BUTTON_WIDTH)
+    local buttonHeight = GetOption(options, "buttonHeight", DEFAULT_BUTTON_HEIGHT)
+    local buttonSpacing = GetOption(options, "buttonSpacing", DEFAULT_BUTTON_SPACING)
+    local width = 0
+    local height = 0
+    local count = 0
+
+    for _, button in ipairs(buttons or {}) do
+        if button then
+            local controlWidth, controlHeight = GetControlSize(button, buttonWidth, buttonHeight)
+            if count > 0 then
+                width = width + buttonSpacing
+            end
+            width = width + controlWidth
+            height = math.max(height, controlHeight)
+            count = count + 1
+        end
+    end
+
+    if count == 0 then
+        count = GetOption(options, "buttonCount", 1)
+        width = (buttonWidth * count) + (buttonSpacing * math.max(0, count - 1))
+        height = buttonHeight
+    end
+
+    return width, height, count
+end
+
 local function CreateFallbackLine(container, key, red, green, blue)
     local line = container:CreateTexture(nil, "BORDER")
     line:SetTexture("Interface\\Buttons\\WHITE8X8")
@@ -80,9 +133,16 @@ function VanillaEnhanced:ConfigureButtonContainer(container, options)
     local buttonWidth = GetOption(options, "buttonWidth", DEFAULT_BUTTON_WIDTH)
     local buttonHeight = GetOption(options, "buttonHeight", DEFAULT_BUTTON_HEIGHT)
     local buttonSpacing = GetOption(options, "buttonSpacing", DEFAULT_BUTTON_SPACING)
-    local padding = GetOption(options, "padding", DEFAULT_PADDING)
-    local width = GetOption(options, "width", (buttonWidth * buttonCount) + (buttonSpacing * math.max(0, buttonCount - 1)) + (padding * 2))
-    local height = GetOption(options, "height", buttonHeight + (padding * 2))
+    local paddingLeft = GetPadding(options, "Left")
+    local paddingRight = GetPadding(options, "Right")
+    local paddingTop = GetPadding(options, "Top")
+    local paddingBottom = GetPadding(options, "Bottom")
+    local width = GetOption(
+        options,
+        "width",
+        (buttonWidth * buttonCount) + (buttonSpacing * math.max(0, buttonCount - 1)) + paddingLeft + paddingRight
+    )
+    local height = GetOption(options, "height", buttonHeight + paddingTop + paddingBottom)
 
     container:SetSize(width, height)
     if container.SetBackdrop then
@@ -136,12 +196,25 @@ function VanillaEnhanced:LayoutButtonContainer(container, buttons, options)
         return nil
     end
 
-    options = options or {}
-    options.buttonCount = GetOption(options, "buttonCount", GetButtonCount(buttons))
-    self:ConfigureButtonContainer(container, options)
+    local layoutOptions = {}
+    for key, value in pairs(options or {}) do
+        layoutOptions[key] = value
+    end
 
-    local padding = GetOption(options, "padding", DEFAULT_PADDING)
-    local buttonSpacing = GetOption(options, "buttonSpacing", DEFAULT_BUTTON_SPACING)
+    layoutOptions.buttonCount = GetOption(layoutOptions, "buttonCount", GetButtonCount(buttons))
+    if layoutOptions.width == nil or layoutOptions.height == nil then
+        local contentWidth, contentHeight = GetButtonsSize(buttons, layoutOptions)
+        if layoutOptions.width == nil then
+            layoutOptions.width = contentWidth + GetPadding(layoutOptions, "Left") + GetPadding(layoutOptions, "Right")
+        end
+        if layoutOptions.height == nil then
+            layoutOptions.height = contentHeight + GetPadding(layoutOptions, "Top") + GetPadding(layoutOptions, "Bottom")
+        end
+    end
+    self:ConfigureButtonContainer(container, layoutOptions)
+
+    local paddingLeft = GetPadding(layoutOptions, "Left")
+    local buttonSpacing = GetOption(layoutOptions, "buttonSpacing", DEFAULT_BUTTON_SPACING)
     local previousButton
 
     for _, button in ipairs(buttons or {}) do
@@ -158,7 +231,7 @@ function VanillaEnhanced:LayoutButtonContainer(container, buttons, options)
             if previousButton then
                 button:SetPoint("LEFT", previousButton, "RIGHT", buttonSpacing, 0)
             else
-                button:SetPoint("LEFT", container, "LEFT", padding, 0)
+                button:SetPoint("LEFT", container, "LEFT", paddingLeft, 0)
             end
             previousButton = button
         end
