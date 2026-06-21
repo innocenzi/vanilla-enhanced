@@ -10,6 +10,7 @@ local defaults = {
     autoSortAfterLoot = false,
     autoSortAfterLootMode = "tidy",
     autoSortOnOpen = false,
+    autoOpenMode = "disabled",
     itemLocks = {},
 }
 
@@ -20,6 +21,11 @@ local BAG_FUNCTIONS = {
     "OpenBackpack",
     "CloseBackpack",
     "ToggleBag",
+}
+
+local AUTO_OPEN_REASONS = {
+    character = true,
+    merchant = true,
 }
 
 local updateFrame = CreateFrame("Frame")
@@ -70,6 +76,23 @@ end
 function Bags:IsSortEnabled()
     local settings = self:GetSettings()
     return settings.enabled ~= false
+end
+
+function Bags:ShouldAutoOpenBags(reason)
+    if not self:IsSortEnabled() or not AUTO_OPEN_REASONS[reason] then
+        return false
+    end
+
+    local mode = self:GetSettings().autoOpenMode or "disabled"
+    return mode == "both" or mode == reason
+end
+
+function Bags:AutoOpenBags(reason)
+    if not self:ShouldAutoOpenBags(reason) or type(OpenAllBags) ~= "function" then
+        return
+    end
+
+    pcall(OpenAllBags)
 end
 
 function Bags:PrintMessage(message)
@@ -683,6 +706,28 @@ function Bags:HookContainerFrames()
     end
 end
 
+function Bags:HookCharacterFrame()
+    if self.characterFrameHooksInstalled then
+        return
+    end
+
+    if CharacterFrame and CharacterFrame.HookScript then
+        CharacterFrame:HookScript("OnShow", function()
+            Bags:AutoOpenBags("character")
+        end)
+    end
+
+    if type(hooksecurefunc) == "function" and type(ShowUIPanel) == "function" then
+        pcall(hooksecurefunc, "ShowUIPanel", function(frame)
+            if frame == CharacterFrame then
+                Bags:AutoOpenBags("character")
+            end
+        end)
+    end
+
+    self.characterFrameHooksInstalled = true
+end
+
 local eventFrame = CreateFrame("Frame")
 Bags.eventFrame = eventFrame
 
@@ -697,6 +742,12 @@ eventFrame:SetScript("OnEvent", function(_, event, loadedAddonName)
     end
     Bags:HookBagFunctions()
     Bags:HookContainerFrames()
+    Bags:HookCharacterFrame()
+
+    if event == "MERCHANT_SHOW" then
+        Bags:AutoOpenBags("merchant")
+        return
+    end
 
     if event == "LOOT_CLOSED" and Bags.QueueAutoSort and Bags:GetSettings().autoSortAfterLoot then
         Bags:QueueAutoSort("loot")
@@ -715,3 +766,4 @@ eventFrame:RegisterEvent("ADDON_LOADED")
 eventFrame:RegisterEvent("PLAYER_LOGIN")
 eventFrame:RegisterEvent("BAG_UPDATE_DELAYED")
 eventFrame:RegisterEvent("LOOT_CLOSED")
+eventFrame:RegisterEvent("MERCHANT_SHOW")

@@ -1283,6 +1283,37 @@ local bagsPanel = BuildOptionsPanel({
         },
         {
             type = "dropdown",
+            name = "VanillaEnhancedOptionsBagsAutoOpenMode",
+            settingKey = "autoOpenMode",
+            labelKey = "options.bags.autoOpenMode.label",
+            helpKey = "options.bags.autoOpenMode.help",
+            indent = 0,
+            width = 220,
+            options = {
+                {
+                    value = "disabled",
+                    labelKey = "options.bags.autoOpenMode.disabled",
+                    descriptionKey = "options.bags.autoOpenMode.disabled.description",
+                },
+                {
+                    value = "character",
+                    labelKey = "options.bags.autoOpenMode.character",
+                    descriptionKey = "options.bags.autoOpenMode.character.description",
+                },
+                {
+                    value = "merchant",
+                    labelKey = "options.bags.autoOpenMode.merchant",
+                    descriptionKey = "options.bags.autoOpenMode.merchant.description",
+                },
+                {
+                    value = "both",
+                    labelKey = "options.bags.autoOpenMode.both",
+                    descriptionKey = "options.bags.autoOpenMode.both.description",
+                },
+            },
+        },
+        {
+            type = "dropdown",
             name = "VanillaEnhancedOptionsBagsSortOrder",
             settingKey = "sortOrder",
             labelKey = "options.bags.sortOrder.label",
