@@ -391,6 +391,10 @@ Quests:HookQuestLogWithMapFrames()
 
 if WorldMapFrame then
     hooksecurefunc(WorldMapFrame, "OnMapChanged", function()
-        Quests:QueueRefresh()
+        if Quests.RefreshWorldMapPins then
+            Quests:RefreshWorldMapPins()
+        else
+            Quests:QueueRefresh()
+        end
     end)
 end

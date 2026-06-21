@@ -16,6 +16,34 @@ function Quests:GetCachedQuestLogSnapshot()
     return self.questSnapshot
 end
 
+local function AddWorldMapPinsForQuests(self, quests, settings)
+    if settings.showMapMarkers == false then
+        return
+    end
+
+    for _, quest in ipairs(quests) do
+        local dbQuest = VanillaEnhancedQuestsDB.quests[quest.id]
+        if dbQuest and dbQuest.maps and self:ShouldShowRepeatableQuestOnMaps(dbQuest, settings) then
+            local maps = quest.isComplete and dbQuest.turnins or dbQuest.maps
+            maps = maps or dbQuest.maps
+            for uiMapId, clusters in pairs(maps) do
+                self:AddWorldMapPins(uiMapId, clusters, quest)
+            end
+        end
+    end
+    if self.AddAvailableQuestPins then
+        self:AddAvailableQuestPins(quests)
+    end
+    if self.RenderMarkerGroups then
+        self:RenderMarkerGroups()
+    end
+    if self.UpdateSelectedQuestAreaFromLog then
+        self:UpdateSelectedQuestAreaFromLog()
+    elseif self.RefreshQuestAreaVisibility then
+        self:RefreshQuestAreaVisibility()
+    end
+end
+
 function Quests:Refresh()
     self.refreshQueued = false
 
@@ -63,6 +91,21 @@ function Quests:Refresh()
     elseif self.RefreshQuestAreaVisibility then
         self:RefreshQuestAreaVisibility()
     end
+end
+
+function Quests:RefreshWorldMapPins()
+    local settings = self:GetSettings()
+    self:ClearWorldMapPins()
+
+    if not settings.enabled then
+        return
+    end
+
+    if not VanillaEnhancedQuestsDB or not VanillaEnhancedQuestsDB.quests then
+        return
+    end
+
+    AddWorldMapPinsForQuests(self, self:GetCachedQuestLogSnapshot(), settings)
 end
 
 function Quests:QueueRefresh()

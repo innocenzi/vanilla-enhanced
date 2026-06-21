@@ -251,17 +251,37 @@ function Quests:SetPinMarkerHighlighted(frame, highlighted)
 end
 
 function Quests:ClearPins()
+    self:ClearWorldMapPins()
+    self:ClearMinimapPins()
+end
+
+function Quests:ClearWorldMapPins()
     if self.hbdPins then
-        for _, frame in ipairs(self.frames) do
-            self.hbdPins:RemoveWorldMapIcon(self, frame)
-            ReleasePinFrame(self, frame)
+        if self.hbdPins.RemoveAllWorldMapIcons then
+            self.hbdPins:RemoveAllWorldMapIcons(self)
         end
-        for _, frame in ipairs(self.minimapFrames) do
-            self.hbdPins:RemoveMinimapIcon(self, frame)
+        for _, frame in ipairs(self.frames) do
+            if not self.hbdPins.RemoveAllWorldMapIcons then
+                self.hbdPins:RemoveWorldMapIcon(self, frame)
+            end
             ReleasePinFrame(self, frame)
         end
     end
     wipe(self.frames)
-    wipe(self.minimapFrames)
     self.markerCandidates = {}
+end
+
+function Quests:ClearMinimapPins()
+    if self.hbdPins then
+        if self.hbdPins.RemoveAllMinimapIcons then
+            self.hbdPins:RemoveAllMinimapIcons(self)
+        end
+        for _, frame in ipairs(self.minimapFrames) do
+            if not self.hbdPins.RemoveAllMinimapIcons then
+                self.hbdPins:RemoveMinimapIcon(self, frame)
+            end
+            ReleasePinFrame(self, frame)
+        end
+    end
+    wipe(self.minimapFrames)
 end

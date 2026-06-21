@@ -9,12 +9,28 @@ function Quests:AddPins(uiMapId, clusters, quest)
         end
     end
 
-    for _, cluster in ipairs(self:MergeParentMapIconClusters(uiMapId, visibleClusters)) do
-        self:AddPin(uiMapId, cluster.x, cluster.y, quest, cluster)
-    end
+    self:AddVisibleWorldMapPins(uiMapId, visibleClusters, quest)
     for _, cluster in ipairs(visibleClusters) do
         self:AddMinimapPin(uiMapId, cluster.x, cluster.y, quest, cluster)
     end
+end
+
+function Quests:AddVisibleWorldMapPins(uiMapId, visibleClusters, quest)
+    for _, cluster in ipairs(self:MergeParentMapIconClusters(uiMapId, visibleClusters)) do
+        self:AddPin(uiMapId, cluster.x, cluster.y, quest, cluster)
+    end
+end
+
+function Quests:AddWorldMapPins(uiMapId, clusters, quest)
+    local visibleClusters = {}
+
+    for _, cluster in ipairs(clusters) do
+        if self:ShouldShowObjectiveCluster(quest, cluster, "map") then
+            visibleClusters[#visibleClusters + 1] = cluster
+        end
+    end
+
+    self:AddVisibleWorldMapPins(uiMapId, visibleClusters, quest)
 end
 
 function Quests:AddAvailablePins(questId, dbQuest, context)
