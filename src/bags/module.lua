@@ -78,6 +78,8 @@ local function T(key, vars)
     return VanillaEnhanced:T(key, vars)
 end
 
+local IsAnyBagVisible
+
 function Bags:GetSettings()
     local settings = VanillaEnhanced:GetModuleSettings("bags", defaults)
     if settings.sortEnabled == false and settings.enabled ~= false then
@@ -101,12 +103,59 @@ function Bags:ShouldAutoOpenBags(reason)
     return mode == "both" or mode == reason
 end
 
+function Bags:ClearAutoOpenBagTracking()
+    self.autoOpenedBagsOwned = false
+    self.autoOpenBagReasons = nil
+end
+
+function Bags:TrackAutoOpenedBags(reason, bagsVisibleBefore)
+    if not self.autoOpenedBagsOwned and bagsVisibleBefore then
+        return
+    end
+
+    self.autoOpenedBagsOwned = true
+    self.autoOpenBagReasons = self.autoOpenBagReasons or {}
+    self.autoOpenBagReasons[reason] = true
+end
+
+function Bags:HasTrackedAutoOpenReason()
+    for _, active in pairs(self.autoOpenBagReasons or {}) do
+        if active then
+            return true
+        end
+    end
+    return false
+end
+
 function Bags:AutoOpenBags(reason)
     if not self:ShouldAutoOpenBags(reason) or type(OpenAllBags) ~= "function" then
         return
     end
 
-    pcall(OpenAllBags)
+    local bagsVisibleBefore = IsAnyBagVisible and IsAnyBagVisible()
+    local ok = pcall(OpenAllBags)
+    if ok and IsAnyBagVisible and IsAnyBagVisible() then
+        self:TrackAutoOpenedBags(reason, bagsVisibleBefore)
+    end
+end
+
+function Bags:AutoCloseBags(reason)
+    if not self.autoOpenedBagsOwned then
+        return
+    end
+
+    if self.autoOpenBagReasons then
+        self.autoOpenBagReasons[reason] = nil
+    end
+
+    if self:HasTrackedAutoOpenReason() then
+        return
+    end
+
+    self:ClearAutoOpenBagTracking()
+    if type(CloseAllBags) == "function" and IsAnyBagVisible and IsAnyBagVisible() then
+        pcall(CloseAllBags)
+    end
 end
 
 function Bags:PrintMessage(message)
@@ -122,6 +171,16 @@ local function GetContainerFrameCount()
         return NUM_CONTAINER_FRAMES
     end
     return 13
+end
+
+IsAnyBagVisible = function()
+    for index = 1, GetContainerFrameCount() do
+        local frame = _G["ContainerFrame" .. index]
+        if IsShown(frame) then
+            return true
+        end
+    end
+    return false
 end
 
 local function GetVisibleBagFrame()
@@ -669,6 +728,9 @@ function Bags:Update()
 
     local bagFrame = GetVisibleBagFrame()
     if not bagFrame then
+        if IsAnyBagVisible and not IsAnyBagVisible() then
+            self:ClearAutoOpenBagTracking()
+        end
         self.bagsWereVisible = false
         if self.ClearItemLockOverlays then
             self:ClearItemLockOverlays()
@@ -799,6 +861,7 @@ function Bags:SetEnabled(enabled)
         self:StopManualSort()
     end
 
+    self:ClearAutoOpenBagTracking()
     if self.ClearItemLockOverlays then
         self:ClearItemLockOverlays()
     end
@@ -848,6 +911,9 @@ function Bags:HookCharacterFrame()
         CharacterFrame:HookScript("OnShow", function()
             Bags:AutoOpenBags("character")
         end)
+        CharacterFrame:HookScript("OnHide", function()
+            Bags:AutoCloseBags("character")
+        end)
     end
 
     if type(hooksecurefunc) == "function" and type(ShowUIPanel) == "function" then
@@ -883,6 +949,12 @@ eventFrame:SetScript("OnEvent", function(_, event, loadedAddonName)
         return
     end
 
+    if event == "MERCHANT_CLOSED" then
+        Bags:AutoCloseBags("merchant")
+        Bags:QueueUpdate()
+        return
+    end
+
     if event == "LOOT_CLOSED" and Bags.QueueAutoSort and Bags:GetSettings().autoSortAfterLoot then
         Bags:QueueAutoSort("loot")
         return
@@ -901,3 +973,4 @@ eventFrame:RegisterEvent("PLAYER_LOGIN")
 eventFrame:RegisterEvent("BAG_UPDATE_DELAYED")
 eventFrame:RegisterEvent("LOOT_CLOSED")
 eventFrame:RegisterEvent("MERCHANT_SHOW")
+eventFrame:RegisterEvent("MERCHANT_CLOSED")
