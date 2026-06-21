@@ -6,6 +6,8 @@ local HIGHLIGHT_INSET = 2
 local HIGHLIGHT_MAX_BUTTONS = 100
 local MARK_SCRAPS_ICON = "Interface\\Icons\\INV_Misc_QuestionMark"
 
+local cursorFrame = CreateFrame("Frame")
+
 local function T(key, vars)
     return VanillaEnhanced:T(key, vars)
 end
@@ -69,6 +71,32 @@ end
 local function GetContainerItemButton(frame, index)
     local frameName = frame and frame.GetName and frame:GetName()
     return frameName and _G[frameName .. "Item" .. index] or nil
+end
+
+local function FindHoveredBagItemButton()
+    for frameIndex = 1, GetContainerFrameCount() do
+        local frame = _G["ContainerFrame" .. frameIndex]
+        if IsShown(frame) and frame.GetID then
+            local slotCount = Merchants.Api and Merchants.Api:GetContainerNumSlots(frame:GetID()) or 0
+            local buttonCount = math.max(slotCount or 0, frame.size or 0)
+            if buttonCount <= 0 then
+                buttonCount = HIGHLIGHT_MAX_BUTTONS
+            end
+
+            buttonCount = math.min(buttonCount, HIGHLIGHT_MAX_BUTTONS)
+            for buttonIndex = 1, buttonCount do
+                local button = GetContainerItemButton(frame, buttonIndex)
+                if not button then
+                    break
+                end
+                if button.IsMouseOver and button:IsMouseOver() then
+                    return button
+                end
+            end
+        end
+    end
+
+    return nil
 end
 
 local function ConfigureMarkButton(button, size)
@@ -227,6 +255,25 @@ function Merchants:ApplyScrapMarkCursorOverride(button)
     end
 end
 
+function Merchants:UpdateScrapMarkCursorOverride()
+    local button = FindHoveredBagItemButton()
+    if button then
+        self:EnsureScrapMarkButtonHooks(button)
+        self:ApplyScrapMarkCursorOverride(button)
+    end
+end
+
+function Merchants:SetScrapMarkCursorOverrideEnabled(enabled)
+    if enabled == true then
+        cursorFrame:SetScript("OnUpdate", function()
+            Merchants:UpdateScrapMarkCursorOverride()
+        end)
+        return
+    end
+
+    cursorFrame:SetScript("OnUpdate", nil)
+end
+
 function Merchants:EnsureScrapMarkButtonHooks(button)
     if not button or button.VanillaEnhancedScrapMarkHooksInstalled then
         return
@@ -331,7 +378,11 @@ end
 
 function Merchants:SetScrapMarkMode(enabled)
     self.scrapMarkMode = enabled == true and self:IsMerchantOpen() and self:IsSellScrapsEnabled()
+    self:SetScrapMarkCursorOverrideEnabled(self.scrapMarkMode == true)
     self:UpdateScrapMarkButtonState()
+    if self.UpdateSellButtonState then
+        self:UpdateSellButtonState(self:GetScrapReportSafely())
+    end
     if self.scrapMarkMode == true then
         self:RefreshScrapHighlights()
     elseif not self:IsSellButtonHovered() then
@@ -379,7 +430,7 @@ function Merchants:ShowScrapMarkItemTooltip(button)
 end
 
 function Merchants:HandleScrapMarkItemClick(button, mouseButton)
-    if self.scrapMarkMode ~= true or mouseButton ~= "LeftButton" then
+    if self.scrapMarkMode ~= true then
         return false
     end
     if not self:IsMerchantOpen() or not self:IsSellScrapsEnabled() then
@@ -388,14 +439,16 @@ function Merchants:HandleScrapMarkItemClick(button, mouseButton)
     end
 
     local bagID, slot = GetButtonBagAndSlot(button)
-    local itemContext = bagID and slot and self.Api and self.Api:ReadContainerItem(bagID, slot)
-    if not itemContext then
-        return true
+    if bagID == nil or slot == nil then
+        return false
     end
 
-    self:ToggleCustomScrapItem(itemContext)
-    if self:ShouldShowScrapHighlights() then
-        self:RefreshScrapHighlights()
+    local itemContext = self.Api and self.Api:ReadContainerItem(bagID, slot)
+    if mouseButton == "LeftButton" and itemContext then
+        self:ToggleCustomScrapItem(itemContext)
+        if self:ShouldShowScrapHighlights() then
+            self:RefreshScrapHighlights()
+        end
     end
     return true
 end

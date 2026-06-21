@@ -115,6 +115,31 @@ function Merchants:GetScrapReportSafely()
     }
 end
 
+function Merchants:UpdateSellButtonState(report)
+    local sellButton = self.sellButton
+    if not sellButton then
+        return
+    end
+
+    local canSell = self.scrapMarkMode ~= true and report and report.stacks > 0
+    if canSell then
+        if sellButton.Enable then
+            sellButton:Enable()
+        end
+        if sellButton.icon then
+            sellButton.icon:SetAlpha(1)
+        end
+        return
+    end
+
+    if sellButton.Disable then
+        sellButton:Disable()
+    end
+    if sellButton.icon then
+        sellButton.icon:SetAlpha(0.35)
+    end
+end
+
 function Merchants:EnsureButton()
     if self.sellButton and self.markButton then
         return self.button
@@ -194,27 +219,19 @@ function Merchants:UpdateButton()
     self:UpdateScrapMarkButtonState()
 
     local report = self:GetScrapReportSafely()
-    if report.stacks > 0 then
-        if sellButton.Enable then
-            sellButton:Enable()
-        end
-        if sellButton.icon then
-            sellButton.icon:SetAlpha(1)
-        end
-        if self:ShouldShowScrapHighlights() then
-            self:RefreshScrapHighlights()
-        end
-    elseif sellButton.Disable then
-        sellButton:Disable()
-        if sellButton.icon then
-            sellButton.icon:SetAlpha(0.35)
-        end
+    self:UpdateSellButtonState(report)
+    if report.stacks > 0 and self:ShouldShowScrapHighlights() then
+        self:RefreshScrapHighlights()
+    elseif report.stacks <= 0 then
         self:ClearScrapHighlights()
     end
 end
 
 function Merchants:SellScrapsBatch(limit)
     if not self:IsSellScrapsEnabled() or not self:IsMerchantOpen() then
+        return
+    end
+    if self.scrapMarkMode == true then
         return
     end
     if self.Api and self.Api:HasCursorItem() then
