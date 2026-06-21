@@ -96,6 +96,9 @@ end
 function Quests:RefreshWorldMapPins()
     local settings = self:GetSettings()
     self:ClearWorldMapPins()
+    if self.ClearMapExplorationCache then
+        self:ClearMapExplorationCache()
+    end
 
     if not settings.enabled then
         return

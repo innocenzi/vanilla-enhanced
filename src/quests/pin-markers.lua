@@ -178,12 +178,13 @@ local function BuildMarkerRenderCandidate(self, candidate, currentMapId)
         and self.hbd
         and self.hbd.GetWorldCoordinatesFromZone
         and self.hbd.GetZoneCoordinatesFromWorld then
-        local worldX, worldY = self.hbd:GetWorldCoordinatesFromZone(
+        local worldX, worldY, sourceInstance = self.hbd:GetWorldCoordinatesFromZone(
             (candidate.x or 0) / 100,
             (candidate.y or 0) / 100,
             candidate.uiMapId
         )
-        if worldX and worldY then
+        local targetData = self.hbd.mapData and self.hbd.mapData[currentMapId]
+        if worldX and worldY and targetData and targetData.instance == sourceInstance then
             local displayX, displayY = self.hbd:GetZoneCoordinatesFromWorld(worldX, worldY, currentMapId)
             if displayX and displayY then
                 renderCandidate.renderMapId = currentMapId
@@ -197,17 +198,18 @@ local function BuildMarkerRenderCandidate(self, candidate, currentMapId)
 end
 
 local function GetMarkerFogFilterPosition(self, candidate, renderCandidate)
-    local filterMapId = renderCandidate.renderMapId
-    local filterX = renderCandidate.x
-    local filterY = renderCandidate.y
-
-    if self.DoesQuestMapHaveFogData and not self:DoesQuestMapHaveFogData(filterMapId) then
-        filterMapId = candidate.uiMapId
-        filterX = candidate.x
-        filterY = candidate.y
+    if self.DoesQuestMapHaveFogData and self:DoesQuestMapHaveFogData(candidate.uiMapId) then
+        return candidate.uiMapId, candidate.x, candidate.y, true
     end
 
-    return filterMapId, filterX, filterY, filterMapId == candidate.uiMapId
+    if self.DoesQuestMapHaveFogData and self:DoesQuestMapHaveFogData(renderCandidate.renderMapId) then
+        return renderCandidate.renderMapId,
+            renderCandidate.x,
+            renderCandidate.y,
+            renderCandidate.renderMapId == candidate.uiMapId
+    end
+
+    return candidate.uiMapId, candidate.x, candidate.y, true
 end
 
 local function AddMarkerRenderCandidate(groupsByMap, candidate, xScale, yScale)
