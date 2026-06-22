@@ -250,7 +250,7 @@ end
 
 function Bags:IsScrapIconEnabled()
     local settings = self:GetSettings()
-    if not self:IsSortEnabled() or settings.showScrapIcon ~= true then
+    if self.sorting == true or not self:IsSortEnabled() or settings.showScrapIcon ~= true then
         return false
     end
 

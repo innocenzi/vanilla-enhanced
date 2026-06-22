@@ -543,6 +543,9 @@ function Bags:StartManualSort(suppressErrors, strategy)
     self.ignoredSortSlots = {}
     self.pendingSortMove = nil
     self.pendingSortMoveStarted = nil
+    if self.ClearScrapIconOverlays then
+        self:ClearScrapIconOverlays()
+    end
     self:SetSortButtonBusy(true)
     self:ContinueManualSort()
 end
