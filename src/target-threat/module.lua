@@ -4,6 +4,13 @@ local TargetThreat = VanillaEnhanced:CreateModule("target-threat", VanillaEnhanc
 local DISPLAY_HOLD = 2.0
 local TICK_RATE = 0.35
 
+local THREAT_FRAME_WIDTH = 50
+local THREAT_FRAME_HEIGHT = 22
+local PORTRAIT_OFFSET_X = 5
+local PORTRAIT_OFFSET_Y = 0
+local FALLBACK_OFFSET_X = -2
+local FALLBACK_OFFSET_Y = -35
+
 TargetThreat.lastText = nil
 TargetThreat.lastStatus = nil
 TargetThreat.lastTime = 0
@@ -73,14 +80,28 @@ local function ApplyNativeBorder(frame)
         return
     end
 
-    CreateFallbackBorderLine(frame, "TOPLEFT", "TOPLEFT", 58, 2)
-    CreateFallbackBorderLine(frame, "BOTTOMLEFT", "BOTTOMLEFT", 58, 2)
-    CreateFallbackBorderLine(frame, "TOPLEFT", "TOPLEFT", 2, 22)
-    CreateFallbackBorderLine(frame, "TOPRIGHT", "TOPRIGHT", 2, 22)
+    CreateFallbackBorderLine(frame, "TOPLEFT", "TOPLEFT", THREAT_FRAME_WIDTH, 2)
+    CreateFallbackBorderLine(frame, "BOTTOMLEFT", "BOTTOMLEFT", THREAT_FRAME_WIDTH, 2)
+    CreateFallbackBorderLine(frame, "TOPLEFT", "TOPLEFT", 2, THREAT_FRAME_HEIGHT)
+    CreateFallbackBorderLine(frame, "TOPRIGHT", "TOPRIGHT", 2, THREAT_FRAME_HEIGHT)
+end
+
+local function AnchorThreatFrame(ui, parent)
+    ui:ClearAllPoints()
+
+    local portrait = TargetFramePortrait or (parent and parent.portrait)
+    if portrait then
+        ui:SetPoint("LEFT", portrait, "RIGHT", PORTRAIT_OFFSET_X, PORTRAIT_OFFSET_Y)
+        return
+    end
+
+    local anchor = TargetFrameManaBar or TargetFrameHealthBar or parent
+    ui:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", FALLBACK_OFFSET_X, FALLBACK_OFFSET_Y)
 end
 
 function TargetThreat:EnsureUI()
     if self.ui then
+        AnchorThreatFrame(self.ui, TargetFrame)
         return true
     end
     if not TargetFrame then
@@ -88,10 +109,9 @@ function TargetThreat:EnsureUI()
     end
 
     local parent = TargetFrame
-    local anchor = TargetFrameManaBar or TargetFrameHealthBar or parent
     local ui = CreateFrame("Frame", "VanillaEnhancedTargetThreatFrame", parent, BackdropTemplateMixin and "BackdropTemplate" or nil)
-    ui:SetSize(58, 22)
-    ui:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", -2, -35)
+    ui:SetSize(THREAT_FRAME_WIDTH, THREAT_FRAME_HEIGHT)
+    AnchorThreatFrame(ui, parent)
     ui:SetFrameStrata(parent:GetFrameStrata() or "LOW")
     ui:SetFrameLevel((parent:GetFrameLevel() or 0) + 50)
     ui:Hide()
