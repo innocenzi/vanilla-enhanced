@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.5.0 - 2026-06-22
+## 0.5.1 - 2026-06-22
 
 
 ### Features
@@ -47,6 +47,12 @@
 - Set default preset to adventurer
 - Add training tab
 - Add profession tooltips on items
+- Support hiding reputation quests
+- Auto clear nearby custom markers
+- Simplify scrap strategies
+- Add quest icons to bag items
+- Add sorting, stacking and search to banks
+- Add backwards sorting option
 
 
 ### Fixes
@@ -72,6 +78,10 @@
 - Prevent recursive skill refresh overflow
 - Move threat meter to the right of the portrait
 - Avoid protected bag sorting in combat
+- Don't show finished objectives on maps in guide mode
+- Toggle off scrap marking when closing bags
+- Mute quest item icons
+- Prevent locked item movement without blocking use
 
 
 ### Performance
