@@ -186,12 +186,6 @@ function Quests:ApplyMinimapFloorDimming(frame, playerMapId)
         return
     end
 
-    local settings = self:GetSettings()
-    if settings.dimMinimapMarkersOnOtherFloors == false then
-        frame:SetAlpha(1)
-        return
-    end
-
     frame:SetAlpha(self:IsMinimapPinOnOtherFloor(frame, playerMapId) and OTHER_FLOOR_MINIMAP_ALPHA or 1)
 end
 
