@@ -5,6 +5,7 @@ local defaults = {
     enabled = true,
     showWorldMapMarkers = true,
     showMinimapDirections = true,
+    enableTomTomCommands = false,
     markers = {},
     nextMarkerId = 1,
 }
@@ -29,6 +30,9 @@ function Map:SetEnabled(enabled)
     if self.Refresh then
         self:Refresh()
     end
+    if self.RefreshTomTomCommands then
+        self:RefreshTomTomCommands()
+    end
     if VanillaEnhanced.RefreshOptions then
         VanillaEnhanced:RefreshOptions()
     end
@@ -37,5 +41,8 @@ end
 function Map:Update()
     if self.Refresh then
         self:Refresh()
+    end
+    if self.RefreshTomTomCommands then
+        self:RefreshTomTomCommands()
     end
 end

@@ -1459,6 +1459,17 @@ local mapPanel = BuildOptionsPanel({
             indent = 0,
         },
         {
+            name = "VanillaEnhancedOptionsMapEnableTomTomCommands",
+            settingKey = "enableTomTomCommands",
+            labelKey = "options.map.enableTomTomCommands.label",
+            helpKey = "options.map.enableTomTomCommands.help",
+            indent = 0,
+            enabledWhen = function()
+                local map = VanillaEnhanced:GetModule("map")
+                return not (map and map.IsTomTomInstalled and map:IsTomTomInstalled())
+            end,
+        },
+        {
             type = "addonAction",
             name = "VanillaEnhancedOptionsMapClearMarkers",
             labelKey = "options.map.clearMarkers.label",

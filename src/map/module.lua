@@ -30,6 +30,9 @@ local function Initialize()
     if Map.Refresh then
         Map:Refresh()
     end
+    if Map.RefreshTomTomCommands then
+        Map:RefreshTomTomCommands()
+    end
 end
 
 eventFrame:RegisterEvent("ADDON_LOADED")
@@ -37,12 +40,23 @@ eventFrame:RegisterEvent("PLAYER_LOGIN")
 eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 eventFrame:SetScript("OnEvent", function(_, event, loadedAddonName)
     if event == "ADDON_LOADED" and loadedAddonName ~= VanillaEnhanced.addonName then
+        if loadedAddonName == "TomTom" then
+            if Map.RefreshTomTomCommands then
+                Map:RefreshTomTomCommands()
+            end
+            if VanillaEnhanced.RefreshOptions then
+                VanillaEnhanced:RefreshOptions()
+            end
+        end
         return
     end
 
     Initialize()
     if event ~= "ADDON_LOADED" and Map.Refresh then
         Map:Refresh()
+    end
+    if event ~= "ADDON_LOADED" and Map.RefreshTomTomCommands then
+        Map:RefreshTomTomCommands()
     end
 end)
 

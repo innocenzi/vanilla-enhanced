@@ -308,7 +308,20 @@ function Map:CanPlaceMarker(uiMapId, x, y)
     return worldX ~= nil and worldY ~= nil
 end
 
-function Map:AddMarker(uiMapId, x, y)
+local function GetMarkerTitle(options)
+    local title = options and options.title
+    if type(title) ~= "string" then
+        return nil
+    end
+
+    title = string.gsub(title, "^%s*(.-)%s*$", "%1")
+    if title == "" then
+        return nil
+    end
+    return title
+end
+
+function Map:AddMarker(uiMapId, x, y, options)
     if not self:IsEnabled() then
         return nil
     end
@@ -328,6 +341,7 @@ function Map:AddMarker(uiMapId, x, y)
         uiMapId = uiMapId,
         x = x,
         y = y,
+        title = GetMarkerTitle(options),
     }
     local markers = self:GetMarkerStore()
 
@@ -395,7 +409,7 @@ function Map:ShowMarkerTooltip(frame)
     end
 
     GameTooltip:SetOwner(frame, "ANCHOR_RIGHT")
-    GameTooltip:SetText(T("map.marker.tooltipTitle"), 1, 1, 1)
+    GameTooltip:SetText(marker.title or T("map.marker.tooltipTitle"), 1, 1, 1)
     GameTooltip:AddLine(GetMapName(marker.uiMapId), TOOLTIP_METADATA_COLOR[1], TOOLTIP_METADATA_COLOR[2], TOOLTIP_METADATA_COLOR[3], true)
     local distance = self.GetMarkerDistanceToPlayer and self:GetMarkerDistanceToPlayer(marker) or nil
     GameTooltip:AddLine(FormatCoordinates(marker, distance), 0.9, 0.82, 0.55)
