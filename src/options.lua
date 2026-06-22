@@ -1748,6 +1748,13 @@ local bagsPanel = BuildOptionsPanel({
             indent = 0,
         },
         {
+            name = "VanillaEnhancedOptionsBagsShowQuestIcon",
+            settingKey = "showQuestIcon",
+            labelKey = "options.bags.showQuestIcon.label",
+            helpKey = "options.bags.showQuestIcon.help",
+            indent = 0,
+        },
+        {
             name = "VanillaEnhancedOptionsBagsShowScrapIcon",
             settingKey = "showScrapIcon",
             labelKey = "options.bags.showScrapIcon.label",

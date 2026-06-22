@@ -3,12 +3,18 @@ local Bags = VanillaEnhanced:GetModule("bags")
 
 local LOCK_ICON = "Interface\\Buttons\\LockButton-Locked-Up"
 local SCRAP_ICON = "Interface\\Buttons\\UI-GroupLoot-Coin-Up"
+local QUEST_ICON = "Interface\\GossipFrame\\AvailableQuestIcon"
 local LOCK_SIZE = 25
 local SCRAP_ICON_SIZE = 17
 local SCRAP_ICON_OFFSET_X = 2
 local SCRAP_ICON_OFFSET_Y = 2
 local SCRAP_ICON_FALLBACK_OFFSET_X = -1
 local SCRAP_ICON_FALLBACK_OFFSET_Y = -1
+local QUEST_ICON_SIZE = 17
+local QUEST_ICON_OFFSET_X = 6
+local QUEST_ICON_OFFSET_Y = 2
+local QUEST_ICON_FALLBACK_OFFSET_X = -1
+local QUEST_ICON_FALLBACK_OFFSET_Y = 1
 local MAX_CONTAINER_BUTTONS = 100
 local MODIFIER_REFRESH_INTERVAL = 0.05
 local STALE_LOCK_CONFIRM_SECONDS = 0.75
@@ -222,6 +228,27 @@ local function EnsureScrapIconOverlay(button)
     return overlay
 end
 
+local function EnsureQuestIconOverlay(button)
+    if button.VanillaEnhancedQuestIconOverlay then
+        return button.VanillaEnhancedQuestIconOverlay
+    end
+
+    local overlay = button:CreateTexture(nil, "OVERLAY")
+    overlay:SetTexture(QUEST_ICON)
+    overlay:SetSize(QUEST_ICON_SIZE, QUEST_ICON_SIZE)
+    overlay:Hide()
+
+    local icon = GetItemButtonIcon(button)
+    if icon then
+        overlay:SetPoint("TOPRIGHT", icon, "TOPRIGHT", QUEST_ICON_OFFSET_X, QUEST_ICON_OFFSET_Y)
+    else
+        overlay:SetPoint("TOPRIGHT", button, "TOPRIGHT", QUEST_ICON_FALLBACK_OFFSET_X, QUEST_ICON_FALLBACK_OFFSET_Y)
+    end
+
+    button.VanillaEnhancedQuestIconOverlay = overlay
+    return overlay
+end
+
 local function PositionClickOverlay(overlay, button, levelOffset)
     overlay:ClearAllPoints()
     overlay:SetAllPoints(button)
@@ -256,6 +283,18 @@ function Bags:IsScrapIconEnabled()
 
     local Merchants = VanillaEnhanced:GetModule("merchants")
     return Merchants and Merchants.IsSellScrapsEnabled and Merchants:IsSellScrapsEnabled()
+end
+
+function Bags:IsQuestIconEnabled()
+    local settings = self:GetSettings()
+    return self.sorting ~= true and self:IsSortEnabled() and settings.showQuestIcon == true
+end
+
+function Bags:IsQuestItem(bagID, slot)
+    local questInfo = self.Api
+        and self.Api.GetContainerItemQuestInfo
+        and self.Api:GetContainerItemQuestInfo(bagID, slot)
+    return questInfo and questInfo.isQuestItem == true
 end
 
 function Bags:PruneItemLocks()
@@ -346,6 +385,7 @@ end
 
 function Bags:ClearItemLockOverlays()
     self:ClearScrapIconOverlays()
+    self:ClearQuestIconOverlays()
 
     for button in pairs(self.itemLockOverlayButtons or {}) do
         if button.VanillaEnhancedItemLockOverlay then
@@ -368,6 +408,15 @@ function Bags:ClearScrapIconOverlays()
             button.VanillaEnhancedScrapIconOverlay:Hide()
         end
         self.scrapIconOverlayButtons[button] = nil
+    end
+end
+
+function Bags:ClearQuestIconOverlays()
+    for button in pairs(self.questIconOverlayButtons or {}) do
+        if button.VanillaEnhancedQuestIconOverlay then
+            button.VanillaEnhancedQuestIconOverlay:Hide()
+        end
+        self.questIconOverlayButtons[button] = nil
     end
 end
 
@@ -419,10 +468,12 @@ function Bags:RefreshItemLockOverlays()
     self.itemLockOverlayButtons = self.itemLockOverlayButtons or {}
     self.itemLockClickOverlayButtons = self.itemLockClickOverlayButtons or {}
     self.scrapIconOverlayButtons = self.scrapIconOverlayButtons or {}
+    self.questIconOverlayButtons = self.questIconOverlayButtons or {}
 
     local lockEnabled = self:IsItemLockingEnabled()
     local scrapIconEnabled = self:IsScrapIconEnabled()
-    if not lockEnabled and not scrapIconEnabled then
+    local questIconEnabled = self:IsQuestIconEnabled()
+    if not lockEnabled and not scrapIconEnabled and not questIconEnabled then
         return
     end
 
@@ -467,6 +518,11 @@ function Bags:RefreshItemLockOverlays()
                         overlay:Show()
                         self.scrapIconOverlayButtons[button] = true
                     end
+                end
+                if questIconEnabled and hasItem and not locked and self:IsQuestItem(bagID, slot) then
+                    local overlay = EnsureQuestIconOverlay(button)
+                    overlay:Show()
+                    self.questIconOverlayButtons[button] = true
                 end
                 if lockEnabled and hasItem and not suppressClickOverlays and (altDown or (merchantOpen and locked)) then
                     self:EnsureItemLockClickOverlay(button)

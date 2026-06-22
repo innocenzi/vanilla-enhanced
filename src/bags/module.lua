@@ -6,6 +6,7 @@ local defaults = {
     showSortButton = true,
     showSearchField = true,
     showScrapIcon = false,
+    showQuestIcon = false,
     showScrapToggleButton = false,
     sortOrder = "category",
     enableItemLocking = true,

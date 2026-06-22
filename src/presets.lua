@@ -48,6 +48,10 @@ local PRESETS = {
                 recipeScope = "known",
                 professionScope = "all",
             },
+            bags = {
+                showQuestIcon = true,
+                showScrapIcon = true,
+            },
         },
     },
     adventurer = {
@@ -93,6 +97,10 @@ local PRESETS = {
                 recipeScope = "known",
                 professionScope = "all",
             },
+            bags = {
+                showQuestIcon = true,
+                showScrapIcon = true,
+            },
         },
     },
     guide = {
@@ -135,6 +143,10 @@ local PRESETS = {
                 displayMode = "recipes",
                 recipeScope = "all",
                 professionScope = "all",
+            },
+            bags = {
+                showQuestIcon = true,
+                showScrapIcon = true,
             },
         },
     },
