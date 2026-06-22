@@ -6,22 +6,6 @@ local SORT_WAIT_TIMEOUT = 0.08
 local SORT_MIN_POLL_TIMEOUT = 0.03
 local LOCK_RETRY_TIMEOUT = 0.5
 local AUTO_SORT_DELAY = 0.25
-local SORT_STRATEGY_FULL = "full"
-local SORT_STRATEGY_TIDY = "tidy"
-
-local QUALITY_POOR = 0
-local ITEM_CLASS_CONSUMABLE = 0
-local ITEM_CLASS_CONTAINER = 1
-local ITEM_CLASS_WEAPON = 2
-local ITEM_CLASS_GEM = 3
-local ITEM_CLASS_ARMOR = 4
-local ITEM_CLASS_REAGENT = 5
-local ITEM_CLASS_PROJECTILE = 6
-local ITEM_CLASS_TRADE_GOODS = 7
-local ITEM_CLASS_RECIPE = 9
-local ITEM_CLASS_QUIVER = 11
-local ITEM_CLASS_QUEST = 12
-local ITEM_CLASS_KEY = 13
 
 local sortFrame = CreateFrame("Frame")
 local autoSortFrame = CreateFrame("Frame")
@@ -64,14 +48,6 @@ local function GetBagFamily(bagID)
     end
 
     return bagID
-end
-
-local function GetAutoSortStrategy(reason)
-    local settings = Bags:GetSettings()
-    if reason == "loot" and settings.autoSortAfterLootMode ~= SORT_STRATEGY_FULL then
-        return SORT_STRATEGY_TIDY
-    end
-    return SORT_STRATEGY_FULL
 end
 
 local function GetCachedItemInfo(link)
@@ -190,15 +166,6 @@ local SORT_ORDERS = {
         "itemIDAsc",
         "countDesc",
     },
-    name = {
-        "nameAsc",
-        "itemTypeAsc",
-        "itemSubTypeAsc",
-        "qualityDesc",
-        "itemLevelDesc",
-        "itemIDAsc",
-        "countDesc",
-    },
 }
 
 local SORT_RULES = {
@@ -262,72 +229,6 @@ local function CompareItems(left, right, sortOrder)
     return left.key < right.key
 end
 
-local TIDY_BUCKET_ORDER = {
-    "quest",
-    "equipment",
-    "consumable",
-    "materials",
-    "container",
-    "other",
-    "junk",
-}
-
-local function GetTidyBucket(item)
-    local classID = item and item.classID
-    local itemType = item and item.itemType
-
-    if item and item.quality == QUALITY_POOR then
-        return "junk"
-    end
-    if classID == ITEM_CLASS_QUEST or classID == ITEM_CLASS_KEY then
-        return "quest"
-    end
-    if classID == ITEM_CLASS_WEAPON or classID == ITEM_CLASS_ARMOR then
-        return "equipment"
-    end
-    if classID == ITEM_CLASS_CONSUMABLE then
-        return "consumable"
-    end
-    if classID == ITEM_CLASS_TRADE_GOODS
-        or classID == ITEM_CLASS_REAGENT
-        or classID == ITEM_CLASS_GEM
-        or classID == ITEM_CLASS_RECIPE
-    then
-        return "materials"
-    end
-    if classID == ITEM_CLASS_CONTAINER
-        or classID == ITEM_CLASS_QUIVER
-        or classID == ITEM_CLASS_PROJECTILE
-    then
-        return "container"
-    end
-
-    if itemType == _G.ITEM_CLASS_QUESTITEM or itemType == _G.ITEM_CLASS_KEY then
-        return "quest"
-    end
-    if itemType == _G.ITEM_CLASS_WEAPON or itemType == _G.ITEM_CLASS_ARMOR then
-        return "equipment"
-    end
-    if itemType == _G.ITEM_CLASS_CONSUMABLE then
-        return "consumable"
-    end
-    if itemType == _G.ITEM_CLASS_TRADEGOODS
-        or itemType == _G.ITEM_CLASS_REAGENT
-        or itemType == _G.ITEM_CLASS_GEM
-        or itemType == _G.ITEM_CLASS_RECIPE
-    then
-        return "materials"
-    end
-    if itemType == _G.ITEM_CLASS_CONTAINER
-        or itemType == _G.ITEM_CLASS_QUIVER
-        or itemType == _G.ITEM_CLASS_PROJECTILE
-    then
-        return "container"
-    end
-
-    return "other"
-end
-
 local function ApplyFullSort(group)
     local sortOrder = Bags.sortOrder or GetSortOrder()
     table.sort(group.items, function(left, right)
@@ -335,35 +236,7 @@ local function ApplyFullSort(group)
     end)
 end
 
-local function ApplyTidySort(group)
-    local bucketedItems = {}
-    local sortedItems = {}
-
-    for _, item in ipairs(group.items) do
-        local bucket = GetTidyBucket(item)
-        bucketedItems[bucket] = bucketedItems[bucket] or {}
-        table.insert(bucketedItems[bucket], item)
-    end
-
-    for _, bucket in ipairs(TIDY_BUCKET_ORDER) do
-        for _, item in ipairs(bucketedItems[bucket] or {}) do
-            table.insert(sortedItems, item)
-        end
-    end
-
-    group.items = sortedItems
-end
-
-local function ApplySortStrategy(group, strategy)
-    if strategy == SORT_STRATEGY_TIDY then
-        ApplyTidySort(group)
-        return
-    end
-
-    ApplyFullSort(group)
-end
-
-local function BuildSortGroups(strategy)
+local function BuildSortGroups()
     local groups = {}
     local groupOrder = {}
 
@@ -398,7 +271,7 @@ local function BuildSortGroups(strategy)
     end
 
     for _, group in ipairs(groupOrder) do
-        ApplySortStrategy(group, strategy)
+        ApplyFullSort(group)
     end
 
     return groupOrder
@@ -445,7 +318,7 @@ local function ValidateSortGroups(groups)
     return true, nil
 end
 
-function Bags:SortItems(suppressErrors, strategy)
+function Bags:SortItems(suppressErrors)
     if not self:IsSortEnabled() then
         return
     end
@@ -457,15 +330,14 @@ function Bags:SortItems(suppressErrors, strategy)
         return
     end
 
-    self:StartManualSort(suppressErrors, strategy)
+    self:StartManualSort(suppressErrors)
 end
 
-function Bags:QueueAutoSort(reason)
+function Bags:QueueAutoSort()
     if not self:IsSortEnabled() or self.sorting then
         return
     end
 
-    self.pendingAutoSortReason = reason
     self.autoSortElapsed = 0
     autoSortFrame:SetScript("OnUpdate", function(frame, elapsed)
         Bags.autoSortElapsed = (Bags.autoSortElapsed or 0) + elapsed
@@ -475,15 +347,12 @@ function Bags:QueueAutoSort(reason)
 
         frame:SetScript("OnUpdate", nil)
         if not Bags.sorting and Bags:IsSortEnabled() then
-            local reason = Bags.pendingAutoSortReason
-            Bags.pendingAutoSortReason = nil
-            Bags:SortItems(true, GetAutoSortStrategy(reason))
+            Bags:SortItems(true)
         end
     end)
 end
 
 function Bags:ClearAutoSort()
-    self.pendingAutoSortReason = nil
     self.autoSortElapsed = 0
     autoSortFrame:SetScript("OnUpdate", nil)
 end
@@ -500,7 +369,6 @@ function Bags:StopManualSort(message)
     self.lockWaitSlot = nil
     self.sortItemInfoCache = nil
     self.sortOrder = nil
-    self.sortStrategy = nil
     self.sortGroups = nil
     self.ignoredSortSlots = nil
     self.pendingSortMove = nil
@@ -514,7 +382,7 @@ function Bags:StopManualSort(message)
     end
 end
 
-function Bags:StartManualSort(suppressErrors, strategy)
+function Bags:StartManualSort(suppressErrors)
     self.suppressSortErrors = suppressErrors == true
 
     if not self:IsSortEnabled() then
@@ -553,7 +421,6 @@ function Bags:StartManualSort(suppressErrors, strategy)
     self.lockWaitSlot = nil
     self.sortItemInfoCache = {}
     self.sortOrder = GetSortOrder()
-    self.sortStrategy = strategy == SORT_STRATEGY_TIDY and SORT_STRATEGY_TIDY or SORT_STRATEGY_FULL
     self.sortGroups = nil
     self.ignoredSortSlots = {}
     self.pendingSortMove = nil
@@ -749,7 +616,7 @@ function Bags:ContinueManualSort()
             return
         end
     else
-        groups, errorMessage = BuildSortGroups(self.sortStrategy)
+        groups, errorMessage = BuildSortGroups()
         if not groups then
             if type(errorMessage) == "table" and errorMessage.reason == "locked" then
                 self:WaitForLockedSlot(errorMessage)

@@ -11,8 +11,8 @@ local defaults = {
     sortOrder = "category",
     enableItemLocking = true,
     autoSortAfterLoot = false,
-    autoSortAfterLootMode = "tidy",
     autoSortOnOpen = false,
+    autoSortOnClose = false,
     autoOpenMode = "disabled",
     itemLocks = {},
 }
@@ -87,6 +87,10 @@ function Bags:GetSettings()
         settings.enabled = false
     end
     settings.sortEnabled = nil
+    settings.autoSortAfterLootMode = nil
+    if settings.sortOrder == "name" then
+        settings.sortOrder = defaults.sortOrder
+    end
     return settings
 end
 
@@ -741,6 +745,9 @@ function Bags:Update()
     if not bagFrame then
         local allBagsClosed = IsAnyBagVisible and not IsAnyBagVisible()
         if allBagsClosed then
+            if self.bagsWereVisible and settings.autoSortOnClose and self.QueueAutoSort then
+                self:QueueAutoSort()
+            end
             self:ClearAutoOpenBagTracking()
             DisableScrapMarkModeForClosedBags(self.scrapToggleButton)
         end
@@ -756,7 +763,7 @@ function Bags:Update()
     if not self.bagsWereVisible then
         self.bagsWereVisible = true
         if self.QueueAutoSort and settings.autoSortOnOpen then
-            self:QueueAutoSort("open")
+            self:QueueAutoSort()
         end
     end
 
@@ -969,7 +976,7 @@ eventFrame:SetScript("OnEvent", function(_, event, loadedAddonName)
     end
 
     if event == "LOOT_CLOSED" and Bags.QueueAutoSort and Bags:GetSettings().autoSortAfterLoot then
-        Bags:QueueAutoSort("loot")
+        Bags:QueueAutoSort()
         return
     end
 

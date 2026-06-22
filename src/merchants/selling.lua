@@ -309,5 +309,5 @@ function Merchants:SortBagsAfterSellingScraps()
     end
 
     local Bags = VanillaEnhanced:GetModule("bags")
-    Bags:QueueAutoSort("merchant")
+    Bags:QueueAutoSort()
 end
