@@ -11,6 +11,7 @@ VanillaEnhanced.modules = VanillaEnhanced.modules or {}
 local DEFAULT_SETTINGS = {
     modules = {},
     locale = "auto",
+    configurationPreset = "adventurer",
     chatMessagesEnabled = true,
     showChatMessagePrefix = false,
 }

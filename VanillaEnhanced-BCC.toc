@@ -62,4 +62,5 @@ src\map\settings.lua
 src\map\markers.lua
 src\map\tomtom.lua
 src\target-threat\module.lua
+src\presets.lua
 src\options.lua

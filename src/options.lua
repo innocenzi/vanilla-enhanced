@@ -257,6 +257,24 @@ local function ConfirmResetAddonSettings()
     ResetAddonSettings()
 end
 
+local function ApplyConfigurationPreset()
+    if not VanillaEnhanced.ApplyConfigurationPreset then
+        return
+    end
+
+    local settings = VanillaEnhanced:GetSettings()
+    local presetKey = settings.configurationPreset
+    if VanillaEnhanced.NormalizeConfigurationPresetKey then
+        presetKey = VanillaEnhanced:NormalizeConfigurationPresetKey(presetKey)
+    end
+
+    local appliedPresetKey = VanillaEnhanced:ApplyConfigurationPreset(presetKey)
+    local presetLabel = VanillaEnhanced.GetConfigurationPresetLabel
+        and VanillaEnhanced:GetConfigurationPresetLabel(appliedPresetKey)
+        or appliedPresetKey
+    VanillaEnhanced:PrintMessage(T("options.main.configurationPreset.applied", { preset = presetLabel }))
+end
+
 local function ConfirmClearMapMarkers()
     local map = VanillaEnhanced:GetModule("map")
     if map and map.ConfirmClearMarkers then
@@ -525,17 +543,23 @@ local function CreateAddonSettingCheck(panel, name, settingKey, label, anchor)
     return check
 end
 
-local function CreateAddonActionButton(panel, name, label, anchor, onClick)
+local function CreateAddonActionButton(panel, name, label, anchor, onClick, option)
     local button = CreateFrame("Button", name, GetPanelContent(panel), "UIPanelButtonTemplate")
     local bottomAnchor = anchor.optionHelpBottomAnchor or anchor
-    button:SetPoint("TOPLEFT", bottomAnchor, "BOTTOMLEFT", 0, -16)
-    button:SetSize(140, 22)
+    if option and option.inlineWithPrevious then
+        button:SetPoint("LEFT", anchor, "RIGHT", option.inlineOffsetX or 0, option.inlineOffsetY or 2)
+        button.optionHelpBottomAnchor = bottomAnchor
+        panel.optionBottomAnchor = bottomAnchor
+    else
+        button:SetPoint("TOPLEFT", bottomAnchor, "BOTTOMLEFT", 0, -16)
+        panel.optionBottomAnchor = button
+    end
+    button:SetSize(option and option.width or 140, 22)
     button:SetText(label)
     button:SetScript("OnClick", onClick)
     button.optionHelpPointAnchor = button
     button.optionHelpLeftOffset = -1
     button.optionHelpTopOffset = -4
-    panel.optionBottomAnchor = button
     return button
 end
 
@@ -957,7 +981,7 @@ local function BuildOptionControl(panel, option, anchor, moduleKey)
     if option.type == "addonCheck" then
         control = CreateAddonSettingCheck(panel, option.name, option.settingKey, T(option.labelKey), anchor)
     elseif option.type == "addonAction" then
-        control = CreateAddonActionButton(panel, option.name, T(option.labelKey), anchor, option.onClick)
+        control = CreateAddonActionButton(panel, option.name, T(option.labelKey), anchor, option.onClick, option)
     elseif option.type == "moduleEnabled" then
         control = CreateModuleEnabledCheck(panel, option.name, optionModuleKey, T(option.labelKey), anchor)
     elseif option.type == "dropdown" or option.type == "addonDropdown" then
@@ -1185,6 +1209,27 @@ local mainPanel = BuildOptionsPanel({
             end,
         },
         {
+            type = "addonDropdown",
+            name = "VanillaEnhancedOptionsMainConfigurationPreset",
+            settingKey = "configurationPreset",
+            labelKey = "options.main.configurationPreset.label",
+            helpKey = "options.main.configurationPreset.help",
+            defaultValue = "adventurer",
+            width = 170,
+            optionsProvider = function()
+                return VanillaEnhanced:GetConfigurationPresetOptions()
+            end,
+        },
+        {
+            type = "addonAction",
+            name = "VanillaEnhancedOptionsMainApplyConfigurationPreset",
+            labelKey = "options.main.applyConfigurationPreset.label",
+            onClick = ApplyConfigurationPreset,
+            inlineWithPrevious = true,
+            inlineOffsetX = -8,
+            width = 110,
+        },
+        {
             type = "addonCheck",
             name = "VanillaEnhancedOptionsMainChatMessagesEnabled",
             settingKey = "chatMessagesEnabled",
@@ -1337,11 +1382,19 @@ local questsPanel = BuildOptionsPanel({
             indent = 1,
         },
         {
+            name = "VanillaEnhancedOptionsQuestsShowObjectiveTooltipHints",
+            settingKey = "showObjectiveTooltipHints",
+            labelKey = "options.quests.showObjectiveTooltipHints.label",
+            helpKey = "options.quests.showObjectiveTooltipHints.help",
+            indent = 0,
+        },
+        {
             name = "VanillaEnhancedOptionsQuestsShowCompletedTooltipObjectives",
             settingKey = "showCompletedTooltipObjectives",
             labelKey = "options.quests.showCompletedTooltipObjectives.label",
             helpKey = "options.quests.showCompletedTooltipObjectives.help",
-            indent = 0,
+            enabledWhenSetting = "showObjectiveTooltipHints",
+            indent = 1,
         },
         {
             type = "dropdown",

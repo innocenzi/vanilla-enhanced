@@ -48,6 +48,7 @@ local defaults = {
     availableQuestLevelsAbovePlayer = DEFAULT_AVAILABLE_QUEST_LEVELS_ABOVE_PLAYER,
     showCompletedMapObjectives = false,
     showCompletedTooltipObjectives = true,
+    showObjectiveTooltipHints = true,
 }
 
 local function ClampAvailableQuestLevelWindowSetting(value, defaultValue)

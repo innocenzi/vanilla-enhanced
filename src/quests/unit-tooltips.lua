@@ -173,6 +173,9 @@ local function OnTooltipSetUnit(tooltip)
     if not settings.enabled or not Quests.unitTooltipIndex then
         return
     end
+    if settings.showObjectiveTooltipHints == false then
+        return
+    end
 
     local _, unit = tooltip:GetUnit()
     local guid = unit and UnitGUID(unit) or UnitGUID("mouseover")
