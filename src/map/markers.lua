@@ -8,6 +8,8 @@ local MARKER_COLOR = { 1, 0.82, 0.18, 1 }
 local MARKER_SHADOW_COLOR = { 0, 0, 0, 0.95 }
 local TOOLTIP_METADATA_COLOR = { 0.56, 0.56, 0.56 }
 local COORDINATE_PRECISION = 100000
+local MARKER_REACHED_DISTANCE = 20
+local REACHED_MARKER_UPDATE_INTERVAL = 1
 local MINIMAP_UPDATE_INTERVAL = 0.05
 local MINIMAP_EDGE_RADIUS_MULTIPLIER = 0.86
 local MINIMAP_SIZE = {
@@ -320,6 +322,36 @@ function Map:CanPlaceMarker(uiMapId, x, y)
     return worldX ~= nil and worldY ~= nil
 end
 
+function Map:GetMarkerPositionDistanceToPlayer(uiMapId, x, y)
+    if not self.hbd or not self.hbd.GetPlayerWorldPosition or not self.hbd.GetWorldCoordinatesFromZone then
+        return nil
+    end
+
+    local markerX, markerY, markerInstanceId = self.hbd:GetWorldCoordinatesFromZone(x, y, uiMapId)
+    local playerX, playerY, playerInstanceId = self.hbd:GetPlayerWorldPosition()
+    if not markerX or not markerY or not playerX or not playerY or markerInstanceId ~= playerInstanceId then
+        return nil
+    end
+
+    if self.hbd.GetWorldDistance then
+        return self.hbd:GetWorldDistance(playerInstanceId, playerX, playerY, markerX, markerY)
+    end
+
+    local xDist = playerX - markerX
+    local yDist = playerY - markerY
+    return math.sqrt((xDist * xDist) + (yDist * yDist))
+end
+
+function Map:IsMarkerPositionReached(uiMapId, x, y)
+    local settings = self:GetSettings()
+    if settings.autoRemoveReachedMarkers == false then
+        return false
+    end
+
+    local distance = self:GetMarkerPositionDistanceToPlayer(uiMapId, x, y)
+    return distance and distance <= MARKER_REACHED_DISTANCE
+end
+
 local function GetMarkerTitle(options)
     local title = options and options.title
     if type(title) ~= "string" then
@@ -345,6 +377,9 @@ function Map:AddMarker(uiMapId, x, y, options)
     y = RoundCoordinate(y)
     if x < 0 or x > 1 or y < 0 or y > 1 or not self:CanPlaceMarker(uiMapId, x, y) then
         VanillaEnhanced:PrintMessage(T("map.marker.unsupportedMap"))
+        return nil
+    end
+    if self:IsMarkerPositionReached(uiMapId, x, y) then
         return nil
     end
 
@@ -379,6 +414,29 @@ function Map:RemoveMarker(markerId)
         end
     end
     return false
+end
+
+function Map:RemoveMarkersById(markerIds)
+    if type(markerIds) ~= "table" then
+        return 0
+    end
+
+    local markers = self:GetMarkerStore()
+    local removed = 0
+    for index = #markers, 1, -1 do
+        if markerIds[markers[index].id] == true then
+            table.remove(markers, index)
+            removed = removed + 1
+        end
+    end
+
+    if removed > 0 then
+        if self.HidePlacementOverlayTooltip then
+            self:HidePlacementOverlayTooltip()
+        end
+        self:Refresh()
+    end
+    return removed
 end
 
 function Map:ClearMarkers()
@@ -429,18 +487,11 @@ function Map:ShowMarkerTooltip(frame)
 end
 
 function Map:GetMarkerDistanceToPlayer(marker)
-    if not marker or not self.hbd or not self.hbd.GetPlayerWorldPosition or not self.hbd.GetWorldCoordinatesFromZone then
+    if not marker then
         return nil
     end
 
-    local markerX, markerY, markerInstanceId = self.hbd:GetWorldCoordinatesFromZone(marker.x, marker.y, marker.uiMapId)
-    local playerX, playerY, playerInstanceId = self.hbd:GetPlayerWorldPosition()
-    if not markerX or not markerY or not playerX or not playerY or markerInstanceId ~= playerInstanceId then
-        return nil
-    end
-
-    local distance = self.hbd:GetWorldDistance(playerInstanceId, playerX, playerY, markerX, markerY)
-    return distance
+    return self:GetMarkerPositionDistanceToPlayer(marker.uiMapId, marker.x, marker.y)
 end
 
 function Map:HideMarkerTooltip(frame)
@@ -661,6 +712,42 @@ function Map:Refresh()
     self:RefreshWorldMapMarkers()
     self:RefreshMinimapMarkers()
     self:RefreshDirectionTargets()
+    if self.RefreshMinimapMarkerUpdateState then
+        self:RefreshMinimapMarkerUpdateState()
+    end
+end
+
+function Map:ShouldTrackReachedMarkers()
+    local settings = self:GetSettings()
+    return settings.enabled ~= false and settings.autoRemoveReachedMarkers ~= false and #(self:GetMarkerStore()) > 0
+end
+
+function Map:RemoveReachedMarkers(playerX, playerY, playerInstanceId)
+    if not self:ShouldTrackReachedMarkers() or not self.hbd or not self.hbd.GetWorldCoordinatesFromZone then
+        return false
+    end
+
+    local reachedMarkerIds
+    for _, marker in ipairs(self:GetMarkerStore()) do
+        local markerX, markerY, markerInstanceId = self.hbd:GetWorldCoordinatesFromZone(marker.x, marker.y, marker.uiMapId)
+        if markerX and markerY and markerInstanceId == playerInstanceId then
+            local distance
+            if self.hbd.GetWorldDistance then
+                distance = self.hbd:GetWorldDistance(playerInstanceId, playerX, playerY, markerX, markerY)
+            else
+                local xDist = playerX - markerX
+                local yDist = playerY - markerY
+                distance = math.sqrt((xDist * xDist) + (yDist * yDist))
+            end
+
+            if distance and distance <= MARKER_REACHED_DISTANCE then
+                reachedMarkerIds = reachedMarkerIds or {}
+                reachedMarkerIds[marker.id] = true
+            end
+        end
+    end
+
+    return self:RemoveMarkersById(reachedMarkerIds) > 0
 end
 
 function Map:UpdateMinimapMarkerFrame(frame, playerX, playerY, playerInstanceId, playerFacing, rotateMinimap)
@@ -724,6 +811,12 @@ function Map:UpdateMinimapMarkers()
         return
     end
 
+    if self.reachedMarkerUpdatePending == true and self:RemoveReachedMarkers(playerX, playerY, playerInstanceId) then
+        self.reachedMarkerUpdatePending = false
+        return
+    end
+    self.reachedMarkerUpdatePending = false
+
     local rotateMinimap = GetCVar and GetCVar("rotateMinimap") == "1"
     local playerFacing = rotateMinimap and GetPlayerFacing and GetPlayerFacing() or nil
 
@@ -742,8 +835,14 @@ function Map:StartMinimapMarkerUpdates()
 
     local frame = CreateFrame("Frame")
     frame.elapsed = 0
+    frame.reachedMarkerElapsed = 0
     frame:SetScript("OnUpdate", function(updateFrame, elapsed)
         updateFrame.elapsed = (updateFrame.elapsed or 0) + (elapsed or 0)
+        updateFrame.reachedMarkerElapsed = (updateFrame.reachedMarkerElapsed or 0) + (elapsed or 0)
+        if updateFrame.reachedMarkerElapsed >= REACHED_MARKER_UPDATE_INTERVAL then
+            updateFrame.reachedMarkerElapsed = 0
+            Map.reachedMarkerUpdatePending = true
+        end
         if updateFrame.elapsed < MINIMAP_UPDATE_INTERVAL then
             return
         end
@@ -754,7 +853,7 @@ function Map:StartMinimapMarkerUpdates()
 end
 
 function Map:RefreshMinimapMarkerUpdateState()
-    if #(self.minimapFrames or {}) > 0 or #(self.directionTargetFrames or {}) > 0 then
+    if #(self.minimapFrames or {}) > 0 or #(self.directionTargetFrames or {}) > 0 or self:ShouldTrackReachedMarkers() then
         self:StartMinimapMarkerUpdates()
         return
     end

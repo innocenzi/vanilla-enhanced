@@ -36,6 +36,7 @@ local PRESETS = {
                 enabled = true,
                 showWorldMapMarkers = true,
                 showMinimapDirections = false,
+                autoRemoveReachedMarkers = true,
             },
             training = {
                 enabled = false,
@@ -80,6 +81,7 @@ local PRESETS = {
                 enabled = true,
                 showWorldMapMarkers = true,
                 showMinimapDirections = true,
+                autoRemoveReachedMarkers = true,
             },
             training = {
                 enabled = true,
@@ -122,6 +124,7 @@ local PRESETS = {
                 enabled = true,
                 showWorldMapMarkers = true,
                 showMinimapDirections = true,
+                autoRemoveReachedMarkers = true,
             },
             training = {
                 enabled = true,

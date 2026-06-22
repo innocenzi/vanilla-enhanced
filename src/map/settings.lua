@@ -5,6 +5,7 @@ local defaults = {
     enabled = true,
     showWorldMapMarkers = true,
     showMinimapDirections = true,
+    autoRemoveReachedMarkers = true,
     enableTomTomCommands = false,
     markers = {},
     nextMarkerId = 1,

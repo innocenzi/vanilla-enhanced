@@ -1535,6 +1535,13 @@ local mapPanel = BuildOptionsPanel({
             indent = 0,
         },
         {
+            name = "VanillaEnhancedOptionsMapAutoRemoveReachedMarkers",
+            settingKey = "autoRemoveReachedMarkers",
+            labelKey = "options.map.autoRemoveReachedMarkers.label",
+            helpKey = "options.map.autoRemoveReachedMarkers.help",
+            indent = 0,
+        },
+        {
             name = "VanillaEnhancedOptionsMapEnableTomTomCommands",
             settingKey = "enableTomTomCommands",
             labelKey = "options.map.enableTomTomCommands.label",
