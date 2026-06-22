@@ -2,6 +2,8 @@ local VanillaEnhanced = _G.VanillaEnhanced
 local Bags = VanillaEnhanced:GetModule("bags")
 
 local PLAYER_BAGS = { 0, 1, 2, 3, 4 }
+local FALLBACK_BANK_BAG_FIRST = 5
+local FALLBACK_BANK_BAG_LAST = 11
 local SORT_WAIT_TIMEOUT = 0.08
 local SORT_MIN_POLL_TIMEOUT = 0.03
 local LOCK_RETRY_TIMEOUT = 0.5
@@ -28,8 +30,45 @@ local function GetItemID(link)
     return tonumber(string.match(link, "item:(%d+)")) or 0
 end
 
+local function GetBankContainerID()
+    if type(BANK_CONTAINER) == "number" then
+        return BANK_CONTAINER
+    end
+    return -1
+end
+
+local function IsMainBankContainer(bagID)
+    return bagID == GetBankContainerID()
+end
+
+local function GetBankBags()
+    local bags = {}
+    local normalBagCount = type(NUM_BAG_SLOTS) == "number" and NUM_BAG_SLOTS or 4
+    local bankBagCount = type(NUM_BANKBAGSLOTS) == "number" and NUM_BANKBAGSLOTS or nil
+
+    if bankBagCount then
+        for bagID = normalBagCount + 1, normalBagCount + bankBagCount do
+            bags[#bags + 1] = bagID
+        end
+        return bags
+    end
+
+    for bagID = FALLBACK_BANK_BAG_FIRST, FALLBACK_BANK_BAG_LAST do
+        bags[#bags + 1] = bagID
+    end
+    return bags
+end
+
+local function GetBankContainers()
+    local containers = { GetBankContainerID() }
+    for _, bagID in ipairs(GetBankBags()) do
+        containers[#containers + 1] = bagID
+    end
+    return containers
+end
+
 local function GetBagFamily(bagID)
-    if bagID == 0 then
+    if bagID == 0 or IsMainBankContainer(bagID) then
         return 0
     end
 
@@ -236,11 +275,11 @@ local function ApplyFullSort(group)
     end)
 end
 
-local function BuildSortGroups()
+local function BuildSortGroups(containerIDs)
     local groups = {}
     local groupOrder = {}
 
-    for _, bagID in ipairs(PLAYER_BAGS) do
+    for _, bagID in ipairs(containerIDs or PLAYER_BAGS) do
         local group = GetGroup(groups, groupOrder, GetSortGroupKey(bagID))
         local slotCount = Bags.Api:GetContainerNumSlots(bagID) or 0
 
@@ -275,6 +314,92 @@ local function BuildSortGroups()
     end
 
     return groupOrder
+end
+
+local function GetItemStackSize(link)
+    local itemInfo = link and GetCachedItemInfo(link)
+    local stackSize = itemInfo and tonumber(itemInfo.stackSize) or 1
+    if stackSize < 1 then
+        stackSize = 1
+    end
+    return stackSize
+end
+
+local function ReadStackableSlot(bagID, slot)
+    if Bags.IsItemLocked and Bags:IsItemLocked(bagID, slot) then
+        return nil, false
+    end
+
+    local containerItem = Bags.Api:GetContainerItemInfo(bagID, slot)
+    if not containerItem then
+        return nil, false
+    end
+    if containerItem.isLocked then
+        return nil, true
+    end
+
+    local link = containerItem.hyperlink or Bags.Api:GetContainerItemLink(bagID, slot)
+    if not link then
+        return nil, false
+    end
+
+    local count = containerItem.stackCount or 1
+    return {
+        bagID = bagID,
+        slot = slot,
+        link = link,
+        count = count,
+        key = link .. ":" .. count,
+        stackSize = GetItemStackSize(link),
+    }, false
+end
+
+local function FindNextBankStackMove()
+    local targetsByLink = {}
+    local targetOrder = {}
+
+    for _, bagID in ipairs(GetBankContainers()) do
+        local slotCount = Bags.Api:GetContainerNumSlots(bagID) or 0
+        for slot = 1, slotCount do
+            if not IsIgnoredSortSlot(bagID, slot) then
+                local target, locked = ReadStackableSlot(bagID, slot)
+                if locked then
+                    IgnoreSortSlot(bagID, slot)
+                elseif target and target.stackSize > 1 and target.count < target.stackSize then
+                    if not targetsByLink[target.link] then
+                        targetsByLink[target.link] = {}
+                        targetOrder[#targetOrder + 1] = target.link
+                    end
+                    targetsByLink[target.link][#targetsByLink[target.link] + 1] = target
+                end
+            end
+        end
+    end
+
+    if #targetOrder == 0 then
+        return nil, nil, nil
+    end
+
+    for _, sourceBagID in ipairs(PLAYER_BAGS) do
+        local slotCount = Bags.Api:GetContainerNumSlots(sourceBagID) or 0
+        for sourceSlot = 1, slotCount do
+            if not IsIgnoredSortSlot(sourceBagID, sourceSlot) then
+                local source, locked = ReadStackableSlot(sourceBagID, sourceSlot)
+                if locked then
+                    IgnoreSortSlot(sourceBagID, sourceSlot)
+                elseif source and targetsByLink[source.link] then
+                    for _, target in ipairs(targetsByLink[source.link]) do
+                        local free = target.stackSize - target.count
+                        if free > 0 then
+                            return source, target, math.min(source.count, free)
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    return nil, nil, nil
 end
 
 local function FindNextMove(groups)
@@ -330,7 +455,37 @@ function Bags:SortItems(suppressErrors)
         return
     end
 
-    self:StartManualSort(suppressErrors)
+    self:StartManualSort(suppressErrors, PLAYER_BAGS, "bags")
+end
+
+function Bags:SortBankItems(suppressErrors)
+    if not self:IsSortEnabled() then
+        return
+    end
+
+    if self.sorting then
+        if not suppressErrors then
+            self:PrintMessage(T("bags.sort.errorRunning"))
+        end
+        return
+    end
+
+    self:StartManualSort(suppressErrors, GetBankContainers(), "bank")
+end
+
+function Bags:StackItemsToBank(suppressErrors)
+    if not self:IsSortEnabled() then
+        return
+    end
+
+    if self.sorting then
+        if not suppressErrors then
+            self:PrintMessage(T("bags.sort.errorRunning"))
+        end
+        return
+    end
+
+    self:StartBankStack(suppressErrors)
 end
 
 function Bags:QueueAutoSort()
@@ -369,12 +524,21 @@ function Bags:StopManualSort(message)
     self.lockWaitSlot = nil
     self.sortItemInfoCache = nil
     self.sortOrder = nil
+    self.sortContainerIDs = nil
+    self.sortScope = nil
+    self.sortOperation = nil
     self.sortGroups = nil
     self.ignoredSortSlots = nil
     self.pendingSortMove = nil
     self.pendingSortMoveStarted = nil
     sortFrame:SetScript("OnUpdate", nil)
     self:SetSortButtonBusy(false)
+    if self.SetBankSortButtonBusy then
+        self:SetBankSortButtonBusy(false)
+    end
+    if self.SetBankStackButtonBusy then
+        self:SetBankStackButtonBusy(false)
+    end
     self:QueueUpdate()
 
     if message and not suppressErrors then
@@ -382,13 +546,13 @@ function Bags:StopManualSort(message)
     end
 end
 
-function Bags:StartManualSort(suppressErrors)
+function Bags:PrepareManualOperation(suppressErrors)
     self.suppressSortErrors = suppressErrors == true
 
     if not self:IsSortEnabled() then
         self:ClearAutoSort()
         self.suppressSortErrors = nil
-        return
+        return false
     end
 
     if not self.Api or not self.Api:HasManualSortApis() then
@@ -396,7 +560,7 @@ function Bags:StartManualSort(suppressErrors)
             self:PrintMessage(T("bags.sort.errorUnavailableClient"))
         end
         self.suppressSortErrors = nil
-        return
+        return false
     end
 
     if IsInCombatLockdown() then
@@ -404,7 +568,7 @@ function Bags:StartManualSort(suppressErrors)
             self:PrintMessage(T("bags.sort.errorCombat"))
         end
         self.suppressSortErrors = nil
-        return
+        return false
     end
 
     if self.Api:HasCursorItem() then
@@ -412,7 +576,7 @@ function Bags:StartManualSort(suppressErrors)
             self:PrintMessage(T("bags.sort.errorCursor"))
         end
         self.suppressSortErrors = nil
-        return
+        return false
     end
 
     self.sorting = true
@@ -429,6 +593,34 @@ function Bags:StartManualSort(suppressErrors)
         self:ClearScrapIconOverlays()
     end
     self:SetSortButtonBusy(true)
+    if self.SetBankSortButtonBusy then
+        self:SetBankSortButtonBusy(true)
+    end
+    if self.SetBankStackButtonBusy then
+        self:SetBankStackButtonBusy(true)
+    end
+    return true
+end
+
+function Bags:StartManualSort(suppressErrors, containerIDs, scope)
+    if not self:PrepareManualOperation(suppressErrors) then
+        return
+    end
+
+    self.sortOperation = "sort"
+    self.sortScope = scope or "bags"
+    self.sortContainerIDs = containerIDs or PLAYER_BAGS
+    self:ContinueManualSort()
+end
+
+function Bags:StartBankStack(suppressErrors)
+    if not self:PrepareManualOperation(suppressErrors) then
+        return
+    end
+
+    self.sortOperation = "bankStack"
+    self.sortScope = "bank"
+    self.sortContainerIDs = nil
     self:ContinueManualSort()
 end
 
@@ -498,6 +690,62 @@ function Bags:MoveItem(sourceSlot, targetSlot)
         oldTargetKey = targetItem and targetItem.key or nil,
         expectedSourceKey = targetItem and targetItem.key or nil,
         expectedTargetKey = sourceItem and sourceItem.key or nil,
+    }
+    self.pendingSortMoveStarted = type(GetTime) == "function" and GetTime() or 0
+
+    return true, nil
+end
+
+function Bags:MoveStackToBank(sourceSlot, targetSlot, moveCount)
+    if IsInCombatLockdown() then
+        return false, T("bags.sort.errorCombat")
+    end
+
+    if self.Api:HasCursorItem() then
+        return false, T("bags.sort.errorCursor")
+    end
+    if self.IsItemLocked
+        and (self:IsItemLocked(sourceSlot.bagID, sourceSlot.slot) or self:IsItemLocked(targetSlot.bagID, targetSlot.slot))
+    then
+        return false, T("bags.lock.cannotMove")
+    end
+
+    local ok = pcall(self.Api.PickupContainerItem, self.Api, sourceSlot.bagID, sourceSlot.slot)
+    if not ok then
+        return false, T("bags.sort.errorPickup")
+    end
+
+    ok = pcall(self.Api.PickupContainerItem, self.Api, targetSlot.bagID, targetSlot.slot)
+    if not ok then
+        if self.Api:HasCursorItem() then
+            pcall(self.Api.PickupContainerItem, self.Api, sourceSlot.bagID, sourceSlot.slot)
+        end
+        return false, T("bags.sort.errorMove")
+    end
+
+    if self.Api:HasCursorItem() then
+        pcall(self.Api.PickupContainerItem, self.Api, sourceSlot.bagID, sourceSlot.slot)
+        if self.Api:HasCursorItem() then
+            return false, T("bags.sort.errorMove")
+        end
+    end
+
+    self.lockWaitStarted = nil
+    self.lockWaitBagID = nil
+    self.lockWaitSlot = nil
+
+    local expectedSourceCount = sourceSlot.count - moveCount
+    local expectedTargetCount = targetSlot.count + moveCount
+
+    self.pendingSortMove = {
+        sourceBagID = sourceSlot.bagID,
+        sourceSlotID = sourceSlot.slot,
+        targetBagID = targetSlot.bagID,
+        targetSlotID = targetSlot.slot,
+        oldSourceKey = sourceSlot.key,
+        oldTargetKey = targetSlot.key,
+        expectedSourceKey = expectedSourceCount > 0 and (sourceSlot.link .. ":" .. expectedSourceCount) or nil,
+        expectedTargetKey = targetSlot.link .. ":" .. expectedTargetCount,
     }
     self.pendingSortMoveStarted = type(GetTime) == "function" and GetTime() or 0
 
@@ -601,6 +849,23 @@ function Bags:ContinueManualSort()
         return
     end
 
+    if self.sortOperation == "bankStack" then
+        local sourceSlot, targetSlot, moveCount = FindNextBankStackMove()
+        if not sourceSlot or not targetSlot or not moveCount then
+            self:StopManualSort()
+            return
+        end
+
+        local ok, message = self:MoveStackToBank(sourceSlot, targetSlot, moveCount)
+        if not ok then
+            self:StopManualSort(message)
+            return
+        end
+
+        self:WaitForSortUpdate()
+        return
+    end
+
     local groups = self.sortGroups
     local errorMessage
 
@@ -616,7 +881,7 @@ function Bags:ContinueManualSort()
             return
         end
     else
-        groups, errorMessage = BuildSortGroups()
+        groups, errorMessage = BuildSortGroups(self.sortContainerIDs or PLAYER_BAGS)
         if not groups then
             if type(errorMessage) == "table" and errorMessage.reason == "locked" then
                 self:WaitForLockedSlot(errorMessage)
