@@ -173,12 +173,18 @@ local function BuildPlayerProfessions()
         return nil
     end
 
+    if Quests.buildingAvailablePlayerProfessions then
+        return Quests.availablePlayerProfessions
+    end
+    Quests.buildingAvailablePlayerProfessions = true
+
     if ExpandSkillHeader then
         pcall(ExpandSkillHeader, 0)
     end
 
     local okCount, count = pcall(GetNumSkillLines)
     if not okCount or type(count) ~= "number" then
+        Quests.buildingAvailablePlayerProfessions = false
         return nil
     end
 
@@ -200,6 +206,8 @@ local function BuildPlayerProfessions()
         end
     end
 
+    Quests.availablePlayerProfessions = professions
+    Quests.buildingAvailablePlayerProfessions = false
     return professions
 end
 
@@ -208,12 +216,18 @@ local function BuildPlayerReputations()
         return nil
     end
 
+    if Quests.buildingAvailablePlayerReputations then
+        return Quests.availablePlayerReputations
+    end
+    Quests.buildingAvailablePlayerReputations = true
+
     if ExpandFactionHeader then
         pcall(ExpandFactionHeader, 0)
     end
 
     local okCount, count = pcall(GetNumFactions)
     if not okCount or type(count) ~= "number" then
+        Quests.buildingAvailablePlayerReputations = false
         return nil
     end
 
@@ -225,6 +239,8 @@ local function BuildPlayerReputations()
         end
     end
 
+    Quests.availablePlayerReputations = reputations
+    Quests.buildingAvailablePlayerReputations = false
     return reputations
 end
 

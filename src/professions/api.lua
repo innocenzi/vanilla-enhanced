@@ -145,12 +145,18 @@ function Api:BuildPlayerProfessions()
         return nil
     end
 
+    if self.buildingPlayerProfessions then
+        return Professions.playerProfessions
+    end
+    self.buildingPlayerProfessions = true
+
     if ExpandSkillHeader then
         pcall(ExpandSkillHeader, 0)
     end
 
     local okCount, count = pcall(GetNumSkillLines)
     if not okCount or type(count) ~= "number" then
+        self.buildingPlayerProfessions = false
         return nil
     end
 
@@ -163,6 +169,7 @@ function Api:BuildPlayerProfessions()
         end
     end
 
+    self.buildingPlayerProfessions = false
     return professions
 end
 

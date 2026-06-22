@@ -312,6 +312,10 @@ function Quests:RefreshQuestMarkerHighlights(targetFrame)
 end
 
 function Quests:SetSelectedQuestAreaQuest(questId)
+    if self.selectedQuestAreaQuestId == questId then
+        return
+    end
+
     self.selectedQuestAreaQuestId = questId
     if questId then
         self.selectedQuestDirectionQuestId = questId

@@ -122,13 +122,19 @@ end
 
 function Professions:GetPlayerProfessions()
     if not self.playerProfessions then
-        self.playerProfessions = self.Api and self.Api:BuildPlayerProfessions() or {}
+        self:RefreshPlayerProfessions()
     end
-    return self.playerProfessions
+    return self.playerProfessions or {}
 end
 
 function Professions:RefreshPlayerProfessions()
+    if self.refreshingPlayerProfessions then
+        return
+    end
+
+    self.refreshingPlayerProfessions = true
     self.playerProfessions = self.Api and self.Api:BuildPlayerProfessions() or {}
+    self.refreshingPlayerProfessions = false
 end
 
 function Professions:RefreshKnownRecipeCache()
