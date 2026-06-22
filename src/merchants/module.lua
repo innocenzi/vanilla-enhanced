@@ -2,6 +2,13 @@ local VanillaEnhanced = _G.VanillaEnhanced
 local Merchants = VanillaEnhanced:CreateModule("merchants", VanillaEnhanced:T("module.merchants"))
 
 local MERCHANT_OPEN_REFRESH_SECONDS = 2.0
+local DEFAULT_SCRAP_STRATEGY = "poor-sellable"
+
+local VALID_SCRAP_STRATEGIES = {
+    ["poor-sellable"] = true,
+    ["low-level"] = true,
+    ["smart"] = true,
+}
 
 local defaults = {
     enabled = true,
@@ -29,7 +36,11 @@ Merchants.pendingAutoRepair = false
 Merchants.scrapMarkMode = false
 
 function Merchants:GetSettings()
-    return VanillaEnhanced:GetModuleSettings("merchants", defaults)
+    local settings = VanillaEnhanced:GetModuleSettings("merchants", defaults)
+    if not VALID_SCRAP_STRATEGIES[settings.scrapStrategy] then
+        settings.scrapStrategy = DEFAULT_SCRAP_STRATEGY
+    end
+    return settings
 end
 
 function Merchants:IsSellScrapsEnabled()

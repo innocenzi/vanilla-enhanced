@@ -6,6 +6,7 @@ local QUALITY_UNCOMMON = 2
 local ITEM_CLASS_CONSUMABLE = 0
 local ITEM_CLASS_WEAPON = 2
 local ITEM_CLASS_ARMOR = 4
+local ITEM_CLASS_TRADE_GOODS = 7
 local LOW_CONSUMABLE_LEVEL_RATIO = 0.25
 local LOW_EQUIPMENT_LEVEL_RATIO = 0.50
 
@@ -135,6 +136,29 @@ local function IsLowBoundEquipment(itemContext)
     return IsBelowAllComparedSlots(itemContext, slots)
 end
 
+local function IsTradeGood(itemContext)
+    local itemType = itemContext and itemContext.itemType
+    return itemContext
+        and (
+            itemContext.classID == ITEM_CLASS_TRADE_GOODS
+            or itemType == _G.ITEM_CLASS_TRADE_GOODS
+            or itemType == _G.ITEM_CLASS_TRADEGOODS
+        )
+end
+
+local function IsTradeGoodUnusedByPlayerProfessions(itemContext)
+    if not IsSellableItem(itemContext) or not IsTradeGood(itemContext) or not itemContext.itemID then
+        return false
+    end
+
+    local Professions = VanillaEnhanced:GetModule("professions")
+    if not Professions or not Professions.IsItemUsedByPlayerProfessionRecipes then
+        return false
+    end
+
+    return Professions:IsItemUsedByPlayerProfessionRecipes(itemContext.itemID) == false
+end
+
 local function AnyRule(itemContext, rules)
     for _, rule in ipairs(rules) do
         if rule(itemContext) then
@@ -144,6 +168,21 @@ local function AnyRule(itemContext, rules)
     return false
 end
 
+local LOW_LEVEL_RULES = {
+    IsPoorSellable,
+    IsUnusableBoundEquipment,
+    IsLowConsumable,
+    IsLowBoundEquipment,
+}
+
+local SMART_RULES = {
+    IsPoorSellable,
+    IsUnusableBoundEquipment,
+    IsLowConsumable,
+    IsLowBoundEquipment,
+    IsTradeGoodUnusedByPlayerProfessions,
+}
+
 Merchants:RegisterScrapStrategy({
     key = "poor-sellable",
     labelKey = "options.merchants.scrapStrategy.poorSellable",
@@ -151,35 +190,10 @@ Merchants:RegisterScrapStrategy({
 })
 
 Merchants:RegisterScrapStrategy({
-    key = "poor-unusable-equipment",
-    labelKey = "options.merchants.scrapStrategy.poorUnusableEquipment",
+    key = "low-level",
+    labelKey = "options.merchants.scrapStrategy.lowLevel",
     isScrap = function(itemContext)
-        return AnyRule(itemContext, {
-            IsPoorSellable,
-            IsUnusableBoundEquipment,
-        })
-    end,
-})
-
-Merchants:RegisterScrapStrategy({
-    key = "poor-low-consumables",
-    labelKey = "options.merchants.scrapStrategy.poorLowConsumables",
-    isScrap = function(itemContext)
-        return AnyRule(itemContext, {
-            IsPoorSellable,
-            IsLowConsumable,
-        })
-    end,
-})
-
-Merchants:RegisterScrapStrategy({
-    key = "poor-low-equipment",
-    labelKey = "options.merchants.scrapStrategy.poorLowEquipment",
-    isScrap = function(itemContext)
-        return AnyRule(itemContext, {
-            IsPoorSellable,
-            IsLowBoundEquipment,
-        })
+        return AnyRule(itemContext, LOW_LEVEL_RULES)
     end,
 })
 
@@ -187,11 +201,6 @@ Merchants:RegisterScrapStrategy({
     key = "smart",
     labelKey = "options.merchants.scrapStrategy.smart",
     isScrap = function(itemContext)
-        return AnyRule(itemContext, {
-            IsPoorSellable,
-            IsUnusableBoundEquipment,
-            IsLowConsumable,
-            IsLowBoundEquipment,
-        })
+        return AnyRule(itemContext, SMART_RULES)
     end,
 })

@@ -158,6 +158,42 @@ function Professions:GetProfessionName(professionID)
     })
 end
 
+function Professions:IsItemUsedByPlayerProfessionRecipes(itemID)
+    itemID = tonumber(itemID)
+    if not itemID then
+        return nil
+    end
+
+    local playerProfessions = self:GetPlayerProfessions()
+    local hasPlayerProfession = false
+    for _ in pairs(playerProfessions or {}) do
+        hasPlayerProfession = true
+        break
+    end
+
+    if not hasPlayerProfession then
+        return nil
+    end
+
+    local db = _G.VanillaEnhancedProfessionRecipesDB
+    if not db or not db.reagents then
+        return nil
+    end
+
+    local entries = db.reagents[itemID]
+    if not entries then
+        return false
+    end
+
+    for _, rawEntry in ipairs(entries) do
+        if playerProfessions[rawEntry.p] ~= nil then
+            return true
+        end
+    end
+
+    return false
+end
+
 function Professions:ShouldIncludeEntry(entry, settings)
     if settings.recipeScope == RECIPE_SCOPE_KNOWN and not entry.known then
         return false

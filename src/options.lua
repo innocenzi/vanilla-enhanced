@@ -1886,6 +1886,7 @@ local merchantsPanel = BuildOptionsPanel({
             enabledWhenSetting = "sellScrapsEnabled",
             indent = 1,
             width = 190,
+            defaultValue = "poor-sellable",
             options = {
                 {
                     value = "poor-sellable",
@@ -1893,19 +1894,9 @@ local merchantsPanel = BuildOptionsPanel({
                     descriptionKey = "options.merchants.scrapStrategy.poorSellable.description",
                 },
                 {
-                    value = "poor-unusable-equipment",
-                    labelKey = "options.merchants.scrapStrategy.poorUnusableEquipment",
-                    descriptionKey = "options.merchants.scrapStrategy.poorUnusableEquipment.description",
-                },
-                {
-                    value = "poor-low-consumables",
-                    labelKey = "options.merchants.scrapStrategy.poorLowConsumables",
-                    descriptionKey = "options.merchants.scrapStrategy.poorLowConsumables.description",
-                },
-                {
-                    value = "poor-low-equipment",
-                    labelKey = "options.merchants.scrapStrategy.poorLowEquipment",
-                    descriptionKey = "options.merchants.scrapStrategy.poorLowEquipment.description",
+                    value = "low-level",
+                    labelKey = "options.merchants.scrapStrategy.lowLevel",
+                    descriptionKey = "options.merchants.scrapStrategy.lowLevel.description",
                 },
                 {
                     value = "smart",
