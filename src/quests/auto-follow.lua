@@ -172,7 +172,9 @@ local function GetPlayerPosition()
 end
 
 local function DistanceToCluster(position, uiMapId, cluster)
-    if not position or not uiMapId or not cluster or not cluster.x or not cluster.y then
+    local x = Quests:GetClusterX(cluster)
+    local y = Quests:GetClusterY(cluster)
+    if not position or not uiMapId or not cluster or not x or not y then
         return nil
     end
 
@@ -181,13 +183,13 @@ local function DistanceToCluster(position, uiMapId, cluster)
         position.x,
         position.y,
         uiMapId,
-        cluster.x / 100,
-        cluster.y / 100
+        x / 100,
+        y / 100
     )
 end
 
 local function IsIncompleteObjectiveCluster(quest, cluster)
-    local objectiveIndex = cluster and cluster.oi
+    local objectiveIndex = Quests:GetClusterObjectiveIndex(cluster)
     if not objectiveIndex or not quest or not quest.completedObjectives then
         return true
     end

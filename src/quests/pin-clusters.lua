@@ -24,7 +24,7 @@ local function ShouldMergeIcons(uiMapId, kind)
 end
 
 local function Distance(a, b)
-    return math.sqrt(((a.x or 0) - (b.x or 0)) ^ 2 + ((a.y or 0) - (b.y or 0)) ^ 2)
+    return math.sqrt(((a.x or 0) - (Quests:GetClusterX(b) or 0)) ^ 2 + ((a.y or 0) - (Quests:GetClusterY(b) or 0)) ^ 2)
 end
 
 local function AddUniqueObjective(objectives, objective)
@@ -42,26 +42,28 @@ end
 
 local function NewClusterGroup(cluster)
     return {
-        x = cluster.x,
-        y = cluster.y,
-        c = cluster.c or 1,
-        k = cluster.k,
-        r = cluster.r or 0,
-        objectives = { cluster.o },
+        x = Quests:GetClusterX(cluster),
+        y = Quests:GetClusterY(cluster),
+        c = Quests:GetClusterCount(cluster),
+        k = Quests:GetClusterKind(cluster),
+        r = Quests:GetClusterRadius(cluster),
+        objectives = { Quests:GetClusterObjective(cluster) },
         clusters = { cluster },
     }
 end
 
 local function AddToClusterGroup(group, cluster)
-    local weight = cluster.c or 1
+    local weight = Quests:GetClusterCount(cluster)
     local total = group.c + weight
+    local x = Quests:GetClusterX(cluster) or 0
+    local y = Quests:GetClusterY(cluster) or 0
 
-    group.x = ((group.x * group.c) + ((cluster.x or 0) * weight)) / total
-    group.y = ((group.y * group.c) + ((cluster.y or 0) * weight)) / total
+    group.x = ((group.x * group.c) + (x * weight)) / total
+    group.y = ((group.y * group.c) + (y * weight)) / total
     group.c = total
     group.clusters[#group.clusters + 1] = cluster
-    group.r = math.max(group.r or 0, Distance(group, cluster) + (cluster.r or 0))
-    AddUniqueObjective(group.objectives, cluster.o)
+    group.r = math.max(group.r or 0, Distance(group, cluster) + Quests:GetClusterRadius(cluster))
+    AddUniqueObjective(group.objectives, Quests:GetClusterObjective(cluster))
 end
 
 local function BuildMergedCluster(group)
@@ -83,7 +85,7 @@ function Quests:MergeParentMapIconClusters(uiMapId, clusters)
     local changed = false
 
     for _, cluster in ipairs(clusters) do
-        local kind = cluster.k or "object"
+        local kind = self:GetClusterKind(cluster)
         local target
 
         if ShouldMergeIcons(uiMapId, kind) then

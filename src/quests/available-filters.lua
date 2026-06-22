@@ -100,7 +100,9 @@ function Quests:ShouldShowAvailableQuestStart(uiMapId, cluster, context)
     if not context.hbd or not context.playerMapId or not context.playerX or not context.playerY then
         return false
     end
-    if not uiMapId or not cluster or not cluster.x or not cluster.y then
+    local x = self:GetClusterX(cluster)
+    local y = self:GetClusterY(cluster)
+    if not uiMapId or not cluster or not x or not y then
         return false
     end
 
@@ -109,8 +111,8 @@ function Quests:ShouldShowAvailableQuestStart(uiMapId, cluster, context)
         context.playerX,
         context.playerY,
         uiMapId,
-        cluster.x / 100,
-        cluster.y / 100
+        x / 100,
+        y / 100
     )
 
     return distance and distance <= NEARBY_AVAILABLE_QUEST_RADIUS_YARDS

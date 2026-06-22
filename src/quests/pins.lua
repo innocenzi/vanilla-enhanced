@@ -52,14 +52,19 @@ local function GetClusterDistance(self, position, uiMapId, cluster)
     if not position or not self.hbd or not self.hbd.GetZoneDistance then
         return nil
     end
+    local x = self:GetClusterX(cluster)
+    local y = self:GetClusterY(cluster)
+    if not x or not y then
+        return nil
+    end
 
     return self.hbd:GetZoneDistance(
         position.uiMapId,
         position.x,
         position.y,
         uiMapId,
-        cluster.x / 100,
-        cluster.y / 100
+        x / 100,
+        y / 100
     )
 end
 
@@ -74,7 +79,7 @@ local function GetBestSelectedDirectionCluster(self, quest, maps)
 
     for uiMapId, clusters in pairs(maps or {}) do
         for _, cluster in ipairs(clusters or {}) do
-            if cluster.x and cluster.y and IsSelectedDirectionClusterVisible(self, quest, cluster) then
+            if self:GetClusterX(cluster) and self:GetClusterY(cluster) and IsSelectedDirectionClusterVisible(self, quest, cluster) then
                 local distance = GetClusterDistance(self, position, uiMapId, cluster)
                 if distance then
                     if not bestDistance or distance < bestDistance then
@@ -108,8 +113,8 @@ local function BuildSelectedQuestDirectionTarget(self, quest, dbQuest)
 
     return {
         uiMapId = best.uiMapId,
-        x = cluster.x / 100,
-        y = cluster.y / 100,
+        x = self:GetClusterX(cluster) / 100,
+        y = self:GetClusterY(cluster) / 100,
         title = quest.title,
     }
 end
@@ -149,7 +154,7 @@ function Quests:RefreshSelectedQuestDirection(quests, settings)
 end
 
 local function HasAreaGeometry(cluster)
-    return (cluster.p and #cluster.p >= 3) or ((cluster.r or 0) > 0)
+    return Quests:GetClusterPointCount(cluster) >= 3 or Quests:GetClusterRadius(cluster) > 0
 end
 
 function Quests:AddPins(uiMapId, clusters, quest)
@@ -163,13 +168,13 @@ function Quests:AddPins(uiMapId, clusters, quest)
 
     self:AddVisibleWorldMapPins(uiMapId, visibleClusters, quest)
     for _, cluster in ipairs(visibleClusters) do
-        self:AddMinimapPin(uiMapId, cluster.x, cluster.y, quest, cluster)
+        self:AddMinimapPin(uiMapId, self:GetClusterX(cluster), self:GetClusterY(cluster), quest, cluster)
     end
 end
 
 function Quests:AddVisibleWorldMapPins(uiMapId, visibleClusters, quest)
     for _, cluster in ipairs(self:MergeParentMapIconClusters(uiMapId, visibleClusters)) do
-        self:AddPin(uiMapId, cluster.x, cluster.y, quest, cluster)
+        self:AddPin(uiMapId, self:GetClusterX(cluster), self:GetClusterY(cluster), quest, cluster)
     end
 end
 
@@ -198,7 +203,7 @@ function Quests:AddAvailablePins(questId, dbQuest, context)
             end
         end
         for _, cluster in ipairs(self:MergeParentMapIconClusters(uiMapId, visibleClusters)) do
-            self:AddAvailablePin(uiMapId, cluster.x, cluster.y, questId, dbQuest, cluster, context)
+            self:AddAvailablePin(uiMapId, self:GetClusterX(cluster), self:GetClusterY(cluster), questId, dbQuest, cluster, context)
         end
     end
 end
@@ -208,7 +213,7 @@ function Quests:AddMinimapPin(uiMapId, x, y, quest, cluster)
         return
     end
 
-    local kind = cluster.k or "object"
+    local kind = self:GetClusterKind(cluster)
     local dbQuest = VanillaEnhancedQuestsDB and VanillaEnhancedQuestsDB.quests and VanillaEnhancedQuestsDB.quests[quest.id]
     if kind == "turnin" then
         return
@@ -252,13 +257,13 @@ function Quests:AddPin(uiMapId, x, y, quest, cluster)
         return
     end
 
-    local kind = cluster.k or "object"
+    local kind = self:GetClusterKind(cluster)
     local areaOnly = self:IsQuestObjectiveAreaKind(kind)
     local dbQuest = VanillaEnhancedQuestsDB and VanillaEnhancedQuestsDB.quests and VanillaEnhancedQuestsDB.quests[quest.id]
     local pinData = self:BuildQuestPinData(quest, cluster)
     local area
 
-    if HasAreaGeometry(cluster) and (areaOnly or (cluster.r or 0) > 2) then
+    if HasAreaGeometry(cluster) and (areaOnly or self:GetClusterRadius(cluster) > 2) then
         area = self:AcquirePinFrame("area", "area", WorldMapFrame)
         area.questsData = pinData
         area.questsHovered = false
@@ -296,7 +301,7 @@ function Quests:AddAvailablePin(uiMapId, x, y, questId, dbQuest, cluster, contex
         x,
         y,
         self:BuildAvailableQuestPinData(questId, dbQuest),
-        self:GetPinMarkerSymbol(cluster.k, self:GetPinMarkerSymbol("available")),
+        self:GetPinMarkerSymbol(self:GetClusterKind(cluster), self:GetPinMarkerSymbol("available")),
         nil,
         opacityMultiplier,
         color

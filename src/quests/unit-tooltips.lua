@@ -56,17 +56,13 @@ local function GetDropRateText(cluster, npcId, settings)
     if settings and settings.showTooltipDropRates == false then
         return ""
     end
-    if cluster.k ~= "loot" or not cluster.dr or not npcId then
+    if Quests:GetClusterKind(cluster) ~= "loot" or not npcId then
         return ""
     end
 
-    for _, entry in ipairs(cluster.dr) do
-        if entry[1] == npcId then
-            local rate = FormatDropText(entry[2])
-            if rate then
-                return " |cFF999999[" .. rate .. "%]|r"
-            end
-        end
+    local rate = FormatDropText(Quests:GetClusterDropRate(cluster, npcId))
+    if rate then
+        return " |cFF999999[" .. rate .. "%]|r"
     end
     return ""
 end
@@ -76,7 +72,9 @@ local function BuildTooltipEntry(quest, dbQuest, cluster, npcId, settings)
     local objectives = Quests:GetLocalizedObjectives(quest, cluster)
     local objective = objectives and objectives[1]
 
-    if cluster.k == "slay" or cluster.k == "loot" then
+    local kind = Quests:GetClusterKind(cluster)
+
+    if kind == "slay" or kind == "loot" then
         local sourceName = Quests:GetLocalizedSourceName(cluster)
         local progress = GetProgressText(objective)
         local dropRateText = GetDropRateText(cluster, npcId, settings)
@@ -111,7 +109,12 @@ local function AddEntry(index, quest, dbQuest, cluster, npcId, settings)
 
     index[npcId] = index[npcId] or {}
     local entry = BuildTooltipEntry(quest, dbQuest, cluster, npcId, settings)
-    local key = quest.id .. ":" .. tostring(cluster.oi or cluster.k or cluster.o or entry.title)
+    local key = quest.id .. ":" .. tostring(
+        Quests:GetClusterObjectiveIndex(cluster)
+        or Quests:GetClusterKind(cluster)
+        or Quests:GetClusterObjective(cluster)
+        or entry.title
+    )
 
     if not index[npcId][key] then
         index[npcId][key] = entry
@@ -125,16 +128,20 @@ local function AddCluster(index, quest, dbQuest, cluster, settings)
     if not Quests:ShouldShowObjectiveCluster(quest, cluster, "tooltip") then
         return
     end
-    if cluster.k and not TOOLTIP_CLUSTER_KINDS[cluster.k] then
+    local kind = Quests:GetClusterKind(cluster)
+    if kind and not TOOLTIP_CLUSTER_KINDS[kind] then
         return
     end
 
-    if cluster.st == "npc" and cluster.sid then
-        AddEntry(index, quest, dbQuest, cluster, cluster.sid, settings)
+    local sourceType = Quests:GetClusterSourceType(cluster)
+    local sourceId = Quests:GetClusterSourceId(cluster)
+    if sourceType == "npc" and sourceId then
+        AddEntry(index, quest, dbQuest, cluster, sourceId, settings)
     end
 
-    if cluster.n then
-        for _, npcId in ipairs(cluster.n) do
+    local tooltipNpcIds = Quests:GetClusterTooltipNpcIds(cluster)
+    if tooltipNpcIds then
+        for _, npcId in ipairs(tooltipNpcIds) do
             AddEntry(index, quest, dbQuest, cluster, npcId, settings)
         end
     end

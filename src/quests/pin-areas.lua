@@ -178,11 +178,14 @@ local function ConfigurePolygonArea(frame, cluster)
     local minY
     local maxFillY
 
-    for index, point in ipairs(cluster.p) do
-        local x = point[1] or point.x
-        local y = point[2] or point.y
-        local dx = x - cluster.x
-        local dy = y - cluster.y
+    local clusterX = Quests:GetClusterX(cluster)
+    local clusterY = Quests:GetClusterY(cluster)
+    local pointCount = Quests:GetClusterPointCount(cluster)
+
+    for index = 1, pointCount do
+        local x, y = Quests:GetClusterPoint(cluster, index)
+        local dx = x - clusterX
+        local dy = y - clusterY
         local px = dx * xScale
         local py = -dy * yScale
 
@@ -351,12 +354,12 @@ function Quests:PrepareWorldMapPinArea(frame)
     end
 
     frame.questsAreaPreparedKey = nil
-    if cluster.p and #cluster.p >= 3 and ConfigurePolygonArea(frame, cluster) then
+    if self:GetClusterPointCount(cluster) >= 3 and ConfigurePolygonArea(frame, cluster) then
         frame.questsAreaPreparedKey = preparedKey
         return true
     end
 
-    ConfigureCircleArea(frame, cluster.r)
+    ConfigureCircleArea(frame, self:GetClusterRadius(cluster))
     frame.questsAreaPreparedKey = preparedKey
     return true
 end

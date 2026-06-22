@@ -20,27 +20,30 @@ end
 
 local function LookupSource(cluster)
     local localeData = LocaleData()
-    if not localeData or not cluster or not cluster.st or not cluster.sid then
+    local sourceType = Quests:GetClusterSourceType(cluster)
+    local sourceId = Quests:GetClusterSourceId(cluster)
+    if not localeData or not cluster or not sourceType or not sourceId then
         return nil
     end
 
-    if cluster.st == "npc" and localeData.npcs then
-        return localeData.npcs[cluster.sid]
+    if sourceType == "npc" and localeData.npcs then
+        return localeData.npcs[sourceId]
     end
-    if cluster.st == "object" and localeData.objects then
-        return localeData.objects[cluster.sid]
+    if sourceType == "object" and localeData.objects then
+        return localeData.objects[sourceId]
     end
-    if cluster.st == "item" and localeData.items then
-        return localeData.items[cluster.sid]
+    if sourceType == "item" and localeData.items then
+        return localeData.items[sourceId]
     end
     return nil
 end
 
 local function ObjectiveFromQuestLog(quest, cluster)
-    if not quest or not cluster or not cluster.oi or not quest.objectives then
+    local objectiveIndex = Quests:GetClusterObjectiveIndex(cluster)
+    if not quest or not cluster or not objectiveIndex or not quest.objectives then
         return nil
     end
-    return quest.objectives[cluster.oi]
+    return quest.objectives[objectiveIndex]
 end
 
 function Quests:GetLocalizedQuestTitle(quest, questId, fallback)
@@ -62,8 +65,9 @@ function Quests:GetLocalizedSourceName(cluster)
         return sourceName
     end
 
-    if cluster and cluster.o and cluster.o ~= "" then
-        return cluster.o
+    local objective = Quests:GetClusterObjective(cluster)
+    if objective and objective ~= "" then
+        return objective
     end
 
     return nil
@@ -80,12 +84,13 @@ function Quests:GetLocalizedObjective(quest, cluster)
         return sourceName
     end
 
-    if cluster and cluster.k == "turnin" then
+    if Quests:GetClusterKind(cluster) == "turnin" then
         return T("quests.static.turnin")
     end
 
-    if cluster and cluster.o and cluster.o ~= "" then
-        return cluster.o
+    local objective = Quests:GetClusterObjective(cluster)
+    if objective and objective ~= "" then
+        return objective
     end
 
     local questLocale = quest and QuestLocaleData(quest.id)

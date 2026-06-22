@@ -379,14 +379,15 @@ end
 
 local function BuildMinimapPolygonPoints(cluster, xScale, yScale)
     local points = {}
+    local clusterX = Quests:GetClusterX(cluster)
+    local clusterY = Quests:GetClusterY(cluster)
+    local pointCount = Quests:GetClusterPointCount(cluster)
 
-    for index, point in ipairs(cluster.p) do
-        local x = point[1] or point.x
-        local y = point[2] or point.y
-
+    for index = 1, pointCount do
+        local x, y = Quests:GetClusterPoint(cluster, index)
         points[index] = {
-            x = (x - cluster.x) * xScale,
-            y = -(y - cluster.y) * yScale,
+            x = (x - clusterX) * xScale,
+            y = -(y - clusterY) * yScale,
         }
     end
 
@@ -414,7 +415,7 @@ end
 local function ConfigureMinimapCircleArea(frame, cluster, xScale, yScale, minimapRadius)
     local settings = Quests:GetSettings()
     local color = AREA_COLOR
-    local radius = (cluster.r or 0) * math.min(xScale or 0, yScale or 0)
+    local radius = Quests:GetClusterRadius(cluster) * math.min(xScale or 0, yScale or 0)
     local size = math.max(MINIMAP_AREA_MIN_SIZE, math.floor((radius * 2) + MINIMAP_AREA_PADDING))
 
     HideTextures(frame.lines)
@@ -448,7 +449,7 @@ local function ConfigureMinimapArea(frame, uiMapId, cluster)
     frame:SetScript("OnUpdate", nil)
     frame.texture.a = 1
 
-    if xScale and yScale and cluster.p and #cluster.p >= 3 and ConfigureMinimapPolygonArea(frame, cluster, xScale, yScale, minimapRadius) then
+    if xScale and yScale and Quests:GetClusterPointCount(cluster) >= 3 and ConfigureMinimapPolygonArea(frame, cluster, xScale, yScale, minimapRadius) then
         frame.texture:Hide()
     else
         ConfigureMinimapCircleArea(frame, cluster, xScale or 0, yScale or 0, minimapRadius or 0)
@@ -467,7 +468,7 @@ function Quests:AddMinimapArea(uiMapId, x, y, pinData, cluster)
     if not cluster then
         return nil
     end
-    if (not cluster.p or #cluster.p < 3) and (not cluster.r or cluster.r <= 0) then
+    if Quests:GetClusterPointCount(cluster) < 3 and Quests:GetClusterRadius(cluster) <= 0 then
         return nil
     end
 

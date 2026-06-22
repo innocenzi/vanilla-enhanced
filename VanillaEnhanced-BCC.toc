@@ -29,6 +29,7 @@ data\quests\locations.lua
 data\quests\locales.lua
 src\quests\module.lua
 src\quests\settings.lua
+src\quests\clusters.lua
 src\quests\map-exploration.lua
 src\quests\localization.lua
 src\quests\quest-log.lua

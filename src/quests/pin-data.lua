@@ -104,13 +104,13 @@ end
 
 function Quests:BuildQuestPinData(quest, cluster)
     local localizedObjectives = self:GetLocalizedObjectives(quest, cluster)
-    local localizedObjective = localizedObjectives and localizedObjectives[1] or cluster.o
-    local kind = cluster.k or "object"
+    local localizedObjective = localizedObjectives and localizedObjectives[1] or self:GetClusterObjective(cluster)
+    local kind = self:GetClusterKind(cluster)
     local countText
     local dbQuest = GetDbQuest(quest)
 
     if kind ~= "slay" and kind ~= "loot" then
-        countText = self:GetLocalizedCountText(cluster.merged and "nearby" or "area", cluster.c)
+        countText = self:GetLocalizedCountText(cluster.merged and "nearby" or "area", self:GetClusterCount(cluster))
     end
 
     return {
@@ -122,7 +122,7 @@ function Quests:BuildQuestPinData(quest, cluster)
         objectives = localizedObjectives,
         cluster = cluster,
         merged = cluster.merged,
-        count = cluster.c,
+        count = self:GetClusterCount(cluster),
         countText = countText,
     }
 end

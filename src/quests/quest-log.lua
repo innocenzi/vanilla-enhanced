@@ -166,7 +166,7 @@ function Quests:ShouldShowObjectiveCluster(quest, cluster, surface)
         return true
     end
 
-    local objectiveIndex = cluster.oi
+    local objectiveIndex = self:GetClusterObjectiveIndex(cluster)
     if not objectiveIndex or not quest.completedObjectives then
         return true
     end

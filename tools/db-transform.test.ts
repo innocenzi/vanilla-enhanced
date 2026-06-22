@@ -136,15 +136,15 @@ test("builds compact quests Lua from normalized Questie data", () => {
   expect(artifacts.locationLua).toContain('spec = 202');
   expect(artifacts.locationLua).toContain('rk = {{185,2},{202,-4}}');
   expect(artifacts.locationLua).toContain("starts = {");
-  expect(artifacts.locationLua).toContain('k = "available"');
-  expect(artifacts.locationLua).toContain('k = "slay"');
-  expect(artifacts.locationLua).toContain('k = "loot"');
-  expect(artifacts.locationLua).toContain('dr = {{102,12.5}}');
+  expect(artifacts.locationLua).toContain("{15.00,15.00,nil,nil,7");
+  expect(artifacts.locationLua).toContain("{10.50,10.50,0.71,2,1");
+  expect(artifacts.locationLua).toContain("{30.00,30.00,nil,nil,2");
+  expect(artifacts.locationLua).toContain("{102,12.5}");
   expect(artifacts.locationLua).not.toContain("999,4.3");
-  expect(artifacts.locationLua).toContain('k = "object"');
-  expect(artifacts.locationLua).toContain('k = "event"');
-  expect(artifacts.locationLua).toContain('k = "turnin"');
-  expect(artifacts.locationLua).toContain('p = {{20.00,20.00},{24.00,20.00},{20.00,24.00}}');
+  expect(artifacts.locationLua).toContain("{70.00,70.00,nil,nil,4");
+  expect(artifacts.locationLua).toContain("{50.00,50.00,nil,nil,3");
+  expect(artifacts.locationLua).toContain("{60.00,60.00,nil,nil,6");
+  expect(artifacts.locationLua).toContain("{20.00,20.00,24.00,20.00,20.00,24.00}");
   expect(artifacts.localeLua).toContain('[1] = { t = "Quete tuer"');
   expect(artifacts.localeLua).toContain('[101] = "Loup"');
   expect(artifacts.localeLua).not.toContain("Unused");
@@ -162,8 +162,8 @@ test("omits drop rate clusters when normalized data has no matching rate", () =>
 test("spatially splits item drop clusters", () => {
   const artifacts = buildQuestsArtifacts(fixture(), { minQuestCount: 0 });
 
-  expect(artifacts.locationLua).toContain('{ x = 30.00, y = 30.00, r = 0.00, c = 1, k = "loot", o = "Wolf pelt", st = "item", sid = 201, n = {102}, dr = {{102,12.5}}, oi = 1 }');
-  expect(artifacts.locationLua).toContain('{ x = 80.50, y = 80.00, r = 0.50, c = 2, k = "loot", o = "Wolf pelt", st = "item", sid = 201, n = {107}, dr = {{107,8}}, oi = 1 }');
+  expect(artifacts.locationLua).toContain('{30.00,30.00,nil,nil,2,"Wolf pelt",3,201,{102},{102,12.5},1}');
+  expect(artifacts.locationLua).toContain('{80.50,80.00,0.50,2,2,"Wolf pelt",3,201,{107},{107,8},1}');
 });
 
 test("skips quests blacklisted by Questie", () => {

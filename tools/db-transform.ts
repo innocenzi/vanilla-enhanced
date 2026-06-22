@@ -182,6 +182,20 @@ const QUEST_FLAG_DAILY = 4096;
 const QUEST_FLAG_WEEKLY = 32768;
 const QUEST_FLAG_MONTHLY = 65536;
 const QUEST_RESET_FLAGS = QUEST_FLAG_DAILY | QUEST_FLAG_WEEKLY | QUEST_FLAG_MONTHLY;
+const CLUSTER_KIND_IDS: Record<ObjectiveKind, number> = {
+  slay: 1,
+  loot: 2,
+  event: 3,
+  object: 4,
+  talk: 5,
+  turnin: 6,
+  available: 7,
+};
+const CLUSTER_SOURCE_TYPE_IDS: Record<SourceType, number> = {
+  npc: 1,
+  object: 2,
+  item: 3,
+};
 
 function asTable(value: JsonValue | undefined): JsonTable | undefined {
   return value && typeof value === "object" ? (value as JsonTable) : undefined;
@@ -785,20 +799,23 @@ function formatMeta(meta: Record<string, string | number | boolean | undefined>)
 
 function formatCluster(c: Cluster): string {
   const fields = [
-    `x = ${c.x.toFixed(2)}`,
-    `y = ${c.y.toFixed(2)}`,
-    `r = ${c.r.toFixed(2)}`,
-    `c = ${c.c}`,
-    `k = ${luaString(c.k)}`,
-    `o = ${luaString(c.o)}`,
+    c.x.toFixed(2),
+    c.y.toFixed(2),
+    c.r ? c.r.toFixed(2) : undefined,
+    c.c !== 1 ? String(c.c) : undefined,
+    String(CLUSTER_KIND_IDS[c.k]),
+    c.k === "turnin" || c.k === "available" ? undefined : luaString(c.o),
+    c.st ? String(CLUSTER_SOURCE_TYPE_IDS[c.st]) : undefined,
+    c.sid ? String(c.sid) : undefined,
+    c.n?.length ? `{${c.n.join(",")}}` : undefined,
+    c.dr?.length ? `{${c.dr.flatMap(([npcId, rate]) => [npcId, rate]).join(",")}}` : undefined,
+    c.oi ? String(c.oi) : undefined,
+    c.p ? `{${c.p.flatMap((point) => [point.x.toFixed(2), point.y.toFixed(2)]).join(",")}}` : undefined,
   ];
-  if (c.st) fields.push(`st = ${luaString(c.st)}`);
-  if (c.sid) fields.push(`sid = ${c.sid}`);
-  if (c.n?.length) fields.push(`n = {${c.n.join(",")}}`);
-  if (c.dr?.length) fields.push(`dr = {${c.dr.map(([npcId, rate]) => `{${npcId},${rate}}`).join(",")}}`);
-  if (c.oi) fields.push(`oi = ${c.oi}`);
-  if (c.p) fields.push(`p = {${c.p.map((point) => `{${point.x.toFixed(2)},${point.y.toFixed(2)}}`).join(",")}}`);
-  return `{ ${fields.join(", ")} }`;
+
+  let lastFieldIndex = fields.length - 1;
+  while (lastFieldIndex >= 0 && fields[lastFieldIndex] === undefined) lastFieldIndex--;
+  return `{${fields.slice(0, lastFieldIndex + 1).map((field) => field ?? "nil").join(",")}}`;
 }
 
 function addReferences(references: BuildArtifacts["references"], questId: number, maps: Record<number, Cluster[]> | undefined): void {
