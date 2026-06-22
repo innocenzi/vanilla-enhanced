@@ -33,6 +33,7 @@ function fixture(): NormalizedQuestieDb {
         questLevel: 5,
         requiredRaces: 6,
         requiredClasses: 7,
+        objectivesText: 8,
         requiredSkill: 18,
         requiredMinRep: 19,
         requiredMaxRep: 20,
@@ -46,6 +47,7 @@ function fixture(): NormalizedQuestieDb {
         nextQuestInChain: 22,
         questFlags: 23,
         specialFlags: 24,
+        reputationReward: 26,
         parentQuest: 25,
         breadcrumbForQuestId: 27,
         breadcrumbs: 28,
@@ -148,6 +150,34 @@ test("builds compact quests Lua from normalized Questie data", () => {
   expect(artifacts.localeLua).toContain('[1] = { t = "Quete tuer"');
   expect(artifacts.localeLua).toContain('[101] = "Loup"');
   expect(artifacts.localeLua).not.toContain("Unused");
+});
+
+test("marks reputation turn-in style quests without marking ordinary reputation rewards", () => {
+  const db = fixture();
+  const normalRepQuest = db.data.quests["1"] as any[];
+  normalRepQuest[25] = [[72, 250]];
+
+  const repTurnInQuest = ["Rep Turn In", [[106]], [[105]], 26, -1] as any[];
+  repTurnInQuest[9] = [null, null, [[201, "Silk Cloth"]]];
+  repTurnInQuest[16] = 12;
+  repTurnInQuest[25] = [[72, 350]];
+  db.data.quests["9"] = repTurnInQuest;
+
+  const ordinaryRepItemQuest = ["Ordinary Rep Item Quest", null, [[105]], 60, 62] as any[];
+  ordinaryRepItemQuest[7] = ["Bring silk cloth."];
+  ordinaryRepItemQuest[9] = [null, null, [[201, "Silk Cloth"]]];
+  ordinaryRepItemQuest[16] = 12;
+  ordinaryRepItemQuest[18] = [72, 0];
+  ordinaryRepItemQuest[25] = [[72, 250]];
+  db.data.quests["10"] = ordinaryRepItemQuest;
+
+  const artifacts = buildQuestsArtifacts(db, { minQuestCount: 0 });
+
+  expect(artifacts.locationLua).toContain('[9] = { t = "Rep Turn In", z = 12, rl = 26, ql = -1, rq = 1');
+  expect(artifacts.locationLua).toContain('[1] = { t = "Kill Quest", z = 12, rl = 5, ql = 7, rr = 77, rc = 1');
+  expect(artifacts.locationLua).not.toContain('[1] = { t = "Kill Quest", z = 12, rl = 5, ql = 7, rr = 77, rc = 1, rq = 1');
+  expect(artifacts.locationLua).toContain('[10] = { t = "Ordinary Rep Item Quest", z = 12, rl = 60, ql = 62, rmin = {72,0}');
+  expect(artifacts.locationLua).not.toContain('[10] = { t = "Ordinary Rep Item Quest", z = 12, rl = 60, ql = 62, rmin = {72,0}, rq = 1');
 });
 
 test("omits drop rate clusters when normalized data has no matching rate", () => {

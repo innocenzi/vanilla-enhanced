@@ -41,6 +41,10 @@ function Quests:IsResettableQuest(dbQuest)
     return HasFlag(flags, QUEST_FLAG_DAILY) or HasFlag(flags, QUEST_FLAG_WEEKLY) or HasFlag(flags, QUEST_FLAG_MONTHLY)
 end
 
+function Quests:IsReputationQuest(dbQuest)
+    return dbQuest and dbQuest.rq == 1
+end
+
 function Quests:GetRepeatableQuestMarkerColor(dbQuest)
     if self:IsRepeatableQuest(dbQuest) then
         return REPEATABLE_MARKER_COLOR
@@ -48,8 +52,15 @@ function Quests:GetRepeatableQuestMarkerColor(dbQuest)
     return nil
 end
 
-function Quests:ShouldShowRepeatableQuestOnMaps(dbQuest, settings)
-    return not self:IsRepeatableQuest(dbQuest) or (settings or self:GetSettings()).showRepeatableQuests ~= false
+function Quests:ShouldShowQuestOnMaps(dbQuest, settings)
+    settings = settings or self:GetSettings()
+    if self:IsRepeatableQuest(dbQuest) and settings.showRepeatableQuests == false then
+        return false
+    end
+    if self:IsReputationQuest(dbQuest) and settings.showReputationQuests == false then
+        return false
+    end
+    return true
 end
 
 function Quests:IsQuestObjectiveAreaKind(kind)

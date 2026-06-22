@@ -78,6 +78,7 @@ type CompactQuest = {
   turnins?: Record<number, Cluster[]>;
   starts?: Record<number, Cluster[]>;
   availability?: QuestAvailability;
+  reputationQuest?: boolean;
 };
 
 export type NormalizedQuestieDb = {
@@ -888,6 +889,38 @@ function formatAvailability(availability: QuestAvailability | undefined): string
   return fields;
 }
 
+function hasEntries(value: JsonValue | undefined): boolean {
+  return values(value).length > 0;
+}
+
+function hasObjectiveText(quest: JsonValue, db: NormalizedQuestieDb): boolean {
+  return values(byKey(quest, db.keys.quests, "objectivesText")).some((entry) => !!text(entry));
+}
+
+function hasReputationTurnInShape(quest: JsonValue, db: NormalizedQuestieDb): boolean {
+  if (!numericPairList(byKey(quest, db.keys.quests, "reputationReward"))) return false;
+
+  const objectives = byKey(quest, db.keys.quests, "objectives");
+  const hasItemObjective = hasEntries(at(objectives, OBJECTIVES.items));
+  const hasReputationObjective = !!numericPair(at(objectives, OBJECTIVES.reputation));
+  if (!hasItemObjective && !hasReputationObjective) return false;
+
+  const hasNonTurnInObjective =
+    hasEntries(at(objectives, OBJECTIVES.creatures)) ||
+    hasEntries(at(objectives, OBJECTIVES.objects)) ||
+    hasEntries(at(objectives, OBJECTIVES.killCredits)) ||
+    hasEntries(at(objectives, OBJECTIVES.spells)) ||
+    !!byKey(quest, db.keys.quests, "triggerEnd") ||
+    hasEntries(byKey(quest, db.keys.quests, "extraObjectives"));
+  if (hasNonTurnInObjective) return false;
+
+  const requiredMinRep = numericPair(byKey(quest, db.keys.quests, "requiredMinRep"));
+  const requiredMaxRep = numericPair(byKey(quest, db.keys.quests, "requiredMaxRep"));
+  const hasRequiredReputation = !!requiredMaxRep || !!(requiredMinRep && requiredMinRep[1] && requiredMinRep[2] > 0);
+  const isNoLevelHandIn = int(byKey(quest, db.keys.quests, "questLevel")) < 0 && !hasObjectiveText(quest, db);
+  return hasRequiredReputation || isNoLevelHandIn;
+}
+
 function renderMapClusters(lines: string[], name: string, maps: Record<number, Cluster[]>): void {
   lines.push(`    ${name} = {`);
   for (const uiMap of Object.keys(maps).map(Number).sort((a, b) => a - b)) {
@@ -914,6 +947,7 @@ function renderLocationLua(db: NormalizedQuestieDb, compact: Map<number, Compact
   for (const questId of [...compact.keys()].sort((a, b) => a - b)) {
     const quest = compact.get(questId)!;
     const fields = [`t = ${luaString(quest.t)}`, `z = ${quest.z}`, ...formatAvailability(quest.availability)];
+    if (quest.reputationQuest) fields.push("rq = 1");
     lines.push(`    [${questId}] = { ${fields.join(", ")}, maps = {`);
     for (const uiMap of Object.keys(quest.maps).map(Number).sort((a, b) => a - b)) {
       lines.push(`      [${uiMap}] = {${quest.maps[uiMap].map(formatCluster).join(", ")}},`);
@@ -1013,6 +1047,7 @@ export function buildQuestsArtifacts(input: unknown, options: TransformOptions =
       turnins: turnInPoints.length ? cluster(turnInPoints) : undefined,
       starts: starterPoints.length ? cluster(starterPoints) : undefined,
       availability: collectAvailability(questValue, db),
+      reputationQuest: hasReputationTurnInShape(questValue, db),
     });
     const entry = compact.get(questId)!;
     addReferences(references, questId, entry.maps);

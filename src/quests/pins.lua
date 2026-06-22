@@ -138,7 +138,7 @@ function Quests:RefreshSelectedQuestDirection(quests, settings)
 
     local quest = FindQuestById(quests or self:GetCachedQuestLogSnapshot(), selectedQuestId)
     local dbQuest = quest and VanillaEnhancedQuestsDB.quests[quest.id]
-    if not quest or not dbQuest or not dbQuest.maps or not self:ShouldShowRepeatableQuestOnMaps(dbQuest, settings) then
+    if not quest or not dbQuest or not dbQuest.maps or not self:ShouldShowQuestOnMaps(dbQuest, settings) then
         ClearSelectedQuestDirectionTarget()
         return
     end

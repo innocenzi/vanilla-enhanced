@@ -1331,6 +1331,14 @@ local questsPanel = BuildOptionsPanel({
             indent = 1,
         },
         {
+            name = "VanillaEnhancedOptionsQuestsShowReputationQuests",
+            settingKey = "showReputationQuests",
+            labelKey = "options.quests.showReputationQuests.label",
+            helpKey = "options.quests.showReputationQuests.help",
+            enabledWhenSetting = "showMapMarkers",
+            indent = 1,
+        },
+        {
             name = "VanillaEnhancedOptionsQuestsShowAvailableQuests",
             settingKey = "showAvailableQuests",
             labelKey = "options.quests.showAvailableQuests.label",
