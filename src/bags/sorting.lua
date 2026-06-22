@@ -30,6 +30,13 @@ local function T(key, vars)
     return VanillaEnhanced:T(key, vars)
 end
 
+local function IsInCombatLockdown()
+    if type(InCombatLockdown) == "function" and InCombatLockdown() then
+        return true
+    end
+    return type(UnitAffectingCombat) == "function" and UnitAffectingCombat("player") == true
+end
+
 local function GetItemID(link)
     if type(link) ~= "string" then
         return 0
@@ -524,6 +531,14 @@ function Bags:StartManualSort(suppressErrors, strategy)
         return
     end
 
+    if IsInCombatLockdown() then
+        if not self.suppressSortErrors then
+            self:PrintMessage(T("bags.sort.errorCombat"))
+        end
+        self.suppressSortErrors = nil
+        return
+    end
+
     if self.Api:HasCursorItem() then
         if not self.suppressSortErrors then
             self:PrintMessage(T("bags.sort.errorCursor"))
@@ -565,6 +580,10 @@ function Bags:WaitForSortUpdate(timeout)
 end
 
 function Bags:MoveItem(sourceSlot, targetSlot)
+    if IsInCombatLockdown() then
+        return false, T("bags.sort.errorCombat")
+    end
+
     if self.Api:HasCursorItem() then
         return false, T("bags.sort.errorCursor")
     end
@@ -695,6 +714,11 @@ function Bags:ContinueManualSort()
 
     self.sortWaiting = false
     sortFrame:SetScript("OnUpdate", nil)
+
+    if IsInCombatLockdown() then
+        self:StopManualSort(T("bags.sort.errorCombat"))
+        return
+    end
 
     if self.Api:HasCursorItem() then
         self:StopManualSort(T("bags.sort.errorCursor"))
