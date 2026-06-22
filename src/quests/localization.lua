@@ -5,12 +5,23 @@ local function T(key, vars)
     return VanillaEnhanced:T(key, vars)
 end
 
+local cachedLocale
+local cachedLocaleData
+
 local function LocaleData()
     local locale = VanillaEnhanced:GetLocaleKey()
-    if locale == "frFR" and VanillaEnhancedQuestsLocaleDB and VanillaEnhancedQuestsLocaleDB.frFR then
-        return VanillaEnhancedQuestsLocaleDB.frFR, locale
+    if cachedLocale == locale then
+        return cachedLocaleData, cachedLocale
     end
-    return nil, "enUS"
+
+    cachedLocale = locale
+    if locale == "frFR" and VanillaEnhancedQuestsLocaleDB and VanillaEnhancedQuestsLocaleDB.frFR then
+        cachedLocaleData = VanillaEnhancedQuestsLocaleDB.frFR
+        return cachedLocaleData, cachedLocale
+    end
+
+    cachedLocaleData = nil
+    return nil, cachedLocale
 end
 
 local function QuestLocaleData(questId)

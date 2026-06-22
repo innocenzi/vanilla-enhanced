@@ -175,6 +175,10 @@ function VanillaEnhanced:ResetSettings()
         end
     end
 
+    if self.RefreshLocaleState then
+        self:RefreshLocaleState(true)
+    end
+
     if self.RefreshLocalizedOptions then
         self:RefreshLocalizedOptions()
     elseif self.RefreshOptions then

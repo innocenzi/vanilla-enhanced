@@ -626,64 +626,106 @@ local STRINGS = {
 
 VanillaEnhanced.localeStrings = STRINGS
 
-local IMPLEMENTED_LOCALES = { "enUS", "frFR" }
+local FALLBACK_LOCALE = "enUS"
+local IMPLEMENTED_LOCALES = { FALLBACK_LOCALE, "frFR" }
 local SUPPORTED_LOCALES = {}
+local LOCALE_OPTION_DEFINITIONS = {
+    {
+        value = "auto",
+        labelKey = "options.main.locale.auto",
+        descriptionKey = "options.main.locale.auto.description",
+    },
+    {
+        value = "enUS",
+        labelKey = "options.main.locale.enUS",
+        descriptionKey = "options.main.locale.enUS.description",
+    },
+    {
+        value = "frFR",
+        labelKey = "options.main.locale.frFR",
+        descriptionKey = "options.main.locale.frFR.description",
+    },
+}
+local localeState = {
+    stored = nil,
+    effective = nil,
+    activeStrings = nil,
+    fallbackStrings = STRINGS[FALLBACK_LOCALE],
+    dirty = true,
+}
 
 for _, locale in ipairs(IMPLEMENTED_LOCALES) do
     SUPPORTED_LOCALES[locale] = true
 end
 
+local function NormalizeLocaleSetting(locale)
+    if locale ~= "auto" and not SUPPORTED_LOCALES[locale] then
+        return "auto"
+    end
+    return locale
+end
+
 local function GetAutoLocaleKey()
-    local locale = type(GetLocale) == "function" and GetLocale() or "enUS"
-    return locale == "frFR" and "frFR" or "enUS"
+    local locale = type(GetLocale) == "function" and GetLocale() or FALLBACK_LOCALE
+    return locale == "frFR" and "frFR" or FALLBACK_LOCALE
+end
+
+local function GetStoredLocaleSetting(addon)
+    local settings = addon.GetSettings and addon:GetSettings() or nil
+    return NormalizeLocaleSetting(settings and settings.locale or "auto")
+end
+
+function VanillaEnhanced:RefreshLocaleState(force)
+    if not force and not localeState.dirty and localeState.effective then
+        return localeState.effective
+    end
+
+    local stored = GetStoredLocaleSetting(self)
+    local effective = stored ~= "auto" and stored or GetAutoLocaleKey()
+
+    localeState.stored = stored
+    localeState.effective = effective
+    localeState.activeStrings = STRINGS[effective] or localeState.fallbackStrings
+    localeState.fallbackStrings = STRINGS[FALLBACK_LOCALE]
+    localeState.dirty = false
+
+    return localeState.effective
 end
 
 function VanillaEnhanced:GetLocaleKey()
-    local settings = self.GetSettings and self:GetSettings() or nil
-    local locale = settings and settings.locale or "auto"
-    if locale ~= "auto" and SUPPORTED_LOCALES[locale] then
-        return locale
-    end
-    return GetAutoLocaleKey()
+    return self:RefreshLocaleState()
 end
 
 function VanillaEnhanced:SetLocaleKey(locale)
-    if locale ~= "auto" and not SUPPORTED_LOCALES[locale] then
-        locale = "auto"
-    end
+    locale = NormalizeLocaleSetting(locale)
 
     local settings = self:GetSettings()
     settings.locale = locale
+    self:RefreshLocaleState(true)
     return settings.locale
 end
 
 function VanillaEnhanced:GetLocaleOptions()
-    local options = {
-        {
-            value = "auto",
-            labelKey = "options.main.locale.auto",
-            descriptionKey = "options.main.locale.auto.description",
-        },
-    }
-
-    for _, locale in ipairs(IMPLEMENTED_LOCALES) do
+    local options = {}
+    for _, option in ipairs(LOCALE_OPTION_DEFINITIONS) do
         options[#options + 1] = {
-            value = locale,
-            labelKey = "options.main.locale." .. locale,
-            descriptionKey = "options.main.locale." .. locale .. ".description",
+            value = option.value,
+            labelKey = option.labelKey,
+            descriptionKey = option.descriptionKey,
         }
     end
 
     return options
 end
 
-local function Lookup(locale, key)
-    local strings = STRINGS[locale]
+local function Lookup(strings, key)
     return strings and strings[key] or nil
 end
 
 function VanillaEnhanced:T(key, vars)
-    local text = Lookup(self:GetLocaleKey(), key) or Lookup("enUS", key) or key
+    self:RefreshLocaleState()
+
+    local text = Lookup(localeState.activeStrings, key) or Lookup(localeState.fallbackStrings, key) or key
     if type(vars) ~= "table" then
         return text
     end
