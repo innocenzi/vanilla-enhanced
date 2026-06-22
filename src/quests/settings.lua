@@ -103,6 +103,7 @@ function Quests:SetEnabled(enabled)
     end
 
     if enabled then
+        self.refreshRequiresPinRebuild = true
         self:Refresh()
         self:RefreshQuestTrackerClicks()
         if self.QueueAutoFollowQuestUpdate then
@@ -127,6 +128,7 @@ function Quests:Update()
     if self.ApplyQuestLogWithMapSetting then
         self:ApplyQuestLogWithMapSetting()
     end
+    self.refreshRequiresPinRebuild = true
     self:Refresh()
     self:RefreshQuestTrackerClicks()
     if self.QueueAutoFollowQuestUpdate then

@@ -1,12 +1,68 @@
 local VanillaEnhanced = _G.VanillaEnhanced
 local Quests = VanillaEnhanced:GetModule("quests")
 
+local QUEUED_REFRESH_DELAY_SECONDS = 0.15
+local QUEUED_PROGRESS_REFRESH_DELAY_SECONDS = 0.50
+
 Quests.questSnapshotDirty = Quests.questSnapshotDirty ~= false
 Quests.refreshAfterCombat = Quests.refreshAfterCombat or false
 Quests.refreshWorldMapAfterCombat = Quests.refreshWorldMapAfterCombat or false
+Quests.refreshRequiresPinRebuild = Quests.refreshRequiresPinRebuild or false
+Quests.refreshQueueToken = Quests.refreshQueueToken or 0
 
 local function IsInCombatLockdown()
     return InCombatLockdown and InCombatLockdown()
+end
+
+local function AppendCompletedObjectivesSignature(parts, completedObjectives)
+    if not completedObjectives then
+        return
+    end
+
+    local completedObjectiveIndexes = {}
+    for objectiveIndex, completed in pairs(completedObjectives) do
+        if completed == true then
+            completedObjectiveIndexes[#completedObjectiveIndexes + 1] = objectiveIndex
+        end
+    end
+    table.sort(completedObjectiveIndexes)
+
+    for _, objectiveIndex in ipairs(completedObjectiveIndexes) do
+        parts[#parts + 1] = tostring(objectiveIndex)
+        parts[#parts + 1] = ","
+    end
+end
+
+local function BuildQuestPinStateSignature(quests)
+    local parts = {}
+
+    for _, quest in ipairs(quests or {}) do
+        parts[#parts + 1] = tostring(quest.id or "")
+        parts[#parts + 1] = ":"
+        parts[#parts + 1] = tostring(quest.number or "")
+        parts[#parts + 1] = quest.isComplete and ":complete:" or ":active:"
+        AppendCompletedObjectivesSignature(parts, quest.completedObjectives)
+        parts[#parts + 1] = ";"
+    end
+
+    return table.concat(parts)
+end
+
+local function BuildActiveQuestSignature(quests)
+    local questIds = {}
+
+    for _, quest in ipairs(quests or {}) do
+        if quest.id then
+            questIds[#questIds + 1] = quest.id
+        end
+    end
+    table.sort(questIds)
+
+    for index, questId in ipairs(questIds) do
+        questIds[index] = tostring(questId)
+    end
+
+    return table.concat(questIds, ";")
 end
 
 function Quests:InvalidateQuestSnapshot()
@@ -51,33 +107,67 @@ local function AddWorldMapPinsForQuests(self, quests, settings)
 end
 
 function Quests:Refresh()
+    local requiresPinRebuild = self.refreshRequiresPinRebuild == true
+
+    self.refreshQueueToken = (self.refreshQueueToken or 0) + 1
     self.refreshQueued = false
+    self.refreshQueuedDelaySeconds = nil
 
     if IsInCombatLockdown() then
+        if requiresPinRebuild then
+            self.refreshRequiresPinRebuild = true
+        end
         self.refreshAfterCombat = true
         return
     end
+    self.refreshRequiresPinRebuild = false
     self.refreshAfterCombat = false
     self.refreshWorldMapAfterCombat = false
 
     local settings = self:GetSettings()
+    local quests = self:GetCachedQuestLogSnapshot()
+    local activeQuestSignature = BuildActiveQuestSignature(quests)
+    local pinStateSignature = BuildQuestPinStateSignature(quests)
+
+    if activeQuestSignature ~= self.availableQuestActiveSignature then
+        self.availableQuestActiveSignature = activeQuestSignature
+        if self.InvalidateAvailableQuestCache then
+            self:InvalidateAvailableQuestCache()
+        end
+        requiresPinRebuild = true
+    end
+
+    if pinStateSignature ~= self.questPinStateSignature then
+        self.questPinStateSignature = pinStateSignature
+        requiresPinRebuild = true
+    end
+
+    if settings.enabled and VanillaEnhancedQuestsDB and VanillaEnhancedQuestsDB.quests then
+        self:RebuildUnitTooltipIndex(quests)
+        if not requiresPinRebuild and self.RefreshQuestPinTooltipData then
+            self:RefreshQuestPinTooltipData(quests)
+        end
+    else
+        self:RebuildUnitTooltipIndex({})
+        requiresPinRebuild = true
+    end
+
+    if not requiresPinRebuild then
+        return
+    end
+
     self:ClearPins()
     if self.ClearMapExplorationCache then
         self:ClearMapExplorationCache()
     end
 
     if not settings.enabled then
-        self:RebuildUnitTooltipIndex({})
         return
     end
 
     if not VanillaEnhancedQuestsDB or not VanillaEnhancedQuestsDB.quests then
-        self:RebuildUnitTooltipIndex({})
         return
     end
-
-    local quests = self:GetCachedQuestLogSnapshot()
-    self:RebuildUnitTooltipIndex(quests)
 
     if settings.showMapMarkers == false then
         return
@@ -133,7 +223,26 @@ function Quests:RefreshWorldMapPins()
 end
 
 function Quests:QueueRefresh()
+    self.refreshRequiresPinRebuild = true
+    self:QueueQuestProgressRefresh(QUEUED_REFRESH_DELAY_SECONDS)
+end
+
+function Quests:QueueQuestProgressRefresh(delaySeconds)
+    delaySeconds = delaySeconds or QUEUED_PROGRESS_REFRESH_DELAY_SECONDS
+
     if self.refreshQueued then
+        if C_Timer and C_Timer.After and delaySeconds < (self.refreshQueuedDelaySeconds or delaySeconds) then
+            self.refreshQueuedDelaySeconds = delaySeconds
+            self.refreshQueueToken = (self.refreshQueueToken or 0) + 1
+            local token = self.refreshQueueToken
+
+            C_Timer.After(delaySeconds, function()
+                if Quests.refreshQueueToken ~= token then
+                    return
+                end
+                Quests:Refresh()
+            end)
+        end
         return
     end
     if IsInCombatLockdown() then
@@ -141,8 +250,15 @@ function Quests:QueueRefresh()
         return
     end
     self.refreshQueued = true
+    self.refreshQueuedDelaySeconds = delaySeconds
     if C_Timer and C_Timer.After then
-        C_Timer.After(0.15, function()
+        self.refreshQueueToken = (self.refreshQueueToken or 0) + 1
+        local token = self.refreshQueueToken
+
+        C_Timer.After(delaySeconds, function()
+            if Quests.refreshQueueToken ~= token then
+                return
+            end
             Quests:Refresh()
         end)
         return
@@ -155,7 +271,9 @@ function Quests:RunPendingRefreshAfterCombat()
     if self.refreshAfterCombat then
         self.refreshAfterCombat = false
         self.refreshWorldMapAfterCombat = false
-        self:QueueRefresh()
+        self:QueueQuestProgressRefresh(
+            self.refreshRequiresPinRebuild and QUEUED_REFRESH_DELAY_SECONDS or QUEUED_PROGRESS_REFRESH_DELAY_SECONDS
+        )
         return
     end
 

@@ -58,6 +58,8 @@ local function ResetPinFrame(frame)
     frame.questsData = nil
     frame.questsAreaFrame = nil
     frame.questsAreaFrames = nil
+    frame.questsAreaCluster = nil
+    frame.questsAreaPreparedKey = nil
     frame.questsHovered = nil
     frame.questsPassThroughClicks = nil
     frame.questsMinimapArea = nil

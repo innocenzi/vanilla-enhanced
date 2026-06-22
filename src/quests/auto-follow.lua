@@ -65,6 +65,30 @@ local function GetQuestWatchLimit()
     return math.floor(limit)
 end
 
+local function BuildAutoFollowQuestSignature(quests)
+    local parts = {}
+
+    for _, quest in ipairs(quests or {}) do
+        parts[#parts + 1] = tostring(quest.id or "")
+        parts[#parts + 1] = quest.isComplete and ":complete:" or ":active:"
+
+        local completedObjectiveIndexes = {}
+        for objectiveIndex, completed in pairs(quest.completedObjectives or {}) do
+            if completed == true then
+                completedObjectiveIndexes[#completedObjectiveIndexes + 1] = objectiveIndex
+            end
+        end
+        table.sort(completedObjectiveIndexes)
+        for _, objectiveIndex in ipairs(completedObjectiveIndexes) do
+            parts[#parts + 1] = tostring(objectiveIndex)
+            parts[#parts + 1] = ","
+        end
+        parts[#parts + 1] = ";"
+    end
+
+    return table.concat(parts)
+end
+
 local function FindQuestLogIndex(questId)
     if not questId or not GetNumQuestLogEntries or not GetQuestLogTitle then
         return nil
@@ -191,14 +215,15 @@ local function GetBestQuestDistance(quest, dbQuest, position)
     return bestDistance
 end
 
-local function BuildRankedQuestCandidates(position, rangeYards)
+local function BuildRankedQuestCandidates(position, rangeYards, quests)
     local candidates = {}
     local questDistances = {}
     if not VanillaEnhancedQuestsDB or not VanillaEnhancedQuestsDB.quests then
         return candidates, questDistances
     end
 
-    local quests = Quests.GetCachedQuestLogSnapshot and Quests:GetCachedQuestLogSnapshot()
+    quests = quests
+        or Quests.GetCachedQuestLogSnapshot and Quests:GetCachedQuestLogSnapshot()
         or (Quests.GetQuestLogSnapshot and Quests:GetQuestLogSnapshot())
         or {}
 
@@ -318,6 +343,19 @@ function Quests:UpdateAutoFollowQuestWatches(reason, force)
         return
     end
 
+    local quests
+    if reason == "quest-log" then
+        quests = self.GetCachedQuestLogSnapshot and self:GetCachedQuestLogSnapshot()
+            or (self.GetQuestLogSnapshot and self:GetQuestLogSnapshot())
+            or {}
+
+        local questSignature = BuildAutoFollowQuestSignature(quests)
+        if not force and questSignature == self.autoFollowQuestSignature then
+            return
+        end
+        self.autoFollowQuestSignature = questSignature
+    end
+
     local mode = GetMode()
     if reason == "movement" and mode ~= AUTO_FOLLOW_MOVEMENT then
         return
@@ -339,7 +377,7 @@ function Quests:UpdateAutoFollowQuestWatches(reason, force)
     local watched, watchedCount = GetWatchedQuestIndexes()
     local owned = self.autoFollowQuestIds or {}
     self.autoFollowQuestIds = owned
-    local candidates, questDistances = BuildRankedQuestCandidates(position, rangeYards)
+    local candidates, questDistances = BuildRankedQuestCandidates(position, rangeYards, quests)
     local changed = false
 
     for questId in pairs(owned) do
@@ -479,6 +517,8 @@ RegisterEventIfAvailable("ZONE_CHANGED_NEW_AREA")
 RegisterEventIfAvailable("PLAYER_STARTED_MOVING")
 RegisterEventIfAvailable("PLAYER_STOPPED_MOVING")
 RegisterEventIfAvailable("QUEST_LOG_UPDATE")
+RegisterEventIfAvailable("QUEST_ACCEPTED")
+RegisterEventIfAvailable("QUEST_REMOVED")
 RegisterEventIfAvailable("QUEST_TURNED_IN")
 
 eventFrame:SetScript("OnEvent", function(_, event)
@@ -493,7 +533,15 @@ eventFrame:SetScript("OnEvent", function(_, event)
         return
     end
 
-    if event == "QUEST_LOG_UPDATE" or event == "QUEST_TURNED_IN" then
+    if event == "QUEST_LOG_UPDATE" then
+        if Quests.InvalidateQuestSnapshot then
+            Quests:InvalidateQuestSnapshot()
+        end
+        Quests:QueueAutoFollowQuestUpdate("quest-log", false)
+        return
+    end
+
+    if event == "QUEST_ACCEPTED" or event == "QUEST_REMOVED" or event == "QUEST_TURNED_IN" then
         if Quests.InvalidateQuestSnapshot then
             Quests:InvalidateQuestSnapshot()
         end

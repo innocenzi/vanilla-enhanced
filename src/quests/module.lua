@@ -325,12 +325,15 @@ end
 local QUEST_SNAPSHOT_EVENTS = {
     PLAYER_LOGIN = true,
     QUEST_LOG_UPDATE = true,
+    QUEST_ACCEPTED = true,
+    QUEST_REMOVED = true,
     QUEST_TURNED_IN = true,
 }
 
 local AVAILABLE_QUEST_CACHE_EVENTS = {
     PLAYER_LOGIN = true,
-    QUEST_LOG_UPDATE = true,
+    QUEST_ACCEPTED = true,
+    QUEST_REMOVED = true,
     QUEST_TURNED_IN = true,
     UPDATE_FACTION = true,
     SKILL_LINES_CHANGED = true,
@@ -352,6 +355,8 @@ RegisterEventIfAvailable(eventFrame, "ADDON_LOADED")
 RegisterEventIfAvailable(eventFrame, "PLAYER_LOGIN")
 RegisterEventIfAvailable(eventFrame, "PLAYER_ENTERING_WORLD")
 RegisterEventIfAvailable(eventFrame, "QUEST_LOG_UPDATE")
+RegisterEventIfAvailable(eventFrame, "QUEST_ACCEPTED")
+RegisterEventIfAvailable(eventFrame, "QUEST_REMOVED")
 RegisterEventIfAvailable(eventFrame, "QUEST_TURNED_IN")
 RegisterEventIfAvailable(eventFrame, "PLAYER_LEVEL_UP")
 RegisterEventIfAvailable(eventFrame, "PLAYER_STOPPED_MOVING")
@@ -394,7 +399,11 @@ eventFrame:SetScript("OnEvent", function(_, event, loadedAddonName)
     elseif event ~= "ADDON_LOADED" then
         InvalidateRefreshCaches(event)
         Quests:HookQuestLogWithMapFrames()
-        Quests:QueueRefresh()
+        if event == "QUEST_LOG_UPDATE" and Quests.QueueQuestProgressRefresh then
+            Quests:QueueQuestProgressRefresh()
+        else
+            Quests:QueueRefresh()
+        end
     end
 end)
 

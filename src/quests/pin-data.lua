@@ -120,10 +120,80 @@ function Quests:BuildQuestPinData(quest, cluster)
         titleIcon = GetRepeatableTitleIcon(dbQuest),
         objective = localizedObjective,
         objectives = localizedObjectives,
+        cluster = cluster,
         merged = cluster.merged,
         count = cluster.c,
         countText = countText,
     }
+end
+
+local function CopyPinData(target, source)
+    for key in pairs(target) do
+        target[key] = nil
+    end
+    for key, value in pairs(source or {}) do
+        target[key] = value
+    end
+end
+
+local function BuildQuestLookup(quests)
+    local lookup = {}
+
+    for _, quest in ipairs(quests or {}) do
+        if quest.id then
+            lookup[quest.id] = quest
+        end
+    end
+
+    return lookup
+end
+
+local function RefreshQuestPinDataObject(data, questsById, seen)
+    if not data or seen[data] then
+        return
+    end
+    seen[data] = true
+
+    if data.entries then
+        for _, entry in ipairs(data.entries) do
+            RefreshQuestPinDataObject(entry.data, questsById, seen)
+        end
+        return
+    end
+
+    if not data.questId or not data.cluster then
+        return
+    end
+
+    local quest = questsById[data.questId]
+    if not quest then
+        return
+    end
+
+    CopyPinData(data, Quests:BuildQuestPinData(quest, data.cluster))
+end
+
+local function RepaintOwnedPinTooltip(frame)
+    if not frame or not GameTooltip or not GameTooltip.IsOwned or not Quests.ShowPinTooltip then
+        return
+    end
+    if GameTooltip:IsOwned(frame) then
+        Quests:ShowPinTooltip(frame)
+    end
+end
+
+function Quests:RefreshQuestPinTooltipData(quests)
+    local questsById = BuildQuestLookup(quests)
+    local seen = {}
+
+    for _, frame in ipairs(self.frames or {}) do
+        RefreshQuestPinDataObject(frame.questsData, questsById, seen)
+        RepaintOwnedPinTooltip(frame)
+    end
+    for _, frame in ipairs(self.minimapFrames or {}) do
+        RefreshQuestPinDataObject(frame.questsData, questsById, seen)
+        RepaintOwnedPinTooltip(frame)
+    end
 end
 
 function Quests:BuildAvailableQuestPinData(questId, dbQuest)

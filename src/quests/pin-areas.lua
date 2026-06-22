@@ -3,7 +3,7 @@ local Quests = _G.VanillaEnhanced:GetModule("quests")
 local MARKER_FRAME_SIZE = 16
 local AREA_COLOR = { 0.5, 0.7, 0.9 }
 local AREA_FILL_ALPHA = 0.5
-local AREA_FILL_STEP = 4
+local AREA_FILL_STEP = 8
 local AREA_OUTLINE_THICKNESS = 1.5
 local WHITE_TEXTURE = [[Interface\Buttons\WHITE8X8]]
 
@@ -123,6 +123,9 @@ local function SetAreaRevealed(frame, revealed)
         return
     end
 
+    if revealed and Quests.PrepareWorldMapPinArea then
+        Quests:PrepareWorldMapPinArea(frame)
+    end
     frame:SetAlpha(revealed and 1 or 0)
     frame:EnableMouse(false)
 end
@@ -260,8 +263,16 @@ end
 
 function Quests:GetWorldMapPixelScale()
     local frame = self:GetWorldMapContentFrame()
-    local width = frame and frame:GetWidth() or 700
-    local height = frame and frame:GetHeight() or width
+    local width = frame and frame:GetWidth() or 0
+    local height = frame and frame:GetHeight() or 0
+
+    if not width or width <= 0 then
+        width = 700
+    end
+    if not height or height <= 0 then
+        height = width
+    end
+
     return width / 100, height / 100
 end
 
@@ -304,9 +315,42 @@ function Quests:SetSelectedQuestAreaQuest(questId)
 end
 
 function Quests:ConfigureWorldMapPinArea(frame, cluster)
+    frame.questsAreaCluster = cluster
+    frame.questsAreaPreparedKey = nil
+    frame:SetSize(1, 1)
+    frame.texture:Hide()
+    HideTextures(frame.lines)
+    HideTextures(frame.fills)
+    HideMarkerText(frame.text)
+    frame.background:Hide()
+end
+
+function Quests:PrepareWorldMapPinArea(frame)
+    local cluster = frame and frame.questsAreaCluster
+    if not frame or not cluster then
+        return false
+    end
+
+    local settings = self:GetSettings()
+    local xScale, yScale = self:GetWorldMapPixelScale()
+    local preparedKey = table.concat({
+        tostring(xScale),
+        tostring(yScale),
+        tostring(settings.scale or 1),
+        tostring(settings.opacity or 1),
+    }, ":")
+
+    if frame.questsAreaPreparedKey == preparedKey then
+        return true
+    end
+
+    frame.questsAreaPreparedKey = nil
     if cluster.p and #cluster.p >= 3 and ConfigurePolygonArea(frame, cluster) then
-        return
+        frame.questsAreaPreparedKey = preparedKey
+        return true
     end
 
     ConfigureCircleArea(frame, cluster.r)
+    frame.questsAreaPreparedKey = preparedKey
+    return true
 end
