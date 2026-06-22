@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.4.0 - 2026-06-22
+## 0.5.0 - 2026-06-22
 
 
 ### Features
@@ -45,6 +45,8 @@
 - New setting preset
 - Add option to toggle drop rates in unit tooltips
 - Set default preset to adventurer
+- Add training tab
+- Add profession tooltips on items
 
 
 ### Fixes
@@ -66,6 +68,10 @@
 - Close bags if they were not opened before opening character sheet/merchant window
 - Make locked slot persistence more reliable
 - Only show nearest quest objective marker at edge
+- Remove scrap overlay during sorting
+- Prevent recursive skill refresh overflow
+- Move threat meter to the right of the portrait
+- Avoid protected bag sorting in combat
 
 
 ### Performance
@@ -74,4 +80,6 @@
 - Cache bag API lookups
 - Improve marker performance
 - Decrease quest refresh performance impact
+- Decrease runtime memory usage
+- Cache locale lookups
 
