@@ -5,6 +5,7 @@
 ## Author: Hylmew
 ## Version: 0.3.1
 ## SavedVariables: VanillaEnhancedSettings
+## SavedVariablesPerCharacter: VanillaEnhancedCharacterSettings
 ## X-Questie-Data-Source: Derived privately from Questie v11.29.5 data
 ## Category: User Interface
 ## Category-frFR: Interface utilisateur
@@ -56,5 +57,8 @@ src\merchants\strategies.lua
 src\merchants\scrap-marking.lua
 src\merchants\selling.lua
 src\merchants\repair.lua
+src\map\module.lua
+src\map\settings.lua
+src\map\markers.lua
 src\target-threat\module.lua
 src\options.lua

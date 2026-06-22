@@ -15,6 +15,10 @@ local DEFAULT_SETTINGS = {
     showChatMessagePrefix = false,
 }
 
+local DEFAULT_CHARACTER_SETTINGS = {
+    modules = {},
+}
+
 local function CopyDefaults(target, source)
     if type(target) ~= "table" then
         target = {}
@@ -56,7 +60,26 @@ function VanillaEnhanced:GetModuleSettings(moduleKey, defaults)
     return settings.modules[moduleKey]
 end
 
+function VanillaEnhanced:GetCharacterSettings()
+    VanillaEnhancedCharacterSettings = CopyDefaults(VanillaEnhancedCharacterSettings, DEFAULT_CHARACTER_SETTINGS)
+    if type(VanillaEnhancedCharacterSettings.modules) ~= "table" then
+        VanillaEnhancedCharacterSettings.modules = {}
+    end
+    return VanillaEnhancedCharacterSettings
+end
+
+function VanillaEnhanced:GetCharacterModuleSettings(moduleKey, defaults)
+    local settings = self:GetCharacterSettings()
+    settings.modules[moduleKey] = CopyDefaults(settings.modules[moduleKey], defaults)
+    return settings.modules[moduleKey]
+end
+
 function VanillaEnhanced:IsModuleEnabled(moduleKey)
+    local module = self.modules and self.modules[moduleKey]
+    if module and module.IsEnabled then
+        return module:IsEnabled()
+    end
+
     local settings = self:GetModuleSettings(moduleKey, {
         enabled = true,
     })
@@ -101,7 +124,9 @@ end
 
 function VanillaEnhanced:ResetSettings()
     VanillaEnhancedSettings = nil
+    VanillaEnhancedCharacterSettings = nil
     self:GetSettings()
+    self:GetCharacterSettings()
 
     for _, module in pairs(self.modules or {}) do
         if type(module) == "table" then

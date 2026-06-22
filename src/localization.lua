@@ -3,6 +3,7 @@ local VanillaEnhanced = _G.VanillaEnhanced
 local STRINGS = {
     enUS = {
         ["module.quests"] = "Quests",
+        ["module.map"] = "Map",
         ["module.targetThreat"] = "Target threat",
         ["module.bags"] = "Bags",
         ["module.merchants"] = "Merchants",
@@ -82,6 +83,16 @@ local STRINGS = {
         ["options.quests.showCompletedMapObjectives.help"] = "Keeps finished objective locations visible. Turn-in locations still appear.",
         ["options.quests.showCompletedTooltipObjectives.label"] = "Completed objectives in tooltips",
         ["options.quests.showCompletedTooltipObjectives.help"] = "Keeps tooltip hints for objectives you have already finished.",
+
+        ["options.map.subtitle"] = "Improves map interactions with custom markers and minimap directions.",
+        ["options.map.enable.label"] = "Enable",
+        ["options.map.enable.help"] = "Turns on map improvements, including custom markers placed with Alt-left-click.",
+        ["options.map.showWorldMapMarkers.label"] = "Custom markers",
+        ["options.map.showWorldMapMarkers.help"] = "Shows this character's saved custom markers on the world map.",
+        ["options.map.showMinimapDirections.label"] = "Marker directions",
+        ["options.map.showMinimapDirections.help"] = "Shows saved custom markers on the minimap and floats distant markers on the edge.",
+        ["options.map.clearMarkers.label"] = "Clear markers",
+        ["options.map.clearMarkers.help"] = "Removes all custom map markers saved for this character.",
 
         ["options.targetThreat.subtitle"] = "Shows your threat percentage on the target frame.",
         ["options.targetThreat.enable.label"] = "Enable",
@@ -197,6 +208,19 @@ local STRINGS = {
         ["merchants.autoRepair.repaired"] = "Repaired equipment for {money}.",
         ["merchants.autoRepair.notEnoughMoney"] = "Cannot repair equipment ({money} required).",
 
+        ["map.marker.tooltipTitle"] = "Custom marker",
+        ["map.marker.tooltipCoordinates"] = "{x}, {y}",
+        ["map.marker.tooltipCoordinatesWithDistance"] = "{x}, {y} |cff8f8f8f({distance})|r",
+        ["map.marker.tooltipDistanceYards"] = "{distance} yd",
+        ["map.marker.added"] = "Added marker in {map} at {x}, {y}.",
+        ["map.marker.removed"] = "Removed marker.",
+        ["map.marker.cleared"] = "Cleared this character's map markers.",
+        ["map.marker.clearConfirm"] = "Clear all custom map markers for this character?",
+        ["map.marker.clearAccept"] = "Clear",
+        ["map.marker.clearCancel"] = "Cancel",
+        ["map.marker.unsupportedMap"] = "Cannot place a marker on this map.",
+        ["map.marker.unknownMap"] = "Unknown map",
+
         ["quests.static.turnin"] = "Turn in",
         ["quests.static.available"] = "Available quest",
         ["quests.static.availableQuestLevel"] = "Level {level} quest available",
@@ -211,6 +235,7 @@ local STRINGS = {
 
     frFR = {
         ["module.quests"] = "Quêtes",
+        ["module.map"] = "Carte",
         ["module.targetThreat"] = "Menace",
         ["module.bags"] = "Sacs",
         ["module.merchants"] = "Marchands",
@@ -290,6 +315,16 @@ local STRINGS = {
         ["options.quests.showCompletedMapObjectives.help"] = "Garde visibles les emplacements des objectifs terminés. Les lieux de rendu restent affichés.",
         ["options.quests.showCompletedTooltipObjectives.label"] = "Objectifs terminés dans les infobulles",
         ["options.quests.showCompletedTooltipObjectives.help"] = "Garde les indices d'infobulle pour les objectifs déjà terminés.",
+
+        ["options.map.subtitle"] = "Ajoute des fonctionnalités à la carte du monde.",
+        ["options.map.enable.label"] = "Activer",
+        ["options.map.enable.help"] = "Active les améliorations de la carte du monde.",
+        ["options.map.showWorldMapMarkers.label"] = "Marqueurs",
+        ["options.map.showWorldMapMarkers.help"] = "Active les marqueurs personnalisés. Alt-clic sur la carte du monde pour en créer ou en supprimer un.",
+        ["options.map.showMinimapDirections.label"] = "Minicarte",
+        ["options.map.showMinimapDirections.help"] = "Affiche les marqueurs sur la minicarte et place les marqueurs lointains sur le bord.",
+        ["options.map.clearMarkers.label"] = "Effacer les marqueurs",
+        ["options.map.clearMarkers.help"] = "Supprime tous les marqueurs enregistrés pour ce personnage.",
 
         ["options.targetThreat.subtitle"] = "Affiche votre pourcentage de menace près du cadre de la cible.",
         ["options.targetThreat.enable.label"] = "Activer",
@@ -404,6 +439,19 @@ local STRINGS = {
         ["merchants.scrapMark.itemUnknown"] = "cet objet",
         ["merchants.autoRepair.repaired"] = "Équipement réparé pour {money}.",
         ["merchants.autoRepair.notEnoughMoney"] = "Impossible de réparer l'équipement ({money} requis).",
+
+        ["map.marker.tooltipTitle"] = "Marqueur",
+        ["map.marker.tooltipCoordinates"] = "{x}, {y}",
+        ["map.marker.tooltipCoordinatesWithDistance"] = "{x}, {y} |cff8f8f8f({distance})|r",
+        ["map.marker.tooltipDistanceYards"] = "à {distance} mètres",
+        ["map.marker.added"] = "Marqueur ajouté dans {map} à {x}, {y}.",
+        ["map.marker.removed"] = "Marqueur supprimé.",
+        ["map.marker.cleared"] = "Marqueurs de carte effacés pour ce personnage.",
+        ["map.marker.clearConfirm"] = "Effacer tous les marqueurs personnalisés de ce personnage ?",
+        ["map.marker.clearAccept"] = "Effacer",
+        ["map.marker.clearCancel"] = "Annuler",
+        ["map.marker.unsupportedMap"] = "Impossible de placer un marqueur sur cette carte.",
+        ["map.marker.unknownMap"] = "Carte inconnue",
 
         ["quests.static.turnin"] = "Rendre la quête",
         ["quests.static.available"] = "Quête disponible",

@@ -257,6 +257,13 @@ local function ConfirmResetAddonSettings()
     ResetAddonSettings()
 end
 
+local function ConfirmClearMapMarkers()
+    local map = VanillaEnhanced:GetModule("map")
+    if map and map.ConfirmClearMarkers then
+        map:ConfirmClearMarkers()
+    end
+end
+
 local function IsSettingEnabled(moduleKey, settingKey)
     local settings = GetModuleOptionSettings(moduleKey)
     return settings[settingKey] ~= false
@@ -1423,6 +1430,44 @@ local questsPanel = BuildOptionsPanel({
     },
 })
 
+local mapPanel = BuildOptionsPanel({
+    name = "VanillaEnhancedMapOptionsPanel",
+    categoryKey = "map",
+    titleKey = "module.map",
+    subtitleKey = "options.map.subtitle",
+    parent = VanillaEnhanced.displayName,
+    moduleKey = "map",
+    options = {
+        {
+            type = "moduleEnabled",
+            name = "VanillaEnhancedOptionsMapEnabled",
+            labelKey = "options.map.enable.label",
+            helpKey = "options.map.enable.help",
+        },
+        {
+            name = "VanillaEnhancedOptionsMapShowWorldMapMarkers",
+            settingKey = "showWorldMapMarkers",
+            labelKey = "options.map.showWorldMapMarkers.label",
+            helpKey = "options.map.showWorldMapMarkers.help",
+            indent = 0,
+        },
+        {
+            name = "VanillaEnhancedOptionsMapShowMinimapDirections",
+            settingKey = "showMinimapDirections",
+            labelKey = "options.map.showMinimapDirections.label",
+            helpKey = "options.map.showMinimapDirections.help",
+            indent = 0,
+        },
+        {
+            type = "addonAction",
+            name = "VanillaEnhancedOptionsMapClearMarkers",
+            labelKey = "options.map.clearMarkers.label",
+            helpKey = "options.map.clearMarkers.help",
+            onClick = ConfirmClearMapMarkers,
+        },
+    },
+})
+
 local targetThreatPanel = BuildOptionsPanel({
     name = "VanillaEnhancedTargetThreatOptionsPanel",
     categoryKey = "targetThreat",
@@ -1779,6 +1824,7 @@ end
 
 mainPanel:SetScript("OnShow", RefreshOnShow)
 questsPanel:SetScript("OnShow", RefreshOnShow)
+mapPanel:SetScript("OnShow", RefreshOnShow)
 targetThreatPanel:SetScript("OnShow", RefreshOnShow)
 bagsPanel:SetScript("OnShow", RefreshOnShow)
 merchantsPanel:SetScript("OnShow", RefreshOnShow)
@@ -1786,6 +1832,7 @@ merchantsPanel:SetScript("OnShow", RefreshOnShow)
 local function RegisterInterfaceOptions()
     InterfaceOptions_AddCategory(mainPanel)
     InterfaceOptions_AddCategory(questsPanel)
+    InterfaceOptions_AddCategory(mapPanel)
     InterfaceOptions_AddCategory(targetThreatPanel)
     InterfaceOptions_AddCategory(bagsPanel)
     InterfaceOptions_AddCategory(merchantsPanel)
@@ -1793,6 +1840,7 @@ local function RegisterInterfaceOptions()
     VanillaEnhanced.optionsCategories = {
         main = mainPanel,
         quests = questsPanel,
+        map = mapPanel,
         targetThreat = targetThreatPanel,
         bags = bagsPanel,
         merchants = merchantsPanel,
@@ -1814,6 +1862,12 @@ local function RegisterSettingsOptions()
             questsPanel,
             questsPanel.name
         )
+        local mapOk, mapCategory = pcall(
+            Settings.RegisterCanvasLayoutSubcategory,
+            mainCategory,
+            mapPanel,
+            mapPanel.name
+        )
         local targetOk, targetThreatCategory = pcall(
             Settings.RegisterCanvasLayoutSubcategory,
             mainCategory,
@@ -1833,8 +1887,9 @@ local function RegisterSettingsOptions()
             merchantsPanel.name
         )
 
-        if questOk and targetOk and bagsOk and merchantsOk then
+        if questOk and mapOk and targetOk and bagsOk and merchantsOk then
             VanillaEnhanced.optionsCategories.quests = questsCategory
+            VanillaEnhanced.optionsCategories.map = mapCategory
             VanillaEnhanced.optionsCategories.targetThreat = targetThreatCategory
             VanillaEnhanced.optionsCategories.bags = bagsCategory
             VanillaEnhanced.optionsCategories.merchants = merchantsCategory
@@ -1843,15 +1898,18 @@ local function RegisterSettingsOptions()
     end
 
     local questsCategory = Settings.RegisterCanvasLayoutCategory(questsPanel, questsPanel.name)
+    local mapCategory = Settings.RegisterCanvasLayoutCategory(mapPanel, mapPanel.name)
     local targetThreatCategory = Settings.RegisterCanvasLayoutCategory(targetThreatPanel, targetThreatPanel.name)
     local bagsCategory = Settings.RegisterCanvasLayoutCategory(bagsPanel, bagsPanel.name)
     local merchantsCategory = Settings.RegisterCanvasLayoutCategory(merchantsPanel, merchantsPanel.name)
     Settings.RegisterAddOnCategory(questsCategory)
+    Settings.RegisterAddOnCategory(mapCategory)
     Settings.RegisterAddOnCategory(targetThreatCategory)
     Settings.RegisterAddOnCategory(bagsCategory)
     Settings.RegisterAddOnCategory(merchantsCategory)
 
     VanillaEnhanced.optionsCategories.quests = questsCategory
+    VanillaEnhanced.optionsCategories.map = mapCategory
     VanillaEnhanced.optionsCategories.targetThreat = targetThreatCategory
     VanillaEnhanced.optionsCategories.bags = bagsCategory
     VanillaEnhanced.optionsCategories.merchants = merchantsCategory
