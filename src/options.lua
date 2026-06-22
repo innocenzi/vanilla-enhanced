@@ -22,6 +22,13 @@ local function T(key, vars)
     return VanillaEnhanced:T(key, vars)
 end
 
+local function GetDefaultConfigurationPresetKey()
+    if VanillaEnhanced.GetDefaultConfigurationPresetKey then
+        return VanillaEnhanced:GetDefaultConfigurationPresetKey()
+    end
+    return "explorer"
+end
+
 local function GetPanelContent(panel)
     return panel.optionContent or panel
 end
@@ -1214,7 +1221,7 @@ local mainPanel = BuildOptionsPanel({
             settingKey = "configurationPreset",
             labelKey = "options.main.configurationPreset.label",
             helpKey = "options.main.configurationPreset.help",
-            defaultValue = "adventurer",
+            defaultValue = GetDefaultConfigurationPresetKey(),
             width = 170,
             optionsProvider = function()
                 return VanillaEnhanced:GetConfigurationPresetOptions()

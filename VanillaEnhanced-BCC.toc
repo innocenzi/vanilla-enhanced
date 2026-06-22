@@ -18,6 +18,7 @@ libs\here-be-dragons\here-be-dragons-pins-2.0.lua
 
 core.lua
 src\localization.lua
+src\presets.lua
 src\button-container.lua
 src\inventory\api.lua
 data\quests\locations.lua
@@ -62,5 +63,4 @@ src\map\settings.lua
 src\map\markers.lua
 src\map\tomtom.lua
 src\target-threat\module.lua
-src\presets.lua
 src\options.lua

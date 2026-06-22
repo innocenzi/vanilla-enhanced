@@ -11,7 +11,7 @@ VanillaEnhanced.modules = VanillaEnhanced.modules or {}
 local DEFAULT_SETTINGS = {
     modules = {},
     locale = "auto",
-    configurationPreset = "adventurer",
+    configurationPreset = "explorer",
     chatMessagesEnabled = true,
     showChatMessagePrefix = false,
 }
@@ -34,6 +34,28 @@ local function CopyDefaults(target, source)
     return target
 end
 
+local function GetAddonDefaults(addon)
+    local defaults = CopyDefaults({}, DEFAULT_SETTINGS)
+    if addon and addon.GetDefaultConfigurationPresetKey then
+        defaults.configurationPreset = addon:GetDefaultConfigurationPresetKey()
+    end
+    return defaults
+end
+
+local function GetModuleDefaults(addon, moduleKey, defaults)
+    local presetDefaults = addon
+        and addon.GetConfigurationPresetModuleDefaults
+        and addon:GetConfigurationPresetModuleDefaults(moduleKey)
+        or nil
+
+    if type(presetDefaults) ~= "table" then
+        return defaults
+    end
+
+    local mergedDefaults = CopyDefaults({}, presetDefaults)
+    return CopyDefaults(mergedDefaults, defaults)
+end
+
 function VanillaEnhanced:CreateModule(key, displayName)
     local module = self.modules[key] or {}
     module.key = key
@@ -48,7 +70,7 @@ function VanillaEnhanced:GetModule(key)
 end
 
 function VanillaEnhanced:GetSettings()
-    VanillaEnhancedSettings = CopyDefaults(VanillaEnhancedSettings, DEFAULT_SETTINGS)
+    VanillaEnhancedSettings = CopyDefaults(VanillaEnhancedSettings, GetAddonDefaults(self))
     if type(VanillaEnhancedSettings.modules) ~= "table" then
         VanillaEnhancedSettings.modules = {}
     end
@@ -57,7 +79,7 @@ end
 
 function VanillaEnhanced:GetModuleSettings(moduleKey, defaults)
     local settings = self:GetSettings()
-    settings.modules[moduleKey] = CopyDefaults(settings.modules[moduleKey], defaults)
+    settings.modules[moduleKey] = CopyDefaults(settings.modules[moduleKey], GetModuleDefaults(self, moduleKey, defaults))
     return settings.modules[moduleKey]
 end
 
@@ -71,7 +93,7 @@ end
 
 function VanillaEnhanced:GetCharacterModuleSettings(moduleKey, defaults)
     local settings = self:GetCharacterSettings()
-    settings.modules[moduleKey] = CopyDefaults(settings.modules[moduleKey], defaults)
+    settings.modules[moduleKey] = CopyDefaults(settings.modules[moduleKey], GetModuleDefaults(self, moduleKey, defaults))
     return settings.modules[moduleKey]
 end
 

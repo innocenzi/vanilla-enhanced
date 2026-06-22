@@ -1,6 +1,6 @@
 local VanillaEnhanced = _G.VanillaEnhanced
 
-local DEFAULT_PRESET_KEY = "adventurer"
+local DEFAULT_PRESET_KEY = "explorer"
 
 local PRESET_ORDER = {
     "explorer",
@@ -150,6 +150,15 @@ function VanillaEnhanced:GetConfigurationPresetOptions()
         }
     end
     return options
+end
+
+function VanillaEnhanced:GetDefaultConfigurationPresetKey()
+    return DEFAULT_PRESET_KEY
+end
+
+function VanillaEnhanced:GetConfigurationPresetModuleDefaults(moduleKey)
+    local preset = GetPreset(DEFAULT_PRESET_KEY)
+    return preset.modules and preset.modules[moduleKey] or nil
 end
 
 function VanillaEnhanced:GetConfigurationPresetLabel(presetKey)
