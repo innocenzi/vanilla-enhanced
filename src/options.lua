@@ -1255,6 +1255,14 @@ local questsPanel = BuildOptionsPanel({
             indent = 1,
         },
         {
+            name = "VanillaEnhancedOptionsQuestsShowSelectedQuestDirection",
+            settingKey = "showSelectedQuestDirection",
+            labelKey = "options.quests.showSelectedQuestDirection.label",
+            helpKey = "options.quests.showSelectedQuestDirection.help",
+            enabledWhenSetting = "showMapMarkers",
+            indent = 1,
+        },
+        {
             name = "VanillaEnhancedOptionsQuestsShowMinimapObjectiveAreas",
             settingKey = "showMinimapObjectiveAreas",
             labelKey = "options.quests.showMinimapObjectiveAreas.label",

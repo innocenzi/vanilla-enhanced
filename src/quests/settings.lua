@@ -40,6 +40,7 @@ local defaults = {
     hideMapMarkersInFogOfWar = true,
     showRepeatableQuests = true,
     showAvailableQuests = false,
+    showSelectedQuestDirection = false,
     showMinimapObjectiveAreas = true,
     dimMinimapMarkersOnOtherFloors = true,
     onlyShowNearbyAvailableQuests = false,
@@ -113,6 +114,9 @@ function Quests:SetEnabled(enabled)
     end
 
     self:ClearPins()
+    if self.RefreshSelectedQuestDirection then
+        self:RefreshSelectedQuestDirection()
+    end
     self:RebuildUnitTooltipIndex({})
     self:RefreshQuestTrackerClicks()
 end

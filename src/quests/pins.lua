@@ -1,4 +1,152 @@
-local Quests = _G.VanillaEnhanced:GetModule("quests")
+local VanillaEnhanced = _G.VanillaEnhanced
+local Quests = VanillaEnhanced:GetModule("quests")
+
+local SELECTED_QUEST_DIRECTION_OWNER = "quests-selected"
+
+local function GetMapModule()
+    local map = VanillaEnhanced.modules and VanillaEnhanced.modules.map
+    if map and map.SetDirectionTargets then
+        return map
+    end
+    return nil
+end
+
+local function ClearSelectedQuestDirectionTarget()
+    local map = GetMapModule()
+    if map and map.ClearDirectionTargets then
+        map:ClearDirectionTargets(SELECTED_QUEST_DIRECTION_OWNER)
+    end
+end
+
+local function FindQuestById(quests, questId)
+    if not questId then
+        return nil
+    end
+
+    for _, quest in ipairs(quests or {}) do
+        if quest.id == questId then
+            return quest
+        end
+    end
+    return nil
+end
+
+local function GetPlayerPosition(self)
+    if not self.hbd or not self.hbd.GetPlayerZonePosition then
+        return nil
+    end
+
+    local x, y, uiMapId = self.hbd:GetPlayerZonePosition(true)
+    if not x or not y or not uiMapId then
+        return nil
+    end
+
+    return {
+        x = x,
+        y = y,
+        uiMapId = uiMapId,
+    }
+end
+
+local function GetClusterDistance(self, position, uiMapId, cluster)
+    if not position or not self.hbd or not self.hbd.GetZoneDistance then
+        return nil
+    end
+
+    return self.hbd:GetZoneDistance(
+        position.uiMapId,
+        position.x,
+        position.y,
+        uiMapId,
+        cluster.x / 100,
+        cluster.y / 100
+    )
+end
+
+local function IsSelectedDirectionClusterVisible(self, quest, cluster)
+    return quest.isComplete or self:ShouldShowObjectiveCluster(quest, cluster, "map")
+end
+
+local function GetBestSelectedDirectionCluster(self, quest, maps)
+    local position = GetPlayerPosition(self)
+    local best
+    local bestDistance
+
+    for uiMapId, clusters in pairs(maps or {}) do
+        for _, cluster in ipairs(clusters or {}) do
+            if cluster.x and cluster.y and IsSelectedDirectionClusterVisible(self, quest, cluster) then
+                local distance = GetClusterDistance(self, position, uiMapId, cluster)
+                if distance then
+                    if not bestDistance or distance < bestDistance then
+                        best = {
+                            uiMapId = uiMapId,
+                            cluster = cluster,
+                        }
+                        bestDistance = distance
+                    end
+                elseif not best then
+                    best = {
+                        uiMapId = uiMapId,
+                        cluster = cluster,
+                    }
+                end
+            end
+        end
+    end
+
+    return best
+end
+
+local function BuildSelectedQuestDirectionTarget(self, quest, dbQuest)
+    local maps = quest.isComplete and dbQuest.turnins or dbQuest.maps
+    maps = maps or dbQuest.maps
+    local best = GetBestSelectedDirectionCluster(self, quest, maps)
+    local cluster = best and best.cluster
+    if not best or not cluster then
+        return nil
+    end
+
+    return {
+        uiMapId = best.uiMapId,
+        x = cluster.x / 100,
+        y = cluster.y / 100,
+        title = quest.title,
+    }
+end
+
+function Quests:RefreshSelectedQuestDirection(quests, settings)
+    settings = settings or self:GetSettings()
+    local selectedQuestId = self.selectedQuestAreaQuestId or self.selectedQuestDirectionQuestId
+
+    if not settings.enabled
+        or settings.showMapMarkers == false
+        or settings.showSelectedQuestDirection ~= true
+        or not selectedQuestId then
+        ClearSelectedQuestDirectionTarget()
+        return
+    end
+
+    if not VanillaEnhancedQuestsDB or not VanillaEnhancedQuestsDB.quests then
+        ClearSelectedQuestDirectionTarget()
+        return
+    end
+
+    local quest = FindQuestById(quests or self:GetCachedQuestLogSnapshot(), selectedQuestId)
+    local dbQuest = quest and VanillaEnhancedQuestsDB.quests[quest.id]
+    if not quest or not dbQuest or not dbQuest.maps or not self:ShouldShowRepeatableQuestOnMaps(dbQuest, settings) then
+        ClearSelectedQuestDirectionTarget()
+        return
+    end
+
+    local map = GetMapModule()
+    local target = BuildSelectedQuestDirectionTarget(self, quest, dbQuest)
+    if map and target then
+        map:SetDirectionTargets(SELECTED_QUEST_DIRECTION_OWNER, { target })
+        return
+    end
+
+    ClearSelectedQuestDirectionTarget()
+end
 
 local function HasAreaGeometry(cluster)
     return (cluster.p and #cluster.p >= 3) or ((cluster.r or 0) > 0)

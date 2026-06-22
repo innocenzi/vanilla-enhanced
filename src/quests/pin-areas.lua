@@ -310,8 +310,14 @@ end
 
 function Quests:SetSelectedQuestAreaQuest(questId)
     self.selectedQuestAreaQuestId = questId
+    if questId then
+        self.selectedQuestDirectionQuestId = questId
+    end
     self:RefreshQuestAreaVisibility()
     self:RefreshQuestMarkerHighlights()
+    if self.RefreshSelectedQuestDirection then
+        self:RefreshSelectedQuestDirection()
+    end
 end
 
 function Quests:ConfigureWorldMapPinArea(frame, cluster)

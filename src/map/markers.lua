@@ -191,6 +191,7 @@ end
 local function ResetMarkerFrame(frame)
     frame.markerId = nil
     frame.markerData = nil
+    frame.markerOwner = nil
     frame.markerKind = nil
     frame.markerWorldX = nil
     frame.markerWorldY = nil
@@ -237,6 +238,16 @@ local function ConfigureMarkerFrame(frame, kind)
     if frame.SetFrameStrata then
         frame:SetFrameStrata("HIGH")
     end
+end
+
+local function ConfigureMarkerVisual(frame, marker)
+    local color = marker and marker.color or MARKER_COLOR
+    local symbol = marker and marker.symbol or MARKER_SYMBOL
+    local size = frame.markerKind == "minimap" and MARKER_SIZE_MINIMAP or MARKER_SIZE_WORLD
+
+    frame.text:SetText(tostring(symbol))
+    frame.text:SetTextColor(color[1] or MARKER_COLOR[1], color[2] or MARKER_COLOR[2], color[3] or MARKER_COLOR[3], color[4] or MARKER_COLOR[4])
+    frame.text:SetFont(STANDARD_TEXT_FONT, size, "OUTLINE")
 end
 
 local function SetFramePropagateMouseClicks(frame, propagate)
@@ -486,8 +497,8 @@ function Map:ClearMinimapMarkers()
         self:ReleaseMarkerFrame(frame)
     end
     wipe(self.minimapFrames)
-    if self.StopMinimapMarkerUpdates then
-        self:StopMinimapMarkerUpdates()
+    if self.RefreshMinimapMarkerUpdateState then
+        self:RefreshMinimapMarkerUpdateState()
     end
 end
 
@@ -502,6 +513,7 @@ function Map:AddWorldMapMarker(marker)
     local frame = self:AcquireMarkerFrame("worldMap", WorldMapFrame)
     frame.markerId = marker.id
     frame.markerData = marker
+    ConfigureMarkerVisual(frame, marker)
     self.hbdPins:AddWorldMapIconMap(
         self,
         frame,
@@ -530,6 +542,7 @@ function Map:AddMinimapMarker(marker)
     local frame = self:AcquireMarkerFrame("minimap", Minimap)
     frame.markerId = marker.id
     frame.markerData = marker
+    ConfigureMarkerVisual(frame, marker)
     frame.markerWorldX = worldX
     frame.markerWorldY = worldY
     frame.markerInstanceId = instanceId
@@ -537,6 +550,76 @@ function Map:AddMinimapMarker(marker)
     frame:SetPoint("CENTER", Minimap, "CENTER", 0, 0)
     self.minimapFrames[#self.minimapFrames + 1] = frame
     self:StartMinimapMarkerUpdates()
+end
+
+function Map:ClearDirectionTargetFrames()
+    self.directionTargetFrames = self.directionTargetFrames or {}
+    for _, frame in ipairs(self.directionTargetFrames or {}) do
+        self:ReleaseMarkerFrame(frame)
+    end
+    wipe(self.directionTargetFrames)
+    if self.RefreshMinimapMarkerUpdateState then
+        self:RefreshMinimapMarkerUpdateState()
+    end
+end
+
+function Map:AddDirectionTarget(owner, target)
+    if not self.hbd or not Minimap or not target or not target.uiMapId or not target.x or not target.y then
+        return
+    end
+    if not self:CanPlaceMarker(target.uiMapId, target.x, target.y) then
+        return
+    end
+
+    local worldX, worldY, instanceId = self.hbd:GetWorldCoordinatesFromZone(target.x, target.y, target.uiMapId)
+    if not worldX or not worldY or not instanceId then
+        return
+    end
+
+    local frame = self:AcquireMarkerFrame("minimap", Minimap)
+    frame.markerOwner = owner
+    frame.markerData = target
+    frame.markerWorldX = worldX
+    frame.markerWorldY = worldY
+    frame.markerInstanceId = instanceId
+    ConfigureMarkerVisual(frame, target)
+    frame:ClearAllPoints()
+    frame:SetPoint("CENTER", Minimap, "CENTER", 0, 0)
+    self.directionTargetFrames[#self.directionTargetFrames + 1] = frame
+    self:StartMinimapMarkerUpdates()
+end
+
+function Map:RefreshDirectionTargets()
+    self:ClearDirectionTargetFrames()
+    if not self:IsEnabled() then
+        return
+    end
+
+    self.directionTargetsByOwner = self.directionTargetsByOwner or {}
+    for owner, targets in pairs(self.directionTargetsByOwner or {}) do
+        for _, target in ipairs(targets or {}) do
+            self:AddDirectionTarget(owner, target)
+        end
+    end
+    self:UpdateMinimapMarkers()
+end
+
+function Map:SetDirectionTargets(owner, targets)
+    if not owner then
+        return
+    end
+
+    self.directionTargetsByOwner = self.directionTargetsByOwner or {}
+    if type(targets) == "table" and #targets > 0 then
+        self.directionTargetsByOwner[owner] = targets
+    else
+        self.directionTargetsByOwner[owner] = nil
+    end
+    self:RefreshDirectionTargets()
+end
+
+function Map:ClearDirectionTargets(owner)
+    self:SetDirectionTargets(owner, nil)
 end
 
 function Map:RefreshWorldMapMarkers()
@@ -575,6 +658,7 @@ function Map:Refresh()
 
     self:RefreshWorldMapMarkers()
     self:RefreshMinimapMarkers()
+    self:RefreshDirectionTargets()
 end
 
 function Map:UpdateMinimapMarkerFrame(frame, playerX, playerY, playerInstanceId, playerFacing, rotateMinimap)
@@ -639,6 +723,9 @@ function Map:UpdateMinimapMarkers()
     for _, frame in ipairs(self.minimapFrames or {}) do
         self:UpdateMinimapMarkerFrame(frame, playerX, playerY, playerInstanceId, playerFacing, rotateMinimap)
     end
+    for _, frame in ipairs(self.directionTargetFrames or {}) do
+        self:UpdateMinimapMarkerFrame(frame, playerX, playerY, playerInstanceId, playerFacing, rotateMinimap)
+    end
 end
 
 function Map:StartMinimapMarkerUpdates()
@@ -657,6 +744,15 @@ function Map:StartMinimapMarkerUpdates()
         Map:UpdateMinimapMarkers()
     end)
     self.minimapUpdateFrame = frame
+end
+
+function Map:RefreshMinimapMarkerUpdateState()
+    if #(self.minimapFrames or {}) > 0 or #(self.directionTargetFrames or {}) > 0 then
+        self:StartMinimapMarkerUpdates()
+        return
+    end
+
+    self:StopMinimapMarkerUpdates()
 end
 
 function Map:StopMinimapMarkerUpdates()

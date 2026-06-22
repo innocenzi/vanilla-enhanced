@@ -152,6 +152,10 @@ function Quests:Refresh()
         requiresPinRebuild = true
     end
 
+    if self.RefreshSelectedQuestDirection then
+        self:RefreshSelectedQuestDirection(quests, settings)
+    end
+
     if not requiresPinRebuild then
         return
     end
