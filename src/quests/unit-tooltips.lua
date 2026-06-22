@@ -52,7 +52,10 @@ local function FormatDropText(rate)
     return string.format("%.3f", rate)
 end
 
-local function GetDropRateText(cluster, npcId)
+local function GetDropRateText(cluster, npcId, settings)
+    if settings and settings.showTooltipDropRates == false then
+        return ""
+    end
     if cluster.k ~= "loot" or not cluster.dr or not npcId then
         return ""
     end
@@ -68,7 +71,7 @@ local function GetDropRateText(cluster, npcId)
     return ""
 end
 
-local function BuildTooltipEntry(quest, dbQuest, cluster, npcId)
+local function BuildTooltipEntry(quest, dbQuest, cluster, npcId, settings)
     local title = Quests:GetLocalizedQuestTitle(quest, quest.id, dbQuest and dbQuest.t or quest.title)
     local objectives = Quests:GetLocalizedObjectives(quest, cluster)
     local objective = objectives and objectives[1]
@@ -76,7 +79,7 @@ local function BuildTooltipEntry(quest, dbQuest, cluster, npcId)
     if cluster.k == "slay" or cluster.k == "loot" then
         local sourceName = Quests:GetLocalizedSourceName(cluster)
         local progress = GetProgressText(objective)
-        local dropRateText = GetDropRateText(cluster, npcId)
+        local dropRateText = GetDropRateText(cluster, npcId, settings)
         local detail
 
         if progress and sourceName and sourceName ~= "" then
@@ -101,13 +104,13 @@ local function BuildTooltipEntry(quest, dbQuest, cluster, npcId)
     }
 end
 
-local function AddEntry(index, quest, dbQuest, cluster, npcId)
+local function AddEntry(index, quest, dbQuest, cluster, npcId, settings)
     if not npcId then
         return
     end
 
     index[npcId] = index[npcId] or {}
-    local entry = BuildTooltipEntry(quest, dbQuest, cluster, npcId)
+    local entry = BuildTooltipEntry(quest, dbQuest, cluster, npcId, settings)
     local key = quest.id .. ":" .. tostring(cluster.oi or cluster.k or cluster.o or entry.title)
 
     if not index[npcId][key] then
@@ -115,7 +118,7 @@ local function AddEntry(index, quest, dbQuest, cluster, npcId)
     end
 end
 
-local function AddCluster(index, quest, dbQuest, cluster)
+local function AddCluster(index, quest, dbQuest, cluster, settings)
     if not cluster then
         return
     end
@@ -127,24 +130,24 @@ local function AddCluster(index, quest, dbQuest, cluster)
     end
 
     if cluster.st == "npc" and cluster.sid then
-        AddEntry(index, quest, dbQuest, cluster, cluster.sid)
+        AddEntry(index, quest, dbQuest, cluster, cluster.sid, settings)
     end
 
     if cluster.n then
         for _, npcId in ipairs(cluster.n) do
-            AddEntry(index, quest, dbQuest, cluster, npcId)
+            AddEntry(index, quest, dbQuest, cluster, npcId, settings)
         end
     end
 end
 
-local function AddClusters(index, quest, dbQuest, maps)
+local function AddClusters(index, quest, dbQuest, maps, settings)
     if not maps then
         return
     end
 
     for _, clusters in pairs(maps) do
         for _, cluster in ipairs(clusters) do
-            AddCluster(index, quest, dbQuest, cluster)
+            AddCluster(index, quest, dbQuest, cluster, settings)
         end
     end
 end
@@ -157,11 +160,12 @@ function Quests:RebuildUnitTooltipIndex(quests)
         return
     end
 
+    local settings = self:GetSettings()
     for _, quest in ipairs(quests or {}) do
         local dbQuest = VanillaEnhancedQuestsDB.quests[quest.id]
         if dbQuest then
             local maps = quest.isComplete and dbQuest.turnins or dbQuest.maps
-            AddClusters(index, quest, dbQuest, maps or dbQuest.maps)
+            AddClusters(index, quest, dbQuest, maps or dbQuest.maps, settings)
         end
     end
 

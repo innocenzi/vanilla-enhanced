@@ -49,6 +49,7 @@ local defaults = {
     showCompletedMapObjectives = false,
     showCompletedTooltipObjectives = true,
     showObjectiveTooltipHints = true,
+    showTooltipDropRates = true,
 }
 
 local function ClampAvailableQuestLevelWindowSetting(value, defaultValue)

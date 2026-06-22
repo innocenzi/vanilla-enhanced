@@ -1397,6 +1397,14 @@ local questsPanel = BuildOptionsPanel({
             indent = 1,
         },
         {
+            name = "VanillaEnhancedOptionsQuestsShowTooltipDropRates",
+            settingKey = "showTooltipDropRates",
+            labelKey = "options.quests.showTooltipDropRates.label",
+            helpKey = "options.quests.showTooltipDropRates.help",
+            enabledWhenSetting = "showObjectiveTooltipHints",
+            indent = 1,
+        },
+        {
             type = "dropdown",
             name = "VanillaEnhancedOptionsQuestsAutoFollowQuestsMode",
             settingKey = "autoFollowQuestsMode",

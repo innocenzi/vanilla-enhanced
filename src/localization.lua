@@ -95,6 +95,8 @@ local STRINGS = {
         ["options.quests.showCompletedTooltipObjectives.help"] = "Keeps tooltip hints for objectives you have already finished.",
         ["options.quests.showObjectiveTooltipHints.label"] = "Objective hints in tooltips",
         ["options.quests.showObjectiveTooltipHints.help"] = "Adds quest objective hints to matching unit tooltips.",
+        ["options.quests.showTooltipDropRates.label"] = "Drop rates in tooltips",
+        ["options.quests.showTooltipDropRates.help"] = "Shows item drop percentages in matching unit tooltip hints.",
 
         ["options.map.subtitle"] = "Improves map interactions with custom markers and minimap directions.",
         ["options.map.enable.label"] = "Enable",
@@ -348,6 +350,8 @@ local STRINGS = {
         ["options.quests.showCompletedTooltipObjectives.help"] = "Garde les indices d'infobulle pour les objectifs déjà terminés.",
         ["options.quests.showObjectiveTooltipHints.label"] = "Indices d'objectif dans les infobulles",
         ["options.quests.showObjectiveTooltipHints.help"] = "Ajoute des indices d'objectif de quête aux infobulles des unités correspondantes.",
+        ["options.quests.showTooltipDropRates.label"] = "Taux de butin dans les infobulles",
+        ["options.quests.showTooltipDropRates.help"] = "Affiche les pourcentages de butin dans les indices d'infobulle des unités correspondantes.",
 
         ["options.map.subtitle"] = "Ajoute des fonctionnalités à la carte du monde.",
         ["options.map.enable.label"] = "Activer",
