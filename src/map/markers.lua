@@ -193,6 +193,7 @@ local function ResetMarkerFrame(frame)
     frame.markerData = nil
     frame.markerOwner = nil
     frame.markerKind = nil
+    frame.markerShowOnlyAtEdge = nil
     frame.markerWorldX = nil
     frame.markerWorldY = nil
     frame.markerInstanceId = nil
@@ -579,6 +580,7 @@ function Map:AddDirectionTarget(owner, target)
     local frame = self:AcquireMarkerFrame("minimap", Minimap)
     frame.markerOwner = owner
     frame.markerData = target
+    frame.markerShowOnlyAtEdge = true
     frame.markerWorldX = worldX
     frame.markerWorldY = worldY
     frame.markerInstanceId = instanceId
@@ -693,6 +695,11 @@ function Map:UpdateMinimapMarkerFrame(frame, playerX, playerY, playerInstanceId,
     local offsetX = xDist * scale
     local offsetY = -yDist * scale
     local offsetDistance = math.sqrt((offsetX * offsetX) + (offsetY * offsetY))
+
+    if frame.markerShowOnlyAtEdge and offsetDistance <= edgeRadius then
+        frame:Hide()
+        return
+    end
 
     if offsetDistance > edgeRadius then
         offsetX = (offsetX / offsetDistance) * edgeRadius
