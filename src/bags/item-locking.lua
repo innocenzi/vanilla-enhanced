@@ -15,6 +15,8 @@ local QUEST_ICON_OFFSET_X = 6
 local QUEST_ICON_OFFSET_Y = 2
 local QUEST_ICON_FALLBACK_OFFSET_X = -1
 local QUEST_ICON_FALLBACK_OFFSET_Y = 1
+local QUEST_ICON_TINT = 0.9
+local QUEST_ICON_ALPHA = 0.9
 local MAX_CONTAINER_BUTTONS = 100
 local MODIFIER_REFRESH_INTERVAL = 0.05
 local STALE_LOCK_CONFIRM_SECONDS = 0.75
@@ -228,14 +230,23 @@ local function EnsureScrapIconOverlay(button)
     return overlay
 end
 
+local function ApplyQuestIconStyle(overlay)
+    if overlay.SetDesaturated then
+        overlay:SetDesaturated(true)
+    end
+    overlay:SetVertexColor(QUEST_ICON_TINT, QUEST_ICON_TINT, QUEST_ICON_TINT, QUEST_ICON_ALPHA)
+end
+
 local function EnsureQuestIconOverlay(button)
     if button.VanillaEnhancedQuestIconOverlay then
+        ApplyQuestIconStyle(button.VanillaEnhancedQuestIconOverlay)
         return button.VanillaEnhancedQuestIconOverlay
     end
 
     local overlay = button:CreateTexture(nil, "OVERLAY")
     overlay:SetTexture(QUEST_ICON)
     overlay:SetSize(QUEST_ICON_SIZE, QUEST_ICON_SIZE)
+    ApplyQuestIconStyle(overlay)
     overlay:Hide()
 
     local icon = GetItemButtonIcon(button)
