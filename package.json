@@ -2,6 +2,7 @@
   "version": "0.4.0",
   "scripts": {
     "build:db": "bun run tools/build-db.ts",
+    "build:professions": "bun run tools/professions/build.ts",
     "changelog": "bun run tools/changelog.ts",
     "release": "bumpp",
     "test": "bun test",

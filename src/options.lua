@@ -1609,6 +1609,94 @@ local trainingPanel = BuildOptionsPanel({
     },
 })
 
+local professionsPanel = BuildOptionsPanel({
+    name = "VanillaEnhancedProfessionsOptionsPanel",
+    categoryKey = "professions",
+    titleKey = "module.professions",
+    subtitleKey = "options.professions.subtitle",
+    parent = VanillaEnhanced.displayName,
+    moduleKey = "professions",
+    options = {
+        {
+            type = "moduleEnabled",
+            name = "VanillaEnhancedOptionsProfessionsEnabled",
+            labelKey = "options.professions.enable.label",
+            helpKey = "options.professions.enable.help",
+        },
+        {
+            type = "dropdown",
+            name = "VanillaEnhancedOptionsProfessionsRecipeScope",
+            settingKey = "recipeScope",
+            labelKey = "options.professions.recipeScope.label",
+            helpKey = "options.professions.recipeScope.help",
+            indent = 0,
+            width = 210,
+            options = {
+                {
+                    value = "all",
+                    labelKey = "options.professions.recipeScope.all",
+                    descriptionKey = "options.professions.recipeScope.all.description",
+                },
+                {
+                    value = "known",
+                    labelKey = "options.professions.recipeScope.known",
+                    descriptionKey = "options.professions.recipeScope.known.description",
+                },
+            },
+        },
+        {
+            type = "dropdown",
+            name = "VanillaEnhancedOptionsProfessionsProfessionScope",
+            settingKey = "professionScope",
+            labelKey = "options.professions.professionScope.label",
+            helpKey = "options.professions.professionScope.help",
+            indent = 0,
+            width = 240,
+            enabledWhen = function()
+                return GetModuleOptionSettings("professions").recipeScope ~= "known"
+            end,
+            options = {
+                {
+                    value = "all",
+                    labelKey = "options.professions.professionScope.all",
+                    descriptionKey = "options.professions.professionScope.all.description",
+                },
+                {
+                    value = "player",
+                    labelKey = "options.professions.professionScope.player",
+                    descriptionKey = "options.professions.professionScope.player.description",
+                },
+                {
+                    value = "player-skill",
+                    labelKey = "options.professions.professionScope.playerSkill",
+                    descriptionKey = "options.professions.professionScope.playerSkill.description",
+                },
+            },
+        },
+        {
+            type = "dropdown",
+            name = "VanillaEnhancedOptionsProfessionsDisplayMode",
+            settingKey = "displayMode",
+            labelKey = "options.professions.displayMode.label",
+            helpKey = "options.professions.displayMode.help",
+            indent = 0,
+            width = 210,
+            options = {
+                {
+                    value = "recipes",
+                    labelKey = "options.professions.displayMode.recipes",
+                    descriptionKey = "options.professions.displayMode.recipes.description",
+                },
+                {
+                    value = "compact",
+                    labelKey = "options.professions.displayMode.compact",
+                    descriptionKey = "options.professions.displayMode.compact.description",
+                },
+            },
+        },
+    },
+})
+
 local bagsPanel = BuildOptionsPanel({
     name = "VanillaEnhancedBagsOptionsPanel",
     categoryKey = "bags",
@@ -1944,6 +2032,7 @@ questsPanel:SetScript("OnShow", RefreshOnShow)
 mapPanel:SetScript("OnShow", RefreshOnShow)
 targetThreatPanel:SetScript("OnShow", RefreshOnShow)
 trainingPanel:SetScript("OnShow", RefreshOnShow)
+professionsPanel:SetScript("OnShow", RefreshOnShow)
 bagsPanel:SetScript("OnShow", RefreshOnShow)
 merchantsPanel:SetScript("OnShow", RefreshOnShow)
 
@@ -1953,6 +2042,7 @@ local function RegisterInterfaceOptions()
     InterfaceOptions_AddCategory(mapPanel)
     InterfaceOptions_AddCategory(targetThreatPanel)
     InterfaceOptions_AddCategory(trainingPanel)
+    InterfaceOptions_AddCategory(professionsPanel)
     InterfaceOptions_AddCategory(bagsPanel)
     InterfaceOptions_AddCategory(merchantsPanel)
 
@@ -1962,6 +2052,7 @@ local function RegisterInterfaceOptions()
         map = mapPanel,
         targetThreat = targetThreatPanel,
         training = trainingPanel,
+        professions = professionsPanel,
         bags = bagsPanel,
         merchants = merchantsPanel,
     }
@@ -2000,6 +2091,12 @@ local function RegisterSettingsOptions()
             trainingPanel,
             trainingPanel.name
         )
+        local professionsOk, professionsCategory = pcall(
+            Settings.RegisterCanvasLayoutSubcategory,
+            mainCategory,
+            professionsPanel,
+            professionsPanel.name
+        )
         local bagsOk, bagsCategory = pcall(
             Settings.RegisterCanvasLayoutSubcategory,
             mainCategory,
@@ -2013,11 +2110,12 @@ local function RegisterSettingsOptions()
             merchantsPanel.name
         )
 
-        if questOk and mapOk and targetOk and trainingOk and bagsOk and merchantsOk then
+        if questOk and mapOk and targetOk and trainingOk and professionsOk and bagsOk and merchantsOk then
             VanillaEnhanced.optionsCategories.quests = questsCategory
             VanillaEnhanced.optionsCategories.map = mapCategory
             VanillaEnhanced.optionsCategories.targetThreat = targetThreatCategory
             VanillaEnhanced.optionsCategories.training = trainingCategory
+            VanillaEnhanced.optionsCategories.professions = professionsCategory
             VanillaEnhanced.optionsCategories.bags = bagsCategory
             VanillaEnhanced.optionsCategories.merchants = merchantsCategory
             return
@@ -2028,12 +2126,14 @@ local function RegisterSettingsOptions()
     local mapCategory = Settings.RegisterCanvasLayoutCategory(mapPanel, mapPanel.name)
     local targetThreatCategory = Settings.RegisterCanvasLayoutCategory(targetThreatPanel, targetThreatPanel.name)
     local trainingCategory = Settings.RegisterCanvasLayoutCategory(trainingPanel, trainingPanel.name)
+    local professionsCategory = Settings.RegisterCanvasLayoutCategory(professionsPanel, professionsPanel.name)
     local bagsCategory = Settings.RegisterCanvasLayoutCategory(bagsPanel, bagsPanel.name)
     local merchantsCategory = Settings.RegisterCanvasLayoutCategory(merchantsPanel, merchantsPanel.name)
     Settings.RegisterAddOnCategory(questsCategory)
     Settings.RegisterAddOnCategory(mapCategory)
     Settings.RegisterAddOnCategory(targetThreatCategory)
     Settings.RegisterAddOnCategory(trainingCategory)
+    Settings.RegisterAddOnCategory(professionsCategory)
     Settings.RegisterAddOnCategory(bagsCategory)
     Settings.RegisterAddOnCategory(merchantsCategory)
 
@@ -2041,6 +2141,7 @@ local function RegisterSettingsOptions()
     VanillaEnhanced.optionsCategories.map = mapCategory
     VanillaEnhanced.optionsCategories.targetThreat = targetThreatCategory
     VanillaEnhanced.optionsCategories.training = trainingCategory
+    VanillaEnhanced.optionsCategories.professions = professionsCategory
     VanillaEnhanced.optionsCategories.bags = bagsCategory
     VanillaEnhanced.optionsCategories.merchants = merchantsCategory
 end

@@ -40,6 +40,12 @@ local PRESETS = {
                 enabled = false,
                 displayMode = "trainable",
             },
+            professions = {
+                enabled = true,
+                displayMode = "recipes",
+                recipeScope = "known",
+                professionScope = "all",
+            },
         },
     },
     adventurer = {
@@ -77,6 +83,12 @@ local PRESETS = {
                 enabled = true,
                 displayMode = "trainable",
             },
+            professions = {
+                enabled = true,
+                displayMode = "recipes",
+                recipeScope = "known",
+                professionScope = "all",
+            },
         },
     },
     guide = {
@@ -111,6 +123,12 @@ local PRESETS = {
             training = {
                 enabled = true,
                 displayMode = "all-unlearned",
+            },
+            professions = {
+                enabled = true,
+                displayMode = "recipes",
+                recipeScope = "all",
+                professionScope = "all",
             },
         },
     },

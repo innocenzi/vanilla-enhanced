@@ -24,6 +24,7 @@ src\training.lua
 src\training-spellbook.lua
 src\button-container.lua
 src\inventory\api.lua
+data\professions\recipes.lua
 data\quests\locations.lua
 data\quests\locales.lua
 src\quests\module.lua
@@ -61,6 +62,9 @@ src\merchants\strategies.lua
 src\merchants\scrap-marking.lua
 src\merchants\selling.lua
 src\merchants\repair.lua
+src\professions\api.lua
+src\professions\module.lua
+src\professions\tooltips.lua
 src\map\module.lua
 src\map\settings.lua
 src\map\markers.lua
