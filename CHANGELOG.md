@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.3.1 - 2026-06-21
+## 0.4.0 - 2026-06-22
 
 
 ### Features
@@ -38,6 +38,13 @@
 - Dim minimap markers on other floors
 - Add option to show scrap icon on items
 - Add scrap mark controls
+- Add map custom markers support
+- Support tomtom commands
+- Show nearest objective direction on the minimap
+- Make objective level dimming mandatory
+- New setting preset
+- Add option to toggle drop rates in unit tooltips
+- Set default preset to adventurer
 
 
 ### Fixes
@@ -58,6 +65,7 @@
 - Remove circle around named npc objectives
 - Close bags if they were not opened before opening character sheet/merchant window
 - Make locked slot persistence more reliable
+- Only show nearest quest objective marker at edge
 
 
 ### Performance
@@ -65,4 +73,5 @@
 - Reduce polling overhead
 - Cache bag API lookups
 - Improve marker performance
+- Decrease quest refresh performance impact
 
