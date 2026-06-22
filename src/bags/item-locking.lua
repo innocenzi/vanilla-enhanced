@@ -187,6 +187,10 @@ local function IsMerchantOpen()
     return MerchantFrame and MerchantFrame.IsShown and MerchantFrame:IsShown()
 end
 
+local function HasCursorItem()
+    return Bags.Api and Bags.Api.HasCursorItem and Bags.Api:HasCursorItem()
+end
+
 local function EnsureLockOverlay(button)
     if button.VanillaEnhancedItemLockOverlay then
         return button.VanillaEnhancedItemLockOverlay
@@ -397,6 +401,7 @@ end
 function Bags:ClearItemLockOverlays()
     self:ClearScrapIconOverlays()
     self:ClearQuestIconOverlays()
+    self:ClearItemLockButtonHooks()
 
     for button in pairs(self.itemLockOverlayButtons or {}) do
         if button.VanillaEnhancedItemLockOverlay then
@@ -450,6 +455,108 @@ function Bags:HandleItemLockOverlayClick(button, mouseButton)
     return false
 end
 
+function Bags:HandleBlockedItemLockInteraction(button, mouseButton)
+    local bagID, slot = GetButtonBagAndSlot(button)
+    if bagID == nil or slot == nil or not self:IsItemLocked(bagID, slot) then
+        return false
+    end
+
+    local message = mouseButton == "RightButton" and IsMerchantOpen()
+        and T("bags.lock.cannotSell")
+        or T("bags.lock.cannotMove")
+    self:PrintMessage(message)
+    return true
+end
+
+local function RefreshOriginalButtonScript(button, scriptName, wrapperKey, originalKey)
+    if not button or not button.GetScript or not button.SetScript then
+        return
+    end
+
+    local wrapper = button[wrapperKey]
+    local currentScript = button:GetScript(scriptName)
+    if currentScript ~= wrapper then
+        button[originalKey] = currentScript
+        button:SetScript(scriptName, wrapper)
+    end
+end
+
+function Bags:EnsureItemLockButtonHooks(button)
+    if not button or not button.SetScript then
+        return
+    end
+
+    if not button.VanillaEnhancedItemLockDragStartWrapper then
+        button.VanillaEnhancedItemLockDragStartWrapper = function(self, ...)
+            if Bags:HandleBlockedItemLockInteraction(self, "LeftButton") then
+                return
+            end
+
+            local original = self.VanillaEnhancedItemLockOriginalOnDragStart
+            if original then
+                return original(self, ...)
+            end
+        end
+    end
+
+    if not button.VanillaEnhancedItemLockReceiveDragWrapper then
+        button.VanillaEnhancedItemLockReceiveDragWrapper = function(self, ...)
+            if Bags:HandleBlockedItemLockInteraction(self, "LeftButton") then
+                return
+            end
+
+            local original = self.VanillaEnhancedItemLockOriginalOnReceiveDrag
+            if original then
+                return original(self, ...)
+            end
+        end
+    end
+
+    RefreshOriginalButtonScript(
+        button,
+        "OnDragStart",
+        "VanillaEnhancedItemLockDragStartWrapper",
+        "VanillaEnhancedItemLockOriginalOnDragStart"
+    )
+    RefreshOriginalButtonScript(
+        button,
+        "OnReceiveDrag",
+        "VanillaEnhancedItemLockReceiveDragWrapper",
+        "VanillaEnhancedItemLockOriginalOnReceiveDrag"
+    )
+
+    self.itemLockHookedButtons = self.itemLockHookedButtons or {}
+    self.itemLockHookedButtons[button] = true
+end
+
+function Bags:RestoreItemLockButtonHooks(button)
+    if not button or not button.SetScript then
+        return
+    end
+
+    if button.GetScript and button:GetScript("OnDragStart") == button.VanillaEnhancedItemLockDragStartWrapper then
+        button:SetScript("OnDragStart", button.VanillaEnhancedItemLockOriginalOnDragStart)
+    end
+    if button.GetScript and button:GetScript("OnReceiveDrag") == button.VanillaEnhancedItemLockReceiveDragWrapper then
+        button:SetScript("OnReceiveDrag", button.VanillaEnhancedItemLockOriginalOnReceiveDrag)
+    end
+
+    button.VanillaEnhancedItemLockDragStartWrapper = nil
+    button.VanillaEnhancedItemLockReceiveDragWrapper = nil
+    button.VanillaEnhancedItemLockOriginalOnDragStart = nil
+    button.VanillaEnhancedItemLockOriginalOnReceiveDrag = nil
+
+    if self.itemLockHookedButtons then
+        self.itemLockHookedButtons[button] = nil
+    end
+end
+
+function Bags:ClearItemLockButtonHooks()
+    for button in pairs(self.itemLockHookedButtons or {}) do
+        self:RestoreItemLockButtonHooks(button)
+    end
+end
+
 function Bags:EnsureItemLockClickOverlay(button)
     if not button then
         return nil
@@ -459,9 +566,18 @@ function Bags:EnsureItemLockClickOverlay(button)
     if not overlay then
         overlay = CreateFrame("Button", nil, button)
         overlay:RegisterForClicks("AnyUp")
+        overlay:RegisterForDrag("LeftButton")
         overlay:EnableMouse(true)
         overlay:SetScript("OnClick", function(_, mouseButton)
-            Bags:HandleItemLockOverlayClick(button, mouseButton)
+            if not Bags:HandleItemLockOverlayClick(button, mouseButton) then
+                Bags:HandleBlockedItemLockInteraction(button, mouseButton)
+            end
+        end)
+        overlay:SetScript("OnDragStart", function(_, mouseButton)
+            Bags:HandleBlockedItemLockInteraction(button, mouseButton or "LeftButton")
+        end)
+        overlay:SetScript("OnReceiveDrag", function()
+            Bags:HandleBlockedItemLockInteraction(button, "LeftButton")
         end)
         button.VanillaEnhancedItemLockClickOverlay = overlay
     end
@@ -492,6 +608,7 @@ function Bags:RefreshItemLockOverlays()
         self:PruneItemLocks()
     end
     local altDown = type(IsAltKeyDown) == "function" and IsAltKeyDown()
+    local cursorHasItem = HasCursorItem()
     local merchantOpen = IsMerchantOpen()
     local suppressClickOverlays = IsScrapMarkModeActive()
     local Merchants = scrapIconEnabled and VanillaEnhanced:GetModule("merchants") or nil
@@ -518,6 +635,7 @@ function Bags:RefreshItemLockOverlays()
                 local hasItem = containerItem and (containerItem.hyperlink or containerItem.itemID or containerItem.iconFileID)
                 local locked = lockEnabled and hasItem and self:IsItemLocked(bagID, slot)
                 if locked then
+                    self:EnsureItemLockButtonHooks(button)
                     local overlay = EnsureLockOverlay(button)
                     overlay:Show()
                     self.itemLockOverlayButtons[button] = true
@@ -535,7 +653,11 @@ function Bags:RefreshItemLockOverlays()
                     overlay:Show()
                     self.questIconOverlayButtons[button] = true
                 end
-                if lockEnabled and hasItem and not suppressClickOverlays and (altDown or (merchantOpen and locked)) then
+                if lockEnabled
+                    and hasItem
+                    and not suppressClickOverlays
+                    and (altDown or (locked and (cursorHasItem or merchantOpen)))
+                then
                     self:EnsureItemLockClickOverlay(button)
                 end
             end
@@ -581,6 +703,7 @@ function Bags:InstallItemLockHooks()
     -- Keep inventory item use untainted: never replace ContainerFrameItemButton_* globals here.
     -- Temporary child overlays handle only the clicks this module must intercept.
     self.lastItemLockAltDown = type(IsAltKeyDown) == "function" and IsAltKeyDown()
+    self.lastItemLockCursorHasItem = HasCursorItem()
     modifierFrame:RegisterEvent("MODIFIER_STATE_CHANGED")
     modifierFrame:SetScript("OnEvent", function(_, _, key)
         if key == "LALT" or key == "RALT" then
@@ -595,8 +718,10 @@ function Bags:InstallItemLockHooks()
 
         Bags.itemLockModifierRefreshElapsed = 0
         local altDown = type(IsAltKeyDown) == "function" and IsAltKeyDown()
-        if altDown ~= Bags.lastItemLockAltDown then
+        local cursorHasItem = HasCursorItem()
+        if altDown ~= Bags.lastItemLockAltDown or cursorHasItem ~= Bags.lastItemLockCursorHasItem then
             Bags.lastItemLockAltDown = altDown
+            Bags.lastItemLockCursorHasItem = cursorHasItem
             Bags:RefreshItemLockClickOverlays()
         end
     end)
