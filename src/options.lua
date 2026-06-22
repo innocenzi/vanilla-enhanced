@@ -1571,6 +1571,44 @@ local targetThreatPanel = BuildOptionsPanel({
     },
 })
 
+local trainingPanel = BuildOptionsPanel({
+    name = "VanillaEnhancedTrainingOptionsPanel",
+    categoryKey = "training",
+    titleKey = "module.training",
+    subtitleKey = "options.training.subtitle",
+    parent = VanillaEnhanced.displayName,
+    moduleKey = "training",
+    options = {
+        {
+            type = "moduleEnabled",
+            name = "VanillaEnhancedOptionsTrainingEnabled",
+            labelKey = "options.training.enable.label",
+            helpKey = "options.training.enable.help",
+        },
+        {
+            type = "dropdown",
+            name = "VanillaEnhancedOptionsTrainingDisplayMode",
+            settingKey = "displayMode",
+            labelKey = "options.training.displayMode.label",
+            helpKey = "options.training.displayMode.help",
+            indent = 0,
+            width = 210,
+            options = {
+                {
+                    value = "trainable",
+                    labelKey = "options.training.displayMode.trainable",
+                    descriptionKey = "options.training.displayMode.trainable.description",
+                },
+                {
+                    value = "all-unlearned",
+                    labelKey = "options.training.displayMode.allUnlearned",
+                    descriptionKey = "options.training.displayMode.allUnlearned.description",
+                },
+            },
+        },
+    },
+})
+
 local bagsPanel = BuildOptionsPanel({
     name = "VanillaEnhancedBagsOptionsPanel",
     categoryKey = "bags",
@@ -1905,6 +1943,7 @@ mainPanel:SetScript("OnShow", RefreshOnShow)
 questsPanel:SetScript("OnShow", RefreshOnShow)
 mapPanel:SetScript("OnShow", RefreshOnShow)
 targetThreatPanel:SetScript("OnShow", RefreshOnShow)
+trainingPanel:SetScript("OnShow", RefreshOnShow)
 bagsPanel:SetScript("OnShow", RefreshOnShow)
 merchantsPanel:SetScript("OnShow", RefreshOnShow)
 
@@ -1913,6 +1952,7 @@ local function RegisterInterfaceOptions()
     InterfaceOptions_AddCategory(questsPanel)
     InterfaceOptions_AddCategory(mapPanel)
     InterfaceOptions_AddCategory(targetThreatPanel)
+    InterfaceOptions_AddCategory(trainingPanel)
     InterfaceOptions_AddCategory(bagsPanel)
     InterfaceOptions_AddCategory(merchantsPanel)
 
@@ -1921,6 +1961,7 @@ local function RegisterInterfaceOptions()
         quests = questsPanel,
         map = mapPanel,
         targetThreat = targetThreatPanel,
+        training = trainingPanel,
         bags = bagsPanel,
         merchants = merchantsPanel,
     }
@@ -1953,6 +1994,12 @@ local function RegisterSettingsOptions()
             targetThreatPanel,
             targetThreatPanel.name
         )
+        local trainingOk, trainingCategory = pcall(
+            Settings.RegisterCanvasLayoutSubcategory,
+            mainCategory,
+            trainingPanel,
+            trainingPanel.name
+        )
         local bagsOk, bagsCategory = pcall(
             Settings.RegisterCanvasLayoutSubcategory,
             mainCategory,
@@ -1966,10 +2013,11 @@ local function RegisterSettingsOptions()
             merchantsPanel.name
         )
 
-        if questOk and mapOk and targetOk and bagsOk and merchantsOk then
+        if questOk and mapOk and targetOk and trainingOk and bagsOk and merchantsOk then
             VanillaEnhanced.optionsCategories.quests = questsCategory
             VanillaEnhanced.optionsCategories.map = mapCategory
             VanillaEnhanced.optionsCategories.targetThreat = targetThreatCategory
+            VanillaEnhanced.optionsCategories.training = trainingCategory
             VanillaEnhanced.optionsCategories.bags = bagsCategory
             VanillaEnhanced.optionsCategories.merchants = merchantsCategory
             return
@@ -1979,17 +2027,20 @@ local function RegisterSettingsOptions()
     local questsCategory = Settings.RegisterCanvasLayoutCategory(questsPanel, questsPanel.name)
     local mapCategory = Settings.RegisterCanvasLayoutCategory(mapPanel, mapPanel.name)
     local targetThreatCategory = Settings.RegisterCanvasLayoutCategory(targetThreatPanel, targetThreatPanel.name)
+    local trainingCategory = Settings.RegisterCanvasLayoutCategory(trainingPanel, trainingPanel.name)
     local bagsCategory = Settings.RegisterCanvasLayoutCategory(bagsPanel, bagsPanel.name)
     local merchantsCategory = Settings.RegisterCanvasLayoutCategory(merchantsPanel, merchantsPanel.name)
     Settings.RegisterAddOnCategory(questsCategory)
     Settings.RegisterAddOnCategory(mapCategory)
     Settings.RegisterAddOnCategory(targetThreatCategory)
+    Settings.RegisterAddOnCategory(trainingCategory)
     Settings.RegisterAddOnCategory(bagsCategory)
     Settings.RegisterAddOnCategory(merchantsCategory)
 
     VanillaEnhanced.optionsCategories.quests = questsCategory
     VanillaEnhanced.optionsCategories.map = mapCategory
     VanillaEnhanced.optionsCategories.targetThreat = targetThreatCategory
+    VanillaEnhanced.optionsCategories.training = trainingCategory
     VanillaEnhanced.optionsCategories.bags = bagsCategory
     VanillaEnhanced.optionsCategories.merchants = merchantsCategory
 end

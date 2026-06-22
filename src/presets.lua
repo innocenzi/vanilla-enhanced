@@ -36,6 +36,10 @@ local PRESETS = {
                 showWorldMapMarkers = true,
                 showMinimapDirections = false,
             },
+            training = {
+                enabled = false,
+                displayMode = "trainable",
+            },
         },
     },
     adventurer = {
@@ -69,6 +73,10 @@ local PRESETS = {
                 showWorldMapMarkers = true,
                 showMinimapDirections = true,
             },
+            training = {
+                enabled = true,
+                displayMode = "trainable",
+            },
         },
     },
     guide = {
@@ -99,6 +107,10 @@ local PRESETS = {
                 enabled = true,
                 showWorldMapMarkers = true,
                 showMinimapDirections = true,
+            },
+            training = {
+                enabled = true,
+                displayMode = "all-unlearned",
             },
         },
     },
