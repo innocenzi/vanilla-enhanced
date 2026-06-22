@@ -2029,32 +2029,32 @@ end
 
 mainPanel:SetScript("OnShow", RefreshOnShow)
 questsPanel:SetScript("OnShow", RefreshOnShow)
-mapPanel:SetScript("OnShow", RefreshOnShow)
-targetThreatPanel:SetScript("OnShow", RefreshOnShow)
-trainingPanel:SetScript("OnShow", RefreshOnShow)
-professionsPanel:SetScript("OnShow", RefreshOnShow)
 bagsPanel:SetScript("OnShow", RefreshOnShow)
 merchantsPanel:SetScript("OnShow", RefreshOnShow)
+mapPanel:SetScript("OnShow", RefreshOnShow)
+targetThreatPanel:SetScript("OnShow", RefreshOnShow)
+professionsPanel:SetScript("OnShow", RefreshOnShow)
+trainingPanel:SetScript("OnShow", RefreshOnShow)
 
 local function RegisterInterfaceOptions()
     InterfaceOptions_AddCategory(mainPanel)
     InterfaceOptions_AddCategory(questsPanel)
-    InterfaceOptions_AddCategory(mapPanel)
-    InterfaceOptions_AddCategory(targetThreatPanel)
-    InterfaceOptions_AddCategory(trainingPanel)
-    InterfaceOptions_AddCategory(professionsPanel)
     InterfaceOptions_AddCategory(bagsPanel)
     InterfaceOptions_AddCategory(merchantsPanel)
+    InterfaceOptions_AddCategory(mapPanel)
+    InterfaceOptions_AddCategory(targetThreatPanel)
+    InterfaceOptions_AddCategory(professionsPanel)
+    InterfaceOptions_AddCategory(trainingPanel)
 
     VanillaEnhanced.optionsCategories = {
         main = mainPanel,
         quests = questsPanel,
-        map = mapPanel,
-        targetThreat = targetThreatPanel,
-        training = trainingPanel,
-        professions = professionsPanel,
         bags = bagsPanel,
         merchants = merchantsPanel,
+        map = mapPanel,
+        targetThreat = targetThreatPanel,
+        professions = professionsPanel,
+        training = trainingPanel,
     }
 end
 
@@ -2073,30 +2073,6 @@ local function RegisterSettingsOptions()
             questsPanel,
             questsPanel.name
         )
-        local mapOk, mapCategory = pcall(
-            Settings.RegisterCanvasLayoutSubcategory,
-            mainCategory,
-            mapPanel,
-            mapPanel.name
-        )
-        local targetOk, targetThreatCategory = pcall(
-            Settings.RegisterCanvasLayoutSubcategory,
-            mainCategory,
-            targetThreatPanel,
-            targetThreatPanel.name
-        )
-        local trainingOk, trainingCategory = pcall(
-            Settings.RegisterCanvasLayoutSubcategory,
-            mainCategory,
-            trainingPanel,
-            trainingPanel.name
-        )
-        local professionsOk, professionsCategory = pcall(
-            Settings.RegisterCanvasLayoutSubcategory,
-            mainCategory,
-            professionsPanel,
-            professionsPanel.name
-        )
         local bagsOk, bagsCategory = pcall(
             Settings.RegisterCanvasLayoutSubcategory,
             mainCategory,
@@ -2109,41 +2085,65 @@ local function RegisterSettingsOptions()
             merchantsPanel,
             merchantsPanel.name
         )
+        local mapOk, mapCategory = pcall(
+            Settings.RegisterCanvasLayoutSubcategory,
+            mainCategory,
+            mapPanel,
+            mapPanel.name
+        )
+        local targetOk, targetThreatCategory = pcall(
+            Settings.RegisterCanvasLayoutSubcategory,
+            mainCategory,
+            targetThreatPanel,
+            targetThreatPanel.name
+        )
+        local professionsOk, professionsCategory = pcall(
+            Settings.RegisterCanvasLayoutSubcategory,
+            mainCategory,
+            professionsPanel,
+            professionsPanel.name
+        )
+        local trainingOk, trainingCategory = pcall(
+            Settings.RegisterCanvasLayoutSubcategory,
+            mainCategory,
+            trainingPanel,
+            trainingPanel.name
+        )
 
         if questOk and mapOk and targetOk and trainingOk and professionsOk and bagsOk and merchantsOk then
             VanillaEnhanced.optionsCategories.quests = questsCategory
-            VanillaEnhanced.optionsCategories.map = mapCategory
-            VanillaEnhanced.optionsCategories.targetThreat = targetThreatCategory
-            VanillaEnhanced.optionsCategories.training = trainingCategory
-            VanillaEnhanced.optionsCategories.professions = professionsCategory
             VanillaEnhanced.optionsCategories.bags = bagsCategory
             VanillaEnhanced.optionsCategories.merchants = merchantsCategory
+            VanillaEnhanced.optionsCategories.map = mapCategory
+            VanillaEnhanced.optionsCategories.targetThreat = targetThreatCategory
+            VanillaEnhanced.optionsCategories.professions = professionsCategory
+            VanillaEnhanced.optionsCategories.training = trainingCategory
             return
         end
     end
 
     local questsCategory = Settings.RegisterCanvasLayoutCategory(questsPanel, questsPanel.name)
-    local mapCategory = Settings.RegisterCanvasLayoutCategory(mapPanel, mapPanel.name)
-    local targetThreatCategory = Settings.RegisterCanvasLayoutCategory(targetThreatPanel, targetThreatPanel.name)
-    local trainingCategory = Settings.RegisterCanvasLayoutCategory(trainingPanel, trainingPanel.name)
-    local professionsCategory = Settings.RegisterCanvasLayoutCategory(professionsPanel, professionsPanel.name)
     local bagsCategory = Settings.RegisterCanvasLayoutCategory(bagsPanel, bagsPanel.name)
     local merchantsCategory = Settings.RegisterCanvasLayoutCategory(merchantsPanel, merchantsPanel.name)
+    local mapCategory = Settings.RegisterCanvasLayoutCategory(mapPanel, mapPanel.name)
+    local targetThreatCategory = Settings.RegisterCanvasLayoutCategory(targetThreatPanel, targetThreatPanel.name)
+    local professionsCategory = Settings.RegisterCanvasLayoutCategory(professionsPanel, professionsPanel.name)
+    local trainingCategory = Settings.RegisterCanvasLayoutCategory(trainingPanel, trainingPanel.name)
     Settings.RegisterAddOnCategory(questsCategory)
-    Settings.RegisterAddOnCategory(mapCategory)
-    Settings.RegisterAddOnCategory(targetThreatCategory)
-    Settings.RegisterAddOnCategory(trainingCategory)
-    Settings.RegisterAddOnCategory(professionsCategory)
     Settings.RegisterAddOnCategory(bagsCategory)
     Settings.RegisterAddOnCategory(merchantsCategory)
+    Settings.RegisterAddOnCategory(mapCategory)
+    Settings.RegisterAddOnCategory(targetThreatCategory)
+    Settings.RegisterAddOnCategory(professionsCategory)
+    Settings.RegisterAddOnCategory(trainingCategory)
 
     VanillaEnhanced.optionsCategories.quests = questsCategory
-    VanillaEnhanced.optionsCategories.map = mapCategory
-    VanillaEnhanced.optionsCategories.targetThreat = targetThreatCategory
-    VanillaEnhanced.optionsCategories.training = trainingCategory
-    VanillaEnhanced.optionsCategories.professions = professionsCategory
     VanillaEnhanced.optionsCategories.bags = bagsCategory
     VanillaEnhanced.optionsCategories.merchants = merchantsCategory
+    VanillaEnhanced.optionsCategories.map = mapCategory
+    VanillaEnhanced.optionsCategories.targetThreat = targetThreatCategory
+    VanillaEnhanced.optionsCategories.professions = professionsCategory
+    VanillaEnhanced.optionsCategories.training = trainingCategory
 end
 
 if type(InterfaceOptions_AddCategory) == "function" then
