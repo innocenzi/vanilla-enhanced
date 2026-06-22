@@ -312,6 +312,16 @@ local function HideTooltip()
     end
 end
 
+local function DisableScrapMarkModeForClosedBags(scrapToggleButton)
+    local Merchants = VanillaEnhanced:GetModule("merchants")
+    if Merchants and Merchants.scrapMarkMode == true and Merchants.SetScrapMarkMode then
+        Merchants:SetScrapMarkMode(false)
+    end
+    if scrapToggleButton and GameTooltip and GameTooltip.IsOwned and GameTooltip:IsOwned(scrapToggleButton) then
+        HideScrapToggleTooltip()
+    end
+end
+
 local function GetBagMoneyFrame(bagFrame)
     local frameName = bagFrame and bagFrame.GetName and bagFrame:GetName()
     local moneyFrame = frameName and _G[frameName .. "MoneyFrame"] or nil
@@ -728,8 +738,10 @@ function Bags:Update()
 
     local bagFrame = GetVisibleBagFrame()
     if not bagFrame then
-        if IsAnyBagVisible and not IsAnyBagVisible() then
+        local allBagsClosed = IsAnyBagVisible and not IsAnyBagVisible()
+        if allBagsClosed then
             self:ClearAutoOpenBagTracking()
+            DisableScrapMarkModeForClosedBags(self.scrapToggleButton)
         end
         self.bagsWereVisible = false
         if self.ClearItemLockOverlays then
