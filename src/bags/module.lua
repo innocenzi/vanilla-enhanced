@@ -9,11 +9,12 @@ local defaults = {
     showQuestIcon = false,
     showScrapToggleButton = false,
     sortOrder = "category",
+    sortFillDirection = "backpack-first",
     enableItemLocking = true,
     autoSortAfterLoot = false,
     autoSortOnOpen = false,
     autoSortOnClose = false,
-    autoOpenMode = "disabled",
+    autoOpenMode = "both",
     itemLocks = {},
 }
 
@@ -94,6 +95,9 @@ function Bags:GetSettings()
     settings.autoSortAfterLootMode = nil
     if settings.sortOrder == "name" then
         settings.sortOrder = defaults.sortOrder
+    end
+    if settings.sortFillDirection ~= "backpack-first" and settings.sortFillDirection ~= "backpack-last" then
+        settings.sortFillDirection = defaults.sortFillDirection
     end
     return settings
 end

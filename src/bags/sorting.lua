@@ -2,6 +2,7 @@ local VanillaEnhanced = _G.VanillaEnhanced
 local Bags = VanillaEnhanced:GetModule("bags")
 
 local PLAYER_BAGS = { 0, 1, 2, 3, 4 }
+local PLAYER_BAGS_BACKPACK_LAST = { 4, 3, 2, 1, 0 }
 local FALLBACK_BANK_BAG_FIRST = 5
 local FALLBACK_BANK_BAG_LAST = 11
 local SORT_WAIT_TIMEOUT = 0.08
@@ -257,6 +258,14 @@ local function GetSortOrder()
     return SORT_ORDERS[settings.sortOrder] or SORT_ORDERS.category
 end
 
+local function GetPlayerSortContainers()
+    local settings = Bags:GetSettings()
+    if settings.sortFillDirection == "backpack-last" then
+        return PLAYER_BAGS_BACKPACK_LAST
+    end
+    return PLAYER_BAGS
+end
+
 local function CompareItems(left, right, sortOrder)
     for _, ruleName in ipairs(sortOrder) do
         local result = SORT_RULES[ruleName](left, right)
@@ -455,7 +464,7 @@ function Bags:SortItems(suppressErrors)
         return
     end
 
-    self:StartManualSort(suppressErrors, PLAYER_BAGS, "bags")
+    self:StartManualSort(suppressErrors, GetPlayerSortContainers(), "bags")
 end
 
 function Bags:SortBankItems(suppressErrors)

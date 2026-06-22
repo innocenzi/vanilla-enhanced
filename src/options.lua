@@ -1747,6 +1747,27 @@ local bagsPanel = BuildOptionsPanel({
             },
         },
         {
+            type = "dropdown",
+            name = "VanillaEnhancedOptionsBagsSortFillDirection",
+            settingKey = "sortFillDirection",
+            labelKey = "options.bags.sortFillDirection.label",
+            helpKey = "options.bags.sortFillDirection.help",
+            indent = 0,
+            width = 190,
+            options = {
+                {
+                    value = "backpack-first",
+                    labelKey = "options.bags.sortFillDirection.backpackFirst",
+                    descriptionKey = "options.bags.sortFillDirection.backpackFirst.description",
+                },
+                {
+                    value = "backpack-last",
+                    labelKey = "options.bags.sortFillDirection.backpackLast",
+                    descriptionKey = "options.bags.sortFillDirection.backpackLast.description",
+                },
+            },
+        },
+        {
             name = "VanillaEnhancedOptionsBagsAutoSortAfterLoot",
             settingKey = "autoSortAfterLoot",
             labelKey = "options.bags.autoSortAfterLoot.label",
