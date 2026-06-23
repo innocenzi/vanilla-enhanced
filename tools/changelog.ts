@@ -21,7 +21,7 @@ export async function generateChangelog(repoRoot: string, version: string): Prom
     const options: Options = {
         config: cliffConfigFile,
         output: changelogFile,
-        tag: version,
+        tag: `v${version}`,
     };
 
     await runGitCliff(options, {

@@ -4,92 +4,149 @@
 
 
 ### Features
-- Initial implementation
-- Add settings ui
-- Improve style and add out of combat option
-- Add ability to keep quest log and map together
-- Add ability to hide completed objectives from the map
-- Only show areas on hover
-- Spread overlapping markers
-- Add bag improvements module
-- Add localization
-- Add merchant features
-- Add debug option
-- Quest map visual improvements and fixes
-- Add minimap objective areas
-- Add tooltip on minimap area hover
-- Add panel scrolling support
-- Add a way to reset settings
-- Highlight map markers when selecting quests
-- Display repeatable quests on the map
-- Make level difference configurable for map quest availability
-- Support displaying available quests on the minimap
-- Position quest markers above other markers
-- Show item drop rates
-- Hide map markers in fog of war
-- Add auto quest following based on location
-- Add tooltips
-- Support marking items as scrap
-- Item locking
-- Add option to disable printing messages
-- Add bag search field
-- Support automatic bag opening
-- Add language switcher
-- Dim minimap markers on other floors
-- Add option to show scrap icon on items
-- Add scrap mark controls
-- Add map custom markers support
-- Support tomtom commands
-- Show nearest objective direction on the minimap
-- Make objective level dimming mandatory
-- New setting preset
-- Add option to toggle drop rates in unit tooltips
-- Set default preset to adventurer
-- Add training tab
-- Add profession tooltips on items
-- Support hiding reputation quests
-- Auto clear nearby custom markers
-- Simplify scrap strategies
-- Add quest icons to bag items
-- Add sorting, stacking and search to banks
-- Add backwards sorting option
+- **quests:** support hiding reputation quests
+- **map:** auto clear nearby custom markers
+- **merchants:** simplify scrap strategies
+- **bags:** add quest icons to bag items
+- **bags:** add sorting, stacking and search to banks
+- **bags:** add backwards sorting option
 
 
 ### Fixes
-- Improve translations
-- Tolerate delayed slot updates while sorting
-- Move away from buffs
-- Display broad objectives on the minimap
-- Black list event quests
-- Remove available quests from the minimap
-- Hide fogged quest markers
-- Hide sort button from keychain
-- Prevent selling during scrap selection
-- Defer pin refreshes during combat
-- Persist item locks accross sessions
-- Persist language selection and refresh options navigation
-- Prevent item right click from no longer working
-- Properly item-drop objective zones
-- Remove circle around named npc objectives
-- Close bags if they were not opened before opening character sheet/merchant window
-- Make locked slot persistence more reliable
-- Only show nearest quest objective marker at edge
-- Remove scrap overlay during sorting
-- Prevent recursive skill refresh overflow
-- Move threat meter to the right of the portrait
-- Avoid protected bag sorting in combat
-- Don't show finished objectives on maps in guide mode
-- Toggle off scrap marking when closing bags
-- Mute quest item icons
-- Prevent locked item movement without blocking use
+- **presets:** don't show finished objectives on maps in guide mode
+- **bags:** toggle off scrap marking when closing bags
+- **bags:** mute quest item icons
+- **bags:** prevent locked item movement without blocking use
+
+## 0.5.0 - 2026-06-22
+
+
+### Features
+- **training:** add training tab
+- **professions:** add profession tooltips on items
+
+
+### Fixes
+- **bags:** remove scrap overlay during sorting
+- **professions:** prevent recursive skill refresh overflow
+- **target-threat:** move threat meter to the right of the portrait
+- **bags:** avoid protected bag sorting in combat
 
 
 ### Performance
-- Reduce refresh work
-- Reduce polling overhead
-- Cache bag API lookups
-- Improve marker performance
-- Decrease quest refresh performance impact
-- Decrease runtime memory usage
-- Cache locale lookups
+- **quests:** decrease runtime memory usage
+- **localization:** cache locale lookups
+
+## 0.4.0 - 2026-06-22
+
+
+### Features
+- **map:** add map custom markers support
+- **map:** support tomtom commands
+- **quests:** show nearest objective direction on the minimap
+- **quests:** make objective level dimming mandatory
+- new setting preset
+- **quests:** add option to toggle drop rates in unit tooltips
+- set default preset to adventurer
+
+
+### Fixes
+- **map:** only show nearest quest objective marker at edge
+
+
+### Performance
+- **quests:** decrease quest refresh performance impact
+
+## 0.3.1 - 2026-06-21
+
+
+### Features
+- **quests:** dim minimap markers on other floors
+- **bags:** add option to show scrap icon on items
+- **bags:** add scrap mark controls
+
+
+### Fixes
+- **bags:** close bags if they were not opened before opening character sheet/merchant window
+- **bags:** make locked slot persistence more reliable
+
+## 0.3.0 - 2026-06-21
+
+
+### Features
+- **quests:** display repeatable quests on the map
+- **quests:** make level difference configurable for map quest availability
+- **quests:** support displaying available quests on the minimap
+- **quests:** position quest markers above other markers
+- **quests:** show item drop rates
+- **quests:** hide map markers in fog of war
+- **quests:** add auto quest following based on location
+- **options:** add tooltips
+- **merchants:** support marking items as scrap
+- **bags:** item locking
+- **core:** add option to disable printing messages
+- **bags:** add bag search field
+- **bags:** support automatic bag opening
+- **options:** add language switcher
+
+
+### Fixes
+- **quests:** display broad objectives on the minimap
+- **quests:** black list event quests
+- **quests:** remove available quests from the minimap
+- **quests:** hide fogged quest markers
+- **bags:** hide sort button from keychain
+- **merchants:** prevent selling during scrap selection
+- **quests:** defer pin refreshes during combat
+- **bags:** persist item locks accross sessions
+- **core:** persist language selection and refresh options navigation
+- **bags:** prevent item right click from no longer working
+- **quests:** properly item-drop objective zones
+- **quests:** remove circle around named npc objectives
+
+
+### Performance
+- **quests:** improve marker performance
+
+## 0.2.0 - 2026-06-20
+
+
+### Features
+- **quests:** quest map visual improvements and fixes
+- **quests:** add minimap objective areas
+- **quests:** add tooltip on minimap area hover
+- **options:** add panel scrolling support
+- **options:** add a way to reset settings
+- **quests:** highlight map markers when selecting quests
+
+
+### Fixes
+- **bags:** tolerate delayed slot updates while sorting
+- **threat:** move away from buffs
+
+
+### Performance
+- **quests:** reduce refresh work
+- **target-threat:** reduce polling overhead
+- **bags:** cache bag API lookups
+
+## 0.1.0 - 2026-06-19
+
+
+### Features
+- initial implementation
+- add settings ui
+- **target-threat:** improve style and add out of combat option
+- **quest-map:** add ability to keep quest log and map together
+- **quest-map:** add ability to hide completed objectives from the map
+- **quest-map:** only show areas on hover
+- **quest-map:** spread overlapping markers
+- **bags:** add bag improvements module
+- add localization
+- add merchant features
+- add debug option
+
+
+### Fixes
+- improve translations
 
