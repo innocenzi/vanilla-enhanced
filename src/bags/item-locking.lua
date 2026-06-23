@@ -24,12 +24,24 @@ local STALE_LOCK_CONFIRM_SECONDS = 0.75
 -- Item locking is a user-level safety lock, not Blizzard's transient container
 -- item lock. Keep these guarantees in sync when touching bags, sorting, or
 -- merchants:
--- - right-click still uses the item unless a merchant sell would happen;
--- - dragging a locked item, or dropping another item onto it, is blocked;
--- - sorting and bank stacking skip locked slots entirely;
--- - merchant scrap detection and selling treat locked items as unsellable.
--- The click overlay is temporary so normal bag item clicks stay as close to
--- Blizzard behavior as possible when none of the blocked actions are active.
+-- - Alt-left-click toggles a lock for the current item stack in that slot.
+-- - Safe right-click use stays on Blizzard's item button. Do not wrap or
+--   forward normal item use from addon code; that taints UseContainerItem.
+-- - Plain left-click on a locked item is undone after Blizzard picks it up,
+--   because pre-click blocking would also taint safe right-click use.
+-- - Dragging a locked item, or dropping another item onto it, is blocked.
+-- - Merchant right-click sell is blocked. The merchant overlay is a sibling
+--   above the item button, owns the tooltip, and temporarily disables mouse on
+--   the item button so the sell cursor/purse hint never appears.
+-- - Tooltips still show while temporary overlays own the mouse.
+-- - Scrap mark mode owns its own item overlay; it delegates Alt-left lock
+--   toggles instead of sharing this click overlay.
+-- - Sorting and bank stacking skip locked slots entirely.
+-- - Merchant scrap detection and selling treat locked items as unsellable.
+-- - Locks are slot + item-fingerprint based. If a slot changes, stale locks
+--   are pruned only after a short confirmation window to avoid transient reads.
+-- The click overlay should exist only for interactions we must intercept:
+-- Alt-toggle, cursor-drop protection, and locked merchant protection.
 local modifierFrame = CreateFrame("Frame")
 
 local function T(key, vars)
@@ -273,9 +285,22 @@ local function EnsureQuestIconOverlay(button)
     return overlay
 end
 
+local function GetClickOverlayParent(button)
+    if button and button.GetParent then
+        return button:GetParent()
+    end
+    return button
+end
+
 local function PositionClickOverlay(overlay, button, levelOffset)
+    local parent = GetClickOverlayParent(button)
+    if parent and overlay.SetParent and overlay.GetParent and overlay:GetParent() ~= parent then
+        overlay:SetParent(parent)
+    end
+
     overlay:ClearAllPoints()
-    overlay:SetAllPoints(button)
+    overlay:SetPoint("TOPLEFT", button, "TOPLEFT", 0, 0)
+    overlay:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 0, 0)
     if overlay.SetFrameLevel and button.GetFrameLevel then
         overlay:SetFrameLevel((button:GetFrameLevel() or 0) + (levelOffset or 20))
     end
@@ -284,6 +309,107 @@ end
 local function IsScrapMarkModeActive()
     local Merchants = VanillaEnhanced:GetModule("merchants")
     return Merchants and Merchants.scrapMarkMode == true
+end
+
+local function ShowBagItemTooltip(owner, button)
+    if not owner or not button or not GameTooltip then
+        return
+    end
+
+    local bagID, slot = GetButtonBagAndSlot(button)
+    if bagID == nil or slot == nil or type(GameTooltip.SetBagItem) ~= "function" then
+        return
+    end
+
+    GameTooltip:SetOwner(owner, "ANCHOR_RIGHT")
+    if pcall(GameTooltip.SetBagItem, GameTooltip, bagID, slot) then
+        GameTooltip:Show()
+    end
+end
+
+local function HideTooltipOwnedBy(owner)
+    if GameTooltip and GameTooltip.IsOwned and GameTooltip:IsOwned(owner) then
+        GameTooltip:Hide()
+    end
+end
+
+local function ShowItemButtonTooltip(button, ...)
+    if not button then
+        return
+    end
+
+    local onEnter = button.GetScript and button:GetScript("OnEnter")
+    if onEnter then
+        return onEnter(button, ...)
+    end
+
+    ShowBagItemTooltip(button, button)
+end
+
+local function HideItemButtonTooltip(button, ...)
+    if not button then
+        return
+    end
+
+    local onLeave = button.GetScript and button:GetScript("OnLeave")
+    if onLeave then
+        onLeave(button, ...)
+    end
+
+    HideTooltipOwnedBy(button)
+end
+
+local function ShouldUseDirectOverlayTooltip(button)
+    local bagID, slot = GetButtonBagAndSlot(button)
+    return bagID ~= nil
+        and slot ~= nil
+        and IsMerchantOpen()
+        and Bags:IsItemLocked(bagID, slot)
+end
+
+local function SetItemButtonMouseSuppressed(button, suppressed)
+    if not button or not button.EnableMouse then
+        return
+    end
+
+    if suppressed then
+        if button.VanillaEnhancedItemLockMouseSuppressed then
+            return
+        end
+
+        local wasEnabled = true
+        if button.IsMouseEnabled then
+            wasEnabled = button:IsMouseEnabled() == true
+        end
+        button.VanillaEnhancedItemLockMouseWasEnabled = wasEnabled
+        button.VanillaEnhancedItemLockMouseSuppressed = true
+        button:EnableMouse(false)
+        return
+    end
+
+    if not button.VanillaEnhancedItemLockMouseSuppressed then
+        return
+    end
+
+    local wasEnabled = button.VanillaEnhancedItemLockMouseWasEnabled ~= false
+    button.VanillaEnhancedItemLockMouseSuppressed = nil
+    button.VanillaEnhancedItemLockMouseWasEnabled = nil
+    button:EnableMouse(wasEnabled)
+end
+
+local function ClearItemLockClickOverlay(button)
+    SetItemButtonMouseSuppressed(button, false)
+
+    local overlay = button and button.VanillaEnhancedItemLockClickOverlay
+    if not overlay then
+        return
+    end
+
+    if overlay.VanillaEnhancedItemLockDirectTooltip then
+        overlay.VanillaEnhancedItemLockDirectTooltip = nil
+        HideTooltipOwnedBy(overlay)
+    end
+    overlay:Hide()
 end
 
 function Bags:GetItemLocks()
@@ -420,9 +546,7 @@ function Bags:ClearItemLockOverlays()
     end
 
     for button in pairs(self.itemLockClickOverlayButtons or {}) do
-        if button.VanillaEnhancedItemLockClickOverlay then
-            button.VanillaEnhancedItemLockClickOverlay:Hide()
-        end
+        ClearItemLockClickOverlay(button)
         self.itemLockClickOverlayButtons[button] = nil
     end
 end
@@ -455,9 +579,18 @@ function Bags:HandleItemLockOverlayClick(button, mouseButton)
         return self:ToggleItemLock(bagID, slot)
     end
 
-    if IsMerchantOpen() and self:IsItemLocked(bagID, slot) then
+    if not self:IsItemLocked(bagID, slot) then
+        return false
+    end
+
+    if IsMerchantOpen() then
         local message = mouseButton == "RightButton" and T("bags.lock.cannotSell") or T("bags.lock.cannotMove")
         self:PrintMessage(message)
+        return true
+    end
+
+    if HasCursorItem() or mouseButton == "LeftButton" then
+        self:PrintMessage(T("bags.lock.cannotMove"))
         return true
     end
 
@@ -475,6 +608,31 @@ function Bags:HandleBlockedItemLockInteraction(button, mouseButton)
         or T("bags.lock.cannotMove")
     self:PrintMessage(message)
     return true
+end
+
+function Bags:HandleItemLockPostClick(button, mouseButton)
+    if mouseButton ~= "LeftButton" or IsAltLeftClick(mouseButton) then
+        return false
+    end
+
+    local bagID, slot = GetButtonBagAndSlot(button)
+    if bagID == nil or slot == nil or not self:IsItemLocked(bagID, slot) then
+        return false
+    end
+
+    if not HasCursorItem() then
+        return false
+    end
+
+    local ok = false
+    if self.Api and self.Api.PickupContainerItem then
+        ok = pcall(self.Api.PickupContainerItem, self.Api, bagID, slot)
+    elseif type(PickupContainerItem) == "function" then
+        ok = pcall(PickupContainerItem, bagID, slot)
+    end
+
+    self:PrintMessage(T("bags.lock.cannotMove"))
+    return ok
 end
 
 local function RefreshOriginalButtonScript(button, scriptName, wrapperKey, originalKey)
@@ -519,6 +677,13 @@ function Bags:EnsureItemLockButtonHooks(button)
                 return original(self, ...)
             end
         end
+    end
+
+    if button.HookScript and not button.VanillaEnhancedItemLockPostClickHooked then
+        button:HookScript("OnClick", function(self, mouseButton)
+            Bags:HandleItemLockPostClick(self, mouseButton)
+        end)
+        button.VanillaEnhancedItemLockPostClickHooked = true
     end
 
     RefreshOriginalButtonScript(
@@ -573,14 +738,12 @@ function Bags:EnsureItemLockClickOverlay(button)
 
     local overlay = button.VanillaEnhancedItemLockClickOverlay
     if not overlay then
-        overlay = CreateFrame("Button", nil, button)
+        overlay = CreateFrame("Button", nil, GetClickOverlayParent(button))
         overlay:RegisterForClicks("AnyUp")
         overlay:RegisterForDrag("LeftButton")
         overlay:EnableMouse(true)
         overlay:SetScript("OnClick", function(_, mouseButton)
-            if not Bags:HandleItemLockOverlayClick(button, mouseButton) then
-                Bags:HandleBlockedItemLockInteraction(button, mouseButton)
-            end
+            Bags:HandleItemLockOverlayClick(button, mouseButton)
         end)
         overlay:SetScript("OnDragStart", function(_, mouseButton)
             Bags:HandleBlockedItemLockInteraction(button, mouseButton or "LeftButton")
@@ -588,10 +751,29 @@ function Bags:EnsureItemLockClickOverlay(button)
         overlay:SetScript("OnReceiveDrag", function()
             Bags:HandleBlockedItemLockInteraction(button, "LeftButton")
         end)
+        overlay:SetScript("OnEnter", function(self, ...)
+            self.VanillaEnhancedItemLockDirectTooltip = ShouldUseDirectOverlayTooltip(button)
+            if self.VanillaEnhancedItemLockDirectTooltip then
+                ShowBagItemTooltip(self, button)
+                return
+            end
+
+            ShowItemButtonTooltip(button, ...)
+        end)
+        overlay:SetScript("OnLeave", function(self, ...)
+            if self.VanillaEnhancedItemLockDirectTooltip then
+                self.VanillaEnhancedItemLockDirectTooltip = nil
+                HideTooltipOwnedBy(self)
+                return
+            end
+
+            HideItemButtonTooltip(button, ...)
+        end)
         button.VanillaEnhancedItemLockClickOverlay = overlay
     end
 
     PositionClickOverlay(overlay, button, 20)
+    SetItemButtonMouseSuppressed(button, ShouldUseDirectOverlayTooltip(button))
     overlay:Show()
 
     self.itemLockClickOverlayButtons = self.itemLockClickOverlayButtons or {}
@@ -710,7 +892,7 @@ function Bags:InstallItemLockHooks()
     end
 
     -- Keep inventory item use untainted: never replace ContainerFrameItemButton_* globals here.
-    -- Temporary child overlays handle only the clicks this module must intercept.
+    -- Temporary sibling overlays handle only the clicks this module must intercept.
     self.lastItemLockAltDown = type(IsAltKeyDown) == "function" and IsAltKeyDown()
     self.lastItemLockCursorHasItem = HasCursorItem()
     modifierFrame:RegisterEvent("MODIFIER_STATE_CHANGED")
