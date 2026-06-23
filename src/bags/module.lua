@@ -1181,7 +1181,7 @@ function Bags:Update()
         if self.ClearItemLockOverlays then
             self:ClearItemLockOverlays()
         end
-        self:ClearSearchOverlays()
+        self:ClearSearchText()
         self:HideControls()
         self:UpdateBankControls(settings)
         return
