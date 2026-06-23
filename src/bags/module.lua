@@ -11,7 +11,6 @@ local defaults = {
     sortOrder = "category",
     sortFillDirection = "backpack-first",
     sortScrapsLast = true,
-    muteSortSounds = true,
     enableItemLocking = true,
     autoSortAfterLoot = false,
     autoSortOnOpen = false,
@@ -95,6 +94,8 @@ function Bags:GetSettings()
     end
     settings.sortEnabled = nil
     settings.autoSortAfterLootMode = nil
+    settings.muteSortSounds = nil
+    settings.sortSoundState = nil
     if settings.sortOrder == "name" then
         settings.sortOrder = defaults.sortOrder
     end
@@ -1141,10 +1142,6 @@ end
 
 function Bags:Update()
     local settings = self:GetSettings()
-    local hasStaleSortMute = self.sorting ~= true and self.HasMutedSortSounds and self:HasMutedSortSounds()
-    if self.RestoreSortSoundsIfMuted and (settings.muteSortSounds ~= true or hasStaleSortMute) then
-        self:RestoreSortSoundsIfMuted()
-    end
 
     local showSortButton = settings.showSortButton ~= false
     local showSearchField = settings.showSearchField == true
@@ -1313,8 +1310,6 @@ function Bags:SetEnabled(enabled)
 
     if self.StopManualSort then
         self:StopManualSort()
-    elseif self.RestoreSortSoundsIfMuted then
-        self:RestoreSortSoundsIfMuted()
     end
 
     self:ClearAutoOpenBagTracking()
