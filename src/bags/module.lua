@@ -11,6 +11,7 @@ local defaults = {
     sortOrder = "category",
     sortFillDirection = "backpack-first",
     sortScrapsLast = true,
+    muteSortSounds = true,
     enableItemLocking = true,
     autoSortAfterLoot = false,
     autoSortOnOpen = false,

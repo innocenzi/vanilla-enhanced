@@ -1883,6 +1883,13 @@ local bagsPanel = BuildOptionsPanel({
                 },
             },
         },
+        {
+            name = "VanillaEnhancedOptionsBagsMuteSortSounds",
+            settingKey = "muteSortSounds",
+            labelKey = "options.bags.muteSortSounds.label",
+            helpKey = "options.bags.muteSortSounds.help",
+            indent = 0,
+        },
     },
 })
 

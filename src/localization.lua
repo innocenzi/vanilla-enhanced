@@ -224,6 +224,8 @@ local STRINGS = {
         ["options.bags.sortFillDirection.help"] = "Chooses which carried bag slots are filled first during sorting.",
         ["options.bags.sortScrapsLast.label"] = "Sort scraps last",
         ["options.bags.sortScrapsLast.help"] = "Places scrap items at the end when sorting bags and bank items.",
+        ["options.bags.muteSortSounds.label"] = "Mute sorting sounds",
+        ["options.bags.muteSortSounds.help"] = "Temporarily disables game sound effects while sorting moves bag or bank items, then restores your previous setting.",
 
         ["options.merchants.subtitle"] = "Adds merchant quality-of-life tools.",
         ["options.merchants.enable.label"] = "Enable",
@@ -550,6 +552,8 @@ local STRINGS = {
         ["options.bags.sortFillDirection.help"] = "Choisit quels emplacements de sacs sont remplis en premier pendant le tri.",
         ["options.bags.sortScrapsLast.label"] = "Camelote à la fin",
         ["options.bags.sortScrapsLast.help"] = "Place les objets inutiles à la fin pendant le tri des sacs et de la banque.",
+        ["options.bags.muteSortSounds.label"] = "Couper les sons de tri",
+        ["options.bags.muteSortSounds.help"] = "Désactive temporairement les effets sonores pendant que le tri déplace les objets des sacs ou de la banque, puis restaure votre réglage précédent.",
 
         ["options.merchants.subtitle"] = "Ajoute des outils pratiques chez les marchands.",
         ["options.merchants.enable.label"] = "Activer",

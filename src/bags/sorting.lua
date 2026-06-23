@@ -17,6 +17,10 @@ local function T(key, vars)
     return VanillaEnhanced:T(key, vars)
 end
 
+local function CanControlSoundEffects()
+    return type(GetCVar) == "function" and type(SetCVar) == "function"
+end
+
 local function IsInCombatLockdown()
     if type(InCombatLockdown) == "function" and InCombatLockdown() then
         return true
@@ -555,9 +559,45 @@ function Bags:ClearAutoSort()
     autoSortFrame:SetScript("OnUpdate", nil)
 end
 
+function Bags:MuteSortSounds()
+    if not CanControlSoundEffects() or self:GetSettings().muteSortSounds ~= true then
+        return
+    end
+
+    if self.sortPreviousSoundEffects ~= nil then
+        return
+    end
+
+    self.sortPreviousSoundEffects = GetCVar("Sound_EnableSFX")
+    if self.sortPreviousSoundEffects == nil then
+        return
+    end
+
+    if self.sortPreviousSoundEffects ~= "0" then
+        SetCVar("Sound_EnableSFX", "0")
+        self.sortMutedSoundEffects = true
+    end
+end
+
+function Bags:RestoreSortSounds()
+    local previous = self.sortPreviousSoundEffects
+    self.sortPreviousSoundEffects = nil
+
+    if previous == nil then
+        self.sortMutedSoundEffects = nil
+        return
+    end
+
+    if self.sortMutedSoundEffects == true and CanControlSoundEffects() then
+        SetCVar("Sound_EnableSFX", previous)
+    end
+    self.sortMutedSoundEffects = nil
+end
+
 function Bags:StopManualSort(message)
     local suppressErrors = self.suppressSortErrors == true
 
+    self:RestoreSortSounds()
     self.sorting = false
     self.suppressSortErrors = nil
     self.sortWaiting = false
@@ -637,6 +677,7 @@ function Bags:PrepareManualOperation(suppressErrors)
     if self.ClearScrapIconOverlays then
         self:ClearScrapIconOverlays()
     end
+    self:MuteSortSounds()
     self:SetSortButtonBusy(true)
     if self.SetBankSortButtonBusy then
         self:SetBankSortButtonBusy(true)
