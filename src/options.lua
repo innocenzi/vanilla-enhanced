@@ -11,6 +11,7 @@ local categoryTitleKeys = {}
 local OPTION_WITH_HELP_OFFSET = -15
 local OPTION_INDENT_WIDTH = 18
 local OPTION_HELP_WIDTH = 430
+local OPTION_SECTION_OFFSET_Y = -36
 local CHECK_TEXT_OFFSET_X = 3
 local CHECK_TEXT_LEFT_FALLBACK = 27
 local SCROLL_BAR_WIDTH = 28
@@ -977,6 +978,25 @@ local function BuildDropdownOptions(options)
     return dropdownOptions
 end
 
+local function CreateOptionSection(panel, name, label, anchor)
+    local content = GetPanelContent(panel)
+    local bottomAnchor = anchor.optionHelpBottomAnchor or anchor
+    local section = CreateFrame("Frame", name, content)
+    SetOptionIndentLevel(section, 0)
+    section:SetSize(430, 18)
+    section:SetPoint("TOPLEFT", bottomAnchor, "BOTTOMLEFT", GetOptionIndentOffset(section, anchor), OPTION_SECTION_OFFSET_Y)
+
+    local text = section:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    text:SetPoint("TOPLEFT", section, "TOPLEFT", 0, 0)
+    text:SetWidth(430)
+    text:SetJustifyH("LEFT")
+    text:SetText(label)
+
+    section.labelText = text
+    panel.optionBottomAnchor = section
+    return section
+end
+
 local function BuildOptionControl(panel, option, anchor, moduleKey)
     local control
     local optionModuleKey = option.moduleKey or moduleKey
@@ -991,6 +1011,8 @@ local function BuildOptionControl(panel, option, anchor, moduleKey)
         control = CreateAddonActionButton(panel, option.name, T(option.labelKey), anchor, option.onClick, option)
     elseif option.type == "moduleEnabled" then
         control = CreateModuleEnabledCheck(panel, option.name, optionModuleKey, T(option.labelKey), anchor)
+    elseif option.type == "section" then
+        control = CreateOptionSection(panel, option.name, T(option.labelKey), anchor)
     elseif option.type == "dropdown" or option.type == "addonDropdown" then
         control = CreateDropdown(
             panel,
@@ -1278,6 +1300,11 @@ local questsPanel = BuildOptionsPanel({
             helpKey = "options.quests.enable.help",
         },
         {
+            type = "section",
+            name = "VanillaEnhancedOptionsQuestsTrackerSection",
+            labelKey = "options.quests.section.tracker",
+        },
+        {
             name = "VanillaEnhancedOptionsQuestsKeepQuestLogWithMap",
             settingKey = "keepQuestLogWithMap",
             labelKey = "options.quests.keepQuestLogWithMap.label",
@@ -1290,6 +1317,95 @@ local questsPanel = BuildOptionsPanel({
             labelKey = "options.quests.enableQuestTrackerClicks.label",
             helpKey = "options.quests.enableQuestTrackerClicks.help",
             indent = 0,
+        },
+        {
+            type = "dropdown",
+            name = "VanillaEnhancedOptionsQuestsAutoFollowQuestsMode",
+            settingKey = "autoFollowQuestsMode",
+            labelKey = "options.quests.autoFollowQuestsMode.label",
+            helpKey = "options.quests.autoFollowQuestsMode.help",
+            indent = 0,
+            width = 210,
+            options = {
+                {
+                    value = "disabled",
+                    labelKey = "options.quests.autoFollowQuestsMode.disabled",
+                    descriptionKey = "options.quests.autoFollowQuestsMode.disabled.description",
+                },
+                {
+                    value = "movement",
+                    labelKey = "options.quests.autoFollowQuestsMode.movement",
+                    descriptionKey = "options.quests.autoFollowQuestsMode.movement.description",
+                },
+                {
+                    value = "zone",
+                    labelKey = "options.quests.autoFollowQuestsMode.zone",
+                    descriptionKey = "options.quests.autoFollowQuestsMode.zone.description",
+                },
+            },
+        },
+        {
+            type = "dropdown",
+            name = "VanillaEnhancedOptionsQuestsAutoFollowQuestsBehavior",
+            settingKey = "autoFollowQuestsBehavior",
+            labelKey = "options.quests.autoFollowQuestsBehavior.label",
+            helpKey = "options.quests.autoFollowQuestsBehavior.help",
+            enabledWhen = function()
+                return GetModuleOptionSettings("quests").autoFollowQuestsMode ~= "disabled"
+            end,
+            indent = 1,
+            width = 220,
+            options = {
+                {
+                    value = "replace-distant",
+                    labelKey = "options.quests.autoFollowQuestsBehavior.replaceDistant",
+                    descriptionKey = "options.quests.autoFollowQuestsBehavior.replaceDistant.description",
+                },
+                {
+                    value = "auto-only",
+                    labelKey = "options.quests.autoFollowQuestsBehavior.autoOnly",
+                    descriptionKey = "options.quests.autoFollowQuestsBehavior.autoOnly.description",
+                },
+                {
+                    value = "fill-empty",
+                    labelKey = "options.quests.autoFollowQuestsBehavior.fillEmpty",
+                    descriptionKey = "options.quests.autoFollowQuestsBehavior.fillEmpty.description",
+                },
+            },
+        },
+        {
+            type = "dropdown",
+            name = "VanillaEnhancedOptionsQuestsAutoFollowQuestsRange",
+            settingKey = "autoFollowQuestsRange",
+            labelKey = "options.quests.autoFollowQuestsRange.label",
+            helpKey = "options.quests.autoFollowQuestsRange.help",
+            enabledWhen = function()
+                return GetModuleOptionSettings("quests").autoFollowQuestsMode == "movement"
+            end,
+            indent = 1,
+            width = 180,
+            options = {
+                {
+                    value = "close",
+                    labelKey = "options.quests.autoFollowQuestsRange.close",
+                    descriptionKey = "options.quests.autoFollowQuestsRange.close.description",
+                },
+                {
+                    value = "nearby",
+                    labelKey = "options.quests.autoFollowQuestsRange.nearby",
+                    descriptionKey = "options.quests.autoFollowQuestsRange.nearby.description",
+                },
+                {
+                    value = "wide",
+                    labelKey = "options.quests.autoFollowQuestsRange.wide",
+                    descriptionKey = "options.quests.autoFollowQuestsRange.wide.description",
+                },
+            },
+        },
+        {
+            type = "section",
+            name = "VanillaEnhancedOptionsQuestsMapMarkersSection",
+            labelKey = "options.quests.section.mapMarkers",
         },
         {
             name = "VanillaEnhancedOptionsQuestsShowMapMarkers",
@@ -1397,6 +1513,11 @@ local questsPanel = BuildOptionsPanel({
             indent = 1,
         },
         {
+            type = "section",
+            name = "VanillaEnhancedOptionsQuestsTooltipsSection",
+            labelKey = "options.quests.section.tooltips",
+        },
+        {
             name = "VanillaEnhancedOptionsQuestsShowObjectiveTooltipHints",
             settingKey = "showObjectiveTooltipHints",
             labelKey = "options.quests.showObjectiveTooltipHints.label",
@@ -1418,90 +1539,6 @@ local questsPanel = BuildOptionsPanel({
             helpKey = "options.quests.showTooltipDropRates.help",
             enabledWhenSetting = "showObjectiveTooltipHints",
             indent = 1,
-        },
-        {
-            type = "dropdown",
-            name = "VanillaEnhancedOptionsQuestsAutoFollowQuestsMode",
-            settingKey = "autoFollowQuestsMode",
-            labelKey = "options.quests.autoFollowQuestsMode.label",
-            helpKey = "options.quests.autoFollowQuestsMode.help",
-            indent = 0,
-            width = 210,
-            options = {
-                {
-                    value = "disabled",
-                    labelKey = "options.quests.autoFollowQuestsMode.disabled",
-                    descriptionKey = "options.quests.autoFollowQuestsMode.disabled.description",
-                },
-                {
-                    value = "movement",
-                    labelKey = "options.quests.autoFollowQuestsMode.movement",
-                    descriptionKey = "options.quests.autoFollowQuestsMode.movement.description",
-                },
-                {
-                    value = "zone",
-                    labelKey = "options.quests.autoFollowQuestsMode.zone",
-                    descriptionKey = "options.quests.autoFollowQuestsMode.zone.description",
-                },
-            },
-        },
-        {
-            type = "dropdown",
-            name = "VanillaEnhancedOptionsQuestsAutoFollowQuestsBehavior",
-            settingKey = "autoFollowQuestsBehavior",
-            labelKey = "options.quests.autoFollowQuestsBehavior.label",
-            helpKey = "options.quests.autoFollowQuestsBehavior.help",
-            enabledWhen = function()
-                return GetModuleOptionSettings("quests").autoFollowQuestsMode ~= "disabled"
-            end,
-            indent = 1,
-            width = 220,
-            options = {
-                {
-                    value = "replace-distant",
-                    labelKey = "options.quests.autoFollowQuestsBehavior.replaceDistant",
-                    descriptionKey = "options.quests.autoFollowQuestsBehavior.replaceDistant.description",
-                },
-                {
-                    value = "auto-only",
-                    labelKey = "options.quests.autoFollowQuestsBehavior.autoOnly",
-                    descriptionKey = "options.quests.autoFollowQuestsBehavior.autoOnly.description",
-                },
-                {
-                    value = "fill-empty",
-                    labelKey = "options.quests.autoFollowQuestsBehavior.fillEmpty",
-                    descriptionKey = "options.quests.autoFollowQuestsBehavior.fillEmpty.description",
-                },
-            },
-        },
-        {
-            type = "dropdown",
-            name = "VanillaEnhancedOptionsQuestsAutoFollowQuestsRange",
-            settingKey = "autoFollowQuestsRange",
-            labelKey = "options.quests.autoFollowQuestsRange.label",
-            helpKey = "options.quests.autoFollowQuestsRange.help",
-            enabledWhen = function()
-                return GetModuleOptionSettings("quests").autoFollowQuestsMode == "movement"
-            end,
-            indent = 1,
-            width = 180,
-            options = {
-                {
-                    value = "close",
-                    labelKey = "options.quests.autoFollowQuestsRange.close",
-                    descriptionKey = "options.quests.autoFollowQuestsRange.close.description",
-                },
-                {
-                    value = "nearby",
-                    labelKey = "options.quests.autoFollowQuestsRange.nearby",
-                    descriptionKey = "options.quests.autoFollowQuestsRange.nearby.description",
-                },
-                {
-                    value = "wide",
-                    labelKey = "options.quests.autoFollowQuestsRange.wide",
-                    descriptionKey = "options.quests.autoFollowQuestsRange.wide.description",
-                },
-            },
         },
     },
 })
@@ -1741,6 +1778,96 @@ local bagsPanel = BuildOptionsPanel({
             helpKey = "options.bags.enable.help",
         },
         {
+            type = "section",
+            name = "VanillaEnhancedOptionsBagsControlsSection",
+            labelKey = "options.bags.section.controls",
+        },
+        {
+            name = "VanillaEnhancedOptionsBagsShowSortButton",
+            settingKey = "showSortButton",
+            labelKey = "options.bags.showSortButton.label",
+            helpKey = "options.bags.showSortButton.help",
+            indent = 0,
+        },
+        {
+            name = "VanillaEnhancedOptionsBagsShowSearchField",
+            settingKey = "showSearchField",
+            labelKey = "options.bags.showSearchField.label",
+            helpKey = "options.bags.showSearchField.help",
+            indent = 0,
+        },
+        {
+            name = "VanillaEnhancedOptionsBagsEnableItemLocking",
+            settingKey = "enableItemLocking",
+            labelKey = "options.bags.enableItemLocking.label",
+            helpKey = "options.bags.enableItemLocking.help",
+            indent = 0,
+        },
+        {
+            name = "VanillaEnhancedOptionsBagsShowQuestIcon",
+            settingKey = "showQuestIcon",
+            labelKey = "options.bags.showQuestIcon.label",
+            helpKey = "options.bags.showQuestIcon.help",
+            indent = 0,
+        },
+        {
+            name = "VanillaEnhancedOptionsBagsShowScrapIcon",
+            settingKey = "showScrapIcon",
+            labelKey = "options.bags.showScrapIcon.label",
+            helpKey = "options.bags.showScrapIcon.help",
+            indent = 0,
+        },
+        {
+            name = "VanillaEnhancedOptionsBagsShowScrapToggleButton",
+            settingKey = "showScrapToggleButton",
+            labelKey = "options.bags.showScrapToggleButton.label",
+            helpKey = "options.bags.showScrapToggleButton.help",
+            enabledWhen = function()
+                local Merchants = VanillaEnhanced:GetModule("merchants")
+                return IsSettingEnabled("bags", "showScrapIcon")
+                    and Merchants
+                    and Merchants.IsSellScrapsEnabled
+                    and Merchants:IsSellScrapsEnabled()
+            end,
+            indent = 1,
+        },
+        {
+            type = "dropdown",
+            name = "VanillaEnhancedOptionsBagsAutoOpenMode",
+            settingKey = "autoOpenMode",
+            labelKey = "options.bags.autoOpenMode.label",
+            helpKey = "options.bags.autoOpenMode.help",
+            indent = 0,
+            width = 220,
+            options = {
+                {
+                    value = "disabled",
+                    labelKey = "options.bags.autoOpenMode.disabled",
+                    descriptionKey = "options.bags.autoOpenMode.disabled.description",
+                },
+                {
+                    value = "character",
+                    labelKey = "options.bags.autoOpenMode.character",
+                    descriptionKey = "options.bags.autoOpenMode.character.description",
+                },
+                {
+                    value = "merchant",
+                    labelKey = "options.bags.autoOpenMode.merchant",
+                    descriptionKey = "options.bags.autoOpenMode.merchant.description",
+                },
+                {
+                    value = "both",
+                    labelKey = "options.bags.autoOpenMode.both",
+                    descriptionKey = "options.bags.autoOpenMode.both.description",
+                },
+            },
+        },
+        {
+            type = "section",
+            name = "VanillaEnhancedOptionsBagsSortingSection",
+            labelKey = "options.bags.section.sorting",
+        },
+        {
             type = "dropdown",
             name = "VanillaEnhancedOptionsBagsSortOrder",
             settingKey = "sortOrder",
@@ -1789,6 +1916,13 @@ local bagsPanel = BuildOptionsPanel({
             indent = 0,
         },
         {
+            name = "VanillaEnhancedOptionsBagsMuteSortSounds",
+            settingKey = "muteSortSounds",
+            labelKey = "options.bags.muteSortSounds.label",
+            helpKey = "options.bags.muteSortSounds.help",
+            indent = 0,
+        },
+        {
             name = "VanillaEnhancedOptionsBagsAutoSortAfterLoot",
             settingKey = "autoSortAfterLoot",
             labelKey = "options.bags.autoSortAfterLoot.label",
@@ -1807,87 +1941,6 @@ local bagsPanel = BuildOptionsPanel({
             settingKey = "autoSortOnClose",
             labelKey = "options.bags.autoSortOnClose.label",
             helpKey = "options.bags.autoSortOnClose.help",
-            indent = 0,
-        },
-        {
-            name = "VanillaEnhancedOptionsBagsShowSortButton",
-            settingKey = "showSortButton",
-            labelKey = "options.bags.showSortButton.label",
-            helpKey = "options.bags.showSortButton.help",
-            indent = 0,
-        },
-        {
-            name = "VanillaEnhancedOptionsBagsShowSearchField",
-            settingKey = "showSearchField",
-            labelKey = "options.bags.showSearchField.label",
-            helpKey = "options.bags.showSearchField.help",
-            indent = 0,
-        },
-        {
-            name = "VanillaEnhancedOptionsBagsEnableItemLocking",
-            settingKey = "enableItemLocking",
-            labelKey = "options.bags.enableItemLocking.label",
-            helpKey = "options.bags.enableItemLocking.help",
-            indent = 0,
-        },
-        {
-            name = "VanillaEnhancedOptionsBagsShowQuestIcon",
-            settingKey = "showQuestIcon",
-            labelKey = "options.bags.showQuestIcon.label",
-            helpKey = "options.bags.showQuestIcon.help",
-            indent = 0,
-        },
-        {
-            name = "VanillaEnhancedOptionsBagsShowScrapIcon",
-            settingKey = "showScrapIcon",
-            labelKey = "options.bags.showScrapIcon.label",
-            helpKey = "options.bags.showScrapIcon.help",
-            indent = 0,
-        },
-        {
-            name = "VanillaEnhancedOptionsBagsShowScrapToggleButton",
-            settingKey = "showScrapToggleButton",
-            labelKey = "options.bags.showScrapToggleButton.label",
-            helpKey = "options.bags.showScrapToggleButton.help",
-            enabledWhenSetting = "showScrapIcon",
-            indent = 1,
-        },
-        {
-            type = "dropdown",
-            name = "VanillaEnhancedOptionsBagsAutoOpenMode",
-            settingKey = "autoOpenMode",
-            labelKey = "options.bags.autoOpenMode.label",
-            helpKey = "options.bags.autoOpenMode.help",
-            indent = 0,
-            width = 220,
-            options = {
-                {
-                    value = "disabled",
-                    labelKey = "options.bags.autoOpenMode.disabled",
-                    descriptionKey = "options.bags.autoOpenMode.disabled.description",
-                },
-                {
-                    value = "character",
-                    labelKey = "options.bags.autoOpenMode.character",
-                    descriptionKey = "options.bags.autoOpenMode.character.description",
-                },
-                {
-                    value = "merchant",
-                    labelKey = "options.bags.autoOpenMode.merchant",
-                    descriptionKey = "options.bags.autoOpenMode.merchant.description",
-                },
-                {
-                    value = "both",
-                    labelKey = "options.bags.autoOpenMode.both",
-                    descriptionKey = "options.bags.autoOpenMode.both.description",
-                },
-            },
-        },
-        {
-            name = "VanillaEnhancedOptionsBagsMuteSortSounds",
-            settingKey = "muteSortSounds",
-            labelKey = "options.bags.muteSortSounds.label",
-            helpKey = "options.bags.muteSortSounds.help",
             indent = 0,
         },
     },
