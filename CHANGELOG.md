@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.5.3 - 2026-06-23
+
+
+### Features
+- **map:** configure marker clear distance
+
+
+### Fixes
+- **quests:** sort auto-follow tracker by distance
+- **quests:** ignore objective range when using zone auto follow
+
 ## 0.5.2 - 2026-06-23
 
 
