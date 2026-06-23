@@ -440,6 +440,8 @@ local function BuildSortGroups(containerIDs)
         local slotCount = Bags.Api:GetContainerNumSlots(bagID) or 0
 
         for slot = 1, slotCount do
+            -- User-locked slots are invisible to the sorter: neither the item
+            -- nor the destination slot may participate in moves.
             if not IsIgnoredSortSlot(bagID, slot)
                 and not (Bags.IsItemLocked and Bags:IsItemLocked(bagID, slot))
             then

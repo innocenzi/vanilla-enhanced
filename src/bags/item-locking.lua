@@ -21,6 +21,15 @@ local MAX_CONTAINER_BUTTONS = 100
 local MODIFIER_REFRESH_INTERVAL = 0.05
 local STALE_LOCK_CONFIRM_SECONDS = 0.75
 
+-- Item locking is a user-level safety lock, not Blizzard's transient container
+-- item lock. Keep these guarantees in sync when touching bags, sorting, or
+-- merchants:
+-- - right-click still uses the item unless a merchant sell would happen;
+-- - dragging a locked item, or dropping another item onto it, is blocked;
+-- - sorting and bank stacking skip locked slots entirely;
+-- - merchant scrap detection and selling treat locked items as unsellable.
+-- The click overlay is temporary so normal bag item clicks stay as close to
+-- Blizzard behavior as possible when none of the blocked actions are active.
 local modifierFrame = CreateFrame("Frame")
 
 local function T(key, vars)
