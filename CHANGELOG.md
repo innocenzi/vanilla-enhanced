@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.5.2 - 2026-06-23
+
+
+### Features
+- **bags:** allow sorting scraps last
+
+
+### Fixes
+- **map:** avoid protected marker mouse propagation calls
+
 ## 0.5.1 - 2026-06-22
 
 
