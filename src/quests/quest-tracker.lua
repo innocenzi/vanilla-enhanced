@@ -35,6 +35,160 @@ local function GetWatchedQuestIdsByTitle()
     return watched
 end
 
+local function CaptureLineState(line)
+    local red, green, blue, alpha
+    if line.GetTextColor then
+        red, green, blue, alpha = line:GetTextColor()
+    end
+
+    return {
+        text = line.GetText and line:GetText() or "",
+        shown = line.IsShown and line:IsShown() == true,
+        red = red,
+        green = green,
+        blue = blue,
+        alpha = alpha,
+        height = line.GetHeight and line:GetHeight() or nil,
+        lineAlpha = line.GetAlpha and line:GetAlpha() or nil,
+    }
+end
+
+local function ApplyLineState(line, state)
+    if not line then
+        return
+    end
+
+    if not state or not state.shown then
+        if line.SetText then
+            line:SetText("")
+        end
+        line:Hide()
+        return
+    end
+
+    if line.SetText then
+        line:SetText(state.text or "")
+    end
+    if line.SetTextColor and state.red and state.green and state.blue then
+        line:SetTextColor(state.red, state.green, state.blue, state.alpha or 1)
+    end
+    if line.SetAlpha and state.lineAlpha then
+        line:SetAlpha(state.lineAlpha)
+    end
+    if line.SetHeight and state.height and state.height > 0 then
+        line:SetHeight(state.height)
+    end
+    line:Show()
+end
+
+local function AppendLineStates(target, source)
+    for _, state in ipairs(source or {}) do
+        target[#target + 1] = state
+    end
+end
+
+local function BuildQuestTrackerBlocks(lineStates, watched)
+    local prefix = {}
+    local blocks = {}
+    local blocksByQuestId = {}
+    local currentBlock
+
+    for _, state in ipairs(lineStates) do
+        local questId = watched[CleanText(state.text)]
+        if questId then
+            currentBlock = {
+                questId = questId,
+                lines = { state },
+            }
+            blocks[#blocks + 1] = currentBlock
+            blocksByQuestId[questId] = blocksByQuestId[questId] or currentBlock
+        elseif currentBlock then
+            currentBlock.lines[#currentBlock.lines + 1] = state
+        else
+            prefix[#prefix + 1] = state
+        end
+    end
+
+    return prefix, blocks, blocksByQuestId
+end
+
+local function ApplyAutoFollowQuestTrackerOrder(watched)
+    local order = Quests.autoFollowQuestTrackerOrder
+    if not order or #order <= 1 or not QuestWatchFrame then
+        return false
+    end
+
+    local lines = {}
+    local lineStates = {}
+    local lineIndex = 1
+    while true do
+        local line = _G["QuestWatchLine" .. lineIndex]
+        if not line then
+            break
+        end
+        lines[#lines + 1] = line
+        if line.IsShown and line:IsShown() then
+            lineStates[#lineStates + 1] = CaptureLineState(line)
+        end
+        lineIndex = lineIndex + 1
+    end
+
+    if #lineStates == 0 then
+        return false
+    end
+
+    local prefix, blocks, blocksByQuestId = BuildQuestTrackerBlocks(lineStates, watched)
+    if #blocks <= 1 then
+        return false
+    end
+
+    local orderedBlocks = {}
+    local orderedQuestIds = {}
+    for _, questId in ipairs(order) do
+        local block = blocksByQuestId[questId]
+        if block then
+            orderedQuestIds[questId] = true
+            orderedBlocks[#orderedBlocks + 1] = block
+        end
+    end
+
+    if #orderedBlocks <= 1 then
+        return false
+    end
+
+    local sortedLineStates = {}
+    local orderedBlockIndex = 1
+    AppendLineStates(sortedLineStates, prefix)
+    for _, block in ipairs(blocks) do
+        if orderedQuestIds[block.questId] then
+            local sortedBlock = orderedBlocks[orderedBlockIndex]
+            if sortedBlock then
+                AppendLineStates(sortedLineStates, sortedBlock.lines)
+            end
+            orderedBlockIndex = orderedBlockIndex + 1
+        else
+            AppendLineStates(sortedLineStates, block.lines)
+        end
+    end
+
+    local changed = false
+    for index, state in ipairs(sortedLineStates) do
+        if lineStates[index] ~= state then
+            changed = true
+            break
+        end
+    end
+    if not changed then
+        return false
+    end
+
+    for index, line in ipairs(lines) do
+        ApplyLineState(line, sortedLineStates[index])
+    end
+
+    return true
+end
+
 local function AcquireTrackerButton(index)
     local button = Quests.questTrackerButtons[index]
     if button then
@@ -61,12 +215,19 @@ end
 
 function Quests:RefreshQuestTrackerClicks()
     local settings = self:GetSettings()
-    if not settings.enabled or settings.enableQuestTrackerClicks == false or not QuestWatchFrame then
+    if not settings.enabled or not QuestWatchFrame then
         HideUnusedButtons(1)
         return
     end
 
     local watched = GetWatchedQuestIdsByTitle()
+    ApplyAutoFollowQuestTrackerOrder(watched)
+
+    if settings.enableQuestTrackerClicks == false then
+        HideUnusedButtons(1)
+        return
+    end
+
     local buttonIndex = 1
     local lineIndex = 1
 

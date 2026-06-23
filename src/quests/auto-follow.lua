@@ -20,6 +20,8 @@ local QUEUED_UPDATE_DELAY_SECONDS = 0.15
 Quests.autoFollowQuestIds = Quests.autoFollowQuestIds or {}
 Quests.autoFollowQuestUpdateQueued = Quests.autoFollowQuestUpdateQueued or false
 Quests.autoFollowQuestWatchApplying = Quests.autoFollowQuestWatchApplying or false
+Quests.autoFollowQuestTrackerOrder = Quests.autoFollowQuestTrackerOrder or nil
+Quests.autoFollowQuestTrackerOrderSignature = Quests.autoFollowQuestTrackerOrderSignature or nil
 
 local eventFrame = CreateFrame("Frame")
 local movementFrame = CreateFrame("Frame")
@@ -150,6 +152,76 @@ local function RefreshQuestWatchDisplay()
     if Quests.RefreshQuestTrackerClicks then
         Quests:RefreshQuestTrackerClicks()
     end
+end
+
+local function UpdateAutoFollowQuestTrackerOrder(quests, questDistances)
+    if not quests or not questDistances then
+        if Quests.autoFollowQuestTrackerOrderSignature then
+            Quests.autoFollowQuestTrackerOrder = nil
+            Quests.autoFollowQuestTrackerOrderSignature = nil
+            return true
+        end
+        return false
+    end
+
+    local watched = GetWatchedQuestIndexes()
+    local known = {}
+    local unknown = {}
+    local signatureParts = {}
+
+    for _, quest in ipairs(quests) do
+        if quest.id and watched[quest.id] then
+            local entry = {
+                id = quest.id,
+                number = quest.number or 0,
+                distance = questDistances[quest.id],
+            }
+            if entry.distance then
+                known[#known + 1] = entry
+            else
+                unknown[#unknown + 1] = entry
+            end
+        end
+    end
+
+    table.sort(known, function(left, right)
+        if left.distance ~= right.distance then
+            return left.distance < right.distance
+        end
+        if left.number ~= right.number then
+            return left.number < right.number
+        end
+        return left.id < right.id
+    end)
+
+    table.sort(unknown, function(left, right)
+        if left.number ~= right.number then
+            return left.number < right.number
+        end
+        return left.id < right.id
+    end)
+
+    local order = {}
+    for _, entry in ipairs(known) do
+        order[#order + 1] = entry.id
+        signatureParts[#signatureParts + 1] = tostring(entry.id)
+    end
+    for _, entry in ipairs(unknown) do
+        order[#order + 1] = entry.id
+        signatureParts[#signatureParts + 1] = tostring(entry.id)
+    end
+
+    local signature
+    if #order > 1 then
+        signature = table.concat(signatureParts, ";")
+    end
+    if signature == Quests.autoFollowQuestTrackerOrderSignature then
+        return false
+    end
+
+    Quests.autoFollowQuestTrackerOrder = signature and order or nil
+    Quests.autoFollowQuestTrackerOrderSignature = signature
+    return true
 end
 
 local function GetPlayerPosition()
@@ -332,6 +404,11 @@ function Quests:ClearAutoFollowQuestWatches()
         owned[questId] = nil
     end
     self.autoFollowQuestWatchApplying = false
+    if self.autoFollowQuestTrackerOrderSignature then
+        self.autoFollowQuestTrackerOrder = nil
+        self.autoFollowQuestTrackerOrderSignature = nil
+        changed = true
+    end
 
     if changed then
         RefreshQuestWatchDisplay()
@@ -365,6 +442,11 @@ function Quests:UpdateAutoFollowQuestWatches(reason, force)
     if reason == "zone" and mode ~= AUTO_FOLLOW_ZONE and mode ~= AUTO_FOLLOW_MOVEMENT then
         return
     end
+    if mode ~= AUTO_FOLLOW_ZONE and mode ~= AUTO_FOLLOW_MOVEMENT and self.autoFollowQuestTrackerOrderSignature then
+        self.autoFollowQuestTrackerOrder = nil
+        self.autoFollowQuestTrackerOrderSignature = nil
+        RefreshQuestWatchDisplay()
+    end
 
     local position = GetPlayerPosition()
     if not position then
@@ -379,6 +461,10 @@ function Quests:UpdateAutoFollowQuestWatches(reason, force)
     local watched, watchedCount = GetWatchedQuestIndexes()
     local owned = self.autoFollowQuestIds or {}
     self.autoFollowQuestIds = owned
+    quests = quests
+        or self.GetCachedQuestLogSnapshot and self:GetCachedQuestLogSnapshot()
+        or (self.GetQuestLogSnapshot and self:GetQuestLogSnapshot())
+        or {}
     local candidates, questDistances = BuildRankedQuestCandidates(position, rangeYards, quests)
     local changed = false
 
@@ -467,6 +553,11 @@ function Quests:UpdateAutoFollowQuestWatches(reason, force)
         end
     end
 
+    if (mode == AUTO_FOLLOW_ZONE or mode == AUTO_FOLLOW_MOVEMENT)
+        and UpdateAutoFollowQuestTrackerOrder(quests, questDistances) then
+        changed = true
+    end
+
     self.autoFollowQuestWatchApplying = false
     RememberUpdatePosition(position)
 
@@ -516,6 +607,8 @@ end
 RegisterEventIfAvailable("PLAYER_LOGIN")
 RegisterEventIfAvailable("PLAYER_ENTERING_WORLD")
 RegisterEventIfAvailable("ZONE_CHANGED_NEW_AREA")
+RegisterEventIfAvailable("ZONE_CHANGED")
+RegisterEventIfAvailable("ZONE_CHANGED_INDOORS")
 RegisterEventIfAvailable("PLAYER_STARTED_MOVING")
 RegisterEventIfAvailable("PLAYER_STOPPED_MOVING")
 RegisterEventIfAvailable("QUEST_LOG_UPDATE")
@@ -551,7 +644,10 @@ eventFrame:SetScript("OnEvent", function(_, event)
         return
     end
 
-    if event == "PLAYER_ENTERING_WORLD" or event == "ZONE_CHANGED_NEW_AREA" then
+    if event == "PLAYER_ENTERING_WORLD"
+        or event == "ZONE_CHANGED_NEW_AREA"
+        or event == "ZONE_CHANGED"
+        or event == "ZONE_CHANGED_INDOORS" then
         Quests:QueueAutoFollowQuestUpdate("zone", true)
     elseif IsEnabled() then
         Quests:QueueAutoFollowQuestUpdate(event, true)
