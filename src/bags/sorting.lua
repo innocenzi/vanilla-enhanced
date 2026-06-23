@@ -9,6 +9,10 @@ local SORT_WAIT_TIMEOUT = 0.08
 local SORT_MIN_POLL_TIMEOUT = 0.03
 local LOCK_RETRY_TIMEOUT = 0.5
 local AUTO_SORT_DELAY = 0.25
+local ITEM_CLASS_CONSUMABLE_ID = type(LE_ITEM_CLASS_CONSUMABLE) == "number" and LE_ITEM_CLASS_CONSUMABLE or 0
+local CONSUMABLE_SUBCLASS_POTION = 1
+local CONSUMABLE_SUBCLASS_FOOD_DRINK = 5
+local CONSUMABLE_SUBCLASS_BANDAGE = 7
 
 local sortFrame = CreateFrame("Frame")
 local autoSortFrame = CreateFrame("Frame")
@@ -174,6 +178,102 @@ local function IsScrapSortItem(bagID, slot)
     return scrapOk and isScrap == true
 end
 
+local function NormalizeItemText(text)
+    return string.lower(tostring(text or ""))
+end
+
+local function TextMatchesAny(text, patterns)
+    for _, pattern in ipairs(patterns) do
+        if string.find(text, pattern, 1, true) then
+            return true
+        end
+    end
+    return false
+end
+
+local MANA_CONSUMABLE_NAME_PATTERNS = {
+    "mana",
+    "manna",
+    "manne",
+    "dark rune",
+    "demonic rune",
+    "rune démoniaque",
+    "rune ténébreuse",
+    "nethergon vapor",
+    "vapeur de néantin",
+}
+
+local HEALTH_CONSUMABLE_NAME_PATTERNS = {
+    "healing",
+    "health",
+    "healthstone",
+    "rejuvenation",
+    "bandage",
+    "soin",
+    "soins",
+    "vie",
+    "pierre de soins",
+    "régénération",
+    "nethergon energy",
+}
+
+local DRINK_CONSUMABLE_NAME_PATTERNS = {
+    "water",
+    "drink",
+    "juice",
+    "milk",
+    "nectar",
+    "dew",
+    "tears",
+    "vapor",
+    "eau",
+    "boisson",
+    "jus",
+    "lait",
+    "rosée",
+    "larme",
+    "vapeur",
+}
+
+local function IsConsumableItem(itemInfo)
+    if not itemInfo then
+        return false
+    end
+    if itemInfo.classID == ITEM_CLASS_CONSUMABLE_ID then
+        return true
+    end
+    return _G.ITEM_CLASS_CONSUMABLE ~= nil and itemInfo.itemType == _G.ITEM_CLASS_CONSUMABLE
+end
+
+local function GetConsumableSortGroup(itemInfo)
+    if not IsConsumableItem(itemInfo) then
+        return 0
+    end
+
+    local itemName = NormalizeItemText(itemInfo.name)
+    local subclassID = itemInfo.subclassID
+
+    if subclassID == CONSUMABLE_SUBCLASS_BANDAGE then
+        return 2
+    end
+    if TextMatchesAny(itemName, MANA_CONSUMABLE_NAME_PATTERNS) then
+        return 1
+    end
+    if TextMatchesAny(itemName, HEALTH_CONSUMABLE_NAME_PATTERNS) then
+        return 2
+    end
+    if subclassID == CONSUMABLE_SUBCLASS_FOOD_DRINK then
+        if TextMatchesAny(itemName, DRINK_CONSUMABLE_NAME_PATTERNS) then
+            return 1
+        end
+        return 2
+    end
+    if subclassID == CONSUMABLE_SUBCLASS_POTION then
+        return 3
+    end
+    return 9
+end
+
 local function ReadItem(bagID, slot)
     local containerItem = Bags.Api:GetContainerItemInfo(bagID, slot)
     local link = containerItem and (containerItem.hyperlink or Bags.Api:GetContainerItemLink(bagID, slot))
@@ -199,6 +299,7 @@ local function ReadItem(bagID, slot)
         itemSubType = (itemInfo and itemInfo.itemSubType) or "",
         classID = itemInfo and itemInfo.classID,
         subclassID = itemInfo and itemInfo.subclassID,
+        consumableSortGroup = GetConsumableSortGroup(itemInfo),
         quality = (itemInfo and itemInfo.quality) or (containerItem and containerItem.quality) or -1,
         itemLevel = (itemInfo and itemInfo.itemLevel) or 0,
         itemID = (containerItem and containerItem.itemID) or GetItemID(link),
@@ -224,6 +325,7 @@ end
 local SORT_ORDERS = {
     category = {
         "itemTypeAsc",
+        "consumableSortGroupAsc",
         "itemSubTypeAsc",
         "qualityDesc",
         "itemLevelDesc",
@@ -235,6 +337,7 @@ local SORT_ORDERS = {
         "qualityDesc",
         "itemLevelDesc",
         "itemTypeAsc",
+        "consumableSortGroupAsc",
         "itemSubTypeAsc",
         "nameAsc",
         "itemIDAsc",
@@ -252,6 +355,12 @@ local SORT_RULES = {
     itemSubTypeAsc = function(left, right)
         if left.itemSubType ~= right.itemSubType then
             return left.itemSubType < right.itemSubType
+        end
+        return nil
+    end,
+    consumableSortGroupAsc = function(left, right)
+        if left.consumableSortGroup ~= right.consumableSortGroup then
+            return left.consumableSortGroup < right.consumableSortGroup
         end
         return nil
     end,
