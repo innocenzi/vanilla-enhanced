@@ -25,6 +25,8 @@ local STALE_LOCK_CONFIRM_SECONDS = 0.75
 -- item lock. Keep these guarantees in sync when touching bags, sorting, or
 -- merchants:
 -- - Alt-left-click toggles a lock for the current item stack in that slot.
+-- - Alt-right-click toggles the current item as scrap through the merchant
+--   module when scrap selling is enabled.
 -- - Safe right-click use stays on Blizzard's item button. Do not wrap or
 --   forward normal item use from addon code; that taints UseContainerItem.
 -- - Plain left-click on a locked item is undone after Blizzard picks it up,
@@ -200,8 +202,24 @@ local function IsAltLeftClick(mouseButton)
     return mouseButton == "LeftButton" and type(IsAltKeyDown) == "function" and IsAltKeyDown()
 end
 
+local function IsAltRightClick(mouseButton)
+    return mouseButton == "RightButton" and type(IsAltKeyDown) == "function" and IsAltKeyDown()
+end
+
+local function GetMerchantsModule()
+    return VanillaEnhanced:GetModule("merchants")
+end
+
+local function IsScrapShortcutEnabled()
+    local Merchants = GetMerchantsModule()
+    return Merchants
+        and Merchants.IsSellScrapsEnabled
+        and Merchants:IsSellScrapsEnabled()
+        and Merchants.ToggleCustomScrapItemForSlot
+end
+
 local function IsMerchantOpen()
-    local Merchants = VanillaEnhanced:GetModule("merchants")
+    local Merchants = GetMerchantsModule()
     if Merchants and Merchants.IsMerchantOpen then
         return Merchants:IsMerchantOpen()
     end
@@ -307,7 +325,7 @@ local function PositionClickOverlay(overlay, button, levelOffset)
 end
 
 local function IsScrapMarkModeActive()
-    local Merchants = VanillaEnhanced:GetModule("merchants")
+    local Merchants = GetMerchantsModule()
     return Merchants and Merchants.scrapMarkMode == true
 end
 
@@ -575,6 +593,14 @@ function Bags:HandleItemLockOverlayClick(button, mouseButton)
         return false
     end
 
+    if IsAltRightClick(mouseButton) then
+        local Merchants = GetMerchantsModule()
+        if Merchants and Merchants.ToggleCustomScrapItemForSlot then
+            Merchants:ToggleCustomScrapItemForSlot(bagID, slot)
+            return true
+        end
+    end
+
     if IsAltLeftClick(mouseButton) then
         return self:ToggleItemLock(bagID, slot)
     end
@@ -790,8 +816,9 @@ function Bags:RefreshItemLockOverlays()
 
     local lockEnabled = self:IsItemLockingEnabled()
     local scrapIconEnabled = self:IsScrapIconEnabled()
+    local scrapShortcutEnabled = IsScrapShortcutEnabled()
     local questIconEnabled = self:IsQuestIconEnabled()
-    if not lockEnabled and not scrapIconEnabled and not questIconEnabled then
+    if not lockEnabled and not scrapIconEnabled and not scrapShortcutEnabled and not questIconEnabled then
         return
     end
 
@@ -847,7 +874,16 @@ function Bags:RefreshItemLockOverlays()
                 if lockEnabled
                     and hasItem
                     and not suppressClickOverlays
-                    and (altDown or (locked and (cursorHasItem or merchantOpen)))
+                    and (
+                        altDown
+                        or (locked and (cursorHasItem or merchantOpen))
+                    )
+                then
+                    self:EnsureItemLockClickOverlay(button)
+                elseif scrapShortcutEnabled
+                    and hasItem
+                    and altDown
+                    and not suppressClickOverlays
                 then
                     self:EnsureItemLockClickOverlay(button)
                 end
@@ -861,12 +897,21 @@ function Bags:RefreshScrapIconOverlays()
 end
 
 function Bags:HandleItemLockClick(button, mouseButton)
-    if not self:IsItemLockingEnabled() then
+    local bagID, slot = GetButtonBagAndSlot(button)
+    if bagID == nil or slot == nil then
         return false
     end
 
-    local bagID, slot = GetButtonBagAndSlot(button)
-    if bagID == nil or slot == nil then
+    if IsAltRightClick(mouseButton) then
+        local Merchants = GetMerchantsModule()
+        if Merchants and Merchants.ToggleCustomScrapItemForSlot then
+            Merchants:ToggleCustomScrapItemForSlot(bagID, slot)
+            return true
+        end
+        return false
+    end
+
+    if not self:IsItemLockingEnabled() then
         return false
     end
 

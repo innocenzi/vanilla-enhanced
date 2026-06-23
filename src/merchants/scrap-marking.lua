@@ -347,6 +347,26 @@ function Merchants:ToggleCustomScrapItem(itemContext)
     return false
 end
 
+function Merchants:ToggleCustomScrapItemForSlot(bagID, slot)
+    if not self:IsSellScrapsEnabled() then
+        if self.scrapMarkMode == true then
+            self:SetScrapMarkMode(false)
+        end
+        return false
+    end
+
+    local itemContext = self.Api and self.Api:ReadContainerItem(bagID, slot)
+    if not itemContext then
+        return false
+    end
+
+    local toggled = self:ToggleCustomScrapItem(itemContext)
+    if toggled and self:ShouldShowScrapHighlights() then
+        self:RefreshScrapHighlights()
+    end
+    return toggled
+end
+
 function Merchants:IsScrapItem(itemContext)
     if self:IsIgnoredScrapItem(itemContext) then
         return false
@@ -621,6 +641,11 @@ function Merchants:HandleScrapMarkItemClick(button, mouseButton)
         return false
     end
 
+    if mouseButton == "RightButton" and type(IsAltKeyDown) == "function" and IsAltKeyDown() then
+        self:ToggleCustomScrapItemForSlot(bagID, slot)
+        return true
+    end
+
     if mouseButton == "LeftButton" then
         local now = type(GetTime) == "function" and GetTime() or nil
         local slotKey = tostring(bagID) .. ":" .. tostring(slot)
@@ -635,12 +660,8 @@ function Merchants:HandleScrapMarkItemClick(button, mouseButton)
         self.lastScrapMarkClickTime = now
     end
 
-    local itemContext = self.Api and self.Api:ReadContainerItem(bagID, slot)
-    if mouseButton == "LeftButton" and itemContext then
-        self:ToggleCustomScrapItem(itemContext)
-        if self:ShouldShowScrapHighlights() then
-            self:RefreshScrapHighlights()
-        end
+    if mouseButton == "LeftButton" then
+        self:ToggleCustomScrapItemForSlot(bagID, slot)
     end
     return true
 end
