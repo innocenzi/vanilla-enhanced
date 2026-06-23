@@ -1768,6 +1768,13 @@ local bagsPanel = BuildOptionsPanel({
             },
         },
         {
+            name = "VanillaEnhancedOptionsBagsSortScrapsLast",
+            settingKey = "sortScrapsLast",
+            labelKey = "options.bags.sortScrapsLast.label",
+            helpKey = "options.bags.sortScrapsLast.help",
+            indent = 0,
+        },
+        {
             name = "VanillaEnhancedOptionsBagsAutoSortAfterLoot",
             settingKey = "autoSortAfterLoot",
             labelKey = "options.bags.autoSortAfterLoot.label",

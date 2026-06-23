@@ -10,6 +10,7 @@ local defaults = {
     showScrapToggleButton = false,
     sortOrder = "category",
     sortFillDirection = "backpack-first",
+    sortScrapsLast = true,
     enableItemLocking = true,
     autoSortAfterLoot = false,
     autoSortOnOpen = false,

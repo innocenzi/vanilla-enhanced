@@ -141,6 +141,35 @@ local function GetGroup(groups, groupOrder, groupKey)
     return group
 end
 
+local function IsScrapSortItem(bagID, slot)
+    if Bags.sortScrapsLast ~= true then
+        return false
+    end
+
+    local Merchants = VanillaEnhanced:GetModule("merchants")
+    if not Merchants
+        or not Merchants.IsSellScrapsEnabled
+        or not Merchants.IsScrapItem
+        or not Merchants.Api
+        or not Merchants.Api.ReadContainerItem
+    then
+        return false
+    end
+
+    local enabledOk, enabled = pcall(Merchants.IsSellScrapsEnabled, Merchants)
+    if not enabledOk or enabled ~= true then
+        return false
+    end
+
+    local readOk, itemContext = pcall(Merchants.Api.ReadContainerItem, Merchants.Api, bagID, slot)
+    if not readOk or not itemContext then
+        return false
+    end
+
+    local scrapOk, isScrap = pcall(Merchants.IsScrapItem, Merchants, itemContext)
+    return scrapOk and isScrap == true
+end
+
 local function ReadItem(bagID, slot)
     local containerItem = Bags.Api:GetContainerItemInfo(bagID, slot)
     local link = containerItem and (containerItem.hyperlink or Bags.Api:GetContainerItemLink(bagID, slot))
@@ -169,6 +198,7 @@ local function ReadItem(bagID, slot)
         quality = (itemInfo and itemInfo.quality) or (containerItem and containerItem.quality) or -1,
         itemLevel = (itemInfo and itemInfo.itemLevel) or 0,
         itemID = (containerItem and containerItem.itemID) or GetItemID(link),
+        isScrap = IsScrapSortItem(bagID, slot),
     }, false
 end
 
@@ -267,6 +297,10 @@ local function GetPlayerSortContainers()
 end
 
 local function CompareItems(left, right, sortOrder)
+    if Bags.sortScrapsLast == true and left.isScrap ~= right.isScrap then
+        return left.isScrap ~= true
+    end
+
     for _, ruleName in ipairs(sortOrder) do
         local result = SORT_RULES[ruleName](left, right)
         if result ~= nil then
@@ -533,6 +567,7 @@ function Bags:StopManualSort(message)
     self.lockWaitSlot = nil
     self.sortItemInfoCache = nil
     self.sortOrder = nil
+    self.sortScrapsLast = nil
     self.sortContainerIDs = nil
     self.sortScope = nil
     self.sortOperation = nil
@@ -594,6 +629,7 @@ function Bags:PrepareManualOperation(suppressErrors)
     self.lockWaitSlot = nil
     self.sortItemInfoCache = {}
     self.sortOrder = GetSortOrder()
+    self.sortScrapsLast = self:GetSettings().sortScrapsLast ~= false
     self.sortGroups = nil
     self.ignoredSortSlots = {}
     self.pendingSortMove = nil

@@ -219,6 +219,8 @@ local STRINGS = {
         ["options.bags.sortFillDirection.backpackLast"] = "Equipped bags first",
         ["options.bags.sortFillDirection.backpackLast.description"] = "Places sorted carried items in equipped bags before the backpack.",
         ["options.bags.sortFillDirection.help"] = "Chooses which carried bag slots are filled first during sorting.",
+        ["options.bags.sortScrapsLast.label"] = "Sort scraps last",
+        ["options.bags.sortScrapsLast.help"] = "Places scrap items at the end when sorting bags and bank items.",
 
         ["options.merchants.subtitle"] = "Adds merchant quality-of-life tools.",
         ["options.merchants.enable.label"] = "Enable",
@@ -540,6 +542,8 @@ local STRINGS = {
         ["options.bags.sortFillDirection.backpackLast"] = "Sacs équipés d'abord",
         ["options.bags.sortFillDirection.backpackLast.description"] = "Place les objets triés dans les sacs équipés avant le sac à dos.",
         ["options.bags.sortFillDirection.help"] = "Choisit quels emplacements de sacs sont remplis en premier pendant le tri.",
+        ["options.bags.sortScrapsLast.label"] = "Camelote à la fin",
+        ["options.bags.sortScrapsLast.help"] = "Place les objets inutiles à la fin pendant le tri des sacs et de la banque.",
 
         ["options.merchants.subtitle"] = "Ajoute des outils pratiques chez les marchands.",
         ["options.merchants.enable.label"] = "Activer",
