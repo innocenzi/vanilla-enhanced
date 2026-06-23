@@ -268,7 +268,7 @@ local function IsIncompleteObjectiveCluster(quest, cluster)
     return quest.completedObjectives[objectiveIndex] ~= true
 end
 
-local function GetBestQuestDistance(quest, dbQuest, position)
+local function GetBestQuestDistance(quest, dbQuest, position, currentZoneOnly)
     local maps = quest.isComplete and dbQuest.turnins or dbQuest.maps
     if not maps then
         return nil
@@ -276,11 +276,13 @@ local function GetBestQuestDistance(quest, dbQuest, position)
 
     local bestDistance
     for uiMapId, clusters in pairs(maps) do
-        for _, cluster in ipairs(clusters) do
-            if quest.isComplete or IsIncompleteObjectiveCluster(quest, cluster) then
-                local distance = DistanceToCluster(position, uiMapId, cluster)
-                if distance and (not bestDistance or distance < bestDistance) then
-                    bestDistance = distance
+        if not currentZoneOnly or uiMapId == position.mapId then
+            for _, cluster in ipairs(clusters) do
+                if quest.isComplete or IsIncompleteObjectiveCluster(quest, cluster) then
+                    local distance = DistanceToCluster(position, uiMapId, cluster)
+                    if distance and (not bestDistance or distance < bestDistance) then
+                        bestDistance = distance
+                    end
                 end
             end
         end
@@ -289,7 +291,7 @@ local function GetBestQuestDistance(quest, dbQuest, position)
     return bestDistance
 end
 
-local function BuildRankedQuestCandidates(position, rangeYards, quests)
+local function BuildRankedQuestCandidates(position, rangeYards, quests, currentZoneOnly)
     local candidates = {}
     local questDistances = {}
     if not VanillaEnhancedQuestsDB or not VanillaEnhancedQuestsDB.quests then
@@ -304,8 +306,8 @@ local function BuildRankedQuestCandidates(position, rangeYards, quests)
     for _, quest in ipairs(quests) do
         local dbQuest = quest.id and VanillaEnhancedQuestsDB.quests[quest.id]
         if dbQuest then
-            local distance = GetBestQuestDistance(quest, dbQuest, position)
-            if distance and distance <= rangeYards then
+            local distance = GetBestQuestDistance(quest, dbQuest, position, currentZoneOnly)
+            if distance and (currentZoneOnly or distance <= rangeYards) then
                 questDistances[quest.id] = distance
                 candidates[#candidates + 1] = {
                     id = quest.id,
@@ -465,7 +467,8 @@ function Quests:UpdateAutoFollowQuestWatches(reason, force)
         or self.GetCachedQuestLogSnapshot and self:GetCachedQuestLogSnapshot()
         or (self.GetQuestLogSnapshot and self:GetQuestLogSnapshot())
         or {}
-    local candidates, questDistances = BuildRankedQuestCandidates(position, rangeYards, quests)
+    local currentZoneOnly = mode == AUTO_FOLLOW_ZONE
+    local candidates, questDistances = BuildRankedQuestCandidates(position, rangeYards, quests, currentZoneOnly)
     local changed = false
 
     for questId in pairs(owned) do
@@ -476,7 +479,7 @@ function Quests:UpdateAutoFollowQuestWatches(reason, force)
 
     self.autoFollowQuestWatchApplying = true
 
-    if behavior == AUTO_FOLLOW_BEHAVIOR_REPLACE_DISTANT then
+    if behavior == AUTO_FOLLOW_BEHAVIOR_REPLACE_DISTANT and mode == AUTO_FOLLOW_MOVEMENT then
         for questId, questIndex in pairs(watched) do
             local distance = questDistances[questId]
             if not owned[questId] and distance and distance > rangeYards then

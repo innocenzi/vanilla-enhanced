@@ -1481,7 +1481,7 @@ local questsPanel = BuildOptionsPanel({
             labelKey = "options.quests.autoFollowQuestsRange.label",
             helpKey = "options.quests.autoFollowQuestsRange.help",
             enabledWhen = function()
-                return GetModuleOptionSettings("quests").autoFollowQuestsMode ~= "disabled"
+                return GetModuleOptionSettings("quests").autoFollowQuestsMode == "movement"
             end,
             indent = 1,
             width = 180,

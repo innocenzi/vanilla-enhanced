@@ -80,7 +80,7 @@ local PRESETS = {
                 showTooltipDropRates = true,
                 autoFollowQuestsMode = "zone",
                 autoFollowQuestsBehavior = "auto-only",
-                autoFollowQuestsRange = "nearby",
+                autoFollowQuestsRange = "wide",
             },
             map = {
                 enabled = true,
