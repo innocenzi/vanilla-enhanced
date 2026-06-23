@@ -8,7 +8,6 @@ local MARKER_COLOR = { 1, 0.82, 0.18, 1 }
 local MARKER_SHADOW_COLOR = { 0, 0, 0, 0.95 }
 local TOOLTIP_METADATA_COLOR = { 0.56, 0.56, 0.56 }
 local COORDINATE_PRECISION = 100000
-local MARKER_REACHED_DISTANCE = 20
 local REACHED_MARKER_UPDATE_INTERVAL = 1
 local MINIMAP_UPDATE_INTERVAL = 0.05
 local MINIMAP_EDGE_RADIUS_MULTIPLIER = 0.86
@@ -372,7 +371,7 @@ function Map:IsMarkerPositionReached(uiMapId, x, y)
     end
 
     local distance = self:GetMarkerPositionDistanceToPlayer(uiMapId, x, y)
-    return distance and distance <= MARKER_REACHED_DISTANCE
+    return distance and distance <= self:GetReachedMarkerDistanceYards()
 end
 
 local function GetMarkerTitle(options)
@@ -751,6 +750,7 @@ function Map:RemoveReachedMarkers(playerX, playerY, playerInstanceId)
     end
 
     local reachedMarkerIds
+    local reachedDistance = self:GetReachedMarkerDistanceYards()
     for _, marker in ipairs(self:GetMarkerStore()) do
         local markerX, markerY, markerInstanceId = self.hbd:GetWorldCoordinatesFromZone(marker.x, marker.y, marker.uiMapId)
         if markerX and markerY and markerInstanceId == playerInstanceId then
@@ -763,7 +763,7 @@ function Map:RemoveReachedMarkers(playerX, playerY, playerInstanceId)
                 distance = math.sqrt((xDist * xDist) + (yDist * yDist))
             end
 
-            if distance and distance <= MARKER_REACHED_DISTANCE then
+            if distance and distance <= reachedDistance then
                 reachedMarkerIds = reachedMarkerIds or {}
                 reachedMarkerIds[marker.id] = true
             end

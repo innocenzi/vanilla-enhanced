@@ -37,6 +37,7 @@ local PRESETS = {
                 showWorldMapMarkers = true,
                 showMinimapDirections = false,
                 autoRemoveReachedMarkers = true,
+                reachedMarkerDistanceYards = 20,
             },
             training = {
                 enabled = false,
@@ -86,6 +87,7 @@ local PRESETS = {
                 showWorldMapMarkers = true,
                 showMinimapDirections = true,
                 autoRemoveReachedMarkers = true,
+                reachedMarkerDistanceYards = 20,
             },
             training = {
                 enabled = true,
@@ -133,6 +135,7 @@ local PRESETS = {
                 showWorldMapMarkers = true,
                 showMinimapDirections = true,
                 autoRemoveReachedMarkers = true,
+                reachedMarkerDistanceYards = 20,
             },
             training = {
                 enabled = true,
