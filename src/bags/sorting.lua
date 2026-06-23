@@ -9,6 +9,7 @@ local SORT_WAIT_TIMEOUT = 0.08
 local SORT_MIN_POLL_TIMEOUT = 0.03
 local LOCK_RETRY_TIMEOUT = 0.5
 local AUTO_SORT_DELAY = 0.25
+local SOUND_EFFECTS_CVAR = "Sound_EnableSFX"
 local ITEM_CLASS_CONSUMABLE_ID = type(LE_ITEM_CLASS_CONSUMABLE) == "number" and LE_ITEM_CLASS_CONSUMABLE or 0
 local CONSUMABLE_SUBCLASS_POTION = 1
 local CONSUMABLE_SUBCLASS_FOOD_DRINK = 5
@@ -23,6 +24,27 @@ end
 
 local function CanControlSoundEffects()
     return type(GetCVar) == "function" and type(SetCVar) == "function"
+end
+
+local function GetSortSoundState()
+    local settings = Bags:GetSettings()
+    if type(settings.sortSoundState) ~= "table" then
+        settings.sortSoundState = {}
+    end
+    return settings.sortSoundState
+end
+
+local function GetExistingSortSoundState()
+    local settings = Bags:GetSettings()
+    if type(settings.sortSoundState) == "table" then
+        return settings.sortSoundState
+    end
+    return nil
+end
+
+local function ClearSortSoundState()
+    local settings = Bags:GetSettings()
+    settings.sortSoundState = nil
 end
 
 local function IsInCombatLockdown()
@@ -679,13 +701,16 @@ function Bags:MuteSortSounds()
         return
     end
 
-    self.sortPreviousSoundEffects = GetCVar("Sound_EnableSFX")
+    self.sortPreviousSoundEffects = GetCVar(SOUND_EFFECTS_CVAR)
     if self.sortPreviousSoundEffects == nil then
         return
     end
 
     if self.sortPreviousSoundEffects ~= "0" then
-        SetCVar("Sound_EnableSFX", "0")
+        local state = GetSortSoundState()
+        state.previousSoundEffects = self.sortPreviousSoundEffects
+        state.mutedSoundEffects = true
+        SetCVar(SOUND_EFFECTS_CVAR, "0")
         self.sortMutedSoundEffects = true
     end
 end
@@ -693,16 +718,39 @@ end
 function Bags:RestoreSortSounds()
     local previous = self.sortPreviousSoundEffects
     self.sortPreviousSoundEffects = nil
+    if previous == nil then
+        local state = GetExistingSortSoundState()
+        if state and state.mutedSoundEffects == true then
+            previous = state.previousSoundEffects
+        end
+    end
 
     if previous == nil then
         self.sortMutedSoundEffects = nil
+        ClearSortSoundState()
         return
     end
 
-    if self.sortMutedSoundEffects == true and CanControlSoundEffects() then
-        SetCVar("Sound_EnableSFX", previous)
+    local state = GetExistingSortSoundState()
+    if
+        (self.sortMutedSoundEffects == true or (state and state.mutedSoundEffects == true))
+        and CanControlSoundEffects()
+    then
+        SetCVar(SOUND_EFFECTS_CVAR, previous)
     end
     self.sortMutedSoundEffects = nil
+    ClearSortSoundState()
+end
+
+function Bags:HasMutedSortSounds()
+    local state = GetExistingSortSoundState()
+    return self.sortPreviousSoundEffects ~= nil or (state and state.mutedSoundEffects == true)
+end
+
+function Bags:RestoreSortSoundsIfMuted()
+    if self:HasMutedSortSounds() then
+        self:RestoreSortSounds()
+    end
 end
 
 function Bags:StopManualSort(message)

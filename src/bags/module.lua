@@ -1141,6 +1141,11 @@ end
 
 function Bags:Update()
     local settings = self:GetSettings()
+    local hasStaleSortMute = self.sorting ~= true and self.HasMutedSortSounds and self:HasMutedSortSounds()
+    if self.RestoreSortSoundsIfMuted and (settings.muteSortSounds ~= true or hasStaleSortMute) then
+        self:RestoreSortSoundsIfMuted()
+    end
+
     local showSortButton = settings.showSortButton ~= false
     local showSearchField = settings.showSearchField == true
     local Merchants = VanillaEnhanced:GetModule("merchants")
@@ -1308,6 +1313,8 @@ function Bags:SetEnabled(enabled)
 
     if self.StopManualSort then
         self:StopManualSort()
+    elseif self.RestoreSortSoundsIfMuted then
+        self:RestoreSortSoundsIfMuted()
     end
 
     self:ClearAutoOpenBagTracking()
