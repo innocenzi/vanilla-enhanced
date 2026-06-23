@@ -203,6 +203,38 @@ local function ResetMarkerFrame(frame)
     frame:SetScript("OnUpdate", nil)
 end
 
+local function IsInCombatLockdown()
+    return InCombatLockdown and InCombatLockdown()
+end
+
+local function SetFramePropagateMouseClicks(frame, propagate)
+    if not frame then
+        return false
+    end
+
+    local shouldPropagate = propagate == true
+
+    if frame.SetPropagateMouseClicks then
+        if frame.markerPropagateMouseClicks == shouldPropagate then
+            return true
+        end
+        if IsInCombatLockdown() then
+            frame:EnableMouse(not shouldPropagate)
+            frame.markerPropagateMouseClicks = nil
+            return false
+        end
+
+        frame:EnableMouse(true)
+        frame:SetPropagateMouseClicks(shouldPropagate)
+        frame.markerPropagateMouseClicks = shouldPropagate
+        return true
+    end
+
+    frame:EnableMouse(not shouldPropagate)
+    frame.markerPropagateMouseClicks = shouldPropagate
+    return true
+end
+
 local function EnsureMarkerTextures(frame)
     if not frame.outline then
         frame.outline = frame:CreateTexture(nil, "ARTWORK")
@@ -234,10 +266,7 @@ local function ConfigureMarkerFrame(frame, kind)
     frame.text:SetShadowColor(MARKER_SHADOW_COLOR[1], MARKER_SHADOW_COLOR[2], MARKER_SHADOW_COLOR[3], MARKER_SHADOW_COLOR[4])
     frame.text:SetShadowOffset(1, -1)
     frame.text:Show()
-    frame:EnableMouse(true)
-    if frame.SetPropagateMouseClicks then
-        frame:SetPropagateMouseClicks(true)
-    end
+    SetFramePropagateMouseClicks(frame, true)
     if frame.SetFrameStrata then
         frame:SetFrameStrata("HIGH")
     end
@@ -251,12 +280,6 @@ local function ConfigureMarkerVisual(frame, marker)
     frame.text:SetText(tostring(symbol))
     frame.text:SetTextColor(color[1] or MARKER_COLOR[1], color[2] or MARKER_COLOR[2], color[3] or MARKER_COLOR[3], color[4] or MARKER_COLOR[4])
     frame.text:SetFont(STANDARD_TEXT_FONT, size, "OUTLINE")
-end
-
-local function SetFramePropagateMouseClicks(frame, propagate)
-    if frame and frame.SetPropagateMouseClicks then
-        frame:SetPropagateMouseClicks(propagate == true)
-    end
 end
 
 function Map:AcquireMarkerFrame(kind, parent)
