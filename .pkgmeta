@@ -1,7 +1,5 @@
 package-as: VanillaEnhanced
 
-manual-changelog: CHANGELOG.md
-
 ignore:
   - .agents
   - .release
