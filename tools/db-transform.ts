@@ -147,6 +147,7 @@ const QUEST_GIVER = {
 const OBJECTIVE = {
   id: 1,
   text: 2,
+  icon: 3,
 };
 
 const OBJECTIVES = {
@@ -178,6 +179,7 @@ const EXTRA_OBJECTIVE = {
   text: 3,
 };
 
+const ICON_TYPE_EVENT = 3;
 const DEFAULT_ALLOW_UNMAPPED_AREA_IDS = new Set([0, 2257, 2917, 2918]);
 const QUEST_FLAG_DAILY = 4096;
 const QUEST_FLAG_WEEKLY = 32768;
@@ -330,6 +332,10 @@ function npcObjectiveKind(label: string): ObjectiveKind {
   return "slay";
 }
 
+function isEventObjective(entryValue: JsonValue): boolean {
+  return int(at(entryValue, OBJECTIVE.icon)) === ICON_TYPE_EVENT;
+}
+
 function resolveNpc(
   points: Point[],
   npcId: number,
@@ -460,15 +466,18 @@ function collectPoints(
   const points: Point[] = [];
   const objectives = byKey(quest, db.keys.quests, "objectives");
   let objectiveIndex = 0;
+  let eventObjectiveIndex: number | undefined;
 
   if (objectives) {
     for (const entryValue of values(at(objectives, OBJECTIVES.creatures))) {
       const label = text(at(entryValue, OBJECTIVE.text));
       objectiveIndex++;
+      if (isEventObjective(entryValue)) eventObjectiveIndex ??= objectiveIndex;
       resolveNpc(points, int(at(entryValue, OBJECTIVE.id)), label, db, errors, allowUnmappedAreaIds, undefined, npcObjectiveKind(label), objectiveIndex);
     }
     for (const entryValue of values(at(objectives, OBJECTIVES.objects))) {
       objectiveIndex++;
+      if (isEventObjective(entryValue)) eventObjectiveIndex ??= objectiveIndex;
       resolveObject(points, int(at(entryValue, OBJECTIVE.id)), text(at(entryValue, OBJECTIVE.text)), db, errors, allowUnmappedAreaIds, undefined, "object", objectiveIndex);
     }
     for (const entryValue of values(at(objectives, OBJECTIVES.items))) {
@@ -500,7 +509,7 @@ function collectPoints(
       undefined,
       undefined,
       undefined,
-      undefined,
+      eventObjectiveIndex,
       true,
       db,
       errors,

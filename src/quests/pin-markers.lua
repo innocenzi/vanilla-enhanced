@@ -133,11 +133,90 @@ local function FindFirstQuestId(entries)
     return nil
 end
 
-local function BuildCombinedMarkerData(entries)
+local function AddDedupeKeyPart(parts, value)
+    if value and value ~= "" then
+        parts[#parts + 1] = tostring(value)
+    end
+end
+
+local function BuildMarkerTooltipEntryKey(entry)
+    local data = entry and entry.data
+    if not data then
+        return nil
+    end
+
+    local parts = {}
+    AddDedupeKeyPart(parts, data.questId or data.availableQuestId)
+    AddDedupeKeyPart(parts, data.title)
+
+    if data.objectives then
+        for _, objective in ipairs(data.objectives) do
+            AddDedupeKeyPart(parts, objective)
+        end
+    else
+        AddDedupeKeyPart(parts, data.objective)
+    end
+
+    if #parts == 0 then
+        return nil
+    end
+    return table.concat(parts, "\031")
+end
+
+local function BuildUniqueMarkerTooltipEntries(entries)
+    local uniqueEntries = {}
+    local seen = {}
+
+    for _, entry in ipairs(entries) do
+        local key = BuildMarkerTooltipEntryKey(entry)
+        if not key or not seen[key] then
+            if key then
+                seen[key] = true
+            end
+            uniqueEntries[#uniqueEntries + 1] = entry
+        end
+    end
+
+    return uniqueEntries
+end
+
+local function BuildCombinedMarkerData(entries, tooltipEntries)
     return {
         questId = FindFirstQuestId(entries),
-        entries = entries,
+        entries = tooltipEntries or BuildUniqueMarkerTooltipEntries(entries),
     }
+end
+
+local function AssignMarkerAreaFrames(marker, group, entry)
+    if #group.areaFrames > 1 then
+        marker.questsAreaFrames = group.areaFrames
+        return
+    end
+
+    marker.questsAreaFrame = entry.areaFrame or group.areaFrames[1]
+end
+
+local function ConfigureSingleMarker(self, marker, group, entry)
+    marker.questsData = entry.data
+    AssignMarkerAreaFrames(marker, group, entry)
+
+    if entry.texture then
+        self:ConfigurePinIcon(marker, entry.texture, entry.opacityMultiplier, entry.color)
+        return
+    end
+
+    self:ConfigurePinSymbol(marker, entry.symbol, entry.opacityMultiplier, entry.color)
+end
+
+local function ConfigureCombinedMarker(self, marker, group, tooltipEntries)
+    local symbol = BuildCombinedMarkerSymbol(tooltipEntries)
+    local color = BuildCombinedMarkerColor(tooltipEntries)
+
+    marker.questsData = BuildCombinedMarkerData(group.entries, tooltipEntries)
+    if #group.areaFrames > 0 then
+        marker.questsAreaFrames = group.areaFrames
+    end
+    self:ConfigurePinSymbol(marker, symbol, nil, color)
 end
 
 local function BuildMarkerRenderCandidate(self, candidate, currentMapId)
@@ -277,29 +356,17 @@ function Quests:RenderMarkerGroups()
             or (HBD_PINS_WORLDMAP_SHOW_WORLD or 3)
         for _, group in ipairs(groups) do
             local marker = self:AcquirePinFrame("marker", "marker", WorldMapFrame)
-            local first = group.entries[1]
+            local tooltipEntries = BuildUniqueMarkerTooltipEntries(group.entries)
+            local first = tooltipEntries[1]
 
             marker.questsAreaFrame = nil
             marker.questsAreaFrames = nil
             SetMarkerPassThroughClicks(marker, currentMapId and uiMapId == currentMapId and GroupContainsChildMapEntries(group, uiMapId))
 
-            if #group.entries == 1 then
-                marker.questsData = first.data
-                marker.questsAreaFrame = first.areaFrame
-                if first.texture then
-                    self:ConfigurePinIcon(marker, first.texture, first.opacityMultiplier, first.color)
-                else
-                    self:ConfigurePinSymbol(marker, first.symbol, first.opacityMultiplier, first.color)
-                end
+            if #tooltipEntries == 1 then
+                ConfigureSingleMarker(self, marker, group, first)
             else
-                local symbol = BuildCombinedMarkerSymbol(group.entries)
-                local color = BuildCombinedMarkerColor(group.entries)
-
-                marker.questsData = BuildCombinedMarkerData(group.entries)
-                if #group.areaFrames > 0 then
-                    marker.questsAreaFrames = group.areaFrames
-                end
-                self:ConfigurePinSymbol(marker, symbol, nil, color)
+                ConfigureCombinedMarker(self, marker, group, tooltipEntries)
             end
 
             if uiMapId == WORLD_MAP_ID and currentMapId == WORLD_MAP_ID then

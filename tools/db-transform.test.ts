@@ -152,6 +152,20 @@ test("builds compact quests Lua from normalized Questie data", () => {
   expect(artifacts.localeLua).not.toContain("Unused");
 });
 
+test("uses event objective indexes for matching trigger points", () => {
+  const db = fixture();
+  const eventQuest = [] as any[];
+  eventQuest[0] = "Event Trigger Quest";
+  eventQuest[8] = ["Find captive", { "12": [[40, 40]] }];
+  eventQuest[9] = [[[103, null, 3]]];
+  eventQuest[16] = 12;
+  db.data.quests["9"] = eventQuest;
+
+  const artifacts = buildQuestsArtifacts(db, { minQuestCount: 0 });
+
+  expect(artifacts.locationLua).toContain('{40.00,40.00,nil,nil,3,"Find captive",nil,nil,nil,nil,1}');
+});
+
 test("marks reputation turn-in style quests without marking ordinary reputation rewards", () => {
   const db = fixture();
   const normalRepQuest = db.data.quests["1"] as any[];
