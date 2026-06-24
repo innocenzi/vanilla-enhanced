@@ -7,6 +7,7 @@ VanillaEnhanced.addonName = addonName or VanillaEnhanced.addonName or "VanillaEn
 VanillaEnhanced.displayName = "Vanilla Enhanced"
 VanillaEnhanced.mediaPath = "Interface\\AddOns\\" .. VanillaEnhanced.addonName .. "\\media\\"
 VanillaEnhanced.modules = VanillaEnhanced.modules or {}
+VanillaEnhanced.tooltipDetailsRefreshCallbacks = VanillaEnhanced.tooltipDetailsRefreshCallbacks or {}
 
 local DEFAULT_SETTINGS = {
     modules = {},
@@ -54,6 +55,47 @@ local function GetModuleDefaults(addon, moduleKey, defaults)
 
     local mergedDefaults = CopyDefaults({}, presetDefaults)
     return CopyDefaults(mergedDefaults, defaults)
+end
+
+local function IsShiftKey(key)
+    return key == "LSHIFT" or key == "RSHIFT"
+end
+
+local function RefreshTooltipDetailsCallbacks()
+    for _, callback in ipairs(VanillaEnhanced.tooltipDetailsRefreshCallbacks or {}) do
+        pcall(callback)
+    end
+end
+
+function VanillaEnhanced:IsTooltipDetailsExpanded()
+    return type(IsShiftKeyDown) == "function" and IsShiftKeyDown()
+end
+
+function VanillaEnhanced:RegisterTooltipDetailsRefresh(callback)
+    if type(callback) ~= "function" then
+        return
+    end
+
+    for _, existing in ipairs(self.tooltipDetailsRefreshCallbacks or {}) do
+        if existing == callback then
+            return
+        end
+    end
+
+    self.tooltipDetailsRefreshCallbacks[#self.tooltipDetailsRefreshCallbacks + 1] = callback
+
+    if self.tooltipDetailsRefreshFrame or type(CreateFrame) ~= "function" then
+        return
+    end
+
+    local frame = CreateFrame("Frame")
+    frame:SetScript("OnEvent", function(_, _, key)
+        if IsShiftKey(key) then
+            RefreshTooltipDetailsCallbacks()
+        end
+    end)
+    frame:RegisterEvent("MODIFIER_STATE_CHANGED")
+    self.tooltipDetailsRefreshFrame = frame
 end
 
 function VanillaEnhanced:CreateModule(key, displayName)

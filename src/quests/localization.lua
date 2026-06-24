@@ -49,6 +49,11 @@ local function LookupSource(cluster)
     return nil
 end
 
+local function LookupNpc(npcId)
+    local localeData = LocaleData()
+    return localeData and localeData.npcs and localeData.npcs[npcId] or nil
+end
+
 local function ObjectiveFromQuestLog(quest, cluster)
     local objectiveIndex = Quests:GetClusterObjectiveIndex(cluster)
     if not quest or not cluster or not objectiveIndex or not quest.objectives then
@@ -82,6 +87,10 @@ function Quests:GetLocalizedSourceName(cluster)
     end
 
     return nil
+end
+
+function Quests:GetLocalizedNpcName(npcId)
+    return LookupNpc(npcId)
 end
 
 function Quests:GetLocalizedObjective(quest, cluster)

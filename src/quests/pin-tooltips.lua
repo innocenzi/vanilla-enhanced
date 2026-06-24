@@ -5,6 +5,7 @@ local TOOLTIP_TITLE_COLOR = { 1, 1, 1 }
 local TOOLTIP_OBJECTIVE_COLOR = { 0.9, 0.82, 0.55 }
 local TOOLTIP_METADATA_COLOR = { 0.56, 0.64, 0.72 }
 local TOOLTIP_COUNT_COLOR = { 0.65, 0.85, 1 }
+local MAX_TOOLTIP_NPC_NAMES = 3
 
 local function GetFloorHintTooltipLine(frame)
     if not frame or not Quests.IsMinimapPinOnOtherFloor or not Quests:IsMinimapPinOnOtherFloor(frame) then
@@ -32,6 +33,10 @@ local function AddTooltipLines(tooltip, lines, color)
         AddTooltipLine(tooltip, line, color, true)
     end
 end
+
+local AddExpandedTooltipLines
+local AddTooltipTitleLine
+local IsTooltipDetailsExpanded
 
 local function FormatTooltipTitle(data)
     local title = data.title
@@ -64,8 +69,9 @@ local function AddPinTooltipEntry(tooltip, data)
         return
     end
 
-    AddTooltipLine(tooltip, FormatTooltipTitle(data), data.titleColor or TOOLTIP_TITLE_COLOR, true)
+    AddTooltipTitleLine(tooltip, data)
     AddTooltipLines(tooltip, data.metadataLines, TOOLTIP_METADATA_COLOR)
+    AddExpandedTooltipLines(tooltip, data, nil, data.objectives or (data.objective and { data.objective } or nil))
     AddTooltipLines(tooltip, data.lines, TOOLTIP_OBJECTIVE_COLOR)
     AddTooltipObjectiveLines(tooltip, data)
     AddTooltipLine(tooltip, data.countText, TOOLTIP_COUNT_COLOR)
@@ -90,6 +96,206 @@ local function AddUniqueLines(lines, seen, sourceLines)
     end
 end
 
+IsTooltipDetailsExpanded = function()
+    if VanillaEnhanced.IsTooltipDetailsExpanded then
+        return VanillaEnhanced:IsTooltipDetailsExpanded()
+    end
+    return type(IsShiftKeyDown) == "function" and IsShiftKeyDown()
+end
+
+local function GetQuestLevel(dbQuest)
+    if not dbQuest then
+        return nil
+    end
+    if dbQuest.ql and dbQuest.ql > 0 then
+        return dbQuest.ql
+    end
+    if dbQuest.rl and dbQuest.rl > 0 then
+        return dbQuest.rl
+    end
+    return nil
+end
+
+local function GetDbQuest(data)
+    local questId = data and (data.questId or data.availableQuestId)
+    if not questId or not VanillaEnhancedQuestsDB or not VanillaEnhancedQuestsDB.quests then
+        return nil
+    end
+    return VanillaEnhancedQuestsDB.quests[questId]
+end
+
+local function FormatCoordinate(value)
+    value = tonumber(value)
+    if not value then
+        return nil
+    end
+    return string.format("%.1f", math.floor((value * 10) + 0.5) / 10)
+end
+
+local function GetCoordinateText(data)
+    local cluster = data and data.cluster
+    local x = FormatCoordinate(Quests:GetClusterX(cluster))
+    local y = FormatCoordinate(Quests:GetClusterY(cluster))
+    if not x or not y then
+        return nil
+    end
+    return VanillaEnhanced:T("map.marker.tooltipCoordinates", { x = x, y = y })
+end
+
+AddTooltipTitleLine = function(tooltip, data)
+    if not data then
+        return
+    end
+
+    local color = data.titleColor or TOOLTIP_TITLE_COLOR
+    local title = FormatTooltipTitle(data)
+    local coordinateText = IsTooltipDetailsExpanded() and GetCoordinateText(data) or nil
+
+    if coordinateText and tooltip.AddDoubleLine then
+        tooltip:AddDoubleLine(
+            title,
+            coordinateText,
+            color[1],
+            color[2],
+            color[3],
+            TOOLTIP_METADATA_COLOR[1],
+            TOOLTIP_METADATA_COLOR[2],
+            TOOLTIP_METADATA_COLOR[3]
+        )
+        return
+    end
+
+    AddTooltipLine(tooltip, title, color, true)
+end
+
+local function AddUniqueNpcName(names, seen, name)
+    if not name or name == "" or seen[name] then
+        return
+    end
+
+    seen[name] = true
+    names[#names + 1] = name
+end
+
+local function AddNpcNamesFromCluster(names, seen, cluster)
+    if not cluster then
+        return
+    end
+
+    if cluster.parts then
+        for _, part in ipairs(cluster.parts) do
+            AddNpcNamesFromCluster(names, seen, part)
+        end
+        return
+    end
+
+    local sourceType = Quests:GetClusterSourceType(cluster)
+    local sourceId = Quests:GetClusterSourceId(cluster)
+    if sourceType == "npc" and sourceId then
+        AddUniqueNpcName(names, seen, Quests:GetLocalizedNpcName(sourceId) or Quests:GetClusterObjective(cluster))
+    end
+
+    local tooltipNpcIds = Quests:GetClusterTooltipNpcIds(cluster)
+    if tooltipNpcIds then
+        for _, npcId in ipairs(tooltipNpcIds) do
+            AddUniqueNpcName(names, seen, Quests:GetLocalizedNpcName(npcId))
+        end
+    end
+end
+
+local function BuildSkippedNpcLookup(lines)
+    local skipped = {}
+    for _, line in ipairs(lines or {}) do
+        if line and line ~= "" then
+            skipped[line] = true
+        end
+    end
+    return skipped
+end
+
+local function IsNpcNamePrefixOfObjective(name, objective)
+    if not name or name == "" or not objective or objective == "" then
+        return false
+    end
+    if objective == name then
+        return true
+    end
+    if string.sub(objective, 1, string.len(name)) ~= name then
+        return false
+    end
+
+    local nextCharacter = string.sub(objective, string.len(name) + 1, string.len(name) + 1)
+    return nextCharacter == " " or nextCharacter == ":" or nextCharacter == "-" or nextCharacter == "("
+end
+
+local function ShouldSkipNpcName(name, skippedNpcNames)
+    if not skippedNpcNames then
+        return false
+    end
+    if skippedNpcNames[name] then
+        return true
+    end
+
+    for objective in pairs(skippedNpcNames) do
+        if IsNpcNamePrefixOfObjective(name, objective) then
+            return true
+        end
+    end
+    return false
+end
+
+local function BuildExpandedTooltipLines(data, skippedNpcNames)
+    local lines = {}
+    local dbQuest = GetDbQuest(data)
+
+    if data and data.questId then
+        local questLevel = GetQuestLevel(dbQuest)
+        if questLevel then
+            lines[#lines + 1] = VanillaEnhanced:T("quests.static.activeQuestLevel", { level = questLevel })
+        end
+    end
+
+    local npcNames = {}
+    local visibleNpcNames = {}
+    AddNpcNamesFromCluster(npcNames, {}, data and data.cluster)
+    for _, name in ipairs(npcNames) do
+        if not ShouldSkipNpcName(name, skippedNpcNames) then
+            visibleNpcNames[#visibleNpcNames + 1] = name
+        end
+    end
+
+    if #visibleNpcNames == 1 then
+        lines[#lines + 1] = visibleNpcNames[1]
+    elseif #visibleNpcNames > 1 then
+        local shown = {}
+        local shownCount = math.min(#visibleNpcNames, MAX_TOOLTIP_NPC_NAMES)
+        for index = 1, shownCount do
+            shown[#shown + 1] = visibleNpcNames[index]
+        end
+        lines[#lines + 1] = table.concat(shown, ", ")
+        if #visibleNpcNames > shownCount then
+            lines[#lines + 1] = VanillaEnhanced:T("quests.static.moreNpcs", { count = #visibleNpcNames - shownCount })
+        end
+    end
+
+    return lines
+end
+
+AddExpandedTooltipLines = function(tooltip, data, seen, skippedNpcNames)
+    if not IsTooltipDetailsExpanded() then
+        return
+    end
+
+    local lines = BuildExpandedTooltipLines(data, BuildSkippedNpcLookup(skippedNpcNames))
+    for _, line in ipairs(lines) do
+        if seen then
+            AddUniqueLine(seen.lines, seen.keys, line)
+        else
+            AddTooltipLine(tooltip, line, TOOLTIP_METADATA_COLOR, true)
+        end
+    end
+end
+
 local function IsGroupableQuestTooltipData(data)
     return data and data.questId and not data.availableQuestId
 end
@@ -104,6 +310,7 @@ local function AddQuestTooltipGroupObjective(group, data)
 end
 
 local function AddQuestTooltipGroupEntry(group, data)
+    group.entryData[#group.entryData + 1] = data
     AddUniqueLines(group.metadataLines, group.metadataSeen, data.metadataLines)
     AddUniqueLines(group.lines, group.linesSeen, data.lines)
     AddQuestTooltipGroupObjective(group, data)
@@ -116,6 +323,7 @@ local function BuildQuestTooltipGroup(data)
         data = data,
         metadataLines = {},
         metadataSeen = {},
+        entryData = {},
         lines = {},
         linesSeen = {},
         objectives = {},
@@ -162,8 +370,13 @@ local function AddQuestTooltipGroup(tooltip, group)
         return
     end
 
-    AddTooltipLine(tooltip, FormatTooltipTitle(data), data.titleColor or TOOLTIP_TITLE_COLOR, true)
+    AddTooltipTitleLine(tooltip, data)
     AddTooltipLines(tooltip, group.metadataLines, TOOLTIP_METADATA_COLOR)
+    local expandedSeen = { lines = {}, keys = {} }
+    for _, entryData in ipairs(group.entryData) do
+        AddExpandedTooltipLines(tooltip, entryData, expandedSeen, group.objectives)
+    end
+    AddTooltipLines(tooltip, expandedSeen.lines, TOOLTIP_METADATA_COLOR)
     AddTooltipLines(tooltip, group.lines, TOOLTIP_OBJECTIVE_COLOR)
     AddTooltipLines(tooltip, group.objectives, TOOLTIP_OBJECTIVE_COLOR)
     AddTooltipLines(tooltip, group.countTexts, TOOLTIP_COUNT_COLOR)
@@ -242,12 +455,35 @@ function Quests:ShowPinTooltip(frame)
         return
     end
 
-    local titleColor = data.titleColor or TOOLTIP_TITLE_COLOR
-    GameTooltip:SetText(FormatTooltipTitle(data), titleColor[1], titleColor[2], titleColor[3])
+    AddTooltipTitleLine(GameTooltip, data)
     AddTooltipLines(GameTooltip, data.metadataLines, TOOLTIP_METADATA_COLOR)
     AddTooltipLine(GameTooltip, GetFloorHintTooltipLine(frame), TOOLTIP_METADATA_COLOR, true)
+    AddExpandedTooltipLines(GameTooltip, data, nil, data.objectives or (data.objective and { data.objective } or nil))
     AddTooltipLines(GameTooltip, data.lines, TOOLTIP_OBJECTIVE_COLOR)
     AddTooltipObjectiveLines(GameTooltip, data)
     AddTooltipLine(GameTooltip, data.countText, TOOLTIP_COUNT_COLOR)
     GameTooltip:Show()
+end
+
+local function RefreshQuestPinTooltips()
+    if not GameTooltip or not GameTooltip.IsOwned then
+        return
+    end
+
+    for _, frame in ipairs(Quests.frames or {}) do
+        if GameTooltip:IsOwned(frame) then
+            Quests:ShowPinTooltip(frame)
+            return
+        end
+    end
+    for _, frame in ipairs(Quests.minimapFrames or {}) do
+        if GameTooltip:IsOwned(frame) then
+            Quests:ShowPinTooltip(frame)
+            return
+        end
+    end
+end
+
+if VanillaEnhanced.RegisterTooltipDetailsRefresh then
+    VanillaEnhanced:RegisterTooltipDetailsRefresh(RefreshQuestPinTooltips)
 end

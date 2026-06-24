@@ -9,10 +9,6 @@ local TOOLTIP_NAMES = {
     "ShoppingTooltip3",
 }
 
-local function IsShiftKey(key)
-    return key == "LSHIFT" or key == "RSHIFT"
-end
-
 local function OnTooltipSetItem(tooltip)
     if not tooltip or not Professions or not Professions.Api then
         return
@@ -82,14 +78,12 @@ local function RefreshTooltip(tooltip)
     tooltip.VanillaEnhancedProfessionRefreshing = nil
 end
 
-local modifierFrame = CreateFrame("Frame")
-modifierFrame:SetScript("OnEvent", function(_, _, key)
-    if not IsShiftKey(key) then
-        return
-    end
-
+local function RefreshProfessionTooltips()
     for _, tooltipName in ipairs(TOOLTIP_NAMES) do
         RefreshTooltip(_G[tooltipName])
     end
-end)
-modifierFrame:RegisterEvent("MODIFIER_STATE_CHANGED")
+end
+
+if VanillaEnhanced.RegisterTooltipDetailsRefresh then
+    VanillaEnhanced:RegisterTooltipDetailsRefresh(RefreshProfessionTooltips)
+end

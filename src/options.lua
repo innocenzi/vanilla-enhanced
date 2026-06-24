@@ -1513,9 +1513,9 @@ local questsPanel = BuildOptionsPanel({
         },
         {
             name = "VanillaEnhancedOptionsQuestsShowTooltipDropRates",
-            settingKey = "showTooltipDropRates",
-            labelKey = "options.quests.showTooltipDropRates.label",
-            helpKey = "options.quests.showTooltipDropRates.help",
+            settingKey = "alwaysShowTooltipDropRates",
+            labelKey = "options.quests.alwaysShowTooltipDropRates.label",
+            helpKey = "options.quests.alwaysShowTooltipDropRates.help",
             enabledWhenSetting = "showObjectiveTooltipHints",
             indent = 1,
         },

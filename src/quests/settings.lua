@@ -43,7 +43,7 @@ local defaults = {
     showCompletedMapObjectives = false,
     showCompletedTooltipObjectives = true,
     showObjectiveTooltipHints = true,
-    showTooltipDropRates = true,
+    alwaysShowTooltipDropRates = true,
 }
 
 local function ClampAvailableQuestLevelWindowSetting(value, defaultValue)
@@ -61,6 +61,10 @@ end
 
 function Quests:GetSettings()
     local settings = VanillaEnhanced:GetModuleSettings("quests", defaults)
+    if settings.showTooltipDropRates ~= nil then
+        settings.alwaysShowTooltipDropRates = settings.showTooltipDropRates
+        settings.showTooltipDropRates = nil
+    end
     if not AUTO_FOLLOW_QUESTS_MODES[settings.autoFollowQuestsMode] then
         settings.autoFollowQuestsMode = DEFAULT_AUTO_FOLLOW_QUESTS_MODE
     end

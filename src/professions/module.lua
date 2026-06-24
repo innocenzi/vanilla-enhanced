@@ -87,10 +87,10 @@ local function AddEntry(groups, entry)
 end
 
 local function IsRecipeTooltipExpanded()
-    if type(IsShiftKeyDown) == "function" and IsShiftKeyDown() then
-        return true
+    if VanillaEnhanced.IsTooltipDetailsExpanded then
+        return VanillaEnhanced:IsTooltipDetailsExpanded()
     end
-    return false
+    return type(IsShiftKeyDown) == "function" and IsShiftKeyDown()
 end
 
 local function GetMaxRecipeLinesPerProfession()

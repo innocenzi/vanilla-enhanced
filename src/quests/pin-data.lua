@@ -196,7 +196,7 @@ function Quests:RefreshQuestPinTooltipData(quests)
     end
 end
 
-function Quests:BuildAvailableQuestPinData(questId, dbQuest)
+function Quests:BuildAvailableQuestPinData(questId, dbQuest, cluster)
     local metadataLines = {}
 
     local questLevel = GetAvailableQuestLevel(dbQuest)
@@ -223,6 +223,7 @@ function Quests:BuildAvailableQuestPinData(questId, dbQuest)
         titleIcon = GetRepeatableTitleIcon(dbQuest),
         titleColor = GetAvailableQuestTitleColor(dbQuest),
         metadataLines = metadataLines,
+        cluster = cluster,
     }
 end
 
