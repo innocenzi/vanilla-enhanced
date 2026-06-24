@@ -33,6 +33,10 @@ function Api:GetContainerItemQuestInfo(bagID, slot)
     return InventoryApi:GetContainerItemQuestInfo(bagID, slot)
 end
 
+function Api:IsContainerItemBound(bagID, slot)
+    return InventoryApi:IsContainerItemBound(bagID, slot)
+end
+
 function Api:GetContainerNumFreeSlots(bagID)
     return InventoryApi:GetContainerNumFreeSlots(bagID)
 end

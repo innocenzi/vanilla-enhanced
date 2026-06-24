@@ -4,6 +4,7 @@ local Bags = VanillaEnhanced:GetModule("bags")
 local LOCK_ICON = "Interface\\Buttons\\LockButton-Locked-Up"
 local SCRAP_ICON = "Interface\\Buttons\\UI-GroupLoot-Coin-Up"
 local QUEST_ICON = "Interface\\GossipFrame\\AvailableQuestIcon"
+local BOUND_ICON = LOCK_ICON
 local LOCK_SIZE = 25
 local SCRAP_ICON_SIZE = 17
 local SCRAP_ICON_OFFSET_X = 2
@@ -17,6 +18,15 @@ local QUEST_ICON_FALLBACK_OFFSET_X = -1
 local QUEST_ICON_FALLBACK_OFFSET_Y = 1
 local QUEST_ICON_TINT = 1
 local QUEST_ICON_ALPHA = 1
+local BOUND_ICON_SIZE = 25
+local BOUND_ICON_OFFSET_X = -5
+local BOUND_ICON_OFFSET_Y = -5
+local BOUND_ICON_FALLBACK_OFFSET_X = 0
+local BOUND_ICON_FALLBACK_OFFSET_Y = 0
+local BOUND_ICON_RED = 0.62
+local BOUND_ICON_GREEN = 0.82
+local BOUND_ICON_BLUE = 1
+local BOUND_ICON_ALPHA = 0.95
 local MAX_CONTAINER_BUTTONS = 100
 
 local function IsShown(frame)
@@ -165,6 +175,36 @@ local function EnsureQuestIconOverlay(button)
     return overlay
 end
 
+local function ApplyBoundIconStyle(overlay)
+    if overlay.SetDesaturated then
+        overlay:SetDesaturated(true)
+    end
+    overlay:SetVertexColor(BOUND_ICON_RED, BOUND_ICON_GREEN, BOUND_ICON_BLUE, BOUND_ICON_ALPHA)
+end
+
+local function EnsureBoundIconOverlay(button)
+    if button.VanillaEnhancedBoundIconOverlay then
+        ApplyBoundIconStyle(button.VanillaEnhancedBoundIconOverlay)
+        return button.VanillaEnhancedBoundIconOverlay
+    end
+
+    local overlay = button:CreateTexture(nil, "OVERLAY")
+    overlay:SetTexture(BOUND_ICON)
+    overlay:SetSize(BOUND_ICON_SIZE, BOUND_ICON_SIZE)
+    ApplyBoundIconStyle(overlay)
+    overlay:Hide()
+
+    local icon = GetItemButtonIcon(button)
+    if icon then
+        overlay:SetPoint("BOTTOMLEFT", icon, "BOTTOMLEFT", BOUND_ICON_OFFSET_X, BOUND_ICON_OFFSET_Y)
+    else
+        overlay:SetPoint("BOTTOMLEFT", button, "BOTTOMLEFT", BOUND_ICON_FALLBACK_OFFSET_X, BOUND_ICON_FALLBACK_OFFSET_Y)
+    end
+
+    button.VanillaEnhancedBoundIconOverlay = overlay
+    return overlay
+end
+
 function Bags:IsScrapIconEnabled()
     local settings = self:GetSettings()
     if self.sorting == true or not self:IsSortEnabled() or settings.showScrapIcon ~= true then
@@ -180,11 +220,22 @@ function Bags:IsQuestIconEnabled()
     return self.sorting ~= true and self:IsSortEnabled() and settings.showQuestIcon == true
 end
 
+function Bags:IsBoundIconEnabled()
+    local settings = self:GetSettings()
+    return self.sorting ~= true and self:IsSortEnabled() and settings.showBoundIcon == true
+end
+
 function Bags:IsQuestItem(bagID, slot)
     local questInfo = self.Api
         and self.Api.GetContainerItemQuestInfo
         and self.Api:GetContainerItemQuestInfo(bagID, slot)
     return IsQuestRelatedItem(questInfo)
+end
+
+function Bags:IsBoundItem(bagID, slot)
+    return self.Api
+        and self.Api.IsContainerItemBound
+        and self.Api:IsContainerItemBound(bagID, slot) == true
 end
 
 function Bags:ClearScrapIconOverlays()
@@ -205,9 +256,19 @@ function Bags:ClearQuestIconOverlays()
     end
 end
 
+function Bags:ClearBoundIconOverlays()
+    for button in pairs(self.boundIconOverlayButtons or {}) do
+        if button.VanillaEnhancedBoundIconOverlay then
+            button.VanillaEnhancedBoundIconOverlay:Hide()
+        end
+        self.boundIconOverlayButtons[button] = nil
+    end
+end
+
 function Bags:ClearItemOverlays()
     self:ClearScrapIconOverlays()
     self:ClearQuestIconOverlays()
+    self:ClearBoundIconOverlays()
     self:ClearItemLockButtonHooks()
 
     for button in pairs(self.itemLockOverlayButtons or {}) do
@@ -229,12 +290,14 @@ function Bags:RefreshItemOverlays()
     self.itemLockClickOverlayButtons = self.itemLockClickOverlayButtons or {}
     self.scrapIconOverlayButtons = self.scrapIconOverlayButtons or {}
     self.questIconOverlayButtons = self.questIconOverlayButtons or {}
+    self.boundIconOverlayButtons = self.boundIconOverlayButtons or {}
 
     local lockEnabled = self:IsItemLockingEnabled()
     local scrapIconEnabled = self:IsScrapIconEnabled()
     local scrapShortcutEnabled = IsScrapShortcutEnabled()
     local questIconEnabled = self:IsQuestIconEnabled()
-    if not lockEnabled and not scrapIconEnabled and not scrapShortcutEnabled and not questIconEnabled then
+    local boundIconEnabled = self:IsBoundIconEnabled()
+    if not lockEnabled and not scrapIconEnabled and not scrapShortcutEnabled and not questIconEnabled and not boundIconEnabled then
         return
     end
 
@@ -287,6 +350,11 @@ function Bags:RefreshItemOverlays()
                     overlay:Show()
                     self.questIconOverlayButtons[button] = true
                 end
+                if boundIconEnabled and hasItem and self:IsBoundItem(bagID, slot) then
+                    local overlay = EnsureBoundIconOverlay(button)
+                    overlay:Show()
+                    self.boundIconOverlayButtons[button] = true
+                end
                 if lockEnabled
                     and hasItem
                     and not suppressClickOverlays
@@ -317,5 +385,9 @@ function Bags:RefreshItemLockOverlays()
 end
 
 function Bags:RefreshScrapIconOverlays()
+    self:RefreshItemOverlays()
+end
+
+function Bags:RefreshBoundIconOverlays()
     self:RefreshItemOverlays()
 end

@@ -83,6 +83,36 @@ local function PackReturns(keys, ...)
     return info
 end
 
+local function TooltipSaysSoulbound(bagID, slot)
+    if not ITEM_SOULBOUND or not CreateFrame or not UIParent then
+        return false
+    end
+
+    local tooltip = VanillaEnhancedInventoryTooltipScanner
+    if not tooltip then
+        tooltip = CreateFrame("GameTooltip", "VanillaEnhancedInventoryTooltipScanner", UIParent, "GameTooltipTemplate")
+        tooltip:SetOwner(UIParent, "ANCHOR_NONE")
+    end
+    if type(tooltip.SetBagItem) ~= "function" then
+        return false
+    end
+
+    tooltip:ClearLines()
+    local ok = pcall(tooltip.SetBagItem, tooltip, bagID, slot)
+    if not ok then
+        return false
+    end
+
+    for lineIndex = 1, tooltip:NumLines() do
+        local line = _G["VanillaEnhancedInventoryTooltipScannerTextLeft" .. lineIndex]
+        if line and line:GetText() == ITEM_SOULBOUND then
+            return true
+        end
+    end
+
+    return false
+end
+
 function Api:ClearCache()
     for key in pairs(containerApiCache) do
         containerApiCache[key] = nil
@@ -118,6 +148,15 @@ end
 function Api:GetContainerItemInfo(bagID, slot)
     local api = self:FindContainer("GetContainerItemInfo")
     return api and PackReturns(CONTAINER_INFO_KEYS, api(bagID, slot)) or nil
+end
+
+function Api:IsContainerItemBound(bagID, slot)
+    local containerItem = self:GetContainerItemInfo(bagID, slot)
+    if containerItem and containerItem.isBound == true then
+        return true
+    end
+
+    return TooltipSaysSoulbound(bagID, slot)
 end
 
 function Api:GetContainerItemLink(bagID, slot)

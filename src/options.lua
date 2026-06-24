@@ -1828,6 +1828,13 @@ local bagsPanel = BuildOptionsPanel({
             indent = 0,
         },
         {
+            name = "VanillaEnhancedOptionsBagsShowBoundIcon",
+            settingKey = "showBoundIcon",
+            labelKey = "options.bags.showBoundIcon.label",
+            helpKey = "options.bags.showBoundIcon.help",
+            indent = 0,
+        },
+        {
             name = "VanillaEnhancedOptionsBagsShowScrapIcon",
             settingKey = "showScrapIcon",
             labelKey = "options.bags.showScrapIcon.label",

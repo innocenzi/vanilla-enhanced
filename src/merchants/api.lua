@@ -23,33 +23,6 @@ local function IsQuestRelatedItem(questInfo)
     return questID ~= nil and questID > 0
 end
 
-local function TooltipSaysBound(bagID, slot)
-    if not ITEM_SOULBOUND or not CreateFrame then
-        return false
-    end
-
-    local tooltip = VanillaEnhancedMerchantsTooltipScanner
-    if not tooltip then
-        tooltip = CreateFrame("GameTooltip", "VanillaEnhancedMerchantsTooltipScanner", UIParent, "GameTooltipTemplate")
-        tooltip:SetOwner(UIParent, "ANCHOR_NONE")
-    end
-
-    tooltip:ClearLines()
-    local ok = pcall(tooltip.SetBagItem, tooltip, bagID, slot)
-    if not ok then
-        return false
-    end
-
-    for lineIndex = 1, tooltip:NumLines() do
-        local line = _G["VanillaEnhancedMerchantsTooltipScannerTextLeft" .. lineIndex]
-        if line and line:GetText() == ITEM_SOULBOUND then
-            return true
-        end
-    end
-
-    return false
-end
-
 function Api:FindContainer(methodName)
     return InventoryApi:FindContainer(methodName)
 end
@@ -98,6 +71,10 @@ function Api:HasCursorItem()
     return InventoryApi:HasCursorItem()
 end
 
+function Api:IsContainerItemBound(bagID, slot)
+    return InventoryApi:IsContainerItemBound(bagID, slot)
+end
+
 function Api:ReadContainerItem(bagID, slot)
     local containerItem = self:GetContainerItemInfo(bagID, slot)
     if not containerItem then
@@ -115,7 +92,7 @@ function Api:ReadContainerItem(bagID, slot)
     local isQuestRelated = IsQuestRelatedItem(questInfo)
     local stackCount = containerItem.stackCount or 1
     local item = itemID or link
-    local isBound = containerItem.isBound == true or TooltipSaysBound(bagID, slot)
+    local isBound = self:IsContainerItemBound(bagID, slot)
 
     return {
         bagID = bagID,

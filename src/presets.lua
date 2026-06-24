@@ -55,6 +55,7 @@ local PRESETS = {
             },
             bags = {
                 showQuestIcon = true,
+                showBoundIcon = true,
                 showScrapIcon = true,
             },
         },
@@ -108,6 +109,7 @@ local PRESETS = {
             },
             bags = {
                 showQuestIcon = true,
+                showBoundIcon = true,
                 showScrapIcon = true,
             },
         },
@@ -160,6 +162,7 @@ local PRESETS = {
             },
             bags = {
                 showQuestIcon = true,
+                showBoundIcon = true,
                 showScrapIcon = true,
             },
         },

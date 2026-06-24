@@ -7,6 +7,7 @@ local defaults = {
     showSearchField = true,
     showScrapIcon = false,
     showQuestIcon = false,
+    showBoundIcon = false,
     showScrapToggleButton = false,
     sortOrder = "category",
     sortFillDirection = "backpack-first",
