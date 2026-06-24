@@ -11,12 +11,12 @@ local SCRAP_ICON_OFFSET_Y = 2
 local SCRAP_ICON_FALLBACK_OFFSET_X = -1
 local SCRAP_ICON_FALLBACK_OFFSET_Y = -1
 local QUEST_ICON_SIZE = 17
-local QUEST_ICON_OFFSET_X = 6
-local QUEST_ICON_OFFSET_Y = 2
+local QUEST_ICON_OFFSET_X = 3
+local QUEST_ICON_OFFSET_Y = -1
 local QUEST_ICON_FALLBACK_OFFSET_X = -1
 local QUEST_ICON_FALLBACK_OFFSET_Y = 1
-local QUEST_ICON_TINT = 0.9
-local QUEST_ICON_ALPHA = 0.9
+local QUEST_ICON_TINT = 1
+local QUEST_ICON_ALPHA = 1
 local MAX_CONTAINER_BUTTONS = 100
 local MODIFIER_REFRESH_INTERVAL = 0.05
 local STALE_LOCK_CONFIRM_SECONDS = 0.75
@@ -120,6 +120,18 @@ local function GetItemIDFromLink(link)
         return nil
     end
     return tonumber(string.match(link, "item:(%d+)"))
+end
+
+local function IsQuestRelatedItem(questInfo)
+    if not questInfo then
+        return false
+    end
+    if questInfo.isQuestItem == true or questInfo.isQuestStarter == true then
+        return true
+    end
+
+    local questID = tonumber(questInfo.questID)
+    return questID ~= nil and questID > 0
 end
 
 local function GetItemFingerprint(bagID, slot, itemContext)
@@ -462,7 +474,7 @@ function Bags:IsQuestItem(bagID, slot)
     local questInfo = self.Api
         and self.Api.GetContainerItemQuestInfo
         and self.Api:GetContainerItemQuestInfo(bagID, slot)
-    return questInfo and questInfo.isQuestItem == true
+    return IsQuestRelatedItem(questInfo)
 end
 
 function Bags:PruneItemLocks()

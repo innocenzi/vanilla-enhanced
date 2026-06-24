@@ -11,6 +11,18 @@ local function IsUserLockedItem(bagID, slot)
     return Bags and Bags.IsItemLocked and Bags:IsItemLocked(bagID, slot) == true
 end
 
+local function IsQuestRelatedItem(questInfo)
+    if not questInfo then
+        return false
+    end
+    if questInfo.isQuestItem == true or questInfo.isQuestStarter == true then
+        return true
+    end
+
+    local questID = tonumber(questInfo.questID)
+    return questID ~= nil and questID > 0
+end
+
 local function TooltipSaysBound(bagID, slot)
     if not ITEM_SOULBOUND or not CreateFrame then
         return false
@@ -100,6 +112,7 @@ function Api:ReadContainerItem(bagID, slot)
 
     local itemInfo = self:GetItemInfo(itemID or link) or self:GetItemInfo(link)
     local questInfo = self:GetContainerItemQuestInfo(bagID, slot)
+    local isQuestRelated = IsQuestRelatedItem(questInfo)
     local stackCount = containerItem.stackCount or 1
     local item = itemID or link
     local isBound = containerItem.isBound == true or TooltipSaysBound(bagID, slot)
@@ -125,6 +138,7 @@ function Api:ReadContainerItem(bagID, slot)
         isBound = isBound,
         isLocked = containerItem.isLocked == true,
         isUserLocked = IsUserLockedItem(bagID, slot),
-        isQuestItem = questInfo and questInfo.isQuestItem == true,
+        isQuestItem = isQuestRelated,
+        isQuestStarter = isQuestRelated and questInfo and questInfo.isQuestItem ~= true,
     }
 end

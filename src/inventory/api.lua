@@ -21,6 +21,7 @@ local CONTAINER_QUEST_INFO_KEYS = {
     "isQuestItem",
     "questID",
     "isActive",
+    "isQuestStarter",
 }
 
 local ITEM_INFO_KEYS = {
