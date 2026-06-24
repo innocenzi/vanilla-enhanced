@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.6.0 - 2026-06-24
+
+
+### Features
+- **bags:** mute sorting sounds by default
+- **bags:** attempt to sort same consumables together
+- **bags:** add scrap marking shortcut
+- **settings:** improve settings organization
+- **bags:** remove sorting sound option
+- **quests:** add ability to hide uncomplete dungeon turn ins
+- **quests:** simplify auto-follow behavior
+- **quests:** show more tooltip data when holding shift
+- **map:** support adding markers to available quests or quest objectives
+- **map:** support showing flight masters on the map
+
+
+### Fixes
+- **bags:** clear search when bags close
+- **bags:** show tooltip on locked item hover
+- **bags:** restore sort sound effects
+- **quests:** show object objective areas on minimap
+- **quests:** deduplicate same objectives in clusters
+- **quests:** hide off-dungeon objective markers
+- **quests:** ignore off-dungeon quests for auto-follow
+- **bags:** show quest icon on all quest related items
+
 ## 0.5.3 - 2026-06-23
 
 

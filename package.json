@@ -1,5 +1,5 @@
 {
-  "version": "0.5.3",
+  "version": "0.6.0",
   "scripts": {
     "build:db": "bun run tools/build-db.ts",
     "build:professions": "bun run tools/professions/build.ts",
