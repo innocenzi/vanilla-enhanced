@@ -81,7 +81,6 @@ local PRESETS = {
                 showObjectiveTooltipHints = true,
                 showTooltipDropRates = true,
                 autoFollowQuestsMode = "zone",
-                autoFollowQuestsBehavior = "auto-only",
                 autoFollowQuestsRange = "wide",
             },
             map = {
@@ -131,7 +130,6 @@ local PRESETS = {
                 showObjectiveTooltipHints = true,
                 showTooltipDropRates = true,
                 autoFollowQuestsMode = "movement",
-                autoFollowQuestsBehavior = "replace-distant",
                 autoFollowQuestsRange = "wide",
             },
             map = {

@@ -1346,35 +1346,6 @@ local questsPanel = BuildOptionsPanel({
         },
         {
             type = "dropdown",
-            name = "VanillaEnhancedOptionsQuestsAutoFollowQuestsBehavior",
-            settingKey = "autoFollowQuestsBehavior",
-            labelKey = "options.quests.autoFollowQuestsBehavior.label",
-            helpKey = "options.quests.autoFollowQuestsBehavior.help",
-            enabledWhen = function()
-                return GetModuleOptionSettings("quests").autoFollowQuestsMode ~= "disabled"
-            end,
-            indent = 1,
-            width = 220,
-            options = {
-                {
-                    value = "replace-distant",
-                    labelKey = "options.quests.autoFollowQuestsBehavior.replaceDistant",
-                    descriptionKey = "options.quests.autoFollowQuestsBehavior.replaceDistant.description",
-                },
-                {
-                    value = "auto-only",
-                    labelKey = "options.quests.autoFollowQuestsBehavior.autoOnly",
-                    descriptionKey = "options.quests.autoFollowQuestsBehavior.autoOnly.description",
-                },
-                {
-                    value = "fill-empty",
-                    labelKey = "options.quests.autoFollowQuestsBehavior.fillEmpty",
-                    descriptionKey = "options.quests.autoFollowQuestsBehavior.fillEmpty.description",
-                },
-            },
-        },
-        {
-            type = "dropdown",
             name = "VanillaEnhancedOptionsQuestsAutoFollowQuestsRange",
             settingKey = "autoFollowQuestsRange",
             labelKey = "options.quests.autoFollowQuestsRange.label",

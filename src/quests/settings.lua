@@ -6,19 +6,12 @@ local AVAILABLE_QUEST_LEVEL_WINDOW_MAX = 10
 local DEFAULT_AVAILABLE_QUEST_LEVELS_BELOW_PLAYER = 5
 local DEFAULT_AVAILABLE_QUEST_LEVELS_ABOVE_PLAYER = 3
 local DEFAULT_AUTO_FOLLOW_QUESTS_MODE = "disabled"
-local DEFAULT_AUTO_FOLLOW_QUESTS_BEHAVIOR = "replace-distant"
 local DEFAULT_AUTO_FOLLOW_QUESTS_RANGE = "nearby"
 
 local AUTO_FOLLOW_QUESTS_MODES = {
     disabled = true,
     movement = true,
     zone = true,
-}
-
-local AUTO_FOLLOW_QUESTS_BEHAVIORS = {
-    ["replace-distant"] = true,
-    ["auto-only"] = true,
-    ["fill-empty"] = true,
 }
 
 local AUTO_FOLLOW_QUESTS_RANGES = {
@@ -31,7 +24,6 @@ local defaults = {
     enabled = true,
     enableQuestTrackerClicks = true,
     autoFollowQuestsMode = DEFAULT_AUTO_FOLLOW_QUESTS_MODE,
-    autoFollowQuestsBehavior = DEFAULT_AUTO_FOLLOW_QUESTS_BEHAVIOR,
     autoFollowQuestsRange = DEFAULT_AUTO_FOLLOW_QUESTS_RANGE,
     keepQuestLogWithMap = true,
     scale = 1,
@@ -71,9 +63,6 @@ function Quests:GetSettings()
     local settings = VanillaEnhanced:GetModuleSettings("quests", defaults)
     if not AUTO_FOLLOW_QUESTS_MODES[settings.autoFollowQuestsMode] then
         settings.autoFollowQuestsMode = DEFAULT_AUTO_FOLLOW_QUESTS_MODE
-    end
-    if not AUTO_FOLLOW_QUESTS_BEHAVIORS[settings.autoFollowQuestsBehavior] then
-        settings.autoFollowQuestsBehavior = DEFAULT_AUTO_FOLLOW_QUESTS_BEHAVIOR
     end
     if not AUTO_FOLLOW_QUESTS_RANGES[settings.autoFollowQuestsRange] then
         settings.autoFollowQuestsRange = DEFAULT_AUTO_FOLLOW_QUESTS_RANGE

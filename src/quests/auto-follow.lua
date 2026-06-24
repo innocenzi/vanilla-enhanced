@@ -4,9 +4,6 @@ local Quests = VanillaEnhanced:GetModule("quests")
 local AUTO_FOLLOW_DISABLED = "disabled"
 local AUTO_FOLLOW_MOVEMENT = "movement"
 local AUTO_FOLLOW_ZONE = "zone"
-local AUTO_FOLLOW_BEHAVIOR_REPLACE_DISTANT = "replace-distant"
-local AUTO_FOLLOW_BEHAVIOR_AUTO_ONLY = "auto-only"
-local AUTO_FOLLOW_BEHAVIOR_FILL_EMPTY = "fill-empty"
 local FALLBACK_MAX_QUEST_WATCHES = 5
 local AUTO_FOLLOW_RANGE_YARDS = {
     close = 600,
@@ -17,7 +14,6 @@ local MOVEMENT_UPDATE_INTERVAL_SECONDS = 2.0
 local MOVEMENT_MIN_DISTANCE_YARDS = 80
 local QUEUED_UPDATE_DELAY_SECONDS = 0.15
 
-Quests.autoFollowQuestIds = Quests.autoFollowQuestIds or {}
 Quests.autoFollowQuestUpdateQueued = Quests.autoFollowQuestUpdateQueued or false
 Quests.autoFollowQuestWatchApplying = Quests.autoFollowQuestWatchApplying or false
 Quests.autoFollowQuestTrackerOrder = Quests.autoFollowQuestTrackerOrder or nil
@@ -26,6 +22,43 @@ Quests.autoFollowQuestTrackerOrderSignature = Quests.autoFollowQuestTrackerOrder
 local eventFrame = CreateFrame("Frame")
 local movementFrame = CreateFrame("Frame")
 local movementElapsed = 0
+
+local function GetAutoFollowQuestIds()
+    local characterSettings = VanillaEnhanced.GetCharacterSettings and VanillaEnhanced:GetCharacterSettings() or nil
+    if type(characterSettings) ~= "table" then
+        Quests.autoFollowQuestIds = Quests.autoFollowQuestIds or {}
+        return Quests.autoFollowQuestIds
+    end
+
+    if type(characterSettings.modules) ~= "table" then
+        characterSettings.modules = {}
+    end
+    if type(characterSettings.modules.quests) ~= "table" then
+        characterSettings.modules.quests = {}
+    end
+    if type(characterSettings.modules.quests.autoFollowQuestIds) ~= "table" then
+        characterSettings.modules.quests.autoFollowQuestIds = {}
+    end
+
+    local owned = characterSettings.modules.quests.autoFollowQuestIds
+    for questId, value in pairs(owned) do
+        local normalizedQuestId = tonumber(questId)
+        if value ~= true or not normalizedQuestId or normalizedQuestId <= 0 then
+            owned[questId] = nil
+        else
+            normalizedQuestId = math.floor(normalizedQuestId)
+            if normalizedQuestId ~= questId then
+                owned[questId] = nil
+                owned[normalizedQuestId] = true
+            end
+        end
+    end
+
+    Quests.autoFollowQuestIds = owned
+    return owned
+end
+
+Quests.autoFollowQuestIds = GetAutoFollowQuestIds()
 
 local function GetHBD()
     return Quests.hbd or (LibStub and LibStub("HereBeDragons-2.0", true))
@@ -41,17 +74,6 @@ end
 
 local function IsEnabled()
     return GetMode() ~= AUTO_FOLLOW_DISABLED
-end
-
-local function GetBehavior()
-    local settings = Quests:GetSettings()
-    local behavior = settings.autoFollowQuestsBehavior
-    if behavior == AUTO_FOLLOW_BEHAVIOR_REPLACE_DISTANT
-        or behavior == AUTO_FOLLOW_BEHAVIOR_AUTO_ONLY
-        or behavior == AUTO_FOLLOW_BEHAVIOR_FILL_EMPTY then
-        return behavior
-    end
-    return AUTO_FOLLOW_BEHAVIOR_REPLACE_DISTANT
 end
 
 local function GetRangeYards()
@@ -125,6 +147,31 @@ local function GetWatchedQuestIndexes()
     end
 
     return watched, count
+end
+
+local function PruneAutoFollowQuestOwnership(watched)
+    local owned = GetAutoFollowQuestIds()
+    local changed = false
+
+    watched = watched or GetWatchedQuestIndexes()
+    for questId in pairs(owned) do
+        if not watched[questId] then
+            owned[questId] = nil
+            changed = true
+        end
+    end
+
+    return owned, changed
+end
+
+local function ReconcileAutoFollowQuestOwnership()
+    if Quests.autoFollowQuestWatchApplying then
+        return false
+    end
+
+    local watched = GetWatchedQuestIndexes()
+    local _, changed = PruneAutoFollowQuestOwnership(watched)
+    return changed
 end
 
 local function AddQuestWatchByIndex(questIndex)
@@ -399,7 +446,7 @@ local function StartMovementUpdates()
 end
 
 function Quests:ClearAutoFollowQuestWatches()
-    local owned = self.autoFollowQuestIds or {}
+    local owned = GetAutoFollowQuestIds()
     local watched = GetWatchedQuestIndexes()
     local changed = false
 
@@ -411,6 +458,7 @@ function Quests:ClearAutoFollowQuestWatches()
         end
         owned[questId] = nil
     end
+    self.autoFollowQuestIds = owned
     self.autoFollowQuestWatchApplying = false
     if self.autoFollowQuestTrackerOrderSignature then
         self.autoFollowQuestTrackerOrder = nil
@@ -464,10 +512,9 @@ function Quests:UpdateAutoFollowQuestWatches(reason, force)
         return
     end
 
-    local behavior = GetBehavior()
     local rangeYards = GetRangeYards()
-    local watched, watchedCount = GetWatchedQuestIndexes()
-    local owned = self.autoFollowQuestIds or {}
+    local watched = GetWatchedQuestIndexes()
+    local owned = GetAutoFollowQuestIds()
     self.autoFollowQuestIds = owned
     quests = quests
         or self.GetCachedQuestLogSnapshot and self:GetCachedQuestLogSnapshot()
@@ -477,79 +524,43 @@ function Quests:UpdateAutoFollowQuestWatches(reason, force)
     local candidates, questDistances = BuildRankedQuestCandidates(position, rangeYards, quests, currentZoneOnly)
     local changed = false
 
-    for questId in pairs(owned) do
-        if not watched[questId] then
-            owned[questId] = nil
-        end
-    end
+    owned = PruneAutoFollowQuestOwnership(watched)
+    self.autoFollowQuestIds = owned
 
     self.autoFollowQuestWatchApplying = true
 
-    if behavior == AUTO_FOLLOW_BEHAVIOR_REPLACE_DISTANT and mode == AUTO_FOLLOW_MOVEMENT then
-        for questId, questIndex in pairs(watched) do
-            local distance = questDistances[questId]
-            if not owned[questId] and distance and distance > rangeYards then
-                if RemoveQuestWatchByIndex(questIndex) then
-                    changed = true
-                    watchedCount = watchedCount - 1
-                end
-            end
-        end
-    end
-
-    if changed then
-        watched, watchedCount = GetWatchedQuestIndexes()
-    end
-
     local desired = {}
     local desiredList = {}
+    local manualWatchCount = 0
 
-    if behavior == AUTO_FOLLOW_BEHAVIOR_FILL_EMPTY then
-        local freeSlots = GetQuestWatchLimit() - watchedCount
-        if freeSlots > 0 then
-            for _, candidate in ipairs(candidates) do
-                if not watched[candidate.id] then
-                    desired[candidate.id] = candidate
-                    desiredList[#desiredList + 1] = candidate
-                    if #desiredList >= freeSlots then
-                        break
-                    end
-                end
-            end
-        end
-    else
-        local manualWatchCount = 0
-        for questId in pairs(watched) do
-            if not owned[questId] then
-                manualWatchCount = manualWatchCount + 1
-            end
-        end
-
-        local autoWatchLimit = GetQuestWatchLimit() - manualWatchCount
-        if autoWatchLimit < 0 then
-            autoWatchLimit = 0
-        end
-
-        for _, candidate in ipairs(candidates) do
-            if not watched[candidate.id] or owned[candidate.id] then
-                if #desiredList >= autoWatchLimit then
-                    break
-                end
-                desired[candidate.id] = candidate
-                desiredList[#desiredList + 1] = candidate
-            end
+    for questId in pairs(watched) do
+        if not owned[questId] then
+            manualWatchCount = manualWatchCount + 1
         end
     end
 
-    if behavior ~= AUTO_FOLLOW_BEHAVIOR_FILL_EMPTY then
-        for questId in pairs(owned) do
-            if not desired[questId] then
-                local questIndex = watched[questId] or FindQuestLogIndex(questId)
-                if questIndex and RemoveQuestWatchByIndex(questIndex) then
-                    changed = true
-                end
-                owned[questId] = nil
+    local autoWatchLimit = GetQuestWatchLimit() - manualWatchCount
+    if autoWatchLimit < 0 then
+        autoWatchLimit = 0
+    end
+
+    for _, candidate in ipairs(candidates) do
+        if not watched[candidate.id] or owned[candidate.id] then
+            if #desiredList >= autoWatchLimit then
+                break
             end
+            desired[candidate.id] = candidate
+            desiredList[#desiredList + 1] = candidate
+        end
+    end
+
+    for questId in pairs(owned) do
+        if not desired[questId] then
+            local questIndex = watched[questId] or FindQuestLogIndex(questId)
+            if questIndex and RemoveQuestWatchByIndex(questIndex) then
+                changed = true
+            end
+            owned[questId] = nil
         end
     end
 
@@ -621,6 +632,7 @@ RegisterEventIfAvailable("ZONE_CHANGED_INDOORS")
 RegisterEventIfAvailable("PLAYER_STARTED_MOVING")
 RegisterEventIfAvailable("PLAYER_STOPPED_MOVING")
 RegisterEventIfAvailable("QUEST_LOG_UPDATE")
+RegisterEventIfAvailable("QUEST_WATCH_UPDATE")
 RegisterEventIfAvailable("QUEST_ACCEPTED")
 RegisterEventIfAvailable("QUEST_REMOVED")
 RegisterEventIfAvailable("QUEST_TURNED_IN")
@@ -641,7 +653,13 @@ eventFrame:SetScript("OnEvent", function(_, event)
         if Quests.InvalidateQuestSnapshot then
             Quests:InvalidateQuestSnapshot()
         end
+        ReconcileAutoFollowQuestOwnership()
         Quests:QueueAutoFollowQuestUpdate("quest-log", false)
+        return
+    end
+
+    if event == "QUEST_WATCH_UPDATE" then
+        ReconcileAutoFollowQuestOwnership()
         return
     end
 
@@ -649,6 +667,7 @@ eventFrame:SetScript("OnEvent", function(_, event)
         if Quests.InvalidateQuestSnapshot then
             Quests:InvalidateQuestSnapshot()
         end
+        ReconcileAutoFollowQuestOwnership()
         Quests:QueueAutoFollowQuestUpdate("quest-log", true)
         return
     end
