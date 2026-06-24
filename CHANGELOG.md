@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.6.1 - 2026-06-24
+
+
+### Features
+- **bags:** show bound icon on bag items
+- **quests:** show quest markers on the minimap
+
+
+### Fixes
+- **quests:** localize extra objective tooltips
+
 ## 0.6.0 - 2026-06-24
 
 
