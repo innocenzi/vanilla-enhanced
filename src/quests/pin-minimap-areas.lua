@@ -4,11 +4,16 @@ local MARKER_FRAME_SIZE = 16
 local AREA_COLOR = { 0.5, 0.7, 0.9 }
 local AREA_FILL_STEP = 4
 local AREA_OUTLINE_THICKNESS = 1.5
+local MINIMAP_AREA_RENDER_BUDGET_SECONDS = 0.004
+local MINIMAP_AREA_RENDER_MAX_PER_FRAME = 4
+local MINIMAP_AREA_UPDATE_INTERVAL = 0.10
 local MINIMAP_AREA_MIN_SIZE = 14
 local MINIMAP_AREA_PADDING = 6
 local MINIMAP_AREA_CLIP_PADDING = 3
 local MINIMAP_AREA_CLIP_SEGMENTS = 48
+local MINIMAP_AREA_POSITION_EPSILON = 0.75
 local WHITE_TEXTURE = [[Interface\Buttons\WHITE8X8]]
+local minimapAreaRenderFrame = CreateFrame("Frame")
 local MINIMAP_SIZE = {
     indoor = {
         [0] = 300,
@@ -27,6 +32,19 @@ local MINIMAP_SIZE = {
         [5] = 133 + 1 / 3,
     },
 }
+
+local function GetMinimapAreaRenderTimeSeconds()
+    if debugprofilestop then
+        return debugprofilestop() / 1000
+    end
+    if GetTimePreciseSec then
+        return GetTimePreciseSec()
+    end
+    if GetTime then
+        return GetTime()
+    end
+    return 0
+end
 
 local function Atan2(y, x)
     if math.atan2 then
@@ -300,6 +318,74 @@ local function GetMinimapEdgeOffset(frame)
     return (dx / distance) * overflow, (dy / distance) * overflow
 end
 
+local function GetMinimapRelativeState(frame)
+    if not Minimap or not frame or not frame.GetCenter or not Minimap.GetCenter then
+        return nil
+    end
+
+    local frameX, frameY = frame:GetCenter()
+    local minimapX, minimapY = Minimap:GetCenter()
+    local clipRadius = frame.questsMinimapClipRadius or 0
+
+    if not frameX or not frameY or not minimapX or not minimapY or clipRadius <= 0 then
+        return nil
+    end
+
+    local dx = frameX - minimapX
+    local dy = frameY - minimapY
+    local distance = math.sqrt((dx * dx) + (dy * dy))
+    local offsetX, offsetY = GetMinimapEdgeOffset(frame)
+    local baseRadius = frame.questsMinimapBaseRadius or frame.questsMinimapAreaRadius or 0
+    local needsClip = offsetX ~= 0
+        or offsetY ~= 0
+        or (distance + baseRadius) >= math.max(1, clipRadius - MINIMAP_AREA_CLIP_PADDING)
+
+    return {
+        frameX = frameX,
+        frameY = frameY,
+        clipRadius = clipRadius,
+        offsetX = offsetX,
+        offsetY = offsetY,
+        needsClip = needsClip,
+    }
+end
+
+local function HasNumberChanged(left, right, epsilon)
+    return not left or not right or math.abs(left - right) > (epsilon or MINIMAP_AREA_POSITION_EPSILON)
+end
+
+local function ShouldRedrawMinimapPolygonArea(frame, state)
+    local previous = frame.questsMinimapAreaRenderState
+
+    if frame.questsMinimapAreaDirty or not previous then
+        return true
+    end
+    if previous.needsClip ~= state.needsClip then
+        return true
+    end
+    if previous.needsClip then
+        return HasNumberChanged(previous.frameX, state.frameX)
+            or HasNumberChanged(previous.frameY, state.frameY)
+            or HasNumberChanged(previous.offsetX, state.offsetX)
+            or HasNumberChanged(previous.offsetY, state.offsetY)
+            or HasNumberChanged(previous.clipRadius, state.clipRadius)
+    end
+
+    return false
+end
+
+local function SaveMinimapPolygonAreaRenderState(frame, state)
+    frame.questsMinimapAreaRenderState = {
+        frameX = state.frameX,
+        frameY = state.frameY,
+        clipRadius = state.clipRadius,
+        offsetX = state.offsetX,
+        offsetY = state.offsetY,
+        needsClip = state.needsClip,
+    }
+    frame.questsMinimapAreaDirty = false
+end
+
 local function OffsetPoints(points, offsetX, offsetY)
     if (offsetX == 0 and offsetY == 0) or not points then
         return points
@@ -394,22 +480,118 @@ local function BuildMinimapPolygonPoints(cluster, xScale, yScale)
     return points
 end
 
+local function GetPointMaxDistance(points)
+    local maxDistance = 0
+
+    for _, point in ipairs(points or {}) do
+        maxDistance = math.max(maxDistance, math.sqrt((point.x * point.x) + (point.y * point.y)))
+    end
+    return maxDistance
+end
+
 local function UpdateMinimapPolygonArea(frame)
     if not frame or not frame.questsMinimapArea or not frame.questsMinimapBasePoints then
         return
     end
 
-    local offsetX, offsetY = GetMinimapEdgeOffset(frame)
-    local points = OffsetPoints(frame.questsMinimapBasePoints, offsetX, offsetY)
+    local state = GetMinimapRelativeState(frame)
+    if not state then
+        return
+    end
+    if not frame.questsMinimapAreaDirty and not frame.questsMinimapAreaRenderState and not state.needsClip then
+        SaveMinimapPolygonAreaRenderState(frame, state)
+        return
+    end
+    if not ShouldRedrawMinimapPolygonArea(frame, state) then
+        return
+    end
 
-    DrawMinimapPolygonArea(frame, ClipPolygonToMinimap(frame, points))
+    local points = frame.questsMinimapBasePoints
+    if state.needsClip then
+        points = ClipPolygonToMinimap(frame, OffsetPoints(points, state.offsetX, state.offsetY))
+    end
+
+    DrawMinimapPolygonArea(frame, points)
+    SaveMinimapPolygonAreaRenderState(frame, state)
+end
+
+local function ProcessQueuedMinimapPolygonAreas()
+    local queue = Quests.minimapAreaRenderQueue
+    if not queue or #queue == 0 then
+        minimapAreaRenderFrame:SetScript("OnUpdate", nil)
+        Quests.minimapAreaRenderQueued = nil
+        return
+    end
+
+    local startedAt = GetMinimapAreaRenderTimeSeconds()
+    local processed = 0
+    while #queue > 0 and processed < MINIMAP_AREA_RENDER_MAX_PER_FRAME do
+        local frame = table.remove(queue, 1)
+        if frame and frame.questsMinimapAreaQueued then
+            frame.questsMinimapAreaQueued = nil
+            if frame.questsMinimapArea and frame.questsMinimapBasePoints then
+                UpdateMinimapPolygonArea(frame)
+                processed = processed + 1
+            end
+        end
+
+        if GetMinimapAreaRenderTimeSeconds() - startedAt >= MINIMAP_AREA_RENDER_BUDGET_SECONDS then
+            break
+        end
+    end
+
+    if #queue == 0 then
+        minimapAreaRenderFrame:SetScript("OnUpdate", nil)
+        Quests.minimapAreaRenderQueued = nil
+    end
+end
+
+local function QueueMinimapPolygonAreaRender(frame)
+    if not frame or frame.questsMinimapAreaQueued then
+        return
+    end
+
+    Quests.minimapAreaRenderQueue = Quests.minimapAreaRenderQueue or {}
+    Quests.minimapAreaRenderQueue[#Quests.minimapAreaRenderQueue + 1] = frame
+    frame.questsMinimapAreaQueued = true
+
+    if not Quests.minimapAreaRenderQueued then
+        Quests.minimapAreaRenderQueued = true
+        minimapAreaRenderFrame:SetScript("OnUpdate", ProcessQueuedMinimapPolygonAreas)
+    end
+end
+
+local function OnUpdateMinimapPolygonArea(frame, elapsed)
+    if not frame or not frame.questsMinimapArea or not frame.questsMinimapBasePoints then
+        return
+    end
+
+    frame.questsMinimapAreaUpdateElapsed = (frame.questsMinimapAreaUpdateElapsed or 0) + (elapsed or 0)
+    if frame.questsMinimapAreaUpdateElapsed < MINIMAP_AREA_UPDATE_INTERVAL and not frame.questsMinimapAreaDirty then
+        return
+    end
+
+    frame.questsMinimapAreaUpdateElapsed = 0
+    if frame.questsMinimapAreaDirty then
+        QueueMinimapPolygonAreaRender(frame)
+        return
+    end
+    UpdateMinimapPolygonArea(frame)
 end
 
 local function ConfigureMinimapPolygonArea(frame, cluster, xScale, yScale, minimapRadius)
     frame.questsMinimapBasePoints = BuildMinimapPolygonPoints(cluster, xScale, yScale)
     frame.questsMinimapClipRadius = minimapRadius
-    frame:SetScript("OnUpdate", UpdateMinimapPolygonArea)
-    return DrawMinimapPolygonArea(frame, ClipPolygonToMinimap(frame, frame.questsMinimapBasePoints))
+    frame.questsMinimapBaseRadius = GetPointMaxDistance(frame.questsMinimapBasePoints) + (MINIMAP_AREA_PADDING / 2)
+    frame.questsMinimapAreaDirty = true
+    frame.questsMinimapAreaRenderState = nil
+    frame.questsMinimapAreaUpdateElapsed = 0
+    frame:SetScript("OnUpdate", OnUpdateMinimapPolygonArea)
+    frame:SetSize(MINIMAP_AREA_MIN_SIZE, MINIMAP_AREA_MIN_SIZE)
+    HideMarkerText(frame.text)
+    frame.texture:Hide()
+    QueueMinimapPolygonAreaRender(frame)
+    return true
 end
 
 local function ConfigureMinimapCircleArea(frame, cluster, xScale, yScale, minimapRadius)
@@ -420,6 +602,13 @@ local function ConfigureMinimapCircleArea(frame, cluster, xScale, yScale, minima
 
     HideTextures(frame.lines)
     HideTextures(frame.fills)
+    frame.questsMinimapBasePoints = nil
+    frame.questsMinimapBaseRadius = nil
+    frame.questsMinimapAreaDirty = nil
+    frame.questsMinimapAreaRenderState = nil
+    frame.questsMinimapAreaUpdateElapsed = nil
+    frame.questsMinimapAreaQueued = nil
+    frame:SetScript("OnUpdate", nil)
     frame:SetSize(size, size)
     ConfigureMarkerFrame(frame, settings, false)
     frame.texture:Show()
@@ -444,8 +633,13 @@ local function ConfigureMinimapArea(frame, uiMapId, cluster)
     HideTextures(frame.fills)
     frame.questsMinimapArea = true
     frame.questsMinimapBasePoints = nil
+    frame.questsMinimapBaseRadius = nil
     frame.questsMinimapAreaRadius = 0
     frame.questsMinimapClipRadius = minimapRadius or 0
+    frame.questsMinimapAreaDirty = nil
+    frame.questsMinimapAreaRenderState = nil
+    frame.questsMinimapAreaUpdateElapsed = nil
+    frame.questsMinimapAreaQueued = nil
     frame:SetScript("OnUpdate", nil)
     frame.texture.a = 1
 

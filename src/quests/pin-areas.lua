@@ -3,7 +3,8 @@ local Quests = _G.VanillaEnhanced:GetModule("quests")
 local MARKER_FRAME_SIZE = 16
 local AREA_COLOR = { 0.5, 0.7, 0.9 }
 local AREA_FILL_ALPHA = 0.5
-local AREA_FILL_STEP = 8
+local AREA_FILL_STEP = 2
+local AREA_FILL_OVERLAP = 0
 local AREA_OUTLINE_THICKNESS = 1.5
 local WHITE_TEXTURE = [[Interface\Buttons\WHITE8X8]]
 
@@ -106,7 +107,7 @@ local function ConfigurePolygonFill(frame, points, minY, maxY, color, alpha, fil
             local fill = AcquireAreaFill(frame, fillIndex)
 
             fill:ClearAllPoints()
-            fill:SetSize(width, step + 1)
+            fill:SetSize(width + 1, step + AREA_FILL_OVERLAP)
             fill:SetPoint("CENTER", frame, "CENTER", x1 + (width / 2), y)
             fill:SetVertexColor(color[1], color[2], color[3], alpha)
             fillIndex = fillIndex + 1

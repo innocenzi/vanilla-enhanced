@@ -66,8 +66,13 @@ local function ResetPinFrame(frame)
     frame.questsPassThroughClicks = nil
     frame.questsMinimapArea = nil
     frame.questsMinimapBasePoints = nil
+    frame.questsMinimapBaseRadius = nil
     frame.questsMinimapAreaRadius = nil
     frame.questsMinimapClipRadius = nil
+    frame.questsMinimapAreaDirty = nil
+    frame.questsMinimapAreaRenderState = nil
+    frame.questsMinimapAreaUpdateElapsed = nil
+    frame.questsMinimapAreaQueued = nil
     frame.questsMinimapUiMapId = nil
     frame.questsMinimapDistanceGateUiMapId = nil
     frame.questsMinimapDistanceGateX = nil
