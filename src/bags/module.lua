@@ -1159,8 +1159,8 @@ function Bags:Update()
         if self.sorting and self.StopManualSort then
             self:StopManualSort()
         end
-        if self.ClearItemLockOverlays then
-            self:ClearItemLockOverlays()
+        if self.ClearItemOverlays then
+            self:ClearItemOverlays()
         end
         self:ClearSearchText()
         self:ClearBankSearchText()
@@ -1180,8 +1180,8 @@ function Bags:Update()
             DisableScrapMarkModeForClosedBags(self.scrapToggleButton)
         end
         self.bagsWereVisible = false
-        if self.ClearItemLockOverlays then
-            self:ClearItemLockOverlays()
+        if self.ClearItemOverlays then
+            self:ClearItemOverlays()
         end
         self:ClearSearchText()
         self:HideControls()
@@ -1201,8 +1201,8 @@ function Bags:Update()
     end
 
     if not showSortButton and not showSearchField and not showScrapToggleButton then
-        if self.RefreshItemLockOverlays then
-            self:RefreshItemLockOverlays()
+        if self.RefreshItemOverlays then
+            self:RefreshItemOverlays()
         end
         self:HideControls()
         self:UpdateBankControls(settings)
@@ -1283,8 +1283,8 @@ function Bags:Update()
         button:Show()
         self:SetSortButtonBusy(self.sorting == true)
     end
-    if self.RefreshItemLockOverlays then
-        self:RefreshItemLockOverlays()
+    if self.RefreshItemOverlays then
+        self:RefreshItemOverlays()
     end
     self:RefreshSearchResults()
     self:UpdateBankControls(settings)
@@ -1313,8 +1313,8 @@ function Bags:SetEnabled(enabled)
     end
 
     self:ClearAutoOpenBagTracking()
-    if self.ClearItemLockOverlays then
-        self:ClearItemLockOverlays()
+    if self.ClearItemOverlays then
+        self:ClearItemOverlays()
     end
     self:ClearSearchText()
     self:ClearBankSearchText()

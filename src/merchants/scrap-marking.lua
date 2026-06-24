@@ -565,8 +565,8 @@ function Merchants:SetScrapMarkMode(enabled)
         self:UpdateSellButtonState(self:GetScrapReportSafely())
     end
     local Bags = VanillaEnhanced:GetModule("bags")
-    if Bags and Bags.RefreshItemLockOverlays then
-        Bags:RefreshItemLockOverlays()
+    if Bags and Bags.RefreshItemOverlays then
+        Bags:RefreshItemOverlays()
     end
     if self.scrapMarkMode == true then
         self:RefreshScrapHighlights()

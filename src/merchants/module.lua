@@ -58,8 +58,8 @@ end
 
 function Merchants:RefreshBagScrapIcons()
     local Bags = VanillaEnhanced:GetModule("bags")
-    if Bags and Bags.RefreshScrapIconOverlays then
-        Bags:RefreshScrapIconOverlays()
+    if Bags and Bags.RefreshItemOverlays then
+        Bags:RefreshItemOverlays()
     end
 end
 
@@ -184,8 +184,8 @@ function Merchants:OpenMerchant()
     self:EnsureButton()
     self:InstallScrapMarkHooks()
     local Bags = VanillaEnhanced:GetModule("bags")
-    if Bags and Bags.RefreshItemLockOverlays then
-        Bags:RefreshItemLockOverlays()
+    if Bags and Bags.RefreshItemOverlays then
+        Bags:RefreshItemOverlays()
     end
     self:RequestRefresh(MERCHANT_OPEN_REFRESH_SECONDS)
 end
