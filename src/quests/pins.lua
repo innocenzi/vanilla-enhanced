@@ -157,6 +157,26 @@ local function HasAreaGeometry(cluster)
     return Quests:GetClusterPointCount(cluster) >= 3 or Quests:GetClusterRadius(cluster) > 0
 end
 
+local function CanCreateDistanceGatedMinimapPin(self, uiMapId, x, y)
+    local settings = self:GetSettings()
+    if settings.showDistantMinimapQuestMarkers ~= true then
+        return false
+    end
+    if not self.SetMinimapPinDistanceGate
+        or not self.hbd
+        or not self.hbd.GetPlayerZonePosition
+        or not self.hbd.GetZoneDistance then
+        return false
+    end
+
+    local playerX, playerY, playerMapId = self.hbd:GetPlayerZonePosition(true)
+    if not playerX or not playerY or not playerMapId then
+        return false
+    end
+
+    return self.hbd:GetZoneDistance(playerMapId, playerX, playerY, uiMapId, x / 100, y / 100) ~= nil
+end
+
 function Quests:AddPins(uiMapId, clusters, quest)
     local visibleClusters = {}
     local dbQuest = VanillaEnhancedQuestsDB and VanillaEnhancedQuestsDB.quests and VanillaEnhancedQuestsDB.quests[quest.id]
@@ -207,6 +227,9 @@ function Quests:AddAvailablePins(questId, dbQuest, context)
         for _, cluster in ipairs(self:MergeParentMapIconClusters(uiMapId, visibleClusters)) do
             self:AddAvailablePin(uiMapId, self:GetClusterX(cluster), self:GetClusterY(cluster), questId, dbQuest, cluster, context)
         end
+        for _, cluster in ipairs(visibleClusters) do
+            self:AddAvailableMinimapPin(uiMapId, self:GetClusterX(cluster), self:GetClusterY(cluster), questId, dbQuest, cluster, context)
+        end
     end
 end
 
@@ -217,12 +240,13 @@ function Quests:AddMinimapPin(uiMapId, x, y, quest, cluster)
 
     local kind = self:GetClusterKind(cluster)
     local dbQuest = VanillaEnhancedQuestsDB and VanillaEnhancedQuestsDB.quests and VanillaEnhancedQuestsDB.quests[quest.id]
-    if kind == "turnin" then
+    local distanceGated = kind == "turnin"
+    if distanceGated and not CanCreateDistanceGatedMinimapPin(self, uiMapId, x, y) then
         return
     end
 
     local pinData = self:BuildQuestPinData(quest, cluster)
-    if HasAreaGeometry(cluster) and (self:IsQuestObjectiveAreaKind(kind) or self:GetClusterRadius(cluster) > 2) then
+    if not distanceGated and HasAreaGeometry(cluster) and (self:IsQuestObjectiveAreaKind(kind) or self:GetClusterRadius(cluster) > 2) then
         if self:GetSettings().showMinimapObjectiveAreas == false then
             return
         end
@@ -246,6 +270,9 @@ function Quests:AddMinimapPin(uiMapId, x, y, quest, cluster)
     marker:Hide()
     self:RaiseMinimapMarkerFrame(marker)
     self.hbdPins:AddMinimapIconMap(self, marker, uiMapId, x / 100, y / 100, true, false)
+    if distanceGated then
+        self:SetMinimapPinDistanceGate(marker, uiMapId, x / 100, y / 100)
+    end
     self:TrackMinimapPinFrame(marker)
 end
 
@@ -306,4 +333,33 @@ function Quests:AddAvailablePin(uiMapId, x, y, questId, dbQuest, cluster, contex
         opacityMultiplier,
         color
     )
+end
+
+function Quests:AddAvailableMinimapPin(uiMapId, x, y, questId, dbQuest, cluster, context)
+    if not self.hbdPins or not uiMapId or not x or not y then
+        return
+    end
+    if not CanCreateDistanceGatedMinimapPin(self, uiMapId, x, y) then
+        return
+    end
+
+    local opacityMultiplier = self:GetAvailableQuestMarkerOpacity(dbQuest, context)
+    local color = self:GetRepeatableQuestMarkerColor(dbQuest) or self:GetAvailableQuestMarkerColor(dbQuest, context)
+    local marker = self:AcquirePinFrame("marker", "minimapMarker", Minimap)
+
+    marker.questsData = self:BuildAvailableQuestPinData(questId, dbQuest, cluster, uiMapId, x, y)
+    marker.questsMinimapUiMapId = uiMapId
+    self:ConfigurePinSymbol(
+        marker,
+        self:GetPinMarkerSymbol(self:GetClusterKind(cluster), self:GetPinMarkerSymbol("available")),
+        opacityMultiplier,
+        color
+    )
+    self:ApplyMinimapFloorDimming(marker)
+
+    marker:Hide()
+    self:RaiseMinimapMarkerFrame(marker)
+    self.hbdPins:AddMinimapIconMap(self, marker, uiMapId, x / 100, y / 100, true, false)
+    self:SetMinimapPinDistanceGate(marker, uiMapId, x / 100, y / 100)
+    self:TrackMinimapPinFrame(marker)
 end

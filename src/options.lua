@@ -1476,6 +1476,14 @@ local questsPanel = BuildOptionsPanel({
             defaultValue = 3,
         },
         {
+            name = "VanillaEnhancedOptionsQuestsShowDistantMinimapQuestMarkers",
+            settingKey = "showDistantMinimapQuestMarkers",
+            labelKey = "options.quests.showDistantMinimapQuestMarkers.label",
+            helpKey = "options.quests.showDistantMinimapQuestMarkers.help",
+            enabledWhenSetting = "showMapMarkers",
+            indent = 1,
+        },
+        {
             name = "VanillaEnhancedOptionsQuestsShowIncompleteDungeonTurnins",
             settingKey = "showIncompleteDungeonTurnins",
             labelKey = "options.quests.showIncompleteDungeonTurnins.label",

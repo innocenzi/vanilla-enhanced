@@ -10,6 +10,8 @@ local SELECTED_MARKER_COLOR = { 1, 1, 1 }
 local WORLD_MAP_MARKER_FRAME_LEVEL_OFFSET = 100
 local MINIMAP_MARKER_FRAME_LEVEL_OFFSET = 80
 local OTHER_FLOOR_MINIMAP_ALPHA = 0.35
+local MINIMAP_DISTANCE_GATE_UPDATE_INTERVAL = 0.20
+local DISTANT_MINIMAP_QUEST_MARKER_DISTANCE = 100
 
 Quests.frames = Quests.frames or {}
 Quests.minimapFrames = Quests.minimapFrames or {}
@@ -67,6 +69,12 @@ local function ResetPinFrame(frame)
     frame.questsMinimapAreaRadius = nil
     frame.questsMinimapClipRadius = nil
     frame.questsMinimapUiMapId = nil
+    frame.questsMinimapDistanceGateUiMapId = nil
+    frame.questsMinimapDistanceGateX = nil
+    frame.questsMinimapDistanceGateY = nil
+    frame.questsMinimapDistanceGateThreshold = nil
+    frame.questsMinimapDistanceGateElapsed = nil
+    frame.questsMinimapDistanceGateHidden = nil
     frame.questsMarkerStyle = nil
     frame.UiMapID = nil
     frame.x = nil
@@ -185,8 +193,87 @@ function Quests:ApplyMinimapFloorDimming(frame, playerMapId)
     if not frame then
         return
     end
+    if frame.questsMinimapDistanceGateHidden == true then
+        frame:SetAlpha(0)
+        return
+    end
 
     frame:SetAlpha(self:IsMinimapPinOnOtherFloor(frame, playerMapId) and OTHER_FLOOR_MINIMAP_ALPHA or 1)
+end
+
+local function GetMinimapDistanceGateDistance(self, frame)
+    if not frame or not frame.questsMinimapDistanceGateUiMapId then
+        return nil
+    end
+    if not self.hbd or not self.hbd.GetPlayerZonePosition or not self.hbd.GetZoneDistance then
+        return nil
+    end
+
+    local playerX, playerY, playerMapId = self.hbd:GetPlayerZonePosition(true)
+    if not playerX or not playerY or not playerMapId then
+        return nil
+    end
+
+    return self.hbd:GetZoneDistance(
+        playerMapId,
+        playerX,
+        playerY,
+        frame.questsMinimapDistanceGateUiMapId,
+        frame.questsMinimapDistanceGateX,
+        frame.questsMinimapDistanceGateY
+    )
+end
+
+local function ApplyMinimapDistanceGate(self, frame, visible, playerMapId)
+    if visible then
+        frame.questsMinimapDistanceGateHidden = false
+        frame:EnableMouse(true)
+        -- HBD owns actual minimap range visibility; this gate only suppresses near native quest icons.
+        self:ApplyMinimapFloorDimming(frame, playerMapId)
+        return
+    end
+
+    frame.questsMinimapDistanceGateHidden = true
+    frame:EnableMouse(false)
+    frame:SetAlpha(0)
+end
+
+function Quests:RefreshMinimapDistanceGate(frame, playerMapId)
+    if not frame or not frame.questsMinimapDistanceGateUiMapId then
+        return false
+    end
+
+    local distance = GetMinimapDistanceGateDistance(self, frame)
+    ApplyMinimapDistanceGate(
+        self,
+        frame,
+        distance and distance > (frame.questsMinimapDistanceGateThreshold or DISTANT_MINIMAP_QUEST_MARKER_DISTANCE),
+        playerMapId
+    )
+    return true
+end
+
+function Quests:SetMinimapPinDistanceGate(frame, uiMapId, x, y, threshold)
+    if not frame or not uiMapId or not x or not y then
+        return false
+    end
+
+    frame.questsMinimapDistanceGateUiMapId = uiMapId
+    frame.questsMinimapDistanceGateX = x
+    frame.questsMinimapDistanceGateY = y
+    frame.questsMinimapDistanceGateThreshold = threshold or DISTANT_MINIMAP_QUEST_MARKER_DISTANCE
+    frame.questsMinimapDistanceGateElapsed = 0
+    frame:SetScript("OnUpdate", function(gatedFrame, elapsed)
+        gatedFrame.questsMinimapDistanceGateElapsed =
+            (gatedFrame.questsMinimapDistanceGateElapsed or 0) + (elapsed or 0)
+        if gatedFrame.questsMinimapDistanceGateElapsed < MINIMAP_DISTANCE_GATE_UPDATE_INTERVAL then
+            return
+        end
+        gatedFrame.questsMinimapDistanceGateElapsed = 0
+        Quests:RefreshMinimapDistanceGate(gatedFrame)
+    end)
+    self:RefreshMinimapDistanceGate(frame)
+    return true
 end
 
 function Quests:RefreshMinimapFloorDimming()
@@ -196,7 +283,9 @@ function Quests:RefreshMinimapFloorDimming()
     end
 
     for _, frame in ipairs(self.minimapFrames or {}) do
-        self:ApplyMinimapFloorDimming(frame, playerMapId)
+        if not self:RefreshMinimapDistanceGate(frame, playerMapId) then
+            self:ApplyMinimapFloorDimming(frame, playerMapId)
+        end
     end
 end
 
