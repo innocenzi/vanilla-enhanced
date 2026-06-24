@@ -1505,6 +1505,14 @@ local questsPanel = BuildOptionsPanel({
             defaultValue = 3,
         },
         {
+            name = "VanillaEnhancedOptionsQuestsShowIncompleteDungeonTurnins",
+            settingKey = "showIncompleteDungeonTurnins",
+            labelKey = "options.quests.showIncompleteDungeonTurnins.label",
+            helpKey = "options.quests.showIncompleteDungeonTurnins.help",
+            enabledWhenSetting = "showMapMarkers",
+            indent = 1,
+        },
+        {
             name = "VanillaEnhancedOptionsQuestsShowCompletedMapObjectives",
             settingKey = "showCompletedMapObjectives",
             labelKey = "options.quests.showCompletedMapObjectives.label",

@@ -291,6 +291,26 @@ local parent_area = overlay(
     load_private_table(ZoneDB, "subZoneToParentZoneOverride")
 )
 
+local function collect_dungeon_zone_ids()
+    local ids = {}
+    local dungeon_zones = l10n.zoneCategoryLookup and l10n.zoneCategoryLookup[8] or {}
+
+    for area_id in pairs(dungeon_zones) do
+        ids[area_id] = true
+    end
+
+    for area_id, dungeon in pairs(ZoneDB:GetDungeons() or {}) do
+        ids[area_id] = true
+        if type(dungeon) == "table" and type(dungeon[2]) == "number" then
+            ids[dungeon[2]] = true
+        end
+    end
+
+    return ids
+end
+
+local dungeon_zone_ids = collect_dungeon_zone_ids()
+
 DropDB:Initialize()
 
 local function collect_item_drop_rates()
@@ -334,6 +354,7 @@ local normalized = {
     zones = {
         areaToUi = area_to_ui,
         parentArea = parent_area,
+        dungeonZoneIds = dungeon_zone_ids,
     },
     blacklist = {
         quests = materialize_blacklist(QuestieQuestBlacklist:Load()),

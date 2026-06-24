@@ -67,6 +67,7 @@ function fixture(): NormalizedQuestieDb {
     zones: {
       areaToUi: { "12": 1411 },
       parentArea: {},
+      dungeonZoneIds: { "999": "Test Dungeon" },
     },
     data: {
       quests: {
@@ -192,6 +193,18 @@ test("marks reputation turn-in style quests without marking ordinary reputation 
   expect(artifacts.locationLua).not.toContain('[1] = { t = "Kill Quest", z = 12, rl = 5, ql = 7, rr = 77, rc = 1, rq = 1');
   expect(artifacts.locationLua).toContain('[10] = { t = "Ordinary Rep Item Quest", z = 12, rl = 60, ql = 62, rmin = {72,0}');
   expect(artifacts.locationLua).not.toContain('[10] = { t = "Ordinary Rep Item Quest", z = 12, rl = 60, ql = 62, rmin = {72,0}, rq = 1');
+});
+
+test("marks dungeon quests from exported dungeon zone ids", () => {
+  const db = fixture();
+  const dungeonQuest = ["Dungeon Quest", null, [[105]], null, null, null, null, null, null, null, null, null, null, null, null, null, 999] as any[];
+  db.data.quests["11"] = dungeonQuest;
+
+  const artifacts = buildQuestsArtifacts(db, { minQuestCount: 0 });
+
+  expect(artifacts.locationLua).toContain('[11] = { t = "Dungeon Quest", z = 999, dq = 1');
+  expect(artifacts.locationLua).toContain('[1] = { t = "Kill Quest", z = 12, rl = 5, ql = 7, rr = 77, rc = 1');
+  expect(artifacts.locationLua).not.toContain('[1] = { t = "Kill Quest", z = 12, rl = 5, ql = 7, rr = 77, rc = 1, dq = 1');
 });
 
 test("omits drop rate clusters when normalized data has no matching rate", () => {

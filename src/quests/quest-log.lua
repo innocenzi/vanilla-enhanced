@@ -153,12 +153,25 @@ function Quests:GetQuestLogSnapshot()
     return quests
 end
 
-function Quests:ShouldShowObjectiveCluster(quest, cluster, surface)
+function Quests:ShouldHideIncompleteDungeonTurnin(quest, dbQuest, cluster, settings)
+    settings = settings or self:GetSettings()
+    return settings.showIncompleteDungeonTurnins ~= true
+        and dbQuest
+        and dbQuest.dq == 1
+        and quest
+        and quest.isComplete ~= true
+        and self:GetClusterKind(cluster) == "turnin"
+end
+
+function Quests:ShouldShowObjectiveCluster(quest, cluster, surface, dbQuest)
     if not quest or not cluster then
         return true
     end
 
     local settings = self:GetSettings()
+    if surface ~= "tooltip" and self:ShouldHideIncompleteDungeonTurnin(quest, dbQuest, cluster, settings) then
+        return false
+    end
     if surface == "tooltip" and settings.showCompletedTooltipObjectives then
         return true
     end

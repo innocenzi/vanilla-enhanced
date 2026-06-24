@@ -79,6 +79,7 @@ type CompactQuest = {
   starts?: Record<number, Cluster[]>;
   availability?: QuestAvailability;
   reputationQuest?: boolean;
+  dungeonQuest?: boolean;
 };
 
 export type NormalizedQuestieDb = {
@@ -99,6 +100,7 @@ export type NormalizedQuestieDb = {
   zones: {
     areaToUi: Record<string, JsonValue>;
     parentArea: Record<string, JsonValue>;
+    dungeonZoneIds?: Record<string, JsonValue>;
   };
   blacklist?: {
     quests?: Record<string, JsonValue>;
@@ -925,9 +927,15 @@ function hasReputationTurnInShape(quest: JsonValue, db: NormalizedQuestieDb): bo
 
   const requiredMinRep = numericPair(byKey(quest, db.keys.quests, "requiredMinRep"));
   const requiredMaxRep = numericPair(byKey(quest, db.keys.quests, "requiredMaxRep"));
-  const hasRequiredReputation = !!requiredMaxRep || !!(requiredMinRep && requiredMinRep[1] && requiredMinRep[2] > 0);
+  const requiredMinRepValues = requiredMinRep as unknown as number[] | undefined;
+  const hasRequiredReputation = !!requiredMaxRep || !!(requiredMinRepValues && requiredMinRepValues[1] && (requiredMinRepValues[2] || 0) > 0);
   const isNoLevelHandIn = int(byKey(quest, db.keys.quests, "questLevel")) < 0 && !hasObjectiveText(quest, db);
   return hasRequiredReputation || isNoLevelHandIn;
+}
+
+function isDungeonQuest(quest: JsonValue, db: NormalizedQuestieDb): boolean {
+  const zoneOrSort = int(byKey(quest, db.keys.quests, "zoneOrSort"));
+  return zoneOrSort !== 0 && db.zones.dungeonZoneIds?.[String(zoneOrSort)] != null;
 }
 
 function renderMapClusters(lines: string[], name: string, maps: Record<number, Cluster[]>): void {
@@ -957,6 +965,7 @@ function renderLocationLua(db: NormalizedQuestieDb, compact: Map<number, Compact
     const quest = compact.get(questId)!;
     const fields = [`t = ${luaString(quest.t)}`, `z = ${quest.z}`, ...formatAvailability(quest.availability)];
     if (quest.reputationQuest) fields.push("rq = 1");
+    if (quest.dungeonQuest) fields.push("dq = 1");
     lines.push(`    [${questId}] = { ${fields.join(", ")}, maps = {`);
     for (const uiMap of Object.keys(quest.maps).map(Number).sort((a, b) => a - b)) {
       lines.push(`      [${uiMap}] = {${quest.maps[uiMap].map(formatCluster).join(", ")}},`);
@@ -1057,6 +1066,7 @@ export function buildQuestsArtifacts(input: unknown, options: TransformOptions =
       starts: starterPoints.length ? cluster(starterPoints) : undefined,
       availability: collectAvailability(questValue, db),
       reputationQuest: hasReputationTurnInShape(questValue, db),
+      dungeonQuest: isDungeonQuest(questValue, db),
     });
     const entry = compact.get(questId)!;
     addReferences(references, questId, entry.maps);

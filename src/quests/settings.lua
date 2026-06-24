@@ -42,6 +42,7 @@ local defaults = {
     showReputationQuests = false,
     showAvailableQuests = false,
     showSelectedQuestDirection = false,
+    showIncompleteDungeonTurnins = false,
     showMinimapObjectiveAreas = true,
     onlyShowNearbyAvailableQuests = false,
     onlyShowAvailableQuestsAroundPlayerLevel = false,

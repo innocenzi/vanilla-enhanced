@@ -159,9 +159,10 @@ end
 
 function Quests:AddPins(uiMapId, clusters, quest)
     local visibleClusters = {}
+    local dbQuest = VanillaEnhancedQuestsDB and VanillaEnhancedQuestsDB.quests and VanillaEnhancedQuestsDB.quests[quest.id]
 
     for _, cluster in ipairs(clusters) do
-        if self:ShouldShowObjectiveCluster(quest, cluster, "map") then
+        if self:ShouldShowObjectiveCluster(quest, cluster, "map", dbQuest) then
             visibleClusters[#visibleClusters + 1] = cluster
         end
     end
@@ -180,9 +181,10 @@ end
 
 function Quests:AddWorldMapPins(uiMapId, clusters, quest)
     local visibleClusters = {}
+    local dbQuest = VanillaEnhancedQuestsDB and VanillaEnhancedQuestsDB.quests and VanillaEnhancedQuestsDB.quests[quest.id]
 
     for _, cluster in ipairs(clusters) do
-        if self:ShouldShowObjectiveCluster(quest, cluster, "map") then
+        if self:ShouldShowObjectiveCluster(quest, cluster, "map", dbQuest) then
             visibleClusters[#visibleClusters + 1] = cluster
         end
     end
