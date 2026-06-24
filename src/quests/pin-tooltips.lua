@@ -6,6 +6,8 @@ local TOOLTIP_OBJECTIVE_COLOR = { 0.9, 0.82, 0.55 }
 local TOOLTIP_METADATA_COLOR = { 0.56, 0.64, 0.72 }
 local TOOLTIP_COUNT_COLOR = { 0.65, 0.85, 1 }
 local MAX_TOOLTIP_NPC_NAMES = 3
+local AVAILABLE_QUEST_MARKER_SOURCE = "availableQuest"
+local MARKER_SOURCE_COORDINATE_PRECISION = 100000
 
 local function GetFloorHintTooltipLine(frame)
     if not frame or not Quests.IsMinimapPinOnOtherFloor or not Quests:IsMinimapPinOnOtherFloor(frame) then
@@ -140,6 +142,54 @@ local function GetCoordinateText(data)
         return nil
     end
     return VanillaEnhanced:T("map.marker.tooltipCoordinates", { x = x, y = y })
+end
+
+local function IsAltLeftClick(button)
+    return button == "LeftButton" and type(IsAltKeyDown) == "function" and IsAltKeyDown()
+end
+
+local function GetMapModule()
+    local map = VanillaEnhanced.modules and VanillaEnhanced.modules.map
+    if map and map.ToggleSourcedMarker then
+        return map
+    end
+    return nil
+end
+
+local function FindAvailableQuestPinData(data)
+    if not data then
+        return nil
+    end
+    if data.availableQuestId then
+        return data
+    end
+    if data.entries then
+        for _, entry in ipairs(data.entries) do
+            local availableData = FindAvailableQuestPinData(entry and entry.data)
+            if availableData then
+                return availableData
+            end
+        end
+    end
+    return nil
+end
+
+local function RoundMarkerSourceCoordinate(value)
+    value = tonumber(value) or 0
+    return math.floor((value * MARKER_SOURCE_COORDINATE_PRECISION) + 0.5)
+end
+
+local function BuildAvailableQuestMarkerSourceId(data)
+    if not data or not data.availableQuestId or not data.markerUiMapId or not data.markerX or not data.markerY then
+        return nil
+    end
+
+    return table.concat({
+        tostring(data.availableQuestId),
+        tostring(data.markerUiMapId),
+        tostring(RoundMarkerSourceCoordinate(data.markerX)),
+        tostring(RoundMarkerSourceCoordinate(data.markerY)),
+    }, ":")
 end
 
 AddTooltipTitleLine = function(tooltip, data)
@@ -430,6 +480,39 @@ function Quests:OpenPinQuestLog(frame)
         return
     end
     self:OpenQuestLogToQuest(data.questId)
+end
+
+function Quests:ToggleAvailableQuestCustomMarker(frame)
+    if not frame or frame.poolKind ~= "marker" or frame.questsPassThroughClicks then
+        return false
+    end
+
+    local data = FindAvailableQuestPinData(frame.questsData)
+    local sourceId = BuildAvailableQuestMarkerSourceId(data)
+    local map = GetMapModule()
+    if not data or not sourceId or not map then
+        return false
+    end
+
+    if not map:ToggleSourcedMarker(data.markerUiMapId, data.markerX, data.markerY, AVAILABLE_QUEST_MARKER_SOURCE, sourceId, {
+        title = data.title,
+        hideWorldMap = true,
+    }) then
+        return false
+    end
+
+    if self.HidePinTooltip then
+        self:HidePinTooltip(frame)
+    end
+    return true
+end
+
+function Quests:HandlePinClick(frame, button)
+    if IsAltLeftClick(button) and self:ToggleAvailableQuestCustomMarker(frame) then
+        return
+    end
+
+    self:OpenPinQuestLog(frame)
 end
 
 function Quests:ShowPinTooltip(frame)

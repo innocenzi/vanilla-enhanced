@@ -196,7 +196,7 @@ function Quests:RefreshQuestPinTooltipData(quests)
     end
 end
 
-function Quests:BuildAvailableQuestPinData(questId, dbQuest, cluster)
+function Quests:BuildAvailableQuestPinData(questId, dbQuest, cluster, uiMapId, x, y)
     local metadataLines = {}
 
     local questLevel = GetAvailableQuestLevel(dbQuest)
@@ -224,6 +224,9 @@ function Quests:BuildAvailableQuestPinData(questId, dbQuest, cluster)
         titleColor = GetAvailableQuestTitleColor(dbQuest),
         metadataLines = metadataLines,
         cluster = cluster,
+        markerUiMapId = uiMapId,
+        markerX = x and x / 100 or nil,
+        markerY = y and y / 100 or nil,
     }
 end
 

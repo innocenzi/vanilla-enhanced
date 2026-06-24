@@ -11,6 +11,9 @@ local COORDINATE_PRECISION = 100000
 local REACHED_MARKER_UPDATE_INTERVAL = 1
 local MINIMAP_UPDATE_INTERVAL = 0.05
 local MINIMAP_EDGE_RADIUS_MULTIPLIER = 0.86
+local WORLD_MAP_HIDDEN_MARKER_SOURCES = {
+    availableQuest = true,
+}
 local MINIMAP_SIZE = {
     indoor = {
         [0] = 300,
@@ -387,6 +390,33 @@ local function GetMarkerTitle(options)
     return title
 end
 
+local function GetMarkerOptionString(options, key)
+    local value = options and options[key]
+    if type(value) ~= "string" then
+        return nil
+    end
+
+    value = string.gsub(value, "^%s*(.-)%s*$", "%1")
+    if value == "" then
+        return nil
+    end
+    return value
+end
+
+local function ShouldShowMarkerOnWorldMap(marker)
+    if not marker then
+        return false
+    end
+    if marker.hideWorldMap == true then
+        return false
+    end
+    return WORLD_MAP_HIDDEN_MARKER_SOURCES[marker.source] ~= true
+end
+
+function Map:SuppressWorldMapMarkerPlacement(duration)
+    self.suppressPlacementUntil = (GetTime and GetTime() or 0) + (duration or 0.15)
+end
+
 function Map:AddMarker(uiMapId, x, y, options)
     if not self:IsEnabled() then
         return nil
@@ -411,6 +441,9 @@ function Map:AddMarker(uiMapId, x, y, options)
         x = x,
         y = y,
         title = GetMarkerTitle(options),
+        source = GetMarkerOptionString(options, "source"),
+        sourceId = GetMarkerOptionString(options, "sourceId"),
+        hideWorldMap = options and options.hideWorldMap == true or nil,
     }
     local markers = self:GetMarkerStore()
 
@@ -422,6 +455,48 @@ function Map:AddMarker(uiMapId, x, y, options)
     }))
     self:Refresh()
     return marker
+end
+
+function Map:RemoveMarkerBySource(source, sourceId)
+    source = GetMarkerOptionString({ source = source }, "source")
+    sourceId = GetMarkerOptionString({ sourceId = sourceId }, "sourceId")
+    if not source or not sourceId then
+        return false
+    end
+
+    local markers = self:GetMarkerStore()
+    for index = #markers, 1, -1 do
+        local marker = markers[index]
+        if marker.source == source and marker.sourceId == sourceId then
+            table.remove(markers, index)
+            VanillaEnhanced:PrintMessage(T("map.marker.removed"))
+            self:Refresh()
+            return true
+        end
+    end
+    return false
+end
+
+function Map:ToggleSourcedMarker(uiMapId, x, y, source, sourceId, options)
+    source = GetMarkerOptionString({ source = source }, "source")
+    sourceId = GetMarkerOptionString({ sourceId = sourceId }, "sourceId")
+    if not source or not sourceId then
+        return false
+    end
+    if not self:IsEnabled() then
+        return false
+    end
+
+    self:SuppressWorldMapMarkerPlacement()
+    if self:RemoveMarkerBySource(source, sourceId) then
+        return true
+    end
+
+    options = options or {}
+    options.source = source
+    options.sourceId = sourceId
+    self:AddMarker(uiMapId, x, y, options)
+    return true
 end
 
 function Map:RemoveMarker(markerId)
@@ -527,7 +602,7 @@ function Map:HandleMarkerClick(frame, button)
         return
     end
 
-    self.suppressPlacementUntil = (GetTime and GetTime() or 0) + 0.15
+    self:SuppressWorldMapMarkerPlacement()
     self:HideMarkerTooltip(frame)
     self:RemoveMarker(frame.markerId)
 end
@@ -537,7 +612,7 @@ function Map:RemoveMarkerUnderCursor()
     if frame then
         self:HideMarkerTooltip(frame)
         self.overlayTooltipFrame = nil
-        self.suppressPlacementUntil = (GetTime and GetTime() or 0) + 0.15
+        self:SuppressWorldMapMarkerPlacement()
         self:RemoveMarker(frame.markerId)
         return true
     end
@@ -578,6 +653,9 @@ end
 
 function Map:AddWorldMapMarker(marker)
     if not self.hbdPins or not marker.uiMapId or not marker.x or not marker.y then
+        return
+    end
+    if not ShouldShowMarkerOnWorldMap(marker) then
         return
     end
     if not self:CanPlaceMarker(marker.uiMapId, marker.x, marker.y) then

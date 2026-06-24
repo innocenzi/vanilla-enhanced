@@ -300,7 +300,7 @@ function Quests:AddAvailablePin(uiMapId, x, y, questId, dbQuest, cluster, contex
         uiMapId,
         x,
         y,
-        self:BuildAvailableQuestPinData(questId, dbQuest, cluster),
+        self:BuildAvailableQuestPinData(questId, dbQuest, cluster, uiMapId, x, y),
         self:GetPinMarkerSymbol(self:GetClusterKind(cluster), self:GetPinMarkerSymbol("available")),
         nil,
         opacityMultiplier,

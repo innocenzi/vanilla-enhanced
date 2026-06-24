@@ -262,7 +262,11 @@ function Quests:AcquirePinFrame(kind, poolKind, parent)
     frame:SetScript("OnLeave", function(self)
         Quests:HidePinTooltip(self)
     end)
-    frame:SetScript("OnClick", function(self)
+    frame:SetScript("OnClick", function(self, button)
+        if Quests.HandlePinClick then
+            Quests:HandlePinClick(self, button)
+            return
+        end
         Quests:OpenPinQuestLog(self)
     end)
     frame:SetScript("OnShow", function(self)
