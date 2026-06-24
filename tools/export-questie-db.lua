@@ -205,6 +205,11 @@ local function materialize_blacklist(value)
     return blacklist
 end
 
+local function load_extra_objective_translations()
+    dofile("Localization/Translations/ExtraObjectives/ClassicObjectives.lua")
+    dofile("Localization/Translations/ExtraObjectives/TbcObjectives.lua")
+end
+
 require("cli.dump")
 WOW_PROJECT_ID = 5
 
@@ -253,6 +258,9 @@ local QuestieQuestBlacklist = QuestieLoader:ImportModule("QuestieQuestBlacklist"
 local ZoneDB = QuestieLoader:ImportModule("ZoneDB")
 local l10n = QuestieLoader:ImportModule("l10n")
 local DropDB = QuestieLoader:ImportModule("DropDB")
+
+l10n:SetUILocale(locale)
+load_extra_objective_translations()
 
 QuestieDB.npcData = assert(loadstring(QuestieDB.npcData))()
 QuestieDB.objectData = assert(loadstring(QuestieDB.objectData))()

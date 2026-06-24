@@ -108,6 +108,7 @@ function fixture(): NormalizedQuestieDb {
       quests: {
         "1": ["Quete tuer", ["Tuez des loups."]],
         "999": ["Unused", ["Not emitted."]],
+        "5": ["Quete supplementaire", ["Utilisez la banniere."]],
       },
       npcs: { "101": ["Loup", null], "999": ["Unused", null] },
       objects: { "301": ["Caisse", null] },
@@ -150,6 +151,7 @@ test("builds compact quests Lua from normalized Questie data", () => {
   expect(artifacts.locationLua).toContain("{60.00,60.00,nil,nil,6");
   expect(artifacts.locationLua).toContain("{20.00,20.00,24.00,20.00,20.00,24.00}");
   expect(artifacts.localeLua).toContain('[1] = { t = "Quete tuer"');
+  expect(artifacts.localeLua).toContain('[5] = { t = "Quete supplementaire", d = {"Utilisez la banniere."} }');
   expect(artifacts.localeLua).toContain('[101] = "Loup"');
   expect(artifacts.localeLua).not.toContain("Unused");
 });

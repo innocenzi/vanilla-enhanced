@@ -62,6 +62,18 @@ local function ObjectiveFromQuestLog(quest, cluster)
     return quest.objectives[objectiveIndex]
 end
 
+local function ObjectiveFromQuestLocale(quest, cluster)
+    if not quest or not cluster or Quests:GetClusterKind(cluster) ~= "event" then
+        return nil
+    end
+    if Quests:GetClusterSourceType(cluster) or Quests:GetClusterSourceId(cluster) then
+        return nil
+    end
+
+    local questLocale = QuestLocaleData(quest.id)
+    return questLocale and questLocale.d and questLocale.d[1] or nil
+end
+
 function Quests:GetLocalizedQuestTitle(quest, questId, fallback)
     if quest and quest.title and quest.title ~= "" then
         return quest.title
@@ -111,6 +123,11 @@ function Quests:GetLocalizedObjective(quest, cluster)
     local objective = Quests:GetClusterObjective(cluster)
     if objective and objective ~= "" then
         return objective
+    end
+
+    local localeObjective = ObjectiveFromQuestLocale(quest, cluster)
+    if localeObjective and localeObjective ~= "" then
+        return localeObjective
     end
 
     local questLocale = quest and QuestLocaleData(quest.id)
