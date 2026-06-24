@@ -68,18 +68,18 @@ local function GetClusterDistance(self, position, uiMapId, cluster)
     )
 end
 
-local function IsSelectedDirectionClusterVisible(self, quest, cluster)
-    return quest.isComplete or self:ShouldShowObjectiveCluster(quest, cluster, "map")
+local function IsSelectedDirectionClusterVisible(self, quest, dbQuest, cluster)
+    return quest.isComplete or self:ShouldShowObjectiveCluster(quest, cluster, "map", dbQuest)
 end
 
-local function GetBestSelectedDirectionCluster(self, quest, maps)
+local function GetBestSelectedDirectionCluster(self, quest, dbQuest, maps)
     local position = GetPlayerPosition(self)
     local best
     local bestDistance
 
     for uiMapId, clusters in pairs(maps or {}) do
         for _, cluster in ipairs(clusters or {}) do
-            if self:GetClusterX(cluster) and self:GetClusterY(cluster) and IsSelectedDirectionClusterVisible(self, quest, cluster) then
+            if self:GetClusterX(cluster) and self:GetClusterY(cluster) and IsSelectedDirectionClusterVisible(self, quest, dbQuest, cluster) then
                 local distance = GetClusterDistance(self, position, uiMapId, cluster)
                 if distance then
                     if not bestDistance or distance < bestDistance then
@@ -105,7 +105,7 @@ end
 local function BuildSelectedQuestDirectionTarget(self, quest, dbQuest)
     local maps = quest.isComplete and dbQuest.turnins or dbQuest.maps
     maps = maps or dbQuest.maps
-    local best = GetBestSelectedDirectionCluster(self, quest, maps)
+    local best = GetBestSelectedDirectionCluster(self, quest, dbQuest, maps)
     local cluster = best and best.cluster
     if not best or not cluster then
         return nil

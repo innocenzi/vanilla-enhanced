@@ -80,6 +80,7 @@ type CompactQuest = {
   availability?: QuestAvailability;
   reputationQuest?: boolean;
   dungeonQuest?: boolean;
+  dungeonMapId?: number;
 };
 
 export type NormalizedQuestieDb = {
@@ -101,6 +102,7 @@ export type NormalizedQuestieDb = {
     areaToUi: Record<string, JsonValue>;
     parentArea: Record<string, JsonValue>;
     dungeonZoneIds?: Record<string, JsonValue>;
+    dungeonZoneMapIds?: Record<string, JsonValue>;
   };
   blacklist?: {
     quests?: Record<string, JsonValue>;
@@ -938,6 +940,13 @@ function isDungeonQuest(quest: JsonValue, db: NormalizedQuestieDb): boolean {
   return zoneOrSort !== 0 && db.zones.dungeonZoneIds?.[String(zoneOrSort)] != null;
 }
 
+function dungeonQuestMapId(quest: JsonValue, db: NormalizedQuestieDb): number | undefined {
+  const zoneOrSort = int(byKey(quest, db.keys.quests, "zoneOrSort"));
+  if (zoneOrSort === 0) return undefined;
+  const uiMapId = int(db.zones.dungeonZoneMapIds?.[String(zoneOrSort)]);
+  return uiMapId > 0 ? uiMapId : undefined;
+}
+
 function renderMapClusters(lines: string[], name: string, maps: Record<number, Cluster[]>): void {
   lines.push(`    ${name} = {`);
   for (const uiMap of Object.keys(maps).map(Number).sort((a, b) => a - b)) {
@@ -966,6 +975,7 @@ function renderLocationLua(db: NormalizedQuestieDb, compact: Map<number, Compact
     const fields = [`t = ${luaString(quest.t)}`, `z = ${quest.z}`, ...formatAvailability(quest.availability)];
     if (quest.reputationQuest) fields.push("rq = 1");
     if (quest.dungeonQuest) fields.push("dq = 1");
+    if (quest.dungeonMapId) fields.push(`dm = ${quest.dungeonMapId}`);
     lines.push(`    [${questId}] = { ${fields.join(", ")}, maps = {`);
     for (const uiMap of Object.keys(quest.maps).map(Number).sort((a, b) => a - b)) {
       lines.push(`      [${uiMap}] = {${quest.maps[uiMap].map(formatCluster).join(", ")}},`);
@@ -1067,6 +1077,7 @@ export function buildQuestsArtifacts(input: unknown, options: TransformOptions =
       availability: collectAvailability(questValue, db),
       reputationQuest: hasReputationTurnInShape(questValue, db),
       dungeonQuest: isDungeonQuest(questValue, db),
+      dungeonMapId: dungeonQuestMapId(questValue, db),
     });
     const entry = compact.get(questId)!;
     addReferences(references, questId, entry.maps);

@@ -309,7 +309,25 @@ local function collect_dungeon_zone_ids()
     return ids
 end
 
+local function collect_dungeon_zone_map_ids()
+    local map_ids = {}
+    for area_id, dungeon in pairs(ZoneDB:GetDungeons() or {}) do
+        if type(dungeon) == "table" then
+            local ui_map_id = area_to_ui[area_id]
+            if type(ui_map_id) == "number" then
+                map_ids[area_id] = ui_map_id
+            end
+            if type(dungeon[2]) == "number" then
+                map_ids[dungeon[2]] = ui_map_id or area_to_ui[dungeon[2]]
+            end
+        end
+    end
+
+    return map_ids
+end
+
 local dungeon_zone_ids = collect_dungeon_zone_ids()
+local dungeon_zone_map_ids = collect_dungeon_zone_map_ids()
 
 DropDB:Initialize()
 
@@ -355,6 +373,7 @@ local normalized = {
         areaToUi = area_to_ui,
         parentArea = parent_area,
         dungeonZoneIds = dungeon_zone_ids,
+        dungeonZoneMapIds = dungeon_zone_map_ids,
     },
     blacklist = {
         quests = materialize_blacklist(QuestieQuestBlacklist:Load()),

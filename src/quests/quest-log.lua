@@ -153,14 +153,61 @@ function Quests:GetQuestLogSnapshot()
     return quests
 end
 
-function Quests:ShouldHideIncompleteDungeonTurnin(quest, dbQuest, cluster, settings)
+local function GetCurrentPlayerMapId()
+    if not C_Map or not C_Map.GetBestMapForUnit then
+        return nil
+    end
+
+    local ok, mapId = pcall(C_Map.GetBestMapForUnit, "player")
+    if ok then
+        return mapId
+    end
+    return nil
+end
+
+local function GetMapGroupId(mapId)
+    if not mapId or not C_Map or not C_Map.GetMapGroupID then
+        return nil
+    end
+
+    local ok, groupId = pcall(C_Map.GetMapGroupID, mapId)
+    if ok then
+        return groupId
+    end
+    return nil
+end
+
+local function MapIdMatchesCurrentPlayerMap(mapId)
+    if not mapId then
+        return false
+    end
+
+    local currentMapId = GetCurrentPlayerMapId()
+    if not currentMapId then
+        return false
+    end
+
+    if currentMapId == mapId then
+        return true
+    end
+
+    local currentGroupId = GetMapGroupId(currentMapId)
+    local targetGroupId = GetMapGroupId(mapId)
+    return currentGroupId and targetGroupId and currentGroupId == targetGroupId
+end
+
+function Quests:ShouldHideIncompleteDungeonCluster(quest, dbQuest, cluster, settings)
     settings = settings or self:GetSettings()
+    if not dbQuest or dbQuest.dq ~= 1 or not quest or quest.isComplete == true then
+        return false
+    end
+
+    local kind = self:GetClusterKind(cluster)
+    if kind ~= "turnin" then
+        return not MapIdMatchesCurrentPlayerMap(dbQuest.dm)
+    end
+
     return settings.showIncompleteDungeonTurnins ~= true
-        and dbQuest
-        and dbQuest.dq == 1
-        and quest
-        and quest.isComplete ~= true
-        and self:GetClusterKind(cluster) == "turnin"
 end
 
 function Quests:ShouldShowObjectiveCluster(quest, cluster, surface, dbQuest)
@@ -169,7 +216,7 @@ function Quests:ShouldShowObjectiveCluster(quest, cluster, surface, dbQuest)
     end
 
     local settings = self:GetSettings()
-    if surface ~= "tooltip" and self:ShouldHideIncompleteDungeonTurnin(quest, dbQuest, cluster, settings) then
+    if surface ~= "tooltip" and self:ShouldHideIncompleteDungeonCluster(quest, dbQuest, cluster, settings) then
         return false
     end
     if surface == "tooltip" and settings.showCompletedTooltipObjectives then

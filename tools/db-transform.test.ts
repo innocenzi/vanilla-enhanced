@@ -68,6 +68,7 @@ function fixture(): NormalizedQuestieDb {
       areaToUi: { "12": 1411 },
       parentArea: {},
       dungeonZoneIds: { "999": "Test Dungeon" },
+      dungeonZoneMapIds: { "999": 300 },
     },
     data: {
       quests: {
@@ -202,7 +203,7 @@ test("marks dungeon quests from exported dungeon zone ids", () => {
 
   const artifacts = buildQuestsArtifacts(db, { minQuestCount: 0 });
 
-  expect(artifacts.locationLua).toContain('[11] = { t = "Dungeon Quest", z = 999, dq = 1');
+  expect(artifacts.locationLua).toContain('[11] = { t = "Dungeon Quest", z = 999, dq = 1, dm = 300');
   expect(artifacts.locationLua).toContain('[1] = { t = "Kill Quest", z = 12, rl = 5, ql = 7, rr = 77, rc = 1');
   expect(artifacts.locationLua).not.toContain('[1] = { t = "Kill Quest", z = 12, rl = 5, ql = 7, rr = 77, rc = 1, dq = 1');
 });
