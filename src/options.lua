@@ -1537,6 +1537,11 @@ local mapPanel = BuildOptionsPanel({
             helpKey = "options.map.enable.help",
         },
         {
+            type = "section",
+            name = "VanillaEnhancedOptionsMapCustomMarkersSection",
+            labelKey = "options.map.section.customMarkers",
+        },
+        {
             name = "VanillaEnhancedOptionsMapShowWorldMapMarkers",
             settingKey = "showWorldMapMarkers",
             labelKey = "options.map.showWorldMapMarkers.label",
@@ -1570,6 +1575,39 @@ local mapPanel = BuildOptionsPanel({
             max = 100,
             step = 5,
             defaultValue = 40,
+        },
+        {
+            type = "section",
+            name = "VanillaEnhancedOptionsMapFlightMastersSection",
+            labelKey = "options.map.section.flightMasters",
+        },
+        {
+            name = "VanillaEnhancedOptionsMapShowKnownFlightMasters",
+            settingKey = "showKnownFlightMasters",
+            labelKey = "options.map.showKnownFlightMasters.label",
+            helpKey = "options.map.showKnownFlightMasters.help",
+            indent = 0,
+        },
+        {
+            name = "VanillaEnhancedOptionsMapShowNeighboringFlightMasters",
+            settingKey = "showNeighboringFlightMasters",
+            labelKey = "options.map.showNeighboringFlightMasters.label",
+            helpKey = "options.map.showNeighboringFlightMasters.help",
+            enabledWhenSetting = "showKnownFlightMasters",
+            indent = 1,
+        },
+        {
+            name = "VanillaEnhancedOptionsMapShowNeighboringFlightMastersWithShift",
+            settingKey = "showNeighboringFlightMastersWithShift",
+            labelKey = "options.map.showNeighboringFlightMastersWithShift.label",
+            helpKey = "options.map.showNeighboringFlightMastersWithShift.help",
+            enabledWhenSettings = { "showKnownFlightMasters", "showNeighboringFlightMasters" },
+            indent = 2,
+        },
+        {
+            type = "section",
+            name = "VanillaEnhancedOptionsMapCommandsSection",
+            labelKey = "options.map.section.commands",
         },
         {
             name = "VanillaEnhancedOptionsMapEnableTomTomCommands",

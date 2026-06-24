@@ -16,6 +16,12 @@ Map.initialized = Map.initialized or false
 
 local eventFrame = CreateFrame("Frame")
 
+local function RegisterEvent(event)
+    if eventFrame.RegisterEvent then
+        pcall(eventFrame.RegisterEvent, eventFrame, event)
+    end
+end
+
 local function Initialize()
     if Map.initialized then
         return
@@ -29,6 +35,9 @@ local function Initialize()
     if Map.HookWorldMapMarkerPlacement then
         Map:HookWorldMapMarkerPlacement()
     end
+    if Map.RegisterFlightMasterModifierRefresh then
+        Map:RegisterFlightMasterModifierRefresh()
+    end
     if Map.Refresh then
         Map:Refresh()
     end
@@ -37,9 +46,11 @@ local function Initialize()
     end
 end
 
-eventFrame:RegisterEvent("ADDON_LOADED")
-eventFrame:RegisterEvent("PLAYER_LOGIN")
-eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+RegisterEvent("ADDON_LOADED")
+RegisterEvent("PLAYER_LOGIN")
+RegisterEvent("PLAYER_ENTERING_WORLD")
+RegisterEvent("TAXIMAP_OPENED")
+RegisterEvent("NEW_TAXI_PATH")
 eventFrame:SetScript("OnEvent", function(_, event, loadedAddonName)
     if event == "ADDON_LOADED" and loadedAddonName ~= VanillaEnhanced.addonName then
         if loadedAddonName == "TomTom" then
@@ -54,6 +65,12 @@ eventFrame:SetScript("OnEvent", function(_, event, loadedAddonName)
     end
 
     Initialize()
+    if event == "TAXIMAP_OPENED" or event == "NEW_TAXI_PATH" then
+        if Map.CaptureKnownFlightMasters then
+            Map:CaptureKnownFlightMasters()
+        end
+        return
+    end
     if event ~= "ADDON_LOADED" and Map.Refresh then
         Map:Refresh()
     end
@@ -66,6 +83,9 @@ if WorldMapFrame then
     hooksecurefunc(WorldMapFrame, "OnMapChanged", function()
         if Map.RefreshWorldMapMarkers then
             Map:RefreshWorldMapMarkers()
+        end
+        if Map.ScheduleWorldMapMarkersRefresh then
+            Map:ScheduleWorldMapMarkersRefresh(0.05)
         elseif Map.Refresh then
             Map:Refresh()
         end

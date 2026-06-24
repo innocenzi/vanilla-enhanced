@@ -69,6 +69,7 @@ src\professions\tooltips.lua
 src\map\module.lua
 src\map\settings.lua
 src\map\markers.lua
+src\map\flight-masters.lua
 src\map\tomtom.lua
 src\target-threat\module.lua
 src\options.lua

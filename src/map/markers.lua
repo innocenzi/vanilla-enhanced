@@ -6,6 +6,11 @@ local MARKER_SIZE_WORLD = 14
 local MARKER_SIZE_MINIMAP = 12
 local MARKER_COLOR = { 1, 0.82, 0.18, 1 }
 local MARKER_SHADOW_COLOR = { 0, 0, 0, 0.95 }
+local FLIGHT_MASTER_SYMBOL = "F"
+local FLIGHT_MASTER_SIZE_WORLD = 9
+local FLIGHT_MASTER_COLOR = { 0.28, 0.78, 1, 1 }
+local FLIGHT_MASTER_NEIGHBOR_MARGIN = 0.02
+local FLIGHT_MASTER_NEIGHBOR_RANGE = 0.45
 local TOOLTIP_METADATA_COLOR = { 0.56, 0.56, 0.56 }
 local COORDINATE_PRECISION = 100000
 local REACHED_MARKER_UPDATE_INTERVAL = 1
@@ -42,13 +47,43 @@ local function RoundCoordinate(value)
     return math.floor((value * COORDINATE_PRECISION) + 0.5) / COORDINATE_PRECISION
 end
 
+local function IsRegionMapId(uiMapId)
+    local data = Map.hbd and Map.hbd.mapData and Map.hbd.mapData[uiMapId] or nil
+    if not data then
+        return false
+    end
+    if not Enum or not Enum.UIMapType then
+        return true
+    end
+
+    return data.mapType == Enum.UIMapType.Zone or data.mapType == Enum.UIMapType.Orphan
+end
+
+local function AddMapIdCandidate(candidates, uiMapId)
+    if type(uiMapId) ~= "number" then
+        return
+    end
+    candidates[#candidates + 1] = uiMapId
+end
+
 local function GetCurrentMapId()
     if WorldMapFrame then
+        local candidates = {}
+        AddMapIdCandidate(candidates, WorldMapFrame.mapID)
+        AddMapIdCandidate(candidates, WorldMapFrame.mapId)
+        AddMapIdCandidate(candidates, WorldMapFrame.uiMapID)
+        AddMapIdCandidate(candidates, WorldMapFrame.uiMapId)
         if WorldMapFrame.GetMapID then
-            return WorldMapFrame:GetMapID()
+            AddMapIdCandidate(candidates, WorldMapFrame:GetMapID())
         end
-        if WorldMapFrame.mapID then
-            return WorldMapFrame.mapID
+
+        for _, uiMapId in ipairs(candidates) do
+            if IsRegionMapId(uiMapId) then
+                return uiMapId
+            end
+        end
+        if candidates[1] then
+            return candidates[1]
         end
     end
     return nil
@@ -277,7 +312,8 @@ end
 local function ConfigureMarkerVisual(frame, marker)
     local color = marker and marker.color or MARKER_COLOR
     local symbol = marker and marker.symbol or MARKER_SYMBOL
-    local size = frame.markerKind == "minimap" and MARKER_SIZE_MINIMAP or MARKER_SIZE_WORLD
+    local size = marker and marker.size
+        or (frame.markerKind == "minimap" and MARKER_SIZE_MINIMAP or MARKER_SIZE_WORLD)
 
     frame.text:SetText(tostring(symbol))
     frame.text:SetTextColor(color[1] or MARKER_COLOR[1], color[2] or MARKER_COLOR[2], color[3] or MARKER_COLOR[3], color[4] or MARKER_COLOR[4])
@@ -411,6 +447,109 @@ local function ShouldShowMarkerOnWorldMap(marker)
         return false
     end
     return WORLD_MAP_HIDDEN_MARKER_SOURCES[marker.source] ~= true
+end
+
+local function GetMapData(uiMapId)
+    return Map.hbd and Map.hbd.mapData and Map.hbd.mapData[uiMapId] or nil
+end
+
+local function IsRegionMap(uiMapId)
+    local data = GetMapData(uiMapId)
+    if not data then
+        return false
+    end
+    if not Enum or not Enum.UIMapType then
+        return true
+    end
+
+    return data.mapType == Enum.UIMapType.Zone or data.mapType == Enum.UIMapType.Orphan
+end
+
+local function IsShiftPressed()
+    return IsShiftKeyDown and IsShiftKeyDown()
+end
+
+local function IsShiftModifierKey(key)
+    return key == "LSHIFT" or key == "RSHIFT"
+end
+
+local function ShouldShowNeighboringFlightMasters(settings, currentMapId)
+    if not IsRegionMap(currentMapId) then
+        return false
+    end
+    if settings.showNeighboringFlightMasters ~= true then
+        return false
+    end
+    if settings.showNeighboringFlightMastersWithShift == true then
+        return IsShiftPressed()
+    end
+    return true
+end
+
+local function AreRegionMapsNeighboring(originMapId, currentMapId)
+    if originMapId == currentMapId or not IsRegionMap(originMapId) or not IsRegionMap(currentMapId) then
+        return false
+    end
+
+    local originData = GetMapData(originMapId)
+    local currentData = GetMapData(currentMapId)
+    if not originData or not currentData or originData.instance ~= currentData.instance then
+        return false
+    end
+
+    return true
+end
+
+local function IsNearCurrentMap(x, y)
+    return x >= -FLIGHT_MASTER_NEIGHBOR_RANGE
+        and x <= 1 + FLIGHT_MASTER_NEIGHBOR_RANGE
+        and y >= -FLIGHT_MASTER_NEIGHBOR_RANGE
+        and y <= 1 + FLIGHT_MASTER_NEIGHBOR_RANGE
+end
+
+local function ClampCoordinateToMapEdge(value)
+    if value < FLIGHT_MASTER_NEIGHBOR_MARGIN then
+        return FLIGHT_MASTER_NEIGHBOR_MARGIN
+    end
+    if value > 1 - FLIGHT_MASTER_NEIGHBOR_MARGIN then
+        return 1 - FLIGHT_MASTER_NEIGHBOR_MARGIN
+    end
+    return value
+end
+
+local function IsInsideMapBounds(x, y)
+    return x and y and x >= 0 and x <= 1 and y >= 0 and y <= 1
+end
+
+local function GetFlightMasterDisplayPosition(flightMaster, settings)
+    local currentMapId = GetCurrentMapId()
+    if not currentMapId or not flightMaster then
+        return nil
+    end
+    if not IsRegionMap(currentMapId) then
+        return nil
+    end
+    if flightMaster.uiMapId == currentMapId then
+        return currentMapId, flightMaster.x, flightMaster.y, false
+    end
+    if not Map.hbd or not Map.hbd.TranslateZoneCoordinates then
+        return nil
+    end
+
+    local x, y = Map.hbd:TranslateZoneCoordinates(flightMaster.x, flightMaster.y, flightMaster.uiMapId, currentMapId, true)
+    if IsInsideMapBounds(x, y) then
+        return currentMapId, x, y, false
+    end
+    if not ShouldShowNeighboringFlightMasters(settings, currentMapId) then
+        return nil
+    end
+    if not AreRegionMapsNeighboring(flightMaster.uiMapId, currentMapId) then
+        return nil
+    end
+    if not x or not y or not IsNearCurrentMap(x, y) then
+        return nil
+    end
+    return currentMapId, ClampCoordinateToMapEdge(x), ClampCoordinateToMapEdge(y), true
 end
 
 function Map:SuppressWorldMapMarkerPlacement(duration)
@@ -577,9 +716,12 @@ function Map:ShowMarkerTooltip(frame)
 
     GameTooltip:SetOwner(frame, "ANCHOR_RIGHT")
     GameTooltip:SetText(marker.title or T("map.marker.tooltipTitle"), 1, 1, 1)
-    GameTooltip:AddLine(GetMapName(marker.uiMapId), TOOLTIP_METADATA_COLOR[1], TOOLTIP_METADATA_COLOR[2], TOOLTIP_METADATA_COLOR[3], true)
+    GameTooltip:AddLine(GetMapName(marker.tooltipUiMapId or marker.uiMapId), TOOLTIP_METADATA_COLOR[1], TOOLTIP_METADATA_COLOR[2], TOOLTIP_METADATA_COLOR[3], true)
     local distance = self.GetMarkerDistanceToPlayer and self:GetMarkerDistanceToPlayer(marker) or nil
-    GameTooltip:AddLine(FormatCoordinates(marker, distance), 0.9, 0.82, 0.55)
+    GameTooltip:AddLine(FormatCoordinates({
+        x = marker.tooltipX or marker.x,
+        y = marker.tooltipY or marker.y,
+    }, distance), 0.9, 0.82, 0.55)
     GameTooltip:Show()
 end
 
@@ -588,7 +730,11 @@ function Map:GetMarkerDistanceToPlayer(marker)
         return nil
     end
 
-    return self:GetMarkerPositionDistanceToPlayer(marker.uiMapId, marker.x, marker.y)
+    return self:GetMarkerPositionDistanceToPlayer(
+        marker.tooltipUiMapId or marker.uiMapId,
+        marker.tooltipX or marker.x,
+        marker.tooltipY or marker.y
+    )
 end
 
 function Map:HideMarkerTooltip(frame)
@@ -673,6 +819,49 @@ function Map:AddWorldMapMarker(marker)
         marker.x,
         marker.y,
         HBD_PINS_WORLDMAP_SHOW_WORLD or 3
+    )
+    SetFramePropagateMouseClicks(frame:GetParent(), true)
+    self.worldMapFrames[#self.worldMapFrames + 1] = frame
+end
+
+function Map:AddKnownFlightMasterWorldMapMarker(flightMaster)
+    if not self.hbdPins or not flightMaster or not flightMaster.uiMapId or not flightMaster.x or not flightMaster.y then
+        return
+    end
+    local settings = self:GetSettings()
+    local uiMapId, x, y, isNeighbor = GetFlightMasterDisplayPosition(flightMaster, settings)
+    if not uiMapId or not x or not y then
+        return
+    end
+    if not self:CanPlaceMarker(uiMapId, x, y) then
+        return
+    end
+
+    local marker = {
+        uiMapId = uiMapId,
+        x = x,
+        y = y,
+        tooltipUiMapId = flightMaster.uiMapId,
+        tooltipX = flightMaster.x,
+        tooltipY = flightMaster.y,
+        title = flightMaster.name or T("map.flightMaster.tooltipTitle"),
+        source = "flightMaster",
+        symbol = FLIGHT_MASTER_SYMBOL,
+        size = FLIGHT_MASTER_SIZE_WORLD,
+        color = FLIGHT_MASTER_COLOR,
+        isNeighborFlightMaster = isNeighbor,
+    }
+
+    local frame = self:AcquireMarkerFrame("worldMap", WorldMapFrame)
+    frame.markerData = marker
+    ConfigureMarkerVisual(frame, marker)
+    self.hbdPins:AddWorldMapIconMap(
+        self,
+        frame,
+        marker.uiMapId,
+        marker.x,
+        marker.y,
+        HBD_PINS_WORLDMAP_SHOW_CURRENT or -1
     )
     SetFramePropagateMouseClicks(frame:GetParent(), true)
     self.worldMapFrames[#self.worldMapFrames + 1] = frame
@@ -779,23 +968,47 @@ function Map:RefreshWorldMapMarkers()
     local settings = self:GetSettings()
 
     self:ClearWorldMapMarkers()
-    if settings.enabled == false or settings.showWorldMapMarkers == false then
+    if settings.enabled == false then
         return
     end
-    for _, marker in ipairs(self:GetMarkerStore()) do
-        self:AddWorldMapMarker(marker)
+    if settings.showWorldMapMarkers ~= false then
+        for _, marker in ipairs(self:GetMarkerStore()) do
+            self:AddWorldMapMarker(marker)
+        end
     end
+    if settings.showKnownFlightMasters == true then
+        if self.CleanKnownFlightMasterStore then
+            self:CleanKnownFlightMasterStore()
+        end
+        for _, flightMaster in pairs(self:GetKnownFlightMasterStore()) do
+            self:AddKnownFlightMasterWorldMapMarker(flightMaster)
+        end
+    end
+end
+
+function Map:ScheduleWorldMapMarkersRefresh(delay)
+    if not C_Timer or not C_Timer.After then
+        return
+    end
+
+    C_Timer.After(delay or 0.05, function()
+        if Map.RefreshWorldMapMarkers then
+            Map:RefreshWorldMapMarkers()
+        end
+    end)
 end
 
 function Map:RefreshMinimapMarkers()
     local settings = self:GetSettings()
 
     self:ClearMinimapMarkers()
-    if settings.enabled == false or settings.showMinimapDirections == false then
+    if settings.enabled == false then
         return
     end
-    for _, marker in ipairs(self:GetMarkerStore()) do
-        self:AddMinimapMarker(marker)
+    if settings.showMinimapDirections ~= false then
+        for _, marker in ipairs(self:GetMarkerStore()) do
+            self:AddMinimapMarker(marker)
+        end
     end
     self:UpdateMinimapMarkers()
 end
@@ -1080,4 +1293,29 @@ function Map:HookWorldMapMarkerPlacement()
             Map:RefreshWorldMapMarkers()
         end)
     end
+end
+
+function Map:RegisterFlightMasterModifierRefresh()
+    if self.flightMasterModifierRefreshFrame or not CreateFrame then
+        return
+    end
+
+    local frame = CreateFrame("Frame")
+    frame:SetScript("OnEvent", function(_, _, key)
+        if not IsShiftModifierKey(key) then
+            return
+        end
+
+        local settings = Map:GetSettings()
+        if settings.enabled == false
+            or settings.showKnownFlightMasters ~= true
+            or settings.showNeighboringFlightMasters ~= true
+            or settings.showNeighboringFlightMastersWithShift ~= true then
+            return
+        end
+
+        Map:RefreshWorldMapMarkers()
+    end)
+    frame:RegisterEvent("MODIFIER_STATE_CHANGED")
+    self.flightMasterModifierRefreshFrame = frame
 end

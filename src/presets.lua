@@ -37,6 +37,9 @@ local PRESETS = {
                 enabled = true,
                 showWorldMapMarkers = true,
                 showMinimapDirections = false,
+                showKnownFlightMasters = false,
+                showNeighboringFlightMasters = false,
+                showNeighboringFlightMastersWithShift = true,
                 autoRemoveReachedMarkers = true,
                 reachedMarkerDistanceYards = 20,
             },
@@ -87,6 +90,9 @@ local PRESETS = {
                 enabled = true,
                 showWorldMapMarkers = true,
                 showMinimapDirections = true,
+                showKnownFlightMasters = true,
+                showNeighboringFlightMasters = true,
+                showNeighboringFlightMastersWithShift = true,
                 autoRemoveReachedMarkers = true,
                 reachedMarkerDistanceYards = 20,
             },
@@ -136,6 +142,9 @@ local PRESETS = {
                 enabled = true,
                 showWorldMapMarkers = true,
                 showMinimapDirections = true,
+                showKnownFlightMasters = true,
+                showNeighboringFlightMasters = true,
+                showNeighboringFlightMastersWithShift = false,
                 autoRemoveReachedMarkers = true,
                 reachedMarkerDistanceYards = 20,
             },
@@ -211,6 +220,11 @@ end
 
 function VanillaEnhanced:GetConfigurationPresetModuleDefaults(moduleKey)
     local preset = GetPreset(DEFAULT_PRESET_KEY)
+    return preset.modules and preset.modules[moduleKey] or nil
+end
+
+function VanillaEnhanced:GetConfigurationPresetModuleDefaultsForPreset(presetKey, moduleKey)
+    local preset = GetPreset(presetKey)
     return preset.modules and preset.modules[moduleKey] or nil
 end
 
