@@ -1,0 +1,7 @@
+interface:
+  display_name: "Addon Runtime Debugging"
+  short_description: "Create temporary in-game debug commands"
+  default_prompt: "Use $addon-runtime-debugging to add a temporary in-game debug command for this broken addon behavior."
+
+policy:
+  allow_implicit_invocation: true
