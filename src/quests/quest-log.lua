@@ -153,7 +153,7 @@ function Quests:GetQuestLogSnapshot()
     return quests
 end
 
-local function GetCurrentPlayerMapId()
+function Quests:GetCurrentPlayerMapId()
     if not C_Map or not C_Map.GetBestMapForUnit then
         return nil
     end
@@ -165,7 +165,7 @@ local function GetCurrentPlayerMapId()
     return nil
 end
 
-local function GetMapGroupId(mapId)
+function Quests:GetMapGroupId(mapId)
     if not mapId or not C_Map or not C_Map.GetMapGroupID then
         return nil
     end
@@ -177,12 +177,12 @@ local function GetMapGroupId(mapId)
     return nil
 end
 
-local function MapIdMatchesCurrentPlayerMap(mapId)
+function Quests:MapIdMatchesCurrentPlayerMap(mapId)
     if not mapId then
         return false
     end
 
-    local currentMapId = GetCurrentPlayerMapId()
+    local currentMapId = self:GetCurrentPlayerMapId()
     if not currentMapId then
         return false
     end
@@ -191,9 +191,13 @@ local function MapIdMatchesCurrentPlayerMap(mapId)
         return true
     end
 
-    local currentGroupId = GetMapGroupId(currentMapId)
-    local targetGroupId = GetMapGroupId(mapId)
+    local currentGroupId = self:GetMapGroupId(currentMapId)
+    local targetGroupId = self:GetMapGroupId(mapId)
     return currentGroupId and targetGroupId and currentGroupId == targetGroupId
+end
+
+function Quests:IsCurrentQuestDungeon(dbQuest)
+    return dbQuest and dbQuest.dq == 1 and self:MapIdMatchesCurrentPlayerMap(dbQuest.dm)
 end
 
 function Quests:ShouldHideIncompleteDungeonCluster(quest, dbQuest, cluster, settings)
@@ -204,7 +208,7 @@ function Quests:ShouldHideIncompleteDungeonCluster(quest, dbQuest, cluster, sett
 
     local kind = self:GetClusterKind(cluster)
     if kind ~= "turnin" then
-        return not MapIdMatchesCurrentPlayerMap(dbQuest.dm)
+        return not self:IsCurrentQuestDungeon(dbQuest)
     end
 
     return settings.showIncompleteDungeonTurnins ~= true

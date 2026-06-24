@@ -269,6 +269,12 @@ local function IsIncompleteObjectiveCluster(quest, cluster)
 end
 
 local function GetBestQuestDistance(quest, dbQuest, position, currentZoneOnly)
+    if dbQuest.dq == 1 and quest.isComplete ~= true then
+        if not Quests.IsCurrentQuestDungeon or not Quests:IsCurrentQuestDungeon(dbQuest) then
+            return nil
+        end
+    end
+
     local maps = quest.isComplete and dbQuest.turnins or dbQuest.maps
     if not maps then
         return nil
