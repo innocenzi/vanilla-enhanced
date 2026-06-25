@@ -2062,6 +2062,13 @@ local merchantsPanel = BuildOptionsPanel({
             helpKey = "options.merchants.autoRepair.help",
             indent = 0,
         },
+        {
+            name = "VanillaEnhancedOptionsMerchantsShowVendorSellPrice",
+            settingKey = "showVendorSellPrice",
+            labelKey = "options.merchants.showVendorSellPrice.label",
+            helpKey = "options.merchants.showVendorSellPrice.help",
+            indent = 0,
+        },
     },
 })
 

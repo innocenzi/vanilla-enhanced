@@ -59,6 +59,9 @@ local PRESETS = {
                 showBoundIcon = true,
                 showScrapIcon = true,
             },
+            merchants = {
+                showVendorSellPrice = false,
+            },
         },
     },
     adventurer = {
@@ -114,6 +117,9 @@ local PRESETS = {
                 showBoundIcon = true,
                 showScrapIcon = true,
             },
+            merchants = {
+                showVendorSellPrice = true,
+            },
         },
     },
     guide = {
@@ -167,6 +173,9 @@ local PRESETS = {
                 showQuestIcon = true,
                 showBoundIcon = true,
                 showScrapIcon = true,
+            },
+            merchants = {
+                showVendorSellPrice = true,
             },
         },
     },

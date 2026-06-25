@@ -67,6 +67,7 @@ src\merchants\repair.lua
 src\professions\api.lua
 src\professions\module.lua
 src\professions\tooltips.lua
+src\merchants\tooltips.lua
 src\map\module.lua
 src\map\settings.lua
 src\map\markers.lua

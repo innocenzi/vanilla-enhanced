@@ -15,6 +15,7 @@ local defaults = {
     sellScrapsEnabled = true,
     autoSellScraps = false,
     autoRepair = false,
+    showVendorSellPrice = true,
     safeManualSell = true,
     safeAutoSell = true,
     sortBagsAfterSellingScraps = false,
