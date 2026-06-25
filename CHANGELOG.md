@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.6.2 - 2026-06-25
+
+
+### Features
+- **merchants:** support display vendor prices on tooltips
+
+
+### Performance
+- **quests:** improve map area rendering
+
 ## 0.6.1 - 2026-06-24
 
 
