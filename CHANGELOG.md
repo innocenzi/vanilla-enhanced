@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.3 - 2026-06-26
+
+
+### Features
+- **professions:** add gathering tracking
+
 ## 0.6.2 - 2026-06-25
 
 
