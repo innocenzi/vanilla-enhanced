@@ -216,6 +216,22 @@ local function IsCastGuidString(value)
     return type(value) == "string" and string.find(value, "^Cast%-") ~= nil
 end
 
+local function ExtractSpellcastUnitAndSpellId(...)
+    local unit = select(1, ...)
+    if unit ~= "player" then
+        return unit, nil
+    end
+
+    local count = select("#", ...)
+    for index = 2, count do
+        local value = select(index, ...)
+        if type(value) == "number" then
+            return unit, value
+        end
+    end
+    return unit, nil
+end
+
 local function GetResourceGraySkill(node)
     if not node then
         return nil
@@ -389,10 +405,9 @@ function Professions:DetectResourceTypeFromSpell(spellId, spellName)
     end
 
     local lowerName = string.lower(spellName)
-    local Professions = VanillaEnhanced:GetModule("professions")
-    if Professions and Professions.GetProfessionName then
-        local herbalismName = Professions:GetProfessionName(HERBALISM_PROFESSION_ID)
-        local miningName = Professions:GetProfessionName(MINING_PROFESSION_ID)
+    if self.GetProfessionName then
+        local herbalismName = self:GetProfessionName(HERBALISM_PROFESSION_ID)
+        local miningName = self:GetProfessionName(MINING_PROFESSION_ID)
         if herbalismName and string.find(lowerName, string.lower(herbalismName), 1, true) then
             return "herb"
         end
@@ -466,23 +481,22 @@ end
 function Professions:TrackGatherCast(event, ...)
     local settings = self:GetSettings()
     if not self:IsEnabled() or settings.trackGatheredNodes == false then
-        if self.RecordGatheringDebugEvent then
-            self:RecordGatheringDebugEvent("trackCast:ignored", "disabledOrTrackingOff")
-        end
+        return
+    end
+
+    local unit, quickSpellId = ExtractSpellcastUnitAndSpellId(...)
+    if unit ~= "player" then
+        return
+    end
+    if quickSpellId and not SPELL_RESOURCE_TYPES[quickSpellId] then
         return
     end
 
     local resourceType, spellId, spellName, targetName = self:ExtractGatherSpellEvent(event, ...)
     if not resourceType then
-        if self.RecordGatheringDebugEvent then
-            self:RecordGatheringDebugEvent("trackCast:noResourceType", "event=" .. tostring(event) .. " spellId=" .. tostring(spellId) .. " spellName=" .. tostring(spellName))
-        end
         return
     end
     if not self:HasResourceProfession(resourceType) then
-        if self.RecordGatheringDebugEvent then
-            self:RecordGatheringDebugEvent("trackCast:professionMissing", "type=" .. tostring(resourceType) .. " spellId=" .. tostring(spellId))
-        end
         return
     end
 
@@ -493,9 +507,6 @@ function Professions:TrackGatherCast(event, ...)
         targetName = targetName or (self.pendingGather and self.pendingGather.resourceType == resourceType and self.pendingGather.targetName or nil),
         time = GetTime and GetTime() or 0,
     }
-    if self.RecordGatheringDebugEvent then
-        self:RecordGatheringDebugEvent("trackCast:pending", "type=" .. tostring(resourceType) .. " spellId=" .. tostring(spellId) .. " spellName=" .. tostring(spellName) .. " target=" .. tostring(targetName))
-    end
 end
 
 function Professions:GetPlayerMapPosition()
@@ -523,9 +534,6 @@ end
 function Professions:MarkGatherLootOpened()
     local pending = self.pendingGather
     if not pending or not IsRecent(pending.time) then
-        if self.RecordGatheringDebugEvent then
-            self:RecordGatheringDebugEvent("lootOpened:ignored", pending and "stalePending" or "noPending")
-        end
         return
     end
 
@@ -538,25 +546,16 @@ function Professions:MarkGatherLootOpened()
     local lootName, lootItemId = GetOpenLootItemInfo()
     pending.lootName = pending.lootName or lootName
     pending.lootItemId = pending.lootItemId or lootItemId
-    if self.RecordGatheringDebugEvent then
-        self:RecordGatheringDebugEvent("lootOpened:captured", "map=" .. tostring(uiMapId) .. " x=" .. tostring(x) .. " y=" .. tostring(y) .. " lootName=" .. tostring(pending.lootName) .. " itemId=" .. tostring(pending.lootItemId))
-    end
 end
 
 function Professions:CaptureGatherLootMessage(message)
     local pending = self.pendingGather
     if not pending or not IsRecent(pending.time) then
-        if self.RecordGatheringDebugEvent then
-            self:RecordGatheringDebugEvent("lootMessage:ignored", pending and "stalePending" or "noPending")
-        end
         return
     end
 
     pending.lootName = pending.lootName or ExtractLootItemName(message)
     pending.lootItemId = pending.lootItemId or ExtractLootItemId(message)
-    if self.RecordGatheringDebugEvent then
-        self:RecordGatheringDebugEvent("lootMessage:captured", "name=" .. tostring(pending.lootName) .. " itemId=" .. tostring(pending.lootItemId) .. " message=" .. tostring(message))
-    end
 end
 
 function Professions:GetNextPersonalNodeId()
@@ -637,31 +636,9 @@ end
 function Professions:AddGatheredNode(resourceType, uiMapId, x, y, options)
     local resourceInfo = self:GetResourceTypeInfo(resourceType)
     if not resourceInfo or not self:HasResourceProfession(resourceType) then
-        self.lastGatherCommit = {
-            status = "failed",
-            reason = "resourceOrProfession",
-            resourceType = resourceType,
-            uiMapId = uiMapId,
-            x = x,
-            y = y,
-        }
-        if self.RecordGatheringDebugEvent then
-            self:RecordGatheringDebugEvent("addNode:failed", "resourceOrProfession type=" .. tostring(resourceType))
-        end
         return nil
     end
     if type(uiMapId) ~= "number" or type(x) ~= "number" or type(y) ~= "number" then
-        self.lastGatherCommit = {
-            status = "failed",
-            reason = "invalidPosition",
-            resourceType = resourceType,
-            uiMapId = uiMapId,
-            x = x,
-            y = y,
-        }
-        if self.RecordGatheringDebugEvent then
-            self:RecordGatheringDebugEvent("addNode:failed", "invalidPosition map=" .. tostring(uiMapId) .. " x=" .. tostring(x) .. " y=" .. tostring(y))
-        end
         return nil
     end
 
@@ -680,19 +657,6 @@ function Professions:AddGatheredNode(resourceType, uiMapId, x, y, options)
             self:AddSharedNodeFromPersonalNode(existing)
         end
         self:RefreshMap()
-
-        self.lastGatherCommit = {
-            status = "updated",
-            reason = "existingNode",
-            resourceType = resourceType,
-            uiMapId = uiMapId,
-            x = x,
-            y = y,
-            nodeId = existing.id,
-        }
-        if self.RecordGatheringDebugEvent then
-            self:RecordGatheringDebugEvent("addNode:updated", "id=" .. tostring(existing.id) .. " type=" .. tostring(resourceType) .. " map=" .. tostring(uiMapId) .. " x=" .. tostring(x) .. " y=" .. tostring(y))
-        end
         return existing
     end
 
@@ -717,19 +681,6 @@ function Professions:AddGatheredNode(resourceType, uiMapId, x, y, options)
     end
 
     self:RefreshMap()
-
-    self.lastGatherCommit = {
-        status = "added",
-        reason = "ok",
-        resourceType = resourceType,
-        uiMapId = uiMapId,
-        x = x,
-        y = y,
-        nodeId = node.id,
-    }
-    if self.RecordGatheringDebugEvent then
-        self:RecordGatheringDebugEvent("addNode:added", "id=" .. tostring(node.id) .. " type=" .. tostring(resourceType) .. " map=" .. tostring(uiMapId) .. " x=" .. tostring(x) .. " y=" .. tostring(y))
-    end
     VanillaEnhanced:PrintMessage(T("professions.gathering.nodes.added", {resource = node.name}))
     return node
 end
@@ -738,27 +689,9 @@ function Professions:CommitPendingGather()
     local pending = self.pendingGather
     self.pendingGather = nil
     if not pending or not IsRecent(pending.time) then
-        self.lastGatherCommit = {
-            status = "failed",
-            reason = pending and "stalePending" or "noPending",
-        }
-        if self.RecordGatheringDebugEvent then
-            self:RecordGatheringDebugEvent("commit:ignored", pending and "stalePending" or "noPending")
-        end
         return nil
     end
     if not pending.lootOpened and not pending.lootName then
-        self.lastGatherCommit = {
-            status = "failed",
-            reason = "noLootSignal",
-            resourceType = pending.resourceType,
-            spellId = pending.spellId,
-            spellName = pending.spellName,
-            targetName = pending.targetName,
-        }
-        if self.RecordGatheringDebugEvent then
-            self:RecordGatheringDebugEvent("commit:ignored", "noLootSignal type=" .. tostring(pending.resourceType))
-        end
         return nil
     end
 
@@ -769,22 +702,6 @@ function Professions:CommitPendingGather()
         uiMapId, x, y = self:GetPlayerMapPosition()
     end
 
-    self.lastGatherCommit = {
-        status = "attempting",
-        reason = "lootClosed",
-        resourceType = pending.resourceType,
-        spellId = pending.spellId,
-        spellName = pending.spellName,
-        targetName = pending.targetName,
-        lootName = pending.lootName,
-        itemId = pending.lootItemId,
-        uiMapId = uiMapId,
-        x = x,
-        y = y,
-    }
-    if self.RecordGatheringDebugEvent then
-        self:RecordGatheringDebugEvent("commit:attempt", "type=" .. tostring(pending.resourceType) .. " map=" .. tostring(uiMapId) .. " x=" .. tostring(x) .. " y=" .. tostring(y))
-    end
     return self:AddGatheredNode(pending.resourceType, uiMapId, x, y, {
         objectName = pending.targetName,
         itemName = pending.lootName,
@@ -882,18 +799,32 @@ function Professions:ScheduleRespawnRefresh(remainingSeconds)
     end)
 end
 
-function Professions:ShouldDisplayNode(node)
-    if not self:IsNodeProfessionKnown(node) then
+function Professions:ShouldDisplayNode(node, resourceProfessionCache, settings)
+    local resourceType = node and node.resourceType
+    local known
+    if resourceProfessionCache and resourceType then
+        known = resourceProfessionCache[resourceType]
+        if known == nil then
+            known = self:HasResourceProfession(resourceType)
+            resourceProfessionCache[resourceType] = known
+        end
+    else
+        known = self:IsNodeProfessionKnown(node)
+    end
+
+    if not known then
         return false
     end
-    if self:GetSettings().hideTrivialNodes == true and self:IsNodeTrivial(node) then
+
+    settings = settings or self:GetSettings()
+    if settings.hideTrivialNodes == true and self:IsNodeTrivial(node) then
         return false
     end
     return true
 end
 
-function Professions:AddDisplayNode(nodes, seen, node)
-    if not self:ShouldDisplayNode(node) then
+function Professions:AddDisplayNode(nodes, seen, node, resourceProfessionCache, settings)
+    if not self:ShouldDisplayNode(node, resourceProfessionCache, settings) then
         return
     end
 
@@ -912,24 +843,30 @@ function Professions:AddDisplayNode(nodes, seen, node)
 end
 
 function Professions:GetDisplayNodes()
+    if self.gatheringDisplayNodes then
+        return self.gatheringDisplayNodes
+    end
+
     local settings = self:GetSettings()
     local characterSettings = self:GetGatheringCharacterSettings()
     local nodes = {}
     local seen = {}
+    local resourceProfessionCache = {}
 
     if settings.includePersonalNodes ~= false then
         for _, node in ipairs(characterSettings.nodes or {}) do
-            self:AddDisplayNode(nodes, seen, node)
+            self:AddDisplayNode(nodes, seen, node, resourceProfessionCache, settings)
         end
     end
 
     if settings.includeSharedNodes ~= false then
         local sharedSettings = self:GetGatheringSharedSettings()
         for _, node in ipairs(sharedSettings.sharedNodes or {}) do
-            self:AddDisplayNode(nodes, seen, node)
+            self:AddDisplayNode(nodes, seen, node, resourceProfessionCache, settings)
         end
     end
 
+    self.gatheringDisplayNodes = nodes
     return nodes
 end
 
