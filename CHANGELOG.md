@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.6.5 - 2026-06-26
+
+
+### Fixes
+- **quests:** improve area for radius-only quests
+- **quests:** keep sparse objective spawns precise
+
+
+### Performance
+- **quests:** improve map area accuracy
+
 ## 0.6.4 - 2026-06-26
 
 
