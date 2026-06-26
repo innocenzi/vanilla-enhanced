@@ -18,6 +18,9 @@ local SCROLL_BAR_WIDTH = 28
 local SCROLL_BOTTOM_PADDING = 24
 local SLIDER_THUMB_EDGE_PADDING = 13
 local SLIDER_VISIBLE_OFFSET_X = 10
+local ACTION_BUTTON_MIN_WIDTH = 140
+local ACTION_BUTTON_HEIGHT = 22
+local ACTION_BUTTON_HORIZONTAL_PADDING = 32
 
 local function T(key, vars)
     return VanillaEnhanced:T(key, vars)
@@ -290,6 +293,20 @@ local function ConfirmClearMapMarkers()
     end
 end
 
+local function ConfirmClearGatheringPersonalNodes()
+    local professions = VanillaEnhanced:GetModule("professions")
+    if professions and professions.ConfirmClearPersonalNodes then
+        professions:ConfirmClearPersonalNodes()
+    end
+end
+
+local function ConfirmClearGatheringSharedNodes()
+    local professions = VanillaEnhanced:GetModule("professions")
+    if professions and professions.ConfirmClearSharedNodes then
+        professions:ConfirmClearSharedNodes()
+    end
+end
+
 local function IsSettingEnabled(moduleKey, settingKey)
     local settings = GetModuleOptionSettings(moduleKey)
     return settings[settingKey] ~= false
@@ -551,6 +568,17 @@ local function CreateAddonSettingCheck(panel, name, settingKey, label, anchor)
     return check
 end
 
+local function ResizeActionButtonToText(button)
+    local minWidth = button.optionMinWidth or ACTION_BUTTON_MIN_WIDTH
+    local width = minWidth
+    local fontString = button.GetFontString and button:GetFontString() or nil
+    local textWidth = fontString and GetRegionWidth(fontString, 0) or 0
+    if textWidth and textWidth > 0 then
+        width = math.max(width, math.ceil(textWidth + ACTION_BUTTON_HORIZONTAL_PADDING))
+    end
+    button:SetSize(width, ACTION_BUTTON_HEIGHT)
+end
+
 local function CreateAddonActionButton(panel, name, label, anchor, onClick, option)
     local button = CreateFrame("Button", name, GetPanelContent(panel), "UIPanelButtonTemplate")
     local bottomAnchor = anchor.optionHelpBottomAnchor or anchor
@@ -562,8 +590,9 @@ local function CreateAddonActionButton(panel, name, label, anchor, onClick, opti
         button:SetPoint("TOPLEFT", bottomAnchor, "BOTTOMLEFT", 0, -16)
         panel.optionBottomAnchor = button
     end
-    button:SetSize(option and option.width or 140, 22)
+    button.optionMinWidth = option and option.width or ACTION_BUTTON_MIN_WIDTH
     button:SetText(label)
+    ResizeActionButtonToText(button)
     button:SetScript("OnClick", onClick)
     button.optionHelpPointAnchor = button
     button.optionHelpLeftOffset = -1
@@ -1192,6 +1221,7 @@ function VanillaEnhanced:RefreshLocalizedOptions()
             if control.optionType == "addonAction" then
                 if label and control.SetText then
                     control:SetText(label)
+                    ResizeActionButtonToText(control)
                 end
             elseif control.optionType == "dropdown" or control.optionType == "addonDropdown" then
                 RefreshDropdownText(control)
@@ -1715,6 +1745,11 @@ local professionsPanel = BuildOptionsPanel({
             helpKey = "options.professions.enable.help",
         },
         {
+            type = "section",
+            name = "VanillaEnhancedOptionsProfessionsRecipesSection",
+            labelKey = "options.professions.section.recipes",
+        },
+        {
             type = "dropdown",
             name = "VanillaEnhancedOptionsProfessionsRecipeScope",
             settingKey = "recipeScope",
@@ -1784,6 +1819,102 @@ local professionsPanel = BuildOptionsPanel({
                     descriptionKey = "options.professions.displayMode.compact.description",
                 },
             },
+        },
+        {
+            type = "section",
+            name = "VanillaEnhancedOptionsProfessionsGatheringTrackingSection",
+            labelKey = "options.professions.gathering.section.tracking",
+        },
+        {
+            name = "VanillaEnhancedOptionsProfessionsGatheringTrackGatheredNodes",
+            settingKey = "trackGatheredNodes",
+            labelKey = "options.professions.gathering.trackGatheredNodes.label",
+            helpKey = "options.professions.gathering.trackGatheredNodes.help",
+            indent = 0,
+        },
+        {
+            name = "VanillaEnhancedOptionsProfessionsGatheringShowWorldMapNodes",
+            settingKey = "showWorldMapNodes",
+            labelKey = "options.professions.gathering.showWorldMapNodes.label",
+            helpKey = "options.professions.gathering.showWorldMapNodes.help",
+            indent = 0,
+        },
+        {
+            name = "VanillaEnhancedOptionsProfessionsGatheringShowMinimapNodes",
+            settingKey = "showMinimapNodes",
+            labelKey = "options.professions.gathering.showMinimapNodes.label",
+            helpKey = "options.professions.gathering.showMinimapNodes.help",
+            indent = 0,
+        },
+        {
+            name = "VanillaEnhancedOptionsProfessionsGatheringShowMinimapNodeDirection",
+            settingKey = "showMinimapNodeDirection",
+            labelKey = "options.professions.gathering.showMinimapNodeDirection.label",
+            helpKey = "options.professions.gathering.showMinimapNodeDirection.help",
+            enabledWhenSetting = "showMinimapNodes",
+            indent = 1,
+        },
+        {
+            name = "VanillaEnhancedOptionsProfessionsGatheringGrayFreshNodes",
+            settingKey = "grayFreshNodes",
+            labelKey = "options.professions.gathering.grayFreshNodes.label",
+            helpKey = "options.professions.gathering.grayFreshNodes.help",
+            indent = 0,
+        },
+        {
+            type = "dropdown",
+            name = "VanillaEnhancedOptionsProfessionsGatheringRespawnEstimate",
+            settingKey = "respawnEstimate",
+            labelKey = "options.professions.gathering.respawnEstimate.label",
+            helpKey = "options.professions.gathering.respawnEstimate.help",
+            enabledWhenSetting = "grayFreshNodes",
+            indent = 1,
+            defaultValue = "fast",
+            options = {
+                {
+                    value = "fast",
+                    labelKey = "options.professions.gathering.respawnEstimate.fast",
+                    descriptionKey = "options.professions.gathering.respawnEstimate.fast.description",
+                },
+                {
+                    value = "normal",
+                    labelKey = "options.professions.gathering.respawnEstimate.normal",
+                    descriptionKey = "options.professions.gathering.respawnEstimate.normal.description",
+                },
+                {
+                    value = "conservative",
+                    labelKey = "options.professions.gathering.respawnEstimate.conservative",
+                    descriptionKey = "options.professions.gathering.respawnEstimate.conservative.description",
+                },
+            },
+        },
+        {
+            name = "VanillaEnhancedOptionsProfessionsGatheringHideTrivialNodes",
+            settingKey = "hideTrivialNodes",
+            labelKey = "options.professions.gathering.hideTrivialNodes.label",
+            helpKey = "options.professions.gathering.hideTrivialNodes.help",
+            indent = 0,
+        },
+        {
+            name = "VanillaEnhancedOptionsProfessionsGatheringIncludeSharedNodes",
+            settingKey = "includeSharedNodes",
+            labelKey = "options.professions.gathering.includeSharedNodes.label",
+            helpKey = "options.professions.gathering.includeSharedNodes.help",
+            indent = 0,
+        },
+        {
+            type = "addonAction",
+            name = "VanillaEnhancedOptionsProfessionsGatheringClearPersonalNodes",
+            labelKey = "options.professions.gathering.clearPersonalNodes.label",
+            helpKey = "options.professions.gathering.clearPersonalNodes.help",
+            onClick = ConfirmClearGatheringPersonalNodes,
+        },
+        {
+            type = "addonAction",
+            name = "VanillaEnhancedOptionsProfessionsGatheringClearSharedNodes",
+            labelKey = "options.professions.gathering.clearSharedNodes.label",
+            helpKey = "options.professions.gathering.clearSharedNodes.help",
+            onClick = ConfirmClearGatheringSharedNodes,
         },
     },
 })

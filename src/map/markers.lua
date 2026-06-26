@@ -233,6 +233,7 @@ local function ResetMarkerFrame(frame)
     frame.markerOwner = nil
     frame.markerKind = nil
     frame.markerShowOnlyAtEdge = nil
+    frame.markerHideWhenOffMinimap = nil
     frame.markerWorldX = nil
     frame.markerWorldY = nil
     frame.markerInstanceId = nil
@@ -364,6 +365,33 @@ function Map:GetMarkerStore()
         settings.markers = {}
     end
     return settings.markers
+end
+
+function Map:RegisterMarkerProvider(owner, provider)
+    if not owner or type(provider) ~= "table" then
+        return
+    end
+
+    self.markerProviders = self.markerProviders or {}
+    if self.markerProviders[owner] == provider then
+        return
+    end
+
+    self.markerProviders[owner] = provider
+    if self.Refresh then
+        self:Refresh()
+    end
+end
+
+function Map:UnregisterMarkerProvider(owner)
+    if not owner or not self.markerProviders or not self.markerProviders[owner] then
+        return
+    end
+
+    self.markerProviders[owner] = nil
+    if self.Refresh then
+        self:Refresh()
+    end
 end
 
 function Map:GetNextMarkerId()
@@ -722,6 +750,13 @@ function Map:ShowMarkerTooltip(frame)
         x = marker.tooltipX or marker.x,
         y = marker.tooltipY or marker.y,
     }, distance), 0.9, 0.82, 0.55)
+    for _, line in ipairs(marker.tooltipLines or {}) do
+        if type(line) == "table" then
+            GameTooltip:AddLine(line.text or "", line.r or 0.8, line.g or 0.8, line.b or 0.8, true)
+        elseif line then
+            GameTooltip:AddLine(tostring(line), 0.8, 0.8, 0.8, true)
+        end
+    end
     GameTooltip:Show()
 end
 
@@ -812,13 +847,16 @@ function Map:AddWorldMapMarker(marker)
     frame.markerId = marker.id
     frame.markerData = marker
     ConfigureMarkerVisual(frame, marker)
+    local showFlag = marker.worldMapCurrentOnly == true
+        and (HBD_PINS_WORLDMAP_SHOW_CURRENT or -1)
+        or (HBD_PINS_WORLDMAP_SHOW_WORLD or 3)
     self.hbdPins:AddWorldMapIconMap(
         self,
         frame,
         marker.uiMapId,
         marker.x,
         marker.y,
-        HBD_PINS_WORLDMAP_SHOW_WORLD or 3
+        showFlag
     )
     SetFramePropagateMouseClicks(frame:GetParent(), true)
     self.worldMapFrames[#self.worldMapFrames + 1] = frame
@@ -884,6 +922,8 @@ function Map:AddMinimapMarker(marker)
     frame.markerId = marker.id
     frame.markerData = marker
     ConfigureMarkerVisual(frame, marker)
+    frame.markerShowOnlyAtEdge = marker.minimapShowOnlyAtEdge == true
+    frame.markerHideWhenOffMinimap = marker.minimapHideWhenOffMap == true
     frame.markerWorldX = worldX
     frame.markerWorldY = worldY
     frame.markerInstanceId = instanceId
@@ -984,6 +1024,12 @@ function Map:RefreshWorldMapMarkers()
             self:AddKnownFlightMasterWorldMapMarker(flightMaster)
         end
     end
+    for _, provider in pairs(self.markerProviders or {}) do
+        local markers = provider.GetWorldMapMarkers and provider:GetWorldMapMarkers() or nil
+        for _, marker in ipairs(markers or {}) do
+            self:AddWorldMapMarker(marker)
+        end
+    end
 end
 
 function Map:ScheduleWorldMapMarkersRefresh(delay)
@@ -1007,6 +1053,12 @@ function Map:RefreshMinimapMarkers()
     end
     if settings.showMinimapDirections ~= false then
         for _, marker in ipairs(self:GetMarkerStore()) do
+            self:AddMinimapMarker(marker)
+        end
+    end
+    for _, provider in pairs(self.markerProviders or {}) do
+        local markers = provider.GetMinimapMarkers and provider:GetMinimapMarkers() or nil
+        for _, marker in ipairs(markers or {}) do
             self:AddMinimapMarker(marker)
         end
     end
@@ -1103,6 +1155,10 @@ function Map:UpdateMinimapMarkerFrame(frame, playerX, playerY, playerInstanceId,
     end
 
     if offsetDistance > edgeRadius then
+        if frame.markerHideWhenOffMinimap then
+            frame:Hide()
+            return
+        end
         offsetX = (offsetX / offsetDistance) * edgeRadius
         offsetY = (offsetY / offsetDistance) * edgeRadius
     end

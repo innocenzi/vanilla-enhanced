@@ -73,5 +73,7 @@ src\map\settings.lua
 src\map\markers.lua
 src\map\flight-masters.lua
 src\map\tomtom.lua
+src\professions\gathering.lua
+src\professions\gathering-nodes.lua
 src\target-threat\module.lua
 src\options.lua

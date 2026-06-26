@@ -101,10 +101,17 @@ local function GetMaxRecipeLinesPerProfession()
 end
 
 function Professions:GetSettings()
+    if self.MigrateGatheringSettings then
+        self:MigrateGatheringSettings()
+    end
+
     local settings = VanillaEnhanced:GetModuleSettings("professions", defaults)
     settings.displayMode = NormalizeDisplayMode(settings.displayMode)
     settings.recipeScope = NormalizeRecipeScope(settings.recipeScope)
     settings.professionScope = NormalizeProfessionScope(settings.professionScope)
+    if self.ApplyGatheringDefaults then
+        self:ApplyGatheringDefaults(settings)
+    end
     return settings
 end
 
@@ -114,10 +121,16 @@ end
 
 function Professions:SetEnabled(enabled)
     VanillaEnhanced:SetModuleEnabled("professions", enabled)
+    if self.RefreshGathering then
+        self:RefreshGathering()
+    end
 end
 
 function Professions:Update()
     self.playerProfessions = nil
+    if self.RefreshGathering then
+        self:RefreshGathering()
+    end
 end
 
 function Professions:GetPlayerProfessions()

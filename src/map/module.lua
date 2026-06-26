@@ -6,6 +6,7 @@ Map.worldMapFrames = Map.worldMapFrames or {}
 Map.minimapFrames = Map.minimapFrames or {}
 Map.directionTargetFrames = Map.directionTargetFrames or {}
 Map.directionTargetsByOwner = Map.directionTargetsByOwner or {}
+Map.markerProviders = Map.markerProviders or {}
 Map.pool = Map.pool or {
     worldMap = {},
     minimap = {},
