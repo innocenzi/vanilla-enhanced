@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.4 - 2026-06-26
+
+
+### Performance
+- **professions:** optimize gathering tracking
+
 ## 0.6.3 - 2026-06-26
 
 
