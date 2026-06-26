@@ -675,8 +675,12 @@ function cluster(points: Point[]): Record<number, Cluster[]> {
 }
 
 function splitSpatialClusters(points: Point[]): Point[][] {
+  if (points.length < 3) {
+    return points.map((point) => [point]);
+  }
+
   if (points[0]?.kind === "slay") {
-    return splitBoundedConnectivityClusters(points);
+    return splitSparseClusters(splitBoundedConnectivityClusters(points));
   }
 
   const maxDistance = 8;
@@ -702,7 +706,11 @@ function splitSpatialClusters(points: Point[]): Point[][] {
     }
   }
 
-  return groups;
+  return splitSparseClusters(groups);
+}
+
+function splitSparseClusters(groups: Point[][]): Point[][] {
+  return groups.flatMap((group) => (group.length < 3 ? group.map((point) => [point]) : [group]));
 }
 
 function splitBoundedConnectivityClusters(points: Point[]): Point[][] {

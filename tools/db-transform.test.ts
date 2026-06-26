@@ -142,7 +142,8 @@ test("builds compact quests Lua from normalized Questie data", () => {
   expect(artifacts.locationLua).toContain('rk = {{185,2},{202,-4}}');
   expect(artifacts.locationLua).toContain("starts = {");
   expect(artifacts.locationLua).toContain("{15.00,15.00,nil,nil,7");
-  expect(artifacts.locationLua).toContain("{10.50,10.50,0.71,2,1");
+  expect(artifacts.locationLua).toContain("{10.00,10.00,nil,nil,1");
+  expect(artifacts.locationLua).toContain("{11.00,11.00,nil,nil,1");
   expect(artifacts.locationLua).toContain("{30.00,30.00,nil,nil,2");
   expect(artifacts.locationLua).toContain("{102,12.5}");
   expect(artifacts.locationLua).not.toContain("999,4.3");
@@ -223,7 +224,34 @@ test("spatially splits item drop clusters", () => {
   const artifacts = buildQuestsArtifacts(fixture(), { minQuestCount: 0 });
 
   expect(artifacts.locationLua).toContain('{30.00,30.00,nil,nil,2,"Wolf pelt",3,201,{102},{102,12.5},1}');
-  expect(artifacts.locationLua).toContain('{80.50,80.00,0.50,2,2,"Wolf pelt",3,201,{107},{107,8},1}');
+  expect(artifacts.locationLua).toContain('{80.00,80.00,nil,nil,2,"Wolf pelt",3,201,{107},{107,8},1}');
+  expect(artifacts.locationLua).toContain('{81.00,80.00,nil,nil,2,"Wolf pelt",3,201,{107},{107,8},1}');
+});
+
+test("keeps sparse objective spawns as precise markers instead of midpoint areas", () => {
+  const db = fixture();
+  db.data.quests["9"] = ["Sparse Boss Quest", null, null, null, null, null, null, null, null, [null, null, [[202, "Boss paw"]]], null, null, null, null, null, null, 12];
+  db.data.items["202"] = ["Boss Paw", [109]];
+  db.data.npcs["109"] = [
+    "Static Boss",
+    null,
+    null,
+    null,
+    null,
+    null,
+    { "12": [[32.21, 17.39], [31.47, 15.5]] },
+  ];
+  db.dropRates = {
+    items: {
+      "202": { "109": 100 },
+    },
+  };
+
+  const artifacts = buildQuestsArtifacts(db, { minQuestCount: 0 });
+
+  expect(artifacts.locationLua).toContain('{32.21,17.39,nil,nil,2,"Boss paw",3,202,{109},{109,100},1}');
+  expect(artifacts.locationLua).toContain('{31.47,15.50,nil,nil,2,"Boss paw",3,202,{109},{109,100},1}');
+  expect(artifacts.locationLua).not.toContain('{31.84,16.45,1.01,2,2,"Boss paw"');
 });
 
 test("spatially splits broad NPC objective clusters", () => {
