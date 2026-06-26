@@ -226,6 +226,59 @@ test("spatially splits item drop clusters", () => {
   expect(artifacts.locationLua).toContain('{80.50,80.00,0.50,2,2,"Wolf pelt",3,201,{107},{107,8},1}');
 });
 
+test("spatially splits broad NPC objective clusters", () => {
+  const db = fixture();
+  db.data.quests["9"] = ["Broad Kill Quest", null, null, null, null, null, null, null, null, [[[108, "Raptor slain"]]], null, null, null, null, null, null, 12];
+  db.data.npcs["108"] = [
+    "Raptor",
+    null,
+    null,
+    null,
+    null,
+    null,
+    {
+      "12": [
+        [33.4, 24.55],
+        [33.96, 25.47],
+        [32.97, 23.89],
+        [32.06, 23.79],
+        [32.4, 24.59],
+        [32.4, 23.17],
+        [31.97, 20.68],
+        [32.5, 21.42],
+        [30.8, 23.22],
+        [30.55, 22.47],
+        [30.66, 23.5],
+        [30.27, 24.66],
+        [30.69, 23.72],
+        [30.6, 24.0],
+        [38.1, 27.02],
+        [38.77, 26.17],
+        [38.44, 25.24],
+        [37.73, 21.48],
+        [37.82, 19.75],
+        [37.57, 27.9],
+        [38.88, 24.59],
+        [35.62, 26.33],
+        [38.28, 19.16],
+        [35.95, 27.15],
+        [38.24, 20.49],
+        [38.87, 21.64],
+        [39.07, 22.09],
+        [38.55, 19.79],
+        [39.34, 19.1],
+      ],
+    },
+  ];
+
+  const artifacts = buildQuestsArtifacts(db, { minQuestCount: 0 });
+
+  expect(artifacts.locationLua).toContain('[9] = { t = "Broad Kill Quest"');
+  expect(artifacts.locationLua).toContain('{31.80,23.51,2.92,14,1,"Raptor slain",1,108,nil,nil,1');
+  expect(artifacts.locationLua).toContain('{38.08,23.19,4.73,15,1,"Raptor slain",1,108,nil,nil,1');
+  expect(artifacts.locationLua).not.toContain('{35.05,23.35,6.04,29,1,"Raptor slain",1,108,nil,nil,1');
+});
+
 test("skips quests blacklisted by Questie", () => {
   const db = fixture();
   db.blacklist = {

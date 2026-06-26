@@ -675,6 +675,10 @@ function cluster(points: Point[]): Record<number, Cluster[]> {
 }
 
 function splitSpatialClusters(points: Point[]): Point[][] {
+  if (points[0]?.kind === "slay") {
+    return splitBoundedConnectivityClusters(points);
+  }
+
   const maxDistance = 8;
   const groups: Point[][] = [];
 
@@ -701,6 +705,50 @@ function splitSpatialClusters(points: Point[]): Point[][] {
   return groups;
 }
 
+function splitBoundedConnectivityClusters(points: Point[]): Point[][] {
+  const maxEdgeDistance = 3;
+  const maxClusterRadius = 5;
+  const edges: Array<{ left: Point; right: Point; distance: number }> = [];
+  let groups = points.map((point) => [point]);
+
+  for (let leftIndex = 0; leftIndex < points.length; leftIndex++) {
+    for (let rightIndex = leftIndex + 1; rightIndex < points.length; rightIndex++) {
+      const left = points[leftIndex];
+      const right = points[rightIndex];
+      const distance = Math.hypot(left.x - right.x, left.y - right.y);
+      if (distance <= maxEdgeDistance) {
+        edges.push({ left, right, distance });
+      }
+    }
+  }
+
+  edges.sort((a, b) =>
+    a.distance - b.distance
+    || a.left.x - b.left.x
+    || a.left.y - b.left.y
+    || a.right.x - b.right.x
+    || a.right.y - b.right.y
+  );
+
+  for (const edge of edges) {
+    const leftGroup = groups.find((group) => group.includes(edge.left));
+    const rightGroup = groups.find((group) => group.includes(edge.right));
+    if (!leftGroup || !rightGroup || leftGroup === rightGroup) continue;
+
+    const merged = [...leftGroup, ...rightGroup];
+    if (getClusterRadius(merged) > maxClusterRadius) continue;
+
+    groups = groups.filter((group) => group !== leftGroup && group !== rightGroup);
+    groups.push(merged);
+  }
+
+  return groups.sort((a, b) => {
+    const left = getCenter(a);
+    const right = getCenter(b);
+    return left.x - right.x || left.y - right.y || a.length - b.length;
+  });
+}
+
 function getCenter(points: Point[]): { x: number; y: number } {
   return {
     x: points.reduce((sum, point) => sum + point.x, 0) / points.length,
@@ -708,10 +756,15 @@ function getCenter(points: Point[]): { x: number; y: number } {
   };
 }
 
+function getClusterRadius(points: Point[]): number {
+  const center = getCenter(points);
+  return Math.max(...points.map((point) => Math.hypot(point.x - center.x, point.y - center.y)), 0);
+}
+
 function buildCluster(group: Point[]): Cluster {
   const x = group.reduce((sum, point) => sum + point.x, 0) / group.length;
   const y = group.reduce((sum, point) => sum + point.y, 0) / group.length;
-  const radius = Math.max(...group.map((point) => Math.hypot(point.x - x, point.y - y)), 0);
+  const radius = getClusterRadius(group);
   const label = group.find((point) => point.label)?.label ?? "Objective";
   const tooltipNpcIds = [...new Set(group.map((point) => point.tooltipNpcId).filter((id): id is number => !!id))].sort((a, b) => a - b);
   const dropRates = buildClusterDropRates(group);
