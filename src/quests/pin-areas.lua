@@ -5,6 +5,8 @@ local AREA_COLOR = { 0.5, 0.7, 0.9 }
 local AREA_FILL_ALPHA = 0.5
 local AREA_FILL_STEP = 2
 local AREA_FILL_OVERLAP = 0
+local AREA_CIRCLE_SEGMENTS = 64
+local AREA_CIRCLE_PADDING = 12
 local AREA_OUTLINE_THICKNESS = 1.5
 local WHITE_TEXTURE = [[Interface\Buttons\WHITE8X8]]
 
@@ -117,6 +119,63 @@ local function ConfigurePolygonFill(frame, points, minY, maxY, color, alpha, fil
     for index = fillIndex, #(frame.fills or {}) do
         frame.fills[index]:Hide()
     end
+end
+
+local function ConfigureCircleFill(frame, radius, color, alpha, fillStep)
+    local fillIndex = 1
+    local step = fillStep or AREA_FILL_STEP
+
+    for y = -radius, radius, step do
+        local remaining = (radius * radius) - (y * y)
+        if remaining >= 0 then
+            local halfWidth = math.sqrt(remaining)
+            local width = math.max(1, halfWidth * 2)
+            local fill = AcquireAreaFill(frame, fillIndex)
+
+            fill:ClearAllPoints()
+            fill:SetSize(width + 1, step + AREA_FILL_OVERLAP)
+            fill:SetPoint("CENTER", frame, "CENTER", 0, y)
+            fill:SetVertexColor(color[1], color[2], color[3], alpha)
+            fillIndex = fillIndex + 1
+        end
+    end
+
+    for index = fillIndex, #(frame.fills or {}) do
+        frame.fills[index]:Hide()
+    end
+end
+
+local function ConfigureCircleOutline(frame, radius, color, alpha, segments)
+    local firstLine = AcquireAreaLine(frame, 1)
+    if not firstLine.SetRotation then
+        HideTextures(frame.lines)
+        return false
+    end
+
+    segments = segments or AREA_CIRCLE_SEGMENTS
+    for index = 1, segments do
+        local angle = ((index - 1) / segments) * math.pi * 2
+        local nextAngle = (index / segments) * math.pi * 2
+        local x1 = math.cos(angle) * radius
+        local y1 = math.sin(angle) * radius
+        local x2 = math.cos(nextAngle) * radius
+        local y2 = math.sin(nextAngle) * radius
+        local dx = x2 - x1
+        local dy = y2 - y1
+        local length = math.sqrt((dx * dx) + (dy * dy))
+        local line = AcquireAreaLine(frame, index)
+
+        line:ClearAllPoints()
+        line:SetSize(length + 1, AREA_OUTLINE_THICKNESS)
+        line:SetPoint("CENTER", frame, "CENTER", x1 + (dx / 2), y1 + (dy / 2))
+        line:SetRotation(Atan2(dy, dx))
+        line:SetVertexColor(color[1], color[2], color[3], alpha)
+    end
+
+    for index = segments + 1, #(frame.lines or {}) do
+        frame.lines[index]:Hide()
+    end
+    return true
 end
 
 local function SetAreaRevealed(frame, revealed)
@@ -233,23 +292,15 @@ end
 local function ConfigureCircleArea(frame, radius)
     local settings = Quests:GetSettings()
     local xScale, yScale = Quests:GetWorldMapPixelScale()
-    local size = math.max(38, math.min(260, math.floor(((radius or 0) * 2 * math.min(xScale, yScale)) + 12)))
+    local size = math.max(38, math.min(260, math.floor(((radius or 0) * 2 * math.min(xScale, yScale)) + AREA_CIRCLE_PADDING)))
+    local circleRadius = math.max(1, (size - AREA_CIRCLE_PADDING) / 2)
     local color = AREA_COLOR
 
-    HideTextures(frame.lines)
-    HideTextures(frame.fills)
     frame:SetSize(size, size)
     ConfigureMarkerFrame(frame, settings, false)
-    frame.texture:Show()
-    frame.texture:SetTexture(Quests.mediaPath .. "area-circle")
-    if frame.texture.SetDrawLayer then
-        frame.texture:SetDrawLayer("ARTWORK", -7)
-    end
-    if frame.texture.SetBlendMode then
-        frame.texture:SetBlendMode("BLEND")
-    end
-    frame.texture:SetAllPoints(frame)
-    frame.texture:SetVertexColor(color[1], color[2], color[3], math.min(0.95, (settings.opacity or 0.85) * 0.9))
+    frame.texture:Hide()
+    ConfigureCircleFill(frame, circleRadius, color, math.min(0.28, (settings.opacity or 0.85) * AREA_FILL_ALPHA))
+    ConfigureCircleOutline(frame, circleRadius, color, math.min(0.95, (settings.opacity or 0.85) * 0.95))
     HideMarkerText(frame.text)
 end
 

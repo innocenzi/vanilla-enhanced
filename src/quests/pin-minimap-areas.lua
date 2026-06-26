@@ -3,6 +3,7 @@ local Quests = _G.VanillaEnhanced:GetModule("quests")
 local MARKER_FRAME_SIZE = 16
 local AREA_COLOR = { 0.5, 0.7, 0.9 }
 local AREA_FILL_STEP = 4
+local AREA_CIRCLE_SEGMENTS = 48
 local AREA_OUTLINE_THICKNESS = 1.5
 local MINIMAP_AREA_RENDER_BUDGET_SECONDS = 0.004
 local MINIMAP_AREA_RENDER_MAX_PER_FRAME = 4
@@ -155,6 +156,63 @@ local function ConfigurePolygonFill(frame, points, minY, maxY, color, alpha, fil
     for index = fillIndex, #(frame.fills or {}) do
         frame.fills[index]:Hide()
     end
+end
+
+local function ConfigureCircleFill(frame, radius, color, alpha, fillStep)
+    local fillIndex = 1
+    local step = fillStep or AREA_FILL_STEP
+
+    for y = -radius, radius, step do
+        local remaining = (radius * radius) - (y * y)
+        if remaining >= 0 then
+            local halfWidth = math.sqrt(remaining)
+            local width = math.max(1, halfWidth * 2)
+            local fill = AcquireAreaFill(frame, fillIndex)
+
+            fill:ClearAllPoints()
+            fill:SetSize(width, step + 1)
+            fill:SetPoint("CENTER", frame, "CENTER", 0, y)
+            fill:SetVertexColor(color[1], color[2], color[3], alpha)
+            fillIndex = fillIndex + 1
+        end
+    end
+
+    for index = fillIndex, #(frame.fills or {}) do
+        frame.fills[index]:Hide()
+    end
+end
+
+local function ConfigureCircleOutline(frame, radius, color, alpha, segments)
+    local firstLine = AcquireAreaLine(frame, 1)
+    if not firstLine.SetRotation then
+        HideTextures(frame.lines)
+        return false
+    end
+
+    segments = segments or AREA_CIRCLE_SEGMENTS
+    for index = 1, segments do
+        local angle = ((index - 1) / segments) * math.pi * 2
+        local nextAngle = (index / segments) * math.pi * 2
+        local x1 = math.cos(angle) * radius
+        local y1 = math.sin(angle) * radius
+        local x2 = math.cos(nextAngle) * radius
+        local y2 = math.sin(nextAngle) * radius
+        local dx = x2 - x1
+        local dy = y2 - y1
+        local length = math.sqrt((dx * dx) + (dy * dy))
+        local line = AcquireAreaLine(frame, index)
+
+        line:ClearAllPoints()
+        line:SetSize(length + 1, AREA_OUTLINE_THICKNESS)
+        line:SetPoint("CENTER", frame, "CENTER", x1 + (dx / 2), y1 + (dy / 2))
+        line:SetRotation(Atan2(dy, dx))
+        line:SetVertexColor(color[1], color[2], color[3], alpha)
+    end
+
+    for index = segments + 1, #(frame.lines or {}) do
+        frame.lines[index]:Hide()
+    end
+    return true
 end
 
 local function GetMinimapMapRadius()
@@ -599,9 +657,8 @@ local function ConfigureMinimapCircleArea(frame, cluster, xScale, yScale, minima
     local color = AREA_COLOR
     local radius = Quests:GetClusterRadius(cluster) * math.min(xScale or 0, yScale or 0)
     local size = math.max(MINIMAP_AREA_MIN_SIZE, math.floor((radius * 2) + MINIMAP_AREA_PADDING))
+    local circleRadius = math.max(1, (size - MINIMAP_AREA_PADDING) / 2)
 
-    HideTextures(frame.lines)
-    HideTextures(frame.fills)
     frame.questsMinimapBasePoints = nil
     frame.questsMinimapBaseRadius = nil
     frame.questsMinimapAreaDirty = nil
@@ -611,16 +668,9 @@ local function ConfigureMinimapCircleArea(frame, cluster, xScale, yScale, minima
     frame:SetScript("OnUpdate", nil)
     frame:SetSize(size, size)
     ConfigureMarkerFrame(frame, settings, false)
-    frame.texture:Show()
-    frame.texture:SetTexture(Quests.mediaPath .. "area-circle")
-    if frame.texture.SetDrawLayer then
-        frame.texture:SetDrawLayer("ARTWORK", -7)
-    end
-    if frame.texture.SetBlendMode then
-        frame.texture:SetBlendMode("BLEND")
-    end
-    frame.texture:SetAllPoints(frame)
-    frame.texture:SetVertexColor(color[1], color[2], color[3], math.min(0.18, (settings.opacity or 0.85) * 0.24))
+    frame.texture:Hide()
+    ConfigureCircleFill(frame, circleRadius, color, math.min(0.10, (settings.opacity or 0.85) * 0.16), 1)
+    ConfigureCircleOutline(frame, circleRadius, color, math.min(0.65, (settings.opacity or 0.85) * 0.65))
     HideMarkerText(frame.text)
     frame.questsMinimapAreaRadius = size / 2
     frame.questsMinimapClipRadius = minimapRadius
