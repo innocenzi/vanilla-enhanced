@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.6 - 2026-06-28
+
+
+### Performance
+- **quests:** smarter quest map rebuilds
+
 ## 0.6.5 - 2026-06-26
 
 
