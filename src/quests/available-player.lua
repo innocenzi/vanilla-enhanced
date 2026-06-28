@@ -207,6 +207,7 @@ local function BuildPlayerProfessions()
     end
 
     Quests.availablePlayerProfessions = professions
+    Quests.availablePlayerProfessionSignature = Quests:BuildAvailableQuestProfessionSignature(professions)
     Quests.buildingAvailablePlayerProfessions = false
     return professions
 end
@@ -240,8 +241,126 @@ local function BuildPlayerReputations()
     end
 
     Quests.availablePlayerReputations = reputations
+    Quests.availablePlayerReputationThresholdSignature =
+        Quests:BuildAvailableQuestReputationThresholdSignature(reputations)
     Quests.buildingAvailablePlayerReputations = false
     return reputations
+end
+
+local function BuildSortedNumberSignature(values)
+    local keys = {}
+    local parts = {}
+
+    for key in pairs(values or {}) do
+        keys[#keys + 1] = key
+    end
+    table.sort(keys)
+
+    for _, key in ipairs(keys) do
+        parts[#parts + 1] = tostring(key)
+        parts[#parts + 1] = ":"
+        parts[#parts + 1] = tostring(values[key] or 0)
+        parts[#parts + 1] = ";"
+    end
+
+    return table.concat(parts)
+end
+
+function Quests:BuildAvailableQuestProfessionSignature(professions)
+    return BuildSortedNumberSignature(professions)
+end
+
+local function AddReputationThreshold(thresholds, requirement)
+    if not requirement then
+        return
+    end
+
+    local factionId = requirement[1]
+    local value = requirement[2]
+    if not factionId or not value then
+        return
+    end
+
+    thresholds[factionId] = thresholds[factionId] or {}
+    thresholds[factionId][value] = true
+end
+
+local function BuildAvailableQuestReputationThresholds()
+    local thresholds = {}
+
+    if not VanillaEnhancedQuestsDB or not VanillaEnhancedQuestsDB.quests then
+        return thresholds
+    end
+
+    for _, dbQuest in pairs(VanillaEnhancedQuestsDB.quests) do
+        AddReputationThreshold(thresholds, dbQuest.rmin)
+        AddReputationThreshold(thresholds, dbQuest.rmax)
+    end
+
+    for factionId, values in pairs(thresholds) do
+        local sortedValues = {}
+        for value in pairs(values) do
+            sortedValues[#sortedValues + 1] = value
+        end
+        table.sort(sortedValues)
+        thresholds[factionId] = sortedValues
+    end
+
+    return thresholds
+end
+
+local function GetReputationThresholds()
+    if not Quests.availableQuestReputationThresholds then
+        Quests.availableQuestReputationThresholds = BuildAvailableQuestReputationThresholds()
+    end
+    return Quests.availableQuestReputationThresholds
+end
+
+local function GetDefaultReputationValue(factionId)
+    if FACTIONS_STARTING_BELOW_NEUTRAL[factionId] then
+        return -36000
+    end
+    return 0
+end
+
+function Quests:BuildAvailableQuestReputationThresholdSignature(reputations)
+    local buckets = {}
+
+    for factionId, thresholds in pairs(GetReputationThresholds()) do
+        local value = reputations and reputations[factionId]
+        if value == nil then
+            value = GetDefaultReputationValue(factionId)
+        end
+
+        local thresholdBucket = 0
+        for _, threshold in ipairs(thresholds) do
+            if value >= threshold then
+                thresholdBucket = thresholdBucket + 1
+            end
+        end
+
+        buckets[factionId] = thresholdBucket
+    end
+
+    return BuildSortedNumberSignature(buckets)
+end
+
+function Quests:HasAvailableQuestProfessionStateChanged()
+    local previous = self.availablePlayerProfessionSignature
+    self.availablePlayerProfessions = nil
+    local professions = BuildPlayerProfessions()
+    local current = self:BuildAvailableQuestProfessionSignature(professions)
+    self.availablePlayerProfessionSignature = current
+    return previous == nil or previous ~= current
+end
+
+function Quests:HasAvailableQuestReputationThresholdStateChanged()
+    local previous = self.availablePlayerReputationThresholdSignature
+    self.availablePlayerReputations = nil
+    local reputations = BuildPlayerReputations()
+    local current = self:BuildAvailableQuestReputationThresholdSignature(reputations)
+    self.availablePlayerReputationThresholdSignature = current
+    return previous == nil or previous ~= current
 end
 
 local function GetReputationValue(requiredRep, context)

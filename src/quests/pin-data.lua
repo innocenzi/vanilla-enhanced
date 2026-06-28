@@ -196,6 +196,57 @@ function Quests:RefreshQuestPinTooltipData(quests)
     end
 end
 
+function Quests:RefreshQuestPinTooltipFrameData(frame, quests)
+    if not frame or not frame.questsData then
+        return false
+    end
+
+    quests = quests or (self.GetCachedQuestLogSnapshot and self:GetCachedQuestLogSnapshot()) or {}
+    RefreshQuestPinDataObject(frame.questsData, BuildQuestLookup(quests), {})
+    return true
+end
+
+local function GetTooltipOwner()
+    if not GameTooltip or not GameTooltip.GetOwner then
+        return nil
+    end
+
+    local ok, owner = pcall(GameTooltip.GetOwner, GameTooltip)
+    if ok then
+        return owner
+    end
+    return nil
+end
+
+function Quests:RefreshOwnedQuestPinTooltipData(quests)
+    if not GameTooltip or not GameTooltip.IsOwned then
+        return false
+    end
+
+    local owner = GetTooltipOwner()
+    if owner and owner.questsData then
+        self:RefreshQuestPinTooltipFrameData(owner, quests)
+        RepaintOwnedPinTooltip(owner)
+        return true
+    end
+
+    for _, frame in ipairs(self.frames or {}) do
+        if GameTooltip:IsOwned(frame) then
+            self:RefreshQuestPinTooltipFrameData(frame, quests)
+            RepaintOwnedPinTooltip(frame)
+            return true
+        end
+    end
+    for _, frame in ipairs(self.minimapFrames or {}) do
+        if GameTooltip:IsOwned(frame) then
+            self:RefreshQuestPinTooltipFrameData(frame, quests)
+            RepaintOwnedPinTooltip(frame)
+            return true
+        end
+    end
+    return false
+end
+
 function Quests:BuildAvailableQuestPinData(questId, dbQuest, cluster, uiMapId, x, y)
     local metadataLines = {}
 

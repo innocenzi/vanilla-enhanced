@@ -5,6 +5,7 @@ local RESPAWN_ESTIMATE_FAST = "fast"
 local RESPAWN_ESTIMATE_NORMAL = "normal"
 local RESPAWN_ESTIMATE_CONSERVATIVE = "conservative"
 local MAP_PROVIDER_KEY = "professions:gathering"
+local GATHERING_REFRESH_DELAY_SECONDS = 0.15
 
 local characterGatheringDefaults = {
     nodes = {},
@@ -223,6 +224,51 @@ function Professions:RefreshGathering()
     end
 end
 
+local function BuildProfessionSignature(professions)
+    local professionIds = {}
+    local parts = {}
+
+    for professionId in pairs(professions or {}) do
+        professionIds[#professionIds + 1] = professionId
+    end
+    table.sort(professionIds)
+
+    for _, professionId in ipairs(professionIds) do
+        parts[#parts + 1] = tostring(professionId)
+        parts[#parts + 1] = ":"
+        parts[#parts + 1] = tostring(professions[professionId] or 0)
+        parts[#parts + 1] = ";"
+    end
+
+    return table.concat(parts)
+end
+
+function Professions:HasPlayerProfessionStateChanged()
+    local previous = self.playerProfessionSignature
+    self.playerProfessions = nil
+    self:RefreshPlayerProfessions()
+    self.playerProfessionSignature = BuildProfessionSignature(self.playerProfessions)
+    return previous == nil or previous ~= self.playerProfessionSignature
+end
+
+function Professions:QueueGatheringRefresh()
+    if self.gatheringRefreshQueued then
+        return
+    end
+
+    self.gatheringRefreshQueued = true
+    if C_Timer and C_Timer.After then
+        C_Timer.After(GATHERING_REFRESH_DELAY_SECONDS, function()
+            Professions.gatheringRefreshQueued = false
+            Professions:RefreshGathering()
+        end)
+        return
+    end
+
+    self.gatheringRefreshQueued = false
+    self:RefreshGathering()
+end
+
 function Professions:ClearPersonalNodes()
     local settings = self:GetGatheringCharacterSettings()
     settings.nodes = {}
@@ -293,6 +339,8 @@ function Professions:HandleEvent(event, ...)
         self:GetSettings()
         self:GetGatheringCharacterSettings()
         self:GetGatheringSharedSettings()
+        self:RefreshPlayerProfessions()
+        self.playerProfessionSignature = BuildProfessionSignature(self.playerProfessions)
         self:RefreshGathering()
         return
     end
@@ -329,12 +377,17 @@ function Professions:HandleEvent(event, ...)
         self:GetSettings()
         self:GetGatheringCharacterSettings()
         self:GetGatheringSharedSettings()
+        self:RefreshPlayerProfessions()
+        self.playerProfessionSignature = BuildProfessionSignature(self.playerProfessions)
         self:RefreshGathering()
         return
     end
 
     if event == "SKILL_LINES_CHANGED" or event == "LEARNED_SPELL_IN_SKILL_LINE" then
-        self.playerProfessions = nil
+        if self:HasPlayerProfessionStateChanged() then
+            self:QueueGatheringRefresh()
+        end
+        return
     end
 
     self:RefreshGathering()

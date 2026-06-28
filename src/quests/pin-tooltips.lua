@@ -516,6 +516,10 @@ function Quests:HandlePinClick(frame, button)
 end
 
 function Quests:ShowPinTooltip(frame)
+    if self.RefreshQuestPinTooltipFrameData then
+        self:RefreshQuestPinTooltipFrameData(frame)
+    end
+
     local data = frame.questsData
     if not data then
         return

@@ -48,6 +48,24 @@ local function BuildQuestPinStateSignature(quests)
     return table.concat(parts)
 end
 
+local function BuildQuestTooltipIndexSignature(quests, settings)
+    local parts = {
+        settings and settings.showObjectiveTooltipHints == false and "hints-off" or "hints-on",
+        settings and settings.showCompletedTooltipObjectives == true and ":completed-on;" or ":completed-off;",
+    }
+
+    for _, quest in ipairs(quests or {}) do
+        parts[#parts + 1] = tostring(quest.id or "")
+        parts[#parts + 1] = ":"
+        parts[#parts + 1] = tostring(quest.number or "")
+        parts[#parts + 1] = quest.isComplete and ":complete:" or ":active:"
+        AppendCompletedObjectivesSignature(parts, quest.completedObjectives)
+        parts[#parts + 1] = ";"
+    end
+
+    return table.concat(parts)
+end
+
 local function BuildActiveQuestSignature(quests)
     local questIds = {}
 
@@ -143,11 +161,24 @@ function Quests:Refresh()
     end
 
     if settings.enabled and VanillaEnhancedQuestsDB and VanillaEnhancedQuestsDB.quests then
-        self:RebuildUnitTooltipIndex(quests)
-        if not requiresPinRebuild and self.RefreshQuestPinTooltipData then
-            self:RefreshQuestPinTooltipData(quests)
+        if settings.showObjectiveTooltipHints ~= false then
+            local tooltipIndexSignature = BuildQuestTooltipIndexSignature(quests, settings)
+            if tooltipIndexSignature ~= self.unitTooltipIndexSignature then
+                self.unitTooltipIndexSignature = tooltipIndexSignature
+                self:RebuildUnitTooltipIndex(quests)
+            end
+            if self.RefreshUnitTooltip then
+                self:RefreshUnitTooltip()
+            end
+        elseif self.unitTooltipIndexSignature ~= "hints-off" then
+            self.unitTooltipIndexSignature = "hints-off"
+            self:RebuildUnitTooltipIndex({})
+        end
+        if not requiresPinRebuild and self.RefreshOwnedQuestPinTooltipData then
+            self:RefreshOwnedQuestPinTooltipData(quests)
         end
     else
+        self.unitTooltipIndexSignature = nil
         self:RebuildUnitTooltipIndex({})
         requiresPinRebuild = true
     end

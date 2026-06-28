@@ -77,6 +77,33 @@ local function GetQuestLevel(dbQuest)
     return nil
 end
 
+local function BuildProgressDetail(objective, sourceName)
+    local progress = GetProgressText(objective)
+    if progress and sourceName and sourceName ~= "" then
+        return "- " .. progress .. " " .. sourceName
+    elseif objective and objective ~= "" then
+        return "- " .. objective
+    end
+    return nil
+end
+
+local function GetCurrentQuestObjective(entry)
+    if not entry or not entry.questId or not entry.objectiveIndex then
+        return nil
+    end
+    if not Quests.GetCachedQuestLogSnapshot then
+        return nil
+    end
+
+    local quests = Quests:GetCachedQuestLogSnapshot()
+    for _, quest in ipairs(quests or {}) do
+        if quest.id == entry.questId and quest.objectives then
+            return quest.objectives[entry.objectiveIndex]
+        end
+    end
+    return nil
+end
+
 local function IsTooltipDetailsExpanded()
     if VanillaEnhanced.IsTooltipDetailsExpanded then
         return VanillaEnhanced:IsTooltipDetailsExpanded()
@@ -93,22 +120,19 @@ local function BuildTooltipEntry(quest, dbQuest, cluster, npcId)
 
     if kind == "slay" or kind == "loot" then
         local sourceName = Quests:GetLocalizedSourceName(cluster)
-        local progress = GetProgressText(objective)
-        local detail
-
-        if progress and sourceName and sourceName ~= "" then
-            detail = "- " .. progress .. " " .. sourceName
-        elseif objective and objective ~= "" then
-            detail = "- " .. objective
-        end
 
         return {
+            questId = quest.id,
+            objectiveIndex = Quests:GetClusterObjectiveIndex(cluster),
             number = quest.number,
             title = title,
-            detail = detail,
+            detail = BuildProgressDetail(objective, sourceName),
+            fallbackObjective = objective,
+            sourceName = sourceName,
             cluster = cluster,
             npcId = npcId,
             level = GetQuestLevel(dbQuest),
+            usesQuestProgressDetail = true,
         }
     end
 
@@ -209,8 +233,15 @@ local function FormatTooltipEntryTitle(entry, expanded)
     return entry.title
 end
 
+local function GetTooltipEntryDetail(entry)
+    if entry and entry.usesQuestProgressDetail then
+        return BuildProgressDetail(GetCurrentQuestObjective(entry) or entry.fallbackObjective, entry.sourceName)
+    end
+    return entry and entry.detail or nil
+end
+
 local function FormatTooltipEntryDetail(entry, settings, expanded)
-    local detail = entry.detail
+    local detail = GetTooltipEntryDetail(entry)
     if not detail or detail == "" then
         return detail
     end
@@ -295,6 +326,10 @@ local function RefreshUnitTooltip()
     tooltip:ClearLines()
     pcall(tooltip.SetUnit, tooltip, unit)
     tooltip.VanillaEnhancedQuestRefreshing = nil
+end
+
+function Quests:RefreshUnitTooltip()
+    RefreshUnitTooltip()
 end
 
 if GameTooltip and not Quests.unitTooltipHooked then

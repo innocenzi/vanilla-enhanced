@@ -335,8 +335,6 @@ local AVAILABLE_QUEST_CACHE_EVENTS = {
     QUEST_ACCEPTED = true,
     QUEST_REMOVED = true,
     QUEST_TURNED_IN = true,
-    UPDATE_FACTION = true,
-    SKILL_LINES_CHANGED = true,
     SPELLS_CHANGED = true,
     LEARNED_SPELL_IN_TAB = true,
     PLAYER_LEVEL_UP = true,
@@ -345,6 +343,24 @@ local AVAILABLE_QUEST_CACHE_EVENTS = {
 local function InvalidateRefreshCaches(event)
     if QUEST_SNAPSHOT_EVENTS[event] and Quests.InvalidateQuestSnapshot then
         Quests:InvalidateQuestSnapshot()
+    end
+    if event == "UPDATE_FACTION" then
+        if not Quests.HasAvailableQuestReputationThresholdStateChanged
+            or Quests:HasAvailableQuestReputationThresholdStateChanged() then
+            if Quests.InvalidateAvailableQuestCache then
+                Quests:InvalidateAvailableQuestCache()
+            end
+        end
+        return
+    end
+    if event == "SKILL_LINES_CHANGED" then
+        if not Quests.HasAvailableQuestProfessionStateChanged
+            or Quests:HasAvailableQuestProfessionStateChanged() then
+            if Quests.InvalidateAvailableQuestCache then
+                Quests:InvalidateAvailableQuestCache()
+            end
+        end
+        return
     end
     if AVAILABLE_QUEST_CACHE_EVENTS[event] and Quests.InvalidateAvailableQuestCache then
         Quests:InvalidateAvailableQuestCache()
