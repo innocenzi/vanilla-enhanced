@@ -71,7 +71,6 @@ local function ResetPinFrame(frame)
     frame.questsMinimapClipRadius = nil
     frame.questsMinimapAreaDirty = nil
     frame.questsMinimapAreaRenderState = nil
-    frame.questsMinimapAreaUpdateElapsed = nil
     frame.questsMinimapAreaQueued = nil
     frame.questsMinimapUiMapId = nil
     frame.questsMinimapDistanceGateUiMapId = nil
@@ -526,6 +525,10 @@ function Quests:ClearMinimapPins()
     if IsInCombatLockdown() then
         self.refreshAfterCombat = true
         return
+    end
+
+    if self.CancelQueuedMinimapAreaRenders then
+        self:CancelQueuedMinimapAreaRenders()
     end
 
     if self.hbdPins then

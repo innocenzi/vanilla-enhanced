@@ -7,7 +7,6 @@ local AREA_CIRCLE_SEGMENTS = 48
 local AREA_OUTLINE_THICKNESS = 1.5
 local MINIMAP_AREA_RENDER_BUDGET_SECONDS = 0.004
 local MINIMAP_AREA_RENDER_MAX_PER_FRAME = 4
-local MINIMAP_AREA_UPDATE_INTERVAL = 0.10
 local MINIMAP_AREA_MIN_SIZE = 14
 local MINIMAP_AREA_PADDING = 6
 local MINIMAP_AREA_CLIP_PADDING = 3
@@ -551,6 +550,9 @@ local function UpdateMinimapPolygonArea(frame)
     if not frame or not frame.questsMinimapArea or not frame.questsMinimapBasePoints then
         return
     end
+    if frame.IsShown and not frame:IsShown() then
+        return
+    end
 
     local state = GetMinimapRelativeState(frame)
     if not state then
@@ -619,17 +621,44 @@ local function QueueMinimapPolygonAreaRender(frame)
     end
 end
 
-local function OnUpdateMinimapPolygonArea(frame, elapsed)
+function Quests:CancelQueuedMinimapAreaRenders()
+    local queue = self.minimapAreaRenderQueue
+    if queue then
+        wipe(queue)
+    end
+    self.minimapAreaRenderQueued = nil
+    minimapAreaRenderFrame:SetScript("OnUpdate", nil)
+end
+
+function Quests:RefreshMinimapAreaLayouts()
+    local hasDirtyArea = false
+
+    for _, frame in ipairs(self.minimapFrames or {}) do
+        if frame.questsMinimapArea and frame.questsMinimapBasePoints and frame.questsMinimapAreaDirty then
+            hasDirtyArea = true
+            break
+        end
+    end
+    if not hasDirtyArea then
+        return
+    end
+
+    if self.hbdPins and self.hbdPins.SetMinimapObject and Minimap then
+        self.hbdPins:SetMinimapObject(Minimap)
+    end
+
+    for _, frame in ipairs(self.minimapFrames or {}) do
+        if frame.questsMinimapArea and frame.questsMinimapBasePoints and frame.questsMinimapAreaDirty then
+            UpdateMinimapPolygonArea(frame)
+        end
+    end
+end
+
+local function OnUpdateMinimapPolygonArea(frame)
     if not frame or not frame.questsMinimapArea or not frame.questsMinimapBasePoints then
         return
     end
 
-    frame.questsMinimapAreaUpdateElapsed = (frame.questsMinimapAreaUpdateElapsed or 0) + (elapsed or 0)
-    if frame.questsMinimapAreaUpdateElapsed < MINIMAP_AREA_UPDATE_INTERVAL and not frame.questsMinimapAreaDirty then
-        return
-    end
-
-    frame.questsMinimapAreaUpdateElapsed = 0
     if frame.questsMinimapAreaDirty then
         QueueMinimapPolygonAreaRender(frame)
         return
@@ -643,12 +672,10 @@ local function ConfigureMinimapPolygonArea(frame, cluster, xScale, yScale, minim
     frame.questsMinimapBaseRadius = GetPointMaxDistance(frame.questsMinimapBasePoints) + (MINIMAP_AREA_PADDING / 2)
     frame.questsMinimapAreaDirty = true
     frame.questsMinimapAreaRenderState = nil
-    frame.questsMinimapAreaUpdateElapsed = 0
     frame:SetScript("OnUpdate", OnUpdateMinimapPolygonArea)
     frame:SetSize(MINIMAP_AREA_MIN_SIZE, MINIMAP_AREA_MIN_SIZE)
     HideMarkerText(frame.text)
     frame.texture:Hide()
-    QueueMinimapPolygonAreaRender(frame)
     return true
 end
 
@@ -663,7 +690,6 @@ local function ConfigureMinimapCircleArea(frame, cluster, xScale, yScale, minima
     frame.questsMinimapBaseRadius = nil
     frame.questsMinimapAreaDirty = nil
     frame.questsMinimapAreaRenderState = nil
-    frame.questsMinimapAreaUpdateElapsed = nil
     frame.questsMinimapAreaQueued = nil
     frame:SetScript("OnUpdate", nil)
     frame:SetSize(size, size)
@@ -688,7 +714,6 @@ local function ConfigureMinimapArea(frame, uiMapId, cluster)
     frame.questsMinimapClipRadius = minimapRadius or 0
     frame.questsMinimapAreaDirty = nil
     frame.questsMinimapAreaRenderState = nil
-    frame.questsMinimapAreaUpdateElapsed = nil
     frame.questsMinimapAreaQueued = nil
     frame:SetScript("OnUpdate", nil)
     frame.texture.a = 1

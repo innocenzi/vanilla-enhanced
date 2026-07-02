@@ -229,6 +229,9 @@ function Quests:Refresh()
     elseif self.RefreshQuestAreaVisibility then
         self:RefreshQuestAreaVisibility()
     end
+    if self.RefreshMinimapAreaLayouts then
+        self:RefreshMinimapAreaLayouts()
+    end
 end
 
 function Quests:RefreshWorldMapPins()
