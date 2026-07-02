@@ -318,8 +318,12 @@ eventFrame:SetScript("OnEvent", function(_, event)
     end
 end)
 
-eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-eventFrame:RegisterEvent("PLAYER_LEVEL_UP")
-eventFrame:RegisterEvent("PLAYER_MONEY")
-eventFrame:RegisterEvent("SPELLS_CHANGED")
-eventFrame:RegisterEvent("LEARNED_SPELL_IN_SKILL_LINE")
+local function RegisterEventIfAvailable(eventName)
+    pcall(eventFrame.RegisterEvent, eventFrame, eventName)
+end
+
+RegisterEventIfAvailable("PLAYER_ENTERING_WORLD")
+RegisterEventIfAvailable("PLAYER_LEVEL_UP")
+RegisterEventIfAvailable("PLAYER_MONEY")
+RegisterEventIfAvailable("SPELLS_CHANGED")
+RegisterEventIfAvailable("LEARNED_SPELL_IN_SKILL_LINE")

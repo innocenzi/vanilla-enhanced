@@ -398,9 +398,13 @@ eventFrame:SetScript("OnEvent", function(_, event, loadedAddonName)
     end
 end)
 
-eventFrame:RegisterEvent("ADDON_LOADED")
-eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-eventFrame:RegisterEvent("SKILL_LINES_CHANGED")
-eventFrame:RegisterEvent("LEARNED_SPELL_IN_SKILL_LINE")
-eventFrame:RegisterEvent("TRADE_SKILL_SHOW")
-eventFrame:RegisterEvent("TRADE_SKILL_UPDATE")
+local function RegisterEventIfAvailable(eventName)
+    pcall(eventFrame.RegisterEvent, eventFrame, eventName)
+end
+
+RegisterEventIfAvailable("ADDON_LOADED")
+RegisterEventIfAvailable("PLAYER_ENTERING_WORLD")
+RegisterEventIfAvailable("SKILL_LINES_CHANGED")
+RegisterEventIfAvailable("LEARNED_SPELL_IN_SKILL_LINE")
+RegisterEventIfAvailable("TRADE_SKILL_SHOW")
+RegisterEventIfAvailable("TRADE_SKILL_UPDATE")
