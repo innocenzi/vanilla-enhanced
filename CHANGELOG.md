@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.7.0 - 2026-07-02
+
+
+### Features
+- support classic era
+
+
+### Fixes
+- ensure events are available before registering
+- **spellbook:** prevent crash in classic era
+- **quests:** stabilize minimap objective areas
+
 ## 0.6.6 - 2026-06-28
 
 
