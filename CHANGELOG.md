@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.1 - 2026-07-02
+
+
+### Features
+- **quests:** add tracker quest item buttons
+
 ## 0.7.0 - 2026-07-02
 
 
