@@ -7,12 +7,14 @@ import { buildQuestsArtifacts } from "./db-transform";
 type SourceConfig = {
   repo: string;
   ref: string;
-  expansion: "TBC";
+  expansion: Expansion;
   locale: "frFR";
   minQuestCount: number;
 };
 
 type Args = {
+  all: boolean;
+  expansion?: Expansion;
   questieRef?: string;
   questiePath?: string;
   lua?: string;
@@ -23,8 +25,19 @@ type Args = {
 const ROOT = resolve(import.meta.dir, "..");
 const CONFIG_PATH = join(import.meta.dir, "questie-source.json");
 const EXPORTER_PATH = join(import.meta.dir, "export-questie-db.lua");
-const LOCATION_DB_PATH = "data/quests/locations.lua";
-const LOCALE_DB_PATH = "data/quests/locales.lua";
+const SUPPORTED_EXPANSIONS = ["TBC", "Classic"] as const;
+type Expansion = (typeof SUPPORTED_EXPANSIONS)[number];
+
+const DB_OUTPUTS: Record<Expansion, { location: string; locale: string }> = {
+  TBC: {
+    location: "data/quests/tbc/locations.lua",
+    locale: "data/quests/tbc/locales.lua",
+  },
+  Classic: {
+    location: "data/quests/classic/locations.lua",
+    locale: "data/quests/classic/locales.lua",
+  },
+};
 
 function parseArgs(): Args {
   const args = Bun.argv.slice(2);
@@ -34,10 +47,24 @@ function parseArgs(): Args {
   };
 
   if (args.includes("--out") || args.includes("--locale-out")) {
-    throw new Error("Generated DB output paths are fixed. Usage: bun run build:db -- [--questie-ref v11.29.5] [--questie-path path] [--lua lua] [--refresh-questie] [--keep-normalized path]");
+    throw new Error("Generated DB output paths are fixed. Usage: bun run build:db -- [--all] [--expansion TBC|Classic] [--questie-ref v11.29.5] [--questie-path path] [--lua lua] [--refresh-questie] [--keep-normalized path]");
+  }
+
+  const all = args.includes("--all");
+  const expansion = get("--expansion") as Expansion | undefined;
+  if (expansion && !DB_OUTPUTS[expansion]) {
+    throw new Error(`Unsupported expansion '${expansion}'. Expected TBC or Classic.`);
+  }
+  if (all && expansion) {
+    throw new Error("--all builds every supported expansion; do not combine it with --expansion.");
+  }
+  if (all && get("--keep-normalized")) {
+    throw new Error("--all cannot be combined with --keep-normalized. Run per-expansion builds when retaining normalized output.");
   }
 
   return {
+    all,
+    expansion,
     questieRef: get("--questie-ref"),
     questiePath: get("--questie-path") ?? get("--questie"),
     lua: get("--lua"),
@@ -146,10 +173,10 @@ function workspacePath(path: string, label: string): string {
   return absolute;
 }
 
-function writeGeneratedPair(locationLua: string, localeLua: string): void {
+function writeGeneratedPair(locationLua: string, localeLua: string, outputs: { location: string; locale: string }): void {
   const files = [
-    { label: "location DB", path: workspacePath(LOCATION_DB_PATH, "Location DB path"), contents: locationLua },
-    { label: "locale DB", path: workspacePath(LOCALE_DB_PATH, "Locale DB path"), contents: localeLua },
+    { label: "location DB", path: workspacePath(outputs.location, "Location DB path"), contents: locationLua },
+    { label: "locale DB", path: workspacePath(outputs.locale, "Locale DB path"), contents: localeLua },
   ];
   const tempFiles: { tempPath: string; finalPath: string }[] = [];
   const suffix = `${process.pid}-${Date.now()}`;
@@ -171,27 +198,43 @@ function writeGeneratedPair(locationLua: string, localeLua: string): void {
   }
 }
 
-function main(): void {
-  const args = parseArgs();
-  const config = readConfig();
-  const lua = resolveLua(args.lua);
-  const questie = ensureQuestieSource(config, args);
+function buildExpansion(
+  expansion: Expansion,
+  baseConfig: SourceConfig,
+  args: Args,
+  lua: string,
+  questie: { path: string; ref: string; commit: string },
+): void {
+  const config = { ...baseConfig, expansion };
+  const outputs = DB_OUTPUTS[expansion];
   const tempDir = mkdtempSync(join(tmpdir(), "vanilla-enhanced-db-"));
   const normalizedPath = args.keepNormalized ? workspacePath(args.keepNormalized, "Normalized export path") : join(tempDir, "questie-normalized.json");
 
   mkdirSync(dirname(normalizedPath), { recursive: true });
-  console.log(`Exporting Questie ${questie.ref} (${questie.commit}) with ${lua}`);
+  console.log(`Exporting ${expansion} Questie ${questie.ref} (${questie.commit}) with ${lua}`);
   exportNormalizedDb(lua, questie, config, normalizedPath);
 
   const normalized = JSON.parse(readFileSync(normalizedPath, "utf8"));
   const artifacts = buildQuestsArtifacts(normalized, { minQuestCount: config.minQuestCount });
   if (!artifacts.localeLua) throw new Error("Normalized data did not include locale lookups.");
 
-  writeGeneratedPair(artifacts.locationLua, artifacts.localeLua);
+  writeGeneratedPair(artifacts.locationLua, artifacts.localeLua, outputs);
 
-  console.log(`Wrote ${artifacts.questCount} quests to ${LOCATION_DB_PATH}`);
-  console.log(`Wrote ${config.locale} locale data to ${LOCALE_DB_PATH}`);
+  console.log(`Wrote ${artifacts.questCount} quests to ${outputs.location}`);
+  console.log(`Wrote ${config.locale} locale data to ${outputs.locale}`);
   if (args.keepNormalized) console.log(`Kept normalized Questie export at ${normalizedPath}`);
+}
+
+function main(): void {
+  const args = parseArgs();
+  const config = readConfig();
+  const lua = resolveLua(args.lua);
+  const questie = ensureQuestieSource(config, args);
+  const expansions = args.all ? SUPPORTED_EXPANSIONS : [args.expansion ?? config.expansion];
+
+  for (const expansion of expansions) {
+    buildExpansion(expansion, config, args, lua, questie);
+  }
 }
 
 main();

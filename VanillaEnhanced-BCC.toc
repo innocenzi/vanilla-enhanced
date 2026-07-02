@@ -25,8 +25,8 @@ src\training-spellbook.lua
 src\button-container.lua
 src\inventory\api.lua
 data\professions\recipes.lua
-data\quests\locations.lua
-data\quests\locales.lua
+data\quests\tbc\locations.lua
+data\quests\tbc\locales.lua
 src\quests\module.lua
 src\quests\settings.lua
 src\quests\clusters.lua

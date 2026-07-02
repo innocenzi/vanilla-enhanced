@@ -1,7 +1,12 @@
 import { expect, test } from "bun:test";
 import { spawnSync } from "node:child_process";
+import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { buildQuestsArtifacts, type NormalizedQuestieDb } from "./db-transform";
+
+function generatedQuestFile(path: string): string {
+  return readFileSync(resolve(import.meta.dir, "..", path), "utf8");
+}
 
 function fixture(): NormalizedQuestieDb {
   const killQuest = ["Kill Quest", [[106]], null, 5, 7, 77, 1, null, null, [[[101, "Wolf slain"]]], null, [8], [2], null, null, [3], 12] as any[];
@@ -169,6 +174,33 @@ test("uses event objective indexes for matching trigger points", () => {
   const artifacts = buildQuestsArtifacts(db, { minQuestCount: 0 });
 
   expect(artifacts.locationLua).toContain('{40.00,40.00,nil,nil,3,"Find captive",nil,nil,nil,nil,1}');
+});
+
+test("uses zone id fallback for compact spawn tables", () => {
+  const db = fixture();
+  db.keys.npcs.zoneID = 9;
+  db.data.npcs["101"] = ["Wolf", null, null, null, null, null, [[[10, 10], [11, 11]]], null, 12];
+
+  const artifacts = buildQuestsArtifacts(db, { minQuestCount: 0 });
+
+  expect(artifacts.locationLua).toContain('{10.00,10.00,nil,nil,1,"Wolf slain",1,101');
+  expect(artifacts.locationLua).toContain('{11.00,11.00,nil,nil,1,"Wolf slain",1,101');
+});
+
+test("generated quest DB files carry flavor-specific metadata", () => {
+  const tbcLocations = generatedQuestFile("data/quests/tbc/locations.lua");
+  const classicLocations = generatedQuestFile("data/quests/classic/locations.lua");
+
+  expect(tbcLocations).toContain('expansion = "TBC"');
+  expect(classicLocations).toContain('expansion = "Classic"');
+});
+
+test("generated Classic quest DB includes representative Era quest locations", () => {
+  const classicLocations = generatedQuestFile("data/quests/classic/locations.lua");
+
+  expect(classicLocations).toContain("[287] =");
+  expect(classicLocations).toContain("[315] =");
+  expect(classicLocations).toContain("[412] =");
 });
 
 test("marks reputation turn-in style quests without marking ordinary reputation rewards", () => {

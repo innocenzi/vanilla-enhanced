@@ -4,14 +4,17 @@ This file is for Codex and other coding agents working on Vanilla Enhanced.
 
 ## Project Overview
 
-Vanilla Enhanced is a standalone Burning Crusade Classic addon. It keeps the Blizzard UI recognizable while adding small utility modules:
+Vanilla Enhanced is a standalone Burning Crusade Classic and Classic Era addon. It keeps the Blizzard UI recognizable while adding small utility modules:
 
 - `quests`: quest tracker clicks, quest log/map pairing, world map and minimap objective markers, and quest objective tooltip hints.
 - `bags`: default bag sorting, a sort button, and optional auto-sort triggers.
 - `merchants`: merchant button, conservative scrap selling, optional auto-sell, optional auto-repair, and optional bag sorting after selling.
 - `target-threat`: numeric threat percentage near the target frame.
 
-The addon does not depend on Questie at runtime. Quest data is generated offline into `data/quests/locations.lua` and `data/quests/locales.lua`.
+The addon does not depend on Questie at runtime. Quest data is generated offline into flavor-specific files:
+
+- Burning Crusade Classic: `data/quests/tbc/locations.lua` and `data/quests/tbc/locales.lua`
+- Classic Era: `data/quests/classic/locations.lua` and `data/quests/classic/locales.lua`
 
 ## Runtime Layout
 
@@ -20,6 +23,7 @@ The addon folder must be named `VanillaEnhanced`.
 Important files:
 
 - `VanillaEnhanced-BCC.toc`: Burning Crusade Classic TOC and load order.
+- `VanillaEnhanced-Classic.toc`: Classic Era TOC and load order.
 - `core.lua`: global addon table, module registration, saved-variable helpers, chat output.
 - `src/localization.lua`: addon UI strings and `VanillaEnhanced:T`.
 - `src/options.lua`: options panels for all modules.
@@ -40,16 +44,25 @@ Requires Bun, Git, and a Lua 5.1-compatible CLI (`lua` or `luajit`) for database
 ```powershell
 bun test
 bun run build:db
+bun run build:db:classic
+bun run build:db:all
 bun run changelog
 bun run release
 ```
 
 `bun test` runs tooling tests, currently focused on the quest database transform.
 
-`bun run build:db` downloads or reads the pinned Questie source and regenerates:
+`bun run build:db` downloads or reads the pinned Questie source and regenerates the Burning Crusade Classic quest data:
 
-- `data/quests/locations.lua`
-- `data/quests/locales.lua`
+- `data/quests/tbc/locations.lua`
+- `data/quests/tbc/locales.lua`
+
+`bun run build:db:classic` regenerates the Classic Era quest data:
+
+- `data/quests/classic/locations.lua`
+- `data/quests/classic/locales.lua`
+
+`bun run build:db:all` regenerates both TBC and Classic Era quest data. Use per-expansion builds when passing `--keep-normalized`.
 
 Useful database flags:
 
@@ -57,13 +70,14 @@ Useful database flags:
 bun run build:db -- --questie-ref <tag-or-sha>
 bun run build:db -- --refresh-questie
 bun run build:db -- --questie-path <path>
+bun run build:db -- --expansion Classic
 ```
 
 `bun run changelog` regenerates `CHANGELOG.md` with the npm `git-cliff` package.
 
-`bun run release` runs `bumpp`. It bumps `package.json`, updates `VanillaEnhanced-BCC.toc`, regenerates `CHANGELOG.md`, creates a release commit, tags it, and pushes by default.
+`bun run release` runs `bumpp`. It bumps `package.json`, updates both TOCs, regenerates `CHANGELOG.md`, creates a release commit, tags it, and pushes by default.
 
-CurseForge automatic packaging uses `.pkgmeta` and does not run Bun scripts. Before pushing a release tag manually, regenerate and commit `CHANGELOG.md`, generated quest data, and any runtime files that should be packaged. When using `bun run release`, the `bumpp` hook handles the TOC version and changelog before the release commit/tag.
+CurseForge automatic packaging uses `.pkgmeta` and does not run Bun scripts. Before pushing a release tag manually, regenerate and commit `CHANGELOG.md`, generated quest data, and any runtime files that should be packaged. When Questie source or quest-generation logic changes, run `bun run build:db:all` before release and commit both generated quest data folders. When using `bun run release`, the `bumpp` hook handles the TOC versions and changelog before the release commit/tag.
 
 ## Commit Guidelines
 
@@ -76,6 +90,7 @@ CurseForge expects a WoW addon zip with exactly one root folder and no version n
 ```text
 VanillaEnhanced/
   VanillaEnhanced-BCC.toc
+  VanillaEnhanced-Classic.toc
   core.lua
   src/
   data/
@@ -94,7 +109,7 @@ Do not package development-only files such as `.git`, `.agents`, `.release`, `no
 
 ## Coding Guidelines
 
-- Use Lua compatible with the Burning Crusade Classic client.
+- Use Lua compatible with the Burning Crusade Classic and Classic Era clients.
 - Avoid modern Lua features that are not available in WoW's embedded Lua runtime.
 - Prefer existing addon helpers on `_G.VanillaEnhanced` for settings, modules, printing, and localization.
 - Keep modules independent where practical. Shared behavior belongs in `core.lua` only when it is genuinely common.
@@ -108,5 +123,5 @@ Do not package development-only files such as `.git`, `.agents`, `.release`, `no
 ## Current Caveats
 
 - Some French strings in existing files appear mojibaked. New or edited French translations should still use correct accents; do not make broad encoding rewrites unless the task is specifically about localization cleanup.
-- The addon is targeted at Burning Crusade Classic via `VanillaEnhanced-BCC.toc` and `## Interface: 20505`.
+- The addon targets Burning Crusade Classic via `VanillaEnhanced-BCC.toc` and `## Interface: 20505`, and Classic Era via `VanillaEnhanced-Classic.toc` and `## Interface: 11508`.
 - The GitHub README is meant for humans. Keep implementation notes here rather than in `README.md`.

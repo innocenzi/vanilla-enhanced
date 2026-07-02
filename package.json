@@ -2,6 +2,8 @@
   "version": "0.6.6",
   "scripts": {
     "build:db": "bun run tools/build-db.ts",
+    "build:db:classic": "bun run tools/build-db.ts -- --expansion Classic",
+    "build:db:all": "bun run tools/build-db.ts -- --all",
     "build:professions": "bun run tools/professions/build.ts",
     "changelog": "bun run tools/changelog.ts",
     "release": "bumpp",

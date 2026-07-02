@@ -15,11 +15,35 @@ local expansion = arg_value("--expansion") or "TBC"
 local locale = arg_value("--locale") or "frFR"
 
 if not out_path then
-    error("Usage: lua tools/export-questie-db.lua --out normalized.json [--questie-ref ref] [--questie-commit sha] [--expansion TBC] [--locale frFR]")
+    error("Usage: lua tools/export-questie-db.lua --out normalized.json [--questie-ref ref] [--questie-commit sha] [--expansion TBC|Classic] [--locale frFR]")
 end
 
-if expansion ~= "TBC" then
-    error("Only TBC export is currently supported")
+local expansion_config = {
+    TBC = {
+        project_id = 5,
+        toc = "Questie-BCC.toc",
+        lookup = "TBC",
+        version = "2.5.1",
+        build = "38644",
+        build_date = "May 11 2021",
+        interface = 20501,
+        max_level = 70,
+    },
+    Classic = {
+        project_id = 2,
+        toc = "Questie-Classic.toc",
+        lookup = "Classic",
+        version = "1.15.8",
+        build = "67156",
+        build_date = "Apr 22 2026",
+        interface = 11508,
+        max_level = 60,
+    },
+}
+
+local selected_expansion = expansion_config[expansion]
+if not selected_expansion then
+    error("Only TBC and Classic export are currently supported")
 end
 
 if locale ~= "frFR" then
@@ -211,7 +235,7 @@ local function load_extra_objective_translations()
 end
 
 require("cli.dump")
-WOW_PROJECT_ID = 5
+WOW_PROJECT_ID = selected_expansion.project_id
 
 dofile("cli/apiMocks.lua")
 GetLocale = function()
@@ -221,17 +245,20 @@ UnitFactionGroup = function()
     return "Horde"
 end
 GetBuildInfo = function()
-    return "2.5.1", "38644", "May 11 2021", 20501
+    return selected_expansion.version,
+        selected_expansion.build,
+        selected_expansion.build_date,
+        selected_expansion.interface
 end
 UnitLevel = function()
-    return 70
+    return selected_expansion.max_level
 end
 GetMaxPlayerLevel = function()
-    return 70
+    return selected_expansion.max_level
 end
 
 local loadTOC = require("cli.loadTOC")
-loadTOC("Questie-BCC.toc")
+loadTOC(selected_expansion.toc)
 
 Questie.Debug = function() end
 Questie.Error = function(_, text, ...)
@@ -285,10 +312,10 @@ QuestieDBCompiler:ValidateItems()
 QuestieDBCompiler:ValidateNPCs()
 QuestieDBCompiler:ValidateQuests()
 
-dofile("Localization/lookups/TBC/lookupQuests/" .. locale .. ".lua")
-dofile("Localization/lookups/TBC/lookupNpcs/" .. locale .. ".lua")
-dofile("Localization/lookups/TBC/lookupObjects/" .. locale .. ".lua")
-dofile("Localization/lookups/TBC/lookupItems/" .. locale .. ".lua")
+dofile("Localization/lookups/" .. selected_expansion.lookup .. "/lookupQuests/" .. locale .. ".lua")
+dofile("Localization/lookups/" .. selected_expansion.lookup .. "/lookupNpcs/" .. locale .. ".lua")
+dofile("Localization/lookups/" .. selected_expansion.lookup .. "/lookupObjects/" .. locale .. ".lua")
+dofile("Localization/lookups/" .. selected_expansion.lookup .. "/lookupItems/" .. locale .. ".lua")
 
 local area_to_ui = overlay(
     load_private_table(ZoneDB, "areaIdToUiMapId"),

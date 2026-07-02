@@ -1,6 +1,6 @@
 # Vanilla Enhanced
 
-A lightweight utility addon for Burning Crusade Classic. It keeps the default UI familiar while adding a handful of practical quality-of-life improvements for questing, bags, merchants, and other interfaces.
+A lightweight utility addon for Burning Crusade Classic and Classic Era. It keeps the default UI familiar while adding a handful of practical quality-of-life improvements for questing, bags, merchants, and other interfaces.
 
 ## Features
 
