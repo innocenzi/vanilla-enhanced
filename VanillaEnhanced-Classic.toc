@@ -1,0 +1,79 @@
+## Interface: 11508
+## Title: Vanilla Enhanced
+## Notes: Lightweight improvements for a better experience while keeping a classic feeling.
+## Notes-frFR: Améliorations de l'interface pour une meilleure expérience de jeu tout en gardant un feeling classique.
+## Author: Hylmew
+## Version: 0.6.6
+## SavedVariables: VanillaEnhancedSettings
+## SavedVariablesPerCharacter: VanillaEnhancedCharacterSettings
+## X-Questie-Data-Source: Derived privately from Questie v11.29.5 data
+## Category: User Interface
+## Category-frFR: Interface utilisateur
+## IconTexture: Interface\AddOns\VanillaEnhanced\icon.png
+
+libs\here-be-dragons\lib-stub\lib-stub.lua
+libs\here-be-dragons\callback-handler-1.0\callback-handler-1.0.lua
+libs\here-be-dragons\here-be-dragons-2.0.lua
+libs\here-be-dragons\here-be-dragons-pins-2.0.lua
+
+core.lua
+src\localization.lua
+src\presets.lua
+src\training-data.lua
+src\training.lua
+src\training-spellbook.lua
+src\button-container.lua
+src\inventory\api.lua
+data\professions\recipes.lua
+data\quests\locations.lua
+data\quests\locales.lua
+src\quests\module.lua
+src\quests\settings.lua
+src\quests\clusters.lua
+src\quests\map-exploration.lua
+src\quests\localization.lua
+src\quests\quest-log.lua
+src\quests\quest-tracker.lua
+src\quests\auto-follow.lua
+src\quests\unit-tooltips.lua
+src\quests\pin-kinds.lua
+src\quests\pin-data.lua
+src\quests\pin-tooltips.lua
+src\quests\pin-frames.lua
+src\quests\pin-areas.lua
+src\quests\pin-markers.lua
+src\quests\pin-minimap-areas.lua
+src\quests\pin-clusters.lua
+src\quests\pins.lua
+src\quests\available-events.lua
+src\quests\available-player.lua
+src\quests\available-prerequisites.lua
+src\quests\available-filters.lua
+src\quests\available-evaluator.lua
+src\quests\available-eligibility.lua
+src\quests\available.lua
+src\quests\refresh.lua
+src\bags\module.lua
+src\bags\api.lua
+src\bags\item-locking.lua
+src\bags\item-overlays.lua
+src\bags\sorting.lua
+src\merchants\module.lua
+src\merchants\api.lua
+src\merchants\strategies.lua
+src\merchants\scrap-marking.lua
+src\merchants\selling.lua
+src\merchants\repair.lua
+src\professions\api.lua
+src\professions\module.lua
+src\professions\tooltips.lua
+src\merchants\tooltips.lua
+src\map\module.lua
+src\map\settings.lua
+src\map\markers.lua
+src\map\flight-masters.lua
+src\map\tomtom.lua
+src\professions\gathering.lua
+src\professions\gathering-nodes.lua
+src\target-threat\module.lua
+src\options.lua
