@@ -68,7 +68,6 @@ local function SetNativeNavigationButton(button, enabled)
         return
     end
 
-    button:Show()
     if enabled and button.Enable then
         button:Enable()
     elseif button.Disable then
@@ -346,19 +345,6 @@ function Training:EnsureSpellbookOverlay()
     return true
 end
 
-function Training:SetNativeSpellButtonsVisible(visible)
-    for index = 1, self:GetSpellsPerPage() do
-        local button = GetSpellButton(index)
-        if button then
-            if visible then
-                button:Show()
-            else
-                button:Hide()
-            end
-        end
-    end
-end
-
 function Training:HideFakeButtons()
     for _, button in ipairs(self.fakeSpellButtons or {}) do
         button.trainingSpell = nil
@@ -401,7 +387,6 @@ function Training:RenderTrainingPage()
     if self.spellbookOverlay then
         self.spellbookOverlay:Show()
     end
-    self:SetNativeSpellButtonsVisible(true)
 
     local trainingPages = self:GetPageCount()
     if SpellBookPageText then
@@ -446,7 +431,6 @@ function Training:HideTrainingPages(refreshNative)
     end
 
     if not InCombat() then
-        self:SetNativeSpellButtonsVisible(true)
         if refreshNative and SpellBookFrame then
             if SpellBookFrame.Update then
                 SpellBookFrame:Update()
