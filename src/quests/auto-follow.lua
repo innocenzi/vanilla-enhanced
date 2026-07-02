@@ -193,9 +193,6 @@ local function RemoveQuestWatchByIndex(questIndex)
 end
 
 local function RefreshQuestWatchDisplay()
-    if QuestWatch_Update then
-        pcall(QuestWatch_Update)
-    end
     if Quests.RefreshQuestTrackerClicks then
         Quests:RefreshQuestTrackerClicks()
     end
