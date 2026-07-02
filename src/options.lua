@@ -1349,6 +1349,13 @@ local questsPanel = BuildOptionsPanel({
             indent = 0,
         },
         {
+            name = "VanillaEnhancedOptionsQuestsEnableQuestTrackerItemButtons",
+            settingKey = "enableQuestTrackerItemButtons",
+            labelKey = "options.quests.enableQuestTrackerItemButtons.label",
+            helpKey = "options.quests.enableQuestTrackerItemButtons.help",
+            indent = 0,
+        },
+        {
             type = "dropdown",
             name = "VanillaEnhancedOptionsQuestsAutoFollowQuestsMode",
             settingKey = "autoFollowQuestsMode",

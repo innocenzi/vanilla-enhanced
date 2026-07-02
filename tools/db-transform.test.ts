@@ -10,6 +10,7 @@ function generatedQuestFile(path: string): string {
 
 function fixture(): NormalizedQuestieDb {
   const killQuest = ["Kill Quest", [[106]], null, 5, 7, 77, 1, null, null, [[[101, "Wolf slain"]]], null, [8], [2], null, null, [3], 12] as any[];
+  killQuest[10] = 501;
   killQuest[17] = [185, 50];
   killQuest[18] = [609, 3000];
   killQuest[19] = [609, 42000];
@@ -39,6 +40,7 @@ function fixture(): NormalizedQuestieDb {
         requiredRaces: 6,
         requiredClasses: 7,
         objectivesText: 8,
+        sourceItemId: 11,
         requiredSkill: 18,
         requiredMinRep: 19,
         requiredMaxRep: 20,
@@ -101,6 +103,7 @@ function fixture(): NormalizedQuestieDb {
       items: {
         "201": ["Wolf Pelt", [102, 107], [301]],
         "202": ["Relic", null, [301]],
+        "501": ["Wolf Whistle"],
       },
     },
     dropRates: {
@@ -117,7 +120,7 @@ function fixture(): NormalizedQuestieDb {
       },
       npcs: { "101": ["Loup", null], "999": ["Unused", null] },
       objects: { "301": ["Caisse", null] },
-      items: { "201": ["Peau de loup", null], "202": ["Relique", null] },
+      items: { "201": ["Peau de loup", null], "202": ["Relique", null], "501": ["Sifflet de loup", null] },
     },
   };
 }
@@ -145,15 +148,18 @@ test("builds compact quests Lua from normalized Questie data", () => {
   expect(artifacts.locationLua).toContain('spell = -1234');
   expect(artifacts.locationLua).toContain('spec = 202');
   expect(artifacts.locationLua).toContain('rk = {{185,2},{202,-4}}');
+  expect(artifacts.locationLua).toContain('si = {501}');
   expect(artifacts.locationLua).toContain("starts = {");
   expect(artifacts.locationLua).toContain("{15.00,15.00,nil,nil,7");
   expect(artifacts.locationLua).toContain("{10.00,10.00,nil,nil,1");
   expect(artifacts.locationLua).toContain("{11.00,11.00,nil,nil,1");
   expect(artifacts.locationLua).toContain("{30.00,30.00,nil,nil,2");
+  expect(artifacts.locationLua).not.toContain('[2] = { t = "Loot Quest", z = 12, si = {201}');
   expect(artifacts.locationLua).toContain("{102,12.5}");
   expect(artifacts.locationLua).not.toContain("999,4.3");
   expect(artifacts.locationLua).toContain("{70.00,70.00,nil,nil,4");
   expect(artifacts.locationLua).toContain("{50.00,50.00,nil,nil,3");
+  expect(artifacts.locationLua).toContain('[7] = { t = "Spell Quest", z = 12, si = {202}');
   expect(artifacts.locationLua).toContain("{60.00,60.00,nil,nil,6");
   expect(artifacts.locationLua).toContain("{20.00,20.00,24.00,20.00,20.00,24.00}");
   expect(artifacts.localeLua).toContain('[1] = { t = "Quete tuer"');

@@ -23,6 +23,7 @@ local AUTO_FOLLOW_QUESTS_RANGES = {
 local defaults = {
     enabled = true,
     enableQuestTrackerClicks = true,
+    enableQuestTrackerItemButtons = true,
     autoFollowQuestsMode = DEFAULT_AUTO_FOLLOW_QUESTS_MODE,
     autoFollowQuestsRange = DEFAULT_AUTO_FOLLOW_QUESTS_RANGE,
     keepQuestLogWithMap = true,

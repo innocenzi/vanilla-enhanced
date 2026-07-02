@@ -77,6 +77,7 @@ type CompactQuest = {
   maps: Record<number, Cluster[]>;
   turnins?: Record<number, Cluster[]>;
   starts?: Record<number, Cluster[]>;
+  sourceItems?: number[];
   availability?: QuestAvailability;
   reputationQuest?: boolean;
   dungeonQuest?: boolean;
@@ -183,6 +184,7 @@ const EXTRA_OBJECTIVE = {
   text: 3,
 };
 
+const QUEST_SOURCE_ITEM_ID_KEY = "sourceItemId";
 const ICON_TYPE_EVENT = 3;
 const DEFAULT_ALLOW_UNMAPPED_AREA_IDS = new Set([0, 2257, 2917, 2918]);
 const QUEST_FLAG_DAILY = 4096;
@@ -609,6 +611,31 @@ function collectStarterPoints(
 function numericList(value: JsonValue | undefined): number[] | undefined {
   const list = values(value).map(int).filter(Boolean);
   return list.length ? list : undefined;
+}
+
+function addUniqueNumber(target: number[], seen: Set<number>, value: JsonValue | undefined): void {
+  const itemId = int(value);
+  if (!itemId || seen.has(itemId)) return;
+  seen.add(itemId);
+  target.push(itemId);
+}
+
+function collectSourceItems(quest: JsonValue, db: NormalizedQuestieDb): number[] | undefined {
+  const items: number[] = [];
+  const seen = new Set<number>();
+
+  addUniqueNumber(items, seen, byOptionalKey(quest, db.keys.quests, QUEST_SOURCE_ITEM_ID_KEY));
+
+  for (const itemId of values(byKey(quest, db.keys.quests, "requiredSourceItems"))) {
+    addUniqueNumber(items, seen, itemId);
+  }
+
+  const objectives = byKey(quest, db.keys.quests, "objectives");
+  for (const entryValue of values(at(objectives, OBJECTIVES.spells))) {
+    addUniqueNumber(items, seen, at(entryValue, SPELL_OBJECTIVE.item));
+  }
+
+  return items.length ? items : undefined;
 }
 
 function numericPair(value: JsonValue | undefined): NumberPair | undefined {
@@ -1057,6 +1084,7 @@ function renderLocationLua(db: NormalizedQuestieDb, compact: Map<number, Compact
     if (quest.reputationQuest) fields.push("rq = 1");
     if (quest.dungeonQuest) fields.push("dq = 1");
     if (quest.dungeonMapId) fields.push(`dm = ${quest.dungeonMapId}`);
+    if (quest.sourceItems?.length) fields.push(`si = ${formatNumberList(quest.sourceItems)}`);
     lines.push(`    [${questId}] = { ${fields.join(", ")}, maps = {`);
     for (const uiMap of Object.keys(quest.maps).map(Number).sort((a, b) => a - b)) {
       lines.push(`      [${uiMap}] = {${quest.maps[uiMap].map(formatCluster).join(", ")}},`);
@@ -1156,6 +1184,7 @@ export function buildQuestsArtifacts(input: unknown, options: TransformOptions =
       maps,
       turnins: turnInPoints.length ? cluster(turnInPoints) : undefined,
       starts: starterPoints.length ? cluster(starterPoints) : undefined,
+      sourceItems: collectSourceItems(questValue, db),
       availability: collectAvailability(questValue, db),
       reputationQuest: hasReputationTurnInShape(questValue, db),
       dungeonQuest: isDungeonQuest(questValue, db),

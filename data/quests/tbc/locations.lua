@@ -2,7 +2,7 @@
 VanillaEnhancedQuestsDB = {
   meta = { source = "Questie-derived TBC data", questieRef = "v11.29.5", questieCommit = "7e9430923608172b2c481f379ff89517be677bf5", expansion = "TBC", locale = "frFR", questCount = 5322 },
   quests = {
-    [2] = { t = "Sharptalon's Claw", z = 331, rl = 20, ql = 30, rr = 690, ps = {6383}, maps = {
+    [2] = { t = "Sharptalon's Claw", z = 331, rl = 20, ql = 30, rr = 690, ps = {6383}, si = {16305}, maps = {
       [1440] = {{73.78,61.46,nil,nil,6,nil,1,12696}},
     },
     turnins = {
@@ -39,7 +39,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{48.92,41.61,nil,nil,7,nil,1,197}},
     },
     },
-    [8] = { t = "A Rogue's Deal", z = 154, rl = 1, ql = 5, rr = 690, maps = {
+    [8] = { t = "A Rogue's Deal", z = 154, rl = 1, ql = 5, rr = 690, si = {7628}, maps = {
       [1420] = {{61.72,52.05,nil,nil,6,nil,1,5688}},
     },
     turnins = {
@@ -209,14 +209,14 @@ VanillaEnhancedQuestsDB = {
       [1436] = {{56.42,30.52,nil,nil,7,nil,1,235}},
     },
     },
-    [23] = { t = "Ursangous's Paw", z = 331, rl = 20, ql = 24, rr = 690, ps = {6383}, maps = {
+    [23] = { t = "Ursangous's Paw", z = 331, rl = 20, ql = 24, rr = 690, ps = {6383}, si = {16303}, maps = {
       [1440] = {{73.78,61.46,nil,nil,6,nil,1,12696}},
     },
     turnins = {
       [1440] = {{73.78,61.46,nil,nil,6,nil,1,12696}},
     },
     },
-    [24] = { t = "Shadumbra's Head", z = 331, rl = 20, ql = 27, rr = 690, ps = {6383}, maps = {
+    [24] = { t = "Shadumbra's Head", z = 331, rl = 20, ql = 27, rr = 690, ps = {6383}, si = {16304}, maps = {
       [1440] = {{73.78,61.46,nil,nil,6,nil,1,12696}},
     },
     turnins = {
@@ -253,7 +253,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{76.48,27.22,nil,nil,7,nil,1,3033}},
     },
     },
-    [28] = { t = "Trial of the Lake", z = -263, rl = 16, ql = -1, rr = 32, rc = 1024, ps = {27}, nc = 30, sf = 2, maps = {
+    [28] = { t = "Trial of the Lake", z = -263, rl = 16, ql = -1, rr = 32, rc = 1024, ps = {27}, nc = 30, sf = 2, si = {15877}, maps = {
       [1450] = {{36.00,41.42,nil,nil,4,"Shrine Of Remulos",2,15885,nil,nil,1}, {53.41,50.38,6.33,12,4,"Shrine Bauble",3,15877,nil,nil,nil,{48.00,47.10,54.70,46.40,58.50,50.80,56.30,53.70,54.30,55.60,52.10,53.50,50.10,50.60}}, {60.50,58.30,nil,nil,4,"Shrine Bauble",3,15877}, {60.50,58.50,nil,nil,4,"Shrine Bauble",3,15877}},
     },
     turnins = {
@@ -263,7 +263,7 @@ VanillaEnhancedQuestsDB = {
       [1450] = {{56.21,30.64,nil,nil,7,nil,1,11802}},
     },
     },
-    [29] = { t = "Trial of the Lake", z = -263, rl = 16, ql = -1, rr = 8, rc = 1024, ps = {26}, nc = 272, sf = 2, maps = {
+    [29] = { t = "Trial of the Lake", z = -263, rl = 16, ql = -1, rr = 8, rc = 1024, ps = {26}, nc = 272, sf = 2, si = {15877}, maps = {
       [1450] = {{36.00,41.42,nil,nil,4,"Shrine Of Remulos",2,15885,nil,nil,1}, {53.41,50.38,6.33,12,4,"Shrine Bauble",3,15877,nil,nil,nil,{48.00,47.10,54.70,46.40,58.50,50.80,56.30,53.70,54.30,55.60,52.10,53.50,50.10,50.60}}, {60.50,58.30,nil,nil,4,"Shrine Bauble",3,15877}, {60.50,58.50,nil,nil,4,"Shrine Bauble",3,15877}},
     },
     turnins = {
@@ -273,7 +273,7 @@ VanillaEnhancedQuestsDB = {
       [1450] = {{56.21,30.64,nil,nil,7,nil,1,11802}},
     },
     },
-    [30] = { t = "Trial of the Sea Lion", z = -263, rl = 16, ql = -1, rr = 32, rc = 1024, ps = {28}, nc = 31, maps = {
+    [30] = { t = "Trial of the Sea Lion", z = -263, rl = 16, ql = -1, rr = 32, rc = 1024, ps = {28}, nc = 31, si = {15883,15882}, maps = {
       [1413] = {{56.67,8.32,nil,nil,4,"Half Pendant of Aquatic Agility",3,15883}},
       [1421] = {{29.56,29.20,nil,nil,4,"Half Pendant of Aquatic Endurance",3,15882}},
       [1436] = {{17.94,33.18,nil,nil,4,"Half Pendant of Aquatic Endurance",3,15882}},
@@ -287,7 +287,7 @@ VanillaEnhancedQuestsDB = {
       [1450] = {{36.52,40.10,nil,nil,7,nil,1,11799}},
     },
     },
-    [31] = { t = "Aquatic Form", z = -263, rl = 16, ql = -1, rr = 32, rc = 1024, ps = {30}, maps = {
+    [31] = { t = "Aquatic Form", z = -263, rl = 16, ql = -1, rr = 32, rc = 1024, ps = {30}, si = {15885}, maps = {
       [1456] = {{76.48,27.22,nil,nil,6,nil,1,3033}},
     },
     turnins = {
@@ -297,7 +297,7 @@ VanillaEnhancedQuestsDB = {
       [1450] = {{56.21,30.64,nil,nil,7,nil,1,11802}},
     },
     },
-    [32] = { t = "Rise of the Silithid", z = 440, rl = 39, ql = 48, rr = 690, ps = {113}, maps = {
+    [32] = { t = "Rise of the Silithid", z = 440, rl = 39, ql = 48, rr = 690, ps = {113}, si = {8594}, maps = {
       [1454] = {{56.26,46.68,nil,nil,6,nil,1,7010}},
     },
     turnins = {
@@ -338,7 +338,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{42.11,65.93,nil,nil,7,nil,1,240}},
     },
     },
-    [36] = { t = "Westfall Stew", z = 40, rl = 9, ql = 10, rr = 1101, nc = 38, maps = {
+    [36] = { t = "Westfall Stew", z = 40, rl = 9, ql = 10, rr = 1101, nc = 38, si = {2832}, maps = {
       [1436] = {{56.42,30.52,nil,nil,6,nil,1,235}},
     },
     turnins = {
@@ -504,7 +504,7 @@ VanillaEnhancedQuestsDB = {
       [1436] = {{44.62,80.25,nil,nil,7,nil,1,239}},
     },
     },
-    [54] = { t = "Report to Goldshire", z = 9, rl = 1, ql = 5, rr = 1101, ps = {21}, maps = {
+    [54] = { t = "Report to Goldshire", z = 9, rl = 1, ql = 5, rr = 1101, ps = {21}, si = {745}, maps = {
       [1429] = {{42.11,65.93,nil,nil,6,nil,1,240}},
     },
     turnins = {
@@ -514,7 +514,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{48.92,41.61,nil,nil,7,nil,1,197}},
     },
     },
-    [55] = { t = "Morbent Fel", z = 10, rl = 20, ql = 32, rr = 1101, ps = {325}, maps = {
+    [55] = { t = "Morbent Fel", z = 10, rl = 20, ql = 32, rr = 1101, ps = {325}, si = {7297}, maps = {
       [1431] = {{16.90,33.40,nil,nil,1,"Morbent Fel",1,1200,nil,nil,1}},
     },
     turnins = {
@@ -554,7 +554,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{73.54,46.82,nil,nil,7,nil,1,264}},
     },
     },
-    [59] = { t = "Cloth and Leather Armor", z = 12, rl = 7, ql = 10, rr = 1101, ps = {39}, maps = {
+    [59] = { t = "Cloth and Leather Armor", z = 12, rl = 7, ql = 10, rr = 1101, ps = {39}, si = {748}, maps = {
       [1429] = {{79.46,68.79,nil,nil,6,nil,1,278}},
     },
     turnins = {
@@ -574,7 +574,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{43.32,65.70,nil,nil,7,nil,1,253}},
     },
     },
-    [61] = { t = "Shipment to Stormwind", z = 12, rl = 3, ql = 7, rr = 1101, ps = {60}, maps = {
+    [61] = { t = "Shipment to Stormwind", z = 12, rl = 3, ql = 7, rr = 1101, ps = {60}, si = {957}, maps = {
       [1453] = {{56.20,64.58,nil,nil,6,nil,1,279}},
     },
     turnins = {
@@ -594,7 +594,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{42.11,65.93,nil,nil,7,nil,1,240}},
     },
     },
-    [63] = { t = "Call of Water", z = -82, rl = 20, ql = -1, rr = 690, rc = 64, ps = {220}, nc = 100, maps = {
+    [63] = { t = "Call of Water", z = -82, rl = 20, ql = -1, rr = 690, rc = 64, ps = {220}, nc = 100, si = {7811,6637}, maps = {
       [1421] = {{38.78,44.26,nil,nil,2,"Corrupt Manifestation's Bracers",3,7812,{5894},{5894,100},1}},
     },
     turnins = {
@@ -644,7 +644,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{72.54,46.87,nil,nil,7,nil,1,267}},
     },
     },
-    [68] = { t = "The Legend of Stalvan", z = 10, rl = 22, ql = 28, rr = 1101, ps = {67}, nc = 69, maps = {
+    [68] = { t = "The Legend of Stalvan", z = 10, rl = 22, ql = 28, rr = 1101, ps = {67}, nc = 69, si = {889}, maps = {
       [1431] = {{72.54,46.87,nil,nil,6,nil,1,267}},
     },
     turnins = {
@@ -674,7 +674,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{43.77,65.80,nil,nil,7,nil,1,295}},
     },
     },
-    [71] = { t = "Report to Thomas", z = 12, rl = 7, ql = 10, rr = 1101, ps = {45}, nc = 39, maps = {
+    [71] = { t = "Report to Thomas", z = 12, rl = 7, ql = 10, rr = 1101, ps = {45}, nc = 39, si = {735}, maps = {
       [1429] = {{73.97,72.18,nil,nil,6,nil,1,261}},
     },
     turnins = {
@@ -694,7 +694,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{29.53,61.93,nil,nil,7,nil,1,297}},
     },
     },
-    [74] = { t = "The Legend of Stalvan", z = 10, rl = 22, ql = 28, rr = 1101, ps = {72}, nc = 75, maps = {
+    [74] = { t = "The Legend of Stalvan", z = 10, rl = 22, ql = 28, rr = 1101, ps = {72}, nc = 75, si = {916}, maps = {
       [1429] = {{84.61,69.38,nil,nil,6,nil,1,294}},
     },
     turnins = {
@@ -734,7 +734,7 @@ VanillaEnhancedQuestsDB = {
       [1425] = {{26.71,48.59,nil,nil,7,nil,1,7801}},
     },
     },
-    [78] = { t = "The Legend of Stalvan", z = 10, rl = 22, ql = 28, rr = 1101, ps = {75}, nc = 79, maps = {
+    [78] = { t = "The Legend of Stalvan", z = 10, rl = 22, ql = 28, rr = 1101, ps = {75}, nc = 79, si = {921}, maps = {
       [1431] = {{73.78,44.49,nil,nil,6,nil,1,273}},
     },
     turnins = {
@@ -744,7 +744,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{84.61,69.38,nil,nil,7,nil,1,294}},
     },
     },
-    [79] = { t = "The Legend of Stalvan", z = 10, rl = 22, ql = 28, rr = 1101, ps = {78}, nc = 80, maps = {
+    [79] = { t = "The Legend of Stalvan", z = 10, rl = 22, ql = 28, rr = 1101, ps = {78}, nc = 80, si = {938}, maps = {
       [1431] = {{73.54,46.82,nil,nil,6,nil,1,264}},
     },
     turnins = {
@@ -754,7 +754,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{73.78,44.49,nil,nil,7,nil,1,273}},
     },
     },
-    [80] = { t = "The Legend of Stalvan", z = 10, rl = 22, ql = 28, rr = 1101, ps = {79}, nc = 97, maps = {
+    [80] = { t = "The Legend of Stalvan", z = 10, rl = 22, ql = 28, rr = 1101, ps = {79}, nc = 97, si = {939}, maps = {
       [1431] = {{72.54,46.87,nil,nil,6,nil,1,267}},
     },
     turnins = {
@@ -764,7 +764,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{73.54,46.82,nil,nil,7,nil,1,264}},
     },
     },
-    [81] = { t = "Ripple Delivery", z = 1637, rl = 42, ql = 48, rr = 690, ps = {77}, maps = {
+    [81] = { t = "Ripple Delivery", z = 1637, rl = 42, ql = 48, rr = 690, ps = {77}, si = {8685}, maps = {
       [1454] = {{59.49,36.57,nil,nil,6,nil,1,6986}},
     },
     turnins = {
@@ -794,7 +794,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{79.46,68.79,nil,nil,7,nil,1,278}},
     },
     },
-    [84] = { t = "Back to Billy", z = 12, rl = 5, ql = 6, rr = 1101, ps = {86}, nc = 87, maps = {
+    [84] = { t = "Back to Billy", z = 12, rl = 5, ql = 6, rr = 1101, ps = {86}, nc = 87, si = {962}, maps = {
       [1429] = {{43.13,85.72,nil,nil,6,nil,1,247}},
     },
     turnins = {
@@ -916,7 +916,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{73.75,43.48,nil,nil,7,nil,1,272}},
     },
     },
-    [94] = { t = "A Watchful Eye", z = 44, rl = 20, ql = 21, rr = 1101, nc = 248, maps = {
+    [94] = { t = "A Watchful Eye", z = 44, rl = 20, ql = 21, rr = 1101, nc = 248, si = {1083}, maps = {
       [1433] = {{84.49,46.83,nil,nil,6,nil,2,31}},
     },
     turnins = {
@@ -936,7 +936,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{7.78,34.07,nil,nil,7,nil,1,311}},
     },
     },
-    [96] = { t = "Call of Water", z = -82, rl = 20, ql = -1, rr = 690, rc = 64, ps = {100}, maps = {
+    [96] = { t = "Call of Water", z = -82, rl = 20, ql = -1, rr = 690, rc = 64, ps = {100}, si = {7813}, maps = {
       [1413] = {{65.83,43.78,nil,nil,6,nil,1,5901}},
     },
     turnins = {
@@ -1039,7 +1039,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{83.13,68.94,nil,nil,7,nil,1,10837}},
     },
     },
-    [106] = { t = "Young Lovers", z = 12, rl = 5, ql = 6, rr = 1101, nc = 111, maps = {
+    [106] = { t = "Young Lovers", z = 12, rl = 5, ql = 6, rr = 1101, nc = 111, si = {1208}, maps = {
       [1429] = {{29.84,86.00,nil,nil,6,nil,1,252}},
     },
     turnins = {
@@ -1049,7 +1049,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{43.15,89.62,nil,nil,7,nil,1,251}},
     },
     },
-    [107] = { t = "Note to William", z = 12, rl = 5, ql = 6, rr = 1101, ps = {111}, nc = 112, maps = {
+    [107] = { t = "Note to William", z = 12, rl = 5, ql = 6, rr = 1101, ps = {111}, nc = 112, si = {1252}, maps = {
       [1429] = {{43.32,65.70,nil,nil,6,nil,1,253}},
     },
     turnins = {
@@ -1100,7 +1100,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{43.32,65.70,nil,nil,7,nil,1,253}},
     },
     },
-    [113] = { t = "Insect Part Analysis", z = 440, rl = 39, ql = 48, ps = {110}, nc = 162, maps = {
+    [113] = { t = "Insect Part Analysis", z = 440, rl = 39, ql = 48, ps = {110}, nc = 162, si = {8594}, maps = {
       [1446] = {{50.21,27.48,nil,nil,6,nil,1,7724}},
     },
     turnins = {
@@ -1110,7 +1110,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{50.89,26.96,nil,nil,7,nil,1,5594}},
     },
     },
-    [114] = { t = "The Escape", z = 12, rl = 5, ql = 7, rr = 1101, ps = {112}, maps = {
+    [114] = { t = "The Escape", z = 12, rl = 5, ql = 7, rr = 1101, ps = {112}, si = {1257}, maps = {
       [1429] = {{43.15,89.62,nil,nil,6,nil,1,251}},
     },
     turnins = {
@@ -1150,7 +1150,7 @@ VanillaEnhancedQuestsDB = {
       [1436] = {{44.62,80.25,nil,nil,7,nil,1,239}},
     },
     },
-    [118] = { t = "The Price of Shoes", z = 44, rl = 14, ql = 18, rr = 1101, nc = 119, maps = {
+    [118] = { t = "The Price of Shoes", z = 44, rl = 14, ql = 18, rr = 1101, nc = 119, si = {1283}, maps = {
       [1429] = {{41.71,65.54,nil,nil,6,nil,1,514}},
     },
     turnins = {
@@ -1160,7 +1160,7 @@ VanillaEnhancedQuestsDB = {
       [1433] = {{30.97,47.27,nil,nil,7,nil,1,415}},
     },
     },
-    [119] = { t = "Return to Verner", z = 44, rl = 13, ql = 18, rr = 1101, ps = {118}, maps = {
+    [119] = { t = "Return to Verner", z = 44, rl = 13, ql = 18, rr = 1101, ps = {118}, si = {1284}, maps = {
       [1433] = {{30.97,47.27,nil,nil,6,nil,1,415}},
     },
     turnins = {
@@ -1170,7 +1170,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{41.71,65.54,nil,nil,7,nil,1,514}},
     },
     },
-    [120] = { t = "Messenger to Stormwind", z = 44, rl = 14, ql = 14, rr = 1101, nc = 121, maps = {
+    [120] = { t = "Messenger to Stormwind", z = 44, rl = 14, ql = 14, rr = 1101, nc = 121, si = {1293}, maps = {
       [1453] = {{63.97,75.32,nil,nil,6,nil,1,466}},
     },
     turnins = {
@@ -1180,7 +1180,7 @@ VanillaEnhancedQuestsDB = {
       [1433] = {{29.99,44.45,nil,nil,7,nil,1,344}},
     },
     },
-    [121] = { t = "Messenger to Stormwind", z = 44, rl = 14, ql = 14, rr = 1101, ps = {120}, nc = 143, maps = {
+    [121] = { t = "Messenger to Stormwind", z = 44, rl = 14, ql = 14, rr = 1101, ps = {120}, nc = 143, si = {1294}, maps = {
       [1433] = {{29.99,44.45,nil,nil,6,nil,1,344}},
     },
     turnins = {
@@ -1200,7 +1200,7 @@ VanillaEnhancedQuestsDB = {
       [1433] = {{30.97,47.27,nil,nil,7,nil,1,415}},
     },
     },
-    [123] = { t = "The Collector", z = 12, rl = 7, ql = 10, rr = 1101, nc = 147, maps = {
+    [123] = { t = "The Collector", z = 12, rl = 7, ql = 10, rr = 1101, nc = 147, si = {2223}, maps = {
       [1429] = {{42.11,65.93,nil,nil,6,nil,1,240}},
     },
     turnins = {
@@ -1257,7 +1257,7 @@ VanillaEnhancedQuestsDB = {
       [1433] = {{31.54,57.85,nil,nil,7,nil,1,903}},
     },
     },
-    [129] = { t = "A Free Lunch", z = 44, rl = 12, ql = 15, rr = 1101, nc = 130, maps = {
+    [129] = { t = "A Free Lunch", z = 44, rl = 12, ql = 15, rr = 1101, nc = 130, si = {5534}, maps = {
       [1433] = {{15.27,71.46,nil,nil,6,nil,1,464}},
     },
     turnins = {
@@ -1277,7 +1277,7 @@ VanillaEnhancedQuestsDB = {
       [1433] = {{15.27,71.46,nil,nil,7,nil,1,464}},
     },
     },
-    [131] = { t = "Delivering Daffodils", z = 44, rl = 12, ql = 15, rr = 1101, ps = {130}, maps = {
+    [131] = { t = "Delivering Daffodils", z = 44, rl = 12, ql = 15, rr = 1101, ps = {130}, si = {1325}, maps = {
       [1433] = {{26.62,44.30,nil,nil,6,nil,1,379}},
     },
     turnins = {
@@ -1287,7 +1287,7 @@ VanillaEnhancedQuestsDB = {
       [1433] = {{21.86,46.33,nil,nil,7,nil,1,342}},
     },
     },
-    [132] = { t = "The Defias Brotherhood", z = 40, rl = 14, ql = 18, rr = 1101, ps = {65}, nc = 135, maps = {
+    [132] = { t = "The Defias Brotherhood", z = 40, rl = 14, ql = 18, rr = 1101, ps = {65}, nc = 135, si = {1327}, maps = {
       [1436] = {{56.33,47.52,nil,nil,6,nil,1,234}},
     },
     turnins = {
@@ -1317,7 +1317,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{28.11,31.46,nil,nil,7,nil,1,289}},
     },
     },
-    [135] = { t = "The Defias Brotherhood", z = 40, rl = 14, ql = 18, rr = 1101, ps = {132}, nc = 141, maps = {
+    [135] = { t = "The Defias Brotherhood", z = 40, rl = 14, ql = 18, rr = 1101, ps = {132}, nc = 141, si = {1327}, maps = {
       [1453] = {{75.78,59.84,nil,nil,6,nil,1,332}},
     },
     turnins = {
@@ -1334,7 +1334,7 @@ VanillaEnhancedQuestsDB = {
       [1436] = {{25.91,47.75,nil,nil,6,nil,2,35}},
     },
     },
-    [138] = { t = "Captain Sander's Hidden Treasure", z = 40, rl = 14, ql = 16, ps = {136}, nc = 139, maps = {
+    [138] = { t = "Captain Sander's Hidden Treasure", z = 40, rl = 14, ql = 16, ps = {136}, nc = 139, si = {1358}, maps = {
       [1436] = {{40.52,47.79,nil,nil,6,nil,2,36}},
     },
     turnins = {
@@ -1344,7 +1344,7 @@ VanillaEnhancedQuestsDB = {
       [1436] = {{25.91,47.75,nil,nil,7,nil,2,35}},
     },
     },
-    [139] = { t = "Captain Sander's Hidden Treasure", z = 40, rl = 14, ql = 16, ps = {138}, nc = 140, maps = {
+    [139] = { t = "Captain Sander's Hidden Treasure", z = 40, rl = 14, ql = 16, ps = {138}, nc = 140, si = {1361}, maps = {
       [1436] = {{40.63,17.03,nil,nil,6,nil,2,34}},
     },
     turnins = {
@@ -1354,7 +1354,7 @@ VanillaEnhancedQuestsDB = {
       [1436] = {{40.52,47.79,nil,nil,7,nil,2,36}},
     },
     },
-    [140] = { t = "Captain Sander's Hidden Treasure", z = 40, rl = 14, ql = 16, ps = {139}, maps = {
+    [140] = { t = "Captain Sander's Hidden Treasure", z = 40, rl = 14, ql = 16, ps = {139}, si = {1362}, maps = {
       [1436] = {{25.97,16.91,nil,nil,6,nil,2,33}},
     },
     turnins = {
@@ -1364,7 +1364,7 @@ VanillaEnhancedQuestsDB = {
       [1436] = {{40.63,17.03,nil,nil,7,nil,2,34}},
     },
     },
-    [141] = { t = "The Defias Brotherhood", z = 40, rl = 14, ql = 18, rr = 1101, ps = {135}, nc = 142, maps = {
+    [141] = { t = "The Defias Brotherhood", z = 40, rl = 14, ql = 18, rr = 1101, ps = {135}, nc = 142, si = {1353}, maps = {
       [1436] = {{56.33,47.52,nil,nil,6,nil,1,234}},
     },
     turnins = {
@@ -1384,7 +1384,7 @@ VanillaEnhancedQuestsDB = {
       [1436] = {{56.33,47.52,nil,nil,7,nil,1,234}},
     },
     },
-    [143] = { t = "Messenger to Westfall", z = 44, rl = 14, ql = 14, rr = 1101, ps = {121}, nc = 144, maps = {
+    [143] = { t = "Messenger to Westfall", z = 44, rl = 14, ql = 14, rr = 1101, ps = {121}, nc = 144, si = {1407}, maps = {
       [1436] = {{56.33,47.52,nil,nil,6,nil,1,234}},
     },
     turnins = {
@@ -1394,7 +1394,7 @@ VanillaEnhancedQuestsDB = {
       [1433] = {{29.99,44.45,nil,nil,7,nil,1,344}},
     },
     },
-    [144] = { t = "Messenger to Westfall", z = 44, rl = 14, ql = 14, rr = 1101, ps = {143}, nc = 145, maps = {
+    [144] = { t = "Messenger to Westfall", z = 44, rl = 14, ql = 14, rr = 1101, ps = {143}, nc = 145, si = {1408}, maps = {
       [1433] = {{29.99,44.45,nil,nil,6,nil,1,344}},
     },
     turnins = {
@@ -1404,7 +1404,7 @@ VanillaEnhancedQuestsDB = {
       [1436] = {{56.33,47.52,nil,nil,7,nil,1,234}},
     },
     },
-    [145] = { t = "Messenger to Darkshire", z = 44, rl = 18, ql = 18, rr = 1101, ps = {144}, nc = 146, maps = {
+    [145] = { t = "Messenger to Darkshire", z = 44, rl = 18, ql = 18, rr = 1101, ps = {144}, nc = 146, si = {1409}, maps = {
       [1431] = {{71.93,46.42,nil,nil,6,nil,1,263}},
     },
     turnins = {
@@ -1414,7 +1414,7 @@ VanillaEnhancedQuestsDB = {
       [1433] = {{29.99,44.45,nil,nil,7,nil,1,344}},
     },
     },
-    [146] = { t = "Messenger to Darkshire", z = 44, rl = 18, ql = 18, rr = 1101, ps = {145}, maps = {
+    [146] = { t = "Messenger to Darkshire", z = 44, rl = 18, ql = 18, rr = 1101, ps = {145}, si = {1410}, maps = {
       [1433] = {{29.99,44.45,nil,nil,6,nil,1,344}},
     },
     turnins = {
@@ -1444,7 +1444,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{28.11,31.46,nil,nil,7,nil,1,289}},
     },
     },
-    [149] = { t = "Ghost Hair Thread", z = 10, rl = 20, ql = 24, rr = 1101, ps = {148}, nc = 154, maps = {
+    [149] = { t = "Ghost Hair Thread", z = 10, rl = 20, ql = 24, rr = 1101, ps = {148}, nc = 154, si = {1453}, maps = {
       [1431] = {{81.99,59.09,nil,nil,6,nil,1,302}},
     },
     turnins = {
@@ -1497,7 +1497,7 @@ VanillaEnhancedQuestsDB = {
       [1436] = {{53.98,52.98,nil,nil,7,nil,1,878}},
     },
     },
-    [154] = { t = "Return the Comb", z = 10, rl = 20, ql = 24, rr = 1101, ps = {149}, nc = 157, maps = {
+    [154] = { t = "Return the Comb", z = 10, rl = 20, ql = 24, rr = 1101, ps = {149}, nc = 157, si = {1518}, maps = {
       [1431] = {{75.79,45.32,nil,nil,6,nil,1,265}},
     },
     turnins = {
@@ -1527,7 +1527,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{73.78,44.49,nil,nil,7,nil,1,273}},
     },
     },
-    [157] = { t = "Deliver the Thread", z = 10, rl = 20, ql = 24, rr = 1101, ps = {154}, nc = 158, maps = {
+    [157] = { t = "Deliver the Thread", z = 10, rl = 20, ql = 24, rr = 1101, ps = {154}, nc = 158, si = {1596}, maps = {
       [1431] = {{28.11,31.46,nil,nil,6,nil,1,289}},
     },
     turnins = {
@@ -1547,7 +1547,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{28.11,31.46,nil,nil,7,nil,1,289}},
     },
     },
-    [159] = { t = "Juice Delivery", z = 10, rl = 20, ql = 24, rr = 1101, ps = {156}, nc = 133, maps = {
+    [159] = { t = "Juice Delivery", z = 10, rl = 20, ql = 24, rr = 1101, ps = {156}, nc = 133, si = {1451}, maps = {
       [1431] = {{28.11,31.46,nil,nil,6,nil,1,289}},
     },
     turnins = {
@@ -1557,7 +1557,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{73.78,44.49,nil,nil,7,nil,1,273}},
     },
     },
-    [160] = { t = "Note to the Mayor", z = 10, rl = 20, ql = 30, rr = 1101, ps = {134}, nc = 251, maps = {
+    [160] = { t = "Note to the Mayor", z = 10, rl = 20, ql = 30, rr = 1101, ps = {134}, nc = 251, si = {1637}, maps = {
       [1431] = {{71.93,46.42,nil,nil,6,nil,1,263}},
     },
     turnins = {
@@ -1567,7 +1567,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{28.11,31.46,nil,nil,7,nil,1,289}},
     },
     },
-    [161] = { t = "A Dark Threat Looms", z = 38, rl = 16, ql = 18, rr = 1101, ps = {199}, nc = 274, maps = {
+    [161] = { t = "A Dark Threat Looms", z = 38, rl = 16, ql = 18, rr = 1101, ps = {199}, nc = 274, si = {2563}, maps = {
       [1437] = {{50.05,18.17,nil,nil,6,nil,1,1073}},
     },
     turnins = {
@@ -1577,7 +1577,7 @@ VanillaEnhancedQuestsDB = {
       [1432] = {{46.05,13.61,nil,nil,7,nil,1,1093}},
     },
     },
-    [162] = { t = "Rise of the Silithid", z = 440, rl = 39, ql = 49, rr = 1101, ps = {113}, nc = 4493, maps = {
+    [162] = { t = "Rise of the Silithid", z = 440, rl = 39, ql = 49, rr = 1101, ps = {113}, nc = 4493, si = {8594}, maps = {
       [1457] = {{41.83,85.62,nil,nil,6,nil,1,7740}},
     },
     turnins = {
@@ -1597,7 +1597,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{75.34,48.75,nil,nil,7,nil,1,633}},
     },
     },
-    [164] = { t = "Deliveries to Sven", z = 10, rl = 17, ql = 23, rr = 1101, nc = 95, bf = 95, maps = {
+    [164] = { t = "Deliveries to Sven", z = 10, rl = 17, ql = 23, rr = 1101, nc = 95, bf = 95, si = {1922}, maps = {
       [1431] = {{7.78,34.07,nil,nil,6,nil,1,311}},
     },
     turnins = {
@@ -1719,7 +1719,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{81.99,59.09,nil,nil,7,nil,1,302}},
     },
     },
-    [178] = { t = "Theocritus' Retrieval", z = 44, rl = 15, ql = 23, rr = 1101, maps = {
+    [178] = { t = "Theocritus' Retrieval", z = 44, rl = 15, ql = 23, rr = 1101, si = {1956}, maps = {
       [1429] = {{65.22,69.71,nil,nil,6,nil,1,313}},
     },
     turnins = {
@@ -1777,7 +1777,7 @@ VanillaEnhancedQuestsDB = {
       [1426] = {{22.60,71.43,nil,nil,7,nil,1,714}},
     },
     },
-    [184] = { t = "Furlbrow's Deed", z = 40, rl = 8, ql = 9, rr = 1101, maps = {
+    [184] = { t = "Furlbrow's Deed", z = 40, rl = 8, ql = 9, rr = 1101, si = {1971}, maps = {
       [1436] = {{59.95,19.36,nil,nil,6,nil,1,237}},
     },
     turnins = {
@@ -1914,7 +1914,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{35.66,10.81,nil,nil,7,nil,1,715}},
     },
     },
-    [198] = { t = "Supplies to Private Thorsen", z = 33, rl = 30, ql = 32, rr = 1101, maps = {
+    [198] = { t = "Supplies to Private Thorsen", z = 33, rl = 30, ql = 32, rr = 1101, si = {2252}, maps = {
       [1434] = {{40.34,8.44,nil,nil,6,nil,1,738}},
     },
     turnins = {
@@ -1924,7 +1924,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{26.95,77.21,nil,nil,7,nil,1,773}},
     },
     },
-    [199] = { t = "A Dark Threat Looms", z = 38, rl = 16, ql = 18, rr = 1101, ps = {250}, nc = 161, maps = {
+    [199] = { t = "A Dark Threat Looms", z = 38, rl = 16, ql = 18, rr = 1101, ps = {250}, nc = 161, si = {2563}, maps = {
       [1432] = {{46.05,13.61,nil,nil,6,nil,1,1093}},
     },
     turnins = {
@@ -2034,7 +2034,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{27.00,77.13,nil,nil,7,nil,1,737}},
     },
     },
-    [210] = { t = "Krazek's Cookery", z = 33, rl = 32, ql = 37, rr = 1101, nc = 627, maps = {
+    [210] = { t = "Krazek's Cookery", z = 33, rl = 32, ql = 37, rr = 1101, nc = 627, si = {4085}, maps = {
       [1434] = {{26.95,77.21,nil,nil,6,nil,1,773}},
     },
     turnins = {
@@ -2134,7 +2134,7 @@ VanillaEnhancedQuestsDB = {
       [1433] = {{28.39,12.55,nil,nil,7,nil,1,349}},
     },
     },
-    [220] = { t = "Call of Water", z = -82, rl = 20, ql = -1, rr = 690, rc = 64, ps = {1534}, maps = {
+    [220] = { t = "Call of Water", z = -82, rl = 20, ql = -1, rr = 690, rc = 64, ps = {1534}, si = {7810}, maps = {
       [1413] = {{65.83,43.78,nil,nil,6,nil,1,5901}},
     },
     turnins = {
@@ -2164,7 +2164,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{75.75,47.57,nil,nil,7,nil,1,663}},
     },
     },
-    [223] = { t = "Worgen in the Woods", z = 10, rl = 23, ql = 31, rr = 1101, ps = {222}, maps = {
+    [223] = { t = "Worgen in the Woods", z = 10, rl = 23, ql = 31, rr = 1101, ps = {222}, si = {2113}, maps = {
       [1431] = {{75.32,49.02,nil,nil,6,nil,1,661}},
     },
     turnins = {
@@ -2234,7 +2234,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{73.54,46.82,nil,nil,7,nil,1,264}},
     },
     },
-    [230] = { t = "Sven's Camp", z = 10, rl = 21, ql = 25, rr = 1101, ps = {95}, nc = 262, maps = {
+    [230] = { t = "Sven's Camp", z = 10, rl = 21, ql = 25, rr = 1101, ps = {95}, nc = 262, si = {2161}, maps = {
       [1431] = {{7.78,34.07,nil,nil,6,nil,1,311}},
     },
     turnins = {
@@ -2244,7 +2244,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{49.85,77.71,nil,nil,7,nil,2,59}},
     },
     },
-    [231] = { t = "A Daughter's Love", z = 10, rl = 28, ql = 30, rr = 1101, ps = {229}, maps = {
+    [231] = { t = "A Daughter's Love", z = 10, rl = 28, ql = 30, rr = 1101, ps = {229}, si = {2162}, maps = {
       [1431] = {{17.73,29.08,nil,nil,6,nil,2,61}},
     },
     turnins = {
@@ -2254,7 +2254,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{74.02,47.82,nil,nil,7,nil,1,576}},
     },
     },
-    [232] = { t = "Errand for Apothecary Zinge", z = 1497, rl = 38, ql = 45, rr = 690, nc = 238, maps = {
+    [232] = { t = "Errand for Apothecary Zinge", z = 1497, rl = 38, ql = 45, rr = 690, nc = 238, si = {8525}, maps = {
       [1458] = {{58.61,54.68,nil,nil,6,nil,1,7683}},
     },
     turnins = {
@@ -2264,7 +2264,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{50.14,67.97,nil,nil,7,nil,1,5204}},
     },
     },
-    [233] = { t = "Coldridge Valley Mail Delivery", z = 132, rl = 1, ql = 3, rr = 1101, ps = {179}, nc = 234, maps = {
+    [233] = { t = "Coldridge Valley Mail Delivery", z = 132, rl = 1, ql = 3, rr = 1101, ps = {179}, nc = 234, si = {2187}, maps = {
       [1426] = {{22.60,71.43,nil,nil,6,nil,1,714}},
     },
     turnins = {
@@ -2274,7 +2274,7 @@ VanillaEnhancedQuestsDB = {
       [1426] = {{29.93,71.20,nil,nil,7,nil,1,658}},
     },
     },
-    [234] = { t = "Coldridge Valley Mail Delivery", z = 132, rl = 1, ql = 4, rr = 1101, ps = {233}, maps = {
+    [234] = { t = "Coldridge Valley Mail Delivery", z = 132, rl = 1, ql = 4, rr = 1101, ps = {233}, si = {2188}, maps = {
       [1426] = {{25.08,75.71,nil,nil,6,nil,1,786}},
     },
     turnins = {
@@ -2304,7 +2304,7 @@ VanillaEnhancedQuestsDB = {
       [1432] = {{23.54,76.40,nil,nil,7,nil,1,1091}},
     },
     },
-    [238] = { t = "Errand for Apothecary Zinge", z = 1497, rl = 38, ql = 45, rr = 690, ps = {232}, nc = 243, maps = {
+    [238] = { t = "Errand for Apothecary Zinge", z = 1497, rl = 38, ql = 45, rr = 690, ps = {232}, nc = 243, si = {8523}, maps = {
       [1458] = {{50.14,67.97,nil,nil,6,nil,1,5204}},
     },
     turnins = {
@@ -2324,7 +2324,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{42.11,65.93,nil,nil,7,nil,1,240}},
     },
     },
-    [240] = { t = "Return to Jitters", z = 10, rl = 17, ql = 20, rr = 1101, ps = {93}, maps = {
+    [240] = { t = "Return to Jitters", z = 10, rl = 17, ql = 20, rr = 1101, ps = {93}, si = {2250}, maps = {
       [1431] = {{18.38,56.37,nil,nil,6,nil,1,288}},
     },
     turnins = {
@@ -2334,7 +2334,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{73.75,43.48,nil,nil,7,nil,1,272}},
     },
     },
-    [243] = { t = "Into the Field", z = 440, rl = 38, ql = 46, rr = 690, ps = {238}, nc = 379, maps = {
+    [243] = { t = "Into the Field", z = 440, rl = 38, ql = 46, rr = 690, ps = {238}, nc = 379, si = {8523}, maps = {
       [1446] = {{52.46,28.51,nil,nil,6,nil,1,7407}},
     },
     turnins = {
@@ -2384,7 +2384,7 @@ VanillaEnhancedQuestsDB = {
       [1440] = {{73.78,61.46,nil,nil,7,nil,1,12696}},
     },
     },
-    [248] = { t = "Looking Further", z = 44, rl = 20, ql = 22, rr = 1101, ps = {94}, nc = 249, maps = {
+    [248] = { t = "Looking Further", z = 44, rl = 20, ql = 22, rr = 1101, ps = {94}, nc = 249, si = {1083}, maps = {
       [1433] = {{63.25,49.84,nil,nil,6,nil,2,76}},
     },
     turnins = {
@@ -2415,7 +2415,7 @@ VanillaEnhancedQuestsDB = {
       [1432] = {{46.05,13.61,nil,nil,7,nil,1,1093}},
     },
     },
-    [251] = { t = "Translate Abercrombie's Note", z = 10, rl = 20, ql = 30, rr = 1101, ps = {160}, nc = 401, maps = {
+    [251] = { t = "Translate Abercrombie's Note", z = 10, rl = 20, ql = 30, rr = 1101, ps = {160}, nc = 401, si = {1637}, maps = {
       [1431] = {{72.62,47.62,nil,nil,6,nil,1,268}},
     },
     turnins = {
@@ -2425,7 +2425,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{71.93,46.42,nil,nil,7,nil,1,263}},
     },
     },
-    [252] = { t = "Translation to Ello", z = 10, rl = 20, ql = 30, rr = 1101, ps = {401}, nc = 253, maps = {
+    [252] = { t = "Translation to Ello", z = 10, rl = 20, ql = 30, rr = 1101, ps = {401}, nc = 253, si = {1656}, maps = {
       [1431] = {{71.93,46.42,nil,nil,6,nil,1,263}},
     },
     turnins = {
@@ -2505,7 +2505,7 @@ VanillaEnhancedQuestsDB = {
       [1443] = {{66.52,7.91,nil,nil,7,nil,1,1182}},
     },
     },
-    [262] = { t = "The Shadowy Figure", z = 10, rl = 20, ql = 25, rr = 1101, ps = {230}, nc = 265, maps = {
+    [262] = { t = "The Shadowy Figure", z = 10, rl = 20, ql = 25, rr = 1101, ps = {230}, nc = 265, si = {2161}, maps = {
       [1431] = {{75.79,45.32,nil,nil,6,nil,1,265}},
     },
     turnins = {
@@ -2525,7 +2525,7 @@ VanillaEnhancedQuestsDB = {
       [1432] = {{23.47,74.51,nil,nil,7,nil,1,1090}},
     },
     },
-    [264] = { t = "Until Death Do Us Part", z = 1638, rl = 12, ql = 15, rr = 690, maps = {
+    [264] = { t = "Until Death Do Us Part", z = 1638, rl = 12, ql = 15, rr = 690, si = {6145}, maps = {
       [1421] = {{44.19,42.67,nil,nil,6,nil,2,24776}},
     },
     turnins = {
@@ -2535,7 +2535,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{27.20,24.40,nil,nil,7,nil,1,5543}},
     },
     },
-    [265] = { t = "The Shadowy Search Continues", z = 10, rl = 20, ql = 25, rr = 1101, ps = {262}, nc = 266, maps = {
+    [265] = { t = "The Shadowy Search Continues", z = 10, rl = 20, ql = 25, rr = 1101, ps = {262}, nc = 266, si = {2161}, maps = {
       [1431] = {{72.54,46.87,nil,nil,6,nil,1,267}},
     },
     turnins = {
@@ -2545,7 +2545,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{75.79,45.32,nil,nil,7,nil,1,265}},
     },
     },
-    [266] = { t = "Inquire at the Inn", z = 10, rl = 20, ql = 25, rr = 1101, ps = {265}, nc = 453, maps = {
+    [266] = { t = "Inquire at the Inn", z = 10, rl = 20, ql = 25, rr = 1101, ps = {265}, nc = 453, si = {2161}, maps = {
       [1431] = {{73.78,44.49,nil,nil,6,nil,1,273}},
     },
     turnins = {
@@ -2565,7 +2565,7 @@ VanillaEnhancedQuestsDB = {
       [1432] = {{23.23,73.68,nil,nil,7,nil,1,1092}},
     },
     },
-    [268] = { t = "Return to Sven", z = 10, rl = 20, ql = 25, rr = 1101, ps = {453}, nc = 323, maps = {
+    [268] = { t = "Return to Sven", z = 10, rl = 20, ql = 25, rr = 1101, ps = {453}, nc = 323, si = {2560}, maps = {
       [1431] = {{7.78,34.07,nil,nil,6,nil,1,311}},
     },
     turnins = {
@@ -2575,7 +2575,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{18.38,56.37,nil,nil,7,nil,1,288}},
     },
     },
-    [269] = { t = "Seeking Wisdom", z = 10, rl = 20, ql = 29, rr = 1101, ps = {323}, nc = 270, maps = {
+    [269] = { t = "Seeking Wisdom", z = 10, rl = 20, ql = 29, rr = 1101, ps = {323}, nc = 270, si = {2560}, maps = {
       [1453] = {{39.10,27.86,nil,nil,6,nil,1,1212}},
     },
     turnins = {
@@ -2605,7 +2605,7 @@ VanillaEnhancedQuestsDB = {
       [1432] = {{81.73,64.14,nil,nil,7,nil,1,1156}},
     },
     },
-    [272] = { t = "Trial of the Sea Lion", z = -263, rl = 16, ql = -1, rr = 8, rc = 1024, ps = {29}, nc = 5061, maps = {
+    [272] = { t = "Trial of the Sea Lion", z = -263, rl = 16, ql = -1, rr = 8, rc = 1024, ps = {29}, nc = 5061, si = {15883,15882}, maps = {
       [1413] = {{56.67,8.32,nil,nil,4,"Half Pendant of Aquatic Agility",3,15883}},
       [1421] = {{29.56,29.20,nil,nil,4,"Half Pendant of Aquatic Endurance",3,15882}},
       [1436] = {{17.94,33.18,nil,nil,4,"Half Pendant of Aquatic Endurance",3,15882}},
@@ -2629,7 +2629,7 @@ VanillaEnhancedQuestsDB = {
       [1432] = {{37.24,47.38,nil,nil,7,nil,1,1105}},
     },
     },
-    [274] = { t = "A Dark Threat Looms", z = 38, rl = 16, ql = 18, rr = 1101, ps = {161}, nc = 278, maps = {
+    [274] = { t = "A Dark Threat Looms", z = 38, rl = 16, ql = 18, rr = 1101, ps = {161}, nc = 278, si = {2609}, maps = {
       [1432] = {{46.05,13.61,nil,nil,6,nil,1,1093}},
     },
     turnins = {
@@ -2689,7 +2689,7 @@ VanillaEnhancedQuestsDB = {
       [1437] = {{8.32,58.57,nil,nil,7,nil,1,1242}},
     },
     },
-    [280] = { t = "A Dark Threat Looms", z = 38, rl = 16, ql = 18, rr = 1101, ps = {278}, nc = 283, maps = {
+    [280] = { t = "A Dark Threat Looms", z = 38, rl = 16, ql = 18, rr = 1101, ps = {278}, nc = 283, si = {2610}, maps = {
       [1432] = {{50.58,14.30,nil,nil,6,nil,2,1585}},
     },
     turnins = {
@@ -2709,7 +2709,7 @@ VanillaEnhancedQuestsDB = {
       [1437] = {{8.32,58.57,nil,nil,7,nil,1,1242}},
     },
     },
-    [282] = { t = "Senir's Observations", z = 132, rl = 4, ql = 5, rr = 1101, ps = {218}, ex = {287}, nc = 420, maps = {
+    [282] = { t = "Senir's Observations", z = 132, rl = 4, ql = 5, rr = 1101, ps = {218}, ex = {287}, nc = 420, si = {2619}, maps = {
       [1426] = {{33.48,71.84,nil,nil,6,nil,1,1965}},
     },
     turnins = {
@@ -2749,7 +2749,7 @@ VanillaEnhancedQuestsDB = {
       [1437] = {{13.60,38.22,nil,nil,7,nil,2,142151}},
     },
     },
-    [286] = { t = "Return the Statuette", z = 11, rl = 20, ql = 25, rr = 1101, ps = {285}, maps = {
+    [286] = { t = "Return the Statuette", z = 11, rl = 20, ql = 25, rr = 1101, ps = {285}, si = {2625}, maps = {
       [1437] = {{8.32,58.57,nil,nil,6,nil,1,1242}},
     },
     turnins = {
@@ -2799,7 +2799,7 @@ VanillaEnhancedQuestsDB = {
       [1437] = {{10.90,59.64,nil,nil,7,nil,1,1239}},
     },
     },
-    [291] = { t = "The Reports", z = 1, rl = 7, ql = 10, rr = 1101, ps = {287}, maps = {
+    [291] = { t = "The Reports", z = 1, rl = 7, ql = 10, rr = 1101, ps = {287}, si = {2628}, maps = {
       [1455] = {{39.55,57.49,nil,nil,6,nil,1,1274}},
     },
     turnins = {
@@ -2809,7 +2809,7 @@ VanillaEnhancedQuestsDB = {
       [1426] = {{46.73,53.83,nil,nil,7,nil,1,1252}},
     },
     },
-    [292] = { t = "The Eye of Paleth", z = 11, rl = 22, ql = 30, rr = 1101, ps = {290}, nc = 293, maps = {
+    [292] = { t = "The Eye of Paleth", z = 11, rl = 22, ql = 30, rr = 1101, ps = {290}, nc = 293, si = {2944}, maps = {
       [1437] = {{10.58,60.59,nil,nil,6,nil,1,1217}},
     },
     turnins = {
@@ -2819,7 +2819,7 @@ VanillaEnhancedQuestsDB = {
       [1437] = {{14.38,24.04,nil,nil,7,nil,2,112948}},
     },
     },
-    [293] = { t = "Cleansing the Eye", z = 11, rl = 22, ql = 30, rr = 1101, ps = {292}, maps = {
+    [293] = { t = "Cleansing the Eye", z = 11, rl = 22, ql = 30, rr = 1101, ps = {292}, si = {2944}, maps = {
       [1453] = {{39.59,27.19,nil,nil,6,nil,1,1284}},
     },
     turnins = {
@@ -2869,7 +2869,7 @@ VanillaEnhancedQuestsDB = {
       [1432] = {{64.90,66.66,nil,nil,7,nil,1,1345}},
     },
     },
-    [298] = { t = "Excavation Progress Report", z = 38, rl = 10, ql = 15, rr = 1101, nc = 301, maps = {
+    [298] = { t = "Excavation Progress Report", z = 38, rl = 10, ql = 15, rr = 1101, nc = 301, si = {2637}, maps = {
       [1432] = {{37.24,47.38,nil,nil,6,nil,1,1105}},
     },
     turnins = {
@@ -2889,7 +2889,7 @@ VanillaEnhancedQuestsDB = {
       [1437] = {{38.81,52.39,nil,nil,7,nil,1,1077}},
     },
     },
-    [301] = { t = "Report to Ironforge", z = 38, rl = 10, ql = 15, rr = 1101, ps = {298}, nc = 302, maps = {
+    [301] = { t = "Report to Ironforge", z = 38, rl = 10, ql = 15, rr = 1101, ps = {298}, nc = 302, si = {2637}, maps = {
       [1455] = {{74.64,11.74,nil,nil,6,nil,1,1356}},
     },
     turnins = {
@@ -2939,7 +2939,7 @@ VanillaEnhancedQuestsDB = {
       [1437] = {{11.50,52.17,nil,nil,7,nil,1,2096}},
     },
     },
-    [306] = { t = "In Search of The Excavation Team", z = 11, rl = 21, ql = 24, rr = 1101, ps = {305}, maps = {
+    [306] = { t = "In Search of The Excavation Team", z = 11, rl = 21, ql = 24, rr = 1101, ps = {305}, si = {2639}, maps = {
       [1437] = {{11.50,52.17,nil,nil,6,nil,1,2096}},
     },
     turnins = {
@@ -2981,7 +2981,7 @@ VanillaEnhancedQuestsDB = {
       [1432] = {{52.21,69.43,nil,nil,7,nil,1,1379}},
     },
     },
-    [310] = { t = "Bitter Rivals", z = 1, rl = 5, ql = 6, rr = 1101, nc = 311, maps = {
+    [310] = { t = "Bitter Rivals", z = 1, rl = 5, ql = 6, rr = 1101, nc = 311, si = {2548}, maps = {
       [1426] = {{47.72,52.70,nil,nil,6,nil,2,270}},
     },
     turnins = {
@@ -2991,7 +2991,7 @@ VanillaEnhancedQuestsDB = {
       [1426] = {{30.19,45.53,nil,nil,7,nil,1,1375}},
     },
     },
-    [311] = { t = "Return to Marleth", z = 1, rl = 6, ql = 7, rr = 1101, ps = {310}, maps = {
+    [311] = { t = "Return to Marleth", z = 1, rl = 6, ql = 7, rr = 1101, ps = {310}, si = {2666}, maps = {
       [1426] = {{30.19,45.53,nil,nil,6,nil,1,1375}},
     },
     turnins = {
@@ -3077,7 +3077,7 @@ VanillaEnhancedQuestsDB = {
       [1426] = {{30.19,45.73,nil,nil,7,nil,1,1374}},
     },
     },
-    [320] = { t = "Return to Bellowfiz", z = 1, rl = 6, ql = 8, rr = 1101, ps = {319}, maps = {
+    [320] = { t = "Return to Bellowfiz", z = 1, rl = 6, ql = 8, rr = 1101, ps = {319}, si = {2696}, maps = {
       [1426] = {{49.43,48.41,nil,nil,6,nil,1,1378}},
     },
     turnins = {
@@ -3097,7 +3097,7 @@ VanillaEnhancedQuestsDB = {
       [1437] = {{10.58,60.59,nil,nil,7,nil,1,1217}},
     },
     },
-    [322] = { t = "Blessed Arm", z = 10, rl = 20, ql = 29, rr = 1101, ps = {324}, nc = 325, maps = {
+    [322] = { t = "Blessed Arm", z = 10, rl = 20, ql = 29, rr = 1101, ps = {324}, nc = 325, si = {2712}, maps = {
       [1453] = {{51.76,12.08,nil,nil,6,nil,1,1416}},
     },
     turnins = {
@@ -3128,7 +3128,7 @@ VanillaEnhancedQuestsDB = {
       [1437] = {{12.11,64.19,nil,nil,7,nil,2,2734}},
     },
     },
-    [325] = { t = "Armed and Ready", z = 10, rl = 20, ql = 29, rr = 1101, ps = {322}, nc = 55, maps = {
+    [325] = { t = "Armed and Ready", z = 10, rl = 20, ql = 29, rr = 1101, ps = {322}, nc = 55, si = {7297}, maps = {
       [1431] = {{7.78,34.07,nil,nil,6,nil,1,311}},
     },
     turnins = {
@@ -3138,7 +3138,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{51.76,12.08,nil,nil,7,nil,1,1416}},
     },
     },
-    [328] = { t = "The Hidden Key", z = 33, rl = 30, ql = 37, rr = 1101, ps = {200}, nc = 329, maps = {
+    [328] = { t = "The Hidden Key", z = 33, rl = 30, ql = 37, rr = 1101, ps = {200}, nc = 329, si = {2719}, maps = {
       [1434] = {{49.62,7.56,nil,nil,6,nil,2,288}},
     },
     turnins = {
@@ -3148,7 +3148,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{43.67,9.37,nil,nil,7,nil,2,287}},
     },
     },
-    [329] = { t = "The Spy Revealed!", z = 33, rl = 30, ql = 37, rr = 1101, ps = {328}, nc = 330, maps = {
+    [329] = { t = "The Spy Revealed!", z = 33, rl = 30, ql = 37, rr = 1101, ps = {328}, nc = 330, si = {2720}, maps = {
       [1434] = {{38.04,3.01,nil,nil,6,nil,1,469}},
     },
     turnins = {
@@ -3178,7 +3178,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{37.66,3.39,nil,nil,7,nil,1,1422}},
     },
     },
-    [332] = { t = "Wine Shop Advert", z = 1519, rl = 1, ql = 2, rr = 1101, maps = {
+    [332] = { t = "Wine Shop Advert", z = 1519, rl = 1, ql = 2, rr = 1101, si = {2722}, maps = {
       [1453] = {{52.48,67.61,nil,nil,6,nil,1,1431}},
     },
     turnins = {
@@ -3188,7 +3188,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{56.98,63.53,nil,nil,7,nil,1,1432}},
     },
     },
-    [333] = { t = "Harlan Needs a Resupply", z = 1519, rl = 1, ql = 2, rr = 1101, maps = {
+    [333] = { t = "Harlan Needs a Resupply", z = 1519, rl = 1, ql = 2, rr = 1101, si = {2724}, maps = {
       [1453] = {{49.65,55.64,nil,nil,6,nil,1,1428}},
     },
     turnins = {
@@ -3198,7 +3198,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{55.11,56.23,nil,nil,7,nil,1,1427}},
     },
     },
-    [334] = { t = "Package for Thurman", z = 1519, rl = 1, ql = 2, rr = 1101, maps = {
+    [334] = { t = "Package for Thurman", z = 1519, rl = 1, ql = 2, rr = 1101, si = {2760}, maps = {
       [1453] = {{42.53,76.20,nil,nil,6,nil,1,1429}},
     },
     turnins = {
@@ -3219,7 +3219,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{26.44,78.67,nil,nil,7,nil,1,1435}},
     },
     },
-    [336] = { t = "A Noble Brew", z = 1519, rl = 25, ql = 30, rr = 1101, ps = {335}, nc = 397, maps = {
+    [336] = { t = "A Noble Brew", z = 1519, rl = 25, ql = 30, rr = 1101, ps = {335}, nc = 397, si = {2788}, maps = {
       [1453] = {{75.23,31.68,nil,nil,6,nil,1,1439}},
     },
     turnins = {
@@ -3229,7 +3229,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{26.44,78.67,nil,nil,7,nil,1,1435}},
     },
     },
-    [337] = { t = "An Old History Book", z = 10, rl = 20, ql = 25, rr = 1101, nc = 538, maps = {
+    [337] = { t = "An Old History Book", z = 10, rl = 20, ql = 25, rr = 1101, nc = 538, si = {2794}, maps = {
       [1453] = {{74.18,7.46,nil,nil,6,nil,1,1440}},
     },
     turnins = {
@@ -3316,7 +3316,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{49.61,40.41,nil,nil,7,nil,1,951}},
     },
     },
-    [346] = { t = "Return to Kristoff", z = 1519, rl = 20, ql = 24, rr = 1101, ps = {347}, maps = {
+    [346] = { t = "Return to Kristoff", z = 1519, rl = 20, ql = 24, rr = 1101, ps = {347}, si = {2795}, maps = {
       [1453] = {{45.70,38.42,nil,nil,6,nil,1,1444}},
     },
     turnins = {
@@ -3368,14 +3368,14 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{75.78,59.84,nil,nil,7,nil,1,332}},
     },
     },
-    [351] = { t = "Find OOX-17/TN!", z = 440, rl = 43, ql = 48, nc = 648, maps = {
+    [351] = { t = "Find OOX-17/TN!", z = 440, rl = 43, ql = 48, nc = 648, si = {8623}, maps = {
       [1446] = {{60.23,64.72,nil,nil,6,nil,1,7784}},
     },
     turnins = {
       [1446] = {{60.23,64.72,nil,nil,6,nil,1,7784}},
     },
     },
-    [353] = { t = "Stormpike's Delivery", z = 1519, rl = 9, ql = 15, rr = 1101, bc = {1097}, maps = {
+    [353] = { t = "Stormpike's Delivery", z = 1519, rl = 9, ql = 15, rr = 1101, bc = {1097}, si = {2806}, maps = {
       [1432] = {{24.76,18.40,nil,nil,6,nil,1,1343}},
     },
     turnins = {
@@ -3455,7 +3455,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{65.49,60.25,nil,nil,7,nil,1,1495}},
     },
     },
-    [361] = { t = "A Letter Undelivered", z = 85, rl = 4, ql = 7, rr = 690, maps = {
+    [361] = { t = "A Letter Undelivered", z = 85, rl = 4, ql = 7, rr = 690, si = {2837}, maps = {
       [1420] = {{61.58,52.60,nil,nil,6,nil,1,1560}},
     },
     turnins = {
@@ -3502,7 +3502,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{40.91,54.17,nil,nil,7,nil,1,1519}},
     },
     },
-    [366] = { t = "Return the Book", z = 85, rl = 5, ql = 8, rr = 690, ps = {357}, nc = 409, maps = {
+    [366] = { t = "Return the Book", z = 85, rl = 5, ql = 8, rr = 690, ps = {357}, nc = 409, si = {3016}, maps = {
       [1420] = {{68.20,41.92,nil,nil,6,nil,1,1497}},
     },
     turnins = {
@@ -3572,7 +3572,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{60.59,51.76,nil,nil,7,nil,1,1515}},
     },
     },
-    [373] = { t = "The Unsent Letter", z = 1519, rl = 16, ql = 22, rr = 1101, nc = 389, maps = {
+    [373] = { t = "The Unsent Letter", z = 1519, rl = 16, ql = 22, rr = 1101, nc = 389, si = {2874}, maps = {
       [1453] = {{49.19,30.28,nil,nil,6,nil,1,1646}},
     },
     turnins = {
@@ -3669,7 +3669,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{32.15,66.01,nil,nil,7,nil,1,1570}},
     },
     },
-    [383] = { t = "Vital Intelligence", z = 154, rl = 2, ql = 5, rr = 690, ps = {382}, maps = {
+    [383] = { t = "Vital Intelligence", z = 154, rl = 2, ql = 5, rr = 690, ps = {382}, si = {2885}, maps = {
       [1420] = {{60.59,51.76,nil,nil,6,nil,1,1515}},
     },
     turnins = {
@@ -3755,7 +3755,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{41.11,58.09,nil,nil,7,nil,1,1719}},
     },
     },
-    [392] = { t = "The Curious Visitor", z = 1519, rl = 16, ql = 29, rr = 1101, ps = {391}, nc = 393, maps = {
+    [392] = { t = "The Curious Visitor", z = 1519, rl = 16, ql = 29, rr = 1101, ps = {391}, nc = 393, si = {8687}, maps = {
       [1453] = {{49.19,30.28,nil,nil,6,nil,1,1646}},
     },
     turnins = {
@@ -3765,7 +3765,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{41.11,58.09,nil,nil,7,nil,1,1719}},
     },
     },
-    [393] = { t = "Shadow of the Past", z = 1519, rl = 16, ql = 29, rr = 1101, ps = {392}, nc = 350, maps = {
+    [393] = { t = "Shadow of the Past", z = 1519, rl = 16, ql = 29, rr = 1101, ps = {392}, nc = 350, si = {8687}, maps = {
       [1453] = {{75.78,59.84,nil,nil,6,nil,1,332}},
     },
     turnins = {
@@ -3795,7 +3795,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{75.78,59.84,nil,nil,7,nil,1,332}},
     },
     },
-    [396] = { t = "An Audience with the King", z = 1519, rl = 16, ql = 31, rr = 1101, ps = {395}, maps = {
+    [396] = { t = "An Audience with the King", z = 1519, rl = 16, ql = 31, rr = 1101, ps = {395}, si = {2956}, maps = {
       [1453] = {{78.10,17.75,nil,nil,6,nil,1,1749}},
     },
     turnins = {
@@ -3835,7 +3835,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{49.19,30.28,nil,nil,7,nil,1,1646}},
     },
     },
-    [400] = { t = "Tools for Steelgrill", z = 1, rl = 2, ql = 5, rr = 1101, maps = {
+    [400] = { t = "Tools for Steelgrill", z = 1, rl = 2, ql = 5, rr = 1101, si = {2999}, maps = {
       [1426] = {{50.44,49.09,nil,nil,6,nil,1,1376}},
     },
     turnins = {
@@ -3865,7 +3865,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{58.20,51.45,nil,nil,7,nil,1,1496}},
     },
     },
-    [405] = { t = "The Prodigal Lich", z = 85, rl = 5, ql = 8, rr = 690, ps = {358}, nc = 357, maps = {
+    [405] = { t = "The Prodigal Lich", z = 85, rl = 5, ql = 8, rr = 690, ps = {358}, nc = 357, si = {3017}, maps = {
       [1458] = {{84.07,17.45,nil,nil,6,nil,1,1498}},
     },
     turnins = {
@@ -3875,7 +3875,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{61.26,50.84,nil,nil,7,nil,1,1499}},
     },
     },
-    [407] = { t = "Fields of Grief", z = 85, rl = 4, ql = 7, rr = 690, ps = {365}, maps = {
+    [407] = { t = "Fields of Grief", z = 85, rl = 4, ql = 7, rr = 690, ps = {365}, si = {3035}, maps = {
       [1420] = {{61.97,51.29,nil,nil,6,nil,1,1931}},
     },
     turnins = {
@@ -3895,7 +3895,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{61.26,50.84,nil,nil,7,nil,1,1499}},
     },
     },
-    [409] = { t = "Proving Allegiance", z = 85, rl = 5, ql = 12, rr = 690, ps = {366}, nc = 411, maps = {
+    [409] = { t = "Proving Allegiance", z = 85, rl = 5, ql = 12, rr = 690, ps = {366}, nc = 411, si = {3080}, maps = {
       [1420] = {{66.67,44.97,nil,nil,1,"Lillith Nefara",1,1946,nil,nil,1}, {68.16,42.02,nil,nil,4,"Candle of Beckoning",3,3080}},
     },
     turnins = {
@@ -3915,7 +3915,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{66.64,44.88,nil,nil,7,nil,2,1557}},
     },
     },
-    [411] = { t = "The Prodigal Lich Returns", z = 85, rl = 5, ql = 12, rr = 690, ps = {409}, maps = {
+    [411] = { t = "The Prodigal Lich Returns", z = 85, rl = 5, ql = 12, rr = 690, ps = {409}, si = {3081}, maps = {
       [1458] = {{84.07,17.45,nil,nil,6,nil,1,1498}},
     },
     turnins = {
@@ -3935,7 +3935,7 @@ VanillaEnhancedQuestsDB = {
       [1426] = {{45.85,49.37,nil,nil,7,nil,1,1269}},
     },
     },
-    [413] = { t = "Shimmer Stout", z = 1, rl = 8, ql = 10, rr = 1101, ps = {315}, nc = 414, bc = {415}, maps = {
+    [413] = { t = "Shimmer Stout", z = 1, rl = 8, ql = 10, rr = 1101, ps = {315}, nc = 414, bc = {415}, si = {3085}, maps = {
       [1426] = {{86.28,48.81,nil,nil,6,nil,1,1959}},
     },
     turnins = {
@@ -3945,7 +3945,7 @@ VanillaEnhancedQuestsDB = {
       [1426] = {{30.19,45.73,nil,nil,7,nil,1,1374}},
     },
     },
-    [414] = { t = "Stout to Kadrell", z = 1, rl = 8, ql = 10, rr = 1101, ps = {413}, maps = {
+    [414] = { t = "Stout to Kadrell", z = 1, rl = 8, ql = 10, rr = 1101, ps = {413}, si = {3086}, maps = {
       [1432] = {{32.63,49.74,nil,nil,6,nil,1,1340}},
     },
     turnins = {
@@ -3975,7 +3975,7 @@ VanillaEnhancedQuestsDB = {
       [1432] = {{32.63,49.74,nil,nil,7,nil,1,1340}},
     },
     },
-    [417] = { t = "A Pilot's Revenge", z = 1, rl = 9, ql = 11, rr = 1101, ps = {419}, maps = {
+    [417] = { t = "A Pilot's Revenge", z = 1, rl = 9, ql = 11, rr = 1101, ps = {419}, si = {3117}, maps = {
       [1426] = {{78.31,37.76,nil,nil,2,"Mangy Claw",3,3183,{1961},{1961,100},1}},
     },
     turnins = {
@@ -4014,7 +4014,7 @@ VanillaEnhancedQuestsDB = {
       [1426] = {{83.89,39.19,nil,nil,7,nil,1,1960}},
     },
     },
-    [420] = { t = "Senir's Observations", z = 132, rl = 4, ql = 5, rr = 1101, ps = {282}, maps = {
+    [420] = { t = "Senir's Observations", z = 132, rl = 4, ql = 5, rr = 1101, ps = {282}, si = {2619}, maps = {
       [1426] = {{46.73,53.83,nil,nil,6,nil,1,1252}},
     },
     turnins = {
@@ -4115,7 +4115,7 @@ VanillaEnhancedQuestsDB = {
       [1421] = {{53.46,13.43,nil,nil,7,nil,1,1950}},
     },
     },
-    [430] = { t = "Return to Quinn", z = 130, rl = 10, ql = 11, rr = 690, ps = {429}, maps = {
+    [430] = { t = "Return to Quinn", z = 130, rl = 10, ql = 11, rr = 690, ps = {429}, si = {3165}, maps = {
       [1421] = {{53.43,12.59,nil,nil,6,nil,1,1951}},
     },
     turnins = {
@@ -4205,7 +4205,7 @@ VanillaEnhancedQuestsDB = {
       [1421] = {{43.42,40.86,nil,nil,7,nil,1,1952}},
     },
     },
-    [439] = { t = "Rot Hide Clues", z = 130, rl = 11, ql = 16, rr = 690, ps = {438}, nc = 443, maps = {
+    [439] = { t = "Rot Hide Clues", z = 130, rl = 11, ql = 16, rr = 690, ps = {438}, nc = 443, si = {3234}, maps = {
       [1421] = {{43.42,40.86,nil,nil,6,nil,1,1952}},
     },
     turnins = {
@@ -4215,7 +4215,7 @@ VanillaEnhancedQuestsDB = {
       [1421] = {{58.44,34.90,nil,nil,7,nil,2,1593}},
     },
     },
-    [440] = { t = "The Engraved Ring", z = 130, rl = 10, ql = 16, rr = 690, ps = {439}, nc = 441, maps = {
+    [440] = { t = "The Engraved Ring", z = 130, rl = 10, ql = 16, rr = 690, ps = {439}, nc = 441, si = {3234}, maps = {
       [1420] = {{61.26,50.84,nil,nil,6,nil,1,1499}},
     },
     turnins = {
@@ -4225,7 +4225,7 @@ VanillaEnhancedQuestsDB = {
       [1421] = {{43.42,40.86,nil,nil,7,nil,1,1952}},
     },
     },
-    [441] = { t = "Raleigh and the Undercity", z = 130, rl = 10, ql = 16, rr = 690, ps = {440}, nc = 530, maps = {
+    [441] = { t = "Raleigh and the Undercity", z = 130, rl = 10, ql = 16, rr = 690, ps = {440}, nc = 530, si = {3234}, maps = {
       [1458] = {{62.01,42.75,nil,nil,6,nil,1,2050}},
     },
     turnins = {
@@ -4255,7 +4255,7 @@ VanillaEnhancedQuestsDB = {
       [1421] = {{43.42,40.86,nil,nil,7,nil,1,1952}},
     },
     },
-    [444] = { t = "Rot Hide Origins", z = 130, rl = 10, ql = 17, rr = 690, ps = {443}, maps = {
+    [444] = { t = "Rot Hide Origins", z = 130, rl = 10, ql = 17, rr = 690, ps = {443}, si = {3237}, maps = {
       [1458] = {{84.07,17.45,nil,nil,6,nil,1,1498}},
     },
     turnins = {
@@ -4265,7 +4265,7 @@ VanillaEnhancedQuestsDB = {
       [1421] = {{42.80,40.86,nil,nil,7,nil,1,1937}},
     },
     },
-    [445] = { t = "Delivery to Silverpine Forest", z = 85, rl = 9, ql = 10, rr = 690, maps = {
+    [445] = { t = "Delivery to Silverpine Forest", z = 85, rl = 9, ql = 10, rr = 690, si = {3238}, maps = {
       [1421] = {{42.80,40.86,nil,nil,6,nil,1,1937}},
     },
     turnins = {
@@ -4275,7 +4275,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{59.45,52.40,nil,nil,7,nil,1,1518}},
     },
     },
-    [446] = { t = "Thule Ravenclaw", z = 130, rl = 10, ql = 16, rr = 690, ps = {444}, nc = 448, maps = {
+    [446] = { t = "Thule Ravenclaw", z = 130, rl = 10, ql = 16, rr = 690, ps = {444}, nc = 448, si = {3250}, maps = {
       [1421] = {{42.80,40.86,nil,nil,6,nil,1,1937}},
     },
     turnins = {
@@ -4305,7 +4305,7 @@ VanillaEnhancedQuestsDB = {
       [1421] = {{42.80,40.86,nil,nil,7,nil,1,1937}},
     },
     },
-    [449] = { t = "The Deathstalkers' Report", z = 130, rl = 10, ql = 11, rr = 690, ps = {435}, nc = 3221, maps = {
+    [449] = { t = "The Deathstalkers' Report", z = 130, rl = 10, ql = 11, rr = 690, ps = {435}, nc = 3221, si = {3252}, maps = {
       [1421] = {{43.42,40.86,nil,nil,6,nil,1,1952}},
     },
     turnins = {
@@ -4346,7 +4346,7 @@ VanillaEnhancedQuestsDB = {
       [1421] = {{46.50,74.39,nil,nil,7,nil,1,2058}},
     },
     },
-    [453] = { t = "Finding the Shadowy Figure", z = 10, rl = 20, ql = 25, rr = 1101, ps = {266}, nc = 268, maps = {
+    [453] = { t = "Finding the Shadowy Figure", z = 10, rl = 20, ql = 25, rr = 1101, ps = {266}, nc = 268, si = {2161}, maps = {
       [1431] = {{18.38,56.37,nil,nil,6,nil,1,288}},
     },
     turnins = {
@@ -4416,14 +4416,14 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{57.83,45.21,nil,nil,7,nil,1,1992}},
     },
     },
-    [460] = { t = "Resting in Pieces", z = 130, rl = 12, ql = 17, rr = 690, nc = 461, maps = {
+    [460] = { t = "Resting in Pieces", z = 130, rl = 12, ql = 17, rr = 690, nc = 461, si = {3317}, maps = {
       [1421] = {{67.87,24.85,nil,nil,6,nil,2,1599}},
     },
     turnins = {
       [1421] = {{67.87,24.85,nil,nil,6,nil,2,1599}},
     },
     },
-    [461] = { t = "The Hidden Niche", z = 130, rl = 14, ql = 18, rr = 690, ps = {460}, nc = 491, maps = {
+    [461] = { t = "The Hidden Niche", z = 130, rl = 14, ql = 18, rr = 690, ps = {460}, nc = 491, si = {3318}, maps = {
       [1421] = {{65.36,24.81,nil,nil,6,nil,2,112888}},
     },
     turnins = {
@@ -4453,7 +4453,7 @@ VanillaEnhancedQuestsDB = {
       [1437] = {{9.86,57.49,nil,nil,7,nil,1,2104}},
     },
     },
-    [465] = { t = "Nek'rosh's Gambit", z = 11, rl = 23, ql = 26, rr = 1101, ps = {464}, nc = 474, maps = {
+    [465] = { t = "Nek'rosh's Gambit", z = 11, rl = 23, ql = 26, rr = 1101, ps = {464}, nc = 474, si = {3339}, maps = {
       [1437] = {{47.46,47.01,nil,nil,6,nil,2,1609}},
     },
     turnins = {
@@ -4494,7 +4494,7 @@ VanillaEnhancedQuestsDB = {
       [1432] = {{32.63,49.74,nil,nil,7,nil,1,1340}},
     },
     },
-    [469] = { t = "Daily Delivery", z = 11, rl = 18, ql = 21, rr = 1101, maps = {
+    [469] = { t = "Daily Delivery", z = 11, rl = 18, ql = 21, rr = 1101, si = {3347}, maps = {
       [1437] = {{8.55,55.74,nil,nil,6,nil,1,2094}},
     },
     turnins = {
@@ -4584,7 +4584,7 @@ VanillaEnhancedQuestsDB = {
       [1421] = {{43.98,40.93,nil,nil,7,nil,1,2121}},
     },
     },
-    [478] = { t = "Maps and Runes", z = 130, rl = 10, ql = 14, rr = 690, ps = {477}, nc = 481, maps = {
+    [478] = { t = "Maps and Runes", z = 130, rl = 10, ql = 14, rr = 690, ps = {477}, nc = 481, si = {3353}, maps = {
       [1421] = {{43.98,40.93,nil,nil,6,nil,1,2121}},
     },
     turnins = {
@@ -4614,7 +4614,7 @@ VanillaEnhancedQuestsDB = {
       [1421] = {{43.98,40.93,nil,nil,7,nil,1,2121}},
     },
     },
-    [481] = { t = "Dalar's Analysis", z = 130, rl = 10, ql = 14, rr = 690, ps = {478}, nc = 482, maps = {
+    [481] = { t = "Dalar's Analysis", z = 130, rl = 10, ql = 14, rr = 690, ps = {478}, nc = 482, si = {3353}, maps = {
       [1421] = {{44.20,39.81,nil,nil,6,nil,1,1938}},
     },
     turnins = {
@@ -4654,7 +4654,7 @@ VanillaEnhancedQuestsDB = {
       [1437] = {{8.55,55.74,nil,nil,7,nil,1,2094}},
     },
     },
-    [485] = { t = "Find OOX-09/HL!", z = 47, rl = 43, ql = 48, nc = 836, maps = {
+    [485] = { t = "Find OOX-09/HL!", z = 47, rl = 43, ql = 48, nc = 836, si = {8704}, maps = {
       [1425] = {{49.35,37.66,nil,nil,6,nil,1,7806}},
     },
     turnins = {
@@ -4701,7 +4701,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{56.00,59.52,nil,nil,7,nil,1,2081}, {56.08,57.72,nil,nil,7,nil,1,2083}, {52.91,57.20,nil,nil,7,nil,1,2151}, {42.22,51.27,nil,nil,7,nil,1,2155}},
     },
     },
-    [491] = { t = "Wand to Bethor", z = 130, rl = 14, ql = 18, rr = 690, ps = {461}, maps = {
+    [491] = { t = "Wand to Bethor", z = 130, rl = 14, ql = 18, rr = 690, ps = {461}, si = {3425}, maps = {
       [1458] = {{84.07,17.45,nil,nil,6,nil,1,1498}},
     },
     turnins = {
@@ -4711,7 +4711,7 @@ VanillaEnhancedQuestsDB = {
       [1421] = {{65.36,24.81,nil,nil,7,nil,2,112888}},
     },
     },
-    [492] = { t = "A New Plague", z = 85, rl = 6, ql = 11, rr = 16, ps = {369}, maps = {
+    [492] = { t = "A New Plague", z = 85, rl = 6, ql = 11, rr = 16, ps = {369}, si = {3460}, maps = {
       [1420] = {{61.94,51.40,nil,nil,6,nil,1,2211}},
     },
     turnins = {
@@ -4721,7 +4721,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{59.45,52.40,nil,nil,7,nil,1,1518}},
     },
     },
-    [493] = { t = "Journey to Hillsbrad Foothills", z = 130, rl = 19, ql = 20, rr = 690, maps = {
+    [493] = { t = "Journey to Hillsbrad Foothills", z = 130, rl = 19, ql = 20, rr = 690, si = {3468}, maps = {
       [1424] = {{61.44,19.06,nil,nil,6,nil,1,2216}},
     },
     turnins = {
@@ -4762,7 +4762,7 @@ VanillaEnhancedQuestsDB = {
       [1424] = {{61.44,19.06,nil,nil,7,nil,1,2216}},
     },
     },
-    [498] = { t = "The Rescue", z = 267, rl = 17, ql = 22, rr = 690, nc = 533, maps = {
+    [498] = { t = "The Rescue", z = 267, rl = 17, ql = 22, rr = 690, nc = 533, si = {3467,3499}, maps = {
       [1424] = {{75.33,41.50,nil,nil,4,"Rescue Drull",2,1721,nil,nil,1}, {79.79,39.65,nil,nil,4,"Rescue Tog'thar",2,1722,nil,nil,2}, {79.60,41.83,nil,nil,2,"Dull Iron Key",3,3467,{2427},{2427,100}}, {79.49,40.57,nil,nil,2,"Burnished Gold Key",3,3499,{2428},{2428,100}}},
     },
     turnins = {
@@ -4772,7 +4772,7 @@ VanillaEnhancedQuestsDB = {
       [1424] = {{63.24,20.66,nil,nil,7,nil,1,2229}},
     },
     },
-    [499] = { t = "Elixir of Suffering", z = 267, rl = 19, ql = 22, rr = 690, ps = {496}, maps = {
+    [499] = { t = "Elixir of Suffering", z = 267, rl = 19, ql = 22, rr = 690, ps = {496}, si = {3495}, maps = {
       [1424] = {{61.55,19.14,nil,nil,6,nil,1,2230}},
     },
     turnins = {
@@ -4803,7 +4803,7 @@ VanillaEnhancedQuestsDB = {
       [1424] = {{61.44,19.06,nil,nil,7,nil,1,2216}},
     },
     },
-    [502] = { t = "Elixir of Pain", z = 267, rl = 21, ql = 24, rr = 690, ps = {501}, maps = {
+    [502] = { t = "Elixir of Pain", z = 267, rl = 21, ql = 24, rr = 690, ps = {501}, si = {3497}, maps = {
       [1424] = {{32.66,35.32,nil,nil,6,nil,1,2274}},
     },
     turnins = {
@@ -4863,7 +4863,7 @@ VanillaEnhancedQuestsDB = {
       [1424] = {{63.24,20.66,nil,nil,7,nil,1,2229}},
     },
     },
-    [508] = { t = "Taretha's Gift", z = 267, rl = 29, ql = 40, rr = 690, ps = {507}, maps = {
+    [508] = { t = "Taretha's Gift", z = 267, rl = 29, ql = 40, rr = 690, ps = {507}, si = {3498}, maps = {
       [1424] = {{63.24,20.66,nil,nil,6,nil,1,2229}},
     },
     turnins = {
@@ -4883,7 +4883,7 @@ VanillaEnhancedQuestsDB = {
       [1424] = {{61.44,19.06,nil,nil,7,nil,1,2216}},
     },
     },
-    [510] = { t = "Foreboding Plans", z = 36, rl = 27, ql = 34, rr = 1101, nc = 512, maps = {
+    [510] = { t = "Foreboding Plans", z = 36, rl = 27, ql = 34, rr = 1101, nc = 512, si = {3718}, maps = {
       [1424] = {{48.14,59.11,nil,nil,6,nil,1,2276}},
     },
     turnins = {
@@ -4893,7 +4893,7 @@ VanillaEnhancedQuestsDB = {
       [1416] = {{58.32,67.92,nil,nil,7,nil,2,1740}, {47.94,82.15,nil,nil,7,nil,2,186420}},
     },
     },
-    [511] = { t = "Encrypted Letter", z = 36, rl = 30, ql = 34, rr = 1101, nc = 514, maps = {
+    [511] = { t = "Encrypted Letter", z = 36, rl = 30, ql = 34, rr = 1101, nc = 514, si = {3521}, maps = {
       [1424] = {{50.57,57.09,nil,nil,6,nil,1,2277}},
     },
     turnins = {
@@ -4913,7 +4913,7 @@ VanillaEnhancedQuestsDB = {
       [1424] = {{48.14,59.11,nil,nil,7,nil,1,2276}},
     },
     },
-    [513] = { t = "Elixir of Agony", z = 267, rl = 24, ql = 28, rr = 690, ps = {509}, nc = 515, maps = {
+    [513] = { t = "Elixir of Agony", z = 267, rl = 24, ql = 28, rr = 690, ps = {509}, nc = 515, si = {3506}, maps = {
       [1458] = {{48.82,69.28,nil,nil,6,nil,1,2055}},
     },
     turnins = {
@@ -4923,7 +4923,7 @@ VanillaEnhancedQuestsDB = {
       [1424] = {{61.44,19.06,nil,nil,7,nil,1,2216}},
     },
     },
-    [514] = { t = "Letter to Stormpike", z = 36, rl = 30, ql = 34, rr = 1101, ps = {511}, nc = 525, maps = {
+    [514] = { t = "Letter to Stormpike", z = 36, rl = 30, ql = 34, rr = 1101, ps = {511}, nc = 525, si = {3521}, maps = {
       [1455] = {{74.64,11.74,nil,nil,6,nil,1,1356}},
     },
     turnins = {
@@ -4933,7 +4933,7 @@ VanillaEnhancedQuestsDB = {
       [1424] = {{50.57,57.09,nil,nil,7,nil,1,2277}},
     },
     },
-    [515] = { t = "Elixir of Agony", z = 267, rl = 24, ql = 30, rr = 690, ps = {513}, nc = 517, maps = {
+    [515] = { t = "Elixir of Agony", z = 267, rl = 24, ql = 30, rr = 690, ps = {513}, nc = 517, si = {3508}, maps = {
       [1424] = {{64.29,81.07,6.86,32,2,"Daggerspine Scale",3,3509,{2368,2370,2371,14277},{2368,80,2370,80,2371,80,14277,80},2,{60.01,78.89,60.09,75.65,64.12,76.71,66.93,80.07,67.22,87.08,65.43,86.28,63.85,85.22,62.94,84.11,60.77,80.90}}, {58.37,73.57,4.03,13,2,"Daggerspine Scale",3,3509,{2369,2371},{2369,80,2371,80},2,{55.89,72.28,56.89,71.11,58.89,70.22,59.79,71.97,60.57,74.73,58.90,77.56,57.03,77.33}}, {55.83,66.08,4.70,22,2,"Daggerspine Scale",3,3509,{2369,2371},{2369,80,2371,80},2,{51.70,66.15,54.39,61.98,55.20,61.43,58.69,66.03,58.37,68.61,58.16,70.01,55.95,69.87}}, {26.35,72.46,4.29,24,2,"Torn Fin Eye",3,3510,{2374,2375,14276},{2374,80,2375,80,14276,80},3,{22.38,70.85,24.22,69.43,25.14,69.49,29.80,72.77,30.12,73.90,26.90,75.88,25.60,76.43,24.02,74.55}}, {34.08,71.66,6.10,26,2,"Torn Fin Eye",3,3510,{2374,2375,2376,2377},{2374,80,2375,80,2376,80,2377,80},3,{29.81,76.01,30.31,73.30,35.68,66.40,38.58,71.12,38.02,72.83,31.93,76.28}}, {23.15,65.55,3.09,12,2,"Torn Fin Eye",3,3510,{2374,2375},{2374,80,2375,80},3,{20.44,64.62,22.11,64.01,23.17,64.21,24.44,64.78,24.54,64.95,24.83,67.23,22.11,68.46,21.23,66.70}}, {47.49,65.23,3.07,7,2,"Torn Fin Eye",3,3510,{2376,2377},{2376,80,2377,80},3,{46.03,63.96,46.25,63.04,48.62,64.41,49.40,67.63,46.42,66.47}}, {42.85,68.90,6.10,24,2,"Torn Fin Eye",3,3510,{2376,2377},{2376,80,2377,80},3,{37.39,66.18,44.37,66.47,45.98,66.75,47.15,68.34,44.15,71.11,42.49,72.62,39.95,72.82}}},
     },
     turnins = {
@@ -4993,7 +4993,7 @@ VanillaEnhancedQuestsDB = {
       [1424] = {{62.63,20.65,nil,nil,7,nil,1,2278}},
     },
     },
-    [521] = { t = "The Crown of Will", z = 267, rl = 34, ql = 43, rr = 690, ps = {520}, maps = {
+    [521] = { t = "The Crown of Will", z = 267, rl = 34, ql = 43, rr = 690, ps = {520}, si = {3554}, maps = {
       [1458] = {{57.63,93.80,nil,nil,6,nil,1,2227}},
     },
     turnins = {
@@ -5003,7 +5003,7 @@ VanillaEnhancedQuestsDB = {
       [1424] = {{62.63,20.65,nil,nil,7,nil,1,2278}},
     },
     },
-    [522] = { t = "Assassin's Contract", z = 36, rl = 30, ql = 38, rr = 1101, nc = 523, maps = {
+    [522] = { t = "Assassin's Contract", z = 36, rl = 30, ql = 38, rr = 1101, nc = 523, si = {3668}, maps = {
       [1424] = {{48.14,59.11,nil,nil,6,nil,1,2276}},
     },
     turnins = {
@@ -5020,7 +5020,7 @@ VanillaEnhancedQuestsDB = {
       [1424] = {{48.14,59.11,nil,nil,7,nil,1,2276}},
     },
     },
-    [524] = { t = "Elixir of Agony", z = 267, rl = 24, ql = 30, rr = 690, ps = {517}, maps = {
+    [524] = { t = "Elixir of Agony", z = 267, rl = 24, ql = 30, rr = 690, ps = {517}, si = {3520}, maps = {
       [1424] = {{62.81,18.73,nil,nil,6,nil,2,1728}},
     },
     turnins = {
@@ -5030,7 +5030,7 @@ VanillaEnhancedQuestsDB = {
       [1424] = {{61.44,19.06,nil,nil,7,nil,1,2216}},
     },
     },
-    [525] = { t = "Further Mysteries", z = 36, rl = 30, ql = 34, rr = 1101, ps = {514}, nc = 537, maps = {
+    [525] = { t = "Further Mysteries", z = 36, rl = 30, ql = 34, rr = 1101, ps = {514}, nc = 537, si = {3518}, maps = {
       [1424] = {{48.14,59.11,nil,nil,6,nil,1,2276}},
     },
     turnins = {
@@ -5091,7 +5091,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{62.01,42.75,nil,nil,7,nil,1,2050}},
     },
     },
-    [531] = { t = "Vyrin's Revenge", z = 38, rl = 15, ql = 20, rr = 1101, ps = {271}, maps = {
+    [531] = { t = "Vyrin's Revenge", z = 38, rl = 15, ql = 20, rr = 1101, ps = {271}, si = {2713}, maps = {
       [1432] = {{81.73,64.14,nil,nil,6,nil,1,1156}},
     },
     turnins = {
@@ -5191,7 +5191,7 @@ VanillaEnhancedQuestsDB = {
       [1424] = {{62.33,20.45,nil,nil,7,nil,1,2215}},
     },
     },
-    [542] = { t = "Return to Milton", z = 1519, rl = 20, ql = 38, rr = 1101, ps = {540}, maps = {
+    [542] = { t = "Return to Milton", z = 1519, rl = 20, ql = 38, rr = 1101, ps = {540}, si = {3660}, maps = {
       [1453] = {{74.18,7.46,nil,nil,6,nil,1,1440}},
     },
     turnins = {
@@ -5261,7 +5261,7 @@ VanillaEnhancedQuestsDB = {
       [1424] = {{62.63,20.75,nil,nil,7,nil,2,1763}},
     },
     },
-    [550] = { t = "Battle of Hillsbrad", z = 267, rl = 19, ql = 32, rr = 690, ps = {541}, maps = {
+    [550] = { t = "Battle of Hillsbrad", z = 267, rl = 19, ql = 32, rr = 690, ps = {541}, si = {3701}, maps = {
       [1458] = {{56.25,92.20,nil,nil,6,nil,1,2425}},
     },
     turnins = {
@@ -5271,7 +5271,7 @@ VanillaEnhancedQuestsDB = {
       [1424] = {{62.33,20.45,nil,nil,7,nil,1,2215}},
     },
     },
-    [551] = { t = "The Ensorcelled Parchment", z = 36, rl = 30, ql = 40, rr = 1101, nc = 554, maps = {
+    [551] = { t = "The Ensorcelled Parchment", z = 36, rl = 30, ql = 40, rr = 1101, nc = 554, si = {3706}, maps = {
       [1424] = {{50.57,57.09,nil,nil,6,nil,1,2277}},
     },
     turnins = {
@@ -5289,7 +5289,7 @@ VanillaEnhancedQuestsDB = {
       [1424] = {{63.88,19.66,nil,nil,7,nil,1,2429}},
     },
     },
-    [553] = { t = "Helcular's Revenge", z = 267, rl = 29, ql = 33, rr = 690, ps = {552}, maps = {
+    [553] = { t = "Helcular's Revenge", z = 267, rl = 29, ql = 33, rr = 690, ps = {552}, si = {3710}, maps = {
       [1416] = {{37.54,66.24,nil,nil,4,"Flame of Uzel charged",2,1770,nil,nil,3}},
       [1424] = {{43.89,28.06,nil,nil,4,"Flame of Azel charged",2,1768,nil,nil,1}, {44.05,26.55,nil,nil,4,"Flame of Veraz charged",2,1769,nil,nil,2}},
     },
@@ -5300,7 +5300,7 @@ VanillaEnhancedQuestsDB = {
       [1424] = {{63.88,19.66,nil,nil,7,nil,1,2429}},
     },
     },
-    [554] = { t = "Stormpike's Deciphering", z = 36, rl = 30, ql = 40, rr = 1101, ps = {551}, maps = {
+    [554] = { t = "Stormpike's Deciphering", z = 36, rl = 30, ql = 40, rr = 1101, ps = {551}, si = {3706}, maps = {
       [1455] = {{74.64,11.74,nil,nil,6,nil,1,1356}},
     },
     turnins = {
@@ -5356,7 +5356,7 @@ VanillaEnhancedQuestsDB = {
       [1424] = {{51.46,58.39,nil,nil,7,nil,1,2228}},
     },
     },
-    [560] = { t = "Farren's Proof", z = 267, rl = 25, ql = 32, rr = 1101, ps = {559}, nc = 561, maps = {
+    [560] = { t = "Farren's Proof", z = 267, rl = 25, ql = 32, rr = 1101, ps = {559}, nc = 561, si = {3717}, maps = {
       [1424] = {{49.47,58.73,nil,nil,6,nil,1,2263}},
     },
     turnins = {
@@ -5386,7 +5386,7 @@ VanillaEnhancedQuestsDB = {
       [1424] = {{51.46,58.39,nil,nil,7,nil,1,2228}},
     },
     },
-    [563] = { t = "Reassignment", z = 267, rl = 25, ql = 32, rr = 1101, ps = {562}, maps = {
+    [563] = { t = "Reassignment", z = 267, rl = 25, ql = 32, rr = 1101, ps = {562}, si = {3721}, maps = {
       [1453] = {{72.57,15.88,nil,nil,6,nil,1,2439}},
     },
     turnins = {
@@ -5554,7 +5554,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{28.29,77.59,nil,nil,7,nil,1,2495}},
     },
     },
-    [578] = { t = "The Stone of the Tides", z = 33, rl = 32, ql = 37, rr = 1101, ps = {616}, nc = 601, sf = 2, maps = {
+    [578] = { t = "The Stone of the Tides", z = 33, rl = 32, ql = 37, rr = 1101, ps = {616}, nc = 601, sf = 2, si = {3898}, maps = {
       [1434] = {{21.56,21.98,nil,nil,3,"Locate the haunted island"}},
     },
     turnins = {
@@ -5694,7 +5694,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{32.27,27.71,nil,nil,7,nil,1,2519}},
     },
     },
-    [592] = { t = "Saving Yenniku", z = 33, rl = 30, ql = 46, rr = 690, ps = {591}, maps = {
+    [592] = { t = "Saving Yenniku", z = 33, rl = 30, ql = 46, rr = 690, ps = {591}, si = {3912}, maps = {
       [1434] = {{39.02,58.35,nil,nil,2,"Filled Soul Gem",3,3913,{2530},nil,1}},
     },
     turnins = {
@@ -5791,7 +5791,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{27.23,76.87,nil,nil,7,nil,1,2496}},
     },
     },
-    [602] = { t = "Magical Analysis", z = 33, rl = 32, ql = 37, rr = 1101, ps = {601}, nc = 603, maps = {
+    [602] = { t = "Magical Analysis", z = 33, rl = 32, ql = 37, rr = 1101, ps = {601}, nc = 603, si = {3960}, maps = {
       [1416] = {{18.84,78.49,nil,nil,6,nil,1,2543}},
     },
     turnins = {
@@ -5841,7 +5841,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{27.78,77.07,nil,nil,7,nil,1,2501}},
     },
     },
-    [607] = { t = "Return to MacKinley", z = 33, rl = 30, ql = 41, ps = {606}, nc = 609, maps = {
+    [607] = { t = "Return to MacKinley", z = 33, rl = 30, ql = 41, ps = {606}, nc = 609, si = {3922}, maps = {
       [1434] = {{27.78,77.07,nil,nil,6,nil,1,2501}},
     },
     turnins = {
@@ -5881,7 +5881,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{27.28,77.53,nil,nil,7,nil,1,2542}},
     },
     },
-    [611] = { t = "The Curse of the Tides", z = 33, rl = 32, ql = 40, rr = 1101, ps = {610}, maps = {
+    [611] = { t = "The Curse of the Tides", z = 33, rl = 32, ql = 40, rr = 1101, ps = {610}, si = {4027}, maps = {
       [1434] = {{19.84,22.52,nil,nil,2,"Stone of the Tides",3,4034,{2624},{2624,100},1}, {24.97,23.58,nil,nil,2,"Stone of the Tides",3,4034,{2624},{2624,100},1}},
     },
     turnins = {
@@ -5941,7 +5941,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{27.12,77.21,nil,nil,7,nil,1,2498}},
     },
     },
-    [622] = { t = "Return to Corporal Kaleb", z = 33, rl = 32, ql = 37, rr = 1101, ps = {627}, maps = {
+    [622] = { t = "Return to Corporal Kaleb", z = 33, rl = 32, ql = 37, rr = 1101, ps = {627}, si = {1987}, maps = {
       [1434] = {{37.74,3.30,nil,nil,6,nil,1,770}},
     },
     turnins = {
@@ -5951,7 +5951,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{26.95,77.21,nil,nil,7,nil,1,773}},
     },
     },
-    [623] = { t = "Akiris by the Bundle", z = 33, rl = 38, ql = 43, rr = 1101, ps = {617}, maps = {
+    [623] = { t = "Akiris by the Bundle", z = 33, rl = 38, ql = 43, rr = 1101, ps = {617}, si = {4028}, maps = {
       [1445] = {{68.84,53.22,nil,nil,6,nil,1,2616}},
     },
     turnins = {
@@ -6038,7 +6038,7 @@ VanillaEnhancedQuestsDB = {
       [1437] = {{49.90,18.24,nil,nil,7,nil,1,1075}},
     },
     },
-    [632] = { t = "The Thandol Span", z = 11, rl = 28, ql = 31, rr = 1101, ps = {631}, nc = 633, maps = {
+    [632] = { t = "The Thandol Span", z = 11, rl = 28, ql = 31, rr = 1101, ps = {631}, nc = 633, si = {4429}, maps = {
       [1437] = {{49.90,18.24,nil,nil,6,nil,1,1075}},
     },
     turnins = {
@@ -6068,14 +6068,14 @@ VanillaEnhancedQuestsDB = {
       [1437] = {{49.90,18.24,nil,nil,7,nil,1,1075}},
     },
     },
-    [635] = { t = "Crystal in the Mountains", z = 45, rl = 30, ql = 35, maps = {
+    [635] = { t = "Crystal in the Mountains", z = 45, rl = 30, ql = 35, si = {4614}, maps = {
       [1417] = {{62.50,33.73,nil,nil,6,nil,2,138492}},
     },
     turnins = {
       [1417] = {{62.50,33.73,nil,nil,6,nil,2,138492}},
     },
     },
-    [637] = { t = "Sully Balloo's Letter", z = 1537, rl = 25, ql = 30, rr = 1101, nc = 683, maps = {
+    [637] = { t = "Sully Balloo's Letter", z = 1537, rl = 25, ql = 30, rr = 1101, nc = 683, si = {4432}, maps = {
       [1455] = {{63.50,67.30,nil,nil,6,nil,1,2695}},
     },
     turnins = {
@@ -6112,7 +6112,7 @@ VanillaEnhancedQuestsDB = {
       [1417] = {{73.80,33.96,nil,nil,7,nil,1,2703}},
     },
     },
-    [641] = { t = "Sigil of Thoradin", z = 45, rl = 32, ql = 40, rr = 690, ps = {640}, nc = 643, maps = {
+    [641] = { t = "Sigil of Thoradin", z = 45, rl = 32, ql = 40, rr = 690, ps = {640}, nc = 643, si = {4453}, maps = {
       [1417] = {{73.80,33.96,nil,nil,6,nil,1,2703}},
     },
     turnins = {
@@ -6152,7 +6152,7 @@ VanillaEnhancedQuestsDB = {
       [1417] = {{73.80,33.96,nil,nil,7,nil,1,2703}},
     },
     },
-    [645] = { t = "Trol'kalar", z = 45, rl = 32, ql = 42, rr = 690, ps = {644}, nc = 646, maps = {
+    [645] = { t = "Trol'kalar", z = 45, rl = 32, ql = 42, rr = 690, ps = {644}, nc = 646, si = {4467}, maps = {
       [1417] = {{28.86,59.62,nil,nil,6,nil,2,2703}},
     },
     turnins = {
@@ -6162,7 +6162,7 @@ VanillaEnhancedQuestsDB = {
       [1417] = {{73.80,33.96,nil,nil,7,nil,1,2703}},
     },
     },
-    [646] = { t = "Trol'kalar", z = 45, rl = 32, ql = 42, rr = 690, ps = {645}, maps = {
+    [646] = { t = "Trol'kalar", z = 45, rl = 32, ql = 42, rr = 690, ps = {645}, si = {4468}, maps = {
       [1417] = {{73.80,33.96,nil,nil,6,nil,1,2703}},
     },
     turnins = {
@@ -6172,7 +6172,7 @@ VanillaEnhancedQuestsDB = {
       [1417] = {{28.86,59.62,nil,nil,7,nil,2,2703}},
     },
     },
-    [647] = { t = "MacKreel's Moonshine", z = 11, rl = 28, ql = 30, rr = 1101, maps = {
+    [647] = { t = "MacKreel's Moonshine", z = 11, rl = 28, ql = 30, rr = 1101, si = {4441}, maps = {
       [1424] = {{52.13,58.74,nil,nil,6,nil,1,2705}},
     },
     turnins = {
@@ -6242,7 +6242,7 @@ VanillaEnhancedQuestsDB = {
       [1417] = {{36.08,58.09,nil,nil,7,nil,2,2688}},
     },
     },
-    [654] = { t = "Tanaris Field Sampling", z = 440, rl = 41, ql = 46, rr = 690, ps = {379}, nc = 864, maps = {
+    [654] = { t = "Tanaris Field Sampling", z = 440, rl = 41, ql = 46, rr = 690, ps = {379}, nc = 864, si = {9437,9439,9442}, maps = {
       [1446] = {{44.64,27.09,7.12,14,2,"Untested Basilisk Sample",3,9437,{5419},{5419,100},nil,{37.68,28.57,40.49,24.07,45.74,23.06,49.14,27.49,48.42,28.91,47.02,29.50,42.78,30.15}}, {51.11,37.61,6.82,25,2,"Untested Basilisk Sample",3,9437,{5419,5420},{5419,100,5420,100},nil,{47.03,37.02,49.29,32.80,50.24,31.06,51.14,31.28,57.02,34.21,54.20,39.84,50.67,44.01,47.69,38.63}}, {42.43,36.85,5.91,29,2,"Untested Basilisk Sample",3,9437,{5419,5420},{5419,100,5420,100},nil,{38.48,38.74,39.70,35.87,40.91,33.19,42.12,31.27,43.59,31.36,45.64,32.27,46.47,34.96,46.21,37.25,42.53,42.47,41.59,42.70,38.64,40.26}}, {37.18,22.57,4.09,5,2,"Untested Basilisk Sample",3,9437,{5419},{5419,100},nil,{34.35,22.53,36.72,20.50,40.54,21.88,34.55,25.69}}, {36.14,32.72,3.09,10,2,"Untested Basilisk Sample",3,9437,{5419,5420},{5419,100,5420,100},nil,{34.41,32.62,37.17,29.90,38.73,32.89,34.71,35.46}}, {63.61,19.58,nil,nil,2,"Untested Basilisk Sample",3,9437,{5419},{5419,100}}, {60.40,26.74,4.85,4,2,"Untested Basilisk Sample",3,9437,{5419},{5419,100},nil,{57.77,26.42,57.91,24.15,65.24,27.08,60.69,29.31}}, {52.22,24.18,nil,nil,2,"Untested Basilisk Sample",3,9437,{5419},{5419,100}}, {53.03,22.60,nil,nil,2,"Untested Basilisk Sample",3,9437,{5419},{5419,100}}, {57.28,48.85,6.92,22,2,"Untested Basilisk Sample",3,9437,{5420},{5420,100},nil,{51.50,47.30,55.99,42.90,59.77,46.04,60.81,48.65,61.12,51.87,61.21,54.54,54.98,54.53,54.05,53.08}}, {48.91,53.55,6.78,23,2,"Untested Basilisk Sample",3,9437,{5420},{5420,100},nil,{44.20,53.02,45.37,48.77,49.40,46.79,50.26,47.26,54.04,56.18,52.06,58.89,51.17,58.78,48.05,57.45,44.33,55.76}}, {58.38,57.26,4.69,16,2,"Untested Basilisk Sample",3,9437,{5420},{5420,100},nil,{54.15,57.13,56.15,54.51,58.35,54.62,62.84,55.80,61.85,58.83,58.95,61.41,56.97,60.22}}, {62.61,43.09,2.32,3,2,"Untested Basilisk Sample",3,9437,{5420},{5420,100},nil,{60.85,41.58,64.19,43.21,62.79,44.49}}, {41.64,60.72,4.91,12,2,"Untested Basilisk Sample",3,9437,{5420},{5420,100},nil,{37.07,58.92,42.39,58.86,45.35,59.97,46.46,60.41,44.32,61.70,38.66,63.10}}, {34.88,55.34,4.20,12,2,"Untested Basilisk Sample",3,9437,{5420,5421},{5420,100,5421,100},nil,{30.81,54.28,35.88,52.22,36.50,52.77,35.32,58.77,34.83,59.05}}, {42.14,68.25,6.70,12,2,"Untested Basilisk Sample",3,9437,{5420,5421},{5420,100,5421,100},nil,{36.76,66.03,38.63,64.75,42.48,66.12,48.32,69.82,43.47,74.82,38.67,69.20}}, {41.01,45.99,5.04,9,2,"Untested Basilisk Sample",3,9437,{5420},{5420,100},nil,{38.28,45.77,39.16,41.30,43.76,44.74,43.38,45.86,41.28,50.14}}, {34.71,66.24,2.66,6,2,"Untested Basilisk Sample",3,9437,{5420,5421},{5420,100,5421,100},nil,{32.64,64.58,36.66,64.48,35.65,67.60,34.95,68.84,32.76,66.01}}, {50.28,61.67,nil,nil,2,"Untested Basilisk Sample",3,9437,{5420},{5420,100}}, {27.38,57.50,4.28,16,2,"Untested Basilisk Sample",3,9437,{5421},{5421,100},nil,{25.23,58.19,25.61,53.92,29.08,54.37,29.60,54.58,30.00,56.11,29.73,57.63,26.13,61.59}}, {32.23,72.43,5.09,14,2,"Untested Basilisk Sample",3,9437,{5421},{5421,100},nil,{28.95,73.42,29.98,70.51,33.73,69.00,35.81,70.47,36.71,71.91,36.71,74.83,29.97,76.32}}, {35.95,76.80,6.64,9,2,"Untested Basilisk Sample",3,9437,{5421},{5421,100},nil,{31.95,77.94,33.69,76.29,36.80,73.43,42.57,76.31,39.53,77.63,34.73,79.30,33.82,79.11}}, {47.74,75.36,3.76,5,2,"Untested Basilisk Sample",3,9437,{5421},{5421,100},nil,{46.27,71.90,48.35,74.45,49.34,77.86,47.35,77.67}}, {43.08,26.40,5.15,15,2,"Untested Hyena Sample",3,9439,{5425},{5425,100},nil,{38.47,27.35,39.60,22.60,44.09,22.49,45.98,24.01,45.59,28.29,43.43,29.88}}, {48.74,31.10,7.48,20,2,"Untested Hyena Sample",3,9439,{5425,5426},{5425,100,5426,100},nil,{45.39,30.72,47.21,25.71,53.53,25.36,52.14,35.82,49.45,36.58,47.51,35.73,45.47,34.55}}, {54.85,33.43,8.20,14,2,"Untested Hyena Sample",3,9439,{5425,5426,8208},{5425,100,5426,100,8208,100},nil,{51.19,36.01,52.32,33.29,55.93,25.30,58.73,32.66,55.98,37.46,54.53,38.66}}, {58.06,24.21,5.52,10,2,"Untested Hyena Sample",3,9439,{5425},{5425,100},nil,{53.26,23.92,61.90,20.48,62.81,21.40,61.08,28.34,55.11,25.97}}, {37.71,33.79,6.09,17,2,"Untested Hyena Sample",3,9439,{5425,5426},{5425,100,5426,100},nil,{34.74,28.47,35.58,28.75,37.59,29.89,41.44,34.33,39.60,36.82,37.59,38.22,36.68,37.08,35.72,35.46,35.38,34.37,34.89,30.87}}, {65.53,29.60,nil,nil,2,"Untested Hyena Sample",3,9439,{5425},{5425,100}}, {60.17,30.04,nil,nil,2,"Untested Hyena Sample",3,9439,{5425},{5425,100}}, {45.57,41.74,6.66,28,2,"Untested Hyena Sample",3,9439,{5426,5427},{5426,100,5427,100},nil,{41.38,37.16,42.55,35.81,45.82,37.96,49.29,41.64,49.61,42.35,50.41,46.03,48.17,46.61,47.05,46.51,42.43,44.28,41.41,38.83}}, {55.97,51.58,6.24,20,2,"Untested Hyena Sample",3,9439,{5426,5427},{5426,100,5427,100},nil,{51.09,49.35,52.30,48.72,56.18,48.63,58.04,49.45,60.90,53.06,60.87,54.45,57.97,57.49,56.04,56.08,52.17,51.42}}, {57.30,43.19,6.01,14,2,"Untested Hyena Sample",3,9439,{5426},{5426,100},nil,{52.33,41.76,55.49,40.05,56.96,39.90,59.79,41.51,60.87,42.96,62.71,45.81,56.01,45.97,54.25,45.93}}, {48.90,55.04,7.71,27,2,"Untested Hyena Sample",3,9439,{5426,5427},{5426,100,5427,100},nil,{44.38,57.44,45.15,51.51,48.22,49.48,50.63,52.07,53.03,55.18,53.23,57.36,51.17,60.29,45.22,61.82,44.41,60.37}}, {59.16,58.47,8.46,18,2,"Untested Hyena Sample",3,9439,{5426},{5426,100},nil,{52.13,63.18,56.23,57.77,57.97,56.05,58.91,55.41,63.77,56.37,63.69,57.26,61.72,60.61}}, {65.55,41.98,nil,nil,2,"Untested Hyena Sample",3,9439,{5426},{5426,100}}, {62.78,42.80,nil,nil,2,"Untested Hyena Sample",3,9439,{5426},{5426,100}}, {42.14,49.20,5.51,23,2,"Untested Hyena Sample",3,9439,{5426,5427},{5426,100,5427,100},nil,{37.63,48.80,39.52,44.35,45.41,47.36,44.86,49.48,43.45,52.42,37.69,50.52}}, {51.25,63.37,nil,nil,2,"Untested Hyena Sample",3,9439,{5426},{5426,100}}, {53.22,58.63,nil,nil,2,"Untested Hyena Sample",3,9439,{5426},{5426,100}}, {31.24,58.94,6.13,18,2,"Untested Hyena Sample",3,9439,{5427},{5427,100},nil,{25.67,56.37,27.72,56.13,31.31,55.97,33.97,55.99,33.97,58.90,33.74,59.69,32.13,63.72}}, {45.87,74.70,6.37,15,2,"Untested Hyena Sample",3,9439,{5427},{5427,100},nil,{40.57,77.79,46.52,69.20,49.27,69.31,48.26,77.63}}, {33.01,74.50,6.07,18,2,"Untested Hyena Sample",3,9439,{5427},{5427,100},nil,{29.00,71.89,30.05,69.20,31.94,68.84,37.69,72.21,38.83,76.13,32.90,79.08,29.91,77.69}}, {29.49,48.87,nil,nil,2,"Untested Hyena Sample",3,9439,{5427},{5427,100}}, {30.43,53.15,nil,nil,2,"Untested Hyena Sample",3,9439,{5427},{5427,100}}, {37.66,65.45,6.14,24,2,"Untested Hyena Sample",3,9439,{5427},{5427,100},nil,{31.88,67.54,34.13,63.30,35.79,60.55,38.44,60.50,41.97,62.59,42.49,63.29,37.85,70.51}}, {52.50,33.38,8.01,30,2,"Untested Scorpid Sample",3,9442,{5422,5423},{5422,100,5423,100},nil,{46.41,32.85,47.71,26.96,58.43,31.36,57.86,32.97,56.65,35.56,55.08,36.78,51.17,37.61,49.85,36.99}}, {48.56,26.64,7.25,14,2,"Untested Scorpid Sample",3,9442,{5422,5423},{5422,100,5423,100},nil,{44.46,24.04,46.30,22.96,53.06,22.08,54.07,23.37,55.80,26.99,49.17,31.11,44.51,30.82}}, {62.50,25.04,7.37,13,2,"Untested Scorpid Sample",3,9442,{5422},{5422,100},nil,{55.18,24.22,57.21,22.89,65.66,19.85,66.46,29.04,61.93,28.61,58.52,27.30}}, {58.83,48.79,7.90,22,2,"Untested Scorpid Sample",3,9442,{5423,5424},{5423,100,5424,100},nil,{53.19,49.83,59.11,44.81,61.82,42.91,64.20,43.00,63.77,44.36,59.87,53.07,58.86,54.85,54.14,54.28}}, {53.61,42.51,8.30,25,2,"Untested Scorpid Sample",3,9442,{5423,5424},{5423,100,5424,100},nil,{47.26,42.94,48.29,41.49,50.19,39.35,51.25,38.41,61.85,41.52,57.87,44.11,52.22,47.66}}, {44.13,39.53,7.60,21,2,"Untested Scorpid Sample",3,9442,{5423,5424},{5423,100,5424,100},nil,{38.56,37.22,39.61,33.42,42.92,32.87,48.31,37.35,48.09,40.01,46.13,44.52,45.34,44.63,40.42,42.98,39.58,41.50}}, {36.41,26.38,6.70,8,2,"Untested Scorpid Sample",3,9442,{5423},{5423,100},nil,{34.69,21.21,36.12,21.88,39.66,23.97,37.73,32.95,36.60,31.26,34.78,27.25}}, {50.38,51.30,4.74,10,2,"Untested Scorpid Sample",3,9442,{5423,5424},{5423,100,5424,100},nil,{47.08,50.12,49.21,48.45,51.12,47.98,53.18,51.19,53.32,53.33,51.20,55.97,47.27,52.70}}, {62.85,41.13,nil,nil,2,"Untested Scorpid Sample",3,9442,{5423},{5423,100}}, {31.69,55.29,6.14,16,2,"Untested Scorpid Sample",3,9442,{5424},{5424,100},nil,{28.06,60.25,29.64,50.43,35.79,54.35,34.73,58.02,30.72,60.03}}, {36.82,64.21,5.53,19,2,"Untested Scorpid Sample",3,9442,{5424},{5424,100},nil,{33.03,63.21,33.86,61.27,34.95,60.41,36.73,60.89,38.70,61.59,42.31,64.89,40.64,67.67,34.59,67.59,33.79,67.54}}, {46.32,72.63,5.64,4,2,"Untested Scorpid Sample",3,9442,{5424},{5424,100},nil,{44.09,67.45,47.35,71.96,49.26,76.30,44.59,74.82}}, {46.07,59.56,6.54,14,2,"Untested Scorpid Sample",3,9442,{5424},{5424,100},nil,{40.87,60.41,41.31,59.17,45.20,54.88,48.34,55.94,52.18,61.91,50.22,63.16,42.49,61.74}}, {33.29,73.11,5.14,6,2,"Untested Scorpid Sample",3,9442,{5424},{5424,100},nil,{29.01,75.95,32.92,69.08,34.62,70.47,37.60,74.89}}, {41.25,46.24,5.85,17,2,"Untested Scorpid Sample",3,9442,{5424},{5424,100},nil,{36.60,49.78,37.83,44.27,38.29,43.00,39.99,42.94,46.28,45.81,45.12,50.17}}, {55.47,59.58,4.34,5,2,"Untested Scorpid Sample",3,9442,{5424},{5424,100},nil,{51.96,60.12,54.13,59.00,55.51,58.93,59.74,58.80,56.01,61.04}}, {38.07,35.31,1.61,3,2,"Untested Scorpid Sample",3,9442,{5424},{5424,100},nil,{36.72,35.51,39.51,34.58,37.99,35.84}}},
       [1458] = {{58.61,54.68,nil,nil,2,"Field Testing Kit",3,8523,{7683},nil,4}},
     },
@@ -6260,7 +6260,7 @@ VanillaEnhancedQuestsDB = {
       [1417] = {{72.64,33.93,nil,nil,7,nil,1,2792}},
     },
     },
-    [656] = { t = "Summoning the Princess", z = 45, rl = 30, ql = 50, ps = {692}, maps = {
+    [656] = { t = "Summoning the Princess", z = 45, rl = 30, ql = 50, ps = {692}, si = {4472}, maps = {
       [1417] = {{62.62,34.06,nil,nil,2,"Eldritch Shackles",3,4473,{2755},{2755,100},1}},
     },
     turnins = {
@@ -6361,7 +6361,7 @@ VanillaEnhancedQuestsDB = {
       [1417] = {{33.87,80.55,nil,nil,7,nil,1,2768}},
     },
     },
-    [666] = { t = "Sunken Treasure", z = 45, rl = 35, ql = 40, ps = {665}, nc = 668, maps = {
+    [666] = { t = "Sunken Treasure", z = 45, rl = 35, ql = 40, ps = {665}, nc = 668, si = {4491}, maps = {
       [1417] = {{22.78,88.17,4.85,23,4,"Elven Gem",3,4492,nil,nil,1,{18.00,89.00,20.00,85.00,22.00,84.00,23.00,84.00,25.00,86.00,25.00,91.00,23.00,92.00,21.00,92.00}}},
     },
     turnins = {
@@ -6381,7 +6381,7 @@ VanillaEnhancedQuestsDB = {
       [1417] = {{32.28,81.38,nil,nil,7,nil,1,2610}},
     },
     },
-    [668] = { t = "Sunken Treasure", z = 45, rl = 35, ql = 40, ps = {666}, nc = 669, maps = {
+    [668] = { t = "Sunken Treasure", z = 45, rl = 35, ql = 40, ps = {666}, nc = 669, si = {4493}, maps = {
       [1417] = {{32.28,81.38,nil,nil,6,nil,1,2610}},
     },
     turnins = {
@@ -6391,7 +6391,7 @@ VanillaEnhancedQuestsDB = {
       [1417] = {{33.86,80.45,nil,nil,7,nil,1,2774}},
     },
     },
-    [669] = { t = "Sunken Treasure", z = 45, rl = 35, ql = 40, ps = {668}, nc = 670, maps = {
+    [669] = { t = "Sunken Treasure", z = 45, rl = 35, ql = 40, ps = {668}, nc = 670, si = {4502}, maps = {
       [1434] = {{27.17,77.01,nil,nil,6,nil,1,2487}},
     },
     turnins = {
@@ -6401,7 +6401,7 @@ VanillaEnhancedQuestsDB = {
       [1417] = {{32.28,81.38,nil,nil,7,nil,1,2610}},
     },
     },
-    [670] = { t = "Sunken Treasure", z = 45, rl = 35, ql = 40, ps = {669}, nc = 667, maps = {
+    [670] = { t = "Sunken Treasure", z = 45, rl = 35, ql = 40, ps = {669}, nc = 667, si = {4494}, maps = {
       [1417] = {{32.28,81.38,nil,nil,6,nil,1,2610}},
     },
     turnins = {
@@ -6441,7 +6441,7 @@ VanillaEnhancedQuestsDB = {
       [1417] = {{74.72,36.29,nil,nil,7,nil,1,2706}},
     },
     },
-    [674] = { t = "Raising Spirits", z = 45, rl = 29, ql = 34, rr = 690, ps = {672}, nc = 675, maps = {
+    [674] = { t = "Raising Spirits", z = 45, rl = 29, ql = 34, rr = 690, ps = {672}, nc = 675, si = {4526}, maps = {
       [1417] = {{72.64,33.93,nil,nil,6,nil,1,2792}},
     },
     turnins = {
@@ -6531,7 +6531,7 @@ VanillaEnhancedQuestsDB = {
       [1417] = {{45.83,47.56,nil,nil,7,nil,1,2700}},
     },
     },
-    [683] = { t = "Sara Balloo's Plea", z = 1537, rl = 25, ql = 30, rr = 1101, ps = {637}, nc = 686, maps = {
+    [683] = { t = "Sara Balloo's Plea", z = 1537, rl = 25, ql = 30, rr = 1101, ps = {637}, nc = 686, si = {4514}, maps = {
       [1455] = {{39.09,56.20,nil,nil,6,nil,1,2784}},
     },
     turnins = {
@@ -6652,7 +6652,7 @@ VanillaEnhancedQuestsDB = {
       [1417] = {{46.65,47.01,nil,nil,7,nil,1,2789}},
     },
     },
-    [695] = { t = "An Apprentice's Enchantment", z = 45, rl = 30, ql = 39, rr = 1101, ps = {694}, nc = 696, maps = {
+    [695] = { t = "An Apprentice's Enchantment", z = 45, rl = 30, ql = 39, rr = 1101, ps = {694}, nc = 696, si = {4529}, maps = {
       [1417] = {{46.65,47.01,nil,nil,6,nil,1,2789}},
     },
     turnins = {
@@ -6662,7 +6662,7 @@ VanillaEnhancedQuestsDB = {
       [1417] = {{46.20,47.75,nil,nil,7,nil,1,2788}},
     },
     },
-    [696] = { t = "Attack on the Tower", z = 45, rl = 30, ql = 39, rr = 1101, ps = {695}, nc = 697, maps = {
+    [696] = { t = "Attack on the Tower", z = 45, rl = 30, ql = 39, rr = 1101, ps = {695}, nc = 697, si = {4529}, maps = {
       [1417] = {{18.18,68.14,nil,nil,4,"Trelane's Phylactery",3,4530,nil,nil,1}, {18.17,69.15,nil,nil,4,"Trelane's Orb",3,4531,nil,nil,2}, {18.03,67.87,nil,nil,4,"Trelane's Ember Agate",3,4532,nil,nil,3}},
     },
     turnins = {
@@ -6672,7 +6672,7 @@ VanillaEnhancedQuestsDB = {
       [1417] = {{46.65,47.01,nil,nil,7,nil,1,2789}},
     },
     },
-    [697] = { t = "Malin's Request", z = 45, rl = 30, ql = 39, rr = 1101, ps = {696}, maps = {
+    [697] = { t = "Malin's Request", z = 45, rl = 30, ql = 39, rr = 1101, ps = {696}, si = {4533}, maps = {
       [1453] = {{39.84,81.46,nil,nil,6,nil,1,2708}},
     },
     turnins = {
@@ -6722,7 +6722,7 @@ VanillaEnhancedQuestsDB = {
       [1417] = {{74.72,36.29,nil,nil,7,nil,1,2706}},
     },
     },
-    [702] = { t = "Guile of the Raptor", z = 45, rl = 29, ql = 37, rr = 690, ps = {701}, maps = {
+    [702] = { t = "Guile of the Raptor", z = 45, rl = 29, ql = 37, rr = 690, ps = {701}, si = {4528}, maps = {
       [1417] = {{72.64,33.93,nil,nil,6,nil,1,2792}},
     },
     turnins = {
@@ -6895,7 +6895,7 @@ VanillaEnhancedQuestsDB = {
       [1418] = {{25.82,44.24,nil,nil,7,nil,1,2920}},
     },
     },
-    [717] = { t = "Tremors of the Earth", z = 3, rl = 40, ql = 50, rr = 1101, ps = {732}, maps = {
+    [717] = { t = "Tremors of the Earth", z = 3, rl = 40, ql = 50, rr = 1101, ps = {732}, si = {4640,4843,4844,4845}, maps = {
       [1418] = {{81.88,49.46,nil,nil,2,"Blacklash's Bindings",3,4615,{2757},{2757,100},1}, {82.03,49.93,nil,nil,2,"Chains of Hematus",3,4645,{2759},{2759,100},2}, {81.33,64.28,nil,nil,4,"Amethyst Runestone",3,4843}, {72.32,66.94,nil,nil,4,"Opal Runestone",3,4844}, {83.54,32.84,nil,nil,4,"Diamond Runestone",3,4845}},
     },
     turnins = {
@@ -6955,7 +6955,7 @@ VanillaEnhancedQuestsDB = {
       [1418] = {{37.90,10.59,nil,nil,7,nil,1,2909}},
     },
     },
-    [723] = { t = "Prospect of Faith", z = 3, rl = 35, ql = 40, rr = 1101, ps = {722}, nc = 724, maps = {
+    [723] = { t = "Prospect of Faith", z = 3, rl = 35, ql = 40, rr = 1101, ps = {722}, nc = 724, si = {4635}, maps = {
       [1418] = {{53.42,43.39,nil,nil,6,nil,1,2910}},
     },
     turnins = {
@@ -6965,7 +6965,7 @@ VanillaEnhancedQuestsDB = {
       [1418] = {{37.90,10.59,nil,nil,7,nil,1,2909}},
     },
     },
-    [724] = { t = "Prospect of Faith", z = 3, rl = 35, ql = 40, rr = 1101, ps = {723}, nc = 725, maps = {
+    [724] = { t = "Prospect of Faith", z = 3, rl = 35, ql = 40, rr = 1101, ps = {723}, nc = 725, si = {4635}, maps = {
       [1455] = {{77.54,11.82,nil,nil,6,nil,1,2916}},
     },
     turnins = {
@@ -6975,7 +6975,7 @@ VanillaEnhancedQuestsDB = {
       [1418] = {{53.42,43.39,nil,nil,7,nil,1,2910}},
     },
     },
-    [725] = { t = "Passing Word of a Threat", z = 3, rl = 35, ql = 40, rr = 1101, ps = {724}, nc = 726, maps = {
+    [725] = { t = "Passing Word of a Threat", z = 3, rl = 35, ql = 40, rr = 1101, ps = {724}, nc = 726, si = {4622}, maps = {
       [1455] = {{77.34,9.71,nil,nil,6,nil,1,2918}},
     },
     turnins = {
@@ -6995,7 +6995,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{77.34,9.71,nil,nil,7,nil,1,2918}},
     },
     },
-    [727] = { t = "To Ironforge for Yagyin's Digest", z = 3, rl = 30, ql = 40, rr = 1101, ps = {709}, nc = 735, maps = {
+    [727] = { t = "To Ironforge for Yagyin's Digest", z = 3, rl = 30, ql = 40, rr = 1101, ps = {709}, nc = 735, si = {4648}, maps = {
       [1455] = {{50.83,5.62,nil,nil,6,nil,1,2786}},
     },
     turnins = {
@@ -7005,7 +7005,7 @@ VanillaEnhancedQuestsDB = {
       [1418] = {{51.39,76.87,nil,nil,7,nil,1,2785}},
     },
     },
-    [728] = { t = "To the Undercity for Yagyin's Digest", z = 3, rl = 30, ql = 40, rr = 690, ps = {709}, nc = 736, maps = {
+    [728] = { t = "To the Undercity for Yagyin's Digest", z = 3, rl = 30, ql = 40, rr = 690, ps = {709}, nc = 736, si = {4648}, maps = {
       [1458] = {{53.74,54.46,nil,nil,6,nil,1,2934}},
     },
     turnins = {
@@ -7075,7 +7075,7 @@ VanillaEnhancedQuestsDB = {
       [1418] = {{25.95,44.87,nil,nil,7,nil,1,2921}},
     },
     },
-    [735] = { t = "The Star, the Hand and the Heart", z = 3, rl = 30, ql = 44, rr = 1101, ps = {727}, nc = 737, maps = {
+    [735] = { t = "The Star, the Hand and the Heart", z = 3, rl = 30, ql = 44, rr = 1101, ps = {727}, nc = 737, si = {4649,4639}, maps = {
       [1416] = {{35.58,54.42,nil,nil,2,"Star of Xil'yeh",3,4646,{2417},{2417,100},1}},
       [1434] = {{47.74,44.25,nil,nil,2,"The Legacy Heart",3,4644,{1060},{1060,100},3}},
       [1445] = {{59.71,10.06,nil,nil,2,"Hand of Dagun",3,4641,{2937},{2937,100},2}, {60.60,8.69,3.95,12,2,"Enchanted Sea Kelp",3,4639,{4363},{4363,6.875},nil,{57.20,10.71,57.54,10.35,58.33,9.60,59.81,8.67,62.42,7.24,62.92,7.04,63.83,6.97,59.89,9.98}}},
@@ -7087,7 +7087,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{50.83,5.62,nil,nil,7,nil,1,2786}},
     },
     },
-    [736] = { t = "The Star, the Hand and the Heart", z = 1497, rl = 30, ql = 44, rr = 690, ps = {728}, nc = 737, maps = {
+    [736] = { t = "The Star, the Hand and the Heart", z = 1497, rl = 30, ql = 44, rr = 690, ps = {728}, nc = 737, si = {4650,4639}, maps = {
       [1416] = {{35.58,54.42,nil,nil,2,"Star of Xil'yeh",3,4646,{2417},{2417,100},1}},
       [1434] = {{47.74,44.25,nil,nil,2,"The Legacy Heart",3,4644,{1060},{1060,100},3}},
       [1445] = {{59.71,10.06,nil,nil,2,"Hand of Dagun",3,4641,{2937},{2937,100},2}, {60.60,8.69,3.95,12,2,"Enchanted Sea Kelp",3,4639,{4363},{4363,6.875},nil,{57.20,10.71,57.54,10.35,58.33,9.60,59.81,8.67,62.42,7.24,62.92,7.04,63.83,6.97,59.89,9.98}}},
@@ -7099,7 +7099,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{53.74,54.46,nil,nil,7,nil,1,2934}},
     },
     },
-    [737] = { t = "Forbidden Knowledge", z = 3, rl = 30, ql = 40, ps = {735,736}, maps = {
+    [737] = { t = "Forbidden Knowledge", z = 3, rl = 30, ql = 40, ps = {735,736}, si = {4647}, maps = {
       [1418] = {{51.39,76.87,nil,nil,6,nil,1,2785}},
     },
     turnins = {
@@ -7130,7 +7130,7 @@ VanillaEnhancedQuestsDB = {
       [1418] = {{50.89,62.40,nil,nil,7,nil,2,2875}},
     },
     },
-    [741] = { t = "The Absent Minded Prospector", z = 148, rl = 15, ql = 20, rr = 1101, ps = {731}, nc = 942, maps = {
+    [741] = { t = "The Absent Minded Prospector", z = 148, rl = 15, ql = 20, rr = 1101, ps = {731}, nc = 942, si = {4654}, maps = {
       [1457] = {{31.24,84.51,nil,nil,6,nil,1,2912}},
     },
     turnins = {
@@ -7181,7 +7181,7 @@ VanillaEnhancedQuestsDB = {
       [1412] = {{47.51,60.16,nil,nil,7,nil,1,2993}},
     },
     },
-    [746] = { t = "Dwarven Digging", z = 215, rl = 6, ql = 8, rr = 690, maps = {
+    [746] = { t = "Dwarven Digging", z = 215, rl = 6, ql = 8, rr = 690, si = {4702}, maps = {
       [1412] = {{31.26,49.88,nil,nil,4,"Broken Tools",3,4703,nil,nil,1}, {32.04,48.76,2.85,34,2,"Prospector's Pick",3,4702,{2989,2990},{2989,41,2990,34},nil,{30.85,48.84,30.87,48.50,31.02,47.93,31.39,47.64,31.98,47.35,34.38,47.14,34.27,47.91,33.81,49.70,31.86,50.45,31.07,50.17,30.92,49.86,30.86,49.22}}},
     },
     turnins = {
@@ -7233,7 +7233,7 @@ VanillaEnhancedQuestsDB = {
       [1412] = {{44.88,77.07,nil,nil,7,nil,1,2980}},
     },
     },
-    [751] = { t = "The Ravaged Caravan", z = 215, rl = 5, ql = 8, rr = 690, ps = {749}, maps = {
+    [751] = { t = "The Ravaged Caravan", z = 215, rl = 5, ql = 8, rr = 690, ps = {749}, si = {4834}, maps = {
       [1412] = {{57.20,61.22,nil,nil,6,nil,1,2988}},
     },
     turnins = {
@@ -7263,7 +7263,7 @@ VanillaEnhancedQuestsDB = {
       [1412] = {{50.03,81.16,nil,nil,7,nil,1,2991}},
     },
     },
-    [754] = { t = "Winterhoof Cleansing", z = 215, rl = 4, ql = 6, rr = 32, ps = {748}, nc = 756, sf = 2, maps = {
+    [754] = { t = "Winterhoof Cleansing", z = 215, rl = 4, ql = 6, rr = 32, ps = {748}, nc = 756, sf = 2, si = {5411}, maps = {
       [1412] = {{53.61,66.20,nil,nil,3,"Cleanse the Winterhoof Water Well"}},
     },
     turnins = {
@@ -7304,7 +7304,7 @@ VanillaEnhancedQuestsDB = {
       [1412] = {{42.57,92.19,nil,nil,7,nil,1,2982}},
     },
     },
-    [758] = { t = "Thunderhorn Cleansing", z = 215, rl = 5, ql = 8, rr = 32, ps = {756}, nc = 759, sf = 2, maps = {
+    [758] = { t = "Thunderhorn Cleansing", z = 215, rl = 5, ql = 8, rr = 32, ps = {756}, nc = 759, sf = 2, si = {5415}, maps = {
       [1412] = {{44.52,45.46,nil,nil,3,"Cleanse the Thunderhorn Water Well"}},
     },
     turnins = {
@@ -7325,7 +7325,7 @@ VanillaEnhancedQuestsDB = {
       [1412] = {{48.53,60.39,nil,nil,7,nil,1,2948}},
     },
     },
-    [760] = { t = "Wildmane Cleansing", z = 215, rl = 7, ql = 10, rr = 32, ps = {759}, sf = 2, maps = {
+    [760] = { t = "Wildmane Cleansing", z = 215, rl = 7, ql = 10, rr = 32, ps = {759}, sf = 2, si = {5416}, maps = {
       [1412] = {{42.75,14.16,nil,nil,3,"Cleanse the Wildmane Well"}},
     },
     turnins = {
@@ -7355,7 +7355,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{77.54,11.82,nil,nil,7,nil,1,2916}},
     },
     },
-    [763] = { t = "Rites of the Earthmother", z = 220, rl = 1, ql = 5, rr = 690, ps = {757}, nc = 767, bf = 767, maps = {
+    [763] = { t = "Rites of the Earthmother", z = 220, rl = 1, ql = 5, rr = 690, ps = {757}, nc = 767, bf = 767, si = {4783}, maps = {
       [1412] = {{47.51,60.16,nil,nil,6,nil,1,2993}},
     },
     turnins = {
@@ -7426,7 +7426,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{44.39,44.70,nil,nil,7,nil,1,3050}},
     },
     },
-    [770] = { t = "The Demon Scarred Cloak", z = 215, rl = 6, ql = 12, rr = 690, maps = {
+    [770] = { t = "The Demon Scarred Cloak", z = 215, rl = 6, ql = 12, rr = 690, si = {4854}, maps = {
       [1412] = {{46.75,60.23,nil,nil,6,nil,1,3052}},
     },
     turnins = {
@@ -7443,7 +7443,7 @@ VanillaEnhancedQuestsDB = {
       [1412] = {{47.76,57.53,nil,nil,7,nil,1,3054}},
     },
     },
-    [772] = { t = "Rite of Vision", z = 215, rl = 3, ql = 7, rr = 690, ps = {771}, nc = 773, maps = {
+    [772] = { t = "Rite of Vision", z = 215, rl = 3, ql = 7, rr = 690, ps = {771}, nc = 773, si = {4823}, maps = {
       [1412] = {{32.71,36.09,nil,nil,6,nil,1,2984}},
     },
     turnins = {
@@ -7483,7 +7483,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{60.30,51.68,nil,nil,7,nil,1,3057}},
     },
     },
-    [777] = { t = "This Is Going to Be Hard", z = 3, rl = 35, ql = 42, ps = {734}, nc = 778, maps = {
+    [777] = { t = "This Is Going to Be Hard", z = 3, rl = 35, ql = 42, ps = {734}, nc = 778, si = {4846}, maps = {
       [1418] = {{25.95,44.87,nil,nil,6,nil,1,2921}},
     },
     turnins = {
@@ -7523,7 +7523,7 @@ VanillaEnhancedQuestsDB = {
       [1412] = {{44.88,77.07,nil,nil,7,nil,1,2980}},
     },
     },
-    [781] = { t = "Attack on Camp Narache", z = 220, rl = 3, ql = 4, rr = 690, maps = {
+    [781] = { t = "Attack on Camp Narache", z = 220, rl = 3, ql = 4, rr = 690, si = {4850}, maps = {
       [1412] = {{44.18,76.06,nil,nil,6,nil,1,2981}},
     },
     turnins = {
@@ -7620,7 +7620,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{42.85,69.15,nil,nil,7,nil,1,3145}},
     },
     },
-    [793] = { t = "Broken Alliances", z = 3, rl = 40, ql = 50, rr = 690, ps = {782}, maps = {
+    [793] = { t = "Broken Alliances", z = 3, rl = 40, ql = 50, rr = 690, ps = {782}, si = {4640,4843,4844,4845}, maps = {
       [1418] = {{81.88,49.46,nil,nil,2,"Blacklash's Bindings",3,4615,{2757},{2757,100},1}, {82.03,49.93,nil,nil,2,"Chains of Hematus",3,4645,{2759},{2759,100},2}, {81.33,64.28,nil,nil,4,"Amethyst Runestone",3,4843}, {72.32,66.94,nil,nil,4,"Opal Runestone",3,4844}, {83.54,32.84,nil,nil,4,"Diamond Runestone",3,4845}},
     },
     turnins = {
@@ -7762,7 +7762,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{55.94,74.39,nil,nil,7,nil,1,3304}},
     },
     },
-    [819] = { t = "Chen's Empty Keg", z = 17, rl = 11, ql = 15, rr = 690, nc = 821, maps = {
+    [819] = { t = "Chen's Empty Keg", z = 17, rl = 11, ql = 15, rr = 690, nc = 821, si = {4926}, maps = {
       [1413] = {{62.26,38.39,nil,nil,6,nil,1,3292}},
     },
     turnins = {
@@ -7799,7 +7799,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{55.95,74.72,nil,nil,7,nil,1,3188}},
     },
     },
-    [824] = { t = "Je'neu of the Earthen Ring", z = 331, rl = 23, ql = 27, rr = 690, ps = {1918}, maps = {
+    [824] = { t = "Je'neu of the Earthen Ring", z = 331, rl = 23, ql = 27, rr = 690, ps = {1918}, si = {16408}, maps = {
       [1440] = {{11.56,34.29,nil,nil,6,nil,1,12736}},
     },
     turnins = {
@@ -7849,7 +7849,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{52.24,43.15,nil,nil,7,nil,1,3142}},
     },
     },
-    [829] = { t = "Neeru Fireblade", z = 14, rl = 4, ql = 12, rr = 690, ps = {827}, nc = 809, maps = {
+    [829] = { t = "Neeru Fireblade", z = 14, rl = 4, ql = 12, rr = 690, ps = {827}, nc = 809, si = {6658}, maps = {
       [1454] = {{49.47,50.59,nil,nil,6,nil,1,3216}},
     },
     turnins = {
@@ -7859,14 +7859,14 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{56.41,20.04,nil,nil,7,nil,1,3208}},
     },
     },
-    [830] = { t = "The Admiral's Orders", z = 14, rl = 5, ql = 7, rr = 690, nc = 831, maps = {
+    [830] = { t = "The Admiral's Orders", z = 14, rl = 5, ql = 7, rr = 690, nc = 831, si = {4883}, maps = {
       [1411] = {{51.95,43.50,nil,nil,6,nil,1,3139}},
     },
     turnins = {
       [1411] = {{51.95,43.50,nil,nil,6,nil,1,3139}},
     },
     },
-    [831] = { t = "The Admiral's Orders", z = 14, rl = 5, ql = 7, rr = 690, ps = {830}, maps = {
+    [831] = { t = "The Admiral's Orders", z = 14, rl = 5, ql = 7, rr = 690, ps = {830}, si = {4883}, maps = {
       [1454] = {{34.34,36.33,nil,nil,6,nil,1,10540}},
     },
     turnins = {
@@ -7876,7 +7876,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{51.95,43.50,nil,nil,7,nil,1,3139}},
     },
     },
-    [832] = { t = "Burning Shadows", z = 14, rl = 4, ql = 12, rr = 690, maps = {
+    [832] = { t = "Burning Shadows", z = 14, rl = 4, ql = 12, rr = 690, si = {4903}, maps = {
       [1454] = {{49.47,50.59,nil,nil,6,nil,1,3216}},
     },
     turnins = {
@@ -7943,7 +7943,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{83.13,68.94,nil,nil,7,nil,1,10837}},
     },
     },
-    [840] = { t = "Conscript of the Horde", z = 14, rl = 10, ql = 12, rr = 690, nc = 842, maps = {
+    [840] = { t = "Conscript of the Horde", z = 14, rl = 10, ql = 12, rr = 690, nc = 842, si = {4992}, maps = {
       [1413] = {{62.26,19.38,nil,nil,6,nil,1,3337}},
     },
     turnins = {
@@ -7963,7 +7963,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{52.46,28.51,nil,nil,7,nil,1,7407}},
     },
     },
-    [842] = { t = "Crossroads Conscription", z = 14, rl = 10, ql = 12, rr = 690, ps = {840}, maps = {
+    [842] = { t = "Crossroads Conscription", z = 14, rl = 10, ql = 12, rr = 690, ps = {840}, si = {4995}, maps = {
       [1413] = {{52.23,31.01,nil,nil,6,nil,1,3338}},
     },
     turnins = {
@@ -8033,7 +8033,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{51.44,30.15,nil,nil,7,nil,1,3390}},
     },
     },
-    [849] = { t = "Revenge of Gann", z = 17, rl = 17, ql = 26, rr = 690, ps = {846}, maps = {
+    [849] = { t = "Revenge of Gann", z = 17, rl = 17, ql = 26, rr = 690, ps = {846}, si = {5021}, maps = {
       [1413] = {{46.97,85.63,nil,nil,4,"Bael Modan Flying Machine destroyed",2,3644,nil,nil,1}},
     },
     turnins = {
@@ -8073,7 +8073,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{45.34,28.41,nil,nil,7,nil,1,3389}},
     },
     },
-    [853] = { t = "Apothecary Zamah", z = 17, rl = 10, ql = 15, rr = 690, ps = {848}, maps = {
+    [853] = { t = "Apothecary Zamah", z = 17, rl = 10, ql = 15, rr = 690, ps = {848}, si = {5027}, maps = {
       [1456] = {{22.81,20.89,nil,nil,6,nil,1,3419}},
     },
     turnins = {
@@ -8164,7 +8164,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{56.52,7.45,nil,nil,7,nil,1,3439}},
     },
     },
-    [864] = { t = "Return to Apothecary Zinge", z = 1497, rl = 38, ql = 46, rr = 690, ps = {654}, maps = {
+    [864] = { t = "Return to Apothecary Zinge", z = 1497, rl = 38, ql = 46, rr = 690, ps = {654}, si = {8527}, maps = {
       [1458] = {{50.14,67.97,nil,nil,6,nil,1,5204}},
     },
     turnins = {
@@ -8206,7 +8206,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{51.62,30.90,nil,nil,7,nil,1,3449}},
     },
     },
-    [868] = { t = "Egg Hunt", z = 17, rl = 17, ql = 22, rr = 690, maps = {
+    [868] = { t = "Egg Hunt", z = 17, rl = 17, ql = 22, rr = 690, si = {5059}, maps = {
       [1413] = {{45.77,70.87,3.30,20,4,"Silithid Egg",3,5058,nil,nil,1,{42.63,69.87,44.94,69.40,48.59,69.85,48.54,70.11,48.09,70.99,45.39,72.42,44.12,72.22,42.91,71.50}}},
     },
     turnins = {
@@ -8296,7 +8296,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{51.62,30.90,nil,nil,7,nil,1,3449}},
     },
     },
-    [877] = { t = "The Stagnant Oasis", z = 17, rl = 10, ql = 16, rr = 690, ps = {870}, nc = 880, maps = {
+    [877] = { t = "The Stagnant Oasis", z = 17, rl = 10, ql = 16, rr = 690, ps = {870}, nc = 880, si = {5068}, maps = {
       [1413] = {{55.61,42.75,nil,nil,4,"Test the Dried Seeds",2,3737,nil,nil,1}},
     },
     turnins = {
@@ -8336,7 +8336,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{52.26,31.93,nil,nil,7,nil,1,3448}},
     },
     },
-    [881] = { t = "Echeyakee", z = 17, rl = 10, ql = 16, rr = 690, ps = {903}, nc = 905, maps = {
+    [881] = { t = "Echeyakee", z = 17, rl = 10, ql = 16, rr = 690, ps = {903}, nc = 905, si = {10327}, maps = {
       [1413] = {{55.86,17.19,nil,nil,2,"Echeyakee's Hide",3,5100,{3475},{3475,100},1}},
     },
     turnins = {
@@ -8346,7 +8346,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{52.23,31.01,nil,nil,7,nil,1,3338}},
     },
     },
-    [882] = { t = "Ishamuhale", z = 17, rl = 10, ql = 19, rr = 690, ps = {3261}, nc = 907, maps = {
+    [882] = { t = "Ishamuhale", z = 17, rl = 10, ql = 19, rr = 690, ps = {3261}, nc = 907, si = {10338}, maps = {
       [1413] = {{59.80,30.60,nil,nil,2,"Ishamuhale's Fang",3,5101,{3257},{3257,100},1}, {52.04,36.53,7.55,54,2,"Fresh Zhevra Carcass",3,10338,{3242},{3242,100},nil,{44.58,35.34,53.99,33.04,56.28,32.64,56.69,33.92,56.70,34.93,55.65,38.81,52.67,39.37,47.95,38.62}}, {59.10,21.09,4.33,29,2,"Fresh Zhevra Carcass",3,10338,{3242},{3242,100},nil,{54.81,21.67,57.05,19.09,61.49,17.83,62.30,18.53,62.44,22.47,61.86,23.05,61.33,23.49,56.71,23.13}}, {44.47,28.12,7.48,41,2,"Fresh Zhevra Carcass",3,10338,{3242,3426},{3242,100,3426,100},nil,{36.99,28.07,42.21,23.47,46.78,25.15,47.41,26.05,47.09,28.58,46.12,30.98,44.66,33.06,44.37,33.47,43.81,33.47}}, {51.66,15.87,7.31,21,2,"Fresh Zhevra Carcass",3,10338,{3242,3426},{3242,100,3426,100},nil,{44.86,13.19,48.16,12.26,51.15,12.58,51.72,13.07,53.81,16.72,52.78,20.31}}, {62.35,33.07,3.20,12,2,"Fresh Zhevra Carcass",3,10338,{3242,3426},{3242,100,3426,100},nil,{59.25,32.26,60.16,31.56,63.60,31.47,64.43,32.95,64.97,34.32,64.46,34.60,61.68,34.40,60.58,33.60}}, {55.43,49.41,6.67,21,2,"Fresh Zhevra Carcass",3,10338,{3426},{3426,100},nil,{49.47,46.40,56.93,47.06,61.33,50.14,59.01,53.00,53.63,52.26}}, {47.56,46.66,5.16,11,2,"Fresh Zhevra Carcass",3,10338,{3426},{3426,100},nil,{44.21,42.74,46.42,43.64,47.44,44.35,48.86,46.81,49.80,49.18,49.06,50.31,48.01,49.88,44.61,43.68}}, {44.82,14.53,4.21,9,2,"Fresh Zhevra Carcass",3,10338,{3426},{3426,100},nil,{42.39,14.65,43.87,13.47,47.91,11.67,46.78,14.37,45.29,16.08,43.47,15.92}}, {38.06,27.04,2.45,5,2,"Fresh Zhevra Carcass",3,10338,{3426},{3426,100},nil,{36.30,28.05,37.55,26.17,39.50,25.06,39.30,28.92}}, {58.24,6.68,nil,nil,2,"Fresh Zhevra Carcass",3,10338,{3426},{3426,100}}, {60.34,11.18,nil,nil,2,"Fresh Zhevra Carcass",3,10338,{3426},{3426,100}}, {47.13,62.16,5.41,29,2,"Fresh Zhevra Carcass",3,10338,{3466},{3466,100},nil,{43.47,60.66,48.71,57.66,49.06,58.22,49.90,60.08,49.98,60.94,46.50,67.53,44.74,64.61}}, {46.09,68.71,1.93,4,2,"Fresh Zhevra Carcass",3,10338,{3466},{3466,100},nil,{45.03,67.10,45.85,68.00,46.69,69.29,46.77,70.46}}},
     },
     turnins = {
@@ -8356,21 +8356,21 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{44.86,59.14,nil,nil,7,nil,1,3387}},
     },
     },
-    [883] = { t = "Lakota'mani", z = 17, rl = 10, ql = 22, rr = 690, maps = {
+    [883] = { t = "Lakota'mani", z = 17, rl = 10, ql = 22, rr = 690, si = {5099}, maps = {
       [1413] = {{44.86,59.14,nil,nil,6,nil,1,3387}},
     },
     turnins = {
       [1413] = {{44.86,59.14,nil,nil,6,nil,1,3387}},
     },
     },
-    [884] = { t = "Owatanka", z = 17, rl = 10, ql = 24, rr = 690, maps = {
+    [884] = { t = "Owatanka", z = 17, rl = 10, ql = 24, rr = 690, si = {5102}, maps = {
       [1413] = {{44.86,59.14,nil,nil,6,nil,1,3387}},
     },
     turnins = {
       [1413] = {{44.86,59.14,nil,nil,6,nil,1,3387}},
     },
     },
-    [885] = { t = "Washte Pawne", z = 17, rl = 10, ql = 25, rr = 690, maps = {
+    [885] = { t = "Washte Pawne", z = 17, rl = 10, ql = 25, rr = 690, si = {5103}, maps = {
       [1413] = {{44.86,59.14,nil,nil,6,nil,1,3387}},
     },
     turnins = {
@@ -8444,7 +8444,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{44.55,59.26,nil,nil,7,nil,1,3430}},
     },
     },
-    [890] = { t = "The Missing Shipment", z = 17, rl = 9, ql = 14, ps = {887}, nc = 892, maps = {
+    [890] = { t = "The Missing Shipment", z = 17, rl = 9, ql = 14, ps = {887}, nc = 892, si = {5080}, maps = {
       [1413] = {{63.35,38.45,nil,nil,6,nil,1,3453}},
     },
     turnins = {
@@ -8464,7 +8464,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{62.29,39.03,nil,nil,7,nil,1,3339}},
     },
     },
-    [892] = { t = "The Missing Shipment", z = 17, rl = 9, ql = 14, ps = {890}, nc = 888, maps = {
+    [892] = { t = "The Missing Shipment", z = 17, rl = 9, ql = 14, ps = {890}, nc = 888, si = {5080}, maps = {
       [1413] = {{62.68,36.23,nil,nil,6,nil,1,3391}},
     },
     turnins = {
@@ -8484,7 +8484,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{45.10,57.68,nil,nil,7,nil,1,3433}},
     },
     },
-    [894] = { t = "Samophlange", z = 17, rl = 10, ql = 14, nc = 900, maps = {
+    [894] = { t = "Samophlange", z = 17, rl = 10, ql = 14, nc = 900, si = {5088}, maps = {
       [1413] = {{52.40,11.65,nil,nil,6,nil,2,4141}},
     },
     turnins = {
@@ -8514,7 +8514,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{63.35,38.45,nil,nil,7,nil,1,3453}},
     },
     },
-    [897] = { t = "The Harvester", z = 17, rl = 10, ql = 24, rr = 690, maps = {
+    [897] = { t = "The Harvester", z = 17, rl = 10, ql = 24, rr = 690, si = {5138}, maps = {
       [1413] = {{44.86,59.14,nil,nil,6,nil,1,3387}},
     },
     turnins = {
@@ -8561,7 +8561,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{52.40,11.65,nil,nil,7,nil,2,4141}},
     },
     },
-    [902] = { t = "Samophlange", z = 17, rl = 10, ql = 16, ps = {901}, maps = {
+    [902] = { t = "Samophlange", z = 17, rl = 10, ql = 16, ps = {901}, si = {5054}, maps = {
       [1413] = {{62.98,37.22,nil,nil,6,nil,1,3442}},
     },
     turnins = {
@@ -8581,7 +8581,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{52.23,31.01,nil,nil,7,nil,1,3338}},
     },
     },
-    [905] = { t = "The Angry Scytheclaws", z = 17, rl = 10, ql = 17, rr = 690, ps = {881}, nc = 3261, maps = {
+    [905] = { t = "The Angry Scytheclaws", z = 17, rl = 10, ql = 17, rr = 690, ps = {881}, nc = 3261, si = {5165}, maps = {
       [1413] = {{52.60,46.11,nil,nil,4,"Visit Blue Raptor Nest",2,6907,nil,nil,1}, {52.02,46.47,nil,nil,4,"Visit Yellow Raptor Nest",2,6908,nil,nil,2}, {52.46,46.56,nil,nil,4,"Visit Red Raptor Nest",2,6906,nil,nil,3}, {51.04,22.20,7.43,10,2,"Sunscale Feather",3,5165,{3254,3255},{3254,80,3255,80},nil,{44.44,18.77,51.79,18.70,53.08,19.37,55.37,21.24,54.73,23.13,47.87,26.03}}, {55.72,35.77,7.03,20,2,"Sunscale Feather",3,5165,{3254,3255,3256},{3254,80,3255,80,3256,80},nil,{49.68,39.36,52.93,33.04,60.75,33.37,61.23,34.04,57.62,38.44,50.76,39.97}}, {56.78,13.55,9.11,56,2,"Sunscale Feather",3,5165,{3254,3255,3256},{3254,80,3255,80,3256,80},nil,{47.71,14.48,54.99,7.85,59.52,10.59,60.84,12.72,60.58,16.71,60.19,17.88,58.00,20.53}}, {56.60,43.91,9.00,58,2,"Sunscale Feather",3,5165,{3255,3256},{3255,80,3256,80},nil,{48.85,41.65,59.98,35.57,61.53,41.31,61.70,46.88,53.02,48.28,50.06,45.32}}, {60.79,28.32,6.22,12,2,"Sunscale Feather",3,5165,{3255,3256},{3255,80,3256,80},nil,{60.02,32.03,60.12,29.57,60.46,22.10,61.93,23.07,62.30,25.91,61.28,31.02,60.97,32.05,60.25,32.21}}, {58.96,6.92,4.72,12,2,"Sunscale Feather",3,5165,{3255,3256},{3255,80,3256,80},nil,{55.73,5.75,56.64,4.35,63.59,6.04,60.41,8.85,59.91,8.85,57.86,8.22}}, {43.73,39.85,6.05,16,2,"Sunscale Feather",3,5165,{3255,3256},{3255,80,3256,80},nil,{41.86,34.23,42.23,33.99,43.27,34.11,44.17,34.64,45.14,44.39,44.39,44.25,43.88,43.44,42.55,38.49}}, {40.81,29.42,5.61,14,2,"Sunscale Feather",3,5165,{3255,3256},{3255,80,3256,80},nil,{36.19,28.79,36.66,26.43,39.27,25.65,44.33,26.11,45.62,30.31,44.75,33.41,43.32,33.54,41.81,32.88,39.81,31.54}}, {42.88,19.81,5.85,22,2,"Sunscale Feather",3,5165,{3255,3256},{3255,80,3256,80},nil,{40.15,24.10,40.74,20.17,42.55,15.65,44.12,14.40,44.72,14.26,45.53,14.68,46.08,15.30,42.86,25.63,41.88,25.55,40.28,24.99}}, {57.03,52.22,7.66,24,2,"Sunscale Feather",3,5165,{3256},{3256,80},nil,{49.45,51.16,54.29,49.44,56.65,48.96,60.91,49.85,60.89,50.02,58.01,53.99,56.98,54.49}}, {49.38,47.31,4.83,19,2,"Sunscale Feather",3,5165,{3256},{3256,80},nil,{46.00,43.85,47.07,43.38,47.78,43.21,52.15,46.62,51.76,50.70,50.68,51.80,48.09,50.27}}, {46.45,13.54,3.30,4,2,"Sunscale Feather",3,5165,{3256},{3256,80},nil,{43.48,14.97,48.16,11.26,47.74,12.92,46.44,15.03}}},
     },
     turnins = {
@@ -8591,7 +8591,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{52.23,31.01,nil,nil,7,nil,1,3338}},
     },
     },
-    [906] = { t = "Betrayal from Within", z = 17, rl = 17, ql = 25, rr = 690, ps = {879}, maps = {
+    [906] = { t = "Betrayal from Within", z = 17, rl = 17, ql = 25, rr = 690, ps = {879}, si = {5072}, maps = {
       [1413] = {{51.50,30.87,nil,nil,6,nil,1,3429}},
     },
     turnins = {
@@ -8681,7 +8681,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{57.81,41.65,nil,nil,7,nil,1,2082}},
     },
     },
-    [921] = { t = "Crown of the Earth", z = 188, rl = 4, ql = 5, rr = 1101, ps = {920}, nc = 928, maps = {
+    [921] = { t = "Crown of the Earth", z = 188, rl = 4, ql = 5, rr = 1101, ps = {920}, nc = 928, si = {5185}, maps = {
       [1438] = {{59.95,33.05,nil,nil,4,"Filled Crystal Phial",3,5184,nil,nil,1}},
     },
     turnins = {
@@ -8691,7 +8691,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{59.06,39.45,nil,nil,7,nil,1,3514}},
     },
     },
-    [922] = { t = "Rellian Greenspyre", z = 141, rl = 4, ql = 7, rr = 1101, ps = {918}, nc = 923, maps = {
+    [922] = { t = "Rellian Greenspyre", z = 141, rl = 4, ql = 7, rr = 1101, ps = {918}, nc = 923, si = {5168}, maps = {
       [1457] = {{38.18,21.64,nil,nil,6,nil,1,3517}},
     },
     turnins = {
@@ -8711,7 +8711,7 @@ VanillaEnhancedQuestsDB = {
       [1457] = {{38.18,21.64,nil,nil,7,nil,1,3517}},
     },
     },
-    [924] = { t = "The Demon Seed", z = 14, rl = 4, ql = 14, rr = 690, ps = {809}, sf = 2, maps = {
+    [924] = { t = "The Demon Seed", z = 14, rl = 4, ql = 14, rr = 690, ps = {809}, sf = 2, si = {4986}, maps = {
       [1413] = {{47.98,19.07,nil,nil,4,"Destroy the Demon Seed",2,3525,nil,nil,1}, {62.34,20.03,0.01,3,4,"Flawed Power Stone",3,4986}},
     },
     turnins = {
@@ -8731,14 +8731,14 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{62.34,20.03,nil,nil,7,nil,2,5619}, {62.34,20.03,nil,nil,7,nil,2,5620}, {62.34,20.04,nil,nil,7,nil,2,5621}},
     },
     },
-    [927] = { t = "The Moss-twined Heart", z = 141, rl = 5, ql = 12, rr = 1101, nc = 941, maps = {
+    [927] = { t = "The Moss-twined Heart", z = 141, rl = 5, ql = 12, rr = 1101, nc = 941, si = {5179}, maps = {
       [1438] = {{60.90,68.49,nil,nil,6,nil,1,2080}},
     },
     turnins = {
       [1438] = {{60.90,68.49,nil,nil,6,nil,1,2080}},
     },
     },
-    [928] = { t = "Crown of the Earth", z = 188, rl = 4, ql = 5, rr = 1101, ps = {921}, nc = 929, maps = {
+    [928] = { t = "Crown of the Earth", z = 188, rl = 4, ql = 5, rr = 1101, ps = {921}, nc = 929, si = {5186}, maps = {
       [1438] = {{56.14,61.71,nil,nil,6,nil,1,3515}},
     },
     turnins = {
@@ -8748,7 +8748,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{59.06,39.45,nil,nil,7,nil,1,3514}},
     },
     },
-    [929] = { t = "Crown of the Earth", z = 141, rl = 4, ql = 5, rr = 1101, ps = {928}, nc = 933, maps = {
+    [929] = { t = "Crown of the Earth", z = 141, rl = 4, ql = 5, rr = 1101, ps = {928}, nc = 933, si = {5619}, maps = {
       [1438] = {{63.38,58.09,nil,nil,4,"Filled Jade Phial",3,5639,nil,nil,1}},
     },
     turnins = {
@@ -8758,7 +8758,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{56.14,61.71,nil,nil,7,nil,1,3515}},
     },
     },
-    [930] = { t = "The Glowing Fruit", z = 141, rl = 4, ql = 10, rr = 1101, ps = {918}, maps = {
+    [930] = { t = "The Glowing Fruit", z = 141, rl = 4, ql = 10, rr = 1101, ps = {918}, si = {5189}, maps = {
       [1438] = {{60.90,68.49,nil,nil,6,nil,1,2080}},
     },
     turnins = {
@@ -8768,7 +8768,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{42.61,76.19,nil,nil,7,nil,2,6751}},
     },
     },
-    [931] = { t = "The Shimmering Frond", z = 141, rl = 4, ql = 10, rr = 1101, ps = {918}, nc = 2399, maps = {
+    [931] = { t = "The Shimmering Frond", z = 141, rl = 4, ql = 10, rr = 1101, ps = {918}, nc = 2399, si = {5190}, maps = {
       [1438] = {{60.90,68.49,nil,nil,6,nil,1,2080}},
     },
     turnins = {
@@ -8788,7 +8788,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{55.57,56.95,nil,nil,7,nil,1,3567}},
     },
     },
-    [933] = { t = "Crown of the Earth", z = 141, rl = 5, ql = 9, rr = 1101, ps = {929}, nc = 7383, maps = {
+    [933] = { t = "Crown of the Earth", z = 141, rl = 5, ql = 9, rr = 1101, ps = {929}, nc = 7383, si = {5621}, maps = {
       [1438] = {{42.41,67.08,nil,nil,4,"Filled Tourmaline Phial",3,5645,nil,nil,1}},
     },
     turnins = {
@@ -8798,7 +8798,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{56.14,61.71,nil,nil,7,nil,1,3515}},
     },
     },
-    [935] = { t = "Crown of the Earth", z = 141, rl = 6, ql = 11, rr = 1101, ps = {7383}, maps = {
+    [935] = { t = "Crown of the Earth", z = 141, rl = 6, ql = 11, rr = 1101, ps = {7383}, si = {5188}, maps = {
       [1457] = {{34.81,9.26,nil,nil,6,nil,1,3516}},
     },
     turnins = {
@@ -8838,14 +8838,14 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{31.54,31.61,nil,nil,7,nil,1,3568}},
     },
     },
-    [939] = { t = "Flute of Xavaric", z = 361, rl = 49, ql = 54, rr = 1101, nc = 4441, maps = {
+    [939] = { t = "Flute of Xavaric", z = 361, rl = 49, ql = 54, rr = 1101, nc = 4441, si = {11668}, maps = {
       [1448] = {{41.23,85.21,5.57,55,2,"Jadefire Felbind",3,11674,{7105,7109},{7105,23,7109,23},1,{37.99,81.13,38.07,80.62,38.66,80.31,42.66,83.26,44.25,85.96,44.02,88.89,43.26,88.92,43.11,88.84,40.66,86.82,39.76,85.84}}, {35.90,67.51,4.20,29,2,"Jadefire Felbind",3,11674,{7106,7109,7110},{7106,23,7109,23,7110,23},1,{31.92,66.95,31.93,66.14,32.36,65.92,37.37,66.10,37.58,66.53,38.12,69.46,37.15,69.87,32.29,67.26}}, {42.12,17.89,5.38,35,2,"Jadefire Felbind",3,11674,{7107,7108,7111},{7107,23,7108,23,7111,23},1,{38.95,22.05,39.39,21.00,42.45,14.49,42.53,14.41,44.04,13.78,44.86,13.97,46.22,14.40,41.71,21.69,39.88,22.24,39.24,22.28}}, {36.67,56.80,nil,nil,2,"Jadefire Felbind",3,11674,{7107},{7107,23},1}, {36.75,56.50,nil,nil,2,"Jadefire Felbind",3,11674,{7111},{7111,23},1}},
     },
     turnins = {
       [1448] = {{51.35,81.51,nil,nil,6,nil,1,9116}},
     },
     },
-    [940] = { t = "Teldrassil", z = 141, rl = 6, ql = 11, rr = 1101, ps = {937}, nc = 952, maps = {
+    [940] = { t = "Teldrassil", z = 141, rl = 6, ql = 11, rr = 1101, ps = {937}, nc = 952, si = {5219}, maps = {
       [1457] = {{34.81,9.26,nil,nil,6,nil,1,3516}},
     },
     turnins = {
@@ -8855,7 +8855,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{38.32,34.36,nil,nil,7,nil,1,3519}},
     },
     },
-    [941] = { t = "Planting the Heart", z = 141, rl = 9, ql = 12, rr = 1101, ps = {927}, maps = {
+    [941] = { t = "Planting the Heart", z = 141, rl = 9, ql = 12, rr = 1101, ps = {927}, si = {5217}, maps = {
       [1438] = {{60.77,68.63,nil,nil,6,nil,2,7923}},
     },
     turnins = {
@@ -8865,7 +8865,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{60.90,68.49,nil,nil,7,nil,1,2080}},
     },
     },
-    [942] = { t = "The Absent Minded Prospector", z = 148, rl = 15, ql = 20, rr = 1101, ps = {741}, nc = 943, maps = {
+    [942] = { t = "The Absent Minded Prospector", z = 148, rl = 15, ql = 20, rr = 1101, ps = {741}, nc = 943, si = {4654}, maps = {
       [1437] = {{10.84,60.43,nil,nil,6,nil,1,2911}},
     },
     turnins = {
@@ -8885,7 +8885,7 @@ VanillaEnhancedQuestsDB = {
       [1437] = {{10.84,60.43,nil,nil,7,nil,1,2911}},
     },
     },
-    [944] = { t = "The Master's Glaive", z = 148, rl = 12, ql = 17, rr = 1101, ps = {948}, nc = 949, sf = 2, maps = {
+    [944] = { t = "The Master's Glaive", z = 148, rl = 12, ql = 17, rr = 1101, ps = {948}, nc = 949, sf = 2, si = {5251}, maps = {
       [1439] = {{38.48,86.45,nil,nil,3,"Enter the Master's Glaive"}},
     },
     turnins = {
@@ -8935,7 +8935,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{38.60,86.20,nil,nil,7,nil,2,10076}},
     },
     },
-    [950] = { t = "Return to Onu", z = 148, rl = 12, ql = 17, rr = 1101, ps = {949}, nc = 951, maps = {
+    [950] = { t = "Return to Onu", z = 148, rl = 12, ql = 17, rr = 1101, ps = {949}, nc = 951, si = {5272}, maps = {
       [1439] = {{43.55,76.29,nil,nil,6,nil,1,3616}},
     },
     turnins = {
@@ -8955,7 +8955,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{43.55,76.29,nil,nil,7,nil,1,3616}},
     },
     },
-    [952] = { t = "Grove of the Ancients", z = 1657, rl = 6, ql = 11, rr = 1101, ps = {940}, maps = {
+    [952] = { t = "Grove of the Ancients", z = 1657, rl = 6, ql = 11, rr = 1101, ps = {940}, si = {5390}, maps = {
       [1439] = {{43.55,76.29,nil,nil,6,nil,1,3616}},
     },
     turnins = {
@@ -9005,7 +9005,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{44.17,36.29,nil,nil,7,nil,1,3650}},
     },
     },
-    [957] = { t = "Bashal'Aran", z = 148, rl = 7, ql = 13, rr = 1101, ps = {956}, maps = {
+    [957] = { t = "Bashal'Aran", z = 148, rl = 7, ql = 13, rr = 1101, ps = {956}, si = {5338}, maps = {
       [1439] = {{42.37,61.82,nil,nil,4,"Destroy the seal at the ancient flame",2,16393,nil,nil,1}},
     },
     turnins = {
@@ -9106,7 +9106,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{54.97,24.89,nil,nil,7,nil,1,3661}},
     },
     },
-    [967] = { t = "The Tower of Althalaxx", z = 148, rl = 13, ql = 18, rr = 1101, ps = {966}, nc = 970, maps = {
+    [967] = { t = "The Tower of Althalaxx", z = 148, rl = 13, ql = 18, rr = 1101, ps = {966}, nc = 970, si = {5354}, maps = {
       [1440] = {{26.20,38.70,nil,nil,6,nil,1,3663}},
     },
     turnins = {
@@ -9116,7 +9116,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{54.97,24.89,nil,nil,7,nil,1,3661}},
     },
     },
-    [968] = { t = "The Powers Below", z = 148, rl = 10, ql = 20, rr = 1101, maps = {
+    [968] = { t = "The Powers Below", z = 148, rl = 10, ql = 20, rr = 1101, si = {5352}, maps = {
       [1455] = {{50.83,5.62,nil,nil,6,nil,1,2786}},
     },
     turnins = {
@@ -9173,7 +9173,7 @@ VanillaEnhancedQuestsDB = {
       [1440] = {{26.20,38.70,nil,nil,7,nil,1,3663}},
     },
     },
-    [974] = { t = "Finding the Source", z = 490, rl = 51, ql = 55, nc = 980, maps = {
+    [974] = { t = "Finding the Source", z = 490, rl = 51, ql = 55, nc = 980, si = {12472}, maps = {
       [1449] = {{49.00,45.00,nil,nil,1,"Find the hottest area of Fire Plume Ridge",1,10541,nil,nil,1}},
     },
     turnins = {
@@ -9323,7 +9323,7 @@ VanillaEnhancedQuestsDB = {
       [1440] = {{36.62,49.58,nil,nil,7,nil,1,3691}},
     },
     },
-    [992] = { t = "Gadgetzan Water Survey", z = 440, rl = 38, ql = 46, nc = 82, maps = {
+    [992] = { t = "Gadgetzan Water Survey", z = 440, rl = 38, ql = 46, nc = 82, si = {8584}, maps = {
       [1446] = {{39.00,29.00,nil,nil,4,"Tapped Dowsing Widget",3,8585,nil,nil,1}},
     },
     turnins = {
@@ -9333,7 +9333,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{50.21,27.48,nil,nil,7,nil,1,7724}},
     },
     },
-    [993] = { t = "A Lost Master", z = 148, rl = 10, ql = 20, rr = 1101, ps = {986}, maps = {
+    [993] = { t = "A Lost Master", z = 148, rl = 10, ql = 20, rr = 1101, ps = {986}, si = {5387}, maps = {
       [1439] = {{45.01,85.30,nil,nil,6,nil,1,3692}},
     },
     turnins = {
@@ -9363,7 +9363,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{45.01,85.30,nil,nil,7,nil,1,3692}},
     },
     },
-    [997] = { t = "Denalan's Earth", z = 141, rl = 4, ql = 5, rr = 1101, maps = {
+    [997] = { t = "Denalan's Earth", z = 141, rl = 4, ql = 5, rr = 1101, si = {5391}, maps = {
       [1438] = {{60.90,68.49,nil,nil,6,nil,1,2080}},
     },
     turnins = {
@@ -9513,7 +9513,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{47.45,64.17,nil,nil,7,nil,1,2198}},
     },
     },
-    [1016] = { t = "Elemental Bracers", z = 331, rl = 20, ql = 24, rr = 1101, nc = 1017, maps = {
+    [1016] = { t = "Elemental Bracers", z = 331, rl = 20, ql = 24, rr = 1101, nc = 1017, si = {5456,12220}, maps = {
       [1440] = {{48.92,70.41,3.99,34,2,"Intact Elemental Bracer",3,12220,{3917,12759},{3917,20,12759,20},nil,{45.08,69.30,46.40,67.43,50.92,67.42,51.60,69.49,51.86,70.48,52.13,72.25,52.14,72.75,51.22,73.36,48.35,72.76,46.59,71.75}}},
     },
     turnins = {
@@ -9553,7 +9553,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{55.92,81.39,nil,nil,7,nil,1,10877}},
     },
     },
-    [1020] = { t = "Orendil's Cure", z = 331, rl = 20, ql = 20, rr = 1101, ps = {1010}, nc = 1033, maps = {
+    [1020] = { t = "Orendil's Cure", z = 331, rl = 20, ql = 20, rr = 1101, ps = {1010}, nc = 1033, si = {5460}, maps = {
       [1440] = {{37.37,51.79,nil,nil,6,nil,1,3894}},
     },
     turnins = {
@@ -9583,7 +9583,7 @@ VanillaEnhancedQuestsDB = {
       [1440] = {{86.03,44.12,nil,nil,7,nil,1,3880}},
     },
     },
-    [1023] = { t = "Raene's Cleansing", z = 331, rl = 18, ql = 21, rr = 1101, ps = {991}, nc = 1024, maps = {
+    [1023] = { t = "Raene's Cleansing", z = 331, rl = 18, ql = 21, rr = 1101, ps = {991}, nc = 1024, si = {5505}, maps = {
       [1440] = {{20.39,42.70,2.79,21,2,"Glowing Gem",3,5463,{3737,3739,3740,3742},{3737,10,3739,10,3740,10,3742,10},1,{18.90,41.28,18.99,40.29,21.01,40.48,21.82,41.20,21.82,42.45,21.10,43.99,20.47,44.76,19.99,45.07,19.22,43.93}}},
     },
     turnins = {
@@ -9593,7 +9593,7 @@ VanillaEnhancedQuestsDB = {
       [1440] = {{20.31,42.33,nil,nil,7,nil,1,3891}},
     },
     },
-    [1024] = { t = "Raene's Cleansing", z = 331, rl = 18, ql = 21, rr = 1101, ps = {1023}, nc = 1026, maps = {
+    [1024] = { t = "Raene's Cleansing", z = 331, rl = 18, ql = 21, rr = 1101, ps = {1023}, nc = 1026, si = {5463}, maps = {
       [1440] = {{53.54,46.22,nil,nil,6,nil,1,3916}},
     },
     turnins = {
@@ -9613,7 +9613,7 @@ VanillaEnhancedQuestsDB = {
       [1440] = {{36.62,49.58,nil,nil,7,nil,1,3691}},
     },
     },
-    [1026] = { t = "Raene's Cleansing", z = 331, rl = 18, ql = 27, rr = 1101, ps = {1024}, nc = 1027, maps = {
+    [1026] = { t = "Raene's Cleansing", z = 331, rl = 18, ql = 27, rr = 1101, ps = {1024}, nc = 1027, si = {5475}, maps = {
       [1440] = {{54.42,35.40,nil,nil,4,"Iron Shaft",3,5464,nil,nil,1}, {57.19,36.74,5.73,12,2,"Wooden Key",3,5475,{3834,3919},{3834,44.335,3919,44.435},nil,{54.48,34.07,55.07,33.12,57.26,31.42,58.18,33.71,60.06,38.79,59.33,42.06,57.70,41.76,54.76,34.99}}, {61.97,44.54,nil,nil,2,"Wooden Key",3,5475,{3834},{3834,44.335}}, {61.52,43.30,nil,nil,2,"Wooden Key",3,5475,{3834},{3834,44.335}}},
     },
     turnins = {
@@ -9633,7 +9633,7 @@ VanillaEnhancedQuestsDB = {
       [1440] = {{53.54,46.22,nil,nil,7,nil,1,3916}},
     },
     },
-    [1028] = { t = "Raene's Cleansing", z = 331, rl = 18, ql = 28, rr = 1101, ps = {1027}, nc = 1055, maps = {
+    [1028] = { t = "Raene's Cleansing", z = 331, rl = 18, ql = 28, rr = 1101, ps = {1027}, nc = 1055, si = {5547}, maps = {
       [1440] = {{56.35,49.20,nil,nil,6,nil,2,19024}},
     },
     turnins = {
@@ -9643,7 +9643,7 @@ VanillaEnhancedQuestsDB = {
       [1440] = {{53.54,46.22,nil,nil,7,nil,1,3916}},
     },
     },
-    [1029] = { t = "Raene's Cleansing", z = 331, rl = 18, ql = 28, rr = 1101, ps = {1055}, nc = 1030, maps = {
+    [1029] = { t = "Raene's Cleansing", z = 331, rl = 18, ql = 28, rr = 1101, ps = {1055}, nc = 1030, si = {5462}, maps = {
       [1440] = {{36.62,49.58,nil,nil,6,nil,1,3691}},
     },
     turnins = {
@@ -9653,7 +9653,7 @@ VanillaEnhancedQuestsDB = {
       [1440] = {{53.54,46.22,nil,nil,7,nil,1,3916}},
     },
     },
-    [1030] = { t = "Raene's Cleansing", z = 331, rl = 18, ql = 28, rr = 1101, ps = {1029}, nc = 1045, maps = {
+    [1030] = { t = "Raene's Cleansing", z = 331, rl = 18, ql = 28, rr = 1101, ps = {1029}, nc = 1045, si = {5462}, maps = {
       [1440] = {{50.84,75.08,nil,nil,6,nil,1,3897}},
     },
     turnins = {
@@ -9734,7 +9734,7 @@ VanillaEnhancedQuestsDB = {
       [1440] = {{86.03,44.12,nil,nil,7,nil,1,3880}},
     },
     },
-    [1038] = { t = "Velinde's Effects", z = 331, rl = 25, ql = 30, rr = 1101, ps = {1037}, nc = 1039, maps = {
+    [1038] = { t = "Velinde's Effects", z = 331, rl = 25, ql = 30, rr = 1101, ps = {1037}, nc = 1039, si = {5521}, maps = {
       [1457] = {{62.29,83.29,nil,nil,4,"Velinde's Journal",3,5520,nil,nil,1}},
     },
     turnins = {
@@ -9804,7 +9804,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{75.32,49.02,nil,nil,7,nil,1,661}},
     },
     },
-    [1045] = { t = "Raene's Cleansing", z = 331, rl = 18, ql = 30, rr = 1101, ps = {1030}, nc = 1046, maps = {
+    [1045] = { t = "Raene's Cleansing", z = 331, rl = 18, ql = 30, rr = 1101, ps = {1030}, nc = 1046, si = {5462}, maps = {
       [1440] = {{54.75,79.62,nil,nil,1,"Ran Bloodtooth",1,3696,nil,nil,1}, {55.09,77.55,2.38,11,1,"Bloodtooth Guard",1,3932,nil,nil,2,{54.40,79.58,54.93,75.96,55.52,75.20,55.85,75.42,55.94,76.21,54.98,79.33,54.67,79.72}}},
     },
     turnins = {
@@ -9871,7 +9871,7 @@ VanillaEnhancedQuestsDB = {
       [1424] = {{62.67,18.88,nil,nil,6,nil,1,3982}},
     },
     },
-    [1052] = { t = "Down the Scarlet Path", z = 405, rl = 34, ql = 40, rr = 1101, ps = {261}, nc = 1053, maps = {
+    [1052] = { t = "Down the Scarlet Path", z = 405, rl = 34, ql = 40, rr = 1101, ps = {261}, nc = 1053, si = {5539}, maps = {
       [1424] = {{51.47,58.35,nil,nil,6,nil,1,3980}},
     },
     turnins = {
@@ -9951,7 +9951,7 @@ VanillaEnhancedQuestsDB = {
       [1442] = {{37.10,8.10,nil,nil,7,nil,1,3994}},
     },
     },
-    [1060] = { t = "Letter to Jin'Zil", z = 17, rl = 15, ql = 20, rr = 690, ps = {876}, maps = {
+    [1060] = { t = "Letter to Jin'Zil", z = 17, rl = 15, ql = 20, rr = 690, ps = {876}, si = {5594}, maps = {
       [1442] = {{74.54,97.94,nil,nil,6,nil,1,3995}},
     },
     turnins = {
@@ -10001,7 +10001,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{69.85,30.91,nil,nil,7,nil,1,4046}},
     },
     },
-    [1065] = { t = "Journey to Tarren Mill", z = 1638, rl = 13, ql = 18, rr = 690, ps = {1064}, nc = 1066, maps = {
+    [1065] = { t = "Journey to Tarren Mill", z = 1638, rl = 13, ql = 18, rr = 690, ps = {1064}, nc = 1066, si = {5628}, maps = {
       [1424] = {{61.44,19.06,nil,nil,6,nil,1,2216}},
     },
     turnins = {
@@ -10021,7 +10021,7 @@ VanillaEnhancedQuestsDB = {
       [1424] = {{61.44,19.06,nil,nil,7,nil,1,2216}},
     },
     },
-    [1067] = { t = "Return to Thunder Bluff", z = 1638, rl = 13, ql = 23, rr = 690, ps = {1066}, maps = {
+    [1067] = { t = "Return to Thunder Bluff", z = 1638, rl = 13, ql = 23, rr = 690, ps = {1066}, si = {5588}, maps = {
       [1456] = {{22.81,20.89,nil,nil,6,nil,1,3419}},
     },
     turnins = {
@@ -10110,7 +10110,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{72.08,51.88,nil,nil,7,nil,1,4081}},
     },
     },
-    [1074] = { t = "Ineptitude + Chemicals = Fun", z = 406, rl = 18, ql = 21, rr = 1101, ps = {1073}, maps = {
+    [1074] = { t = "Ineptitude + Chemicals = Fun", z = 406, rl = 18, ql = 21, rr = 1101, ps = {1073}, si = {5732}, maps = {
       [1442] = {{59.52,67.15,nil,nil,6,nil,1,4077}},
     },
     turnins = {
@@ -10140,7 +10140,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{43.09,80.39,nil,nil,7,nil,1,4078}},
     },
     },
-    [1077] = { t = "Special Delivery for Gaxim", z = 406, rl = 18, ql = 21, rr = 1101, ps = {1076}, maps = {
+    [1077] = { t = "Special Delivery for Gaxim", z = 406, rl = 18, ql = 21, rr = 1101, ps = {1076}, si = {5731}, maps = {
       [1442] = {{59.52,67.15,nil,nil,6,nil,1,4077}},
     },
     turnins = {
@@ -10161,7 +10161,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{43.09,80.39,nil,nil,7,nil,1,4078}},
     },
     },
-    [1079] = { t = "Covert Ops - Alpha", z = 406, rl = 18, ql = 22, rr = 1101, pg = {1077,1074}, maps = {
+    [1079] = { t = "Covert Ops - Alpha", z = 406, rl = 18, ql = 22, rr = 1101, pg = {1077,1074}, si = {5738,5692,5693,5694,5695,5737}, maps = {
       [1442] = {{66.09,51.33,nil,nil,4,"Venture Co. Engineering Plans",3,5718,nil,nil,1}},
     },
     turnins = {
@@ -10171,7 +10171,7 @@ VanillaEnhancedQuestsDB = {
       [1442] = {{59.52,67.15,nil,nil,7,nil,1,4077}},
     },
     },
-    [1080] = { t = "Covert Ops - Beta", z = 406, rl = 18, ql = 22, rr = 1101, pg = {1077,1074}, maps = {
+    [1080] = { t = "Covert Ops - Beta", z = 406, rl = 18, ql = 22, rr = 1101, pg = {1077,1074}, si = {5738,5692,5693,5694,5695,5737}, maps = {
       [1442] = {{74.46,59.30,nil,nil,4,"Venture Co. Letters",3,5717,nil,nil,1}},
     },
     turnins = {
@@ -10231,7 +10231,7 @@ VanillaEnhancedQuestsDB = {
       [1442] = {{59.90,66.85,nil,nil,7,nil,1,4080}},
     },
     },
-    [1086] = { t = "The Flying Machine Airport", z = 1638, rl = 13, ql = 23, rr = 690, ps = {1067}, sf = 2, maps = {
+    [1086] = { t = "The Flying Machine Airport", z = 1638, rl = 13, ql = 23, rr = 690, ps = {1067}, sf = 2, si = {5638}, maps = {
       [1442] = {{66.44,45.46,nil,nil,3,"Place the Toxic Fogger"}},
     },
     turnins = {
@@ -10261,7 +10261,7 @@ VanillaEnhancedQuestsDB = {
       [1442] = {{45.94,60.42,nil,nil,7,nil,1,4198}},
     },
     },
-    [1089] = { t = "The Den", z = 406, rl = 20, ql = 29, rr = 690, ps = {1088}, maps = {
+    [1089] = { t = "The Den", z = 406, rl = 20, ql = 29, rr = 690, ps = {1088}, si = {5687}, maps = {
       [1442] = {{25.55,11.36,nil,nil,4,"Sleepers' Key",3,5689,nil,nil,1}, {29.55,15.84,nil,nil,4,"Claw Key",3,5690,nil,nil,2}, {27.96,13.81,nil,nil,4,"Barrow Key",3,5691,nil,nil,3}, {29.90,15.39,nil,nil,4,"Gatekeeper's Key",3,5687}},
     },
     turnins = {
@@ -10281,7 +10281,7 @@ VanillaEnhancedQuestsDB = {
       [1442] = {{71.87,60.00,nil,nil,7,nil,1,4276}},
     },
     },
-    [1091] = { t = "Kaela's Update", z = 406, rl = 18, ql = 22, rr = 1101, pg = {1079,1080}, maps = {
+    [1091] = { t = "Kaela's Update", z = 406, rl = 18, ql = 22, rr = 1101, pg = {1079,1080}, si = {5717}, maps = {
       [1442] = {{59.90,66.85,nil,nil,6,nil,1,4080}},
     },
     turnins = {
@@ -10291,7 +10291,7 @@ VanillaEnhancedQuestsDB = {
       [1442] = {{59.52,67.15,nil,nil,7,nil,1,4077}},
     },
     },
-    [1092] = { t = "Gerenzo's Orders", z = 406, rl = 21, ql = 22, ps = {1090}, maps = {
+    [1092] = { t = "Gerenzo's Orders", z = 406, rl = 21, ql = 22, ps = {1090}, si = {5733}, maps = {
       [1442] = {{58.99,62.60,nil,nil,6,nil,1,4201}},
     },
     turnins = {
@@ -10311,7 +10311,7 @@ VanillaEnhancedQuestsDB = {
       [1442] = {{58.99,62.60,nil,nil,7,nil,1,4201}},
     },
     },
-    [1094] = { t = "Further Instructions", z = 406, rl = 16, ql = 21, ps = {1093}, nc = 1095, maps = {
+    [1094] = { t = "Further Instructions", z = 406, rl = 16, ql = 21, ps = {1093}, nc = 1095, si = {5735}, maps = {
       [1413] = {{62.98,37.22,nil,nil,6,nil,1,3442}},
     },
     turnins = {
@@ -10358,7 +10358,7 @@ VanillaEnhancedQuestsDB = {
       [1421] = {{43.42,40.86,nil,nil,7,nil,1,1952}},
     },
     },
-    [1100] = { t = "Lonebrow's Journal", z = 400, rl = 23, ql = 27, rr = 1101, nc = 1101, maps = {
+    [1100] = { t = "Lonebrow's Journal", z = 400, rl = 23, ql = 27, rr = 1101, nc = 1101, si = {5790}, maps = {
       [1444] = {{89.64,46.57,nil,nil,6,nil,1,4048}},
     },
     turnins = {
@@ -10415,7 +10415,7 @@ VanillaEnhancedQuestsDB = {
       [1441] = {{78.14,77.12,nil,nil,7,nil,1,4453}},
     },
     },
-    [1106] = { t = "Martek the Exiled", z = 400, rl = 26, ql = 35, pg = {1104,1105}, nc = 1108, maps = {
+    [1106] = { t = "Martek the Exiled", z = 400, rl = 26, ql = 35, pg = {1104,1105}, nc = 1108, si = {5827}, maps = {
       [1418] = {{42.22,52.69,nil,nil,6,nil,1,4618}},
     },
     turnins = {
@@ -10465,7 +10465,7 @@ VanillaEnhancedQuestsDB = {
       [1441] = {{77.79,77.27,nil,nil,7,nil,1,4452}},
     },
     },
-    [1111] = { t = "Wharfmaster Dizzywig", z = 400, rl = 30, ql = 36, nc = 1112, maps = {
+    [1111] = { t = "Wharfmaster Dizzywig", z = 400, rl = 30, ql = 36, nc = 1112, si = {5799}, maps = {
       [1413] = {{63.35,38.45,nil,nil,6,nil,1,3453}},
     },
     turnins = {
@@ -10475,7 +10475,7 @@ VanillaEnhancedQuestsDB = {
       [1441] = {{77.79,77.27,nil,nil,7,nil,1,4452}},
     },
     },
-    [1112] = { t = "Parts for Kravel", z = 400, rl = 30, ql = 36, ps = {1111}, nc = 1114, maps = {
+    [1112] = { t = "Parts for Kravel", z = 400, rl = 30, ql = 36, ps = {1111}, nc = 1114, si = {5800}, maps = {
       [1441] = {{77.79,77.27,nil,nil,6,nil,1,4452}},
     },
     turnins = {
@@ -10495,7 +10495,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{48.82,69.28,nil,nil,7,nil,1,2055}},
     },
     },
-    [1114] = { t = "Delivery to the Gnomes", z = 400, rl = 30, ql = 36, ps = {1112}, nc = 1115, maps = {
+    [1114] = { t = "Delivery to the Gnomes", z = 400, rl = 30, ql = 36, ps = {1112}, nc = 1115, si = {5802}, maps = {
       [1441] = {{78.06,77.13,nil,nil,6,nil,1,4454}},
     },
     turnins = {
@@ -10525,7 +10525,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{26.95,77.21,nil,nil,7,nil,1,773}},
     },
     },
-    [1117] = { t = "Rumors for Kravel", z = 400, rl = 30, ql = 36, ps = {1116}, nc = 1118, maps = {
+    [1117] = { t = "Rumors for Kravel", z = 400, rl = 30, ql = 36, ps = {1116}, nc = 1118, si = {5804}, maps = {
       [1441] = {{77.79,77.27,nil,nil,6,nil,1,4452}},
     },
     turnins = {
@@ -10535,7 +10535,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{26.95,77.21,nil,nil,7,nil,1,773}},
     },
     },
-    [1118] = { t = "Back to Booty Bay", z = 400, rl = 35, ql = 43, ps = {1117}, maps = {
+    [1118] = { t = "Back to Booty Bay", z = 400, rl = 35, ql = 43, ps = {1117}, si = {5826}, maps = {
       [1434] = {{27.12,77.21,nil,nil,6,nil,1,2498}},
     },
     turnins = {
@@ -10545,7 +10545,7 @@ VanillaEnhancedQuestsDB = {
       [1441] = {{77.79,77.27,nil,nil,7,nil,1,4452}},
     },
     },
-    [1119] = { t = "Zanzil's Mixture and a Fool's Stout", z = 400, rl = 35, ql = 44, pg = {621,1118}, maps = {
+    [1119] = { t = "Zanzil's Mixture and a Fool's Stout", z = 400, rl = 35, ql = 44, pg = {621,1118}, si = {5806}, maps = {
       [1441] = {{77.79,77.27,nil,nil,6,nil,1,4452}},
     },
     turnins = {
@@ -10555,7 +10555,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{27.12,77.21,nil,nil,7,nil,1,2498}},
     },
     },
-    [1120] = { t = "Get the Gnomes Drunk", z = 400, rl = 35, ql = 44, ps = {1119}, ex = {1121}, nc = 1122, maps = {
+    [1120] = { t = "Get the Gnomes Drunk", z = 400, rl = 35, ql = 44, ps = {1119}, ex = {1121}, nc = 1122, si = {5806}, maps = {
       [1441] = {{77.56,76.94,nil,nil,6,nil,1,4495}},
     },
     turnins = {
@@ -10565,7 +10565,7 @@ VanillaEnhancedQuestsDB = {
       [1441] = {{77.79,77.27,nil,nil,7,nil,1,4452}},
     },
     },
-    [1121] = { t = "Get the Goblins Drunk", z = 400, rl = 35, ql = 44, ps = {1119}, ex = {1120}, nc = 1122, maps = {
+    [1121] = { t = "Get the Goblins Drunk", z = 400, rl = 35, ql = 44, ps = {1119}, ex = {1120}, nc = 1122, si = {5806}, maps = {
       [1441] = {{79.90,76.74,nil,nil,6,nil,1,4496}},
     },
     turnins = {
@@ -10575,7 +10575,7 @@ VanillaEnhancedQuestsDB = {
       [1441] = {{77.79,77.27,nil,nil,7,nil,1,4452}},
     },
     },
-    [1122] = { t = "Report Back to Fizzlebub", z = 400, rl = 35, ql = 44, ps = {1120,1121}, maps = {
+    [1122] = { t = "Report Back to Fizzlebub", z = 400, rl = 35, ql = 44, ps = {1120,1121}, si = {5807}, maps = {
       [1434] = {{27.12,77.21,nil,nil,6,nil,1,2498}},
     },
     turnins = {
@@ -10595,7 +10595,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{78.62,28.56,nil,nil,7,nil,1,5769}},
     },
     },
-    [1124] = { t = "Wasteland", z = 493, rl = 54, ql = 55, ps = {1123,6762}, nc = 1125, maps = {
+    [1124] = { t = "Wasteland", z = 493, rl = 54, ql = 55, ps = {1123,6762}, nc = 1125, si = {17355}, maps = {
       [1451] = {{81.87,18.93,nil,nil,6,nil,1,13220}},
     },
     turnins = {
@@ -10615,7 +10615,7 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{81.87,18.93,nil,nil,7,nil,1,13220}},
     },
     },
-    [1126] = { t = "Hive in the Tower", z = 1377, rl = 54, ql = 57, ps = {1125}, nc = 6844, maps = {
+    [1126] = { t = "Hive in the Tower", z = 1377, rl = 54, ql = 57, ps = {1125}, nc = 6844, si = {17345}, maps = {
       [1451] = {{60.20,52.40,nil,nil,2,"Encrusted Silithid Object",3,17346,{13301},{13301,100},1}, {60.20,52.60,nil,nil,2,"Encrusted Silithid Object",3,17346,{13301},{13301,100},1}, {60.36,52.56,nil,nil,4,"Silithid Goo",3,17345}},
     },
     turnins = {
@@ -10695,7 +10695,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{33.77,42.37,nil,nil,7,nil,1,4456}},
     },
     },
-    [1136] = { t = "Frostmaw", z = 1638, rl = 26, ql = 37, rr = 690, ps = {1131}, maps = {
+    [1136] = { t = "Frostmaw", z = 1638, rl = 26, ql = 37, rr = 690, ps = {1131}, si = {5838,5810}, maps = {
       [1416] = {{37.51,67.20,nil,nil,2,"Frostmaw's Mane",3,5811,{4504},{4504,100},1}, {32.47,83.07,6.46,15,2,"Fresh Carcass",3,5810,{2406,2407},{2406,100,2407,100},nil,{29.68,84.71,29.94,77.13,32.54,79.55,33.02,80.06,37.02,86.37,30.55,88.32,29.71,86.56}}, {38.84,89.67,5.07,7,2,"Fresh Carcass",3,5810,{2406,2407},{2406,100,2407,100},nil,{37.12,90.07,37.51,88.68,39.82,84.69,40.34,91.87,39.57,92.34,38.20,91.93}}, {45.72,78.66,5.45,6,2,"Fresh Carcass",3,5810,{2406,2407},{2406,100,2407,100},nil,{42.78,78.54,44.21,76.66,49.05,75.20,48.88,83.09,43.70,80.72}}, {30.08,72.38,2.21,3,2,"Fresh Carcass",3,5810,{2406},{2406,100},nil,{29.43,70.37,31.14,72.23,29.67,74.55}}, {83.01,60.66,4.20,4,2,"Fresh Carcass",3,5810,{2406,2407},{2406,100,2407,100},nil,{82.57,58.55,83.12,58.17,83.20,64.86}}, {74.10,59.79,nil,nil,2,"Fresh Carcass",3,5810,{2406},{2406,100}}, {74.40,54.72,nil,nil,2,"Fresh Carcass",3,5810,{2407},{2407,100}}, {78.15,50.96,3.89,5,2,"Fresh Carcass",3,5810,{2406,2407},{2406,100,2407,100},nil,{75.55,51.67,78.70,50.09,81.41,48.83,78.39,52.91}}, {64.71,48.64,nil,nil,2,"Fresh Carcass",3,5810,{2406},{2406,100}}, {66.75,51.11,nil,nil,2,"Fresh Carcass",3,5810,{2407},{2407,100}}, {49.10,22.84,4.97,5,2,"Fresh Carcass",3,5810,{2407},{2407,100},nil,{45.28,23.72,45.53,19.39,50.43,22.73,51.75,23.72,52.50,24.66}}, {54.02,31.38,2.56,4,2,"Fresh Carcass",3,5810,{2407},{2407,100},nil,{52.76,30.65,53.51,30.56,56.19,32.72,53.61,31.57}}, {39.60,25.77,nil,nil,2,"Fresh Carcass",3,5810,{2407},{2407,100}}, {38.13,24.84,nil,nil,2,"Fresh Carcass",3,5810,{2407},{2407,100}}},
       [1424] = {{52.24,33.76,3.80,12,2,"Fresh Carcass",3,5810,{2384},{2384,100},nil,{48.63,34.49,49.75,30.89,54.68,31.22,54.50,32.17,53.60,36.42,53.29,36.72}}, {53.28,26.79,5.71,4,2,"Fresh Carcass",3,5810,{2384},{2384,100},nil,{47.61,26.09,55.97,25.75,54.57,29.00}}, {41.03,46.31,4.34,5,2,"Fresh Carcass",3,5810,{2384},{2384,100},nil,{37.95,44.46,44.62,45.85,44.54,48.85,39.04,46.73}}, {40.14,37.63,3.62,7,2,"Fresh Carcass",3,5810,{2384},{2384,100},nil,{37.80,36.21,39.59,34.85,42.94,35.42,42.52,40.36,39.76,40.56}}, {54.14,42.39,6.60,13,2,"Fresh Carcass",3,5810,{2384},{2384,100},nil,{50.01,41.23,53.42,39.28,58.90,40.41,52.89,48.87}}, {58.32,55.16,5.29,8,2,"Fresh Carcass",3,5810,{2384,2385},{2384,100,2385,100},nil,{55.96,50.43,57.56,49.97,60.98,50.92,60.16,58.47,56.70,60.08}}, {64.52,69.55,6.04,9,2,"Fresh Carcass",3,5810,{2385},{2385,100},nil,{61.14,66.86,64.98,66.40,70.35,67.98,66.26,74.09,62.62,71.43,61.79,69.02}}, {67.97,80.87,nil,nil,2,"Fresh Carcass",3,5810,{2385},{2385,100}}, {66.33,75.32,nil,nil,2,"Fresh Carcass",3,5810,{2385},{2385,100}}, {38.80,24.62,nil,nil,2,"Fresh Carcass",3,5810,{2406},{2406,100}}},
     },
@@ -10773,7 +10773,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{54.97,24.89,nil,nil,7,nil,1,3661}},
     },
     },
-    [1145] = { t = "The Swarm Grows", z = 17, rl = 29, ql = 33, rr = 690, nc = 1146, maps = {
+    [1145] = { t = "The Swarm Grows", z = 17, rl = 29, ql = 33, rr = 690, nc = 1146, si = {5846}, maps = {
       [1454] = {{75.23,34.24,nil,nil,6,nil,1,4485}},
     },
     turnins = {
@@ -10783,7 +10783,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{51.07,29.63,nil,nil,7,nil,1,3428}},
     },
     },
-    [1146] = { t = "The Swarm Grows", z = 1637, rl = 29, ql = 33, rr = 690, ps = {1145}, nc = 1147, maps = {
+    [1146] = { t = "The Swarm Grows", z = 1637, rl = 29, ql = 33, rr = 690, ps = {1145}, nc = 1147, si = {5850}, maps = {
       [1441] = {{67.58,63.94,nil,nil,6,nil,1,4483}},
     },
     turnins = {
@@ -10803,7 +10803,7 @@ VanillaEnhancedQuestsDB = {
       [1441] = {{67.58,63.94,nil,nil,7,nil,1,4483}},
     },
     },
-    [1148] = { t = "Parts of the Swarm", z = 400, rl = 28, ql = 35, rr = 690, ps = {1146}, nc = 1184, maps = {
+    [1148] = { t = "Parts of the Swarm", z = 400, rl = 28, ql = 35, rr = 690, ps = {1146}, nc = 1184, si = {5877}, maps = {
       [1441] = {{67.78,85.44,4.49,50,2,"Silithid Heart",3,5855,{4130,4131,4132,4133},{4130,30,4131,30,4132,30,4133,30},1,{63.51,85.80,63.87,85.42,67.74,81.38,68.64,81.39,69.49,81.46,70.79,82.49,71.74,83.32,71.75,86.01,69.52,89.47,63.81,86.25}}, {67.78,85.44,4.49,50,2,"Silithid Talon",3,5854,{4130,4131,4132,4133},{4130,80,4131,80,4132,80,4133,80},2,{63.51,85.80,63.87,85.42,67.74,81.38,68.64,81.39,69.49,81.46,70.79,82.49,71.74,83.32,71.75,86.01,69.52,89.47,63.81,86.25}}, {67.78,85.44,4.49,50,2,"Intact Silithid Carapace",3,5853,{4130,4131,4132,4133},{4130,80,4131,80,4132,80,4133,80},3,{63.51,85.80,63.87,85.42,67.74,81.38,68.64,81.39,69.49,81.46,70.79,82.49,71.74,83.32,71.75,86.01,69.52,89.47,63.81,86.25}}},
     },
     turnins = {
@@ -11020,7 +11020,7 @@ VanillaEnhancedQuestsDB = {
       [1441] = {{80.18,75.88,nil,nil,7,nil,1,4630}},
     },
     },
-    [1179] = { t = "The Brassbolts Brothers", z = 400, rl = 28, ql = 30, rr = 1101, maps = {
+    [1179] = { t = "The Brassbolts Brothers", z = 400, rl = 28, ql = 30, rr = 1101, si = {5849}, maps = {
       [1441] = {{78.14,77.12,nil,nil,6,nil,1,4453}},
     },
     turnins = {
@@ -11050,7 +11050,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{26.35,73.56,nil,nil,7,nil,1,4631}},
     },
     },
-    [1182] = { t = "Goblin Sponsorship", z = 400, rl = 29, ql = 37, ps = {1181}, nc = 1183, maps = {
+    [1182] = { t = "Goblin Sponsorship", z = 400, rl = 29, ql = 37, ps = {1181}, nc = 1183, si = {5851}, maps = {
       [1434] = {{43.33,20.33,nil,nil,4,"Fuel Regulator Blueprints",3,5852,nil,nil,1}, {42.64,18.35,nil,nil,2,"Cozzle's Key",3,5851,{4723},{4723,100}}},
     },
     turnins = {
@@ -11060,7 +11060,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{27.23,76.87,nil,nil,7,nil,1,2496}},
     },
     },
-    [1183] = { t = "Goblin Sponsorship", z = 400, rl = 29, ql = 37, ps = {1182}, nc = 1186, maps = {
+    [1183] = { t = "Goblin Sponsorship", z = 400, rl = 29, ql = 37, ps = {1182}, nc = 1186, si = {5852}, maps = {
       [1441] = {{80.18,75.88,nil,nil,6,nil,1,4630}},
     },
     turnins = {
@@ -11110,7 +11110,7 @@ VanillaEnhancedQuestsDB = {
       [1441] = {{80.33,76.09,nil,nil,7,nil,1,4706}},
     },
     },
-    [1188] = { t = "Safety First", z = 400, rl = 29, ql = 41, ps = {1187}, nc = 1189, maps = {
+    [1188] = { t = "Safety First", z = 400, rl = 29, ql = 41, ps = {1187}, nc = 1189, si = {5862}, maps = {
       [1446] = {{50.96,27.24,nil,nil,6,nil,1,4708}},
     },
     turnins = {
@@ -11120,7 +11120,7 @@ VanillaEnhancedQuestsDB = {
       [1441] = {{80.33,76.09,nil,nil,7,nil,1,4706}},
     },
     },
-    [1189] = { t = "Safety First", z = 400, rl = 29, ql = 41, ps = {1188}, maps = {
+    [1189] = { t = "Safety First", z = 400, rl = 29, ql = 41, ps = {1188}, si = {5865}, maps = {
       [1441] = {{80.33,76.09,nil,nil,6,nil,1,4706}},
     },
     turnins = {
@@ -11160,7 +11160,7 @@ VanillaEnhancedQuestsDB = {
       [1441] = {{80.18,75.88,nil,nil,7,nil,1,4630}},
     },
     },
-    [1194] = { t = "Rizzle's Schematics", z = 400, rl = 34, ql = 41, ps = {1190}, nc = 1192, maps = {
+    [1194] = { t = "Rizzle's Schematics", z = 400, rl = 34, ql = 41, ps = {1190}, nc = 1192, si = {5866}, maps = {
       [1441] = {{80.18,75.88,nil,nil,6,nil,1,4630}},
     },
     turnins = {
@@ -11170,7 +11170,7 @@ VanillaEnhancedQuestsDB = {
       [1441] = {{77.21,77.39,nil,nil,7,nil,2,20805}, {77.21,77.39,nil,nil,7,nil,2,179888}},
     },
     },
-    [1195] = { t = "The Sacred Flame", z = 1638, rl = 20, ql = 25, rr = 690, nc = 1196, maps = {
+    [1195] = { t = "The Sacred Flame", z = 1638, rl = 20, ql = 25, rr = 690, nc = 1196, si = {5867}, maps = {
       [1440] = {{60.20,72.91,nil,nil,4,"Filled Etched Phial",3,5868,nil,nil,1}, {59.89,54.35,5.48,26,2,"Etched Phial",3,5867,{4054},{4054,100},nil,{58.05,58.43,58.07,56.01,58.56,54.31,60.99,49.22,62.34,49.69,60.55,55.89,58.71,59.70}}},
     },
     turnins = {
@@ -11180,7 +11180,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{54.97,51.41,nil,nil,7,nil,1,4721}},
     },
     },
-    [1196] = { t = "The Sacred Flame", z = 1638, rl = 20, ql = 29, rr = 690, ps = {1195}, nc = 1197, maps = {
+    [1196] = { t = "The Sacred Flame", z = 1638, rl = 20, ql = 29, rr = 690, ps = {1195}, nc = 1197, si = {5868}, maps = {
       [1441] = {{46.14,51.71,nil,nil,6,nil,1,4722}},
     },
     turnins = {
@@ -11190,7 +11190,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{54.97,51.41,nil,nil,7,nil,1,4721}},
     },
     },
-    [1197] = { t = "The Sacred Flame", z = 1638, rl = 20, ql = 29, rr = 690, ps = {1196}, maps = {
+    [1197] = { t = "The Sacred Flame", z = 1638, rl = 20, ql = 29, rr = 690, ps = {1196}, si = {5868}, maps = {
       [1441] = {{42.01,31.47,nil,nil,4,"Cloven Hoof",3,5869,nil,nil,1}},
     },
     turnins = {
@@ -11293,7 +11293,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{55.44,26.27,nil,nil,7,nil,1,4792}},
     },
     },
-    [1219] = { t = "The Orc Report", z = 15, rl = 30, ql = 35, rr = 1101, nc = 1220, maps = {
+    [1219] = { t = "The Orc Report", z = 15, rl = 30, ql = 35, rr = 1101, nc = 1220, si = {5917}, maps = {
       [1445] = {{65.07,47.13,nil,nil,6,nil,1,23951}},
     },
     turnins = {
@@ -11303,7 +11303,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{55.44,25.92,nil,nil,7,nil,2,20985}},
     },
     },
-    [1220] = { t = "Captain Vimes", z = 15, rl = 30, ql = 35, rr = 1101, ps = {1219}, maps = {
+    [1220] = { t = "Captain Vimes", z = 15, rl = 30, ql = 35, rr = 1101, ps = {1219}, si = {5917}, maps = {
       [1445] = {{68.21,48.62,nil,nil,6,nil,1,4944}},
     },
     turnins = {
@@ -11313,7 +11313,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{65.07,47.13,nil,nil,7,nil,1,23951}},
     },
     },
-    [1221] = { t = "Blueleaf Tubers", z = 1717, rl = 20, ql = 26, dq = 1, dm = 301, maps = {
+    [1221] = { t = "Blueleaf Tubers", z = 1717, rl = 20, ql = 26, dq = 1, dm = 301, si = {6684}, maps = {
       [1413] = {{62.32,37.62,0.02,5,4,"Crate With Holes",3,5880,nil,nil,2,{62.31,37.63,62.32,37.61,62.33,37.61,62.33,37.64}}, {62.33,37.62,nil,nil,4,"Snufflenose Owner's Manual",3,5897,nil,nil,3}, {62.33,37.62,nil,nil,4,"Snufflenose Owner's Manual",3,5897,nil,nil,3}, {62.34,37.60,nil,nil,4,"Snufflenose Command Stick",3,6684,nil,nil,4}},
     },
     turnins = {
@@ -11333,7 +11333,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{46.88,17.52,nil,nil,7,nil,1,4880}},
     },
     },
-    [1238] = { t = "The Lost Report", z = 15, rl = 30, ql = 35, rr = 690, maps = {
+    [1238] = { t = "The Lost Report", z = 15, rl = 30, ql = 35, rr = 690, si = {5917}, maps = {
       [1445] = {{35.21,30.66,nil,nil,6,nil,1,4791}},
     },
     turnins = {
@@ -11343,7 +11343,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{55.44,25.92,nil,nil,7,nil,2,20985}},
     },
     },
-    [1239] = { t = "The Severed Head", z = 15, rl = 30, ql = 35, rr = 690, ps = {1238}, nc = 1240, maps = {
+    [1239] = { t = "The Severed Head", z = 15, rl = 30, ql = 35, rr = 690, ps = {1238}, nc = 1240, si = {5918}, maps = {
       [1445] = {{35.21,30.66,nil,nil,6,nil,1,4791}},
     },
     turnins = {
@@ -11353,7 +11353,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{55.44,25.92,nil,nil,7,nil,2,20985}},
     },
     },
-    [1240] = { t = "The Troll Witchdoctor", z = 15, rl = 30, ql = 35, rr = 690, ps = {1239}, maps = {
+    [1240] = { t = "The Troll Witchdoctor", z = 15, rl = 30, ql = 35, rr = 690, ps = {1239}, si = {5918}, maps = {
       [1434] = {{32.27,27.71,nil,nil,6,nil,1,2519}},
     },
     turnins = {
@@ -11363,7 +11363,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{35.21,30.66,nil,nil,7,nil,1,4791}},
     },
     },
-    [1241] = { t = "The Missing Diplomat", z = 1519, rl = 28, ql = 28, rr = 1101, ps = {1274}, nc = 1242, maps = {
+    [1241] = { t = "The Missing Diplomat", z = 1519, rl = 28, ql = 28, rr = 1101, ps = {1274}, nc = 1242, si = {5948}, maps = {
       [1453] = {{73.17,78.42,nil,nil,6,nil,1,4959}},
     },
     turnins = {
@@ -11373,7 +11373,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{78.28,25.38,nil,nil,7,nil,1,4960}},
     },
     },
-    [1242] = { t = "The Missing Diplomat", z = 1519, rl = 28, ql = 28, rr = 1101, ps = {1241}, nc = 1243, maps = {
+    [1242] = { t = "The Missing Diplomat", z = 1519, rl = 28, ql = 28, rr = 1101, ps = {1241}, nc = 1243, si = {5946}, maps = {
       [1453] = {{59.91,64.18,nil,nil,6,nil,1,482}},
     },
     turnins = {
@@ -11383,7 +11383,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{73.17,78.42,nil,nil,7,nil,1,4959}},
     },
     },
-    [1243] = { t = "The Missing Diplomat", z = 1519, rl = 28, ql = 28, rr = 1101, ps = {1242}, nc = 1244, maps = {
+    [1243] = { t = "The Missing Diplomat", z = 1519, rl = 28, ql = 28, rr = 1101, ps = {1242}, nc = 1244, si = {5960}, maps = {
       [1431] = {{74.83,44.22,nil,nil,6,nil,1,840}},
     },
     turnins = {
@@ -11403,7 +11403,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{74.83,44.22,nil,nil,7,nil,1,840}},
     },
     },
-    [1245] = { t = "The Missing Diplomat", z = 1519, rl = 28, ql = 30, rr = 1101, ps = {1244}, nc = 1246, maps = {
+    [1245] = { t = "The Missing Diplomat", z = 1519, rl = 28, ql = 30, rr = 1101, ps = {1244}, nc = 1246, si = {5947}, maps = {
       [1453] = {{59.91,64.18,nil,nil,6,nil,1,482}},
     },
     turnins = {
@@ -11463,7 +11463,7 @@ VanillaEnhancedQuestsDB = {
       [1437] = {{10.54,60.26,nil,nil,7,nil,1,4962}},
     },
     },
-    [1251] = { t = "The Black Shield", z = 15, rl = 30, ql = 35, rr = 690, nc = 1321, maps = {
+    [1251] = { t = "The Black Shield", z = 15, rl = 30, ql = 35, rr = 690, nc = 1321, si = {5919}, maps = {
       [1445] = {{36.42,31.88,nil,nil,6,nil,1,4926}},
     },
     turnins = {
@@ -11473,7 +11473,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{29.63,48.62,nil,nil,7,nil,2,20992}},
     },
     },
-    [1252] = { t = "Lieutenant Paval Reethe", z = 15, rl = 30, ql = 35, rr = 1101, ps = {11123}, nc = 1259, maps = {
+    [1252] = { t = "Lieutenant Paval Reethe", z = 15, rl = 30, ql = 35, rr = 1101, ps = {11123}, nc = 1259, si = {5950}, maps = {
       [1445] = {{68.21,48.62,nil,nil,6,nil,1,4944}},
     },
     turnins = {
@@ -11483,7 +11483,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{29.83,48.24,nil,nil,7,nil,2,21042}},
     },
     },
-    [1253] = { t = "The Black Shield", z = 15, rl = 30, ql = 35, rr = 1101, ps = {11123}, nc = 1319, maps = {
+    [1253] = { t = "The Black Shield", z = 15, rl = 30, ql = 35, rr = 1101, ps = {11123}, nc = 1319, si = {5919}, maps = {
       [1445] = {{68.21,48.62,nil,nil,6,nil,1,4944}},
     },
     turnins = {
@@ -11533,7 +11533,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{32.22,27.60,nil,nil,7,nil,2,2076}},
     },
     },
-    [1262] = { t = "Report to Zor", z = 15, rl = 30, ql = 40, rr = 690, ps = {1261}, maps = {
+    [1262] = { t = "Report to Zor", z = 15, rl = 30, ql = 40, rr = 690, ps = {1261}, si = {5942}, maps = {
       [1454] = {{38.93,38.40,nil,nil,6,nil,1,4047}},
     },
     turnins = {
@@ -11593,7 +11593,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{29.70,47.64,nil,nil,7,nil,2,187273}},
     },
     },
-    [1269] = { t = "Lieutenant Paval Reethe", z = 15, rl = 30, ql = 37, rr = 690, maps = {
+    [1269] = { t = "Lieutenant Paval Reethe", z = 15, rl = 30, ql = 37, rr = 690, si = {5950}, maps = {
       [1445] = {{36.42,31.88,nil,nil,6,nil,1,4926}},
     },
     turnins = {
@@ -11654,7 +11654,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{38.33,43.04,nil,nil,7,nil,1,8997}},
     },
     },
-    [1276] = { t = "The Black Shield", z = 15, rl = 30, ql = 37, rr = 690, ps = {1273}, maps = {
+    [1276] = { t = "The Black Shield", z = 15, rl = 30, ql = 37, rr = 690, ps = {1273}, si = {5919}, maps = {
       [1456] = {{54.01,80.77,nil,nil,6,nil,1,4943}},
     },
     turnins = {
@@ -11734,7 +11734,7 @@ VanillaEnhancedQuestsDB = {
       [1437] = {{8.40,61.80,nil,nil,7,nil,1,5082}},
     },
     },
-    [1319] = { t = "The Black Shield", z = 15, rl = 30, ql = 35, rr = 1101, ps = {1253}, nc = 1320, maps = {
+    [1319] = { t = "The Black Shield", z = 15, rl = 30, ql = 35, rr = 1101, ps = {1253}, nc = 1320, si = {5919}, maps = {
       [1445] = {{64.75,50.43,nil,nil,6,nil,1,4941}},
     },
     turnins = {
@@ -11754,7 +11754,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{64.75,50.43,nil,nil,7,nil,1,4941}},
     },
     },
-    [1321] = { t = "The Black Shield", z = 15, rl = 30, ql = 35, rr = 690, ps = {1251}, nc = 1322, maps = {
+    [1321] = { t = "The Black Shield", z = 15, rl = 30, ql = 35, rr = 690, ps = {1251}, nc = 1322, si = {5919}, maps = {
       [1445] = {{36.53,30.79,nil,nil,6,nil,1,5087}},
     },
     turnins = {
@@ -11794,7 +11794,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{45.24,24.65,nil,nil,7,nil,1,4966}},
     },
     },
-    [1338] = { t = "Stormpike's Order", z = 38, rl = 9, ql = 14, rr = 1101, bc = {1339}, maps = {
+    [1338] = { t = "Stormpike's Order", z = 38, rl = 9, ql = 14, rr = 1101, bc = {1339}, si = {5998}, maps = {
       [1453] = {{58.09,16.54,nil,nil,6,nil,1,5413}},
     },
     turnins = {
@@ -11814,7 +11814,7 @@ VanillaEnhancedQuestsDB = {
       [1432] = {{32.63,49.74,nil,nil,7,nil,1,1340}},
     },
     },
-    [1358] = { t = "Sample for Helbrim", z = 1497, rl = 10, ql = 15, rr = 690, ps = {1359}, maps = {
+    [1358] = { t = "Sample for Helbrim", z = 1497, rl = 10, ql = 15, rr = 690, ps = {1359}, si = {6016}, maps = {
       [1413] = {{51.44,30.15,nil,nil,6,nil,1,3390}},
     },
     turnins = {
@@ -11824,7 +11824,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{50.14,67.97,nil,nil,7,nil,1,5204}},
     },
     },
-    [1359] = { t = "Zinge's Delivery", z = 1497, rl = 10, ql = 15, rr = 690, ps = {3221}, nc = 1358, maps = {
+    [1359] = { t = "Zinge's Delivery", z = 1497, rl = 10, ql = 15, rr = 690, ps = {3221}, nc = 1358, si = {10283}, maps = {
       [1458] = {{50.14,67.97,nil,nil,6,nil,1,5204}},
     },
     turnins = {
@@ -11995,7 +11995,7 @@ VanillaEnhancedQuestsDB = {
       [1443] = {{74.97,68.16,nil,nil,7,nil,1,5398}},
     },
     },
-    [1380] = { t = "Khan Hratha", z = 405, rl = 30, ql = 42, rmin = {92,3000}, ps = {1374}, maps = {
+    [1380] = { t = "Khan Hratha", z = 405, rl = 30, ql = 42, rmin = {92,3000}, ps = {1374}, si = {6074}, maps = {
       [1443] = {{29.55,52.00,nil,nil,2,"Maraudine Key Fragment",3,6077,{5402},{5402,100},1}, {31.04,63.39,5.63,15,2,"War Horn Mouthpiece",3,6074,{4654,4655,4657,4659},{4654,8,4655,8,4657,8,4659,8},nil,{28.77,60.84,29.51,60.62,35.81,61.25,32.98,65.87,30.02,68.93}}, {32.06,55.76,9.51,46,2,"War Horn Mouthpiece",3,6074,{4654,4655,4656,4657,4658,4659,6069,6070},{4654,8,4655,8,4656,8,4657,8,4658,8,4659,8,6069,8,6070,8},nil,{28.88,58.04,29.07,50.68,29.30,50.56,30.53,50.62,31.42,51.16,35.33,53.57,39.71,61.41,35.28,61.41,31.65,60.16}}},
     },
     turnins = {
@@ -12005,7 +12005,7 @@ VanillaEnhancedQuestsDB = {
       [1443] = {{36.22,79.25,nil,nil,7,nil,1,5397}},
     },
     },
-    [1381] = { t = "Khan Hratha", z = 405, rl = 30, ql = 42, rmin = {93,3000}, ps = {1375}, maps = {
+    [1381] = { t = "Khan Hratha", z = 405, rl = 30, ql = 42, rmin = {93,3000}, ps = {1375}, si = {6074}, maps = {
       [1443] = {{29.55,52.00,nil,nil,2,"Maraudine Key Fragment",3,6077,{5402},{5402,100},1}, {31.04,63.39,5.63,15,2,"War Horn Mouthpiece",3,6074,{4654,4655,4657,4659},{4654,8,4655,8,4657,8,4659,8},nil,{28.77,60.84,29.51,60.62,35.81,61.25,32.98,65.87,30.02,68.93}}, {32.06,55.76,9.51,46,2,"War Horn Mouthpiece",3,6074,{4654,4655,4656,4657,4658,4659,6069,6070},{4654,8,4655,8,4656,8,4657,8,4658,8,4659,8,6069,8,6070,8},nil,{28.88,58.04,29.07,50.68,29.30,50.56,30.53,50.62,31.42,51.16,35.33,53.57,39.71,61.41,35.28,61.41,31.65,60.16}}},
     },
     turnins = {
@@ -12075,7 +12075,7 @@ VanillaEnhancedQuestsDB = {
       [1443] = {{66.74,10.87,nil,nil,7,nil,1,5752}},
     },
     },
-    [1388] = { t = "Nothing But The Truth", z = 10, rl = 37, ql = 42, rr = 690, ps = {1383}, nc = 1391, maps = {
+    [1388] = { t = "Nothing But The Truth", z = 10, rl = 37, ql = 42, rr = 690, ps = {1383}, nc = 1391, si = {6086}, maps = {
       [1431] = {{87.81,35.63,nil,nil,6,nil,1,5418}},
     },
     turnins = {
@@ -12095,7 +12095,7 @@ VanillaEnhancedQuestsDB = {
       [1435] = {{25.98,31.40,nil,nil,7,nil,1,1776}},
     },
     },
-    [1391] = { t = "Nothing But The Truth", z = 10, rl = 37, ql = 42, rr = 690, ps = {1388}, maps = {
+    [1391] = { t = "Nothing But The Truth", z = 10, rl = 37, ql = 42, rr = 690, ps = {1388}, si = {6089}, maps = {
       [1435] = {{44.29,52.43,nil,nil,6,nil,1,5416}},
     },
     turnins = {
@@ -12105,7 +12105,7 @@ VanillaEnhancedQuestsDB = {
       [1431] = {{87.81,35.63,nil,nil,7,nil,1,5418}},
     },
     },
-    [1392] = { t = "Noboru the Cudgel", z = 8, rl = 29, ql = 39, maps = {
+    [1392] = { t = "Noboru the Cudgel", z = 8, rl = 29, ql = 39, si = {6196}, maps = {
       [1435] = {{25.98,31.40,nil,nil,6,nil,1,1776}},
     },
     turnins = {
@@ -12132,7 +12132,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{57.80,65.42,nil,nil,7,nil,1,4488}},
     },
     },
-    [1395] = { t = "Supplies for Nethergarde", z = 10, rl = 40, ql = 45, rr = 1101, bc = {1477}, maps = {
+    [1395] = { t = "Supplies for Nethergarde", z = 10, rl = 40, ql = 45, rr = 1101, bc = {1477}, si = {6091}, maps = {
       [1419] = {{66.52,21.39,nil,nil,6,nil,1,5393}},
     },
     turnins = {
@@ -12182,7 +12182,7 @@ VanillaEnhancedQuestsDB = {
       [1418] = {{6.49,47.20,nil,nil,7,nil,1,5394}},
     },
     },
-    [1420] = { t = "Report to Helgrum", z = 3, rl = 30, ql = 40, rr = 690, bc = {1418}, maps = {
+    [1420] = { t = "Report to Helgrum", z = 3, rl = 30, ql = 40, rr = 690, bc = {1418}, si = {6167}, maps = {
       [1435] = {{47.74,55.20,nil,nil,6,nil,1,1442}},
     },
     turnins = {
@@ -12212,7 +12212,7 @@ VanillaEnhancedQuestsDB = {
       [1435] = {{81.32,80.97,nil,nil,7,nil,1,5592}},
     },
     },
-    [1423] = { t = "The Lost Supplies", z = 8, rl = 30, ql = 40, rr = 1101, sf = 1, maps = {
+    [1423] = { t = "The Lost Supplies", z = 8, rl = 30, ql = 40, rr = 1101, sf = 1, si = {6172}, maps = {
       [1419] = {{66.52,21.39,nil,nil,6,nil,1,5393}},
     },
     turnins = {
@@ -12229,7 +12229,7 @@ VanillaEnhancedQuestsDB = {
       [1435] = {{47.93,54.78,nil,nil,7,nil,1,1443}},
     },
     },
-    [1425] = { t = "Deliver the Shipment", z = 8, rl = 30, ql = 42, rr = 1101, ps = {1398}, maps = {
+    [1425] = { t = "Deliver the Shipment", z = 8, rl = 30, ql = 42, rr = 1101, ps = {1398}, si = {6178}, maps = {
       [1419] = {{66.52,21.39,nil,nil,6,nil,1,5393}},
     },
     turnins = {
@@ -12269,7 +12269,7 @@ VanillaEnhancedQuestsDB = {
       [1435] = {{83.76,80.41,nil,nil,7,nil,1,5593}},
     },
     },
-    [1429] = { t = "The Atal'ai Exile", z = 8, rl = 38, ql = 44, rr = 690, ps = {1424}, nc = 1444, maps = {
+    [1429] = { t = "The Atal'ai Exile", z = 8, rl = 38, ql = 44, rr = 690, ps = {1424}, nc = 1444, si = {6193}, maps = {
       [1425] = {{33.75,75.21,nil,nil,6,nil,1,5598}},
     },
     turnins = {
@@ -12329,7 +12329,7 @@ VanillaEnhancedQuestsDB = {
       [1443] = {{52.57,54.39,nil,nil,7,nil,1,5641}},
     },
     },
-    [1435] = { t = "The Burning of Spirits", z = 1637, rl = 25, ql = 33, rr = 690, ps = {1433}, maps = {
+    [1435] = { t = "The Burning of Spirits", z = 1637, rl = 25, ql = 33, rr = 690, ps = {1433}, si = {6436}, maps = {
       [1443] = {{54.92,27.63,6.38,80,2,"Infused Burning Gem",3,6435,{4663,4664,4665,4666,4667,13019},nil,1,{52.08,28.86,52.29,28.22,55.35,21.32,56.46,21.43,57.28,22.43,57.70,26.30,57.49,28.69,56.14,31.45,54.44,33.21,52.36,32.50}}, {52.16,76.95,5.95,6,2,"Infused Burning Gem",3,6435,{4668},nil,1,{49.59,77.24,50.29,72.34,54.92,71.68,53.14,80.22,51.50,81.89}}, {80.76,78.44,3.12,13,2,"Infused Burning Gem",3,6435,{4668,4705},nil,1,{79.47,81.28,79.61,78.81,80.30,76.98,80.68,76.34,80.81,76.31,81.03,76.63,82.47,80.99}}},
     },
     turnins = {
@@ -12521,7 +12521,7 @@ VanillaEnhancedQuestsDB = {
       [1443] = {{36.11,30.45,nil,nil,7,nil,2,35251}},
     },
     },
-    [1456] = { t = "The Karnitol Shipwreck", z = 405, rl = 30, ql = 39, rr = 1101, ps = {1455}, nc = 1457, maps = {
+    [1456] = { t = "The Karnitol Shipwreck", z = 405, rl = 30, ql = 39, rr = 1101, ps = {1455}, nc = 1457, si = {34130}, maps = {
       [1443] = {{30.56,10.94,7.31,20,2,"Karnitol's Satchel",3,6245,{4716,4719},{4716,40,4719,40},1,{27.66,12.58,27.73,9.09,29.99,7.80,34.36,8.07,34.53,9.92,34.97,16.77,30.54,16.40,29.94,15.94}}},
     },
     turnins = {
@@ -12531,7 +12531,7 @@ VanillaEnhancedQuestsDB = {
       [1443] = {{66.20,9.63,nil,nil,7,nil,1,5638}},
     },
     },
-    [1457] = { t = "The Karnitol Shipwreck", z = 405, rl = 30, ql = 39, rr = 1101, ps = {1456}, maps = {
+    [1457] = { t = "The Karnitol Shipwreck", z = 405, rl = 30, ql = 39, rr = 1101, ps = {1456}, si = {6245}, maps = {
       [1455] = {{69.95,21.26,nil,nil,6,nil,1,5637}},
     },
     turnins = {
@@ -12591,7 +12591,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{38.55,58.96,nil,nil,7,nil,1,5900}},
     },
     },
-    [1465] = { t = "Vahlarriel's Search", z = 405, rl = 30, ql = 33, rr = 1101, ps = {1437}, nc = 1438, maps = {
+    [1465] = { t = "Vahlarriel's Search", z = 405, rl = 30, ql = 33, rr = 1101, ps = {1437}, nc = 1438, si = {6479}, maps = {
       [1443] = {{66.44,11.82,nil,nil,6,nil,1,5642}},
     },
     turnins = {
@@ -12611,7 +12611,7 @@ VanillaEnhancedQuestsDB = {
       [1443] = {{66.20,9.63,nil,nil,7,nil,1,5638}},
     },
     },
-    [1467] = { t = "Reagents for Reclaimers Inc.", z = 405, rl = 30, ql = 40, rr = 1101, ps = {1466}, maps = {
+    [1467] = { t = "Reagents for Reclaimers Inc.", z = 405, rl = 30, ql = 40, rr = 1101, ps = {1466}, si = {6253}, maps = {
       [1455] = {{69.95,21.26,nil,nil,6,nil,1,5637}},
     },
     turnins = {
@@ -12621,7 +12621,7 @@ VanillaEnhancedQuestsDB = {
       [1443] = {{66.20,9.63,nil,nil,7,nil,1,5638}},
     },
     },
-    [1469] = { t = "Rhapsody's Tale", z = 47, rl = 38, ql = 43, rr = 1101, ps = {1452}, nc = 1475, maps = {
+    [1469] = { t = "Rhapsody's Tale", z = 47, rl = 38, ql = 43, rr = 1101, ps = {1452}, nc = 1475, si = {6287}, maps = {
       [1453] = {{64.33,20.63,nil,nil,6,nil,1,5384}},
     },
     turnins = {
@@ -12641,7 +12641,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{30.98,66.41,nil,nil,7,nil,1,5667}},
     },
     },
-    [1471] = { t = "The Binding", z = -61, rl = 10, ql = -1, rr = 16, rc = 256, ps = {1473}, maps = {
+    [1471] = { t = "The Binding", z = -61, rl = 10, ql = -1, rr = 16, rc = 256, ps = {1473}, si = {6284}, maps = {
       [1453] = {{25.16,77.49,nil,nil,1,"Summoned Voidwalker",1,5676,nil,nil,1}},
       [1454] = {{49.66,50.14,nil,nil,1,"Summoned Voidwalker",1,5676,nil,nil,1}},
       [1458] = {{86.51,26.94,nil,nil,1,"Summoned Voidwalker",1,5676,nil,nil,1}},
@@ -12674,7 +12674,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{85.06,25.99,nil,nil,7,nil,1,5675}},
     },
     },
-    [1474] = { t = "The Binding", z = -61, rl = 20, ql = -1, rr = 690, rc = 256, ps = {1476}, ex = {1507}, maps = {
+    [1474] = { t = "The Binding", z = -61, rl = 20, ql = -1, rr = 690, rc = 256, ps = {1476}, ex = {1507}, si = {6286}, maps = {
       [1458] = {{85.06,25.99,nil,nil,6,nil,1,5675}},
     },
     turnins = {
@@ -12726,7 +12726,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{61.62,52.68,nil,nil,7,nil,1,5724}},
     },
     },
-    [1480] = { t = "The Corrupter", z = 405, rl = 25, ql = 33, rr = 690, nc = 1481, maps = {
+    [1480] = { t = "The Corrupter", z = 405, rl = 25, ql = 33, rr = 690, nc = 1481, si = {20310}, maps = {
       [1443] = {{52.25,53.44,nil,nil,6,nil,1,4498}},
     },
     turnins = {
@@ -12843,7 +12843,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{62.37,37.62,nil,nil,7,nil,1,3446}},
     },
     },
-    [1492] = { t = "Wharfmaster Dizzywig", z = 17, rl = 9, ql = 11, rr = 690, maps = {
+    [1492] = { t = "Wharfmaster Dizzywig", z = 17, rl = 9, ql = 11, rr = 690, si = {6462}, maps = {
       [1413] = {{63.35,38.45,nil,nil,6,nil,1,3453}},
     },
     turnins = {
@@ -12903,7 +12903,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{57.23,30.34,nil,nil,7,nil,1,5878}},
     },
     },
-    [1504] = { t = "The Binding", z = -61, rl = 10, ql = -1, rr = 2, rc = 256, ps = {1501}, maps = {
+    [1504] = { t = "The Binding", z = -61, rl = 10, ql = -1, rr = 2, rc = 256, ps = {1501}, si = {7464}, maps = {
       [1453] = {{25.16,77.49,nil,nil,1,"Summoned Voidwalker",1,5676,nil,nil,1}},
       [1454] = {{49.66,50.14,nil,nil,1,"Summoned Voidwalker",1,5676,nil,nil,1}},
       [1458] = {{86.51,26.94,nil,nil,1,"Summoned Voidwalker",1,5676,nil,nil,1}},
@@ -12979,7 +12979,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{51.93,30.32,nil,nil,7,nil,1,3464}},
     },
     },
-    [1511] = { t = "Ken'zigla's Draught", z = -61, rl = 20, ql = -1, rr = 690, rc = 256, ps = {1510}, ex = {1472}, nc = 1515, maps = {
+    [1511] = { t = "Ken'zigla's Draught", z = -61, rl = 20, ql = -1, rr = 690, rc = 256, ps = {1510}, ex = {1472}, nc = 1515, si = {6624}, maps = {
       [1413] = {{44.62,59.27,nil,nil,6,nil,1,5911}},
     },
     turnins = {
@@ -12989,7 +12989,7 @@ VanillaEnhancedQuestsDB = {
       [1442] = {{73.25,95.13,nil,nil,7,nil,1,4197}},
     },
     },
-    [1512] = { t = "Love's Gift", z = -61, rl = 20, ql = -1, rr = 690, rc = 256, ps = {1515}, ex = {1472}, nc = 1513, maps = {
+    [1512] = { t = "Love's Gift", z = -61, rl = 20, ql = -1, rr = 690, rc = 256, ps = {1515}, ex = {1472}, nc = 1513, si = {6625}, maps = {
       [1454] = {{48.25,45.28,nil,nil,6,nil,1,5875}},
     },
     turnins = {
@@ -12999,7 +12999,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{43.30,47.89,nil,nil,7,nil,1,5908}},
     },
     },
-    [1513] = { t = "The Binding", z = -61, rl = 20, ql = -1, rr = 690, rc = 256, ps = {1512}, ex = {1472}, maps = {
+    [1513] = { t = "The Binding", z = -61, rl = 20, ql = -1, rr = 690, rc = 256, ps = {1512}, ex = {1472}, si = {6626}, maps = {
       [1454] = {{48.25,45.28,nil,nil,6,nil,1,5875}},
     },
     turnins = {
@@ -13009,7 +13009,7 @@ VanillaEnhancedQuestsDB = {
       [1454] = {{48.25,45.28,nil,nil,7,nil,1,5875}},
     },
     },
-    [1515] = { t = "Dogran's Captivity", z = -61, rl = 20, ql = -1, rr = 690, rc = 256, ps = {1511}, ex = {1472}, nc = 1512, maps = {
+    [1515] = { t = "Dogran's Captivity", z = -61, rl = 20, ql = -1, rr = 690, rc = 256, ps = {1511}, ex = {1472}, nc = 1512, si = {6624}, maps = {
       [1413] = {{43.30,47.89,nil,nil,6,nil,1,5908}},
     },
     turnins = {
@@ -13029,7 +13029,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{42.40,69.17,nil,nil,7,nil,1,5887}},
     },
     },
-    [1517] = { t = "Call of Earth", z = -82, rl = 4, ql = 4, rr = 690, rc = 64, ps = {1516,1519}, nc = 1518, maps = {
+    [1517] = { t = "Call of Earth", z = -82, rl = 4, ql = 4, rr = 690, rc = 64, ps = {1516,1519}, nc = 1518, si = {6635}, maps = {
       [1411] = {{44.03,76.20,nil,nil,6,nil,1,5891}},
       [1412] = {{53.89,80.54,nil,nil,6,nil,1,5891}},
     },
@@ -13041,7 +13041,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{42.40,69.17,nil,nil,7,nil,1,5887}},
     },
     },
-    [1518] = { t = "Call of Earth", z = -82, rl = 4, ql = 4, rr = 690, rc = 64, ps = {1517}, maps = {
+    [1518] = { t = "Call of Earth", z = -82, rl = 4, ql = 4, rr = 690, rc = 64, ps = {1517}, si = {6656,6635}, maps = {
       [1411] = {{42.40,69.17,nil,nil,6,nil,1,5887}},
     },
     turnins = {
@@ -13062,7 +13062,7 @@ VanillaEnhancedQuestsDB = {
       [1412] = {{44.73,76.19,nil,nil,7,nil,1,5888}},
     },
     },
-    [1520] = { t = "Call of Earth", z = -82, rl = 4, ql = 4, rr = 690, rc = 64, ps = {1516,1519}, nc = 1521, maps = {
+    [1520] = { t = "Call of Earth", z = -82, rl = 4, ql = 4, rr = 690, rc = 64, ps = {1516,1519}, nc = 1521, si = {6635}, maps = {
       [1411] = {{44.03,76.20,nil,nil,6,nil,1,5891}},
       [1412] = {{53.89,80.54,nil,nil,6,nil,1,5891}},
     },
@@ -13074,7 +13074,7 @@ VanillaEnhancedQuestsDB = {
       [1412] = {{44.73,76.19,nil,nil,7,nil,1,5888}},
     },
     },
-    [1521] = { t = "Call of Earth", z = -82, rl = 4, ql = 4, rr = 690, rc = 64, ps = {1520}, maps = {
+    [1521] = { t = "Call of Earth", z = -82, rl = 4, ql = 4, rr = 690, rc = 64, ps = {1520}, si = {6656,6635}, maps = {
       [1412] = {{44.73,76.19,nil,nil,6,nil,1,5888}},
     },
     turnins = {
@@ -13105,7 +13105,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{25.16,20.51,nil,nil,7,nil,1,5906}},
     },
     },
-    [1524] = { t = "Call of Fire", z = -82, rl = 10, ql = -1, rr = 690, rc = 64, nc = 1525, bc = {1522,1523,2983,2984}, maps = {
+    [1524] = { t = "Call of Fire", z = -82, rl = 10, ql = -1, rr = 690, rc = 64, nc = 1525, bc = {1522,1523,2983,2984}, si = {6653}, maps = {
       [1411] = {{38.55,58.96,nil,nil,6,nil,1,5900}},
     },
     turnins = {
@@ -13126,7 +13126,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{38.55,58.96,nil,nil,7,nil,1,5900}},
     },
     },
-    [1526] = { t = "Call of Fire", z = -82, rl = 10, ql = -1, rr = 690, rc = 64, ps = {1525}, nc = 1527, maps = {
+    [1526] = { t = "Call of Fire", z = -82, rl = 10, ql = -1, rr = 690, rc = 64, ps = {1525}, nc = 1527, si = {6653,6636}, maps = {
       [1411] = {{38.72,58.29,nil,nil,2,"Glowing Ember",3,6655,{5893},{5893,100},1}},
     },
     turnins = {
@@ -13136,7 +13136,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{38.55,58.96,nil,nil,7,nil,1,5900}},
     },
     },
-    [1527] = { t = "Call of Fire", z = -82, rl = 10, ql = -1, rr = 690, rc = 64, ps = {1526}, maps = {
+    [1527] = { t = "Call of Fire", z = -82, rl = 10, ql = -1, rr = 690, rc = 64, ps = {1526}, si = {6654}, maps = {
       [1413] = {{56.03,19.89,nil,nil,6,nil,1,5907}},
     },
     turnins = {
@@ -13196,7 +13196,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{25.16,20.51,nil,nil,7,nil,1,5906}},
     },
     },
-    [1534] = { t = "Call of Water", z = -82, rl = 20, ql = -1, rr = 690, rc = 64, ps = {1536}, nc = 220, maps = {
+    [1534] = { t = "Call of Water", z = -82, rl = 20, ql = -1, rr = 690, rc = 64, ps = {1536}, nc = 220, si = {7767}, maps = {
       [1440] = {{33.55,67.47,nil,nil,4,"Filled Blue Waterskin",3,7770,nil,nil,1}},
     },
     turnins = {
@@ -13206,7 +13206,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{43.42,77.41,nil,nil,7,nil,1,5899}},
     },
     },
-    [1535] = { t = "Call of Water", z = -82, rl = 20, ql = -1, rr = 690, rc = 64, ps = {1530}, nc = 1536, maps = {
+    [1535] = { t = "Call of Water", z = -82, rl = 20, ql = -1, rr = 690, rc = 64, ps = {1530}, nc = 1536, si = {7766}, maps = {
       [1413] = {{44.28,76.75,nil,nil,4,"Filled Brown Waterskin",3,7769,nil,nil,1}},
     },
     turnins = {
@@ -13216,7 +13216,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{43.42,77.41,nil,nil,7,nil,1,5899}},
     },
     },
-    [1536] = { t = "Call of Water", z = -82, rl = 20, ql = -1, rr = 690, rc = 64, ps = {1535}, nc = 1534, maps = {
+    [1536] = { t = "Call of Water", z = -82, rl = 20, ql = -1, rr = 690, rc = 64, ps = {1535}, nc = 1534, si = {7768}, maps = {
       [1424] = {{62.18,20.79,nil,nil,4,"Filled Red Waterskin",3,7771,nil,nil,1}},
     },
     turnins = {
@@ -13508,7 +13508,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{39.81,29.79,nil,nil,7,nil,1,6171}},
     },
     },
-    [1654] = { t = "The Test of Righteousness", z = -141, rl = 20, ql = 22, rr = 1101, rc = 2, ps = {1653}, nc = 1806, maps = {
+    [1654] = { t = "The Test of Righteousness", z = -141, rl = 20, ql = 22, rr = 1101, rc = 2, ps = {1653}, nc = 1806, si = {6996}, maps = {
       [1432] = {{35.95,44.91,nil,nil,2,"Jordan's Refined Ore Shipment",3,6993,{6241},nil,2}},
       [1439] = {{37.40,40.13,nil,nil,2,"Purified Kor Gem",3,7083,{3649},nil,4}},
     },
@@ -13529,7 +13529,7 @@ VanillaEnhancedQuestsDB = {
       [1432] = {{35.95,44.91,nil,nil,7,nil,1,6241}},
     },
     },
-    [1656] = { t = "A Task Unfinished", z = 220, rl = 5, ql = 5, rr = 690, maps = {
+    [1656] = { t = "A Task Unfinished", z = 220, rl = 5, ql = 5, rr = 690, si = {7626}, maps = {
       [1412] = {{46.62,61.09,nil,nil,6,nil,1,6747}},
     },
     turnins = {
@@ -13549,7 +13549,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{39.81,29.79,nil,nil,7,nil,1,6171}},
     },
     },
-    [1665] = { t = "Bartleby's Mug", z = -81, rl = 10, ql = -1, rr = 1101, rc = 1, ps = {1640}, nc = 1666, maps = {
+    [1665] = { t = "Bartleby's Mug", z = -81, rl = 10, ql = -1, rr = 1101, rc = 1, ps = {1640}, nc = 1666, si = {6781}, maps = {
       [1453] = {{74.26,37.25,nil,nil,6,nil,1,6089}},
     },
     turnins = {
@@ -13569,7 +13569,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{74.26,37.25,nil,nil,7,nil,1,6089}},
     },
     },
-    [1667] = { t = "Dead-tooth Jack", z = -81, rl = 10, ql = 10, rr = 1101, rc = 1, ps = {1666}, maps = {
+    [1667] = { t = "Dead-tooth Jack", z = -81, rl = 10, ql = 10, rr = 1101, rc = 1, ps = {1666}, si = {6783}, maps = {
       [1429] = {{89.33,78.88,nil,nil,4,"Marshal Haggard's Badge",3,6782,nil,nil,1}, {89.36,79.03,nil,nil,2,"Dead-tooth's Key",3,6783,{6093},{6093,100}}},
     },
     turnins = {
@@ -13680,7 +13680,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{25.25,78.56,nil,nil,7,nil,1,6122}},
     },
     },
-    [1689] = { t = "The Binding", z = -61, rl = 10, ql = -1, rr = 1101, rc = 256, ps = {1688}, maps = {
+    [1689] = { t = "The Binding", z = -61, rl = 10, ql = -1, rr = 1101, rc = 256, ps = {1688}, si = {6928}, maps = {
       [1453] = {{25.16,77.49,nil,nil,1,"Summoned Voidwalker",1,5676,nil,nil,1}},
       [1454] = {{49.66,50.14,nil,nil,1,"Summoned Voidwalker",1,5676,nil,nil,1}},
       [1458] = {{86.51,26.94,nil,nil,1,"Summoned Voidwalker",1,5676,nil,nil,1}},
@@ -13713,7 +13713,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{52.46,28.51,nil,nil,7,nil,1,7407}},
     },
     },
-    [1692] = { t = "Smith Mathiel", z = -81, rl = 10, ql = 10, rr = 1101, rc = 1, ps = {1686}, nc = 1693, maps = {
+    [1692] = { t = "Smith Mathiel", z = -81, rl = 10, ql = 10, rr = 1101, rc = 1, ps = {1686}, nc = 1693, si = {6812}, maps = {
       [1457] = {{59.51,45.38,nil,nil,6,nil,1,6142}},
     },
     turnins = {
@@ -13755,7 +13755,7 @@ VanillaEnhancedQuestsDB = {
       [1433] = {{26.58,44.72,nil,nil,7,nil,1,6166}},
     },
     },
-    [1700] = { t = "Grimand Elmore", z = -81, rl = 20, ql = 28, rr = 1, rc = 1, ps = {1782}, nc = 1705, bf = 1705, maps = {
+    [1700] = { t = "Grimand Elmore", z = -81, rl = 20, ql = 28, rr = 1, rc = 1, ps = {1782}, nc = 1705, bf = 1705, si = {6926}, maps = {
       [1453] = {{51.76,12.08,nil,nil,6,nil,1,1416}},
     },
     turnins = {
@@ -13765,7 +13765,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{58.09,16.54,nil,nil,7,nil,1,5413}},
     },
     },
-    [1701] = { t = "Fire Hardened Mail", z = -81, rl = 20, ql = 28, rr = 1101, rc = 1, ps = {1702}, nc = 1782, maps = {
+    [1701] = { t = "Fire Hardened Mail", z = -81, rl = 20, ql = 28, rr = 1101, rc = 1, ps = {1702}, nc = 1782, si = {6842}, maps = {
       [1437] = {{48.26,61.14,3.19,29,2,"Scorched Spider Fang",3,6838,{1111,4040},{1111,100,4040,100},1,{45.68,61.24,46.20,59.39,46.90,59.27,50.03,58.81,50.35,59.24,51.44,60.98,50.78,62.06,49.82,63.06,46.68,63.83}}, {54.50,63.88,4.37,23,2,"Scorched Spider Fang",3,6838,{1111},{1111,100},1,{50.36,62.90,51.15,61.84,56.18,60.94,56.69,61.69,56.98,62.81,57.27,65.34,57.32,66.53,56.13,67.94,53.01,65.36}}},
       [1442] = {{32.84,69.44,5.52,5,2,"Charred Horn",3,6839,{4031,4032},{4031,80,4032,80},2,{28.98,65.50,36.27,65.48,34.69,70.90,32.84,72.68,31.44,72.62}}, {33.64,74.66,nil,nil,2,"Galvanized Horn",3,6840,{6167},{6167,80},3}},
     },
@@ -13776,7 +13776,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{58.09,16.54,nil,nil,7,nil,1,5413}},
     },
     },
-    [1702] = { t = "The Shieldsmith", z = -81, rl = 20, ql = 22, rr = 1101, rc = 1, ps = {1699}, nc = 1701, maps = {
+    [1702] = { t = "The Shieldsmith", z = -81, rl = 20, ql = 22, rr = 1101, rc = 1, ps = {1699}, nc = 1701, si = {6843}, maps = {
       [1453] = {{58.09,16.54,nil,nil,6,nil,1,5413}},
     },
     turnins = {
@@ -13786,7 +13786,7 @@ VanillaEnhancedQuestsDB = {
       [1433] = {{26.58,44.72,nil,nil,7,nil,1,6166}},
     },
     },
-    [1703] = { t = "Mathiel", z = -81, rl = 20, ql = 28, rr = 8, rc = 1, ps = {1782}, nc = 1710, bf = 1710, maps = {
+    [1703] = { t = "Mathiel", z = -81, rl = 20, ql = 28, rr = 8, rc = 1, ps = {1782}, nc = 1710, bf = 1710, si = {6926}, maps = {
       [1457] = {{59.51,45.38,nil,nil,6,nil,1,6142}},
     },
     turnins = {
@@ -13796,7 +13796,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{58.09,16.54,nil,nil,7,nil,1,5413}},
     },
     },
-    [1704] = { t = "Klockmort Spannerspan", z = -81, rl = 20, ql = 28, rr = 68, rc = 1, ps = {1782}, nc = 1708, bf = 1708, maps = {
+    [1704] = { t = "Klockmort Spannerspan", z = -81, rl = 20, ql = 28, rr = 68, rc = 1, ps = {1782}, nc = 1708, bf = 1708, si = {6926}, maps = {
       [1455] = {{67.92,46.10,nil,nil,6,nil,1,6169}},
     },
     turnins = {
@@ -13876,7 +13876,7 @@ VanillaEnhancedQuestsDB = {
       [1457] = {{59.51,45.38,nil,nil,7,nil,1,6142}},
     },
     },
-    [1712] = { t = "Cyclonian", z = -81, rl = 30, ql = 40, rc = 1, ps = {1791}, nc = 1713, maps = {
+    [1712] = { t = "Cyclonian", z = -81, rl = 30, ql = 40, rc = 1, ps = {1791}, nc = 1713, si = {6929,4480,4479,4481}, maps = {
       [1413] = {{54.72,5.69,0.16,7,2,"Liferoot",3,16882,{7307,7308,7310},nil,1,{54.64,5.77,54.66,5.68,54.75,5.53,54.81,5.59,54.78,5.82}}},
       [1415] = {{46.82,67.70,nil,nil,2,"Liferoot",3,5758,{9026},nil,1}},
       [1416] = {{77.95,61.61,5.73,6,4,"Liferoot",3,3357,nil,nil,1,{73.96,65.15,78.87,59.11,81.56,57.16,79.85,61.46,77.21,64.40}}, {36.95,22.62,3.56,5,4,"Liferoot",3,3357,nil,nil,1,{35.98,24.76,37.08,20.59,37.40,20.27,38.01,21.38,36.30,26.12}}, {34.11,10.13,5.73,11,4,"Liferoot",3,3357,nil,nil,1,{30.98,7.13,31.80,7.26,33.65,7.88,37.19,13.08,37.19,14.97,31.98,8.53}}, {32.34,31.51,3.47,7,4,"Liferoot",3,3357,nil,nil,1,{30.88,32.97,32.40,30.50,33.08,29.74,33.48,30.00,33.19,30.90,31.05,34.73}}, {22.14,48.07,5.59,7,4,"Liferoot",3,3357,nil,nil,1,{19.97,50.15,20.60,49.25,23.31,46.44,25.95,43.98,23.80,46.84,21.02,50.11}}, {82.50,53.54,2.68,3,4,"Liferoot",3,3357,nil,nil,1,{80.55,55.38,83.03,51.71,83.92,53.52}}, {14.04,54.44,5.12,9,4,"Liferoot",3,3357,nil,nil,1,{9.01,55.41,9.43,55.21,16.15,52.92,17.09,52.91,17.18,53.83,16.73,54.19,13.54,55.40}}, {72.55,69.26,nil,nil,4,"Liferoot",3,3357,nil,nil,1}, {29.62,39.44,nil,nil,4,"Liferoot",3,3357,nil,nil,1}, {26.01,43.12,nil,nil,4,"Liferoot",3,3357,nil,nil,1}, {35.68,54.25,nil,nil,2,"Liferoot",3,4637,{2257},nil,1}, {39.57,52.83,nil,nil,2,"Liferoot",3,4637,{2420},nil,1}, {39.32,14.58,nil,nil,2,"Liferoot",3,4637,{2423},nil,1}, {73.71,65.35,nil,nil,2,"Liferoot",3,4637,{2447},nil,1}},
@@ -14004,7 +14004,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{49.31,57.10,nil,nil,7,nil,1,6244}},
     },
     },
-    [1739] = { t = "The Binding", z = -61, rl = 20, ql = -1, rr = 1101, rc = 256, ps = {1738}, maps = {
+    [1739] = { t = "The Binding", z = -61, rl = 20, ql = -1, rr = 1101, rc = 256, ps = {1738}, si = {6913}, maps = {
       [1453] = {{25.25,78.56,nil,nil,6,nil,1,6122}},
     },
     turnins = {
@@ -14044,7 +14044,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{23.34,61.86,nil,nil,7,nil,1,6175}},
     },
     },
-    [1779] = { t = "The Tome of Divinity", z = -141, rl = 12, ql = -1, rr = 4, rc = 2, ps = {1778}, nc = 1783, maps = {
+    [1779] = { t = "The Tome of Divinity", z = -141, rl = 12, ql = -1, rr = 4, rc = 2, ps = {1778}, nc = 1783, si = {6866}, maps = {
       [1455] = {{23.54,8.30,nil,nil,6,nil,1,6178}},
     },
     turnins = {
@@ -14064,7 +14064,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{57.08,61.74,nil,nil,7,nil,1,6174}},
     },
     },
-    [1781] = { t = "The Tome of Divinity", z = -141, rl = 12, ql = -1, rr = 1, rc = 2, ps = {1780}, nc = 1786, maps = {
+    [1781] = { t = "The Tome of Divinity", z = -141, rl = 12, ql = -1, rr = 1, rc = 2, ps = {1780}, nc = 1786, si = {6866}, maps = {
       [1453] = {{38.58,26.56,nil,nil,6,nil,1,6173}},
     },
     turnins = {
@@ -14084,7 +14084,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{58.09,16.54,nil,nil,7,nil,1,5413}},
     },
     },
-    [1783] = { t = "The Tome of Divinity", z = -141, rl = 12, ql = -1, rr = 4, rc = 2, ps = {1779}, nc = 1784, maps = {
+    [1783] = { t = "The Tome of Divinity", z = -141, rl = 12, ql = -1, rr = 4, rc = 2, ps = {1779}, nc = 1784, si = {6866}, maps = {
       [1426] = {{78.32,58.09,nil,nil,1,"Narm Faulk",1,6177,nil,nil,1}},
     },
     turnins = {
@@ -14114,7 +14114,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{23.54,8.30,nil,nil,7,nil,1,6178}},
     },
     },
-    [1786] = { t = "The Tome of Divinity", z = -141, rl = 12, ql = -1, rr = 1, rc = 2, ps = {1781}, nc = 1787, maps = {
+    [1786] = { t = "The Tome of Divinity", z = -141, rl = 12, ql = -1, rr = 1, rc = 2, ps = {1781}, nc = 1787, si = {6866}, maps = {
       [1429] = {{72.60,51.41,nil,nil,1,"Henze Faulk",1,6172,nil,nil,1}},
     },
     turnins = {
@@ -14204,7 +14204,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{27.63,12.18,nil,nil,7,nil,1,6179}},
     },
     },
-    [1795] = { t = "The Binding", z = -61, rl = 30, ql = -1, rc = 256, ps = {1805,1804}, maps = {
+    [1795] = { t = "The Binding", z = -61, rl = 30, ql = -1, rc = 256, ps = {1805,1804}, si = {6999}, maps = {
       [1413] = {{62.60,35.31,nil,nil,1,"Summoned Felhunter",1,6268,nil,nil,1}},
     },
     turnins = {
@@ -14277,7 +14277,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{75.92,37.89,nil,nil,7,nil,1,6293}},
     },
     },
-    [1804] = { t = "Tome of the Cabal", z = -61, rl = 30, ql = -1, rr = 1101, rc = 256, ps = {1802}, nc = 1795, maps = {
+    [1804] = { t = "Tome of the Cabal", z = -61, rl = 30, ql = -1, rr = 1101, rc = 256, ps = {1802}, nc = 1795, si = {7006}, maps = {
       [1437] = {{52.24,52.98,3.15,8,2,"Rod of Channeling",3,6930,{1038,1057},{1038,80,1057,80},1,{49.80,50.99,50.52,50.83,51.40,50.81,53.95,54.41,52.95,55.33}}, {48.28,46.44,4.77,18,2,"Rod of Channeling",3,6930,{1038,1057},{1038,80,1057,80},1,{45.48,45.39,45.62,42.48,49.85,45.68,51.55,48.40,51.83,49.50,46.17,47.05}}},
     },
     turnins = {
@@ -14287,7 +14287,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{74.19,9.39,nil,nil,7,nil,1,6294}},
     },
     },
-    [1805] = { t = "Tome of the Cabal", z = -61, rl = 30, ql = -1, rr = 530, rc = 256, ps = {1803}, nc = 1795, maps = {
+    [1805] = { t = "Tome of the Cabal", z = -61, rl = 30, ql = -1, rr = 530, rc = 256, ps = {1803}, nc = 1795, si = {7006}, maps = {
       [1437] = {{52.24,52.98,3.15,8,2,"Rod of Channeling",3,6930,{1038,1057},{1038,80,1057,80},1,{49.80,50.99,50.52,50.83,51.40,50.81,53.95,54.41,52.95,55.33}}, {48.28,46.44,4.77,18,2,"Rod of Channeling",3,6930,{1038,1057},{1038,80,1057,80},1,{45.48,45.39,45.62,42.48,49.85,45.68,51.55,48.40,51.83,49.50,46.17,47.05}}},
     },
     turnins = {
@@ -14390,7 +14390,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{44.67,59.42,nil,nil,7,nil,1,6394}},
     },
     },
-    [1838] = { t = "Brutal Armor", z = -81, rl = 20, ql = 30, rr = 690, rc = 1, ps = {1824}, nc = 1848, bc = {1825}, maps = {
+    [1838] = { t = "Brutal Armor", z = -81, rl = 20, ql = 30, rr = 690, rc = 1, ps = {1824}, nc = 1848, bc = {1825}, si = {7587}, maps = {
       [1424] = {{29.87,55.54,4.71,37,2,"Powdered Azurite",3,7127,{2269},{2269,80},2,{26.99,58.02,28.14,51.16,31.77,51.77,32.40,52.05,32.21,55.51,31.60,58.53,31.40,59.50}}},
       [1442] = {{72.97,60.63,3.05,65,2,"Smoky Iron Ingot",3,7126,{3998,3999,4001,4002,4003,4004},{3998,80,3999,80,4001,80,4002,80,4003,80,4004,80},1,{71.66,60.46,71.70,60.02,73.04,58.31,74.43,58.39,74.98,58.50,75.67,59.20,73.02,62.66,72.69,63.01,71.96,62.85,71.79,62.19,71.66,60.76}}},
     },
@@ -14471,7 +14471,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{38.99,55.98,nil,nil,7,nil,1,6410}},
     },
     },
-    [1846] = { t = "Dragonmaw Shinbones", z = -81, rl = 20, ql = 30, rr = 690, rc = 1, ps = {1848}, nc = 1847, bc = {1841}, maps = {
+    [1846] = { t = "Dragonmaw Shinbones", z = -81, rl = 20, ql = 30, rr = 690, rc = 1, ps = {1848}, nc = 1847, bc = {1841}, si = {7131}, maps = {
       [1437] = {{46.18,45.39,7.96,85,2,"Sturdy Dragonmaw Shinbone",3,7134,{1034,1035,1036,1038,1057},nil,1,{38.23,45.85,41.00,39.96,42.53,39.93,52.14,44.84,52.28,45.98,50.71,49.55,39.47,46.97,38.52,46.27}}, {52.52,52.82,4.53,15,2,"Sturdy Dragonmaw Shinbone",3,7134,{1035,1036,1038,1057},nil,1,{49.80,50.99,51.55,48.40,53.95,54.41,52.95,55.33}}, {46.08,45.38,7.87,87,2,"Dragonmaw Shinbone",3,7131,{1034,1035,1036,1037,1038,1057,2108},{1034,33,1035,33,1036,33,1037,33,1038,33,1057,33,2108,33},nil,{38.23,45.85,41.00,39.96,42.53,39.93,52.14,44.84,52.28,45.98,50.71,49.55,39.47,46.97,38.52,46.27}}, {52.52,52.82,4.53,15,2,"Dragonmaw Shinbone",3,7131,{1035,1036,1038,1057},{1035,33,1036,33,1038,33,1057,33},nil,{49.80,50.99,51.55,48.40,53.95,54.41,52.95,55.33}}},
     },
     turnins = {
@@ -14501,7 +14501,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{57.23,30.34,nil,nil,7,nil,1,5878}},
     },
     },
-    [1858] = { t = "The Shattered Hand", z = -162, rl = 10, ql = 13, rr = 130, rc = 8, ps = {1963}, maps = {
+    [1858] = { t = "The Shattered Hand", z = -162, rl = 10, ql = 13, rr = 130, rc = 8, ps = {1963}, si = {7209,7208}, maps = {
       [1413] = {{63.11,44.29,nil,nil,2,"Tazan's Logbook",3,7209,{6494},{6494,100},1}},
       [1454] = {{54.00,68.03,nil,nil,2,"Tazan's Key",3,7208,{6466}}},
     },
@@ -14532,7 +14532,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{43.25,66.19,nil,nil,7,nil,1,328}},
     },
     },
-    [1861] = { t = "Mirror Lake", z = -161, rl = 10, ql = 10, rr = 1101, rc = 128, ex = {1880,9595}, bc = {1860}, maps = {
+    [1861] = { t = "Mirror Lake", z = -161, rl = 10, ql = 10, rr = 1101, rc = 128, ex = {1880,9595}, bc = {1860}, si = {7207}, maps = {
       [1429] = {{28.57,61.39,nil,nil,4,"Mirror Lake Water Sample",3,7206,nil,nil,1}},
     },
     turnins = {
@@ -14633,7 +14633,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{83.51,69.11,nil,nil,7,nil,1,6467}},
     },
     },
-    [1898] = { t = "The Deathstalkers", z = -162, rl = 10, ql = 13, rr = 16, rc = 8, ps = {1886}, nc = 1899, maps = {
+    [1898] = { t = "The Deathstalkers", z = -162, rl = 10, ql = 13, rr = 16, rc = 8, ps = {1886}, nc = 1899, si = {7231}, maps = {
       [1458] = {{54.81,76.33,nil,nil,6,nil,1,6522}},
     },
     turnins = {
@@ -14653,7 +14653,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{54.81,76.33,nil,nil,7,nil,1,6522}},
     },
     },
-    [1918] = { t = "The Befouled Element", z = 331, rl = 23, ql = 27, rr = 690, nc = 824, maps = {
+    [1918] = { t = "The Befouled Element", z = 331, rl = 23, ql = 27, rr = 690, nc = 824, si = {16408}, maps = {
       [1440] = {{73.67,60.00,nil,nil,6,nil,1,12737}},
     },
     turnins = {
@@ -14771,7 +14771,7 @@ VanillaEnhancedQuestsDB = {
       [1954] = {{58.45,17.75,nil,nil,7,nil,1,16652}},
     },
     },
-    [1944] = { t = "Waters of Xavian", z = -161, rl = 26, ql = 26, rr = 690, rc = 128, nc = 1945, bc = {1943}, maps = {
+    [1944] = { t = "Waters of Xavian", z = -161, rl = 26, ql = 26, rr = 690, rc = 128, nc = 1945, bc = {1943}, si = {7269}, maps = {
       [1440] = {{76.29,41.49,nil,nil,4,"Xavian Water Sample",3,7268,nil,nil,1}},
     },
     turnins = {
@@ -14817,7 +14817,7 @@ VanillaEnhancedQuestsDB = {
       [1954] = {{58.45,17.75,nil,nil,7,nil,1,16652}},
     },
     },
-    [1948] = { t = "Items of Power", z = -161, rl = 30, ql = 40, rc = 128, ps = {1947}, maps = {
+    [1948] = { t = "Items of Power", z = -161, rl = 30, ql = 40, rc = 128, ps = {1947}, si = {7516,7273}, maps = {
       [1413] = {{43.06,23.65,6.24,34,4,"Jade",3,1529,nil,nil,1,{39.48,23.62,39.82,19.38,42.14,18.88,44.70,21.44,45.34,22.26,44.89,25.09,43.84,27.45,41.57,29.71,40.41,27.89}}, {39.21,13.38,6.09,13,4,"Jade",3,1529,nil,nil,1,{37.62,14.84,38.88,10.78,45.18,12.17,40.03,14.46}}, {58.09,28.50,8.32,58,4,"Jade",3,1529,nil,nil,1,{54.37,25.36,59.24,23.60,61.21,26.47,62.14,29.35,61.68,34.79,59.93,36.62,55.65,31.49}}, {61.90,45.48,6.37,28,4,"Jade",3,1529,nil,nil,1,{57.11,43.62,58.90,41.48,61.31,40.34,63.41,42.72,64.73,44.46,64.71,46.52,64.17,49.47,59.01,51.16,58.06,49.38}}, {43.93,44.58,5.98,25,4,"Jade",3,1529,nil,nil,1,{40.63,45.66,42.71,41.05,49.49,44.41,48.52,48.42,40.70,46.86}}, {59.67,5.63,4.82,12,4,"Jade",3,1529,nil,nil,1,{57.49,6.02,59.54,2.98,60.28,3.36,60.38,3.67,62.29,9.68,59.24,8.71}}, {58.14,14.21,4.83,28,4,"Jade",3,1529,nil,nil,1,{53.53,13.05,56.86,10.73,62.08,11.42,62.03,14.72,57.83,18.65,55.45,17.30}}, {43.37,79.59,8.55,45,4,"Jade",3,1529,nil,nil,1,{40.36,80.32,42.09,71.14,49.61,76.81,49.58,80.35,48.74,82.27,43.42,84.21}}, {46.19,36.26,6.32,49,4,"Jade",3,1529,nil,nil,1,{41.14,35.28,47.47,30.07,48.96,31.16,49.51,32.39,49.35,33.21,47.82,39.97,46.99,40.30,42.68,38.87,41.51,37.97}}, {48.24,18.11,7.06,40,4,"Jade",3,1529,nil,nil,1,{43.27,19.14,46.39,12.83,47.14,11.96,50.92,11.58,50.96,21.62,50.68,24.04,47.43,22.69,44.70,21.44}}, {46.67,63.80,3.53,13,4,"Jade",3,1529,nil,nil,1,{43.26,62.89,49.45,61.99,48.90,64.07,47.98,66.72,44.31,64.58}}, {44.54,52.49,5.69,21,4,"Jade",3,1529,nil,nil,1,{41.99,56.66,43.13,51.99,44.92,50.35,48.52,48.42,47.21,54.40}}, {55.57,41.67,6.67,21,4,"Jade",3,1529,nil,nil,1,{51.46,42.54,51.86,39.57,59.93,36.62,58.90,41.48,58.07,43.11,57.11,43.62,55.13,43.83}}, {45.93,70.79,4.70,18,4,"Jade",3,1529,nil,nil,1,{41.68,68.78,45.22,68.66,47.44,68.65,49.22,68.81,48.62,74.41,43.52,72.82,42.09,71.14}}, {52.00,54.36,6.15,34,4,"Jade",3,1529,nil,nil,1,{49.71,48.65,51.73,48.22,53.77,54.30,53.46,55.21,51.21,57.91,50.55,58.10}}, {60.64,51.80,4.23,13,4,"Jade",3,1529,nil,nil,1,{58.06,49.38,60.13,49.15,64.17,49.47,62.17,55.09,60.14,54.08,58.44,53.18}}, {47.72,85.33,2.82,15,4,"Jade",3,1529,nil,nil,1,{46.83,84.46,47.12,84.03,47.44,83.96,48.56,85.24,48.74,87.96,47.29,85.88}}, {47.10,66.66,nil,nil,2,"Jade",3,4633,{3237},nil,1}, {48.37,84.29,5.31,18,2,"Jade",3,4633,{3378,3392,3414,5851,5859},nil,1,{43.18,83.17,44.27,82.91,49.61,83.59,49.76,84.11,48.33,86.16,47.44,85.75}}, {64.27,50.63,4.05,15,2,"Jade",3,4633,{3476},nil,1,{63.00,52.40,63.40,50.20,65.60,46.80,65.60,47.80,64.60,50.80,63.60,53.60,63.40,53.60}}, {41.55,78.77,nil,nil,2,"Jade",3,4633,{5859},nil,1}, {41.94,81.50,nil,nil,2,"Jade",3,4633,{5859},nil,1}, {47.93,91.34,4.35,106,2,"Jade",3,4634,{7327,7332,7335,7872,7873,7874},nil,1,{45.70,89.92,45.80,87.84,45.83,87.62,46.01,87.51,46.70,87.61,47.95,88.55,50.41,92.61,50.42,92.79,48.86,95.59,48.57,95.58,47.80,95.16,46.52,92.26}}, {48.79,93.20,3.96,13,2,"Jade",3,4636,{7335,12865},nil,1,{46.20,90.20,47.80,90.60,50.07,92.45,50.42,92.79,48.60,95.60,48.40,95.60}}, {54.72,5.69,0.16,7,2,"Jade",3,16882,{7307,7308,7310},nil,1,{54.64,5.77,54.66,5.68,54.75,5.53,54.81,5.59,54.78,5.82}}},
       [1416] = {{24.54,26.60,nil,nil,4,"Jade",3,1529,nil,nil,1}, {14.06,89.97,7.46,5,4,"Jade",3,1529,nil,nil,1,{13.14,82.56,14.58,90.28,14.42,94.00,13.74,88.99}}, {32.57,84.65,8.54,32,4,"Jade",3,1529,nil,nil,1,{27.20,84.61,30.78,76.30,36.80,82.07,37.23,88.50,35.26,90.32,29.30,88.82}}, {36.11,65.39,7.98,28,4,"Jade",3,1529,nil,nil,1,{28.35,67.23,32.63,61.29,38.73,62.45,38.98,62.95,38.44,66.97,37.11,68.04,30.56,68.27}}, {18.44,45.94,nil,nil,4,"Jade",3,1529,nil,nil,1}, {52.65,18.57,6.86,11,4,"Jade",3,1529,nil,nil,1,{47.19,15.92,50.94,15.71,55.69,18.78,53.83,25.33}}, {39.21,73.17,2.46,12,4,"Jade",3,1529,nil,nil,1,{36.98,73.71,37.94,71.95,41.15,71.66,41.01,72.78,39.90,74.02,38.26,74.93}}, {45.00,65.60,3.19,8,4,"Jade",3,1529,nil,nil,1,{43.23,68.25,44.40,66.18,45.87,64.27,46.48,63.69}}, {64.38,49.72,6.16,16,4,"Jade",3,1529,nil,nil,1,{59.26,49.21,66.33,43.88,67.37,47.91,67.05,51.72,63.41,55.15}}, {76.44,44.25,0.96,4,4,"Jade",3,1529,nil,nil,1}, {76.47,53.98,1.34,4,4,"Jade",3,1529,nil,nil,1}, {41.41,25.21,5.88,11,4,"Jade",3,1529,nil,nil,1,{37.26,28.51,40.29,20.60,43.83,21.28,41.37,31.09}}, {86.74,53.83,3.06,4,4,"Jade",3,1529,nil,nil,1}, {42.65,13.93,5.43,12,4,"Jade",3,1529,nil,nil,1,{37.50,15.09,38.37,10.59,46.80,13.61,47.19,15.92}}, {51.84,46.81,7.79,75,4,"Jade",3,1529,nil,nil,1,{47.87,43.15,52.08,42.31,53.55,42.94,59.26,49.21,52.08,51.79,50.40,51.80,49.65,50.00,48.37,46.09}}, {36.29,40.92,6.02,14,4,"Jade",3,1529,nil,nil,1,{32.86,39.87,33.15,36.17,39.37,38.58,38.55,43.35,34.33,46.62}}, {52.75,37.65,5.02,24,4,"Jade",3,1529,nil,nil,1,{49.19,34.11,54.08,33.89,54.69,35.04,55.62,40.05,51.57,41.65,50.90,40.75}}, {33.85,55.74,3.07,19,4,"Jade",3,1529,nil,nil,1,{31.37,57.55,33.58,53.99,35.29,53.40,36.12,55.03,35.82,55.85,35.23,56.83}}, {41.51,50.88,4.92,11,4,"Jade",3,1529,nil,nil,1,{38.54,46.96,42.51,47.95,43.05,49.32,41.65,52.20,39.89,52.96}}, {44.02,38.93,6.53,39,4,"Jade",3,1529,nil,nil,1,{41.23,33.03,46.62,33.15,47.08,33.73,47.37,43.01,42.62,44.26,41.45,40.06}}, {57.17,24.50,3.45,6,4,"Jade",3,1529,nil,nil,1,{53.83,25.33,57.69,23.28,58.72,24.10,56.40,26.93}}, {63.99,42.95,3.59,7,4,"Jade",3,1529,nil,nil,1,{61.06,44.07,61.23,43.01,66.19,40.12,66.33,43.88,63.54,45.30}}, {44.42,84.20,nil,nil,4,"Jade",3,1529,nil,nil,1}, {44.42,84.20,nil,nil,4,"Jade",3,1529,nil,nil,1}, {14.35,53.77,4.34,3,4,"Jade",3,1529,nil,nil,1}, {81.12,68.33,nil,nil,4,"Jade",3,1529,nil,nil,1}, {81.12,68.33,nil,nil,4,"Jade",3,1529,nil,nil,1}, {21.00,59.82,2.57,3,4,"Jade",3,1529,nil,nil,1,{20.06,57.60,21.61,59.49,21.34,62.36}}, {14.90,75.40,3.69,3,4,"Jade",3,1529,nil,nil,1,{11.75,73.83,14.84,75.16,18.11,77.21}}, {23.16,72.58,6.20,5,2,"Jade",3,4633,{2356},nil,1,{21.24,69.14,28.28,69.09,23.33,75.98,21.31,75.70}}, {15.43,83.24,nil,nil,2,"Jade",3,4633,{2356},nil,1}, {25.30,80.19,3.13,5,2,"Jade",3,4633,{2356},nil,1,{23.76,82.80,24.81,77.10,26.35,78.01,26.91,81.93}}, {24.79,59.44,nil,nil,2,"Jade",3,4633,{2356},nil,1}, {25.04,64.68,nil,nil,2,"Jade",3,4633,{2356},nil,1}, {76.64,63.36,6.66,10,2,"Jade",3,4633,{2408},nil,1,{72.49,68.57,73.60,66.16,80.28,57.89,80.28,58.69,78.76,62.56}}, {21.99,46.58,7.54,13,2,"Jade",3,4633,{2408},nil,1,{17.70,52.78,19.88,46.77,25.16,42.27,26.74,42.57}}, {29.99,35.91,7.26,13,2,"Jade",3,4633,{2408},nil,1,{26.33,40.48,30.67,31.99,32.91,29.26,31.13,35.44,30.81,36.37,28.77,39.67,27.91,40.29}}, {34.86,15.55,4.90,5,2,"Jade",3,4633,{2408},nil,1,{31.67,13.22,33.38,11.92,35.79,13.47,36.82,19.04,36.63,20.12}}, {84.59,51.55,6.50,6,2,"Jade",3,4633,{2408},nil,1,{80.91,55.86,82.93,52.43,86.95,48.83,89.25,47.02}}, {34.43,25.88,4.86,7,2,"Jade",3,4633,{2408},nil,1,{31.90,30.03,33.37,26.90,35.93,21.73,35.79,23.28,35.45,25.75,34.24,27.53}}, {14.79,52.75,4.57,10,2,"Jade",3,4633,{2408},nil,1,{10.57,54.52,17.67,49.66,17.63,50.49,16.49,52.16,14.01,55.02}}, {90.81,45.88,nil,nil,2,"Jade",3,4633,{2408},nil,1}, {29.70,7.89,nil,nil,2,"Jade",3,4633,{2408},nil,1}, {29.41,8.05,nil,nil,2,"Jade",3,4633,{2408},nil,1}, {47.04,80.53,5.70,16,2,"Jade",3,4634,{2240,2241,2406,2407},nil,1,{42.78,78.54,44.21,76.66,49.05,75.20,48.88,83.09,47.75,82.90,43.70,80.72}}, {58.38,68.00,2.72,16,2,"Jade",3,4634,{2240,2241,2319,2440},nil,1,{56.48,66.05,57.77,66.16,59.00,67.22,59.49,68.04,59.30,69.76,58.44,70.00,57.60,68.54}}, {60.99,44.02,8.10,40,2,"Jade",3,4634,{2242,2252,2318,2319,2406},nil,1,{53.06,45.63,57.83,41.61,58.76,41.16,61.61,40.15,64.20,41.62,64.71,48.64,57.91,48.79}}, {30.53,62.23,4.16,6,2,"Jade",3,4634,{2250,2251},nil,1,{29.71,59.95,30.90,58.08,31.30,65.67,29.75,63.35}}, {36.93,69.42,7.56,26,2,"Jade",3,4634,{2250,2251,2406},nil,1,{29.43,70.37,32.51,67.17,39.46,65.30,42.91,66.73,40.58,73.74,38.68,74.01,35.55,73.81,31.14,72.23}}, {30.82,51.27,6.00,10,2,"Jade",3,4634,{2251},nil,1,{29.64,49.21,32.17,45.43,32.29,49.16,32.01,53.03,30.94,54.51,29.81,56.07,29.73,52.87}}, {43.51,62.92,4.90,12,2,"Jade",3,4634,{2251,2252,2253},nil,1,{39.06,64.98,41.50,61.68,44.92,60.20,46.55,60.90,47.54,63.59,43.96,64.95,41.92,65.27}}, {31.76,35.73,7.37,20,2,"Jade",3,4634,{2251,2408,3984,3985},nil,1,{27.91,40.29,29.69,34.79,30.67,31.99,31.90,30.03,32.91,29.26,36.78,36.41,32.88,43.01}}, {50.72,55.95,5.62,20,2,"Jade",3,4634,{2252,2253},nil,1,{46.48,58.37,48.61,54.25,50.15,52.74,51.40,52.67,52.49,52.61,54.53,52.75,55.75,54.32,49.05,61.32,47.42,60.37}}, {51.46,42.79,7.09,33,2,"Jade",3,4634,{2252,2253},nil,1,{47.46,44.51,47.61,40.41,48.93,36.94,53.64,36.04,55.50,40.57,53.30,47.95,51.45,47.50}}, {46.41,34.13,6.04,20,2,"Jade",3,4634,{2252,2253},nil,1,{41.53,30.59,45.18,29.41,49.98,31.50,51.04,34.95,47.68,38.64,46.35,39.85,43.93,36.52}}, {18.86,83.91,6.61,26,2,"Jade",3,4634,{2271,2272,2358,2411,2412,2413,2414},nil,1,{14.98,78.56,18.93,77.81,21.22,84.06,21.63,87.41,20.81,87.81,18.42,87.99}}, {21.00,58.48,6.58,26,2,"Jade",3,4634,{2271,2272,2358,2359,2408,2628},nil,1,{17.70,52.78,20.72,54.27,21.91,55.82,22.91,59.49,23.07,60.36,21.78,64.34,21.33,63.78,19.01,57.74,18.38,55.92}}, {49.51,21.77,4.66,7,2,"Jade",3,4634,{2318,2407},nil,1,{45.28,23.72,45.53,19.39,47.79,17.45,53.28,20.73,52.50,24.66}}, {55.15,30.55,3.55,6,2,"Jade",3,4634,{2318,2407},nil,1,{52.76,30.65,56.11,27.30,58.70,30.52,56.19,32.72,53.61,31.57}}, {15.20,76.12,6.48,28,2,"Jade",3,4634,{2358,2359,2628},nil,1,{10.12,78.20,10.42,73.97,19.99,71.76,19.91,76.17,19.03,76.96,18.79,77.12,16.20,78.51,10.77,80.58}}, {32.47,83.07,6.46,15,2,"Jade",3,4634,{2406,2407},nil,1,{29.68,84.71,29.94,77.13,32.54,79.55,33.02,80.06,37.02,86.37,30.55,88.32,29.71,86.56}}, {38.84,89.67,5.07,7,2,"Jade",3,4634,{2406,2407},nil,1,{37.12,90.07,37.51,88.68,39.82,84.69,40.34,91.87,39.57,92.34,38.20,91.93}}, {29.67,74.55,nil,nil,2,"Jade",3,4634,{2406},nil,1}, {81.32,59.66,5.53,9,2,"Jade",3,4634,{2406,2407,2408},nil,1,{78.76,62.56,79.59,59.32,80.91,55.86,83.12,58.17,83.20,64.86}}, {74.50,63.70,8.98,8,2,"Jade",3,4634,{2406,2407,2408},nil,1,{72.49,68.57,74.40,54.72,77.21,63.18,76.41,64.12}}, {78.15,50.96,3.89,5,2,"Jade",3,4634,{2406,2407},nil,1,{75.55,51.67,78.70,50.09,81.41,48.83,78.39,52.91}}, {36.03,24.09,5.11,10,2,"Jade",3,4634,{2407,2408},nil,1,{33.37,26.90,36.82,19.04,39.60,25.77,34.24,27.53}}, {66.75,51.11,nil,nil,2,"Jade",3,4634,{2407},nil,1}, {22.65,45.63,6.33,13,2,"Jade",3,4634,{2408},nil,1,{18.96,50.58,19.88,46.77,26.33,40.48,26.74,42.57}}, {86.24,49.89,6.08,6,2,"Jade",3,4634,{2408},nil,1,{82.68,53.91,82.93,52.43,86.95,48.83,89.25,47.02,90.81,45.88}}, {14.98,53.09,4.64,11,2,"Jade",3,4634,{2408,2628},nil,1,{10.57,54.52,17.67,49.66,17.63,50.49,16.90,56.43}}, {31.99,10.91,4.58,5,2,"Jade",3,4634,{2408},nil,1,{29.41,8.05,29.70,7.89,35.79,13.47,31.67,13.22}}, {61.18,43.75,6.01,38,2,"Jade",3,4636,{2242,2258,2306,2318,2431},nil,1,{56.61,46.96,56.79,45.30,57.83,41.61,58.76,41.16,62.40,40.20,62.60,40.20,64.20,41.62,64.68,44.77,64.07,45.80,62.33,47.00,57.91,48.79}}, {49.76,18.89,5.07,19,2,"Jade",3,4636,{2243,2245,2306,2318},nil,1,{46.07,19.77,47.35,16.86,47.78,16.00,53.81,19.91,54.40,20.94,53.90,21.60,46.32,20.40}}, {56.27,28.32,6.23,25,2,"Jade",3,4636,{2243,2245,2306,2318},nil,1,{51.14,29.58,52.75,23.17,56.96,26.02,58.85,29.27,59.10,29.94,58.70,30.52,58.28,30.68,57.29,30.97,51.88,30.63}}, {58.16,34.30,2.74,3,2,"Jade",3,4636,{2243},nil,1,{56.03,34.37,60.12,32.39,58.33,36.14}}, {39.65,17.16,5.47,28,2,"Jade",3,4636,{2246,2247,2320},nil,1,{37.05,13.11,38.94,13.10,43.02,18.32,42.34,20.29,40.64,22.54,38.32,22.46}}, {50.51,46.06,8.19,13,2,"Jade",3,4636,{2253,2254},nil,1,{45.93,45.84,48.89,42.05,52.14,43.96,53.61,45.58,52.89,47.63,49.64,54.20}}, {49.35,57.24,5.01,8,2,"Jade",3,4636,{2253},nil,1,{46.48,58.37,51.40,52.67,51.55,54.59,51.28,58.03,48.81,59.86,46.55,60.90}}, {46.72,35.25,5.67,10,2,"Jade",3,4636,{2253},nil,1,{42.81,31.15,45.19,31.42,47.69,33.04,51.21,38.28,47.61,40.41,44.17,34.88}}, {41.43,47.02,7.22,25,2,"Jade",3,4636,{2254,2255,2256,2287,2421},nil,1,{35.67,49.08,38.29,41.97,39.33,40.12,46.42,46.87,43.83,51.25}}, {39.23,39.46,3.51,5,2,"Jade",3,4636,{2254,2255,2422,2452},nil,1,{37.36,36.49,41.36,40.14,39.50,41.82,38.47,40.07}}, {37.01,54.24,6.21,39,2,"Jade",3,4636,{2256,2287,2416,2417,2452},nil,1,{31.43,51.51,35.71,51.04,36.85,51.01,40.50,51.05,40.53,52.96,40.35,54.44,39.24,59.55,38.12,59.90}}, {17.75,82.98,nil,nil,2,"Jade",3,4636,{2415},nil,1}, {42.14,62.56,nil,nil,2,"Jade",3,4636,{2452},nil,1}, {37.51,67.20,nil,nil,2,"Jade",3,4636,{4504},nil,1}, {80.32,62.14,nil,nil,2,"Jade",3,4636,{6239},nil,1}},
       [1417] = {{23.30,72.50,7.13,31,4,"Jade",3,1529,nil,nil,1,{20.79,71.49,22.65,67.35,25.75,65.81,25.92,70.45,24.70,73.19,21.79,77.90,21.31,75.36}}, {22.43,89.28,6.23,55,4,"Jade",3,1529,nil,nil,1,{16.74,87.37,19.23,83.94,25.64,85.22,28.38,88.16,24.70,92.76,19.17,93.29}}, {33.38,44.74,5.57,84,4,"Jade",3,1529,nil,nil,1,{30.20,44.12,33.95,41.94,38.72,43.15,35.26,46.86,33.90,46.86,31.50,46.22}}, {55.54,70.88,9.16,36,4,"Jade",3,1529,nil,nil,1,{46.39,71.23,54.76,64.63,58.84,70.86,58.87,72.69,57.90,74.78,53.44,74.37}}, {58.87,46.38,6.11,16,4,"Jade",3,1529,nil,nil,1,{56.12,49.44,57.07,40.54,62.18,44.24,57.54,49.24}}, {60.20,33.79,6.57,20,4,"Jade",3,1529,nil,nil,1,{55.18,32.69,61.57,31.42,64.26,33.40,64.37,34.99,57.36,39.72}}, {26.28,31.76,7.16,19,4,"Jade",3,1529,nil,nil,1,{23.90,29.54,33.40,31.03,24.66,36.55}}, {83.05,30.65,6.17,37,4,"Jade",3,1529,nil,nil,1,{77.17,28.78,77.48,28.69,84.21,27.49,87.01,30.19,87.04,31.78,85.76,33.72,85.01,33.93,82.78,33.39,78.12,31.24}}, {40.53,33.56,7.39,17,4,"Jade",3,1529,nil,nil,1,{37.65,34.90,38.23,33.69,41.66,31.53,44.62,30.99,46.87,32.74,41.52,40.88}}, {70.85,67.43,6.13,59,4,"Jade",3,1529,nil,nil,1,{65.34,65.65,66.04,63.78,72.62,61.57,73.76,63.73,73.81,64.03,73.87,65.74,71.98,69.78,71.37,70.86,70.87,71.22,69.79,70.94,67.38,69.46}}, {69.64,29.19,4.30,21,4,"Jade",3,1529,nil,nil,1,{65.98,26.94,69.24,27.61,69.76,27.94,70.84,30.72}}, {19.69,35.09,4.47,15,4,"Jade",3,1529,nil,nil,1,{19.04,32.94,19.43,33.61,20.15,35.99,20.65,39.46,19.16,33.47}}, {68.33,78.84,5.26,97,4,"Jade",3,1529,nil,nil,1,{66.15,80.74,66.73,73.91,66.93,73.86,70.54,74.07,70.29,78.03,69.56,81.61,69.06,82.65,67.01,82.44,66.15,81.57}}, {30.98,18.46,5.64,29,4,"Jade",3,1529,nil,nil,1,{27.05,18.53,29.06,15.15,35.54,21.78,32.68,21.03}}, {16.69,68.18,5.01,27,4,"Jade",3,1529,nil,nil,1,{15.59,67.61,15.81,63.24,18.70,64.97,19.84,68.99,18.66,71.60,17.42,71.72,16.01,70.77}}, {33.19,68.31,6.39,43,4,"Jade",3,1529,nil,nil,1,{28.31,65.85,31.98,65.03,33.81,65.03,37.37,65.90,38.68,71.57,29.87,70.15,28.90,69.11}}, {53.60,78.91,5.96,75,4,"Jade",3,1529,nil,nil,1,{48.93,82.57,50.26,76.40,51.54,75.90,54.84,75.03,57.90,74.78,54.92,81.70,54.50,82.06}}, {71.94,56.53,5.93,33,4,"Jade",3,1529,nil,nil,1,{70.15,57.24,70.60,52.42,72.18,50.61,73.04,51.90,73.95,61.28,72.62,61.57}}, {75.15,46.61,5.79,41,4,"Jade",3,1529,nil,nil,1,{70.78,49.52,76.98,43.57,77.45,43.19,79.67,42.98,72.18,50.61}}, {36.84,59.80,6.34,26,4,"Jade",3,1529,nil,nil,1,{31.31,61.70,36.12,54.53,39.20,58.60,40.63,60.49,41.06,64.53}}, {81.12,36.49,4.56,30,4,"Jade",3,1529,nil,nil,1,{78.93,38.19,78.98,36.74,80.18,32.82,84.04,32.99,84.06,33.88,83.98,34.78,82.79,39.11}}, {47.24,82.24,5.81,13,4,"Jade",3,1529,nil,nil,1,{42.54,78.82,50.15,81.61,48.59,85.24}}, {48.77,35.05,6.31,33,4,"Jade",3,1529,nil,nil,1,{46.87,32.74,47.51,32.15,48.59,32.99,54.04,38.09,48.16,41.33}}, {36.98,23.62,6.32,28,4,"Jade",3,1529,nil,nil,1,{31.09,25.91,34.56,21.40,39.01,22.11,39.79,25.36,33.76,27.49,32.28,26.80}}, {52.08,48.30,6.21,16,4,"Jade",3,1529,nil,nil,1,{47.43,52.41,49.73,47.82,53.20,45.12,54.42,48.87,54.29,50.44}}, {20.09,54.71,3.84,10,4,"Jade",3,1529,nil,nil,1,{17.20,52.72,23.65,54.31,22.87,57.35,18.49,56.21}}, {40.16,49.01,nil,3,4,"Jade",3,1529,nil,nil,1}, {45.99,69.79,7.19,30,4,"Jade",3,1529,nil,nil,1,{39.60,73.08,45.04,65.86,48.32,64.36,49.36,70.60,49.40,70.99,45.79,72.40}}, {19.78,45.65,3.23,6,4,"Jade",3,1529,nil,nil,1}, {65.16,72.94,6.91,25,4,"Jade",3,1529,nil,nil,1,{61.17,72.93,62.11,66.74,69.15,74.07,68.76,74.65,65.29,75.18}}, {23.48,61.98,3.36,4,4,"Jade",3,1529,nil,nil,1,{21.62,61.16,24.58,58.81,25.07,64.35,22.63,63.62}}, {61.00,57.02,1.88,3,4,"Jade",3,1529,nil,nil,1,{60.11,55.91,62.72,56.43,60.18,58.71}}, {21.60,96.88,nil,nil,2,"Jade",3,4633,{1418},nil,1}, {23.02,94.66,nil,nil,2,"Jade",3,4633,{1418},nil,1}, {38.38,47.35,6.46,14,2,"Jade",3,4633,{2552,2559},nil,1,{32.04,46.29,37.50,40.95,40.27,43.67,41.03,44.80,42.17,46.94,39.64,50.62,38.42,51.66,35.61,49.41}}, {63.62,42.00,6.43,25,2,"Jade",3,4633,{2559},nil,1,{58.73,41.12,60.34,37.25,64.35,36.77,69.06,38.58,68.53,41.17,65.28,45.22,64.26,46.39,62.51,46.49,59.62,45.15,58.73,43.67}}, {21.53,39.05,6.38,19,2,"Jade",3,4633,{2559},nil,1,{17.13,42.08,19.51,34.20,26.44,34.97,26.89,36.99,25.19,40.13,20.62,45.01,17.18,42.71}}, {53.55,46.84,4.93,11,2,"Jade",3,4633,{2559},nil,1,{49.30,49.35,52.06,44.89,53.10,43.97,56.88,46.63,56.03,48.03,55.13,49.13}}, {69.34,33.55,7.37,10,2,"Jade",3,4633,{2559},nil,1,{65.89,35.11,69.79,27.00,76.30,31.12,69.00,36.61,68.01,36.86,67.58,36.92}}, {44.22,52.91,7.29,10,2,"Jade",3,4633,{2559},nil,1,{40.10,58.92,41.26,49.77,41.75,49.44,46.75,50.51,49.55,52.11,47.75,56.20}}, {45.61,40.91,5.91,11,2,"Jade",3,4633,{2559},nil,1,{41.30,41.40,43.08,39.21,51.39,39.65,51.33,40.55,42.47,43.84}}, {55.18,38.70,8.64,28,2,"Jade",3,4633,{2559,2582},nil,1,{48.16,33.66,52.29,32.43,56.18,35.66,56.45,36.54,57.28,39.65,57.03,39.93,55.30,41.08}}, {32.72,30.90,5.23,18,2,"Jade",3,4633,{2559,2586},nil,1,{29.05,28.38,30.30,27.97,34.19,26.96,34.67,28.35,34.69,29.88,34.66,31.69,33.61,35.06,32.70,36.13}}, {30.41,23.39,6.47,13,2,"Jade",3,4633,{2559,2586},nil,1,{26.66,24.03,27.21,20.73,28.30,17.27,30.83,20.36,34.70,27.00,29.32,26.85}}, {67.88,51.79,4.56,5,2,"Jade",3,4633,{2559},nil,1,{63.97,50.49,68.70,49.14,70.58,51.04,67.10,56.28}}, {42.37,77.21,3.23,3,2,"Jade",3,4633,{2559},nil,1,{41.09,74.24,43.17,77.78,42.84,79.60}}, {43.82,63.89,4.33,3,2,"Jade",3,4633,{2559},nil,1,{39.99,61.87,46.57,64.32,44.91,65.49}}, {74.00,48.29,nil,nil,2,"Jade",3,4633,{2559},nil,1}, {48.56,88.76,nil,nil,2,"Jade",3,4633,{4062},nil,1}, {49.63,88.99,nil,nil,2,"Jade",3,4633,{4062},nil,1}, {33.72,44.62,5.72,48,2,"Jade",3,4634,{2552,2553,2555,2562,2564},nil,1,{30.52,43.56,31.00,42.40,31.85,41.02,32.91,39.52,34.60,39.40,37.40,40.80,37.60,41.00,37.18,43.60,36.21,47.62,35.61,49.41,32.87,50.28,31.16,48.05}}, {63.84,71.18,7.02,38,2,"Jade",3,4634,{2554,2555,2556,2560,2565,2579},nil,1,{58.82,67.31,62.44,65.27,65.25,67.59,70.02,71.75,67.94,76.88,59.82,74.08}}, {70.66,64.50,5.97,35,2,"Jade",3,4634,{2554,2555,2556},nil,1,{65.56,64.49,66.02,62.87,66.88,61.70,68.20,60.70,70.71,58.83,72.04,59.15,73.20,60.33,74.05,65.40,71.25,69.92,70.55,70.47}}, {68.33,79.96,3.56,43,2,"Jade",3,4634,{2555,2556,2557},nil,1,{66.03,81.88,66.29,80.48,67.93,76.49,68.55,76.41,70.04,77.34,70.45,78.20,69.88,81.13,69.19,82.41,66.99,82.33,66.28,82.24}}, {63.20,41.93,6.75,33,2,"Jade",3,4634,{2559,2563,2578,2581},nil,1,{57.23,40.32,60.34,37.25,64.35,36.77,69.06,38.58,68.53,41.17,65.28,45.22,64.26,46.39,62.51,46.49,60.61,46.57,59.62,45.15,58.73,43.67}}, {20.66,39.73,7.48,32,2,"Jade",3,4634,{2559,2560,2563,2578},nil,1,{16.91,43.71,17.13,42.08,18.19,35.47,19.51,34.20,26.44,34.97,26.89,36.99,25.19,40.13,20.62,45.01,20.05,45.01,18.06,44.68}}, {54.88,45.99,6.18,17,2,"Jade",3,4634,{2559,2563,2581},nil,1,{50.56,41.84,54.65,41.12,55.78,42.13,57.83,45.16,59.84,49.69,58.68,50.69,51.09,47.39}}, {68.90,33.94,7.92,15,2,"Jade",3,4634,{2559,2563,2578},nil,1,{62.83,30.08,69.79,27.00,76.30,31.12,69.88,37.11,69.32,37.20,67.58,36.92,65.89,35.11}}, {47.70,53.07,4.51,8,2,"Jade",3,4634,{2559,2563},nil,1,{44.83,54.97,46.75,50.51,49.30,49.35,49.55,52.11,47.92,57.57}}, {44.81,39.42,6.61,25,2,"Jade",3,4634,{2559,2560,2563,2565,2578,2579},nil,1,{40.20,41.13,41.21,38.17,42.12,37.18,43.02,36.41,45.71,34.81,51.39,39.65,51.33,40.55,50.25,41.97,42.47,43.84}}, {40.12,48.65,4.98,18,2,"Jade",3,4634,{2559,2562,2563},nil,1,{37.31,50.34,37.64,46.19,40.27,43.67,41.03,44.80,42.17,46.94,42.05,50.81,41.42,53.39,38.42,51.66}}, {54.04,37.48,10.67,53,2,"Jade",3,4634,{2559,2560,2563,2581,2582,4479,4480,4481},nil,1,{43.94,34.03,52.29,32.43,54.30,32.51,56.43,33.23,57.90,33.85,57.28,39.65,57.03,39.93,55.30,41.08,48.27,37.99}}, {38.72,32.83,7.48,38,2,"Jade",3,4634,{2559,2560,2563,2565,2579,2586},nil,1,{32.70,36.13,32.94,32.38,38.37,25.36,42.68,29.49,44.09,31.06,44.56,31.64,39.39,38.36,38.07,38.68}}, {28.56,21.72,4.49,11,2,"Jade",3,4634,{2559,2563,2578,2586},nil,1,{26.55,25.74,26.66,24.03,27.21,20.73,28.30,17.27,30.83,20.36,30.30,24.33}}, {65.70,53.87,6.20,34,2,"Jade",3,4634,{2559,2563,2578,2618,2619},nil,1,{61.42,50.58,61.58,49.24,68.70,49.14,70.58,51.04,71.09,54.25,69.84,56.17,63.65,58.67,61.88,55.65}}, {38.04,65.92,7.30,25,2,"Jade",3,4634,{2559,2560,2563,2579},nil,1,{33.94,66.08,33.97,64.88,40.10,58.92,41.02,64.79,40.99,69.92,39.51,69.87}}, {47.55,74.70,8.67,19,2,"Jade",3,4634,{2559,2563,2565,2566,2579},nil,1,{39.74,70.93,44.18,70.52,50.31,70.91,52.26,71.48,54.54,73.80,50.61,79.81,42.84,79.60}}, {43.87,61.92,5.70,18,2,"Jade",3,4634,{2559,2563,2578},nil,1,{41.04,60.24,41.24,58.83,42.37,56.62,48.08,60.64,47.88,61.16,45.31,67.44,41.09,62.55}}, {71.65,47.73,5.50,14,2,"Jade",3,4634,{2559,2563,2572,2578},nil,1,{68.37,46.49,76.02,44.39,74.00,48.29,71.79,50.51,69.94,50.23}}, {30.52,59.98,6.96,22,2,"Jade",3,4634,{2560,2563,2579,2590,24477},nil,1,{25.85,65.14,26.02,63.76,26.94,60.16,30.07,56.10,32.83,54.42,34.10,61.82,34.09,61.86,32.37,63.99,31.29,65.20}}, {58.16,58.58,10.59,51,2,"Jade",3,4634,{2560,2563,2565,2579,2618,2619,2714,2721},nil,1,{50.19,61.50,54.38,54.90,55.84,54.59,58.59,54.14,61.49,55.48,64.41,60.75,53.52,65.96,51.20,66.57}}, {20.33,50.40,5.93,25,2,"Jade",3,4634,{2560,2563,2578,2579},nil,1,{17.24,45.34,22.60,45.19,23.81,48.25,22.40,54.58,20.08,55.99,18.95,55.17,18.05,52.29,17.32,49.75}}, {58.16,66.92,6.56,15,2,"Jade",3,4634,{2560,2565,2566,2579},nil,1,{54.29,65.36,58.79,64.58,60.39,64.35,61.45,65.87,60.68,67.19,59.91,68.46,55.15,72.74}}, {27.95,35.51,4.59,6,2,"Jade",3,4634,{2563,2578,2586},nil,1,{25.31,35.12,31.78,32.98,27.11,38.01,26.36,37.96}}, {32.46,28.27,6.10,44,2,"Jade",3,4634,{2565,2579,2586,2587,2589},nil,1,{29.05,28.38,29.32,26.85,30.63,25.68,32.11,24.79,37.31,24.57,37.71,26.69,33.51,31.47,32.21,31.87,31.59,31.21}}, {53.72,76.91,4.13,11,2,"Jade",3,4634,{2566},nil,1,{51.99,76.85,52.86,74.00,53.83,74.58,54.21,75.63,54.68,78.33,54.71,80.42,54.31,81.00}}, {79.09,38.02,6.69,20,2,"Jade",3,4634,{2572},nil,1,{76.23,42.48,77.49,34.88,79.47,33.08,81.82,35.85,82.60,37.95,82.49,38.85,76.91,44.34}}, {48.61,88.04,1.40,6,2,"Jade",3,4634,{2575,2577,4062},nil,1,{48.02,87.25,48.41,87.46,48.82,87.69,49.63,88.99,48.56,88.76,48.20,88.07}}, {27.19,64.16,2.95,25,2,"Jade",3,4634,{2590,24477},nil,1,{25.21,62.55,25.66,62.13,27.59,61.24,29.63,62.54,29.44,65.15,28.95,65.92,27.98,65.93,25.38,65.86}}, {68.06,80.52,2.65,16,2,"Jade",3,4636,{2557},nil,1,{66.29,80.48,66.95,79.12,67.38,78.70,69.87,78.79,70.24,79.01,69.01,81.54,68.61,82.26,66.99,82.33}}, {20.41,67.12,7.24,53,2,"Jade",3,4636,{2558,2569,2570,2571,2580,2583,2590,2602,2773,2794},nil,1,{15.26,69.74,15.98,64.53,22.97,60.34,24.38,62.24,27.39,67.91,23.80,71.17,21.54,72.62}}, {52.40,68.68,5.55,20,2,"Jade",3,4636,{2561,2565,2566,2567},nil,1,{49.61,69.12,50.16,63.87,54.03,64.64,55.11,67.46,55.15,72.74,54.54,73.80,51.55,72.67,50.05,70.42}}, {51.13,77.51,5.92,35,2,"Jade",3,4636,{2561,2565,2566,2567,2580,2793},nil,1,{45.59,79.50,45.66,76.65,46.05,74.48,51.91,73.98,52.86,74.00,53.83,74.58,54.21,75.63,54.68,78.33,54.75,81.87,48.01,82.44,46.93,81.68}}, {60.26,65.89,6.44,16,2,"Jade",3,4636,{2565,2606},nil,1,{56.87,67.51,56.93,61.97,65.64,63.48,66.41,63.95,63.23,67.67,61.74,69.01,57.04,69.00}}, {54.74,56.92,6.30,12,2,"Jade",3,4636,{2565,2733,2762},nil,1,{50.51,53.32,53.17,50.82,60.09,59.32,56.75,60.52,52.59,61.03}}, {43.80,33.56,4.21,9,2,"Jade",3,4636,{2565},nil,1,{41.00,31.90,44.09,31.06,44.56,31.64,46.56,36.74,44.91,36.82,41.97,34.13}}, {39.32,28.02,3.99,8,2,"Jade",3,4636,{2565},nil,1,{37.31,24.57,38.37,25.36,42.68,29.49,40.33,31.69,38.44,29.26}}, {79.25,38.12,7.05,23,2,"Jade",3,4636,{2572,2574},nil,1,{76.02,44.39,76.23,42.48,77.49,34.88,79.47,33.08,82.78,35.97,82.60,37.95,82.49,38.85,76.91,44.34}}, {84.90,31.81,3.91,20,2,"Jade",3,4636,{2573,2574},nil,1,{83.07,33.03,84.24,28.91,86.54,30.23,87.03,31.63,85.04,34.33,83.40,35.42}}, {26.63,62.22,5.85,104,2,"Jade",3,4636,{2583,2584,2585,2588,2590,2591,2597,2598,2599,2783,24477},nil,1,{21.17,60.53,22.06,58.78,23.78,57.11,24.87,57.15,27.51,57.66,28.04,57.99,28.90,58.89,29.79,60.50,29.82,61.33,29.71,64.61,29.44,65.15,28.95,65.92,28.15,66.16,25.46,65.86,22.06,62.99,21.31,62.34}}, {35.71,57.31,5.83,19,2,"Jade",3,4636,{2592,2612,2738},nil,1,{33.31,52.06,33.40,51.95,37.70,56.43,37.65,60.51,36.60,60.79,34.79,60.47}}, {22.03,86.97,5.63,52,2,"Jade",3,4636,{2595,2596},nil,1,{17.01,88.38,19.07,83.86,21.93,83.92,25.42,85.23,25.50,87.43,25.52,91.39,18.18,90.21}}, {31.71,44.67,1.62,3,2,"Jade",3,4636,{2603},nil,1,{30.37,43.77,33.00,44.04,31.76,46.21}}, {63.88,72.50,5.13,6,2,"Jade",3,4636,{2606},nil,1,{60.20,72.26,63.86,68.58,68.86,73.72,64.36,74.68}}, {71.02,66.29,5.16,6,2,"Jade",3,4636,{2606},nil,1,{69.59,61.33,73.50,64.91,70.28,70.24,69.65,66.18}}, {32.47,81.39,1.26,3,2,"Jade",3,4636,{2636},nil,1,{31.41,80.71,33.20,81.47,32.80,81.99}}, {25.61,30.40,2.56,14,2,"Jade",3,4636,{2760},nil,1,{24.37,29.48,24.78,28.52,26.33,28.34,27.43,31.39,26.51,32.61,24.59,32.75,24.38,30.52}}, {66.85,31.21,6.68,17,2,"Jade",3,4636,{2761,2764,2765,4063},nil,1,{65.02,29.80,65.30,28.82,66.20,28.24,67.98,28.04,67.94,31.15,67.84,37.82,67.68,37.57,65.36,31.01}}, {51.90,50.33,2.61,10,2,"Jade",3,4636,{2762},nil,1,{50.39,50.83,52.15,47.73,53.30,49.32,52.53,52.09,51.38,51.93}}, {52.00,50.80,nil,nil,4,"Bolt Charged Bramble",3,7272,nil,nil,2}, {34.18,44.13,5.47,15,2,"Witherbark Totem Stick",3,7273,{2552,2553,2555},{2552,40,2553,40,2555,40},nil,{30.52,43.56,31.00,42.40,34.60,39.40,37.40,40.80,37.60,41.00,35.61,49.41,31.80,46.40}}, {64.17,71.57,6.51,34,2,"Witherbark Totem Stick",3,7273,{2554,2555,2556},{2554,40,2555,40,2556,40},nil,{59.82,74.08,59.93,71.64,62.79,67.63,63.47,67.06,65.25,67.59,70.02,71.75,67.94,76.88}}, {70.66,64.50,5.97,35,2,"Witherbark Totem Stick",3,7273,{2554,2555,2556},{2554,40,2555,40,2556,40},nil,{65.56,64.49,66.02,62.87,66.88,61.70,68.20,60.70,70.71,58.83,72.04,59.15,73.20,60.33,74.05,65.40,71.25,69.92,70.55,70.47}}, {68.33,79.96,3.56,43,2,"Witherbark Totem Stick",3,7273,{2555,2556,2557},{2555,40,2556,40,2557,40},nil,{66.03,81.88,66.29,80.48,67.93,76.49,68.55,76.41,70.04,77.34,70.45,78.20,69.88,81.13,69.19,82.41,66.99,82.33,66.28,82.24}}, {23.75,65.51,0.92,3,2,"Witherbark Totem Stick",3,7273,{2558},{2558,40},nil,{22.93,65.09,24.04,65.18,24.27,66.25}}},
@@ -15038,7 +15038,7 @@ VanillaEnhancedQuestsDB = {
       [1454] = {{42.73,53.55,nil,nil,7,nil,1,6446}},
     },
     },
-    [1978] = { t = "The Deathstalkers", z = -162, rl = 10, ql = 13, rr = 16, rc = 8, ps = {1899}, maps = {
+    [1978] = { t = "The Deathstalkers", z = -162, rl = 10, ql = 13, rr = 16, rc = 8, ps = {1899}, si = {7294}, maps = {
       [1458] = {{56.25,92.20,nil,nil,6,nil,1,2425}},
     },
     turnins = {
@@ -15058,7 +15058,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{83.51,69.11,nil,nil,7,nil,1,6467}},
     },
     },
-    [1999] = { t = "Tools of the Trade", z = -162, rl = 16, ql = 20, rr = 16, rc = 8, ps = {1998}, maps = {
+    [1999] = { t = "Tools of the Trade", z = -162, rl = 16, ql = 20, rr = 16, rc = 8, ps = {1998}, si = {5060}, maps = {
       [1421] = {{63.71,65.24,nil,nil,4,"Dalaran Status Report",3,7309,nil,nil,1}},
     },
     turnins = {
@@ -15108,7 +15108,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{69.18,50.55,nil,nil,7,nil,1,6569}},
     },
     },
-    [2078] = { t = "Gyromast's Revenge", z = 148, rl = 14, ql = 20, rr = 1101, ps = {2098}, maps = {
+    [2078] = { t = "Gyromast's Revenge", z = 148, rl = 14, ql = 20, rr = 1101, ps = {2098}, si = {7442}, maps = {
       [1439] = {{55.81,18.29,nil,nil,1,"Gelkak's First Mate",1,6669,nil,nil,1}},
     },
     turnins = {
@@ -15128,7 +15128,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{56.66,13.48,nil,nil,7,nil,1,6667}},
     },
     },
-    [2118] = { t = "Plagued Lands", z = 148, rl = 10, ql = 14, rr = 1101, nc = 2138, maps = {
+    [2118] = { t = "Plagued Lands", z = 148, rl = 10, ql = 14, rr = 1101, nc = 2138, si = {7586}, maps = {
       [1439] = {{38.21,52.59,nil,nil,1,"Rabid Thistle Bear",1,2164,nil,nil,1}, {38.57,54.62,nil,nil,1,"Rabid Thistle Bear",1,2164,nil,nil,1}, {38.54,79.01,nil,nil,1,"Rabid Thistle Bear",1,2164,nil,nil,1}, {38.84,72.36,4.70,19,1,"Rabid Thistle Bear",1,2164,nil,nil,1,{37.61,73.19,38.08,67.73,39.59,68.31,40.49,71.05,40.61,75.84,40.52,76.43,39.05,76.70,37.69,73.97}}, {38.91,61.43,4.92,18,1,"Rabid Thistle Bear",1,2164,nil,nil,1,{38.08,56.59,40.09,58.31,39.22,65.34,38.88,66.05,38.21,65.52}}, {42.93,66.81,4.18,13,1,"Rabid Thistle Bear",1,2164,nil,nil,1,{41.03,66.24,41.41,63.24,44.64,63.00,44.99,66.82,44.10,70.56,43.10,70.68}}, {45.21,24.59,2.86,7,1,"Rabid Thistle Bear",1,2164,nil,nil,1,{43.01,22.76,47.69,24.52,45.14,26.48,43.74,25.43}}, {48.39,32.64,4.95,26,1,"Rabid Thistle Bear",1,2164,nil,nil,1,{44.04,31.09,44.70,29.35,49.23,29.28,50.82,30.16,51.78,31.77,51.84,32.50,51.23,35.52,48.44,35.61,46.75,34.42,44.73,32.97}}, {50.97,27.27,4.06,15,1,"Rabid Thistle Bear",1,2164,nil,nil,1,{47.25,28.20,48.38,26.26,49.71,25.61,52.80,25.58,53.80,25.64,54.38,29.47,47.46,28.51}}},
     },
     turnins = {
@@ -15168,7 +15168,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{45.56,47.74,nil,nil,7,nil,1,6774}},
     },
     },
-    [2159] = { t = "Dolanaar Delivery", z = 141, rl = 1, ql = 5, rr = 1101, maps = {
+    [2159] = { t = "Dolanaar Delivery", z = 141, rl = 1, ql = 5, rr = 1101, si = {7627}, maps = {
       [1438] = {{55.62,59.79,nil,nil,6,nil,1,6736}},
     },
     turnins = {
@@ -15178,7 +15178,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{61.16,47.64,nil,nil,7,nil,1,6780}},
     },
     },
-    [2160] = { t = "Supplies to Tannok", z = 1, rl = 1, ql = 5, rr = 1101, maps = {
+    [2160] = { t = "Supplies to Tannok", z = 1, rl = 1, ql = 5, rr = 1101, si = {7646}, maps = {
       [1426] = {{47.22,52.19,nil,nil,6,nil,1,6806}},
     },
     turnins = {
@@ -15188,7 +15188,7 @@ VanillaEnhancedQuestsDB = {
       [1426] = {{33.85,72.24,nil,nil,7,nil,1,6782}},
     },
     },
-    [2161] = { t = "A Peon's Burden", z = 14, rl = 1, ql = 5, rr = 690, maps = {
+    [2161] = { t = "A Peon's Burden", z = 14, rl = 1, ql = 5, rr = 690, si = {7629}, maps = {
       [1411] = {{51.51,41.64,nil,nil,6,nil,1,6928}},
     },
     turnins = {
@@ -15209,7 +15209,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{37.69,40.66,nil,nil,7,nil,1,3702}},
     },
     },
-    [2198] = { t = "The Shattered Necklace", z = 1517, rl = 37, ql = 41, rr = 1101, nc = 2199, dq = 1, dm = 230, maps = {
+    [2198] = { t = "The Shattered Necklace", z = 1517, rl = 37, ql = 41, rr = 1101, nc = 2199, dq = 1, dm = 230, si = {7666}, maps = {
       [1455] = {{36.38,3.61,nil,nil,6,nil,1,6826}},
     },
     turnins = {
@@ -15246,7 +15246,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{36.38,3.61,nil,nil,7,nil,1,6826}},
     },
     },
-    [2200] = { t = "Back to Uldaman", z = 1517, rl = 37, ql = 42, rr = 1101, ps = {2199}, nc = 2201, dq = 1, dm = 230, maps = {
+    [2200] = { t = "Back to Uldaman", z = 1517, rl = 37, ql = 42, rr = 1101, ps = {2199}, nc = 2201, dq = 1, dm = 230, si = {7667}, maps = {
     },
     starts = {
       [1455] = {{36.38,3.61,nil,nil,7,nil,1,6826}},
@@ -15264,7 +15264,7 @@ VanillaEnhancedQuestsDB = {
       [1418] = {{2.42,46.06,nil,nil,7,nil,1,6868}},
     },
     },
-    [2203] = { t = "Badlands Reagent Run II", z = 3, rl = 40, ql = 44, rr = 690, sk = {171,210}, ps = {2202}, maps = {
+    [2203] = { t = "Badlands Reagent Run II", z = 3, rl = 40, ql = 44, rr = 690, sk = {171,210}, ps = {2202}, si = {7870}, maps = {
       [1418] = {{81.43,53.81,4.31,9,2,"Vessel of Dragon's Blood",3,7867,{2726},nil,1,{77.44,53.80,80.34,50.02,82.08,51.75,83.19,53.50,84.68,55.85,83.27,57.70}}, {80.85,47.09,1.63,3,2,"Vessel of Dragon's Blood",3,7867,{2726},nil,1,{79.69,47.86,81.03,45.47,81.83,47.93}}},
     },
     turnins = {
@@ -15281,7 +15281,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{36.38,3.61,nil,nil,6,nil,1,6826}},
     },
     },
-    [2205] = { t = "Seek out SI: 7", z = -162, rl = 10, ql = 10, rr = 1101, rc = 8, nc = 2206, maps = {
+    [2205] = { t = "Seek out SI: 7", z = -162, rl = 10, ql = 10, rr = 1101, rc = 8, nc = 2206, si = {7674}, maps = {
       [1453] = {{75.78,59.84,nil,nil,6,nil,1,332}},
     },
     turnins = {
@@ -15321,7 +15321,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{51.96,14.84,nil,nil,7,nil,1,5165}},
     },
     },
-    [2239] = { t = "Onin's Report", z = -162, rl = 10, ql = 10, rr = 1101, rc = 8, ps = {2238}, maps = {
+    [2239] = { t = "Onin's Report", z = -162, rl = 10, ql = 10, rr = 1101, rc = 8, ps = {2238}, si = {7715}, maps = {
       [1455] = {{51.96,14.84,nil,nil,6,nil,1,5165}},
     },
     turnins = {
@@ -15338,7 +15338,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{74.64,11.74,nil,nil,6,nil,1,1356}},
     },
     },
-    [2241] = { t = "The Apple Falls", z = -162, rl = 10, ql = 10, rr = 1101, rc = 8, nc = 2242, maps = {
+    [2241] = { t = "The Apple Falls", z = -162, rl = 10, ql = 10, rr = 1101, rc = 8, nc = 2242, si = {7735}, maps = {
       [1457] = {{36.99,21.91,nil,nil,6,nil,1,4163}},
     },
     turnins = {
@@ -15389,14 +15389,14 @@ VanillaEnhancedQuestsDB = {
       [1457] = {{34.52,25.93,nil,nil,7,nil,1,4214}},
     },
     },
-    [2279] = { t = "The Platinum Discs", z = 1517, rl = 40, ql = 47, rr = 1101, ps = {2278}, nc = 2439, dq = 1, dm = 230, maps = {
+    [2279] = { t = "The Platinum Discs", z = 1517, rl = 40, ql = 47, rr = 1101, ps = {2278}, nc = 2439, dq = 1, dm = 230, si = {6064}, maps = {
       [1455] = {{69.93,18.55,nil,nil,6,nil,1,5387}},
     },
     turnins = {
       [1455] = {{69.93,18.55,nil,nil,6,nil,1,5387}},
     },
     },
-    [2280] = { t = "The Platinum Discs", z = 1517, rl = 40, ql = 47, rr = 690, ps = {2278}, nc = 2440, dq = 1, dm = 230, maps = {
+    [2280] = { t = "The Platinum Discs", z = 1517, rl = 40, ql = 47, rr = 690, ps = {2278}, nc = 2440, dq = 1, dm = 230, si = {6064}, maps = {
       [1456] = {{34.40,46.87,nil,nil,6,nil,1,3978}},
     },
     turnins = {
@@ -15413,7 +15413,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{75.76,60.36,nil,nil,7,nil,1,6946}},
     },
     },
-    [2282] = { t = "Alther's Mill", z = -162, rl = 16, ql = 20, rr = 1101, rc = 8, ps = {2281}, maps = {
+    [2282] = { t = "Alther's Mill", z = -162, rl = 16, ql = 20, rr = 1101, rc = 8, ps = {2281}, si = {5060}, maps = {
       [1433] = {{52.04,44.69,nil,nil,4,"Token of Thievery",3,7871,nil,nil,1}},
     },
     turnins = {
@@ -15470,24 +15470,14 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{43.87,65.94,nil,nil,7,nil,1,917}},
     },
     },
-    [2318] = { t = "Translating the Journal", z = 1517, rl = 37, ql = 42, rr = 690, ps = {2284}, nc = 2338, dq = 1, dm = 230, maps = {
+    [2318] = { t = "Translating the Journal", z = 1517, rl = 37, ql = 42, rr = 690, ps = {2284}, nc = 2338, dq = 1, dm = 230, si = {7886}, maps = {
       [1418] = {{2.42,46.06,nil,nil,6,nil,1,6868}},
     },
     turnins = {
       [1418] = {{2.42,46.06,nil,nil,6,nil,1,6868}},
     },
     },
-    [2338] = { t = "Translating the Journal", z = 1517, rl = 37, ql = 42, rr = 690, ps = {2318}, dq = 1, dm = 230, maps = {
-      [1418] = {{2.42,46.06,nil,nil,6,nil,1,6868}},
-    },
-    turnins = {
-      [1418] = {{2.42,46.06,nil,nil,6,nil,1,6868}},
-    },
-    starts = {
-      [1418] = {{2.42,46.06,nil,nil,7,nil,1,6868}},
-    },
-    },
-    [2339] = { t = "Find the Gems and Power Source", z = 1517, rl = 37, ql = 44, rr = 690, ps = {2338}, dq = 1, dm = 230, maps = {
+    [2338] = { t = "Translating the Journal", z = 1517, rl = 37, ql = 42, rr = 690, ps = {2318}, dq = 1, dm = 230, si = {7886}, maps = {
       [1418] = {{2.42,46.06,nil,nil,6,nil,1,6868}},
     },
     turnins = {
@@ -15497,7 +15487,17 @@ VanillaEnhancedQuestsDB = {
       [1418] = {{2.42,46.06,nil,nil,7,nil,1,6868}},
     },
     },
-    [2340] = { t = "Deliver the Gems", z = 1517, rl = 37, ql = 44, rr = 690, ps = {2339}, nc = 2341, dq = 1, dm = 230, maps = {
+    [2339] = { t = "Find the Gems and Power Source", z = 1517, rl = 37, ql = 44, rr = 690, ps = {2338}, dq = 1, dm = 230, si = {7668}, maps = {
+      [1418] = {{2.42,46.06,nil,nil,6,nil,1,6868}},
+    },
+    turnins = {
+      [1418] = {{2.42,46.06,nil,nil,6,nil,1,6868}},
+    },
+    starts = {
+      [1418] = {{2.42,46.06,nil,nil,7,nil,1,6868}},
+    },
+    },
+    [2340] = { t = "Deliver the Gems", z = 1517, rl = 37, ql = 44, rr = 690, ps = {2339}, nc = 2341, dq = 1, dm = 230, si = {7887}, maps = {
       [1454] = {{59.49,36.57,nil,nil,6,nil,1,6986}},
     },
     turnins = {
@@ -15537,7 +15537,7 @@ VanillaEnhancedQuestsDB = {
       [1433] = {{28.06,52.32,nil,nil,7,nil,1,7009}},
     },
     },
-    [2359] = { t = "Klaven's Tower", z = -162, rl = 20, ql = -1, rr = 1101, rc = 8, ps = {2360}, nc = 2607, maps = {
+    [2359] = { t = "Klaven's Tower", z = -162, rl = 20, ql = -1, rr = 1101, rc = 8, ps = {2360}, nc = 2607, si = {8046}, maps = {
       [1436] = {{70.41,73.93,nil,nil,4,"Klaven Mortwake's Journal",3,7908,nil,nil,1}, {69.47,73.99,nil,nil,2,"Defias Tower Key",3,7923,{7051},{7051,100},2}},
     },
     turnins = {
@@ -15597,7 +15597,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{51.98,43.69,nil,nil,7,nil,1,3170}},
     },
     },
-    [2381] = { t = "Plundering the Plunderers", z = -162, rl = 16, ql = 18, rr = 690, rc = 8, ps = {2382}, maps = {
+    [2381] = { t = "Plundering the Plunderers", z = -162, rl = 16, ql = 18, rr = 690, rc = 8, ps = {2382}, si = {7970,5060}, maps = {
       [1413] = {{64.78,45.50,nil,nil,2,"Southsea Treasure",3,7968,{7168},{7168,100},1}},
     },
     turnins = {
@@ -15617,7 +15617,7 @@ VanillaEnhancedQuestsDB = {
       [1454] = {{42.73,52.95,nil,nil,7,nil,1,3402}},
     },
     },
-    [2383] = { t = "Simple Parchment", z = -81, rl = 1, ql = 1, rr = 2, rc = 1, ps = {788}, maps = {
+    [2383] = { t = "Simple Parchment", z = -81, rl = 1, ql = 1, rr = 2, rc = 1, ps = {788}, si = {12635}, maps = {
       [1411] = {{42.89,69.44,nil,nil,6,nil,1,3153}},
     },
     turnins = {
@@ -15663,7 +15663,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{55.57,56.95,nil,nil,7,nil,1,3567}},
     },
     },
-    [2439] = { t = "The Platinum Discs", z = 1537, rl = 40, ql = 47, rr = 1101, ps = {2279}, maps = {
+    [2439] = { t = "The Platinum Discs", z = 1537, rl = 40, ql = 47, rr = 1101, ps = {2279}, si = {8070}, maps = {
       [1455] = {{33.88,59.15,nil,nil,6,nil,1,7292}},
     },
     turnins = {
@@ -15673,7 +15673,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{69.93,18.55,nil,nil,7,nil,1,5387}},
     },
     },
-    [2440] = { t = "The Platinum Discs", z = 1638, rl = 40, ql = 47, rr = 690, ps = {2280}, maps = {
+    [2440] = { t = "The Platinum Discs", z = 1638, rl = 40, ql = 47, rr = 690, ps = {2280}, si = {8070}, maps = {
       [1456] = {{46.62,33.17,nil,nil,6,nil,1,3009}},
     },
     turnins = {
@@ -15683,7 +15683,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{34.40,46.87,nil,nil,7,nil,1,3978}},
     },
     },
-    [2458] = { t = "Deep Cover", z = -162, rl = 20, ql = -1, rr = 690, rc = 8, ps = {2460}, maps = {
+    [2458] = { t = "Deep Cover", z = -162, rl = 20, ql = -1, rr = 690, rc = 8, ps = {2460}, si = {8051}, maps = {
       [1413] = {{55.44,5.56,nil,nil,6,nil,1,7233}},
     },
     turnins = {
@@ -15693,7 +15693,7 @@ VanillaEnhancedQuestsDB = {
       [1454] = {{43.05,53.74,nil,nil,7,nil,1,3401}},
     },
     },
-    [2459] = { t = "Ferocitas the Dream Eater", z = 141, rl = 5, ql = 8, rr = 1101, ps = {2438}, maps = {
+    [2459] = { t = "Ferocitas the Dream Eater", z = 141, rl = 5, ql = 8, rr = 1101, ps = {2438}, si = {8049}, maps = {
       [1438] = {{68.90,52.78,2.64,9,1,"Gnarlpine Mystic",1,7235,nil,nil,1,{68.27,52.18,68.46,51.71,69.72,52.89,69.62,55.32}}, {69.37,53.41,nil,nil,2,"Tallonkai's Jewel",3,8049,{7234},{7234,100},2}, {69.37,53.41,nil,nil,2,"Gnarlpine Necklace",3,8049,{7234},{7234,100}}},
     },
     turnins = {
@@ -15713,7 +15713,7 @@ VanillaEnhancedQuestsDB = {
       [1454] = {{43.05,53.74,nil,nil,7,nil,1,3401}},
     },
     },
-    [2478] = { t = "Mission: Possible But Not Probable", z = -162, rl = 20, ql = -1, rr = 690, rc = 8, ps = {2458}, nc = 2479, maps = {
+    [2478] = { t = "Mission: Possible But Not Probable", z = -162, rl = 20, ql = -1, rr = 690, rc = 8, ps = {2458}, nc = 2479, si = {8066}, maps = {
       [1413] = {{54.72,5.75,nil,nil,1,"Mutated Venture Co. Drone",1,7310,nil,nil,1}, {54.70,5.70,nil,nil,1,"Mutated Venture Co. Drone",1,7310,nil,nil,1}, {54.72,5.71,0.18,3,1,"Venture Co. Lookout",1,7307,nil,nil,2,{54.64,5.77,54.75,5.53,54.78,5.82}}, {54.66,5.68,nil,nil,1,"Venture Co. Patroller",1,7308,nil,nil,3}, {54.81,5.59,nil,nil,1,"Venture Co. Patroller",1,7308,nil,nil,3}, {54.75,5.59,nil,nil,2,"Gallywix's Head",3,8074,{7288},{7288,100},4}, {54.80,5.97,nil,nil,2,"Silixiz's Tower Key",3,8072,{7287},{7287,100},5}, {54.76,5.56,nil,nil,4,"Cache of Zanzil's Altered Mixture",3,8073,nil,nil,6}},
     },
     turnins = {
@@ -15723,7 +15723,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{55.44,5.56,nil,nil,7,nil,1,7233}},
     },
     },
-    [2479] = { t = "Hinott's Assistance", z = -162, rl = 20, ql = -1, rr = 690, rc = 8, ps = {2478}, nc = 2480, maps = {
+    [2479] = { t = "Hinott's Assistance", z = -162, rl = 20, ql = -1, rr = 690, rc = 8, ps = {2478}, nc = 2480, si = {8087}, maps = {
       [1424] = {{61.63,19.19,nil,nil,6,nil,1,2391}},
     },
     turnins = {
@@ -15774,7 +15774,7 @@ VanillaEnhancedQuestsDB = {
       [1432] = {{37.07,49.38,nil,nil,7,nil,1,1470}},
     },
     },
-    [2501] = { t = "Badlands Reagent Run II", z = -181, rl = 40, ql = 44, rr = 1101, sk = {171,210}, pg = {2500,17}, maps = {
+    [2501] = { t = "Badlands Reagent Run II", z = -181, rl = 40, ql = 44, rr = 1101, sk = {171,210}, pg = {2500,17}, si = {7870}, maps = {
       [1418] = {{81.43,53.81,4.31,9,2,"Vessel of Dragon's Blood",3,7867,{2726},nil,1,{77.44,53.80,80.34,50.02,82.08,51.75,83.19,53.50,84.68,55.85,83.27,57.70}}, {80.85,47.09,1.63,3,2,"Vessel of Dragon's Blood",3,7867,{2726},nil,1,{79.69,47.86,81.03,45.47,81.83,47.93}}},
     },
     turnins = {
@@ -15804,7 +15804,7 @@ VanillaEnhancedQuestsDB = {
       [1457] = {{28.94,45.80,nil,nil,7,nil,1,7316}},
     },
     },
-    [2520] = { t = "Sathrah's Sacrifice", z = 1657, rl = 9, ql = 12, rr = 1101, ps = {2518}, sf = 2, maps = {
+    [2520] = { t = "Sathrah's Sacrifice", z = 1657, rl = 9, ql = 12, rr = 1101, ps = {2518}, sf = 2, si = {8155}, maps = {
       [1457] = {{39.18,85.59,nil,nil,4,"Temple of the Moon Fountain",2,138498,nil,nil,1}},
     },
     turnins = {
@@ -15844,7 +15844,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{44.94,61.59,nil,nil,7,nil,1,7317}},
     },
     },
-    [2561] = { t = "Druid of the Claw", z = 141, rl = 3, ql = 10, rr = 1101, ps = {2541}, sf = 2, maps = {
+    [2561] = { t = "Druid of the Claw", z = 141, rl = 3, ql = 10, rr = 1101, ps = {2541}, sf = 2, si = {8149}, maps = {
       [1438] = {{45.53,58.58,nil,nil,1,"Rageclaw",1,7318,nil,nil,1}},
     },
     turnins = {
@@ -15964,7 +15964,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{51.81,28.66,nil,nil,7,nil,1,7564}},
     },
     },
-    [2606] = { t = "In Good Taste", z = 440, rl = 44, ql = 49, ps = {2605}, nc = 2641, maps = {
+    [2606] = { t = "In Good Taste", z = 440, rl = 44, ql = 49, ps = {2605}, nc = 2641, si = {8603}, maps = {
       [1446] = {{51.06,26.87,nil,nil,6,nil,1,7583}},
     },
     turnins = {
@@ -16047,7 +16047,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{51.06,26.87,nil,nil,7,nil,1,7583}},
     },
     },
-    [2661] = { t = "Delivery for Marin", z = 440, rl = 44, ql = 49, ps = {2641}, nc = 2662, maps = {
+    [2661] = { t = "Delivery for Marin", z = 440, rl = 44, ql = 49, ps = {2641}, nc = 2662, si = {8528}, maps = {
       [1446] = {{51.81,28.66,nil,nil,6,nil,1,7564}},
     },
     turnins = {
@@ -16313,7 +16313,7 @@ VanillaEnhancedQuestsDB = {
       [1454] = {{80.94,23.32,nil,nil,7,nil,1,7792}},
     },
     },
-    [2757] = { t = "Booty Bay or Bust!", z = -121, rl = 40, ql = 40, rr = 690, sk = {164,210}, ps = {2756}, nc = 2760, maps = {
+    [2757] = { t = "Booty Bay or Bust!", z = -121, rl = 40, ql = 40, rr = 690, sk = {164,210}, ps = {2756}, nc = 2760, si = {8663}, maps = {
       [1434] = {{28.87,75.42,nil,nil,6,nil,1,7794}},
     },
     turnins = {
@@ -16333,7 +16333,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{55.80,15.99,nil,nil,7,nil,1,7798}},
     },
     },
-    [2759] = { t = "In Search of Galvan", z = -121, rl = 40, ql = 40, rr = 1101, sk = {164,210}, ps = {2758}, nc = 2760, maps = {
+    [2759] = { t = "In Search of Galvan", z = -121, rl = 40, ql = 40, rr = 1101, sk = {164,210}, ps = {2758}, nc = 2760, si = {8663}, maps = {
       [1434] = {{28.87,75.42,nil,nil,6,nil,1,7794}},
     },
     turnins = {
@@ -16343,7 +16343,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{55.80,15.99,nil,nil,7,nil,1,7798}},
     },
     },
-    [2760] = { t = "The Mithril Order", z = -121, rl = 40, ql = 40, sk = {164,210}, ps = {2757,2759}, maps = {
+    [2760] = { t = "The Mithril Order", z = -121, rl = 40, ql = 40, sk = {164,210}, ps = {2757,2759}, si = {8686}, maps = {
       [1434] = {{50.62,20.48,nil,nil,6,nil,1,7802}},
     },
     turnins = {
@@ -16454,7 +16454,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{50.62,20.48,nil,nil,7,nil,1,7802}},
     },
     },
-    [2766] = { t = "Find OOX-22/FE!", z = 357, rl = 40, ql = 45, nc = 2767, maps = {
+    [2766] = { t = "Find OOX-22/FE!", z = 357, rl = 40, ql = 45, nc = 2767, si = {8705}, maps = {
       [1444] = {{53.35,55.70,nil,nil,6,nil,1,7807}},
     },
     turnins = {
@@ -16541,7 +16541,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{66.82,22.29,nil,nil,7,nil,2,142122}, {51.83,27.04,nil,nil,7,nil,2,150075}},
     },
     },
-    [2782] = { t = "Rin'ji's Secret", z = 47, rl = 45, ql = 47, rr = 690, ps = {2742}, maps = {
+    [2782] = { t = "Rin'ji's Secret", z = 47, rl = 45, ql = 47, rr = 690, ps = {2742}, si = {8724}, maps = {
       [1458] = {{73.06,32.85,nil,nil,6,nil,1,7825}},
     },
     turnins = {
@@ -16751,7 +16751,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{30.63,42.71,nil,nil,7,nil,1,7852}},
     },
     },
-    [2853] = { t = "Master of the Wild Leather", z = -182, rl = 30, ql = 45, rr = 1101, sk = {165,225}, pg = {2851,2852}, maps = {
+    [2853] = { t = "Master of the Wild Leather", z = -182, rl = 30, ql = 45, rr = 1101, sk = {165,225}, pg = {2851,2852}, si = {9235}, maps = {
       [1457] = {{64.43,21.54,nil,nil,6,nil,1,4212}},
     },
     turnins = {
@@ -16851,7 +16851,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{74.43,42.91,nil,nil,7,nil,1,7854}},
     },
     },
-    [2860] = { t = "Master of the Wild Leather", z = -182, rl = 30, ql = 45, rr = 690, sk = {165,225}, pg = {2858,2859}, maps = {
+    [2860] = { t = "Master of the Wild Leather", z = -182, rl = 30, ql = 45, rr = 690, sk = {165,225}, pg = {2858,2859}, si = {9236}, maps = {
       [1456] = {{41.50,42.57,nil,nil,6,nil,1,3007}},
     },
     turnins = {
@@ -16956,7 +16956,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{30.38,46.17,nil,nil,7,nil,1,7877}},
     },
     },
-    [2871] = { t = "Delivering the Relic", z = 357, rl = 40, ql = 45, rr = 1101, ps = {2870}, maps = {
+    [2871] = { t = "Delivering the Relic", z = 357, rl = 40, ql = 45, rr = 1101, ps = {2870}, si = {9248}, maps = {
       [1444] = {{30.08,45.06,nil,nil,6,nil,1,7878}},
     },
     turnins = {
@@ -16986,7 +16986,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{67.11,23.98,nil,nil,7,nil,1,7881}},
     },
     },
-    [2874] = { t = "Deliver to MacKinley", z = 440, rl = 40, ql = 45, ps = {2873}, maps = {
+    [2874] = { t = "Deliver to MacKinley", z = 440, rl = 40, ql = 45, ps = {2873}, si = {9245}, maps = {
       [1434] = {{27.78,77.07,nil,nil,6,nil,1,2501}},
     },
     turnins = {
@@ -17006,7 +17006,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{66.82,22.29,nil,nil,7,nil,2,142122}, {51.83,27.04,nil,nil,7,nil,2,150075}},
     },
     },
-    [2876] = { t = "Ship Schedules", z = 440, rl = 40, ql = 45, maps = {
+    [2876] = { t = "Ship Schedules", z = 440, rl = 40, ql = 45, si = {9250}, maps = {
       [1446] = {{67.06,23.89,nil,nil,6,nil,1,7882}},
     },
     turnins = {
@@ -17023,7 +17023,7 @@ VanillaEnhancedQuestsDB = {
       [1425] = {{14.83,44.57,nil,nil,7,nil,1,7884}},
     },
     },
-    [2879] = { t = "The Stave of Equinex", z = 357, rl = 42, ql = 50, rr = 1101, ps = {2943}, nc = 2942, maps = {
+    [2879] = { t = "The Stave of Equinex", z = 357, rl = 42, ql = 50, rr = 1101, ps = {2943}, nc = 2942, si = {9263,9255,9256,9257,9258}, maps = {
       [1444] = {{38.83,13.17,nil,nil,4,"Stave of Equinex",3,9306,nil,nil,1}, {37.75,12.18,nil,nil,4,"Lahassa Essence",3,9255}, {39.92,9.44,nil,nil,4,"Imbel Essence",3,9256}, {40.54,12.66,nil,nil,4,"Samha Essence",3,9257}, {38.50,15.79,nil,nil,4,"Byltan Essence",3,9258}},
     },
     turnins = {
@@ -17070,7 +17070,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{74.91,42.46,nil,nil,7,nil,1,7875}},
     },
     },
-    [2903] = { t = "The Battle Plans", z = 357, rl = 39, ql = 43, rr = 690, ps = {2902}, maps = {
+    [2903] = { t = "The Battle Plans", z = 357, rl = 39, ql = 43, rr = 690, ps = {2902}, si = {9266}, maps = {
       [1444] = {{74.91,42.46,nil,nil,6,nil,1,7875}},
     },
     turnins = {
@@ -17127,7 +17127,7 @@ VanillaEnhancedQuestsDB = {
       [1457] = {{59.51,45.38,nil,nil,7,nil,1,6142}},
     },
     },
-    [2926] = { t = "Gnogaine", z = 133, rl = 20, ql = 27, rr = 1101, nc = 2962, bc = {2927}, dq = 1, dm = 226, maps = {
+    [2926] = { t = "Gnogaine", z = 133, rl = 20, ql = 27, rr = 1101, nc = 2962, bc = {2927}, dq = 1, dm = 226, si = {9283}, maps = {
       [1426] = {{20.76,35.57,3.53,5,2,"Full Leaden Collection Phial",3,9284,{6213},nil,1,{19.32,38.80,19.68,36.71,21.81,32.20,22.09,34.14}}},
     },
     turnins = {
@@ -17167,7 +17167,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{68.75,48.97,nil,nil,7,nil,1,7937}},
     },
     },
-    [2930] = { t = "Data Rescue", z = 133, rl = 25, ql = 30, rr = 1101, bc = {2931}, dq = 1, dm = 226, maps = {
+    [2930] = { t = "Data Rescue", z = 133, rl = 25, ql = 30, rr = 1101, bc = {2931}, dq = 1, dm = 226, si = {9279,9280,9281,9282}, maps = {
       [1426] = {{21.52,37.23,5.73,29,2,"White Punch Card",3,9279,{6208,6209,6210,6213,6221},{6208,9.894,6209,5.709,6210,12.588,6213,10.729,6221,15.143},nil,{18.10,39.25,21.08,31.52,22.98,31.94,23.55,38.90,23.15,39.51}}},
     },
     turnins = {
@@ -17187,7 +17187,7 @@ VanillaEnhancedQuestsDB = {
       [1442] = {{59.52,67.15,nil,nil,7,nil,1,4077}},
     },
     },
-    [2932] = { t = "Grim Message", z = 47, rl = 35, ql = 42, rr = 690, sf = 2, maps = {
+    [2932] = { t = "Grim Message", z = 47, rl = 35, ql = 42, rr = 690, sf = 2, si = {15002,9320}, maps = {
       [1425] = {{23.41,58.06,nil,nil,3,"Place the grim message."}, {24.57,57.56,7.11,26,2,"Witherbark Skull",3,9320,{2649,2650,2651},{2649,100,2650,100,2651,100},nil,{21.75,57.54,21.79,56.70,21.95,55.22,22.85,55.16,24.29,55.32,31.61,56.52,31.13,58.54,25.14,60.30,24.52,60.19}}, {31.54,58.94,6.44,24,2,"Witherbark Skull",3,9320,{2651,2652,2653},{2651,100,2652,100,2653,100},nil,{28.74,56.55,29.89,56.63,30.57,56.73,32.68,57.34,36.53,63.01,35.33,63.50,30.34,61.55,29.83,61.28}}, {34.87,70.31,6.88,21,2,"Witherbark Skull",3,9320,{2653,2654},{2653,100,2654,100},nil,{30.61,71.36,31.71,67.86,32.05,67.05,35.67,65.91,39.99,65.78,40.27,66.04,36.86,72.17,32.50,76.33,32.05,75.77}}, {25.21,65.99,0.71,3,2,"Witherbark Skull",3,9320,{2653,17235},{2653,100,17235,100},nil,{24.63,65.58,25.60,65.95,25.40,66.43}}},
     },
     turnins = {
@@ -17197,7 +17197,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{32.16,27.72,nil,nil,7,nil,1,2497}},
     },
     },
-    [2933] = { t = "Venom Bottles", z = 47, rl = 41, ql = 43, rr = 690, nc = 2934, maps = {
+    [2933] = { t = "Venom Bottles", z = 47, rl = 41, ql = 43, rr = 690, nc = 2934, si = {9321}, maps = {
       [1424] = {{61.44,19.06,nil,nil,6,nil,1,2216}},
     },
     turnins = {
@@ -17237,7 +17237,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{55.95,74.72,nil,nil,7,nil,1,3188}},
     },
     },
-    [2937] = { t = "Summoning Shadra", z = 47, rl = 40, ql = 55, rr = 690, ps = {2936}, maps = {
+    [2937] = { t = "Summoning Shadra", z = 47, rl = 40, ql = 55, rr = 690, ps = {2936}, si = {9323}, maps = {
       [1425] = {{33.82,72.97,nil,nil,2,"Shadra's Venom",3,9324,{2707},{2707,100},1}},
     },
     turnins = {
@@ -17247,7 +17247,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{55.95,74.72,nil,nil,7,nil,1,3188}},
     },
     },
-    [2938] = { t = "Venom to the Undercity", z = 47, rl = 40, ql = 55, rr = 690, ps = {2937}, maps = {
+    [2938] = { t = "Venom to the Undercity", z = 47, rl = 40, ql = 55, rr = 690, ps = {2937}, si = {9436}, maps = {
       [1458] = {{48.82,69.28,nil,nil,6,nil,1,2055}},
     },
     turnins = {
@@ -17277,7 +17277,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{55.22,91.46,nil,nil,7,nil,2,142958}},
     },
     },
-    [2941] = { t = "The Borrower", z = 357, rl = 42, ql = 48, rr = 1101, ps = {2940}, nc = 2944, maps = {
+    [2941] = { t = "The Borrower", z = 357, rl = 42, ql = 48, rr = 1101, ps = {2940}, nc = 2944, si = {9329}, maps = {
       [1446] = {{52.36,26.91,nil,nil,6,nil,1,7763}},
     },
     turnins = {
@@ -17287,7 +17287,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{55.41,92.23,nil,nil,7,nil,1,7907}},
     },
     },
-    [2942] = { t = "The Morrow Stone", z = 357, rl = 42, ql = 50, rr = 1101, ps = {2879}, maps = {
+    [2942] = { t = "The Morrow Stone", z = 357, rl = 42, ql = 50, rr = 1101, ps = {2879}, si = {9306}, maps = {
       [1444] = {{31.78,45.50,nil,nil,6,nil,1,7764}},
     },
     turnins = {
@@ -17297,7 +17297,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{38.83,13.17,nil,nil,7,nil,2,144063}},
     },
     },
-    [2943] = { t = "Return to Troyas", z = 357, rl = 42, ql = 48, rr = 1101, ps = {2944}, nc = 2879, maps = {
+    [2943] = { t = "Return to Troyas", z = 357, rl = 42, ql = 48, rr = 1101, ps = {2944}, nc = 2879, si = {9331}, maps = {
       [1444] = {{31.78,45.50,nil,nil,6,nil,1,7764}},
     },
     turnins = {
@@ -17307,7 +17307,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{55.41,92.23,nil,nil,7,nil,1,7907}},
     },
     },
-    [2944] = { t = "The Super Snapper FX", z = 357, rl = 42, ql = 48, rr = 1101, ps = {2941}, nc = 2943, maps = {
+    [2944] = { t = "The Super Snapper FX", z = 357, rl = 42, ql = 48, rr = 1101, ps = {2941}, nc = 2943, si = {9328}, maps = {
       [1425] = {{80.40,58.23,nil,nil,2,"Snapshot of Gammerita",3,9330,{7977},nil,1}},
     },
     turnins = {
@@ -17317,7 +17317,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{52.36,26.91,nil,nil,7,nil,1,7763}},
     },
     },
-    [2946] = { t = "Seeing What Happens", z = 1537, rl = 45, ql = 50, rr = 1101, ps = {2963}, nc = 2954, maps = {
+    [2946] = { t = "Seeing What Happens", z = 1537, rl = 45, ql = 50, rr = 1101, ps = {2963}, nc = 2954, si = {6064}, maps = {
       [1446] = {{37.63,81.40,nil,nil,6,nil,2,142343}},
     },
     turnins = {
@@ -17327,14 +17327,14 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{77.54,11.82,nil,nil,7,nil,1,2916}},
     },
     },
-    [2947] = { t = "Return of the Ring", z = 133, rl = 28, ql = 34, rr = 1101, ps = {2945}, nc = 2948, dq = 1, dm = 226, maps = {
+    [2947] = { t = "Return of the Ring", z = 133, rl = 28, ql = 34, rr = 1101, ps = {2945}, nc = 2948, dq = 1, dm = 226, si = {9362}, maps = {
       [1455] = {{36.38,3.61,nil,nil,6,nil,1,6826}},
     },
     turnins = {
       [1455] = {{36.38,3.61,nil,nil,6,nil,1,6826}},
     },
     },
-    [2948] = { t = "Gnome Improvement", z = 1537, rl = 28, ql = 35, rr = 1101, ps = {2947}, maps = {
+    [2948] = { t = "Gnome Improvement", z = 1537, rl = 28, ql = 35, rr = 1101, ps = {2947}, si = {9362}, maps = {
       [1411] = {{67.01,84.95,2.33,3,4,"Silver Bar",3,2842,nil,nil,1,{65.56,83.12,68.34,85.07,67.12,86.66}}, {60.70,56.91,3.42,4,4,"Silver Bar",3,2842,nil,nil,1,{57.82,58.75,59.64,56.23,62.11,55.83,63.23,56.82}}, {51.43,19.93,1.07,3,4,"Silver Bar",3,2842,nil,nil,1,{51.16,18.91,51.90,19.90,51.24,20.98}}, {51.81,25.00,2.34,5,4,"Silver Bar",3,2842,nil,nil,1,{49.62,24.28,51.15,23.63,53.02,24.88,53.24,26.85}}, {43.32,38.23,2.68,4,4,"Silver Bar",3,2842,nil,nil,1,{42.57,38.81,43.57,35.56,43.84,39.21,43.31,39.33}}, {52.17,9.79,1.24,6,4,"Silver Bar",3,2842,nil,nil,1,{51.43,10.78,51.47,9.93,52.53,9.15,52.76,9.07,52.64,9.42,52.21,10.37}}, {39.42,53.81,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {43.39,27.91,5.05,5,4,"Silver Bar",3,2842,nil,nil,1,{40.84,30.47,42.07,27.13,44.12,23.98,47.40,30.97}}, {47.76,77.12,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {47.34,49.20,3.37,4,4,"Silver Bar",3,2842,nil,nil,1,{44.18,50.36,49.08,48.00,49.02,48.60,47.09,49.84}}},
       [1412] = {{64.18,68.99,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {65.57,69.21,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {32.33,44.83,3.04,4,4,"Silver Bar",3,2842,nil,nil,1,{31.42,41.93,33.24,47.40,32.97,47.32}}, {56.21,48.17,4.11,5,4,"Silver Bar",3,2842,nil,nil,1,{53.35,48.17,53.73,47.87,59.86,48.14,60.32,48.25,53.79,48.44}}, {29.55,25.93,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {30.80,22.91,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {39.11,14.80,3.06,3,4,"Silver Bar",3,2842,nil,nil,1,{36.69,12.92,40.05,15.33,40.58,16.16}}, {50.94,72.70,2.76,4,4,"Silver Bar",3,2842,nil,nil,1,{48.25,72.32,48.53,72.10,53.33,73.13,53.64,73.26}}, {33.94,61.79,3.16,3,4,"Silver Bar",3,2842,nil,nil,1,{30.96,60.73,35.31,62.16,35.54,62.49}}, {60.90,37.82,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {63.58,41.11,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {56.73,14.80,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {55.06,16.09,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}},
       [1413] = {{61.68,5.19,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {59.55,2.74,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {52.14,54.67,3.02,4,4,"Silver Bar",3,2842,nil,nil,1,{51.04,57.48,51.31,54.89,52.60,52.31,53.63,53.99}}, {44.78,53.42,2.55,6,4,"Silver Bar",3,2842,nil,nil,1,{42.85,55.09,43.26,52.20,44.99,51.34,46.95,53.61,45.28,54.34}}, {39.21,11.83,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {40.02,15.98,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {46.17,82.85,6.19,6,4,"Silver Bar",3,2842,nil,nil,1,{41.62,78.65,49.61,83.57,49.74,84.04,48.60,84.76,43.13,83.22}}, {62.64,51.64,5.56,8,4,"Silver Bar",3,2842,nil,nil,1,{61.21,55.66,61.42,53.61,63.50,46.15,64.32,47.27,62.30,56.64}}, {59.13,24.38,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {58.77,27.50,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {44.78,21.67,4.93,5,4,"Silver Bar",3,2842,nil,nil,1,{42.11,24.64,43.67,21.18,46.61,18.11,47.88,17.97,43.64,26.47}}, {55.01,43.09,3.05,6,4,"Silver Bar",3,2842,nil,nil,1,{52.85,44.38,53.39,40.50,57.10,41.24,56.86,43.51,55.94,45.85}}, {46.99,38.67,1.95,3,4,"Silver Bar",3,2842,nil,nil,1,{45.89,39.42,46.15,37.77,48.93,38.82}}, {54.50,9.94,2.62,4,4,"Silver Bar",3,2842,nil,nil,1,{52.46,11.58,52.48,10.66,56.40,8.75,56.67,8.78}}, {43.13,23.56,6.35,54,4,"Moss Agate",3,1206,nil,nil,2,{39.48,23.62,39.82,19.38,42.14,18.88,43.27,19.14,45.34,22.26,44.89,25.09,43.84,27.45,41.57,29.71,40.41,27.89}}, {39.35,13.44,5.97,21,4,"Moss Agate",3,1206,nil,nil,2,{37.62,14.84,38.88,10.78,45.18,12.17,40.02,15.98}}, {58.10,28.41,8.42,88,4,"Moss Agate",3,1206,nil,nil,2,{54.37,25.36,59.24,23.60,61.21,26.47,62.14,29.35,61.68,34.79,59.93,36.62,55.65,31.49}}, {62.16,45.31,6.64,40,4,"Moss Agate",3,1206,nil,nil,2,{57.11,43.62,58.90,41.48,61.31,40.34,63.41,42.72,64.73,44.46,64.71,46.52,64.17,49.47,59.01,51.16,58.06,49.38}}, {43.83,44.55,6.08,36,4,"Moss Agate",3,1206,nil,nil,2,{40.63,45.66,42.71,41.05,49.49,44.41,48.52,48.42,40.70,46.86}}, {59.46,5.75,4.85,21,4,"Moss Agate",3,1206,nil,nil,2,{56.40,8.75,57.49,6.02,59.55,2.74,60.28,3.36,61.68,5.19,62.29,9.68}}, {57.91,14.01,6.38,43,4,"Moss Agate",3,1206,nil,nil,2,{52.46,11.58,52.48,10.66,56.86,10.73,62.08,11.42,62.03,14.72,57.83,18.65,55.45,17.30}}, {44.14,80.68,9.76,81,4,"Moss Agate",3,1206,nil,nil,2,{40.36,80.32,42.09,71.14,49.61,76.81,49.74,84.04,48.48,86.14,47.93,86.09,47.47,85.94,47.29,85.88,43.42,84.21}}, {46.19,36.41,6.47,77,4,"Moss Agate",3,1206,nil,nil,2,{41.14,35.28,47.47,30.07,48.96,31.16,49.51,32.39,48.93,38.82,47.82,39.97,46.99,40.30,42.68,38.87,41.51,37.97}}, {48.34,18.15,7.06,59,4,"Moss Agate",3,1206,nil,nil,2,{43.27,19.14,46.39,12.83,47.14,11.96,50.92,11.58,50.96,21.62,50.68,24.04,47.43,22.69,44.70,21.44}}, {46.61,63.79,3.47,19,4,"Moss Agate",3,1206,nil,nil,2,{43.26,62.89,49.45,61.99,48.90,64.07,47.98,66.72,44.31,64.58}}, {44.65,52.53,5.65,37,4,"Moss Agate",3,1206,nil,nil,2,{41.99,56.66,43.13,51.99,44.92,50.35,48.52,48.42,47.21,54.40}}, {55.52,41.82,6.82,39,4,"Moss Agate",3,1206,nil,nil,2,{51.46,42.54,51.86,39.57,59.93,36.62,58.90,41.48,58.07,43.11,55.94,45.85,52.85,44.38}}, {45.73,70.92,4.58,28,4,"Moss Agate",3,1206,nil,nil,2,{41.68,68.78,45.22,68.66,47.44,68.65,49.22,68.81,48.62,74.41,43.40,74.55,42.09,71.14}}, {52.03,54.49,6.28,51,4,"Moss Agate",3,1206,nil,nil,2,{49.71,48.65,51.73,48.22,53.77,54.30,53.46,55.21,51.21,57.91,50.55,58.10}}, {60.93,51.85,4.98,27,4,"Moss Agate",3,1206,nil,nil,2,{58.06,49.38,60.13,49.15,62.43,49.12,63.75,49.18,64.17,49.47,62.30,56.64,58.44,53.18}}, {47.76,85.50,2.65,20,4,"Moss Agate",3,1206,nil,nil,2,{46.83,84.46,47.12,84.03,47.44,83.96,48.56,85.24,48.74,87.96,47.29,85.88}}, {46.28,66.81,3.21,4,2,"Moss Agate",3,4632,{3235,3237,5797,5834},nil,2,{44.83,64.10,47.21,66.47,46.00,70.00}}, {48.95,83.77,4.18,19,2,"Moss Agate",3,4632,{3377,3472,5798},nil,2,{47.44,79.87,48.52,79.65,49.55,84.32,48.90,84.91,48.54,84.63}}, {41.93,80.02,5.85,21,2,"Moss Agate",3,4632,{3435,3459,3472},nil,2,{40.15,80.54,41.51,78.32,44.81,74.93,44.81,78.88,42.03,82.18,40.77,81.46}}, {48.22,19.15,nil,nil,2,"Moss Agate",3,4632,{3986},nil,2}, {47.10,66.66,nil,nil,2,"Moss Agate",3,4633,{3237},nil,2}, {48.37,84.29,5.31,18,2,"Moss Agate",3,4633,{3378,3392,3414,5851,5859},nil,2,{43.18,83.17,44.27,82.91,49.61,83.59,49.76,84.11,48.33,86.16,47.44,85.75}}, {64.27,50.63,4.05,15,2,"Moss Agate",3,4633,{3476},nil,2,{63.00,52.40,63.40,50.20,65.60,46.80,65.60,47.80,64.60,50.80,63.60,53.60,63.40,53.60}}, {41.55,78.77,nil,nil,2,"Moss Agate",3,4633,{5859},nil,2}, {41.94,81.50,nil,nil,2,"Moss Agate",3,4633,{5859},nil,2}, {54.72,5.69,0.16,7,2,"Moss Agate",3,16882,{7307,7308,7310},nil,2,{54.64,5.77,54.66,5.68,54.75,5.53,54.81,5.59,54.78,5.82}}},
@@ -17379,14 +17379,14 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{36.38,3.61,nil,nil,7,nil,1,6826}},
     },
     },
-    [2949] = { t = "Return of the Ring", z = 133, rl = 28, ql = 34, rr = 690, ps = {2945}, nc = 2950, dq = 1, dm = 226, maps = {
+    [2949] = { t = "Return of the Ring", z = 133, rl = 28, ql = 34, rr = 690, ps = {2945}, nc = 2950, dq = 1, dm = 226, si = {9362}, maps = {
       [1454] = {{75.99,25.41,nil,nil,6,nil,1,3412}},
     },
     turnins = {
       [1454] = {{75.99,25.41,nil,nil,6,nil,1,3412}},
     },
     },
-    [2950] = { t = "Nogg's Ring Redo", z = 1637, rl = 28, ql = 35, rr = 690, ps = {2949}, maps = {
+    [2950] = { t = "Nogg's Ring Redo", z = 1637, rl = 28, ql = 35, rr = 690, ps = {2949}, si = {9362}, maps = {
       [1411] = {{67.01,84.95,2.33,3,4,"Silver Bar",3,2842,nil,nil,1,{65.56,83.12,68.34,85.07,67.12,86.66}}, {60.70,56.91,3.42,4,4,"Silver Bar",3,2842,nil,nil,1,{57.82,58.75,59.64,56.23,62.11,55.83,63.23,56.82}}, {51.43,19.93,1.07,3,4,"Silver Bar",3,2842,nil,nil,1,{51.16,18.91,51.90,19.90,51.24,20.98}}, {51.81,25.00,2.34,5,4,"Silver Bar",3,2842,nil,nil,1,{49.62,24.28,51.15,23.63,53.02,24.88,53.24,26.85}}, {43.32,38.23,2.68,4,4,"Silver Bar",3,2842,nil,nil,1,{42.57,38.81,43.57,35.56,43.84,39.21,43.31,39.33}}, {52.17,9.79,1.24,6,4,"Silver Bar",3,2842,nil,nil,1,{51.43,10.78,51.47,9.93,52.53,9.15,52.76,9.07,52.64,9.42,52.21,10.37}}, {39.42,53.81,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {43.39,27.91,5.05,5,4,"Silver Bar",3,2842,nil,nil,1,{40.84,30.47,42.07,27.13,44.12,23.98,47.40,30.97}}, {47.76,77.12,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {47.34,49.20,3.37,4,4,"Silver Bar",3,2842,nil,nil,1,{44.18,50.36,49.08,48.00,49.02,48.60,47.09,49.84}}},
       [1412] = {{64.18,68.99,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {65.57,69.21,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {32.33,44.83,3.04,4,4,"Silver Bar",3,2842,nil,nil,1,{31.42,41.93,33.24,47.40,32.97,47.32}}, {56.21,48.17,4.11,5,4,"Silver Bar",3,2842,nil,nil,1,{53.35,48.17,53.73,47.87,59.86,48.14,60.32,48.25,53.79,48.44}}, {29.55,25.93,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {30.80,22.91,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {39.11,14.80,3.06,3,4,"Silver Bar",3,2842,nil,nil,1,{36.69,12.92,40.05,15.33,40.58,16.16}}, {50.94,72.70,2.76,4,4,"Silver Bar",3,2842,nil,nil,1,{48.25,72.32,48.53,72.10,53.33,73.13,53.64,73.26}}, {33.94,61.79,3.16,3,4,"Silver Bar",3,2842,nil,nil,1,{30.96,60.73,35.31,62.16,35.54,62.49}}, {60.90,37.82,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {63.58,41.11,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {56.73,14.80,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {55.06,16.09,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}},
       [1413] = {{61.68,5.19,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {59.55,2.74,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {52.14,54.67,3.02,4,4,"Silver Bar",3,2842,nil,nil,1,{51.04,57.48,51.31,54.89,52.60,52.31,53.63,53.99}}, {44.78,53.42,2.55,6,4,"Silver Bar",3,2842,nil,nil,1,{42.85,55.09,43.26,52.20,44.99,51.34,46.95,53.61,45.28,54.34}}, {39.21,11.83,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {40.02,15.98,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {46.17,82.85,6.19,6,4,"Silver Bar",3,2842,nil,nil,1,{41.62,78.65,49.61,83.57,49.74,84.04,48.60,84.76,43.13,83.22}}, {62.64,51.64,5.56,8,4,"Silver Bar",3,2842,nil,nil,1,{61.21,55.66,61.42,53.61,63.50,46.15,64.32,47.27,62.30,56.64}}, {59.13,24.38,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {58.77,27.50,nil,nil,4,"Silver Bar",3,2842,nil,nil,1}, {44.78,21.67,4.93,5,4,"Silver Bar",3,2842,nil,nil,1,{42.11,24.64,43.67,21.18,46.61,18.11,47.88,17.97,43.64,26.47}}, {55.01,43.09,3.05,6,4,"Silver Bar",3,2842,nil,nil,1,{52.85,44.38,53.39,40.50,57.10,41.24,56.86,43.51,55.94,45.85}}, {46.99,38.67,1.95,3,4,"Silver Bar",3,2842,nil,nil,1,{45.89,39.42,46.15,37.77,48.93,38.82}}, {54.50,9.94,2.62,4,4,"Silver Bar",3,2842,nil,nil,1,{52.46,11.58,52.48,10.66,56.40,8.75,56.67,8.78}}, {43.13,23.56,6.35,54,4,"Moss Agate",3,1206,nil,nil,2,{39.48,23.62,39.82,19.38,42.14,18.88,43.27,19.14,45.34,22.26,44.89,25.09,43.84,27.45,41.57,29.71,40.41,27.89}}, {39.35,13.44,5.97,21,4,"Moss Agate",3,1206,nil,nil,2,{37.62,14.84,38.88,10.78,45.18,12.17,40.02,15.98}}, {58.10,28.41,8.42,88,4,"Moss Agate",3,1206,nil,nil,2,{54.37,25.36,59.24,23.60,61.21,26.47,62.14,29.35,61.68,34.79,59.93,36.62,55.65,31.49}}, {62.16,45.31,6.64,40,4,"Moss Agate",3,1206,nil,nil,2,{57.11,43.62,58.90,41.48,61.31,40.34,63.41,42.72,64.73,44.46,64.71,46.52,64.17,49.47,59.01,51.16,58.06,49.38}}, {43.83,44.55,6.08,36,4,"Moss Agate",3,1206,nil,nil,2,{40.63,45.66,42.71,41.05,49.49,44.41,48.52,48.42,40.70,46.86}}, {59.46,5.75,4.85,21,4,"Moss Agate",3,1206,nil,nil,2,{56.40,8.75,57.49,6.02,59.55,2.74,60.28,3.36,61.68,5.19,62.29,9.68}}, {57.91,14.01,6.38,43,4,"Moss Agate",3,1206,nil,nil,2,{52.46,11.58,52.48,10.66,56.86,10.73,62.08,11.42,62.03,14.72,57.83,18.65,55.45,17.30}}, {44.14,80.68,9.76,81,4,"Moss Agate",3,1206,nil,nil,2,{40.36,80.32,42.09,71.14,49.61,76.81,49.74,84.04,48.48,86.14,47.93,86.09,47.47,85.94,47.29,85.88,43.42,84.21}}, {46.19,36.41,6.47,77,4,"Moss Agate",3,1206,nil,nil,2,{41.14,35.28,47.47,30.07,48.96,31.16,49.51,32.39,48.93,38.82,47.82,39.97,46.99,40.30,42.68,38.87,41.51,37.97}}, {48.34,18.15,7.06,59,4,"Moss Agate",3,1206,nil,nil,2,{43.27,19.14,46.39,12.83,47.14,11.96,50.92,11.58,50.96,21.62,50.68,24.04,47.43,22.69,44.70,21.44}}, {46.61,63.79,3.47,19,4,"Moss Agate",3,1206,nil,nil,2,{43.26,62.89,49.45,61.99,48.90,64.07,47.98,66.72,44.31,64.58}}, {44.65,52.53,5.65,37,4,"Moss Agate",3,1206,nil,nil,2,{41.99,56.66,43.13,51.99,44.92,50.35,48.52,48.42,47.21,54.40}}, {55.52,41.82,6.82,39,4,"Moss Agate",3,1206,nil,nil,2,{51.46,42.54,51.86,39.57,59.93,36.62,58.90,41.48,58.07,43.11,55.94,45.85,52.85,44.38}}, {45.73,70.92,4.58,28,4,"Moss Agate",3,1206,nil,nil,2,{41.68,68.78,45.22,68.66,47.44,68.65,49.22,68.81,48.62,74.41,43.40,74.55,42.09,71.14}}, {52.03,54.49,6.28,51,4,"Moss Agate",3,1206,nil,nil,2,{49.71,48.65,51.73,48.22,53.77,54.30,53.46,55.21,51.21,57.91,50.55,58.10}}, {60.93,51.85,4.98,27,4,"Moss Agate",3,1206,nil,nil,2,{58.06,49.38,60.13,49.15,62.43,49.12,63.75,49.18,64.17,49.47,62.30,56.64,58.44,53.18}}, {47.76,85.50,2.65,20,4,"Moss Agate",3,1206,nil,nil,2,{46.83,84.46,47.12,84.03,47.44,83.96,48.56,85.24,48.74,87.96,47.29,85.88}}, {46.28,66.81,3.21,4,2,"Moss Agate",3,4632,{3235,3237,5797,5834},nil,2,{44.83,64.10,47.21,66.47,46.00,70.00}}, {48.95,83.77,4.18,19,2,"Moss Agate",3,4632,{3377,3472,5798},nil,2,{47.44,79.87,48.52,79.65,49.55,84.32,48.90,84.91,48.54,84.63}}, {41.93,80.02,5.85,21,2,"Moss Agate",3,4632,{3435,3459,3472},nil,2,{40.15,80.54,41.51,78.32,44.81,74.93,44.81,78.88,42.03,82.18,40.77,81.46}}, {48.22,19.15,nil,nil,2,"Moss Agate",3,4632,{3986},nil,2}, {47.10,66.66,nil,nil,2,"Moss Agate",3,4633,{3237},nil,2}, {48.37,84.29,5.31,18,2,"Moss Agate",3,4633,{3378,3392,3414,5851,5859},nil,2,{43.18,83.17,44.27,82.91,49.61,83.59,49.76,84.11,48.33,86.16,47.44,85.75}}, {64.27,50.63,4.05,15,2,"Moss Agate",3,4633,{3476},nil,2,{63.00,52.40,63.40,50.20,65.60,46.80,65.60,47.80,64.60,50.80,63.60,53.60,63.40,53.60}}, {41.55,78.77,nil,nil,2,"Moss Agate",3,4633,{5859},nil,2}, {41.94,81.50,nil,nil,2,"Moss Agate",3,4633,{5859},nil,2}, {54.72,5.69,0.16,7,2,"Moss Agate",3,16882,{7307,7308,7310},nil,2,{54.64,5.77,54.66,5.68,54.75,5.53,54.81,5.59,54.78,5.82}}},
@@ -17449,7 +17449,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{37.60,81.40,nil,nil,7,nil,1,7918}, {37.63,81.40,nil,nil,7,nil,2,142343}},
     },
     },
-    [2962] = { t = "The Only Cure is More Green Glow", z = 133, rl = 20, ql = 30, rr = 1101, ps = {2926}, dq = 1, dm = 226, maps = {
+    [2962] = { t = "The Only Cure is More Green Glow", z = 133, rl = 20, ql = 30, rr = 1101, ps = {2926}, dq = 1, dm = 226, si = {9364}, maps = {
       [1426] = {{45.89,49.38,nil,nil,6,nil,1,1268}},
     },
     turnins = {
@@ -17489,7 +17489,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{34.40,46.87,nil,nil,7,nil,1,3978}},
     },
     },
-    [2966] = { t = "Seeing What Happens", z = 1638, rl = 45, ql = 50, rr = 690, ps = {2965}, nc = 2954, maps = {
+    [2966] = { t = "Seeing What Happens", z = 1638, rl = 45, ql = 50, rr = 690, ps = {2965}, nc = 2954, si = {6064}, maps = {
       [1446] = {{37.63,81.40,nil,nil,6,nil,2,142343}},
     },
     turnins = {
@@ -17499,7 +17499,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{75.65,31.61,nil,nil,7,nil,1,5770}},
     },
     },
-    [2967] = { t = "Return to Thunder Bluff", z = 1638, rl = 45, ql = 50, rr = 690, ps = {2954}, nc = 2968, maps = {
+    [2967] = { t = "Return to Thunder Bluff", z = 1638, rl = 45, ql = 50, rr = 690, ps = {2954}, nc = 2968, si = {6064}, maps = {
       [1456] = {{75.65,31.61,nil,nil,6,nil,1,5770}},
     },
     turnins = {
@@ -17519,7 +17519,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{75.65,31.61,nil,nil,7,nil,1,5770}},
     },
     },
-    [2969] = { t = "Freedom for All Creatures", z = 357, rl = 40, ql = 47, rr = 1101, nc = 2970, sf = 2, maps = {
+    [2969] = { t = "Freedom for All Creatures", z = 357, rl = 40, ql = 47, rr = 1101, nc = 2970, sf = 2, si = {12301}, maps = {
       [1444] = {{67.27,46.67,nil,nil,3,"Save at least 6 Sprite Darters from capture"}},
     },
     turnins = {
@@ -17539,7 +17539,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{65.95,45.61,nil,nil,7,nil,1,7957}},
     },
     },
-    [2972] = { t = "Doling Justice", z = 357, rl = 40, ql = 47, rr = 1101, ps = {2970}, nc = 3841, maps = {
+    [2972] = { t = "Doling Justice", z = 357, rl = 40, ql = 47, rr = 1101, ps = {2970}, nc = 3841, si = {9368}, maps = {
       [1457] = {{39.10,81.59,nil,nil,6,nil,1,7999}},
     },
     turnins = {
@@ -17579,7 +17579,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{75.80,43.58,nil,nil,7,nil,1,7777}},
     },
     },
-    [2976] = { t = "A Grim Discovery", z = 357, rl = 38, ql = 45, rr = 690, ps = {2974}, maps = {
+    [2976] = { t = "A Grim Discovery", z = 357, rl = 38, ql = 45, rr = 690, ps = {2974}, si = {9462}, maps = {
       [1454] = {{75.23,34.24,nil,nil,6,nil,1,4485}},
     },
     turnins = {
@@ -17589,7 +17589,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{75.94,42.74,nil,nil,7,nil,1,4544}},
     },
     },
-    [2977] = { t = "Return to Ironforge", z = 1537, rl = 45, ql = 50, rr = 1101, ps = {2954}, nc = 2964, maps = {
+    [2977] = { t = "Return to Ironforge", z = 1537, rl = 45, ql = 50, rr = 1101, ps = {2954}, nc = 2964, si = {6064}, maps = {
       [1455] = {{77.54,11.82,nil,nil,6,nil,1,2916}},
     },
     turnins = {
@@ -17599,7 +17599,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{37.63,81.40,nil,nil,7,nil,2,142343}},
     },
     },
-    [2978] = { t = "The Gordunni Scroll", z = 357, rl = 38, ql = 43, rr = 690, nc = 2979, maps = {
+    [2978] = { t = "The Gordunni Scroll", z = 357, rl = 38, ql = 43, rr = 690, nc = 2979, si = {9370}, maps = {
       [1444] = {{75.80,43.58,nil,nil,6,nil,1,7777}},
     },
     turnins = {
@@ -17686,7 +17686,7 @@ VanillaEnhancedQuestsDB = {
       [1412] = {{48.38,59.15,nil,nil,7,nil,1,3066}},
     },
     },
-    [2987] = { t = "Gordunni Cobalt", z = 357, rl = 38, ql = 43, rr = 690, maps = {
+    [2987] = { t = "Gordunni Cobalt", z = 357, rl = 38, ql = 43, rr = 690, si = {9466}, maps = {
       [1444] = {{77.38,32.92,5.15,25,4,"Gordunni Cobalt",3,9463,nil,nil,1,{74.30,29.00,75.30,28.20,76.90,29.70,81.60,35.00,80.40,36.00,77.50,35.10,76.40,34.50,75.30,33.70}}},
     },
     turnins = {
@@ -17716,7 +17716,7 @@ VanillaEnhancedQuestsDB = {
       [1425] = {{9.75,44.47,nil,nil,7,nil,1,5636}},
     },
     },
-    [2990] = { t = "Thadius Grimshade", z = 47, rl = 40, ql = 47, rr = 1101, ps = {2989}, nc = 2991, maps = {
+    [2990] = { t = "Thadius Grimshade", z = 47, rl = 40, ql = 47, rr = 1101, ps = {2989}, nc = 2991, si = {9468}, maps = {
       [1419] = {{66.90,19.47,nil,nil,6,nil,1,8022}},
     },
     turnins = {
@@ -17756,7 +17756,7 @@ VanillaEnhancedQuestsDB = {
       [1419] = {{66.90,19.47,nil,nil,7,nil,1,8022}},
     },
     },
-    [2994] = { t = "Saving Sharpbeak", z = 47, rl = 40, ql = 51, rr = 1101, ps = {2993}, maps = {
+    [2994] = { t = "Saving Sharpbeak", z = 47, rl = 40, ql = 51, rr = 1101, ps = {2993}, si = {9472}, maps = {
       [1425] = {{53.38,67.11,nil,nil,4,"Open Sharpbeak's Cage",2,144070,nil,nil,1}, {59.47,78.26,nil,nil,2,"Hexx's Key",3,9472,{7995},{7995,100}}},
     },
     turnins = {
@@ -17837,7 +17837,7 @@ VanillaEnhancedQuestsDB = {
       [1954] = {{73.09,46.94,nil,nil,7,nil,1,16646}},
     },
     },
-    [3002] = { t = "The Gordunni Orb", z = 357, rl = 38, ql = 47, rr = 690, ps = {2979}, maps = {
+    [3002] = { t = "The Gordunni Orb", z = 357, rl = 38, ql = 47, rr = 690, ps = {2979}, si = {9371}, maps = {
       [1454] = {{39.16,86.27,nil,nil,6,nil,1,7311}},
     },
     turnins = {
@@ -17847,7 +17847,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{75.80,43.58,nil,nil,7,nil,1,7777}},
     },
     },
-    [3022] = { t = "Handle With Care", z = 440, rl = 42, ql = 47, rr = 1101, maps = {
+    [3022] = { t = "Handle With Care", z = 440, rl = 42, ql = 47, rr = 1101, si = {9507}, maps = {
       [1438] = {{55.50,92.05,nil,nil,6,nil,1,7916}},
     },
     turnins = {
@@ -17867,7 +17867,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{51.41,28.75,nil,nil,7,nil,1,7804}},
     },
     },
-    [3062] = { t = "Dark Heart", z = 357, rl = 45, ql = 50, rr = 690, maps = {
+    [3062] = { t = "Dark Heart", z = 357, rl = 45, ql = 50, rr = 690, si = {9530}, maps = {
       [1444] = {{40.55,8.60,nil,nil,2,"Edana's Dark Heart",3,9528,{8075},{8075,100},1}, {39.31,13.46,3.32,36,2,"Horn of Hatetalon",3,9530,{5362,5363,5364,5366},{5362,100,5363,100,5364,100,5366,100},nil,{37.44,15.62,37.79,12.09,39.45,10.14,41.55,11.93,42.07,12.53,41.55,14.39,40.10,15.47,38.57,16.13,37.81,15.94}}},
     },
     turnins = {
@@ -17887,7 +17887,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{76.18,43.83,nil,nil,7,nil,1,7776}},
     },
     },
-    [3065] = { t = "Simple Tablet", z = -81, rl = 1, ql = 1, rr = 128, rc = 1, ps = {788}, maps = {
+    [3065] = { t = "Simple Tablet", z = -81, rl = 1, ql = 1, rr = 128, rc = 1, ps = {788}, si = {6488}, maps = {
       [1411] = {{42.89,69.44,nil,nil,6,nil,1,3153}},
     },
     turnins = {
@@ -17897,7 +17897,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{42.06,68.33,nil,nil,7,nil,1,3143}},
     },
     },
-    [3082] = { t = "Etched Tablet", z = -261, rl = 1, ql = 1, rr = 128, rc = 4, ps = {788}, maps = {
+    [3082] = { t = "Etched Tablet", z = -261, rl = 1, ql = 1, rr = 128, rc = 4, ps = {788}, si = {9564}, maps = {
       [1411] = {{42.84,69.33,nil,nil,6,nil,1,3154}},
     },
     turnins = {
@@ -17907,7 +17907,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{42.06,68.33,nil,nil,7,nil,1,3143}},
     },
     },
-    [3083] = { t = "Encrypted Tablet", z = -162, rl = 1, ql = 1, rr = 128, rc = 8, ps = {788}, maps = {
+    [3083] = { t = "Encrypted Tablet", z = -162, rl = 1, ql = 1, rr = 128, rc = 8, ps = {788}, si = {9554}, maps = {
       [1411] = {{41.28,68.00,nil,nil,6,nil,1,3155}},
     },
     turnins = {
@@ -17917,7 +17917,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{42.06,68.33,nil,nil,7,nil,1,3143}},
     },
     },
-    [3084] = { t = "Rune-Inscribed Tablet", z = -82, rl = 1, ql = 1, rr = 128, rc = 64, ps = {788}, maps = {
+    [3084] = { t = "Rune-Inscribed Tablet", z = -82, rl = 1, ql = 1, rr = 128, rc = 64, ps = {788}, si = {9562}, maps = {
       [1411] = {{42.39,69.00,nil,nil,6,nil,1,3157}},
     },
     turnins = {
@@ -17927,7 +17927,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{42.06,68.33,nil,nil,7,nil,1,3143}},
     },
     },
-    [3085] = { t = "Hallowed Tablet", z = -262, rl = 1, ql = 1, rr = 128, rc = 16, ps = {788}, maps = {
+    [3085] = { t = "Hallowed Tablet", z = -262, rl = 1, ql = 1, rr = 128, rc = 16, ps = {788}, si = {9561}, maps = {
       [1411] = {{42.36,68.81,nil,nil,6,nil,1,3707}},
     },
     turnins = {
@@ -17937,7 +17937,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{42.06,68.33,nil,nil,7,nil,1,3143}},
     },
     },
-    [3086] = { t = "Glyphic Tablet", z = -161, rl = 1, ql = 1, rr = 128, rc = 128, ps = {788}, maps = {
+    [3086] = { t = "Glyphic Tablet", z = -161, rl = 1, ql = 1, rr = 128, rc = 128, ps = {788}, si = {9575}, maps = {
       [1411] = {{42.51,69.04,nil,nil,6,nil,1,5884}},
     },
     turnins = {
@@ -17947,7 +17947,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{42.06,68.33,nil,nil,7,nil,1,3143}},
     },
     },
-    [3087] = { t = "Etched Parchment", z = -261, rl = 1, ql = 1, rr = 2, rc = 4, ps = {788}, maps = {
+    [3087] = { t = "Etched Parchment", z = -261, rl = 1, ql = 1, rr = 2, rc = 4, ps = {788}, si = {9553}, maps = {
       [1411] = {{42.84,69.33,nil,nil,6,nil,1,3154}},
     },
     turnins = {
@@ -17957,7 +17957,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{42.06,68.33,nil,nil,7,nil,1,3143}},
     },
     },
-    [3088] = { t = "Encrypted Parchment", z = -162, rl = 1, ql = 1, rr = 2, rc = 8, ps = {788}, maps = {
+    [3088] = { t = "Encrypted Parchment", z = -162, rl = 1, ql = 1, rr = 2, rc = 8, ps = {788}, si = {9560}, maps = {
       [1411] = {{41.28,68.00,nil,nil,6,nil,1,3155}},
     },
     turnins = {
@@ -17967,7 +17967,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{42.06,68.33,nil,nil,7,nil,1,3143}},
     },
     },
-    [3089] = { t = "Rune-Inscribed Parchment", z = -82, rl = 1, ql = 1, rr = 2, rc = 64, ps = {788}, maps = {
+    [3089] = { t = "Rune-Inscribed Parchment", z = -82, rl = 1, ql = 1, rr = 2, rc = 64, ps = {788}, si = {9568}, maps = {
       [1411] = {{42.39,69.00,nil,nil,6,nil,1,3157}},
     },
     turnins = {
@@ -17977,7 +17977,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{42.06,68.33,nil,nil,7,nil,1,3143}},
     },
     },
-    [3090] = { t = "Tainted Parchment", z = -61, rl = 1, ql = 1, rr = 2, rc = 256, ps = {788}, maps = {
+    [3090] = { t = "Tainted Parchment", z = -61, rl = 1, ql = 1, rr = 2, rc = 256, ps = {788}, si = {9579}, maps = {
       [1411] = {{40.65,68.52,nil,nil,6,nil,1,3156}},
     },
     turnins = {
@@ -17987,7 +17987,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{42.06,68.33,nil,nil,7,nil,1,3143}},
     },
     },
-    [3091] = { t = "Simple Note", z = -81, rl = 1, ql = 1, rr = 32, rc = 1, ps = {747}, maps = {
+    [3091] = { t = "Simple Note", z = -81, rl = 1, ql = 1, rr = 32, rc = 1, ps = {747}, si = {9547}, maps = {
       [1412] = {{44.01,76.13,nil,nil,6,nil,1,3059}},
     },
     turnins = {
@@ -17997,7 +17997,7 @@ VanillaEnhancedQuestsDB = {
       [1412] = {{44.88,77.07,nil,nil,7,nil,1,2980}},
     },
     },
-    [3092] = { t = "Etched Note", z = -261, rl = 1, ql = 1, rr = 32, rc = 4, ps = {747}, maps = {
+    [3092] = { t = "Etched Note", z = -261, rl = 1, ql = 1, rr = 32, rc = 4, ps = {747}, si = {9565}, maps = {
       [1412] = {{44.26,75.69,nil,nil,6,nil,1,3061}},
     },
     turnins = {
@@ -18007,7 +18007,7 @@ VanillaEnhancedQuestsDB = {
       [1412] = {{44.88,77.07,nil,nil,7,nil,1,2980}},
     },
     },
-    [3093] = { t = "Rune-Inscribed Note", z = -82, rl = 1, ql = 1, rr = 32, rc = 64, ps = {747}, maps = {
+    [3093] = { t = "Rune-Inscribed Note", z = -82, rl = 1, ql = 1, rr = 32, rc = 64, ps = {747}, si = {9552}, maps = {
       [1412] = {{45.01,75.94,nil,nil,6,nil,1,3062}},
     },
     turnins = {
@@ -18017,7 +18017,7 @@ VanillaEnhancedQuestsDB = {
       [1412] = {{44.88,77.07,nil,nil,7,nil,1,2980}},
     },
     },
-    [3094] = { t = "Verdant Note", z = -263, rl = 1, ql = 1, rr = 32, rc = 1024, ps = {747}, maps = {
+    [3094] = { t = "Verdant Note", z = -263, rl = 1, ql = 1, rr = 32, rc = 1024, ps = {747}, si = {9581}, maps = {
       [1412] = {{45.09,75.93,nil,nil,6,nil,1,3060}},
     },
     turnins = {
@@ -18027,7 +18027,7 @@ VanillaEnhancedQuestsDB = {
       [1412] = {{44.88,77.07,nil,nil,7,nil,1,2980}},
     },
     },
-    [3095] = { t = "Simple Scroll", z = -81, rl = 1, ql = 1, rr = 16, rc = 1, ps = {364}, maps = {
+    [3095] = { t = "Simple Scroll", z = -81, rl = 1, ql = 1, rr = 16, rc = 1, ps = {364}, si = {9546}, maps = {
       [1420] = {{32.69,65.56,nil,nil,6,nil,1,2119}},
     },
     turnins = {
@@ -18037,7 +18037,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{30.84,66.20,nil,nil,7,nil,1,1569}},
     },
     },
-    [3096] = { t = "Encrypted Scroll", z = -162, rl = 1, ql = 1, rr = 16, rc = 8, ps = {364}, maps = {
+    [3096] = { t = "Encrypted Scroll", z = -162, rl = 1, ql = 1, rr = 16, rc = 8, ps = {364}, si = {9559}, maps = {
       [1420] = {{32.53,65.65,nil,nil,6,nil,1,2122}},
     },
     turnins = {
@@ -18047,7 +18047,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{30.84,66.20,nil,nil,7,nil,1,1569}},
     },
     },
-    [3097] = { t = "Hallowed Scroll", z = -262, rl = 1, ql = 1, rr = 16, rc = 16, ps = {364}, maps = {
+    [3097] = { t = "Hallowed Scroll", z = -262, rl = 1, ql = 1, rr = 16, rc = 16, ps = {364}, si = {9569}, maps = {
       [1420] = {{31.11,66.03,nil,nil,6,nil,1,2123}},
     },
     turnins = {
@@ -18057,7 +18057,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{30.84,66.20,nil,nil,7,nil,1,1569}},
     },
     },
-    [3098] = { t = "Glyphic Scroll", z = -161, rl = 1, ql = 1, rr = 16, rc = 128, ps = {364}, maps = {
+    [3098] = { t = "Glyphic Scroll", z = -161, rl = 1, ql = 1, rr = 16, rc = 128, ps = {364}, si = {9574}, maps = {
       [1420] = {{30.93,66.06,nil,nil,6,nil,1,2124}},
     },
     turnins = {
@@ -18067,7 +18067,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{30.84,66.20,nil,nil,7,nil,1,1569}},
     },
     },
-    [3099] = { t = "Tainted Scroll", z = -61, rl = 1, ql = 1, rr = 16, rc = 256, ps = {364}, maps = {
+    [3099] = { t = "Tainted Scroll", z = -61, rl = 1, ql = 1, rr = 16, rc = 256, ps = {364}, si = {9578}, maps = {
       [1420] = {{30.91,66.34,nil,nil,6,nil,1,2126}},
     },
     turnins = {
@@ -18077,7 +18077,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{30.84,66.20,nil,nil,7,nil,1,1569}},
     },
     },
-    [3100] = { t = "Simple Letter", z = -81, rl = 1, ql = 1, rr = 1, rc = 1, ps = {7}, maps = {
+    [3100] = { t = "Simple Letter", z = -81, rl = 1, ql = 1, rr = 1, rc = 1, ps = {7}, si = {9542}, maps = {
       [1429] = {{50.24,42.29,nil,nil,6,nil,1,911}},
     },
     turnins = {
@@ -18087,7 +18087,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{48.92,41.61,nil,nil,7,nil,1,197}},
     },
     },
-    [3101] = { t = "Consecrated Letter", z = -141, rl = 1, ql = 1, rr = 1, rc = 2, ps = {7}, maps = {
+    [3101] = { t = "Consecrated Letter", z = -141, rl = 1, ql = 1, rr = 1, rc = 2, ps = {7}, si = {9570}, maps = {
       [1429] = {{50.43,42.12,nil,nil,6,nil,1,925}},
     },
     turnins = {
@@ -18097,7 +18097,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{48.92,41.61,nil,nil,7,nil,1,197}},
     },
     },
-    [3102] = { t = "Encrypted Letter", z = -162, rl = 1, ql = 1, rr = 1, rc = 8, ps = {7}, maps = {
+    [3102] = { t = "Encrypted Letter", z = -162, rl = 1, ql = 1, rr = 1, rc = 8, ps = {7}, si = {9555}, maps = {
       [1429] = {{50.31,39.92,nil,nil,6,nil,1,915}},
     },
     turnins = {
@@ -18107,7 +18107,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{48.92,41.61,nil,nil,7,nil,1,197}},
     },
     },
-    [3103] = { t = "Hallowed Letter", z = -262, rl = 1, ql = 1, rr = 1, rc = 16, ps = {7}, maps = {
+    [3103] = { t = "Hallowed Letter", z = -262, rl = 1, ql = 1, rr = 1, rc = 16, ps = {7}, si = {9548}, maps = {
       [1429] = {{49.81,39.49,nil,nil,6,nil,1,375}},
     },
     turnins = {
@@ -18117,7 +18117,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{48.92,41.61,nil,nil,7,nil,1,197}},
     },
     },
-    [3104] = { t = "Glyphic Letter", z = -161, rl = 1, ql = 1, rr = 1, rc = 128, ps = {7}, maps = {
+    [3104] = { t = "Glyphic Letter", z = -161, rl = 1, ql = 1, rr = 1, rc = 128, ps = {7}, si = {9571}, maps = {
       [1429] = {{49.66,39.40,nil,nil,6,nil,1,198}},
     },
     turnins = {
@@ -18127,7 +18127,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{48.92,41.61,nil,nil,7,nil,1,197}},
     },
     },
-    [3105] = { t = "Tainted Letter", z = -61, rl = 1, ql = 1, rr = 1, rc = 256, ps = {7}, maps = {
+    [3105] = { t = "Tainted Letter", z = -61, rl = 1, ql = 1, rr = 1, rc = 256, ps = {7}, si = {9576}, maps = {
       [1429] = {{49.87,42.65,nil,nil,6,nil,1,459}},
     },
     turnins = {
@@ -18137,7 +18137,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{48.92,41.61,nil,nil,7,nil,1,197}},
     },
     },
-    [3106] = { t = "Simple Rune", z = -81, rl = 1, ql = 1, rr = 4, rc = 1, ps = {179}, maps = {
+    [3106] = { t = "Simple Rune", z = -81, rl = 1, ql = 1, rr = 4, rc = 1, ps = {179}, si = {9543}, maps = {
       [1426] = {{28.83,67.24,nil,nil,6,nil,1,912}},
     },
     turnins = {
@@ -18147,7 +18147,7 @@ VanillaEnhancedQuestsDB = {
       [1426] = {{29.93,71.20,nil,nil,7,nil,1,658}},
     },
     },
-    [3107] = { t = "Consecrated Rune", z = -141, rl = 1, ql = 1, rr = 4, rc = 2, ps = {179}, maps = {
+    [3107] = { t = "Consecrated Rune", z = -141, rl = 1, ql = 1, rr = 4, rc = 2, ps = {179}, si = {9563}, maps = {
       [1426] = {{28.83,68.33,nil,nil,6,nil,1,926}},
     },
     turnins = {
@@ -18157,7 +18157,7 @@ VanillaEnhancedQuestsDB = {
       [1426] = {{29.93,71.20,nil,nil,7,nil,1,658}},
     },
     },
-    [3108] = { t = "Etched Rune", z = -261, rl = 1, ql = 1, rr = 4, rc = 4, ps = {179}, maps = {
+    [3108] = { t = "Etched Rune", z = -261, rl = 1, ql = 1, rr = 4, rc = 4, ps = {179}, si = {9566}, maps = {
       [1426] = {{29.18,67.45,nil,nil,6,nil,1,895}},
     },
     turnins = {
@@ -18167,7 +18167,7 @@ VanillaEnhancedQuestsDB = {
       [1426] = {{29.93,71.20,nil,nil,7,nil,1,658}},
     },
     },
-    [3109] = { t = "Encrypted Rune", z = -162, rl = 1, ql = 1, rr = 4, rc = 8, ps = {179}, maps = {
+    [3109] = { t = "Encrypted Rune", z = -162, rl = 1, ql = 1, rr = 4, rc = 8, ps = {179}, si = {9550}, maps = {
       [1426] = {{28.37,67.51,nil,nil,6,nil,1,916}},
     },
     turnins = {
@@ -18177,7 +18177,7 @@ VanillaEnhancedQuestsDB = {
       [1426] = {{29.93,71.20,nil,nil,7,nil,1,658}},
     },
     },
-    [3110] = { t = "Hallowed Rune", z = -262, rl = 1, ql = 1, rr = 4, rc = 16, ps = {179}, maps = {
+    [3110] = { t = "Hallowed Rune", z = -262, rl = 1, ql = 1, rr = 4, rc = 16, ps = {179}, si = {9556}, maps = {
       [1426] = {{28.60,66.39,nil,nil,6,nil,1,837}},
     },
     turnins = {
@@ -18187,7 +18187,7 @@ VanillaEnhancedQuestsDB = {
       [1426] = {{29.93,71.20,nil,nil,7,nil,1,658}},
     },
     },
-    [3112] = { t = "Simple Memorandum", z = -81, rl = 1, ql = 1, rr = 64, rc = 1, ps = {179}, maps = {
+    [3112] = { t = "Simple Memorandum", z = -81, rl = 1, ql = 1, rr = 64, rc = 1, ps = {179}, si = {9544}, maps = {
       [1426] = {{28.83,67.24,nil,nil,6,nil,1,912}},
     },
     turnins = {
@@ -18197,7 +18197,7 @@ VanillaEnhancedQuestsDB = {
       [1426] = {{29.93,71.20,nil,nil,7,nil,1,658}},
     },
     },
-    [3113] = { t = "Encrypted Memorandum", z = -162, rl = 1, ql = 1, rr = 64, rc = 8, ps = {179}, maps = {
+    [3113] = { t = "Encrypted Memorandum", z = -162, rl = 1, ql = 1, rr = 64, rc = 8, ps = {179}, si = {9558}, maps = {
       [1426] = {{28.37,67.51,nil,nil,6,nil,1,916}},
     },
     turnins = {
@@ -18207,7 +18207,7 @@ VanillaEnhancedQuestsDB = {
       [1426] = {{29.93,71.20,nil,nil,7,nil,1,658}},
     },
     },
-    [3114] = { t = "Glyphic Memorandum", z = -161, rl = 1, ql = 1, rr = 64, rc = 128, ps = {179}, maps = {
+    [3114] = { t = "Glyphic Memorandum", z = -161, rl = 1, ql = 1, rr = 64, rc = 128, ps = {179}, si = {9573}, maps = {
       [1426] = {{28.71,66.37,nil,nil,6,nil,1,944}},
     },
     turnins = {
@@ -18217,7 +18217,7 @@ VanillaEnhancedQuestsDB = {
       [1426] = {{29.93,71.20,nil,nil,7,nil,1,658}},
     },
     },
-    [3115] = { t = "Tainted Memorandum", z = -61, rl = 1, ql = 1, rr = 64, rc = 256, ps = {179}, maps = {
+    [3115] = { t = "Tainted Memorandum", z = -61, rl = 1, ql = 1, rr = 64, rc = 256, ps = {179}, si = {9577}, maps = {
       [1426] = {{28.65,66.14,nil,nil,6,nil,1,460}},
     },
     turnins = {
@@ -18227,7 +18227,7 @@ VanillaEnhancedQuestsDB = {
       [1426] = {{29.93,71.20,nil,nil,7,nil,1,658}},
     },
     },
-    [3116] = { t = "Simple Sigil", z = -81, rl = 1, ql = 1, rr = 8, rc = 1, ps = {456}, maps = {
+    [3116] = { t = "Simple Sigil", z = -81, rl = 1, ql = 1, rr = 8, rc = 1, ps = {456}, si = {9545}, maps = {
       [1438] = {{59.64,38.44,nil,nil,6,nil,1,3593}},
     },
     turnins = {
@@ -18237,7 +18237,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{58.69,44.27,nil,nil,7,nil,1,2079}},
     },
     },
-    [3117] = { t = "Etched Sigil", z = -261, rl = 1, ql = 1, rr = 8, rc = 4, ps = {456}, maps = {
+    [3117] = { t = "Etched Sigil", z = -261, rl = 1, ql = 1, rr = 8, rc = 4, ps = {456}, si = {9567}, maps = {
       [1438] = {{58.66,40.45,nil,nil,6,nil,1,3596}},
     },
     turnins = {
@@ -18247,7 +18247,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{58.69,44.27,nil,nil,7,nil,1,2079}},
     },
     },
-    [3118] = { t = "Encrypted Sigil", z = -162, rl = 1, ql = 1, rr = 8, rc = 8, ps = {456}, maps = {
+    [3118] = { t = "Encrypted Sigil", z = -162, rl = 1, ql = 1, rr = 8, rc = 8, ps = {456}, si = {9551}, maps = {
       [1438] = {{59.64,38.66,nil,nil,6,nil,1,3594}},
     },
     turnins = {
@@ -18257,7 +18257,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{58.69,44.27,nil,nil,7,nil,1,2079}},
     },
     },
-    [3119] = { t = "Hallowed Sigil", z = -262, rl = 1, ql = 1, rr = 8, rc = 16, ps = {456}, maps = {
+    [3119] = { t = "Hallowed Sigil", z = -262, rl = 1, ql = 1, rr = 8, rc = 16, ps = {456}, si = {9557}, maps = {
       [1438] = {{59.17,40.44,nil,nil,6,nil,1,3595}},
     },
     turnins = {
@@ -18267,7 +18267,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{58.69,44.27,nil,nil,7,nil,1,2079}},
     },
     },
-    [3120] = { t = "Verdant Sigil", z = -263, rl = 1, ql = 1, rr = 8, rc = 1024, ps = {456}, maps = {
+    [3120] = { t = "Verdant Sigil", z = -263, rl = 1, ql = 1, rr = 8, rc = 1024, ps = {456}, si = {9580}, maps = {
       [1438] = {{58.63,40.29,nil,nil,6,nil,1,3597}},
     },
     turnins = {
@@ -18277,7 +18277,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{58.69,44.27,nil,nil,7,nil,1,2079}},
     },
     },
-    [3121] = { t = "A Strange Request", z = 357, rl = 40, ql = 45, rr = 690, nc = 3122, maps = {
+    [3121] = { t = "A Strange Request", z = 357, rl = 40, ql = 45, rr = 690, nc = 3122, si = {9629}, maps = {
       [1454] = {{49.47,50.59,nil,nil,6,nil,1,3216}},
     },
     turnins = {
@@ -18287,7 +18287,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{74.42,43.36,nil,nil,7,nil,1,8115}},
     },
     },
-    [3122] = { t = "Return to Witch Doctor Uzer'i", z = 357, rl = 40, ql = 45, rr = 690, ps = {3121}, maps = {
+    [3122] = { t = "Return to Witch Doctor Uzer'i", z = 357, rl = 40, ql = 45, rr = 690, ps = {3121}, si = {9628}, maps = {
       [1444] = {{74.42,43.36,nil,nil,6,nil,1,8115}},
     },
     turnins = {
@@ -18297,7 +18297,7 @@ VanillaEnhancedQuestsDB = {
       [1454] = {{49.47,50.59,nil,nil,7,nil,1,3216}},
     },
     },
-    [3123] = { t = "Testing the Vessel", z = 357, rl = 40, ql = 47, rr = 690, ps = {3122}, nc = 3124, maps = {
+    [3123] = { t = "Testing the Vessel", z = 357, rl = 40, ql = 47, rr = 690, ps = {3122}, nc = 3124, si = {9618}, maps = {
       [1425] = {{35.05,61.58,4.14,7,2,"Wildkin Muisek",3,9594,{2927,2928},nil,1,{31.14,62.95,33.80,58.92,36.13,59.48,38.05,61.31,38.22,63.62,33.88,63.21}}, {26.52,64.58,4.97,9,2,"Wildkin Muisek",3,9594,{2927},nil,1,{25.60,62.85,26.79,59.62,27.91,65.93,26.37,68.69,25.95,68.38}}, {39.91,45.72,4.03,17,2,"Wildkin Muisek",3,9594,{2927,2928},nil,1,{36.54,45.73,37.17,44.22,38.58,43.28,41.43,42.49,43.28,44.47,42.27,47.27,38.38,49.45,36.60,47.83}}, {35.94,53.66,6.43,12,2,"Wildkin Muisek",3,9594,{2927,2928},nil,1,{29.72,55.26,31.02,52.79,34.20,50.98,35.79,50.82,40.95,52.25,40.33,56.43,36.99,57.66}}, {25.46,52.52,3.59,4,2,"Wildkin Muisek",3,9594,{2927},nil,1,{23.69,49.40,26.56,53.16,26.28,54.29,25.32,53.25}}, {57.86,53.10,12.28,82,2,"Wildkin Muisek",3,9594,{2928,2929},nil,1,{45.69,51.53,51.40,49.40,58.20,49.80,64.60,50.20,64.80,50.60,65.20,52.80,64.60,55.60,50.94,57.81}}, {43.14,57.66,7.06,16,2,"Wildkin Muisek",3,9594,{2928},nil,1,{38.13,58.97,38.61,57.52,44.64,53.55,45.99,54.00,47.14,56.71,42.11,64.64,40.69,63.81}}, {51.69,59.96,3.54,12,2,"Wildkin Muisek",3,9594,{2928,2929},nil,1,{49.47,59.84,52.60,57.00,52.60,57.60,51.83,63.50}}, {57.90,45.98,7.53,79,2,"Wildkin Muisek",3,9594,{2928,2929},nil,1,{51.36,42.24,54.00,41.20,62.40,40.80,62.60,41.00,63.60,45.20,64.20,49.40,63.40,49.80,54.20,50.00,51.80,49.60,51.40,47.00}}, {65.57,56.20,3.00,6,2,"Wildkin Muisek",3,9594,{2929},nil,1,{65.40,57.40,65.60,53.20,65.80,57.40,65.60,57.80,65.40,57.60}}},
     },
     turnins = {
@@ -18307,7 +18307,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{74.42,43.36,nil,nil,7,nil,1,8115}},
     },
     },
-    [3124] = { t = "Hippogryph Muisek", z = 357, rl = 40, ql = 47, rr = 690, ps = {3123}, nc = 3125, maps = {
+    [3124] = { t = "Hippogryph Muisek", z = 357, rl = 40, ql = 47, rr = 690, ps = {3123}, nc = 3125, si = {9619}, maps = {
       [1444] = {{55.61,63.83,3.40,25,2,"Hippogryph Muisek",3,9595,{5300,5304,5305},nil,1,{53.76,65.30,53.84,64.37,54.92,60.82,57.98,62.83,56.97,65.79,55.39,67.22,54.32,66.24}}, {55.23,71.57,5.11,39,2,"Hippogryph Muisek",3,9595,{5304,5305,5306},nil,1,{53.39,69.64,53.55,67.02,55.51,66.47,58.86,73.83,58.12,74.55,55.59,75.21,54.62,75.43,53.67,72.37}}},
     },
     turnins = {
@@ -18317,7 +18317,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{74.42,43.36,nil,nil,7,nil,1,8115}},
     },
     },
-    [3125] = { t = "Faerie Dragon Muisek", z = 357, rl = 40, ql = 45, rr = 690, ps = {3124}, nc = 3126, maps = {
+    [3125] = { t = "Faerie Dragon Muisek", z = 357, rl = 40, ql = 45, rr = 690, ps = {3124}, nc = 3126, si = {9620}, maps = {
       [1444] = {{43.71,22.44,0.57,3,2,"Faerie Dragon Muisek",3,9596,{5276},nil,1,{43.35,22.54,43.53,22.48,44.26,22.29}}, {44.40,9.70,nil,nil,2,"Faerie Dragon Muisek",3,9596,{5276},nil,1}, {50.67,33.75,nil,nil,2,"Faerie Dragon Muisek",3,9596,{5276},nil,1}, {68.02,47.49,3.86,21,2,"Faerie Dragon Muisek",3,9596,{5278},nil,1,{64.42,48.87,64.49,48.43,65.51,47.39,68.44,44.47,69.45,44.95,70.15,46.59,70.26,47.70,68.92,49.10}}},
     },
     turnins = {
@@ -18327,7 +18327,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{74.42,43.36,nil,nil,7,nil,1,8115}},
     },
     },
-    [3126] = { t = "Treant Muisek", z = 357, rl = 40, ql = 50, rr = 690, ps = {3125}, nc = 3127, maps = {
+    [3126] = { t = "Treant Muisek", z = 357, rl = 40, ql = 50, rr = 690, ps = {3125}, nc = 3127, si = {9606}, maps = {
       [1444] = {{44.01,23.00,nil,nil,2,"Treant Muisek",3,9593,{7584},nil,1}, {73.90,38.84,nil,nil,2,"Treant Muisek",3,9593,{7584},nil,1}, {54.02,47.22,nil,nil,2,"Treant Muisek",3,9593,{7584},nil,1}, {57.40,73.34,nil,nil,2,"Treant Muisek",3,9593,{7584},nil,1}, {73.48,54.55,nil,nil,2,"Treant Muisek",3,9593,{7584},nil,1}},
     },
     turnins = {
@@ -18337,7 +18337,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{74.42,43.36,nil,nil,7,nil,1,8115}},
     },
     },
-    [3127] = { t = "Mountain Giant Muisek", z = 357, rl = 40, ql = 50, rr = 690, ps = {3126}, maps = {
+    [3127] = { t = "Mountain Giant Muisek", z = 357, rl = 40, ql = 50, rr = 690, ps = {3126}, si = {9621}, maps = {
       [1444] = {{39.37,22.84,4.76,51,2,"Mountain Giant Muisek",3,9597,{5357,5358,14604,14640},nil,1,{37.76,21.92,38.07,18.26,41.05,22.62,41.15,24.82,40.93,25.55,38.52,24.39,37.99,23.60}}},
     },
     turnins = {
@@ -18388,7 +18388,7 @@ VanillaEnhancedQuestsDB = {
       [1447] = {{60.82,66.35,nil,nil,7,nil,1,7783}},
     },
     },
-    [3161] = { t = "Gahz'ridian", z = 440, rl = 43, ql = 48, maps = {
+    [3161] = { t = "Gahz'ridian", z = 440, rl = 43, ql = 48, si = {9978}, maps = {
       [1446] = {{40.60,56.48,7.04,10,4,"Gahz'ridian Ornament",3,8443,nil,nil,1,{36.10,56.40,36.40,52.30,39.40,51.60,45.10,52.00,47.60,57.20,43.10,62.10,38.30,61.90,36.10,56.50}}, {40.04,33.80,5.45,5,4,"Gahz'ridian Ornament",3,8443,nil,nil,1,{36.80,35.20,37.70,29.60,44.90,33.90,40.80,39.20}}, {41.32,73.28,7.87,20,4,"Gahz'ridian Ornament",3,8443,nil,nil,1,{38.90,65.80,48.30,72.80,46.90,76.10,43.20,77.30,40.30,77.50,38.90,73.00}}, {48.41,45.51,8.50,18,4,"Gahz'ridian Ornament",3,8443,nil,nil,1,{40.10,47.30,40.80,43.40,44.80,38.80,53.00,44.00,55.60,47.70,46.10,49.50}}, {46.14,28.54,4.14,5,4,"Gahz'ridian Ornament",3,8443,nil,nil,1,{42.80,26.10,45.10,27.00,48.60,28.70,47.10,30.50}}, {47.03,65.64,4.73,21,4,"Gahz'ridian Ornament",3,8443,nil,nil,1,{44.80,65.20,44.90,64.40,46.20,63.30,47.30,63.40,51.30,64.10,49.70,69.10,46.20,70.30}}, {50.87,36.68,5.89,10,4,"Gahz'ridian Ornament",3,8443,nil,nil,1,{47.40,38.40,52.10,32.10,53.80,33.30,56.60,35.30,54.80,39.00,47.40,38.50}}, {53.39,55.71,6.17,10,4,"Gahz'ridian Ornament",3,8443,nil,nil,1,{48.00,52.70,52.40,50.80,56.70,52.40,57.80,57.90,55.60,60.00,50.70,61.10,49.60,59.20}}, {49.10,77.30,nil,nil,4,"Gahz'ridian Ornament",3,8443,nil,nil,1}, {50.40,78.50,nil,nil,4,"Gahz'ridian Ornament",3,8443,nil,nil,1}, {57.10,47.60,nil,nil,4,"Gahz'ridian Ornament",3,8443,nil,nil,1}, {58.10,48.80,nil,nil,4,"Gahz'ridian Ornament",3,8443,nil,nil,1}, {57.80,28.90,nil,nil,4,"Gahz'ridian Ornament",3,8443,nil,nil,1}, {58.10,24.60,nil,nil,4,"Gahz'ridian Ornament",3,8443,nil,nil,1}},
     },
     turnins = {
@@ -18398,14 +18398,14 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{52.71,45.92,nil,nil,7,nil,1,7771}},
     },
     },
-    [3181] = { t = "The Horn of the Beast", z = 51, rl = 40, ql = 43, rr = 1101, nc = 3182, maps = {
+    [3181] = { t = "The Horn of the Beast", z = 51, rl = 40, ql = 43, rr = 1101, nc = 3182, si = {10005}, maps = {
       [1432] = {{18.18,84.01,nil,nil,6,nil,1,3836}},
     },
     turnins = {
       [1432] = {{18.18,84.01,nil,nil,6,nil,1,3836}},
     },
     },
-    [3182] = { t = "Proof of Deed", z = 38, rl = 40, ql = 43, rr = 1101, ps = {3181}, nc = 3201, maps = {
+    [3182] = { t = "Proof of Deed", z = 38, rl = 40, ql = 43, rr = 1101, ps = {3181}, nc = 3201, si = {10005}, maps = {
       [1455] = {{71.50,15.74,nil,nil,6,nil,1,8256}},
     },
     turnins = {
@@ -18415,7 +18415,7 @@ VanillaEnhancedQuestsDB = {
       [1432] = {{18.18,84.01,nil,nil,7,nil,1,3836}},
     },
     },
-    [3201] = { t = "At Last!", z = 1537, rl = 40, ql = 43, rr = 1101, ps = {3182}, maps = {
+    [3201] = { t = "At Last!", z = 1537, rl = 40, ql = 43, rr = 1101, ps = {3182}, si = {10022}, maps = {
       [1432] = {{18.18,84.01,nil,nil,6,nil,1,3836}},
     },
     turnins = {
@@ -18455,7 +18455,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{51.93,30.32,nil,nil,7,nil,1,3464}},
     },
     },
-    [3301] = { t = "Mura Runetotem", z = 17, rl = 10, ql = 15, rr = 690, ps = {880}, maps = {
+    [3301] = { t = "Mura Runetotem", z = 17, rl = 10, ql = 15, rr = 690, ps = {880}, si = {10414}, maps = {
       [1421] = {{42.91,41.99,nil,nil,6,nil,1,8385}},
     },
     turnins = {
@@ -18505,7 +18505,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{51.57,26.76,nil,nil,7,nil,1,7876}},
     },
     },
-    [3364] = { t = "Scalding Mornbrew Delivery", z = 132, rl = 4, ql = 5, rr = 1101, nc = 3365, maps = {
+    [3364] = { t = "Scalding Mornbrew Delivery", z = 132, rl = 4, ql = 5, rr = 1101, nc = 3365, si = {10439}, maps = {
       [1426] = {{28.77,66.37,nil,nil,6,nil,1,836}},
     },
     turnins = {
@@ -18515,7 +18515,7 @@ VanillaEnhancedQuestsDB = {
       [1426] = {{24.98,75.96,nil,nil,7,nil,1,12738}},
     },
     },
-    [3365] = { t = "Bring Back the Mug", z = 132, rl = 4, ql = 5, rr = 1101, ps = {3364}, maps = {
+    [3365] = { t = "Bring Back the Mug", z = 132, rl = 4, ql = 5, rr = 1101, ps = {3364}, si = {10440}, maps = {
       [1426] = {{24.98,75.96,nil,nil,6,nil,1,12738}},
     },
     turnins = {
@@ -18535,7 +18535,7 @@ VanillaEnhancedQuestsDB = {
       [1427] = {{63.92,60.99,nil,nil,7,nil,1,8284}},
     },
     },
-    [3368] = { t = "Suntara Stones", z = 51, rl = 41, ql = 46, rr = 1101, ps = {3367}, nc = 3371, maps = {
+    [3368] = { t = "Suntara Stones", z = 51, rl = 41, ql = 46, rr = 1101, ps = {3367}, nc = 3371, si = {10443}, maps = {
       [1455] = {{71.50,15.74,nil,nil,6,nil,1,8256}},
     },
     turnins = {
@@ -18545,7 +18545,7 @@ VanillaEnhancedQuestsDB = {
       [1427] = {{74.45,19.29,nil,nil,7,nil,2,175704}},
     },
     },
-    [3369] = { t = "In Nightmares", z = 17, rl = 15, ql = 25, rr = 690, ps = {6981}, maps = {
+    [3369] = { t = "In Nightmares", z = 17, rl = 15, ql = 25, rr = 690, ps = {6981}, si = {10649}, maps = {
       [1456] = {{78.62,28.56,nil,nil,6,nil,1,5769}},
     },
     turnins = {
@@ -18555,7 +18555,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{48.18,32.78,nil,nil,7,nil,1,8418}},
     },
     },
-    [3370] = { t = "In Nightmares", z = 17, rl = 15, ql = 25, rr = 1101, ps = {6981}, maps = {
+    [3370] = { t = "In Nightmares", z = 17, rl = 15, ql = 25, rr = 1101, ps = {6981}, si = {10649}, maps = {
       [1457] = {{35.37,8.40,nil,nil,6,nil,1,4217}},
     },
     turnins = {
@@ -18585,7 +18585,7 @@ VanillaEnhancedQuestsDB = {
       [1427] = {{41.14,25.56,nil,nil,7,nil,1,8417}},
     },
     },
-    [3374] = { t = "The Essence of Eranikus", z = 8, rl = 48, ql = 55, ps = {3373}, nc = 3512, maps = {
+    [3374] = { t = "The Essence of Eranikus", z = 8, rl = 48, ql = 55, ps = {3373}, nc = 3512, si = {10589}, maps = {
       [1435] = {{13.67,71.72,nil,nil,6,nil,1,5353}},
     },
     turnins = {
@@ -18746,7 +18746,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{31.83,45.61,nil,nil,7,nil,1,7900}},
     },
     },
-    [3446] = { t = "Into the Depths", z = 1417, rl = 46, ql = 51, ps = {3444}, dq = 1, dm = 220, maps = {
+    [3446] = { t = "Into the Depths", z = 1417, rl = 46, ql = 51, ps = {3444}, dq = 1, dm = 220, si = {10466}, maps = {
     },
     starts = {
       [1446] = {{52.71,45.92,nil,nil,7,nil,1,7771}},
@@ -18768,7 +18768,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{77.54,11.82,nil,nil,7,nil,1,2916}},
     },
     },
-    [3449] = { t = "Arcane Runes", z = 1537, rl = 45, ql = 52, rr = 1101, ps = {3448}, nc = 3461, maps = {
+    [3449] = { t = "Arcane Runes", z = 1537, rl = 45, ql = 52, rr = 1101, ps = {3448}, nc = 3461, si = {10445,10444}, maps = {
       [1447] = {{36.91,53.17,nil,nil,4,"Rubbing: Rune of Beth'Amara",3,10563,nil,nil,1}, {39.56,50.25,nil,nil,4,"Rubbing: Rune of Jin'yael",3,10564,nil,nil,2}, {39.36,55.48,nil,nil,4,"Rubbing: Rune of Markri",3,10565,nil,nil,3}, {42.38,64.15,nil,nil,4,"Rubbing: Rune of Sael'hai",3,10566,nil,nil,4}},
       [1455] = {{70.87,94.56,nil,nil,2,"Standard Issue Flare Gun",3,10444,{8517}}},
     },
@@ -18829,7 +18829,7 @@ VanillaEnhancedQuestsDB = {
       [1427] = {{39.06,38.99,nil,nil,7,nil,1,8479}},
     },
     },
-    [3461] = { t = "Return to Tymor", z = 1537, rl = 45, ql = 52, rr = 1101, ps = {3449}, maps = {
+    [3461] = { t = "Return to Tymor", z = 1537, rl = 45, ql = 52, rr = 1101, ps = {3449}, si = {10445}, maps = {
       [1455] = {{30.96,4.83,nil,nil,6,nil,1,8507}},
     },
     turnins = {
@@ -18849,7 +18849,7 @@ VanillaEnhancedQuestsDB = {
       [1427] = {{39.06,38.99,nil,nil,7,nil,1,8479}},
     },
     },
-    [3463] = { t = "Set Them Ablaze!", z = 51, rl = 40, ql = 52, ps = {3462}, nc = 3481, maps = {
+    [3463] = { t = "Set Them Ablaze!", z = 51, rl = 40, ql = 52, ps = {3462}, nc = 3481, si = {10515}, maps = {
       [1427] = {{35.67,60.68,nil,nil,4,"Western Tower Ablaze",2,149025,nil,nil,1}, {44.03,60.91,nil,nil,4,"Southern Tower Ablaze",2,149030,nil,nil,2}, {50.07,54.74,nil,nil,4,"Eastern Tower Ablaze",2,149031,nil,nil,3}, {33.30,54.48,nil,nil,4,"Northern Tower Ablaze",2,149032,nil,nil,4}},
     },
     turnins = {
@@ -18909,7 +18909,7 @@ VanillaEnhancedQuestsDB = {
       [1447] = {{28.11,50.09,nil,nil,7,nil,1,8395}},
     },
     },
-    [3504] = { t = "Betrayed", z = 1637, rl = 44, ql = 53, rr = 690, nc = 3505, maps = {
+    [3504] = { t = "Betrayed", z = 1637, rl = 44, ql = 53, rr = 690, nc = 3505, si = {10643}, maps = {
       [1447] = {{22.26,51.48,nil,nil,6,nil,1,8576}},
     },
     turnins = {
@@ -18939,7 +18939,7 @@ VanillaEnhancedQuestsDB = {
       [1447] = {{59.51,31.30,nil,nil,7,nil,2,151286}},
     },
     },
-    [3507] = { t = "Betrayed", z = 1637, rl = 44, ql = 56, rr = 690, ps = {3506}, maps = {
+    [3507] = { t = "Betrayed", z = 1637, rl = 44, ql = 56, rr = 690, ps = {3506}, si = {10597}, maps = {
       [1454] = {{75.23,34.24,nil,nil,6,nil,1,4485}},
     },
     turnins = {
@@ -18979,7 +18979,7 @@ VanillaEnhancedQuestsDB = {
       [1447] = {{77.13,42.79,nil,nil,7,nil,1,6134}},
     },
     },
-    [3511] = { t = "The Name of the Beast", z = 16, rl = 45, ql = 58, ps = {3510}, nc = 3602, maps = {
+    [3511] = { t = "The Name of the Beast", z = 16, rl = 45, ql = 58, ps = {3510}, nc = 3602, si = {10610}, maps = {
       [1447] = {{60.82,66.35,nil,nil,6,nil,1,7783}},
     },
     turnins = {
@@ -18999,14 +18999,14 @@ VanillaEnhancedQuestsDB = {
       [1435] = {{13.67,71.72,nil,nil,7,nil,1,5353}},
     },
     },
-    [3513] = { t = "The Runed Scroll", z = 17, rl = 15, ql = 25, rr = 690, nc = 3514, maps = {
+    [3513] = { t = "The Runed Scroll", z = 17, rl = 15, ql = 25, rr = 690, nc = 3514, si = {10621}, maps = {
       [1413] = {{48.12,5.42,nil,nil,6,nil,1,8582}},
     },
     turnins = {
       [1413] = {{48.12,5.42,nil,nil,6,nil,1,8582}},
     },
     },
-    [3514] = { t = "Horde Presence", z = 17, rl = 15, ql = 29, rr = 690, ps = {3513}, maps = {
+    [3514] = { t = "Horde Presence", z = 17, rl = 15, ql = 29, rr = 690, ps = {3513}, si = {10622}, maps = {
       [1442] = {{29.71,16.91,nil,nil,1,"Rynthariel the Keymaster",1,8518,nil,nil,1}},
     },
     turnins = {
@@ -19026,7 +19026,7 @@ VanillaEnhancedQuestsDB = {
       [1447] = {{22.56,51.42,nil,nil,7,nil,1,8587}},
     },
     },
-    [3518] = { t = "Delivery to Magatha", z = 16, rl = 45, ql = 52, rr = 690, ps = {3517}, nc = 3562, maps = {
+    [3518] = { t = "Delivery to Magatha", z = 16, rl = 45, ql = 52, rr = 690, ps = {3517}, nc = 3562, si = {10538}, maps = {
       [1456] = {{69.85,30.91,nil,nil,6,nil,1,4046}},
     },
     turnins = {
@@ -19046,7 +19046,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{54.59,32.99,nil,nil,7,nil,1,8584}},
     },
     },
-    [3520] = { t = "Screecher Spirits", z = 440, rl = 40, ql = 44, nc = 3527, maps = {
+    [3520] = { t = "Screecher Spirits", z = 440, rl = 40, ql = 44, nc = 3527, si = {10699}, maps = {
       [1444] = {{44.70,37.63,3.55,7,1,"Screecher Spirit",1,8612,nil,nil,1,{42.01,36.27,44.85,36.14,46.00,37.69,46.46,39.36,46.55,40.66}}, {46.34,48.84,1.25,4,1,"Screecher Spirit",1,8612,nil,nil,1,{45.86,49.23,46.55,47.61,46.82,48.47,46.13,50.04}}, {47.87,59.24,nil,nil,1,"Screecher Spirit",1,8612,nil,nil,1}, {47.89,55.72,nil,nil,1,"Screecher Spirit",1,8612,nil,nil,1}, {53.49,48.19,4.40,5,1,"Screecher Spirit",1,8612,nil,nil,1,{49.43,49.88,53.16,46.78,55.68,46.97,56.88,48.11}}, {57.06,54.79,nil,nil,1,"Screecher Spirit",1,8612,nil,nil,1}, {57.65,59.38,nil,nil,1,"Screecher Spirit",1,8612,nil,nil,1}, {58.19,57.76,nil,nil,1,"Screecher Spirit",1,8612,nil,nil,1}, {58.98,51.08,nil,nil,1,"Screecher Spirit",1,8612,nil,nil,1}, {60.81,49.76,nil,nil,1,"Screecher Spirit",1,8612,nil,nil,1}, {60.22,62.16,nil,nil,1,"Screecher Spirit",1,8612,nil,nil,1}},
     },
     turnins = {
@@ -19066,7 +19066,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{60.90,41.96,nil,nil,7,nil,1,8583}},
     },
     },
-    [3522] = { t = "Iverron's Antidote", z = 188, rl = 2, ql = 4, rr = 1101, ps = {3521}, maps = {
+    [3522] = { t = "Iverron's Antidote", z = 188, rl = 2, ql = 4, rr = 1101, ps = {3521}, si = {10642}, maps = {
       [1438] = {{54.59,32.99,nil,nil,6,nil,1,8584}},
     },
     turnins = {
@@ -19090,7 +19090,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{50.86,92.87,nil,nil,3,"Protect Belnistrasz while he performs the ritual to shut down the idol"}},
     },
     },
-    [3526] = { t = "Goblin Engineering", z = -201, rl = 30, ql = 47, rr = 690, sk = {202,200}, ex = {3633,3642}, spec = 202, maps = {
+    [3526] = { t = "Goblin Engineering", z = -201, rl = 30, ql = 47, rr = 690, sk = {202,200}, ex = {3633,3642}, spec = 202, si = {10789}, maps = {
       [1446] = {{52.48,27.33,nil,nil,6,nil,1,8126}},
     },
     turnins = {
@@ -19110,7 +19110,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{66.99,22.36,nil,nil,7,nil,1,8579}},
     },
     },
-    [3528] = { t = "The God Hakkar", z = 1417, rl = 40, ql = 53, ps = {4787}, dq = 1, dm = 220, maps = {
+    [3528] = { t = "The God Hakkar", z = 1417, rl = 40, ql = 53, ps = {4787}, dq = 1, dm = 220, si = {10465,10663}, maps = {
       [1446] = {{66.99,22.36,nil,nil,6,nil,1,8579}},
     },
     turnins = {
@@ -19120,7 +19120,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{66.99,22.36,nil,nil,7,nil,1,8579}},
     },
     },
-    [3541] = { t = "Delivery to Jes'rimon", z = 16, rl = 45, ql = 52, rr = 690, ps = {3517}, nc = 3563, maps = {
+    [3541] = { t = "Delivery to Jes'rimon", z = 16, rl = 45, ql = 52, rr = 690, ps = {3517}, nc = 3563, si = {10539}, maps = {
       [1454] = {{55.52,34.08,nil,nil,6,nil,1,8659}},
     },
     turnins = {
@@ -19130,7 +19130,7 @@ VanillaEnhancedQuestsDB = {
       [1447] = {{22.56,51.42,nil,nil,7,nil,1,8587}},
     },
     },
-    [3542] = { t = "Delivery to Andron Gant", z = 16, rl = 45, ql = 52, rr = 690, ps = {3517}, nc = 3564, maps = {
+    [3542] = { t = "Delivery to Andron Gant", z = 16, rl = 45, ql = 52, rr = 690, ps = {3517}, nc = 3564, si = {10540}, maps = {
       [1458] = {{54.81,76.33,nil,nil,6,nil,1,6522}},
     },
     turnins = {
@@ -19140,7 +19140,7 @@ VanillaEnhancedQuestsDB = {
       [1447] = {{22.56,51.42,nil,nil,7,nil,1,8587}},
     },
     },
-    [3561] = { t = "Delivery to Archmage Xylem", z = 16, rl = 45, ql = 52, rr = 690, ps = {3517}, nc = 3565, maps = {
+    [3561] = { t = "Delivery to Archmage Xylem", z = 16, rl = 45, ql = 52, rr = 690, ps = {3517}, nc = 3565, si = {10541}, maps = {
       [1447] = {{29.25,40.21,nil,nil,6,nil,1,8379}},
     },
     turnins = {
@@ -19150,7 +19150,7 @@ VanillaEnhancedQuestsDB = {
       [1447] = {{22.56,51.42,nil,nil,7,nil,1,8587}},
     },
     },
-    [3562] = { t = "Magatha's Payment to Jediga", z = 16, rl = 45, ql = 52, rr = 690, ps = {3518}, maps = {
+    [3562] = { t = "Magatha's Payment to Jediga", z = 16, rl = 45, ql = 52, rr = 690, ps = {3518}, si = {10678}, maps = {
       [1447] = {{22.56,51.42,nil,nil,6,nil,1,8587}},
     },
     turnins = {
@@ -19160,7 +19160,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{69.85,30.91,nil,nil,7,nil,1,4046}},
     },
     },
-    [3563] = { t = "Jes'rimon's Payment to Jediga", z = 16, rl = 45, ql = 52, rr = 690, ps = {3541}, maps = {
+    [3563] = { t = "Jes'rimon's Payment to Jediga", z = 16, rl = 45, ql = 52, rr = 690, ps = {3541}, si = {10680}, maps = {
       [1447] = {{22.56,51.42,nil,nil,6,nil,1,8587}},
     },
     turnins = {
@@ -19170,7 +19170,7 @@ VanillaEnhancedQuestsDB = {
       [1454] = {{55.52,34.08,nil,nil,7,nil,1,8659}},
     },
     },
-    [3564] = { t = "Andron's Payment to Jediga", z = 16, rl = 45, ql = 52, rr = 690, ps = {3542}, maps = {
+    [3564] = { t = "Andron's Payment to Jediga", z = 16, rl = 45, ql = 52, rr = 690, ps = {3542}, si = {10679}, maps = {
       [1447] = {{22.56,51.42,nil,nil,6,nil,1,8587}},
     },
     turnins = {
@@ -19180,7 +19180,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{54.81,76.33,nil,nil,7,nil,1,6522}},
     },
     },
-    [3565] = { t = "Xylem's Payment to Jediga", z = 16, rl = 45, ql = 52, rr = 690, ps = {3561}, maps = {
+    [3565] = { t = "Xylem's Payment to Jediga", z = 16, rl = 45, ql = 52, rr = 690, ps = {3561}, si = {10681}, maps = {
       [1447] = {{22.56,51.42,nil,nil,6,nil,1,8587}},
     },
     turnins = {
@@ -19210,7 +19210,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{45.82,16.47,nil,nil,7,nil,1,7773}},
     },
     },
-    [3568] = { t = "Seeping Corruption", z = 1497, rl = 45, ql = 52, rr = 690, maps = {
+    [3568] = { t = "Seeping Corruption", z = 1497, rl = 45, ql = 52, rr = 690, si = {10695}, maps = {
       [1447] = {{47.98,61.03,nil,nil,4,"Filled Vial Labeled #1",3,10691,nil,nil,1}, {47.84,51.39,nil,nil,4,"Filled Vial Labeled #2",3,10692,nil,nil,2}, {48.65,48.50,nil,nil,4,"Filled Vial Labeled #3",3,10693,nil,nil,3}, {47.39,46.20,nil,nil,4,"Filled Vial Labeled #4",3,10694,nil,nil,4}},
     },
     turnins = {
@@ -19220,7 +19220,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{48.71,71.39,nil,nil,7,nil,1,8390}},
     },
     },
-    [3569] = { t = "Seeping Corruption", z = 1497, rl = 45, ql = 52, rr = 690, ps = {3568}, maps = {
+    [3569] = { t = "Seeping Corruption", z = 1497, rl = 45, ql = 52, rr = 690, ps = {3568}, si = {10712}, maps = {
       [1458] = {{49.04,70.80,nil,nil,6,nil,1,8393}},
     },
     turnins = {
@@ -19250,7 +19250,7 @@ VanillaEnhancedQuestsDB = {
       [1447] = {{53.45,21.82,nil,nil,7,nil,1,8420}},
     },
     },
-    [3602] = { t = "Azsharite", z = 16, rl = 45, ql = 58, ps = {3511}, nc = 3621, maps = {
+    [3602] = { t = "Azsharite", z = 16, rl = 45, ql = 58, ps = {3511}, nc = 3621, si = {10834}, maps = {
       [1447] = {{51.34,83.85,6.03,17,4,"Crystallized Azsharite",3,10714,nil,nil,1,{47.19,86.98,48.53,79.43,48.77,78.39,53.52,78.40,55.65,83.31,55.57,86.97,52.91,89.54,47.27,87.02}}, {56.72,77.65,4.97,8,4,"Crystallized Azsharite",3,10714,nil,nil,1,{51.85,76.66,55.31,73.64,60.32,78.76,60.93,79.76,59.95,79.95,53.82,78.91}}, {47.24,73.42,4.61,9,4,"Crystallized Azsharite",3,10714,nil,nil,1,{45.16,77.53,45.23,69.89,45.74,69.47,51.07,74.45,48.81,76.30}}, {59.96,87.96,5.31,10,4,"Crystallized Azsharite",3,10714,nil,nil,1,{55.27,90.45,57.26,87.00,60.15,83.32,62.76,85.86,63.60,87.93,59.36,90.34}}},
     },
     turnins = {
@@ -19260,7 +19260,7 @@ VanillaEnhancedQuestsDB = {
       [1447] = {{60.82,66.35,nil,nil,7,nil,1,7783}},
     },
     },
-    [3621] = { t = "The Formation of Felbane", z = 16, rl = 45, ql = 58, ps = {3602}, nc = 3625, maps = {
+    [3621] = { t = "The Formation of Felbane", z = 16, rl = 45, ql = 58, ps = {3602}, nc = 3625, si = {10738}, maps = {
       [1434] = {{50.62,20.48,nil,nil,6,nil,1,7802}},
     },
     turnins = {
@@ -19300,7 +19300,7 @@ VanillaEnhancedQuestsDB = {
       [1435] = {{34.29,66.14,nil,nil,7,nil,1,7572}},
     },
     },
-    [3628] = { t = "You Are Rakh'likh, Demon", z = 4, rl = 45, ql = 60, ps = {3627}, maps = {
+    [3628] = { t = "You Are Rakh'likh, Demon", z = 4, rl = 45, ql = 60, ps = {3627}, si = {10757}, maps = {
       [1419] = {{47.64,29.83,nil,nil,2,"Severed Horn of the Defiler",3,10759,{7664},{7664,100},1}},
     },
     turnins = {
@@ -19310,7 +19310,7 @@ VanillaEnhancedQuestsDB = {
       [1435] = {{34.29,66.14,nil,nil,7,nil,1,7572}},
     },
     },
-    [3629] = { t = "Goblin Engineering", z = -201, rl = 30, ql = 47, rr = 1101, sk = {202,200}, ex = {3633,3640,4181}, spec = 202, maps = {
+    [3629] = { t = "Goblin Engineering", z = -201, rl = 30, ql = 47, rr = 1101, sk = {202,200}, ex = {3633,3640,4181}, spec = 202, si = {10789}, maps = {
       [1446] = {{52.48,27.33,nil,nil,6,nil,1,8126}},
     },
     turnins = {
@@ -19320,7 +19320,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{68.46,43.54,nil,nil,7,nil,1,5174}},
     },
     },
-    [3630] = { t = "Gnome Engineering", z = -201, rl = 30, ql = 47, rr = 1101, sk = {202,200}, ex = {3632,3634,3638}, spec = 202, maps = {
+    [3630] = { t = "Gnome Engineering", z = -201, rl = 30, ql = 47, rr = 1101, sk = {202,200}, ex = {3632,3634,3638}, spec = 202, si = {10789}, maps = {
       [1455] = {{69.55,50.33,nil,nil,6,nil,1,7944}},
     },
     turnins = {
@@ -19340,7 +19340,7 @@ VanillaEnhancedQuestsDB = {
       [1454] = {{48.47,45.43,nil,nil,7,nil,1,3326}},
     },
     },
-    [3632] = { t = "Gnome Engineering", z = -201, rl = 30, ql = 47, rr = 1101, sk = {202,200}, ex = {3630,3634,3638}, spec = 202, maps = {
+    [3632] = { t = "Gnome Engineering", z = -201, rl = 30, ql = 47, rr = 1101, sk = {202,200}, ex = {3630,3634,3638}, spec = 202, si = {10789}, maps = {
       [1455] = {{69.55,50.33,nil,nil,6,nil,1,7944}},
     },
     turnins = {
@@ -19350,7 +19350,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{68.46,43.54,nil,nil,7,nil,1,5174}},
     },
     },
-    [3633] = { t = "Goblin Engineering", z = -201, rl = 30, ql = 47, sk = {202,200}, ex = {3526,3629,3640,3642,4181}, spec = 202, maps = {
+    [3633] = { t = "Goblin Engineering", z = -201, rl = 30, ql = 47, sk = {202,200}, ex = {3526,3629,3640,3642,4181}, spec = 202, si = {10789}, maps = {
       [1446] = {{52.48,27.33,nil,nil,6,nil,1,8126}},
     },
     turnins = {
@@ -19360,7 +19360,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{62.67,36.31,nil,nil,7,nil,1,3494}},
     },
     },
-    [3634] = { t = "Gnome Engineering", z = -201, rl = 30, ql = 47, rr = 1101, sk = {202,200}, ex = {3630,3632,3638}, spec = 202, maps = {
+    [3634] = { t = "Gnome Engineering", z = -201, rl = 30, ql = 47, rr = 1101, sk = {202,200}, ex = {3630,3632,3638}, spec = 202, si = {10789}, maps = {
       [1455] = {{69.55,50.33,nil,nil,6,nil,1,7944}},
     },
     turnins = {
@@ -19370,7 +19370,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{62.67,36.31,nil,nil,7,nil,1,3494}},
     },
     },
-    [3635] = { t = "Gnome Engineering", z = -201, rl = 30, ql = 47, rr = 690, sk = {202,200}, ex = {3637,3638}, spec = 202, maps = {
+    [3635] = { t = "Gnome Engineering", z = -201, rl = 30, ql = 47, rr = 690, sk = {202,200}, ex = {3637,3638}, spec = 202, si = {10789}, maps = {
       [1434] = {{28.36,76.35,nil,nil,6,nil,1,7406}},
     },
     turnins = {
@@ -19390,7 +19390,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{39.59,27.19,nil,nil,7,nil,1,1284}},
     },
     },
-    [3637] = { t = "Gnome Engineering", z = -201, rl = 30, ql = 47, rr = 690, sk = {202,200}, ex = {3635,3638}, spec = 202, maps = {
+    [3637] = { t = "Gnome Engineering", z = -201, rl = 30, ql = 47, rr = 690, sk = {202,200}, ex = {3635,3638}, spec = 202, si = {10789}, maps = {
       [1434] = {{28.36,76.35,nil,nil,6,nil,1,7406}},
     },
     turnins = {
@@ -19400,7 +19400,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{62.67,36.31,nil,nil,7,nil,1,3494}},
     },
     },
-    [3638] = { t = "The Pledge of Secrecy", z = -201, rl = 30, ql = 47, sk = {202,200}, ps = {3526,3629,3633,4181}, ex = {3640,3642}, nc = 3639, maps = {
+    [3638] = { t = "The Pledge of Secrecy", z = -201, rl = 30, ql = 47, sk = {202,200}, ps = {3526,3629,3633,4181}, ex = {3640,3642}, nc = 3639, si = {10792}, maps = {
       [1446] = {{52.48,27.33,nil,nil,6,nil,1,8126}},
     },
     turnins = {
@@ -19420,7 +19420,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{52.48,27.33,nil,nil,7,nil,1,8126}},
     },
     },
-    [3640] = { t = "The Pledge of Secrecy", z = -201, rl = 30, ql = 47, rr = 1101, sk = {202,200}, ps = {3630,3632,3634}, ex = {3638,3642}, nc = 3641, maps = {
+    [3640] = { t = "The Pledge of Secrecy", z = -201, rl = 30, ql = 47, rr = 1101, sk = {202,200}, ps = {3630,3632,3634}, ex = {3638,3642}, nc = 3641, si = {10793}, maps = {
       [1455] = {{69.55,50.33,nil,nil,6,nil,1,7944}},
     },
     turnins = {
@@ -19440,7 +19440,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{69.55,50.33,nil,nil,7,nil,1,7944}},
     },
     },
-    [3642] = { t = "The Pledge of Secrecy", z = -201, rl = 30, ql = 47, rr = 690, sk = {202,200}, ps = {3635,3637}, ex = {3638,3640}, nc = 3643, maps = {
+    [3642] = { t = "The Pledge of Secrecy", z = -201, rl = 30, ql = 47, rr = 690, sk = {202,200}, ps = {3635,3637}, ex = {3638,3640}, nc = 3643, si = {10794}, maps = {
       [1434] = {{28.36,76.35,nil,nil,6,nil,1,7406}},
     },
     turnins = {
@@ -19610,7 +19610,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{21.40,55.80,nil,nil,7,nil,1,4984}},
     },
     },
-    [3781] = { t = "Morrowgrain Research", z = 1657, rl = 47, ql = 50, rr = 1101, ps = {3764}, nc = 3785, maps = {
+    [3781] = { t = "Morrowgrain Research", z = 1657, rl = 47, ql = 50, rr = 1101, ps = {3764}, nc = 3785, si = {11103}, maps = {
       [1457] = {{35.37,8.40,nil,nil,6,nil,1,4217}},
     },
     turnins = {
@@ -19620,7 +19620,7 @@ VanillaEnhancedQuestsDB = {
       [1457] = {{34.81,9.26,nil,nil,7,nil,1,3516}},
     },
     },
-    [3782] = { t = "Morrowgrain Research", z = 1638, rl = 47, ql = 50, rr = 690, ps = {3761}, nc = 3786, maps = {
+    [3782] = { t = "Morrowgrain Research", z = 1638, rl = 47, ql = 50, rr = 690, ps = {3761}, nc = 3786, si = {11103}, maps = {
       [1456] = {{71.06,34.19,nil,nil,6,nil,1,9087}},
     },
     turnins = {
@@ -19650,7 +19650,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{67.74,37.89,nil,nil,7,nil,1,6741}},
     },
     },
-    [3785] = { t = "Morrowgrain Research", z = 1657, rl = 47, ql = 50, rr = 1101, ps = {3781}, nc = 3803, maps = {
+    [3785] = { t = "Morrowgrain Research", z = 1657, rl = 47, ql = 50, rr = 1101, ps = {3781}, nc = 3803, si = {11020,11018,11022}, maps = {
       [1449] = {{21.92,38.58,nil,nil,4,"Un'Goro Soil",3,11018}, {27.01,40.16,nil,nil,4,"Un'Goro Soil",3,11018}, {25.56,46.29,nil,nil,4,"Un'Goro Soil",3,11018}, {32.00,66.95,5.81,4,4,"Un'Goro Soil",3,11018,nil,nil,nil,{28.01,62.73,33.11,65.36,36.35,69.75,30.52,69.98}}, {29.70,30.60,nil,nil,4,"Un'Goro Soil",3,11018}, {31.03,34.12,nil,nil,4,"Un'Goro Soil",3,11018}, {30.61,56.66,nil,nil,4,"Un'Goro Soil",3,11018}, {36.16,78.32,5.22,3,4,"Un'Goro Soil",3,11018,nil,nil,nil,{30.97,78.87,36.40,76.32,41.11,79.78}}, {37.14,24.30,4.50,3,4,"Un'Goro Soil",3,11018,nil,nil,nil,{32.86,22.92,38.20,23.10,40.37,26.87}}, {38.99,43.74,4.20,3,4,"Un'Goro Soil",3,11018,nil,nil,nil,{35.86,46.22,38.90,39.54,42.21,45.46}}, {44.65,55.63,5.60,5,4,"Un'Goro Soil",3,11018,nil,nil,nil,{40.75,59.65,41.90,53.16,47.00,52.90,48.90,58.00}}, {44.14,33.79,nil,nil,4,"Un'Goro Soil",3,11018}, {50.21,34.29,nil,nil,4,"Un'Goro Soil",3,11018}, {51.11,46.97,2.27,3,4,"Un'Goro Soil",3,11018,nil,nil,nil,{49.46,48.48,52.77,45.42,51.10,47.00}}, {49.40,83.50,nil,nil,4,"Un'Goro Soil",3,11018}, {50.45,90.10,nil,nil,4,"Un'Goro Soil",3,11018}, {56.35,81.39,4.58,3,4,"Un'Goro Soil",3,11018,nil,nil,nil,{52.49,78.92,60.00,81.80,56.56,83.45}}, {52.83,55.91,nil,nil,4,"Un'Goro Soil",3,11018}, {55.97,56.86,nil,nil,4,"Un'Goro Soil",3,11018}, {56.27,39.84,4.40,3,4,"Un'Goro Soil",3,11018,nil,nil,nil,{53.56,39.03,58.13,36.33,57.13,44.16}}, {55.58,28.65,nil,nil,4,"Un'Goro Soil",3,11018}, {62.16,17.57,nil,nil,4,"Un'Goro Soil",3,11018}, {62.30,64.00,nil,nil,4,"Un'Goro Soil",3,11018}, {63.30,47.90,nil,nil,4,"Un'Goro Soil",3,11018}, {64.06,40.97,nil,nil,4,"Un'Goro Soil",3,11018}, {68.66,76.90,4.04,3,4,"Un'Goro Soil",3,11018,nil,nil,nil,{64.90,78.40,69.40,76.40,71.67,75.91}}, {73.11,65.65,nil,nil,4,"Un'Goro Soil",3,11018}, {73.41,58.29,nil,nil,4,"Un'Goro Soil",3,11018}},
     },
     turnins = {
@@ -19660,7 +19660,7 @@ VanillaEnhancedQuestsDB = {
       [1457] = {{35.37,8.40,nil,nil,7,nil,1,4217}},
     },
     },
-    [3786] = { t = "Morrowgrain Research", z = 1638, rl = 47, ql = 50, rr = 690, ps = {3782}, nc = 3804, maps = {
+    [3786] = { t = "Morrowgrain Research", z = 1638, rl = 47, ql = 50, rr = 690, ps = {3782}, nc = 3804, si = {11020,11018,11022}, maps = {
       [1449] = {{21.92,38.58,nil,nil,4,"Un'Goro Soil",3,11018}, {27.01,40.16,nil,nil,4,"Un'Goro Soil",3,11018}, {25.56,46.29,nil,nil,4,"Un'Goro Soil",3,11018}, {32.00,66.95,5.81,4,4,"Un'Goro Soil",3,11018,nil,nil,nil,{28.01,62.73,33.11,65.36,36.35,69.75,30.52,69.98}}, {29.70,30.60,nil,nil,4,"Un'Goro Soil",3,11018}, {31.03,34.12,nil,nil,4,"Un'Goro Soil",3,11018}, {30.61,56.66,nil,nil,4,"Un'Goro Soil",3,11018}, {36.16,78.32,5.22,3,4,"Un'Goro Soil",3,11018,nil,nil,nil,{30.97,78.87,36.40,76.32,41.11,79.78}}, {37.14,24.30,4.50,3,4,"Un'Goro Soil",3,11018,nil,nil,nil,{32.86,22.92,38.20,23.10,40.37,26.87}}, {38.99,43.74,4.20,3,4,"Un'Goro Soil",3,11018,nil,nil,nil,{35.86,46.22,38.90,39.54,42.21,45.46}}, {44.65,55.63,5.60,5,4,"Un'Goro Soil",3,11018,nil,nil,nil,{40.75,59.65,41.90,53.16,47.00,52.90,48.90,58.00}}, {44.14,33.79,nil,nil,4,"Un'Goro Soil",3,11018}, {50.21,34.29,nil,nil,4,"Un'Goro Soil",3,11018}, {51.11,46.97,2.27,3,4,"Un'Goro Soil",3,11018,nil,nil,nil,{49.46,48.48,52.77,45.42,51.10,47.00}}, {49.40,83.50,nil,nil,4,"Un'Goro Soil",3,11018}, {50.45,90.10,nil,nil,4,"Un'Goro Soil",3,11018}, {56.35,81.39,4.58,3,4,"Un'Goro Soil",3,11018,nil,nil,nil,{52.49,78.92,60.00,81.80,56.56,83.45}}, {52.83,55.91,nil,nil,4,"Un'Goro Soil",3,11018}, {55.97,56.86,nil,nil,4,"Un'Goro Soil",3,11018}, {56.27,39.84,4.40,3,4,"Un'Goro Soil",3,11018,nil,nil,nil,{53.56,39.03,58.13,36.33,57.13,44.16}}, {55.58,28.65,nil,nil,4,"Un'Goro Soil",3,11018}, {62.16,17.57,nil,nil,4,"Un'Goro Soil",3,11018}, {62.30,64.00,nil,nil,4,"Un'Goro Soil",3,11018}, {63.30,47.90,nil,nil,4,"Un'Goro Soil",3,11018}, {64.06,40.97,nil,nil,4,"Un'Goro Soil",3,11018}, {68.66,76.90,4.04,3,4,"Un'Goro Soil",3,11018,nil,nil,nil,{64.90,78.40,69.40,76.40,71.67,75.91}}, {73.11,65.65,nil,nil,4,"Un'Goro Soil",3,11018}, {73.41,58.29,nil,nil,4,"Un'Goro Soil",3,11018}},
     },
     turnins = {
@@ -19710,7 +19710,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{18.15,51.45,nil,nil,7,nil,1,5111}},
     },
     },
-    [3791] = { t = "The Mystery of Morrowgrain", z = 1116, rl = 47, ql = 50, rr = 1101, ps = {3781}, nc = 3792, bc = {3787,3788}, maps = {
+    [3791] = { t = "The Mystery of Morrowgrain", z = 1116, rl = 47, ql = 50, rr = 1101, ps = {3781}, nc = 3792, bc = {3787,3788}, si = {11020,11018,11022}, maps = {
       [1449] = {{21.92,38.58,nil,nil,4,"Un'Goro Soil",3,11018}, {27.01,40.16,nil,nil,4,"Un'Goro Soil",3,11018}, {25.56,46.29,nil,nil,4,"Un'Goro Soil",3,11018}, {32.00,66.95,5.81,4,4,"Un'Goro Soil",3,11018,nil,nil,nil,{28.01,62.73,33.11,65.36,36.35,69.75,30.52,69.98}}, {29.70,30.60,nil,nil,4,"Un'Goro Soil",3,11018}, {31.03,34.12,nil,nil,4,"Un'Goro Soil",3,11018}, {30.61,56.66,nil,nil,4,"Un'Goro Soil",3,11018}, {36.16,78.32,5.22,3,4,"Un'Goro Soil",3,11018,nil,nil,nil,{30.97,78.87,36.40,76.32,41.11,79.78}}, {37.14,24.30,4.50,3,4,"Un'Goro Soil",3,11018,nil,nil,nil,{32.86,22.92,38.20,23.10,40.37,26.87}}, {38.99,43.74,4.20,3,4,"Un'Goro Soil",3,11018,nil,nil,nil,{35.86,46.22,38.90,39.54,42.21,45.46}}, {44.65,55.63,5.60,5,4,"Un'Goro Soil",3,11018,nil,nil,nil,{40.75,59.65,41.90,53.16,47.00,52.90,48.90,58.00}}, {44.14,33.79,nil,nil,4,"Un'Goro Soil",3,11018}, {50.21,34.29,nil,nil,4,"Un'Goro Soil",3,11018}, {51.11,46.97,2.27,3,4,"Un'Goro Soil",3,11018,nil,nil,nil,{49.46,48.48,52.77,45.42,51.10,47.00}}, {49.40,83.50,nil,nil,4,"Un'Goro Soil",3,11018}, {50.45,90.10,nil,nil,4,"Un'Goro Soil",3,11018}, {56.35,81.39,4.58,3,4,"Un'Goro Soil",3,11018,nil,nil,nil,{52.49,78.92,60.00,81.80,56.56,83.45}}, {52.83,55.91,nil,nil,4,"Un'Goro Soil",3,11018}, {55.97,56.86,nil,nil,4,"Un'Goro Soil",3,11018}, {56.27,39.84,4.40,3,4,"Un'Goro Soil",3,11018,nil,nil,nil,{53.56,39.03,58.13,36.33,57.13,44.16}}, {55.58,28.65,nil,nil,4,"Un'Goro Soil",3,11018}, {62.16,17.57,nil,nil,4,"Un'Goro Soil",3,11018}, {62.30,64.00,nil,nil,4,"Un'Goro Soil",3,11018}, {63.30,47.90,nil,nil,4,"Un'Goro Soil",3,11018}, {64.06,40.97,nil,nil,4,"Un'Goro Soil",3,11018}, {68.66,76.90,4.04,3,4,"Un'Goro Soil",3,11018,nil,nil,nil,{64.90,78.40,69.40,76.40,71.67,75.91}}, {73.11,65.65,nil,nil,4,"Un'Goro Soil",3,11018}, {73.41,58.29,nil,nil,4,"Un'Goro Soil",3,11018}},
     },
     turnins = {
@@ -19806,7 +19806,7 @@ VanillaEnhancedQuestsDB = {
       [1428] = {{84.56,68.68,nil,nil,7,nil,1,9177}},
     },
     },
-    [3825] = { t = "Ogre Head On A Stick = Party", z = 46, rl = 48, ql = 53, rr = 1101, ps = {3824}, maps = {
+    [3825] = { t = "Ogre Head On A Stick = Party", z = 46, rl = 48, ql = 53, rr = 1101, ps = {3824}, si = {11079}, maps = {
       [1428] = {{81.00,46.79,nil,nil,4,"Gor'tesh Head Planted",2,160840,nil,nil,1}},
     },
     turnins = {
@@ -19816,7 +19816,7 @@ VanillaEnhancedQuestsDB = {
       [1428] = {{84.56,68.68,nil,nil,7,nil,1,9177}},
     },
     },
-    [3841] = { t = "An Orphan Looking For a Home", z = 357, rl = 40, ql = 47, rr = 1101, ps = {2972}, nc = 3842, maps = {
+    [3841] = { t = "An Orphan Looking For a Home", z = 357, rl = 40, ql = 47, rr = 1101, ps = {2972}, nc = 3842, si = {11102}, maps = {
       [1441] = {{78.35,74.72,nil,nil,6,nil,1,9238}},
     },
     turnins = {
@@ -19836,7 +19836,7 @@ VanillaEnhancedQuestsDB = {
       [1441] = {{78.35,74.72,nil,nil,7,nil,1,9238}},
     },
     },
-    [3843] = { t = "The Newest Member of the Family", z = 357, rl = 40, ql = 47, rr = 1101, ps = {3842}, nc = 4297, maps = {
+    [3843] = { t = "The Newest Member of the Family", z = 357, rl = 40, ql = 47, rr = 1101, ps = {3842}, nc = 4297, si = {11471}, maps = {
       [1425] = {{14.16,43.62,nil,nil,6,nil,1,9660}},
     },
     turnins = {
@@ -19856,7 +19856,7 @@ VanillaEnhancedQuestsDB = {
       [1449] = {{63.02,68.60,nil,nil,7,nil,2,161505}},
     },
     },
-    [3845] = { t = "It's a Secret to Everybody", z = 490, rl = 47, ql = 52, ps = {3844}, nc = 3908, maps = {
+    [3845] = { t = "It's a Secret to Everybody", z = 490, rl = 47, ql = 52, ps = {3844}, nc = 3908, si = {11107}, maps = {
       [1449] = {{44.66,8.10,nil,nil,6,nil,1,8737}},
     },
     turnins = {
@@ -19886,7 +19886,7 @@ VanillaEnhancedQuestsDB = {
       [1449] = {{43.50,7.42,nil,nil,7,nil,1,9272}},
     },
     },
-    [3883] = { t = "Alien Ecology", z = 490, rl = 48, ql = 52, maps = {
+    [3883] = { t = "Alien Ecology", z = 490, rl = 48, ql = 52, si = {11132}, maps = {
       [1449] = {{48.69,85.32,nil,nil,4,"Hive Wall Sample",3,11131,nil,nil,1}},
     },
     turnins = {
@@ -19896,7 +19896,7 @@ VanillaEnhancedQuestsDB = {
       [1449] = {{43.89,7.24,nil,nil,7,nil,1,9271}},
     },
     },
-    [3884] = { t = "Williden's Journal", z = 490, rl = 48, ql = 50, maps = {
+    [3884] = { t = "Williden's Journal", z = 490, rl = 48, ql = 50, si = {11116}, maps = {
       [1449] = {{43.95,7.14,nil,nil,6,nil,1,9270}},
     },
     turnins = {
@@ -19943,7 +19943,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{50.69,39.35,nil,nil,7,nil,1,9296}},
     },
     },
-    [3905] = { t = "Grape Manifest", z = 9, rl = 2, ql = 4, rr = 1101, ps = {3904}, maps = {
+    [3905] = { t = "Grape Manifest", z = 9, rl = 2, ql = 4, rr = 1101, ps = {3904}, si = {11125}, maps = {
       [1429] = {{49.47,41.59,nil,nil,6,nil,1,952}},
     },
     turnins = {
@@ -19973,7 +19973,7 @@ VanillaEnhancedQuestsDB = {
       [1418] = {{3.33,48.26,nil,nil,7,nil,1,9084}},
     },
     },
-    [3908] = { t = "It's a Secret to Everybody", z = 490, rl = 47, ql = 52, ps = {3845}, nc = 3909, maps = {
+    [3908] = { t = "It's a Secret to Everybody", z = 490, rl = 47, ql = 52, ps = {3845}, nc = 3909, si = {11133}, maps = {
       [1452] = {{31.27,45.16,nil,nil,6,nil,1,9298}},
     },
     turnins = {
@@ -19983,7 +19983,7 @@ VanillaEnhancedQuestsDB = {
       [1449] = {{44.66,8.10,nil,nil,7,nil,1,8737}},
     },
     },
-    [3909] = { t = "The Videre Elixir", z = 490, rl = 47, ql = 52, ps = {3908}, nc = 3912, maps = {
+    [3909] = { t = "The Videre Elixir", z = 490, rl = 47, ql = 52, ps = {3908}, nc = 3912, si = {11141,11242}, maps = {
       [1444] = {{45.12,25.57,nil,nil,2,"Videre Elixir",3,11243,{7775},nil,1}, {44.55,10.18,0.05,3,4,"Evoroot",3,11242,nil,nil,nil,{44.52,10.22,44.54,10.13,44.60,10.18}}},
     },
     turnins = {
@@ -19993,7 +19993,7 @@ VanillaEnhancedQuestsDB = {
       [1452] = {{31.27,45.16,nil,nil,7,nil,1,9298}},
     },
     },
-    [3912] = { t = "Meet at the Grave", z = 490, rl = 47, ql = 52, ps = {3909}, nc = 3913, maps = {
+    [3912] = { t = "Meet at the Grave", z = 490, rl = 47, ql = 52, ps = {3909}, nc = 3913, si = {11136}, maps = {
       [1446] = {{53.92,23.33,nil,nil,6,nil,1,9299}},
     },
     turnins = {
@@ -20003,7 +20003,7 @@ VanillaEnhancedQuestsDB = {
       [1452] = {{31.27,45.16,nil,nil,7,nil,1,9298}},
     },
     },
-    [3913] = { t = "A Grave Situation", z = 490, rl = 47, ql = 52, ps = {3912}, nc = 3914, maps = {
+    [3913] = { t = "A Grave Situation", z = 490, rl = 47, ql = 52, ps = {3912}, nc = 3914, si = {11136}, maps = {
       [1446] = {{53.81,29.06,nil,nil,6,nil,2,148504}},
     },
     turnins = {
@@ -20013,7 +20013,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{53.92,23.33,nil,nil,7,nil,1,9299}},
     },
     },
-    [3914] = { t = "Linken's Sword", z = 490, rl = 47, ql = 52, ps = {3913}, nc = 3941, maps = {
+    [3914] = { t = "Linken's Sword", z = 490, rl = 47, ql = 52, ps = {3913}, nc = 3941, si = {11162}, maps = {
       [1449] = {{44.66,8.10,nil,nil,6,nil,1,8737}},
     },
     turnins = {
@@ -20023,7 +20023,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{53.81,29.06,nil,nil,7,nil,2,148504}},
     },
     },
-    [3921] = { t = "Wenikee Boltbucket", z = 17, rl = 10, ql = 14, rr = 690, ps = {902}, nc = 3922, maps = {
+    [3921] = { t = "Wenikee Boltbucket", z = 17, rl = 10, ql = 14, rr = 690, ps = {902}, nc = 3922, si = {11142}, maps = {
       [1413] = {{49.05,11.17,nil,nil,6,nil,1,9316}},
     },
     turnins = {
@@ -20043,7 +20043,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{49.05,11.17,nil,nil,7,nil,1,9316}},
     },
     },
-    [3923] = { t = "Rilli Greasygob", z = 17, rl = 10, ql = 18, rr = 690, ps = {3922}, nc = 3924, maps = {
+    [3923] = { t = "Rilli Greasygob", z = 17, rl = 10, ql = 18, rr = 690, ps = {3922}, nc = 3924, si = {11146}, maps = {
       [1454] = {{76.52,24.41,nil,nil,6,nil,1,9317}},
     },
     turnins = {
@@ -20053,7 +20053,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{49.05,11.17,nil,nil,7,nil,1,9316}},
     },
     },
-    [3924] = { t = "Samophlange Manual", z = 17, rl = 10, ql = 19, rr = 690, ps = {3923}, maps = {
+    [3924] = { t = "Samophlange Manual", z = 17, rl = 10, ql = 19, rr = 690, ps = {3923}, si = {11148,11147}, maps = {
       [1413] = {{60.84,3.98,2.10,51,2,"Samophlange Manual Page",3,11148,{3283,3286},{3283,30,3286,30},nil,{59.54,3.06,59.62,2.77,61.74,3.33,62.16,3.52,62.30,3.81,62.23,5.56,61.88,5.58,61.41,5.57,61.19,5.50,59.63,3.78}}, {59.99,4.12,nil,nil,2,"Samophlange Manual Cover",3,11147,{9336},{9336,100}}},
     },
     turnins = {
@@ -20083,7 +20083,7 @@ VanillaEnhancedQuestsDB = {
       [1449] = {{41.92,2.70,nil,nil,7,nil,1,9117}},
     },
     },
-    [3961] = { t = "Linken's Adventure", z = 490, rl = 47, ql = 54, ps = {4005}, nc = 3962, maps = {
+    [3961] = { t = "Linken's Adventure", z = 490, rl = 47, ql = 54, ps = {4005}, nc = 3962, si = {11522}, maps = {
       [1449] = {{44.66,8.10,nil,nil,6,nil,1,8737}},
     },
     turnins = {
@@ -20093,7 +20093,7 @@ VanillaEnhancedQuestsDB = {
       [1449] = {{41.92,2.70,nil,nil,7,nil,1,9117}},
     },
     },
-    [3962] = { t = "It's Dangerous to Go Alone", z = 490, rl = 47, ql = 56, ps = {3961}, maps = {
+    [3962] = { t = "It's Dangerous to Go Alone", z = 490, rl = 47, ql = 56, ps = {3961}, si = {11522}, maps = {
       [1449] = {{49.41,49.33,nil,nil,1,"Blazerunner",1,9376,nil,nil,1}, {50.28,49.97,nil,nil,4,"Golden Flame",3,11179,nil,nil,2}},
     },
     turnins = {
@@ -20139,7 +20139,7 @@ VanillaEnhancedQuestsDB = {
       [1454] = {{31.73,37.82,nil,nil,6,nil,1,4949}},
     },
     },
-    [4005] = { t = "Aquementas", z = 490, rl = 47, ql = 54, ps = {4084}, nc = 3961, maps = {
+    [4005] = { t = "Aquementas", z = 490, rl = 47, ql = 54, ps = {4084}, nc = 3961, si = {11617}, maps = {
       [1446] = {{70.40,49.90,nil,nil,2,"Silver Totem of Aquementas",3,11522,{9453},nil,1}},
     },
     turnins = {
@@ -20179,7 +20179,7 @@ VanillaEnhancedQuestsDB = {
       [1428] = {{95.09,31.56,nil,nil,7,nil,1,9459}},
     },
     },
-    [4024] = { t = "A Taste of Flame", z = 1584, rl = 52, ql = 58, ps = {4022,4023}, dq = 1, dm = 242, maps = {
+    [4024] = { t = "A Taste of Flame", z = 1584, rl = 52, ql = 58, ps = {4022,4023}, dq = 1, dm = 242, si = {11231}, maps = {
       [1428] = {{95.09,31.56,nil,nil,6,nil,1,9459}},
     },
     turnins = {
@@ -20209,7 +20209,7 @@ VanillaEnhancedQuestsDB = {
       [1418] = {{3.02,47.81,nil,nil,7,nil,1,9079}},
     },
     },
-    [4062] = { t = "The Rise of the Machines", z = 3, rl = 52, ql = 54, rr = 690, ps = {4061}, nc = 4063, maps = {
+    [4062] = { t = "The Rise of the Machines", z = 3, rl = 52, ql = 54, rr = 690, ps = {4061}, nc = 4063, si = {11267}, maps = {
       [1418] = {{25.95,44.87,nil,nil,6,nil,1,2921}},
     },
     turnins = {
@@ -20513,7 +20513,7 @@ VanillaEnhancedQuestsDB = {
       [1428] = {{40.20,34.24,nil,nil,7,nil,1,9520}},
     },
     },
-    [4122] = { t = "Grark Lorkrub", z = 1584, rl = 52, ql = 58, rr = 690, ps = {4082}, dq = 1, dm = 242, maps = {
+    [4122] = { t = "Grark Lorkrub", z = 1584, rl = 52, ql = 58, rr = 690, ps = {4082}, dq = 1, dm = 242, si = {11286}, maps = {
       [1428] = {{40.20,34.24,nil,nil,6,nil,1,9520}},
     },
     turnins = {
@@ -20523,7 +20523,7 @@ VanillaEnhancedQuestsDB = {
       [1418] = {{5.88,47.63,nil,nil,7,nil,1,9080}},
     },
     },
-    [4123] = { t = "The Heart of the Mountain", z = 1584, rl = 50, ql = 55, dq = 1, dm = 242, maps = {
+    [4123] = { t = "The Heart of the Mountain", z = 1584, rl = 50, ql = 55, dq = 1, dm = 242, si = {11078}, maps = {
       [1428] = {{65.15,23.91,nil,nil,6,nil,1,9536}},
     },
     turnins = {
@@ -20563,7 +20563,7 @@ VanillaEnhancedQuestsDB = {
       [1426] = {{46.83,52.36,nil,nil,7,nil,1,1267}},
     },
     },
-    [4127] = { t = "Boat Wreckage", z = 357, rl = 40, ql = 44, rr = 1101, ps = {4125}, nc = 4129, maps = {
+    [4127] = { t = "Boat Wreckage", z = 357, rl = 40, ql = 44, rr = 1101, ps = {4125}, nc = 4129, si = {11462}, maps = {
       [1444] = {{31.86,45.13,nil,nil,6,nil,1,7880}},
     },
     turnins = {
@@ -20583,7 +20583,7 @@ VanillaEnhancedQuestsDB = {
       [1419] = {{63.63,20.63,nil,nil,7,nil,1,9540}},
     },
     },
-    [4129] = { t = "The Knife Revealed", z = 357, rl = 40, ql = 44, rr = 1101, ps = {4127}, nc = 4130, maps = {
+    [4129] = { t = "The Knife Revealed", z = 357, rl = 40, ql = 44, rr = 1101, ps = {4127}, nc = 4130, si = {11462}, maps = {
       [1444] = {{32.45,43.79,nil,nil,6,nil,1,7879}},
     },
     turnins = {
@@ -20643,7 +20643,7 @@ VanillaEnhancedQuestsDB = {
       [1418] = {{2.90,47.76,nil,nil,7,nil,1,9078}},
     },
     },
-    [4135] = { t = "The Writhing Deep", z = 357, rl = 40, ql = 46, rr = 1101, ps = {4131}, nc = 4265, maps = {
+    [4135] = { t = "The Writhing Deep", z = 357, rl = 40, ql = 46, rr = 1101, ps = {4131}, nc = 4265, si = {11463}, maps = {
       [1444] = {{72.07,63.72,nil,nil,6,nil,2,164954}},
     },
     turnins = {
@@ -20673,7 +20673,7 @@ VanillaEnhancedQuestsDB = {
       [1449] = {{42.94,9.64,nil,nil,7,nil,1,9119}},
     },
     },
-    [4142] = { t = "A Visit to Gregan", z = 490, rl = 47, ql = 52, rr = 1101, ps = {4141}, nc = 4143, maps = {
+    [4142] = { t = "A Visit to Gregan", z = 490, rl = 47, ql = 52, rr = 1101, ps = {4141}, nc = 4143, si = {11316}, maps = {
       [1444] = {{45.12,25.57,nil,nil,6,nil,1,7775}},
     },
     turnins = {
@@ -20713,7 +20713,7 @@ VanillaEnhancedQuestsDB = {
       [1449] = {{45.54,8.72,nil,nil,7,nil,1,9118}},
     },
     },
-    [4146] = { t = "Zapper Fuel", z = 490, rl = 47, ql = 52, rr = 690, ps = {4147}, maps = {
+    [4146] = { t = "Zapper Fuel", z = 490, rl = 47, ql = 52, rr = 690, ps = {4147}, si = {11319}, maps = {
       [1449] = {{45.54,8.72,nil,nil,6,nil,1,9118}},
     },
     turnins = {
@@ -20758,7 +20758,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{57.12,61.30,nil,nil,7,nil,1,6286}},
     },
     },
-    [4181] = { t = "Goblin Engineering", z = -201, rl = 30, ql = 47, rr = 1101, sk = {202,200}, ex = {3629,3633,3640}, spec = 202, maps = {
+    [4181] = { t = "Goblin Engineering", z = -201, rl = 30, ql = 47, rr = 1101, sk = {202,200}, ex = {3629,3633,3640}, spec = 202, si = {10789}, maps = {
       [1446] = {{52.48,27.33,nil,nil,6,nil,1,8126}},
     },
     turnins = {
@@ -20778,7 +20778,7 @@ VanillaEnhancedQuestsDB = {
       [1428] = {{85.82,68.95,nil,nil,7,nil,1,9562}},
     },
     },
-    [4183] = { t = "The True Masters", z = 46, rl = 48, ql = 54, rr = 1101, ps = {4182}, nc = 4184, maps = {
+    [4183] = { t = "The True Masters", z = 46, rl = 48, ql = 54, rr = 1101, ps = {4182}, nc = 4184, si = {11366}, maps = {
       [1433] = {{29.99,44.45,nil,nil,6,nil,1,344}},
     },
     turnins = {
@@ -20788,7 +20788,7 @@ VanillaEnhancedQuestsDB = {
       [1428] = {{85.82,68.95,nil,nil,7,nil,1,9562}},
     },
     },
-    [4184] = { t = "The True Masters", z = 46, rl = 48, ql = 54, rr = 1101, ps = {4183}, nc = 4185, maps = {
+    [4184] = { t = "The True Masters", z = 46, rl = 48, ql = 54, rr = 1101, ps = {4183}, nc = 4185, si = {11367}, maps = {
       [1453] = {{78.22,17.98,nil,nil,6,nil,1,1748}},
     },
     turnins = {
@@ -20808,7 +20808,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{78.22,17.98,nil,nil,7,nil,1,1748}},
     },
     },
-    [4186] = { t = "The True Masters", z = 46, rl = 48, ql = 54, rr = 1101, ps = {4185}, nc = 4223, maps = {
+    [4186] = { t = "The True Masters", z = 46, rl = 48, ql = 54, rr = 1101, ps = {4185}, nc = 4223, si = {11368}, maps = {
       [1433] = {{29.99,44.45,nil,nil,6,nil,1,344}},
     },
     turnins = {
@@ -20818,7 +20818,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{78.22,17.98,nil,nil,7,nil,1,1748}},
     },
     },
-    [4201] = { t = "The Love Potion", z = 1584, rl = 50, ql = 54, dq = 1, dm = 242, maps = {
+    [4201] = { t = "The Love Potion", z = 1584, rl = 50, ql = 54, dq = 1, dm = 242, si = {11412}, maps = {
       [1419] = {{46.79,39.53,6.47,6,4,"Gromsblood",3,8846,nil,nil,1,{41.92,39.60,45.76,37.49,53.17,38.48,48.09,41.61,46.02,42.50}}, {45.00,19.90,nil,nil,4,"Gromsblood",3,8846,nil,nil,1}, {49.18,15.63,nil,nil,4,"Gromsblood",3,8846,nil,nil,1}, {50.89,29.03,nil,nil,4,"Gromsblood",3,8846,nil,nil,1}, {53.78,36.11,nil,nil,4,"Gromsblood",3,8846,nil,nil,1}, {56.67,51.03,4.02,6,4,"Gromsblood",3,8846,nil,nil,1,{53.89,53.93,55.23,50.52,56.90,50.10,58.80,50.23,59.65,50.39}}, {61.82,54.63,3.04,6,4,"Gromsblood",3,8846,nil,nil,1,{59.56,54.64,61.42,52.04,62.91,54.73,62.88,55.76,62.64,57.55}}, {61.18,28.31,4.59,3,4,"Gromsblood",3,8846,nil,nil,1,{59.83,26.43,63.86,32.03,59.85,26.46}}, {40.10,33.41,nil,nil,4,"Gromsblood",3,8846,nil,nil,1}, {44.34,31.22,nil,nil,4,"Gromsblood",3,8846,nil,nil,1}, {56.58,22.45,nil,nil,4,"Gromsblood",3,8846,nil,nil,1}, {48.16,50.12,nil,nil,4,"Gromsblood",3,8846,nil,nil,1}},
       [1422] = {{63.94,37.42,5.21,23,2,"Gromsblood",3,20768,{1806,1808,12387},nil,1,{61.31,34.95,64.46,33.40,65.78,38.01,66.64,41.04,66.06,42.18,65.03,41.25,61.80,37.42,61.47,36.72}}},
       [1423] = {{54.01,68.48,3.73,13,2,"Gromsblood",3,20768,{8606,8607},nil,1,{50.74,68.98,52.28,67.35,54.78,65.44,56.99,66.24,56.61,69.06,54.52,70.51,53.30,70.45,51.68,70.26}}, {74.90,61.77,6.28,16,2,"Gromsblood",3,20768,{8606,8607},nil,1,{72.14,67.41,72.65,61.15,76.01,56.77,77.10,57.95,77.29,61.51,76.03,63.11,73.72,65.71}}},
@@ -20944,7 +20944,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{31.86,45.13,nil,nil,7,nil,1,7880}},
     },
     },
-    [4267] = { t = "Rise of the Silithid", z = 357, rl = 40, ql = 46, rr = 1101, ps = {4266}, maps = {
+    [4267] = { t = "Rise of the Silithid", z = 357, rl = 40, ql = 46, rr = 1101, ps = {4266}, si = {11466}, maps = {
       [1457] = {{41.83,85.62,nil,nil,6,nil,1,7740}},
     },
     turnins = {
@@ -20954,7 +20954,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{30.28,46.17,nil,nil,7,nil,1,3936}},
     },
     },
-    [4281] = { t = "Thalanaar Delivery", z = 357, rl = 39, ql = 44, rr = 1101, ps = {4131}, maps = {
+    [4281] = { t = "Thalanaar Delivery", z = 357, rl = 39, ql = 44, rr = 1101, ps = {4131}, si = {11463}, maps = {
       [1444] = {{89.64,46.57,nil,nil,6,nil,1,4048}},
     },
     turnins = {
@@ -21051,7 +21051,7 @@ VanillaEnhancedQuestsDB = {
       [1449] = {{71.64,75.96,nil,nil,7,nil,1,9619}},
     },
     },
-    [4292] = { t = "The Bait for Lar'korwi", z = 490, rl = 48, ql = 56, ps = {4291}, maps = {
+    [4292] = { t = "The Bait for Lar'korwi", z = 490, rl = 48, ql = 56, ps = {4291}, si = {11568}, maps = {
       [1449] = {{79.65,49.83,nil,nil,2,"Lar'korwi's Head",3,11510,{9684},{9684,100},1}},
     },
     turnins = {
@@ -21061,7 +21061,7 @@ VanillaEnhancedQuestsDB = {
       [1449] = {{71.64,75.96,nil,nil,7,nil,1,9619}},
     },
     },
-    [4293] = { t = "A Sample of Slime...", z = 1497, rl = 48, ql = 52, rr = 690, maps = {
+    [4293] = { t = "A Sample of Slime...", z = 1497, rl = 48, ql = 52, rr = 690, si = {12230}, maps = {
       [1448] = {{40.36,69.57,3.82,24,2,"Felwood Slime Sample",3,12230,{7086},{7086,100},nil,{38.69,72.74,38.76,71.47,40.23,65.75,40.92,66.13,41.57,66.70,42.22,67.66,41.19,70.90,40.72,71.90,40.38,72.48}}, {40.87,48.38,6.69,21,2,"Felwood Slime Sample",3,12230,{7092,14345},{7092,100,14345,100},nil,{34.18,48.46,41.40,45.49,43.99,46.35,43.86,48.58,42.80,51.07}}, {40.13,56.44,3.35,14,2,"Felwood Slime Sample",3,12230,{7092},{7092,100},nil,{39.14,54.59,39.54,54.04,40.45,54.14,40.89,59.03,40.72,59.74,40.30,58.93}}},
       [1458] = {{47.85,73.48,nil,nil,4,"Corrupted Felwood Sample",3,12234,nil,nil,1}},
     },
@@ -21072,7 +21072,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{47.45,73.35,nil,nil,7,nil,1,10136}},
     },
     },
-    [4294] = { t = "... and a Batch of Ooze", z = 1497, rl = 48, ql = 56, rr = 690, maps = {
+    [4294] = { t = "... and a Batch of Ooze", z = 1497, rl = 48, ql = 56, rr = 690, si = {12235}, maps = {
       [1449] = {{60.71,37.66,3.59,3,2,"Un'Goro Slime Sample",3,12235,{6556},{6556,100},nil,{57.19,38.36,60.92,37.60,64.02,37.03}}, {71.13,35.72,4.38,4,2,"Un'Goro Slime Sample",3,12235,{6556},{6556,100},nil,{67.90,36.37,69.74,31.56,74.32,35.48,72.57,39.46}}, {66.43,24.85,4.62,3,2,"Un'Goro Slime Sample",3,12235,{6556},{6556,100},nil,{61.84,25.42,66.64,23.50,70.81,25.64}}, {74.29,54.81,nil,nil,2,"Un'Goro Slime Sample",3,12235,{6556},{6556,100}}, {72.63,68.11,nil,nil,2,"Un'Goro Slime Sample",3,12235,{6556},{6556,100}}, {54.61,66.57,7.15,9,2,"Un'Goro Slime Sample",3,12235,{6557},{6557,100},nil,{49.02,63.39,54.30,62.88,58.00,64.00,58.10,69.53,55.49,73.67}}, {51.22,30.59,nil,nil,2,"Un'Goro Slime Sample",3,12235,{6557},{6557,100}}, {51.16,33.85,nil,nil,2,"Un'Goro Slime Sample",3,12235,{6557},{6557,100}}, {58.83,48.11,3.49,3,2,"Un'Goro Slime Sample",3,12235,{6557},{6557,100},nil,{57.29,51.24,58.22,45.48,60.97,47.60}}, {44.16,66.17,6.10,8,2,"Un'Goro Slime Sample",3,12235,{6557,6559},{6557,100,6559,100},nil,{40.21,62.14,45.27,61.82,48.26,70.68,46.07,70.58,44.23,68.22,41.35,64.11}}, {59.89,56.23,nil,nil,2,"Un'Goro Slime Sample",3,12235,{6557},{6557,100}}, {61.49,60.48,nil,nil,2,"Un'Goro Slime Sample",3,12235,{6557},{6557,100}}, {51.82,17.85,nil,nil,2,"Un'Goro Slime Sample",3,12235,{6557},{6557,100}}, {38.52,17.34,nil,nil,2,"Un'Goro Slime Sample",3,12235,{6557},{6557,100}}, {38.59,21.24,nil,nil,2,"Un'Goro Slime Sample",3,12235,{6559},{6559,100}}, {57.54,82.97,nil,nil,2,"Un'Goro Slime Sample",3,12235,{6557},{6557,100}}, {46.15,23.87,nil,nil,2,"Un'Goro Slime Sample",3,12235,{6557},{6557,100}}, {47.42,26.05,nil,nil,2,"Un'Goro Slime Sample",3,12235,{6557},{6557,100}}, {29.10,42.35,6.54,6,2,"Un'Goro Slime Sample",3,12235,{6559},{6559,100},nil,{24.69,44.01,28.21,35.87,32.12,40.90,32.66,46.31,25.62,45.47}}, {33.01,63.70,6.41,9,2,"Un'Goro Slime Sample",3,12235,{6559},{6559,100},nil,{28.46,60.71,31.10,60.07,38.18,59.91,36.71,64.53,36.36,65.43,35.09,66.61,28.63,67.35}}, {36.55,35.88,7.81,11,2,"Un'Goro Slime Sample",3,12235,{6559},{6559,100},nil,{31.56,32.80,34.22,28.42,37.93,31.61,38.73,33.29,40.15,39.97,38.51,42.44,36.72,40.45}}, {40.12,50.75,5.92,6,2,"Un'Goro Slime Sample",3,12235,{6559},{6559,100},nil,{37.22,49.66,39.46,46.79,41.06,46.53,42.07,50.54,42.92,54.72,38.00,56.28}}, {35.25,76.20,5.76,8,2,"Un'Goro Slime Sample",3,12235,{6559},{6559,100},nil,{30.84,74.41,35.33,72.70,38.59,73.53,37.99,78.87,37.61,81.45,31.05,79.35}}},
       [1458] = {{47.74,73.57,nil,nil,4,"Pure Un'Goro Sample",3,12236,nil,nil,1}},
     },
@@ -21266,7 +21266,7 @@ VanillaEnhancedQuestsDB = {
       [1448] = {{51.35,81.51,nil,nil,7,nil,1,9116}},
     },
     },
-    [4441] = { t = "Felbound Ancients", z = 361, rl = 49, ql = 54, rr = 1101, ps = {939}, maps = {
+    [4441] = { t = "Felbound Ancients", z = 361, rl = 49, ql = 54, rr = 1101, ps = {939}, si = {11682}, maps = {
       [1457] = {{39.18,85.59,nil,nil,4,"Vial of Blessed Water",3,5646,nil,nil,1}},
     },
     turnins = {
@@ -21336,7 +21336,7 @@ VanillaEnhancedQuestsDB = {
       [1427] = {{65.59,62.17,nil,nil,7,nil,2,173265}},
     },
     },
-    [4451] = { t = "The Key to Freedom", z = 51, rl = 43, ql = 47, maps = {
+    [4451] = { t = "The Key to Freedom", z = 51, rl = 43, ql = 47, si = {11818}, maps = {
       [1427] = {{65.59,62.17,nil,nil,6,nil,2,173265}},
     },
     turnins = {
@@ -21527,7 +21527,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{62.63,35.50,nil,nil,7,nil,1,6251}},
     },
     },
-    [4491] = { t = "A Little Help From My Friends", z = 490, rl = 50, ql = 55, ps = {4492}, sf = 2, maps = {
+    [4491] = { t = "A Little Help From My Friends", z = 490, rl = 50, ql = 55, ps = {4492}, sf = 2, si = {11804}, maps = {
       [1449] = {{43.71,8.29,nil,nil,3,"Escort Ringo to Spraggle Frock at Marshal's Refuge"}},
     },
     turnins = {
@@ -21537,7 +21537,7 @@ VanillaEnhancedQuestsDB = {
       [1449] = {{51.90,49.85,nil,nil,7,nil,1,9999}},
     },
     },
-    [4492] = { t = "Lost!", z = 490, rl = 50, ql = 55, maps = {
+    [4492] = { t = "Lost!", z = 490, rl = 50, ql = 55, si = {15722}, maps = {
       [1449] = {{43.71,8.29,nil,nil,3,"Escort Ringo to Spraggle Frock at Marshal's Refuge"}},
     },
     turnins = {
@@ -21627,7 +21627,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{51.57,26.76,nil,nil,7,nil,1,7876}},
     },
     },
-    [4505] = { t = "Well of Corruption", z = 361, rl = 49, ql = 54, rr = 690, bc = {6605}, maps = {
+    [4505] = { t = "Well of Corruption", z = 361, rl = 49, ql = 54, rr = 690, bc = {6605}, si = {12566}, maps = {
       [1448] = {{32.32,66.56,nil,nil,4,"Filled Flasket",3,12567,nil,nil,1}},
     },
     turnins = {
@@ -21637,7 +21637,7 @@ VanillaEnhancedQuestsDB = {
       [1448] = {{34.21,52.34,nil,nil,7,nil,1,9996}},
     },
     },
-    [4506] = { t = "Corrupted Sabers", z = 361, rl = 49, ql = 54, rr = 690, ps = {4505}, sf = 2, maps = {
+    [4506] = { t = "Corrupted Sabers", z = 361, rl = 49, ql = 54, rr = 690, ps = {4505}, sf = 2, si = {12565}, maps = {
       [1448] = {{34.26,52.32,nil,nil,3,"Return the corrupted cat to Winna Hazzard"}},
     },
     turnins = {
@@ -21647,7 +21647,7 @@ VanillaEnhancedQuestsDB = {
       [1448] = {{34.21,52.34,nil,nil,7,nil,1,9996}},
     },
     },
-    [4507] = { t = "Pawn Captures Queen", z = 440, rl = 50, ql = 54, ps = {4496}, maps = {
+    [4507] = { t = "Pawn Captures Queen", z = 440, rl = 50, ql = 54, ps = {4496}, si = {11833}, maps = {
       [1449] = {{43.85,81.39,nil,nil,2,"Gorishi Queen Brain",3,11835,{10041},{10041,100},1}},
     },
     turnins = {
@@ -21657,7 +21657,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{50.89,26.96,nil,nil,7,nil,1,5594}},
     },
     },
-    [4508] = { t = "Calm Before the Storm", z = 440, rl = 50, ql = 54, rr = 1101, ps = {4507}, nc = 4510, maps = {
+    [4508] = { t = "Calm Before the Storm", z = 440, rl = 50, ql = 54, rr = 1101, ps = {4507}, nc = 4510, si = {11844}, maps = {
       [1457] = {{41.83,85.62,nil,nil,6,nil,1,7740}},
     },
     turnins = {
@@ -21667,7 +21667,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{50.89,26.96,nil,nil,7,nil,1,5594}},
     },
     },
-    [4509] = { t = "Calm Before the Storm", z = 440, rl = 50, ql = 54, rr = 690, ps = {4507}, nc = 4511, maps = {
+    [4509] = { t = "Calm Before the Storm", z = 440, rl = 50, ql = 54, rr = 690, ps = {4507}, nc = 4511, si = {11844}, maps = {
       [1454] = {{56.26,46.68,nil,nil,6,nil,1,7010}},
     },
     turnins = {
@@ -21677,7 +21677,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{50.89,26.96,nil,nil,7,nil,1,5594}},
     },
     },
-    [4510] = { t = "Calm Before the Storm", z = 1657, rl = 50, ql = 54, rr = 1101, ps = {4508}, maps = {
+    [4510] = { t = "Calm Before the Storm", z = 1657, rl = 50, ql = 54, rr = 1101, ps = {4508}, si = {11843}, maps = {
       [1457] = {{39.39,42.43,nil,nil,6,nil,1,4155}},
     },
     turnins = {
@@ -21687,7 +21687,7 @@ VanillaEnhancedQuestsDB = {
       [1457] = {{41.83,85.62,nil,nil,7,nil,1,7740}},
     },
     },
-    [4511] = { t = "Calm Before the Storm", z = 1637, rl = 50, ql = 54, rr = 690, ps = {4509}, maps = {
+    [4511] = { t = "Calm Before the Storm", z = 1637, rl = 50, ql = 54, rr = 690, ps = {4509}, si = {11843}, maps = {
       [1454] = {{49.58,69.12,nil,nil,6,nil,1,3309}},
     },
     turnins = {
@@ -21697,7 +21697,7 @@ VanillaEnhancedQuestsDB = {
       [1454] = {{56.26,46.68,nil,nil,7,nil,1,7010}},
     },
     },
-    [4512] = { t = "A Little Slime Goes a Long Way", z = 1537, rl = 48, ql = 52, rr = 1101, nc = 4513, maps = {
+    [4512] = { t = "A Little Slime Goes a Long Way", z = 1537, rl = 48, ql = 52, rr = 1101, nc = 4513, si = {11912,11914,11948}, maps = {
       [1415] = {{46.82,67.70,nil,nil,2,"Empty Cursed Ooze Jar",3,5758,{9026}}, {46.82,67.70,nil,nil,2,"Empty Tainted Ooze Jar",3,5758,{9026}}},
       [1418] = {{56.11,61.73,nil,nil,2,"Empty Cursed Ooze Jar",3,5758,{2931}}, {56.11,61.73,nil,nil,2,"Empty Tainted Ooze Jar",3,5758,{2931}}, {35.38,66.49,nil,nil,2,"Empty Cursed Ooze Jar",3,5758,{2931}}, {35.38,66.49,nil,nil,2,"Empty Tainted Ooze Jar",3,5758,{2931}}, {34.49,53.74,nil,nil,2,"Empty Cursed Ooze Jar",3,5758,{2931}}, {34.49,53.74,nil,nil,2,"Empty Tainted Ooze Jar",3,5758,{2931}}},
       [1419] = {{49.44,39.56,7.60,232,2,"Empty Cursed Ooze Jar",3,5758,{5977,5978,5981,5993,6007,6008,6009,7669,7671,8300,8675},nil,nil,{42.25,42.01,42.26,39.95,45.00,36.40,52.04,33.63,54.00,35.00,54.60,36.80,55.25,44.07,54.80,44.80,48.61,45.91,47.33,45.54}}, {46.06,31.11,7.14,85,2,"Empty Cursed Ooze Jar",3,5758,{5981,5988,5993,6007,8300,8675},nil,nil,{38.92,31.25,44.40,25.20,50.80,27.40,51.60,27.80,52.00,29.00,52.00,29.60,47.80,35.40,46.60,35.80,44.40,36.40}}, {47.28,20.31,5.67,115,2,"Empty Cursed Ooze Jar",3,5758,{5988},nil,nil,{44.20,19.80,44.40,19.40,47.00,15.40,50.00,15.40,49.60,23.80,44.40,25.20}}, {60.68,39.83,7.70,82,2,"Empty Cursed Ooze Jar",3,5758,{5981,5988,5991,5993,6004,6005,6006,7670,8298,8300},nil,nil,{54.80,44.80,58.63,35.63,59.20,35.40,64.27,33.77,64.80,34.78,63.86,42.31,60.40,44.80}}, {49.66,52.32,6.66,86,2,"Empty Cursed Ooze Jar",3,5758,{5991,5993,6010,6011,8298},nil,nil,{45.08,48.14,46.60,47.40,56.07,50.50,54.72,54.01,52.60,56.60,51.20,57.60,45.31,54.95}}, {62.39,47.75,7.71,43,2,"Empty Cursed Ooze Jar",3,5758,{5988,5991,6004,6005,6006,6010,6011,7670,8298},nil,nil,{58.08,51.25,58.35,46.03,60.88,44.34,63.84,44.08,64.58,46.89,64.64,47.59,64.10,52.48,62.14,55.46}}, {65.01,19.60,4.11,38,2,"Empty Cursed Ooze Jar",3,5758,{6003,7851},nil,nil,{63.51,16.49,63.53,16.33,63.61,15.74,65.08,16.25,67.18,18.41,67.21,19.09,66.59,22.26,64.42,23.12,63.71,21.60}}, {66.34,31.70,4.20,76,2,"Empty Cursed Ooze Jar",3,5758,{6004,6005,6006,7670,7728},nil,nil,{63.70,31.82,63.76,30.13,67.36,29.16,69.27,30.79,69.49,30.98,66.04,34.51,64.08,35.24}}, {39.61,33.04,7.19,32,2,"Empty Cursed Ooze Jar",3,5758,{5993,6007,6008,6009,7671},nil,nil,{38.24,33.88,38.32,31.09,38.50,30.64,39.41,30.53,40.67,30.66,44.40,36.40,40.99,40.09}}, {62.33,57.01,1.77,7,2,"Empty Cursed Ooze Jar",3,5758,{6010,6011},nil,nil,{62.08,55.26,62.14,55.46,62.53,58.24,62.49,58.31}}, {42.30,12.54,2.18,4,2,"Empty Cursed Ooze Jar",3,5758,{7669}}},
@@ -21728,7 +21728,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{75.77,23.38,nil,nil,7,nil,1,9616}},
     },
     },
-    [4513] = { t = "A Little Slime Goes a Long Way", z = 1537, rl = 48, ql = 54, rr = 1101, ps = {4512}, maps = {
+    [4513] = { t = "A Little Slime Goes a Long Way", z = 1537, rl = 48, ql = 54, rr = 1101, ps = {4512}, si = {11955,11953}, maps = {
       [1449] = {{60.71,37.66,3.59,3,2,"Filled Pure Sample Jar",3,11954,{6556},nil,1,{57.19,38.36,60.92,37.60,64.02,37.03}}, {71.13,35.72,4.38,4,2,"Filled Pure Sample Jar",3,11954,{6556},nil,1,{67.90,36.37,69.74,31.56,74.32,35.48,72.57,39.46}}, {66.43,24.85,4.62,3,2,"Filled Pure Sample Jar",3,11954,{6556},nil,1,{61.84,25.42,66.64,23.50,70.81,25.64}}, {74.29,54.81,nil,nil,2,"Filled Pure Sample Jar",3,11954,{6556},nil,1}, {72.63,68.11,nil,nil,2,"Filled Pure Sample Jar",3,11954,{6556},nil,1}, {54.61,66.57,7.15,9,2,"Filled Pure Sample Jar",3,11954,{6557},nil,1,{49.02,63.39,54.30,62.88,58.00,64.00,58.10,69.53,55.49,73.67}}, {51.22,30.59,nil,nil,2,"Filled Pure Sample Jar",3,11954,{6557},nil,1}, {51.16,33.85,nil,nil,2,"Filled Pure Sample Jar",3,11954,{6557},nil,1}, {58.83,48.11,3.49,3,2,"Filled Pure Sample Jar",3,11954,{6557},nil,1,{57.29,51.24,58.22,45.48,60.97,47.60}}, {44.16,66.17,6.10,8,2,"Filled Pure Sample Jar",3,11954,{6557,6559},nil,1,{40.21,62.14,45.27,61.82,48.26,70.68,46.07,70.58,44.23,68.22,41.35,64.11}}, {59.89,56.23,nil,nil,2,"Filled Pure Sample Jar",3,11954,{6557},nil,1}, {61.49,60.48,nil,nil,2,"Filled Pure Sample Jar",3,11954,{6557},nil,1}, {51.82,17.85,nil,nil,2,"Filled Pure Sample Jar",3,11954,{6557},nil,1}, {38.52,17.34,nil,nil,2,"Filled Pure Sample Jar",3,11954,{6557},nil,1}, {38.59,21.24,nil,nil,2,"Filled Pure Sample Jar",3,11954,{6559},nil,1}, {57.54,82.97,nil,nil,2,"Filled Pure Sample Jar",3,11954,{6557},nil,1}, {46.15,23.87,nil,nil,2,"Filled Pure Sample Jar",3,11954,{6557},nil,1}, {47.42,26.05,nil,nil,2,"Filled Pure Sample Jar",3,11954,{6557},nil,1}, {29.10,42.35,6.54,6,2,"Filled Pure Sample Jar",3,11954,{6559},nil,1,{24.69,44.01,28.21,35.87,32.12,40.90,32.66,46.31,25.62,45.47}}, {33.01,63.70,6.41,9,2,"Filled Pure Sample Jar",3,11954,{6559},nil,1,{28.46,60.71,31.10,60.07,38.18,59.91,36.71,64.53,36.36,65.43,35.09,66.61,28.63,67.35}}, {36.55,35.88,7.81,11,2,"Filled Pure Sample Jar",3,11954,{6559},nil,1,{31.56,32.80,34.22,28.42,37.93,31.61,38.73,33.29,40.15,39.97,38.51,42.44,36.72,40.45}}, {40.12,50.75,5.92,6,2,"Filled Pure Sample Jar",3,11954,{6559},nil,1,{37.22,49.66,39.46,46.79,41.06,46.53,42.07,50.54,42.92,54.72,38.00,56.28}}, {35.25,76.20,5.76,8,2,"Filled Pure Sample Jar",3,11954,{6559},nil,1,{30.84,74.41,35.33,72.70,38.59,73.53,37.99,78.87,37.61,81.45,31.05,79.35}}},
     },
     turnins = {
@@ -21748,7 +21748,7 @@ VanillaEnhancedQuestsDB = {
       [1448] = {{34.73,52.79,nil,nil,7,nil,1,10306}},
     },
     },
-    [4542] = { t = "Message to Freewind Post", z = 400, rl = 23, ql = 25, rr = 690, nc = 4841, bf = 4841, maps = {
+    [4542] = { t = "Message to Freewind Post", z = 400, rl = 23, ql = 25, rr = 690, nc = 4841, bf = 4841, si = {11886}, maps = {
       [1441] = {{45.67,50.74,nil,nil,6,nil,1,10537}},
     },
     turnins = {
@@ -21768,7 +21768,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{47.74,73.57,nil,nil,7,nil,2,175265}},
     },
     },
-    [4581] = { t = "Kayneth Stillwind", z = 331, rl = 24, ql = 29, rr = 1101, maps = {
+    [4581] = { t = "Kayneth Stillwind", z = 331, rl = 24, ql = 29, rr = 1101, si = {12060}, maps = {
       [1440] = {{85.24,44.71,nil,nil,6,nil,1,3848}},
     },
     turnins = {
@@ -21798,7 +21798,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{43.29,68.53,nil,nil,7,nil,1,10176}},
     },
     },
-    [4642] = { t = "Melding of Influences", z = 1497, rl = 48, ql = 55, rr = 690, pg = {4293,4294}, maps = {
+    [4642] = { t = "Melding of Influences", z = 1497, rl = 48, ql = 55, rr = 690, pg = {4293,4294}, si = {12288}, maps = {
       [1449] = {{55.01,66.53,7.15,11,2,"Merged Ooze Sample",3,12291,{6557,9621},{6557,3.667,9621,100},1,{49.02,63.39,54.30,62.88,56.77,63.03,58.00,64.00,58.10,69.53,55.49,73.67}}, {51.22,30.59,nil,nil,2,"Merged Ooze Sample",3,12291,{6557},{6557,3.667},1}, {51.16,33.85,nil,nil,2,"Merged Ooze Sample",3,12291,{6557},{6557,3.667},1}, {58.83,48.11,3.49,3,2,"Merged Ooze Sample",3,12291,{6557},{6557,3.667},1,{57.29,51.24,58.22,45.48,60.97,47.60}}, {45.29,67.18,5.36,6,2,"Merged Ooze Sample",3,12291,{6557},{6557,3.667},1,{43.47,65.21,45.27,61.82,48.26,70.68,46.07,70.58,44.23,68.22}}, {59.89,56.23,nil,nil,2,"Merged Ooze Sample",3,12291,{6557},{6557,3.667},1}, {61.49,60.48,nil,nil,2,"Merged Ooze Sample",3,12291,{6557},{6557,3.667},1}, {53.47,17.94,3.14,3,2,"Merged Ooze Sample",3,12291,{6557,9621},{6557,3.667,9621,100},1,{51.82,17.85,51.99,17.82,56.61,18.16}}, {38.52,17.34,nil,nil,2,"Merged Ooze Sample",3,12291,{6557},{6557,3.667},1}, {57.54,82.97,nil,nil,2,"Merged Ooze Sample",3,12291,{6557},{6557,3.667},1}, {46.61,25.04,1.29,3,2,"Merged Ooze Sample",3,12291,{6557,9621},{6557,3.667,9621,100},1,{46.15,23.87,47.42,26.05,46.27,25.21}}},
     },
     turnins = {
@@ -21848,7 +21848,7 @@ VanillaEnhancedQuestsDB = {
       [1448] = {{34.73,52.79,nil,nil,7,nil,1,10306}},
     },
     },
-    [4722] = { t = "Beached Sea Turtle", z = 148, rl = 11, ql = 13, rr = 1101, ps = {4681}, maps = {
+    [4722] = { t = "Beached Sea Turtle", z = 148, rl = 11, ql = 13, rr = 1101, ps = {4681}, si = {12289}, maps = {
       [1439] = {{36.62,45.59,nil,nil,6,nil,1,10219}},
     },
     turnins = {
@@ -21858,7 +21858,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{37.09,62.18,nil,nil,7,nil,2,176190}},
     },
     },
-    [4723] = { t = "Beached Sea Creature", z = 148, rl = 11, ql = 13, rr = 1101, ps = {4681}, maps = {
+    [4723] = { t = "Beached Sea Creature", z = 148, rl = 11, ql = 13, rr = 1101, ps = {4681}, si = {12242}, maps = {
       [1439] = {{36.62,45.59,nil,nil,6,nil,1,10219}},
     },
     turnins = {
@@ -21878,7 +21878,7 @@ VanillaEnhancedQuestsDB = {
       [1418] = {{5.96,47.73,nil,nil,7,nil,1,9081}},
     },
     },
-    [4725] = { t = "Beached Sea Turtle", z = 148, rl = 12, ql = 15, rr = 1101, ps = {4681}, maps = {
+    [4725] = { t = "Beached Sea Turtle", z = 148, rl = 12, ql = 15, rr = 1101, ps = {4681}, si = {12292}, maps = {
       [1439] = {{36.62,45.59,nil,nil,6,nil,1,10219}},
     },
     turnins = {
@@ -21888,7 +21888,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{44.19,20.60,nil,nil,7,nil,2,176197}},
     },
     },
-    [4726] = { t = "Broodling Essence", z = 46, rl = 50, ql = 52, nc = 4808, maps = {
+    [4726] = { t = "Broodling Essence", z = 46, rl = 50, ql = 52, nc = 4808, si = {12284}, maps = {
       [1428] = {{65.24,24.00,nil,nil,6,nil,1,10267}},
     },
     turnins = {
@@ -21898,7 +21898,7 @@ VanillaEnhancedQuestsDB = {
       [1428] = {{65.24,24.00,nil,nil,7,nil,1,10267}},
     },
     },
-    [4727] = { t = "Beached Sea Turtle", z = 148, rl = 13, ql = 15, rr = 1101, ps = {4681}, maps = {
+    [4727] = { t = "Beached Sea Turtle", z = 148, rl = 13, ql = 15, rr = 1101, ps = {4681}, si = {12289}, maps = {
       [1439] = {{36.62,45.59,nil,nil,6,nil,1,10219}},
     },
     turnins = {
@@ -21908,7 +21908,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{53.11,18.08,nil,nil,7,nil,2,176196}},
     },
     },
-    [4728] = { t = "Beached Sea Creature", z = 148, rl = 12, ql = 14, rr = 1101, ps = {4681}, maps = {
+    [4728] = { t = "Beached Sea Creature", z = 148, rl = 12, ql = 14, rr = 1101, ps = {4681}, si = {12242}, maps = {
       [1439] = {{36.62,45.59,nil,nil,6,nil,1,10219}},
     },
     turnins = {
@@ -21918,7 +21918,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{36.01,70.88,nil,nil,7,nil,2,175226}},
     },
     },
-    [4729] = { t = "Kibler's Exotic Pets", z = 1583, rl = 55, ql = 59, dq = 1, dm = 253, maps = {
+    [4729] = { t = "Kibler's Exotic Pets", z = 1583, rl = 55, ql = 59, dq = 1, dm = 253, si = {12262}, maps = {
       [1428] = {{65.89,21.92,nil,nil,6,nil,1,10260}},
     },
     turnins = {
@@ -21928,7 +21928,7 @@ VanillaEnhancedQuestsDB = {
       [1428] = {{65.89,21.92,nil,nil,7,nil,1,10260}},
     },
     },
-    [4730] = { t = "Beached Sea Creature", z = 148, rl = 13, ql = 16, rr = 1101, ps = {4681}, maps = {
+    [4730] = { t = "Beached Sea Creature", z = 148, rl = 13, ql = 16, rr = 1101, ps = {4681}, si = {12242}, maps = {
       [1439] = {{36.62,45.59,nil,nil,6,nil,1,10219}},
     },
     turnins = {
@@ -21938,7 +21938,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{32.69,80.79,nil,nil,7,nil,2,175227}},
     },
     },
-    [4731] = { t = "Beached Sea Turtle", z = 148, rl = 14, ql = 19, rr = 1101, ps = {4681}, maps = {
+    [4731] = { t = "Beached Sea Turtle", z = 148, rl = 14, ql = 19, rr = 1101, ps = {4681}, si = {12292}, maps = {
       [1439] = {{36.62,45.59,nil,nil,6,nil,1,10219}},
     },
     turnins = {
@@ -21948,7 +21948,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{31.67,83.68,nil,nil,7,nil,2,176198}},
     },
     },
-    [4732] = { t = "Beached Sea Turtle", z = 148, rl = 15, ql = 19, rr = 1101, ps = {4681}, maps = {
+    [4732] = { t = "Beached Sea Turtle", z = 148, rl = 15, ql = 19, rr = 1101, ps = {4681}, si = {12289}, maps = {
       [1439] = {{36.62,45.59,nil,nil,6,nil,1,10219}},
     },
     turnins = {
@@ -21958,7 +21958,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{31.23,85.60,nil,nil,7,nil,2,176191}},
     },
     },
-    [4733] = { t = "Beached Sea Creature", z = 148, rl = 14, ql = 19, rr = 1101, ps = {4681}, maps = {
+    [4733] = { t = "Beached Sea Creature", z = 148, rl = 14, ql = 19, rr = 1101, ps = {4681}, si = {12242}, maps = {
       [1439] = {{36.62,45.59,nil,nil,6,nil,1,10219}},
     },
     turnins = {
@@ -21968,7 +21968,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{31.26,87.44,nil,nil,7,nil,2,175230}},
     },
     },
-    [4734] = { t = "Egg Freezing", z = 1583, rl = 57, ql = 60, ps = {4810}, sf = 2, bc = {4907}, dq = 1, dm = 253, maps = {
+    [4734] = { t = "Egg Freezing", z = 1583, rl = 57, ql = 60, ps = {4810}, sf = 2, bc = {4907}, dq = 1, dm = 253, si = {12286}, maps = {
       [1428] = {{65.24,24.00,nil,nil,6,nil,1,10267}},
     },
     turnins = {
@@ -21978,7 +21978,7 @@ VanillaEnhancedQuestsDB = {
       [1428] = {{65.24,24.00,nil,nil,7,nil,1,10267}},
     },
     },
-    [4735] = { t = "Egg Collection", z = 1583, rl = 57, ql = 60, ps = {4734}, dq = 1, dm = 253, maps = {
+    [4735] = { t = "Egg Collection", z = 1583, rl = 57, ql = 60, ps = {4734}, dq = 1, dm = 253, si = {12287}, maps = {
       [1428] = {{65.24,24.00,nil,nil,6,nil,1,10267}},
     },
     turnins = {
@@ -22054,7 +22054,7 @@ VanillaEnhancedQuestsDB = {
       [1428] = {{34.94,27.86,nil,nil,2,"Unadorned Seal of Ascension",3,12219,{9046},nil,4}},
     },
     },
-    [4743] = { t = "Seal of Ascension", z = 1583, rl = 60, ql = 60, ps = {4742}, dq = 1, dm = 253, maps = {
+    [4743] = { t = "Seal of Ascension", z = 1583, rl = 60, ql = 60, ps = {4742}, dq = 1, dm = 253, si = {12339,12300,12323}, maps = {
       [1445] = {{56.37,87.83,nil,nil,4,"Forged Seal of Ascension",3,12324,nil,nil,1}},
     },
     },
@@ -22068,7 +22068,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{39.37,43.48,nil,nil,7,nil,1,3693}},
     },
     },
-    [4762] = { t = "The Cliffspring River", z = 148, rl = 11, ql = 15, rr = 1101, ps = {4761}, nc = 4763, maps = {
+    [4762] = { t = "The Cliffspring River", z = 148, rl = 11, ql = 15, rr = 1101, ps = {4761}, nc = 4763, si = {12350}, maps = {
       [1439] = {{50.84,25.63,nil,nil,4,"Cliffspring River Sample",3,12349,nil,nil,1}},
     },
     turnins = {
@@ -22078,7 +22078,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{37.40,40.13,nil,nil,7,nil,1,3649}},
     },
     },
-    [4763] = { t = "The Blackwood Corrupted", z = 148, rl = 15, ql = 18, rr = 1101, ps = {4762}, maps = {
+    [4763] = { t = "The Blackwood Corrupted", z = 148, rl = 15, ql = 18, rr = 1101, ps = {4762}, si = {12346,12341,12342,12343,12347}, maps = {
       [1439] = {{52.48,33.39,nil,nil,4,"Talisman of Corruption",3,12355,nil,nil,1}, {52.86,33.42,nil,nil,4,"Blackwood Fruit Sample",3,12341}, {50.66,34.94,nil,nil,4,"Blackwood Grain Sample",3,12342}, {51.83,33.50,nil,nil,4,"Blackwood Nut Sample",3,12343}, {37.78,44.03,nil,nil,4,"Filled Cleansing Bowl",3,12347}},
     },
     turnins = {
@@ -22098,7 +22098,7 @@ VanillaEnhancedQuestsDB = {
       [1428] = {{84.84,69.12,nil,nil,7,nil,1,9565}},
     },
     },
-    [4765] = { t = "Delivery to Ridgewell", z = 1583, rl = 57, ql = 60, rr = 1101, ps = {4764}, dq = 1, dm = 253, maps = {
+    [4765] = { t = "Delivery to Ridgewell", z = 1583, rl = 57, ql = 60, rr = 1101, ps = {4764}, dq = 1, dm = 253, si = {12437}, maps = {
       [1453] = {{74.01,30.24,nil,nil,6,nil,1,2285}},
     },
     turnins = {
@@ -22158,7 +22158,7 @@ VanillaEnhancedQuestsDB = {
       [1441] = {{17.89,40.57,nil,nil,7,nil,1,10427}},
     },
     },
-    [4771] = { t = "Dawn's Gambit", z = 2057, rl = 58, ql = 60, ps = {5531}, sf = 2, dq = 1, dm = 306, maps = {
+    [4771] = { t = "Dawn's Gambit", z = 2057, rl = 58, ql = 60, ps = {5531}, sf = 2, dq = 1, dm = 306, si = {12368}, maps = {
       [1423] = {{81.47,59.66,nil,nil,6,nil,1,11035}},
     },
     turnins = {
@@ -22343,7 +22343,7 @@ VanillaEnhancedQuestsDB = {
       [1452] = {{61.92,38.30,nil,nil,7,nil,1,10307}},
     },
     },
-    [4808] = { t = "Felnok Steelspring", z = 46, rl = 50, ql = 54, ps = {4726}, nc = 4809, maps = {
+    [4808] = { t = "Felnok Steelspring", z = 46, rl = 50, ql = 54, ps = {4726}, nc = 4809, si = {12438}, maps = {
       [1452] = {{61.63,38.61,nil,nil,6,nil,1,10468}},
     },
     turnins = {
@@ -22363,7 +22363,7 @@ VanillaEnhancedQuestsDB = {
       [1452] = {{61.63,38.61,nil,nil,7,nil,1,10468}},
     },
     },
-    [4810] = { t = "Return to Tinkee", z = 618, rl = 50, ql = 54, ps = {4809}, maps = {
+    [4810] = { t = "Return to Tinkee", z = 618, rl = 50, ql = 54, ps = {4809}, si = {12445}, maps = {
       [1428] = {{65.24,24.00,nil,nil,6,nil,1,10267}},
     },
     turnins = {
@@ -22383,7 +22383,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{37.70,43.41,nil,nil,7,nil,1,2930}},
     },
     },
-    [4812] = { t = "As Water Cascades", z = 148, rl = 12, ql = 14, rr = 1101, ps = {4811}, nc = 4813, maps = {
+    [4812] = { t = "As Water Cascades", z = 148, rl = 12, ql = 14, rr = 1101, ps = {4811}, nc = 4813, si = {14338}, maps = {
       [1439] = {{37.78,44.03,nil,nil,4,"Moonwell Water Tube",3,14339,nil,nil,1}},
     },
     turnins = {
@@ -22500,14 +22500,14 @@ VanillaEnhancedQuestsDB = {
       [1441] = {{21.25,32.06,nil,nil,6,nil,1,10638}},
     },
     },
-    [4882] = { t = "Guarding Secrets", z = 618, rl = 52, ql = 59, rr = 690, ps = {4741}, nc = 4883, maps = {
+    [4882] = { t = "Guarding Secrets", z = 618, rl = 52, ql = 59, rr = 690, ps = {4741}, nc = 4883, si = {12558}, maps = {
       [1448] = {{34.73,52.79,nil,nil,6,nil,1,10306}},
     },
     turnins = {
       [1448] = {{34.73,52.79,nil,nil,6,nil,1,10306}},
     },
     },
-    [4883] = { t = "Guarding Secrets", z = 618, rl = 52, ql = 59, rr = 690, ps = {4882}, maps = {
+    [4883] = { t = "Guarding Secrets", z = 618, rl = 52, ql = 59, rr = 690, ps = {4882}, si = {12558}, maps = {
       [1456] = {{75.65,31.61,nil,nil,6,nil,1,5770}},
     },
     turnins = {
@@ -22607,7 +22607,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{46.06,57.09,nil,nil,7,nil,1,6546}},
     },
     },
-    [4962] = { t = "Shard of a Felhound", z = -61, rl = 35, ql = 40, rc = 256, ex = {4963}, maps = {
+    [4962] = { t = "Shard of a Felhound", z = -61, rl = 35, ql = 40, rc = 256, ex = {4963}, si = {12647}, maps = {
       [1443] = {{52.91,68.14,nil,nil,2,"Imprisoned Felhound Spirit",3,12648,{4678},nil,1}, {51.40,67.98,nil,nil,2,"Imprisoned Felhound Spirit",3,12648,{4678},nil,1}},
     },
     turnins = {
@@ -22617,7 +22617,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{62.64,35.30,nil,nil,7,nil,1,6254}},
     },
     },
-    [4963] = { t = "Shard of an Infernal", z = -61, rl = 35, ql = 40, rc = 256, ex = {4962}, maps = {
+    [4963] = { t = "Shard of an Infernal", z = -61, rl = 35, ql = 40, rc = 256, ex = {4962}, si = {12646}, maps = {
       [1443] = {{52.98,74.91,5.38,12,2,"Imprisoned Infernal Spirit",3,12649,{4676},nil,1,{48.89,77.00,50.83,70.20,56.80,71.13,57.59,77.08,55.17,79.52,53.59,79.84,49.36,77.96}}, {53.86,83.21,2.96,4,2,"Imprisoned Infernal Spirit",3,12649,{4676},nil,1,{53.03,86.05,53.77,82.28,54.22,80.89,54.43,83.62}}},
     },
     turnins = {
@@ -22698,7 +22698,7 @@ VanillaEnhancedQuestsDB = {
       [1452] = {{49.94,9.84,nil,nil,7,nil,1,10618}},
     },
     },
-    [4971] = { t = "A Matter of Time", z = 28, rl = 53, ql = 56, nc = 4972, maps = {
+    [4971] = { t = "A Matter of Time", z = 28, rl = 53, ql = 56, nc = 4972, si = {12627}, maps = {
       [1422] = {{48.14,65.18,4.21,20,1,"Temporal Parasite",1,10717,nil,nil,1,{45.15,62.28,47.03,61.96,48.45,62.81,50.20,66.34,50.31,67.23,49.40,68.84,49.02,69.30,45.21,62.83}}},
     },
     turnins = {
@@ -22748,7 +22748,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{62.51,35.45,nil,nil,7,nil,1,6266}},
     },
     },
-    [4976] = { t = "Returning the Cleansed Orb", z = -61, rl = 35, ql = 40, rc = 256, ps = {4961}, maps = {
+    [4976] = { t = "Returning the Cleansed Orb", z = -61, rl = 35, ql = 40, rc = 256, ps = {4961}, si = {12642}, maps = {
       [1413] = {{62.51,35.45,nil,nil,6,nil,1,6266}},
     },
     turnins = {
@@ -22764,7 +22764,7 @@ VanillaEnhancedQuestsDB = {
       [1418] = {{5.88,47.63,nil,nil,7,nil,1,9080}},
     },
     },
-    [4983] = { t = "Bijou's Reconnaissance Report", z = 1583, rl = 55, ql = 59, rr = 690, ps = {4982}, dq = 1, dm = 253, maps = {
+    [4983] = { t = "Bijou's Reconnaissance Report", z = 1583, rl = 55, ql = 59, rr = 690, ps = {4982}, dq = 1, dm = 253, si = {12652}, maps = {
       [1418] = {{5.88,47.63,nil,nil,6,nil,1,9080}},
     },
     turnins = {
@@ -22791,7 +22791,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{53.73,64.66,nil,nil,7,nil,1,10739}},
     },
     },
-    [4986] = { t = "Glyphed Oaken Branch", z = 28, rl = 52, ql = 56, rr = 1101, ps = {4985}, maps = {
+    [4986] = { t = "Glyphed Oaken Branch", z = 28, rl = 52, ql = 56, rr = 1101, ps = {4985}, si = {12663}, maps = {
       [1457] = {{35.37,8.40,nil,nil,6,nil,1,4217}},
     },
     turnins = {
@@ -22801,7 +22801,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{53.73,64.66,nil,nil,7,nil,1,10739}},
     },
     },
-    [4987] = { t = "Glyphed Oaken Branch", z = 28, rl = 52, ql = 56, rr = 690, ps = {4985}, maps = {
+    [4987] = { t = "Glyphed Oaken Branch", z = 28, rl = 52, ql = 56, rr = 690, ps = {4985}, si = {12663}, maps = {
       [1456] = {{75.65,31.61,nil,nil,6,nil,1,5770}},
     },
     turnins = {
@@ -22811,7 +22811,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{53.73,64.66,nil,nil,7,nil,1,10739}},
     },
     },
-    [5002] = { t = "Message to Maxwell", z = 1583, rl = 55, ql = 59, rr = 1101, ps = {5001}, nc = 5081, dq = 1, dm = 253, maps = {
+    [5002] = { t = "Message to Maxwell", z = 1583, rl = 55, ql = 59, rr = 1101, ps = {5001}, nc = 5081, dq = 1, dm = 253, si = {12770}, maps = {
       [1428] = {{84.74,69.02,nil,nil,6,nil,1,9560}},
     },
     turnins = {
@@ -22828,7 +22828,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{38.40,54.05,nil,nil,7,nil,1,10778}},
     },
     },
-    [5022] = { t = "Better Late Than Never", z = 28, rl = 50, ql = 52, rr = 1101, ps = {5021}, nc = 5048, maps = {
+    [5022] = { t = "Better Late Than Never", z = 28, rl = 50, ql = 52, rr = 1101, ps = {5021}, nc = 5048, si = {12724}, maps = {
       [1453] = {{48.46,30.54,nil,nil,6,nil,1,10782}},
     },
     turnins = {
@@ -22838,7 +22838,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{38.73,55.24,nil,nil,7,nil,2,175894}},
     },
     },
-    [5023] = { t = "Better Late Than Never", z = 28, rl = 50, ql = 52, rr = 690, ps = {5021}, nc = 5049, maps = {
+    [5023] = { t = "Better Late Than Never", z = 28, rl = 50, ql = 52, rr = 690, ps = {5021}, nc = 5049, si = {12724}, maps = {
       [1458] = {{69.79,43.16,nil,nil,6,nil,1,10781}},
     },
     turnins = {
@@ -23043,14 +23043,14 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{44.55,59.26,nil,nil,7,nil,1,3430}},
     },
     },
-    [5047] = { t = "Pip Quickwit, At Your Service!", z = 1583, rl = 59, ql = 60, dq = 1, dm = 253, maps = {
+    [5047] = { t = "Pip Quickwit, At Your Service!", z = 1583, rl = 59, ql = 60, dq = 1, dm = 253, si = {12710}, maps = {
       [1452] = {{60.99,38.78,nil,nil,6,nil,1,10637}},
     },
     turnins = {
       [1452] = {{60.99,38.78,nil,nil,6,nil,1,10637}},
     },
     },
-    [5048] = { t = "Good Natured Emma", z = 1519, rl = 50, ql = 52, rr = 1101, ps = {5022}, nc = 5050, maps = {
+    [5048] = { t = "Good Natured Emma", z = 1519, rl = 50, ql = 52, rr = 1101, ps = {5022}, nc = 5050, si = {12724}, maps = {
       [1453] = {{52.37,42.13,nil,nil,6,nil,1,3520}},
     },
     turnins = {
@@ -23060,7 +23060,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{48.46,30.54,nil,nil,7,nil,1,10782}},
     },
     },
-    [5049] = { t = "The Jeremiah Blues", z = 1497, rl = 50, ql = 52, rr = 690, ps = {5023}, nc = 5050, maps = {
+    [5049] = { t = "The Jeremiah Blues", z = 1497, rl = 50, ql = 52, rr = 690, ps = {5023}, nc = 5050, si = {12724}, maps = {
       [1458] = {{67.60,44.16,nil,nil,6,nil,1,8403}},
     },
     turnins = {
@@ -23070,7 +23070,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{69.79,43.16,nil,nil,7,nil,1,10781}},
     },
     },
-    [5050] = { t = "Good Luck Charm", z = 28, rl = 50, ql = 52, ps = {5048,5049}, nc = 5051, maps = {
+    [5050] = { t = "Good Luck Charm", z = 28, rl = 50, ql = 52, ps = {5048,5049}, nc = 5051, si = {12721}, maps = {
       [1422] = {{38.40,54.05,nil,nil,6,nil,1,10778}},
     },
     turnins = {
@@ -23081,7 +23081,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{67.60,44.16,nil,nil,7,nil,1,8403}},
     },
     },
-    [5051] = { t = "Two Halves Become One", z = 28, rl = 50, ql = 54, ps = {5050}, maps = {
+    [5051] = { t = "Two Halves Become One", z = 28, rl = 50, ql = 54, ps = {5050}, si = {12721,12722}, maps = {
       [1422] = {{37.62,56.35,1.62,11,2,"Good Luck Other-Half-Charm",3,12722,{10801},{10801,100},nil,{36.20,56.60,37.20,55.40,38.60,55.20,38.60,56.20,37.80,57.60,36.60,57.60}}},
     },
     turnins = {
@@ -23148,7 +23148,7 @@ VanillaEnhancedQuestsDB = {
       [1452] = {{61.93,38.38,nil,nil,7,nil,1,10303}},
     },
     },
-    [5056] = { t = "Shy-Rotam", z = 618, rl = 53, ql = 60, ps = {5055}, nc = 5057, maps = {
+    [5056] = { t = "Shy-Rotam", z = 618, rl = 53, ql = 60, ps = {5055}, nc = 5057, si = {12733}, maps = {
       [1452] = {{49.81,9.80,nil,nil,1,"Shy-Rotam",1,10737,nil,nil,1}, {52.25,12.63,7.18,87,2,"Sacred Frostsaber Meat",3,12733,{7430,7431,7432,7433,7434},{7430,0.858,7431,0.653,7432,0.796,7433,1.671,7434,2.339},nil,{48.26,9.50,48.50,7.82,48.68,7.36,50.44,6.69,56.37,11.70,56.79,12.48,56.88,13.99,56.69,16.66,56.62,17.19,48.93,18.99,48.89,18.84,48.34,15.21}}, {50.87,17.79,4.71,28,2,"Sacred Frostsaber Meat",3,12733,{7431,7432},{7431,0.653,7432,0.796},nil,{48.32,13.99,53.57,15.84,55.53,17.12,51.06,22.30,50.13,20.80,48.38,17.75}}},
     },
     turnins = {
@@ -23198,7 +23198,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{47.35,49.63,nil,nil,7,nil,2,175924}},
     },
     },
-    [5061] = { t = "Aquatic Form", z = -263, rl = 16, ql = -1, rr = 8, rc = 1024, ps = {272}, maps = {
+    [5061] = { t = "Aquatic Form", z = -263, rl = 16, ql = -1, rr = 8, rc = 1024, ps = {272}, si = {15885}, maps = {
       [1457] = {{35.37,8.40,nil,nil,6,nil,1,4217}},
     },
     turnins = {
@@ -23312,7 +23312,7 @@ VanillaEnhancedQuestsDB = {
       [1452] = {{31.27,45.16,nil,nil,7,nil,1,9298}},
     },
     },
-    [5083] = { t = "Winterfall Firewater", z = 618, rl = 52, ql = 56, nc = 5084, maps = {
+    [5083] = { t = "Winterfall Firewater", z = 618, rl = 52, ql = 56, nc = 5084, si = {12771}, maps = {
       [1452] = {{31.27,45.16,nil,nil,6,nil,1,9298}},
     },
     turnins = {
@@ -23329,7 +23329,7 @@ VanillaEnhancedQuestsDB = {
       [1452] = {{31.27,45.16,nil,nil,7,nil,1,9298}},
     },
     },
-    [5085] = { t = "Mystery Goo", z = 618, rl = 52, ql = 56, ps = {5084}, nc = 5086, maps = {
+    [5085] = { t = "Mystery Goo", z = 618, rl = 52, ql = 56, ps = {5084}, nc = 5086, si = {12813}, maps = {
       [1452] = {{31.27,45.16,nil,nil,6,nil,1,9298}},
     },
     turnins = {
@@ -23360,7 +23360,7 @@ VanillaEnhancedQuestsDB = {
       [1452] = {{31.27,45.16,nil,nil,7,nil,1,9298}},
     },
     },
-    [5088] = { t = "Arikara", z = 400, rl = 24, ql = 28, rr = 690, ps = {5062}, sf = 2, maps = {
+    [5088] = { t = "Arikara", z = 400, rl = 24, ql = 28, rr = 690, ps = {5062}, sf = 2, si = {12785}, maps = {
       [1441] = {{38.06,35.37,nil,nil,4,"Sacred Fire of Life",2,175944,nil,nil,1}, {38.09,35.38,nil,nil,2,"Arikara Serpent Skin",3,12925,{10882},{10882,100},2}},
     },
     turnins = {
@@ -23370,7 +23370,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{69.85,30.91,nil,nil,7,nil,1,4046}},
     },
     },
-    [5089] = { t = "General Drakkisath's Command", z = 1583, rl = 55, ql = 60, rr = 1101, nc = 5102, dq = 1, dm = 253, maps = {
+    [5089] = { t = "General Drakkisath's Command", z = 1583, rl = 55, ql = 60, rr = 1101, nc = 5102, dq = 1, dm = 253, si = {12780}, maps = {
       [1428] = {{84.74,69.02,nil,nil,6,nil,1,9560}},
     },
     turnins = {
@@ -23437,7 +23437,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{44.33,58.76,nil,nil,7,nil,1,10881}},
     },
     },
-    [5096] = { t = "Scarlet Diversions", z = 28, rl = 50, ql = 53, rr = 690, nc = 5098, sf = 2, bc = {5093,5094,5095,10374}, maps = {
+    [5096] = { t = "Scarlet Diversions", z = 28, rl = 50, ql = 53, rr = 690, nc = 5098, sf = 2, bc = {5093,5094,5095,10374}, si = {12807,12814}, maps = {
       [1420] = {{83.17,69.09,nil,nil,4,"Flame in a Bottle",3,12814}},
       [1422] = {{40.72,52.04,nil,nil,3,"Destroy the command tent and plant the Scourge banner in the camp"}},
     },
@@ -23448,7 +23448,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{83.13,68.94,nil,nil,7,nil,1,10837}},
     },
     },
-    [5097] = { t = "All Along the Watchtowers", z = 28, rl = 50, ql = 56, rr = 1101, ps = {5092}, nc = 5533, maps = {
+    [5097] = { t = "All Along the Watchtowers", z = 28, rl = 50, ql = 56, rr = 1101, ps = {5092}, nc = 5533, si = {12815}, maps = {
       [1422] = {{40.05,71.60,nil,nil,1,"Andorhal Tower One",1,10902,nil,nil,1}, {42.33,66.24,nil,nil,1,"Andorhal Tower Two",1,10903,nil,nil,2}, {44.30,63.25,nil,nil,1,"Andorhal Tower Three",1,10904,nil,nil,3}, {46.62,71.05,nil,nil,1,"Andorhal Tower Four",1,10905,nil,nil,4}},
     },
     turnins = {
@@ -23458,7 +23458,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{42.70,84.03,nil,nil,7,nil,1,10838}},
     },
     },
-    [5098] = { t = "All Along the Watchtowers", z = 28, rl = 50, ql = 56, rr = 690, ps = {5096}, nc = 838, maps = {
+    [5098] = { t = "All Along the Watchtowers", z = 28, rl = 50, ql = 56, rr = 690, ps = {5096}, nc = 838, si = {12815}, maps = {
       [1422] = {{40.05,71.60,nil,nil,1,"Andorhal Tower One",1,10902,nil,nil,1}, {42.33,66.24,nil,nil,1,"Andorhal Tower Two",1,10903,nil,nil,2}, {44.30,63.25,nil,nil,1,"Andorhal Tower Three",1,10904,nil,nil,3}, {46.62,71.05,nil,nil,1,"Andorhal Tower Four",1,10905,nil,nil,4}},
     },
     turnins = {
@@ -23478,7 +23478,7 @@ VanillaEnhancedQuestsDB = {
       [1428] = {{84.74,69.02,nil,nil,7,nil,1,9560}},
     },
     },
-    [5103] = { t = "Hot Fiery Death", z = -121, rl = 55, ql = 60, sk = {164,270}, nc = 5124, maps = {
+    [5103] = { t = "Hot Fiery Death", z = -121, rl = 55, ql = 60, sk = {164,270}, nc = 5124, si = {12812}, maps = {
       [1452] = {{60.99,38.78,nil,nil,6,nil,1,10637}},
     },
     turnins = {
@@ -23495,7 +23495,7 @@ VanillaEnhancedQuestsDB = {
       [1452] = {{31.27,45.16,nil,nil,7,nil,1,9298}},
     },
     },
-    [5123] = { t = "The Final Piece", z = 618, rl = 52, ql = 59, ps = {5087}, maps = {
+    [5123] = { t = "The Final Piece", z = 618, rl = 52, ql = 59, ps = {5087}, si = {12842}, maps = {
       [1452] = {{31.27,45.16,nil,nil,6,nil,1,9298}},
     },
     turnins = {
@@ -23562,7 +23562,7 @@ VanillaEnhancedQuestsDB = {
       [1452] = {{63.79,73.76,nil,nil,7,nil,1,10918}},
     },
     },
-    [5127] = { t = "The Demon Forge", z = 1583, rl = 55, ql = 60, sk = {164,270}, ps = {5126}, dq = 1, dm = 253, maps = {
+    [5127] = { t = "The Demon Forge", z = 1583, rl = 55, ql = 60, sk = {164,270}, ps = {5126}, dq = 1, dm = 253, si = {12848}, maps = {
       [1452] = {{63.79,73.76,nil,nil,6,nil,1,10918}},
     },
     turnins = {
@@ -23572,7 +23572,7 @@ VanillaEnhancedQuestsDB = {
       [1452] = {{63.79,73.76,nil,nil,7,nil,1,10918}},
     },
     },
-    [5128] = { t = "Words of the High Chief", z = 618, rl = 52, ql = 59, ps = {5123}, maps = {
+    [5128] = { t = "Words of the High Chief", z = 618, rl = 52, ql = 59, ps = {5123}, si = {12842}, maps = {
       [1448] = {{51.14,81.75,nil,nil,6,nil,1,10920}},
     },
     turnins = {
@@ -23694,7 +23694,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{36.55,34.09,nil,nil,7,nil,1,7871}},
     },
     },
-    [5149] = { t = "Pamela's Doll", z = 139, rl = 50, ql = 55, bc = {5142,5601}, maps = {
+    [5149] = { t = "Pamela's Doll", z = 139, rl = 50, ql = 55, bc = {5142,5601}, si = {12886,12887,12888}, maps = {
       [1423] = {{38.04,92.55,nil,nil,4,"Pamela's Doll's Head",3,12886}, {39.70,90.02,nil,nil,4,"Pamela's Doll's Head",3,12886}, {39.14,91.70,1.54,3,4,"Pamela's Doll's Left Side",3,12887,nil,nil,nil,{38.19,92.07,39.67,90.25,39.56,92.77}}, {39.21,91.74,1.78,3,4,"Pamela's Doll's Right Side",3,12888,nil,nil,nil,{38.62,92.68,39.54,89.99,39.46,92.54}}},
     },
     turnins = {
@@ -23714,7 +23714,7 @@ VanillaEnhancedQuestsDB = {
       [1449] = {{43.63,7.17,nil,nil,7,nil,1,9274}},
     },
     },
-    [5151] = { t = "Hypercapacitor Gizmo", z = 400, rl = 24, ql = 30, rr = 690, maps = {
+    [5151] = { t = "Hypercapacitor Gizmo", z = 400, rl = 24, ql = 30, rr = 690, si = {12942}, maps = {
       [1441] = {{22.76,24.62,nil,nil,2,"Hypercapacitor Gizmo",3,12946,{10992},{10992,100},1}},
     },
     turnins = {
@@ -23774,7 +23774,7 @@ VanillaEnhancedQuestsDB = {
       [1448] = {{50.89,81.62,nil,nil,7,nil,1,10921}},
     },
     },
-    [5157] = { t = "Collection of the Corrupt Water", z = 361, rl = 48, ql = 52, ps = {5155}, nc = 5158, maps = {
+    [5157] = { t = "Collection of the Corrupt Water", z = 361, rl = 48, ql = 52, ps = {5155}, nc = 5158, si = {12922}, maps = {
       [1448] = {{35.17,59.79,nil,nil,4,"Corrupt Moonwell Water",3,12907,nil,nil,1}},
     },
     turnins = {
@@ -23784,7 +23784,7 @@ VanillaEnhancedQuestsDB = {
       [1448] = {{51.21,82.11,nil,nil,7,nil,1,10922}},
     },
     },
-    [5158] = { t = "Seeking Spiritual Aid", z = 361, rl = 48, ql = 52, ps = {5157}, maps = {
+    [5158] = { t = "Seeking Spiritual Aid", z = 361, rl = 48, ql = 52, ps = {5157}, si = {12907}, maps = {
       [1413] = {{65.83,43.78,nil,nil,6,nil,1,5901}},
     },
     turnins = {
@@ -23794,7 +23794,7 @@ VanillaEnhancedQuestsDB = {
       [1448] = {{51.21,82.11,nil,nil,7,nil,1,10922}},
     },
     },
-    [5159] = { t = "Cleansed Water Returns to Felwood", z = 361, rl = 48, ql = 54, ps = {5158}, nc = 5165, maps = {
+    [5159] = { t = "Cleansed Water Returns to Felwood", z = 361, rl = 48, ql = 54, ps = {5158}, nc = 5165, si = {12906}, maps = {
       [1448] = {{51.21,82.11,nil,nil,6,nil,1,10922}},
     },
     turnins = {
@@ -23804,7 +23804,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{65.83,43.78,nil,nil,7,nil,1,5901}},
     },
     },
-    [5160] = { t = "The Matron Protectorate", z = 1583, rl = 57, ql = 60, nc = 5161, dq = 1, dm = 253, maps = {
+    [5160] = { t = "The Matron Protectorate", z = 1583, rl = 57, ql = 60, nc = 5161, dq = 1, dm = 253, si = {12923}, maps = {
       [1452] = {{54.55,51.20,nil,nil,6,nil,1,10929}},
     },
     turnins = {
@@ -23831,7 +23831,7 @@ VanillaEnhancedQuestsDB = {
       [1452] = {{54.55,51.20,nil,nil,7,nil,1,10929}},
     },
     },
-    [5163] = { t = "Are We There, Yeti?", z = 618, rl = 52, ql = 58, ps = {977}, maps = {
+    [5163] = { t = "Are We There, Yeti?", z = 618, rl = 52, ql = 58, ps = {977}, si = {12928}, maps = {
       [1446] = {{51.06,26.87,nil,nil,1,"Scare Sprinkle",1,7583,nil,nil,2}},
       [1449] = {{43.66,9.37,nil,nil,1,"Scare Quixxil",1,10977,nil,nil,3}},
       [1452] = {{61.54,38.61,nil,nil,1,"Scare Legacki",1,10978,nil,nil,1}},
@@ -23853,7 +23853,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{39.37,66.78,nil,nil,7,nil,1,10976}},
     },
     },
-    [5165] = { t = "Dousing the Flames of Protection", z = 361, rl = 48, ql = 55, ps = {5159}, maps = {
+    [5165] = { t = "Dousing the Flames of Protection", z = 361, rl = 48, ql = 55, ps = {5159}, si = {12906}, maps = {
       [1448] = {{36.27,56.30,nil,nil,4,"Extinguish the Brazier of Pain",2,176158,nil,nil,1}, {37.68,52.69,nil,nil,4,"Extinguish the Brazier of Malice",2,176159,nil,nil,2}, {36.73,53.27,nil,nil,4,"Extinguish the Brazier of Suffering",2,176160,nil,nil,3}, {36.48,55.19,nil,nil,4,"Extinguish the Brazier of Hatred",2,176161,nil,nil,4}},
     },
     turnins = {
@@ -23917,7 +23917,7 @@ VanillaEnhancedQuestsDB = {
       [1452] = {{49.94,9.84,nil,nil,7,nil,1,10618}},
     },
     },
-    [5202] = { t = "A Strange Red Key", z = 361, rl = 49, ql = 55, maps = {
+    [5202] = { t = "A Strange Red Key", z = 361, rl = 49, ql = 55, si = {13140}, maps = {
       [1448] = {{36.21,55.47,nil,nil,6,nil,1,11016}},
     },
     turnins = {
@@ -23944,7 +23944,7 @@ VanillaEnhancedQuestsDB = {
       [1448] = {{51.35,82.01,nil,nil,7,nil,1,11019}},
     },
     },
-    [5206] = { t = "Marauders of Darrowshire", z = 139, rl = 52, ql = 60, pg = {5154,5168}, nc = 5941, maps = {
+    [5206] = { t = "Marauders of Darrowshire", z = 139, rl = 52, ql = 60, pg = {5154,5168}, nc = 5941, si = {13156,13157}, maps = {
       [1423] = {{40.47,48.82,nil,nil,2,"Fetid Skull",3,13157,{8529},{8529,100}}, {34.09,65.65,nil,nil,2,"Fetid Skull",3,13157,{8529},{8529,100}}, {35.56,58.69,3.17,3,2,"Fetid Skull",3,13157,{8529},{8529,100},nil,{33.53,61.13,36.18,57.60,36.96,57.35}}, {76.31,50.38,2.10,3,2,"Fetid Skull",3,13157,{8529},{8529,100},nil,{75.87,52.04,76.54,48.29,76.52,50.80}}, {82.84,41.85,4.78,6,2,"Fetid Skull",3,13157,{8529},{8529,100},nil,{80.07,44.03,82.76,37.89,87.05,44.12}}},
     },
     turnins = {
@@ -23954,7 +23954,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{81.52,59.77,nil,nil,7,nil,1,11063}},
     },
     },
-    [5210] = { t = "Brother Carlin", z = 139, rl = 50, ql = 56, ps = {5154}, nc = 5181, maps = {
+    [5210] = { t = "Brother Carlin", z = 139, rl = 50, ql = 56, ps = {5154}, nc = 5181, si = {13202}, maps = {
       [1423] = {{81.52,59.77,nil,nil,6,nil,1,11063}},
     },
     turnins = {
@@ -24014,7 +24014,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{42.70,84.03,nil,nil,7,nil,1,10838}},
     },
     },
-    [5216] = { t = "Target: Felstone Field", z = 28, rl = 50, ql = 53, rr = 1101, ps = {5215}, nc = 5217, maps = {
+    [5216] = { t = "Target: Felstone Field", z = 28, rl = 50, ql = 53, rr = 1101, ps = {5215}, nc = 5217, si = {13186}, maps = {
       [1422] = {{36.93,57.41,nil,nil,2,"Felstone Field Cauldron Key",3,13194,{11075},{11075,100},1}},
     },
     turnins = {
@@ -24024,7 +24024,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{42.97,84.50,nil,nil,7,nil,1,11053}},
     },
     },
-    [5217] = { t = "Return to Chillwind Camp", z = 28, rl = 50, ql = 53, rr = 1101, ps = {5216}, nc = 5219, maps = {
+    [5217] = { t = "Return to Chillwind Camp", z = 28, rl = 50, ql = 53, rr = 1101, ps = {5216}, nc = 5219, si = {13190}, maps = {
       [1422] = {{42.97,84.50,nil,nil,6,nil,1,11053}},
     },
     turnins = {
@@ -24051,7 +24051,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{37.25,56.78,nil,nil,7,nil,2,176361}},
     },
     },
-    [5219] = { t = "Target: Dalson's Tears", z = 28, rl = 50, ql = 55, rr = 1101, ps = {5217}, nc = 5220, maps = {
+    [5219] = { t = "Target: Dalson's Tears", z = 28, rl = 50, ql = 55, rr = 1101, ps = {5217}, nc = 5220, si = {13187}, maps = {
       [1422] = {{46.11,52.61,nil,nil,2,"Dalson's Tears Cauldron Key",3,13195,{11077},{11077,100},1}},
     },
     turnins = {
@@ -24061,7 +24061,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{42.97,84.50,nil,nil,7,nil,1,11053}},
     },
     },
-    [5220] = { t = "Return to Chillwind Camp", z = 28, rl = 50, ql = 55, rr = 1101, ps = {5219}, nc = 5222, maps = {
+    [5220] = { t = "Return to Chillwind Camp", z = 28, rl = 50, ql = 55, rr = 1101, ps = {5219}, nc = 5222, si = {13191}, maps = {
       [1422] = {{42.97,84.50,nil,nil,6,nil,1,11053}},
     },
     turnins = {
@@ -24088,7 +24088,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{46.18,51.90,nil,nil,7,nil,2,177289}},
     },
     },
-    [5222] = { t = "Target: Writhing Haunt", z = 28, rl = 50, ql = 55, rr = 1101, ps = {5220}, nc = 5223, maps = {
+    [5222] = { t = "Target: Writhing Haunt", z = 28, rl = 50, ql = 55, rr = 1101, ps = {5220}, nc = 5223, si = {13188}, maps = {
       [1422] = {{52.88,66.08,nil,nil,2,"Writhing Haunt Cauldron Key",3,13197,{11076},{11076,96},1}},
     },
     turnins = {
@@ -24098,7 +24098,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{42.97,84.50,nil,nil,7,nil,1,11053}},
     },
     },
-    [5223] = { t = "Return to Chillwind Camp", z = 28, rl = 50, ql = 55, rr = 1101, ps = {5222}, nc = 5225, maps = {
+    [5223] = { t = "Return to Chillwind Camp", z = 28, rl = 50, ql = 55, rr = 1101, ps = {5222}, nc = 5225, si = {13192}, maps = {
       [1422] = {{42.97,84.50,nil,nil,6,nil,1,11053}},
     },
     turnins = {
@@ -24125,7 +24125,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{53.02,65.61,nil,nil,7,nil,2,176393}},
     },
     },
-    [5225] = { t = "Target: Gahrron's Withering", z = 28, rl = 50, ql = 58, rr = 1101, ps = {5223}, nc = 5226, maps = {
+    [5225] = { t = "Target: Gahrron's Withering", z = 28, rl = 50, ql = 58, rr = 1101, ps = {5223}, nc = 5226, si = {13189}, maps = {
       [1422] = {{62.18,59.06,nil,nil,2,"Gahrron's Withering Cauldron Key",3,13196,{11078},{11078,100},1}},
     },
     turnins = {
@@ -24135,7 +24135,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{42.97,84.50,nil,nil,7,nil,1,11053}},
     },
     },
-    [5226] = { t = "Return to Chillwind Camp", z = 28, rl = 50, ql = 58, rr = 1101, ps = {5225}, nc = 5238, maps = {
+    [5226] = { t = "Return to Chillwind Camp", z = 28, rl = 50, ql = 58, rr = 1101, ps = {5225}, nc = 5238, si = {13193}, maps = {
       [1422] = {{42.97,84.50,nil,nil,6,nil,1,11053}},
     },
     turnins = {
@@ -24172,7 +24172,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{83.13,68.94,nil,nil,7,nil,1,10837}},
     },
     },
-    [5229] = { t = "Target: Felstone Field", z = 28, rl = 50, ql = 53, rr = 690, ps = {5228}, nc = 5230, maps = {
+    [5229] = { t = "Target: Felstone Field", z = 28, rl = 50, ql = 53, rr = 690, ps = {5228}, nc = 5230, si = {13186}, maps = {
       [1422] = {{36.93,57.41,nil,nil,2,"Felstone Field Cauldron Key",3,13194,{11075},{11075,100},1}},
     },
     turnins = {
@@ -24182,7 +24182,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{83.04,71.91,nil,nil,7,nil,1,11055}},
     },
     },
-    [5230] = { t = "Return to the Bulwark", z = 28, rl = 50, ql = 53, rr = 690, ps = {5229}, nc = 5231, maps = {
+    [5230] = { t = "Return to the Bulwark", z = 28, rl = 50, ql = 53, rr = 690, ps = {5229}, nc = 5231, si = {13190}, maps = {
       [1420] = {{83.04,71.91,nil,nil,6,nil,1,11055}},
     },
     turnins = {
@@ -24192,7 +24192,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{37.25,56.78,nil,nil,7,nil,2,176361}},
     },
     },
-    [5231] = { t = "Target: Dalson's Tears", z = 28, rl = 50, ql = 55, rr = 690, ps = {5230}, nc = 5232, maps = {
+    [5231] = { t = "Target: Dalson's Tears", z = 28, rl = 50, ql = 55, rr = 690, ps = {5230}, nc = 5232, si = {13187}, maps = {
       [1422] = {{46.11,52.61,nil,nil,2,"Dalson's Tears Cauldron Key",3,13195,{11077},{11077,100},1}},
     },
     turnins = {
@@ -24202,7 +24202,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{83.04,71.91,nil,nil,7,nil,1,11055}},
     },
     },
-    [5232] = { t = "Return to the Bulwark", z = 28, rl = 50, ql = 55, rr = 690, ps = {5231}, nc = 5233, maps = {
+    [5232] = { t = "Return to the Bulwark", z = 28, rl = 50, ql = 55, rr = 690, ps = {5231}, nc = 5233, si = {13191}, maps = {
       [1420] = {{83.04,71.91,nil,nil,6,nil,1,11055}},
     },
     turnins = {
@@ -24212,7 +24212,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{46.18,51.90,nil,nil,7,nil,2,177289}},
     },
     },
-    [5233] = { t = "Target: Writhing Haunt", z = 28, rl = 50, ql = 55, rr = 690, ps = {5232}, nc = 5234, maps = {
+    [5233] = { t = "Target: Writhing Haunt", z = 28, rl = 50, ql = 55, rr = 690, ps = {5232}, nc = 5234, si = {13188}, maps = {
       [1422] = {{52.88,66.08,nil,nil,2,"Writhing Haunt Cauldron Key",3,13197,{11076},{11076,96},1}},
     },
     turnins = {
@@ -24222,7 +24222,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{83.04,71.91,nil,nil,7,nil,1,11055}},
     },
     },
-    [5234] = { t = "Return to the Bulwark", z = 28, rl = 50, ql = 55, rr = 690, ps = {5233}, nc = 5235, maps = {
+    [5234] = { t = "Return to the Bulwark", z = 28, rl = 50, ql = 55, rr = 690, ps = {5233}, nc = 5235, si = {13192}, maps = {
       [1420] = {{83.04,71.91,nil,nil,6,nil,1,11055}},
     },
     turnins = {
@@ -24232,7 +24232,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{53.02,65.61,nil,nil,7,nil,2,176393}},
     },
     },
-    [5235] = { t = "Target: Gahrron's Withering", z = 28, rl = 50, ql = 58, rr = 690, ps = {5234}, nc = 5236, maps = {
+    [5235] = { t = "Target: Gahrron's Withering", z = 28, rl = 50, ql = 58, rr = 690, ps = {5234}, nc = 5236, si = {13189}, maps = {
       [1422] = {{62.18,59.06,nil,nil,2,"Gahrron's Withering Cauldron Key",3,13196,{11078},{11078,100},1}},
     },
     turnins = {
@@ -24242,7 +24242,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{83.04,71.91,nil,nil,7,nil,1,11055}},
     },
     },
-    [5236] = { t = "Return to the Bulwark", z = 28, rl = 50, ql = 58, rr = 690, ps = {5235}, nc = 5237, maps = {
+    [5236] = { t = "Return to the Bulwark", z = 28, rl = 50, ql = 58, rr = 690, ps = {5235}, nc = 5237, si = {13193}, maps = {
       [1420] = {{83.04,71.91,nil,nil,6,nil,1,11055}},
     },
     turnins = {
@@ -24312,7 +24312,7 @@ VanillaEnhancedQuestsDB = {
       [1452] = {{51.97,30.39,nil,nil,7,nil,1,11079}},
     },
     },
-    [5245] = { t = "Troubled Spirits of Kel'Theril", z = 618, rl = 53, ql = 56, rr = 1101, ps = {5244}, nc = 5246, maps = {
+    [5245] = { t = "Troubled Spirits of Kel'Theril", z = 618, rl = 53, ql = 56, rr = 1101, ps = {5244}, nc = 5246, si = {12891}, maps = {
       [1452] = {{55.14,42.98,nil,nil,4,"First Relic Fragment",3,12896,nil,nil,1}, {50.88,41.71,nil,nil,4,"Second Relic Fragment",3,12897,nil,nil,2}, {53.31,43.44,nil,nil,4,"Third Relic Fragment",3,12898,nil,nil,3}, {52.42,41.50,nil,nil,4,"Fourth Relic Fragment",3,12899,nil,nil,4}},
     },
     turnins = {
@@ -24332,7 +24332,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{53.50,22.00,nil,nil,7,nil,1,10304}},
     },
     },
-    [5247] = { t = "Fragments of the Past", z = 139, rl = 53, ql = 57, rr = 1101, ps = {5246}, maps = {
+    [5247] = { t = "Fragments of the Past", z = 139, rl = 53, ql = 57, rr = 1101, ps = {5246}, si = {16974}, maps = {
       [1444] = {{58.94,35.97,nil,nil,4,"Vial of Dire Water",3,16973,nil,nil,3}},
     },
     turnins = {
@@ -24342,7 +24342,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{53.50,22.00,nil,nil,7,nil,1,10304}},
     },
     },
-    [5248] = { t = "Tormented By the Past", z = 139, rl = 53, ql = 58, rr = 1101, ps = {5247}, nc = 5252, maps = {
+    [5248] = { t = "Tormented By the Past", z = 139, rl = 53, ql = 58, rr = 1101, ps = {5247}, nc = 5252, si = {13347}, maps = {
       [1452] = {{56.14,44.36,nil,nil,6,nil,1,10684}},
     },
     turnins = {
@@ -24382,7 +24382,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{81.44,59.82,nil,nil,7,nil,1,11039}},
     },
     },
-    [5252] = { t = "Remorseful Highborne", z = 618, rl = 53, ql = 58, rr = 1101, ps = {5248}, nc = 5253, maps = {
+    [5252] = { t = "Remorseful Highborne", z = 618, rl = 53, ql = 58, rr = 1101, ps = {5248}, nc = 5253, si = {13347}, maps = {
       [1452] = {{51.97,30.39,nil,nil,6,nil,1,11079}},
     },
     turnins = {
@@ -24392,7 +24392,7 @@ VanillaEnhancedQuestsDB = {
       [1452] = {{56.14,44.36,nil,nil,7,nil,1,10684}},
     },
     },
-    [5253] = { t = "The Crystal of Zin-Malor", z = 618, rl = 53, ql = 58, rr = 1101, ps = {5252}, maps = {
+    [5253] = { t = "The Crystal of Zin-Malor", z = 618, rl = 53, ql = 58, rr = 1101, ps = {5252}, si = {13347}, maps = {
       [1457] = {{34.81,9.26,nil,nil,6,nil,1,3516}},
     },
     turnins = {
@@ -24412,7 +24412,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{48.17,42.94,nil,nil,7,nil,1,823}},
     },
     },
-    [5262] = { t = "The Truth Comes Crashing Down", z = 2017, rl = 55, ql = 60, ps = {5251}, nc = 5263, dq = 1, dm = 317, maps = {
+    [5262] = { t = "The Truth Comes Crashing Down", z = 2017, rl = 55, ql = 60, ps = {5251}, nc = 5263, dq = 1, dm = 317, si = {13250}, maps = {
       [1423] = {{81.44,59.82,nil,nil,6,nil,1,11039}},
     },
     turnins = {
@@ -24459,7 +24459,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{79.55,63.86,nil,nil,7,nil,1,11038}},
     },
     },
-    [5282] = { t = "The Restless Souls", z = 2017, rl = 55, ql = 60, ps = {5281}, dq = 1, dm = 317, maps = {
+    [5282] = { t = "The Restless Souls", z = 2017, rl = 55, ql = 60, ps = {5281}, dq = 1, dm = 317, si = {13289}, maps = {
       [1423] = {{14.45,33.74,nil,nil,6,nil,1,11140}},
     },
     turnins = {
@@ -24590,7 +24590,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{43.45,83.73,nil,nil,7,nil,1,11023}},
     },
     },
-    [5361] = { t = "Family Tree", z = 400, rl = 32, ql = 35, rr = 690, maps = {
+    [5361] = { t = "Family Tree", z = 400, rl = 32, ql = 35, rr = 690, si = {13507}, maps = {
       [1443] = {{55.41,55.81,nil,nil,6,nil,1,11259}},
     },
     turnins = {
@@ -24600,7 +24600,7 @@ VanillaEnhancedQuestsDB = {
       [1441] = {{45.67,50.74,nil,nil,7,nil,1,10537}},
     },
     },
-    [5381] = { t = "Hand of Iruxos", z = 405, rl = 32, ql = 38, rr = 690, nc = 5581, maps = {
+    [5381] = { t = "Hand of Iruxos", z = 405, rl = 32, ql = 38, rr = 690, nc = 5581, si = {14523}, maps = {
       [1443] = {{55.00,26.60,nil,nil,2,"Demon Box",3,13542,{11876},{11876,100},1}},
     },
     turnins = {
@@ -24620,7 +24620,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{70.22,73.71,nil,nil,7,nil,1,11216}},
     },
     },
-    [5384] = { t = "Kirtonos the Herald", z = 2057, rl = 55, ql = 60, ps = {5515}, nc = 5461, dq = 1, dm = 306, maps = {
+    [5384] = { t = "Kirtonos the Herald", z = 2057, rl = 55, ql = 60, ps = {5515}, nc = 5461, dq = 1, dm = 306, si = {13523}, maps = {
       [1422] = {{70.22,73.71,nil,nil,6,nil,1,11216}},
     },
     turnins = {
@@ -24630,7 +24630,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{70.22,73.71,nil,nil,7,nil,1,11216}},
     },
     },
-    [5385] = { t = "The Remains of Trey Lightforge", z = 361, rl = 49, ql = 57, ps = {5204}, maps = {
+    [5385] = { t = "The Remains of Trey Lightforge", z = 361, rl = 49, ql = 57, ps = {5204}, si = {13562}, maps = {
       [1448] = {{51.35,82.01,nil,nil,6,nil,1,11019}},
     },
     turnins = {
@@ -24756,7 +24756,7 @@ VanillaEnhancedQuestsDB = {
       [1443] = {{22.45,73.12,nil,nil,7,nil,1,11317}},
     },
     },
-    [5441] = { t = "Lazy Peons", z = 363, rl = 3, ql = 4, rr = 690, nc = 6394, maps = {
+    [5441] = { t = "Lazy Peons", z = 363, rl = 3, ql = 4, rr = 690, nc = 6394, si = {16114}, maps = {
       [1411] = {{41.55,59.23,3.74,5,1,"Lazy Peon",1,10556,nil,nil,1,{38.83,61.80,41.27,58.94,42.83,57.24,43.90,57.78,40.94,60.41}}, {42.76,72.92,1.91,3,1,"Lazy Peon",1,10556,nil,nil,1,{41.27,72.69,44.67,72.82,42.34,73.25}}, {44.98,69.13,nil,nil,1,"Lazy Peon",1,10556,nil,nil,1}, {47.56,69.34,nil,nil,1,"Lazy Peon",1,10556,nil,nil,1}, {47.16,65.45,nil,nil,1,"Lazy Peon",1,10556,nil,nil,1}, {45.65,65.70,nil,nil,1,"Lazy Peon",1,10556,nil,nil,1}, {47.10,57.87,nil,nil,1,"Lazy Peon",1,10556,nil,nil,1}, {46.74,60.66,nil,nil,1,"Lazy Peon",1,10556,nil,nil,1}},
     },
     turnins = {
@@ -24776,7 +24776,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{70.57,74.11,nil,nil,7,nil,1,11286}},
     },
     },
-    [5462] = { t = "The Dying, Ras Frostwhisper", z = 28, rl = 57, ql = 60, ps = {5461}, nc = 5463, maps = {
+    [5462] = { t = "The Dying, Ras Frostwhisper", z = 28, rl = 57, ql = 60, ps = {5461}, nc = 5463, si = {13585}, maps = {
       [1423] = {{81.73,57.83,nil,nil,6,nil,1,11036}},
     },
     turnins = {
@@ -24786,20 +24786,20 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{70.57,74.11,nil,nil,7,nil,1,11286}},
     },
     },
-    [5463] = { t = "Menethil's Gift", z = 2017, rl = 57, ql = 60, ps = {5462}, nc = 5464, dq = 1, dm = 317, maps = {
+    [5463] = { t = "Menethil's Gift", z = 2017, rl = 57, ql = 60, ps = {5462}, nc = 5464, dq = 1, dm = 317, si = {13585}, maps = {
     },
     starts = {
       [1423] = {{81.73,57.83,nil,nil,7,nil,1,11036}},
     },
     },
-    [5464] = { t = "Menethil's Gift", z = 139, rl = 57, ql = 60, ps = {5463}, nc = 5465, maps = {
+    [5464] = { t = "Menethil's Gift", z = 139, rl = 57, ql = 60, ps = {5463}, nc = 5465, si = {13624}, maps = {
       [1423] = {{81.73,57.83,nil,nil,6,nil,1,11036}},
     },
     turnins = {
       [1423] = {{81.73,57.83,nil,nil,6,nil,1,11036}},
     },
     },
-    [5465] = { t = "Soulbound Keepsake", z = 28, rl = 57, ql = 60, ps = {5464}, nc = 5466, maps = {
+    [5465] = { t = "Soulbound Keepsake", z = 28, rl = 57, ql = 60, ps = {5464}, nc = 5466, si = {13624}, maps = {
       [1422] = {{70.57,74.11,nil,nil,6,nil,1,11286}},
     },
     turnins = {
@@ -24809,7 +24809,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{81.73,57.83,nil,nil,7,nil,1,11036}},
     },
     },
-    [5466] = { t = "The Lich, Ras Frostwhisper", z = 2057, rl = 57, ql = 60, ps = {5465}, dq = 1, dm = 306, maps = {
+    [5466] = { t = "The Lich, Ras Frostwhisper", z = 2057, rl = 57, ql = 60, ps = {5465}, dq = 1, dm = 306, si = {13752}, maps = {
       [1422] = {{70.57,74.11,nil,nil,6,nil,1,11286}},
     },
     turnins = {
@@ -24947,7 +24947,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{81.62,60.00,nil,nil,7,nil,1,11536}},
     },
     },
-    [5514] = { t = "Mold Rhymes With...", z = 28, rl = 55, ql = 57, rr = 690, ps = {964}, nc = 5802, maps = {
+    [5514] = { t = "Mold Rhymes With...", z = 28, rl = 55, ql = 57, rr = 690, ps = {964}, nc = 5802, si = {14628}, maps = {
       [1446] = {{51.46,28.81,nil,nil,6,nil,1,5411}},
     },
     turnins = {
@@ -24987,7 +24987,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{42.84,83.72,nil,nil,7,nil,1,10857}},
     },
     },
-    [5522] = { t = "Leonid Barthalomew", z = 46, rl = 58, ql = 60, ps = {4735}, nc = 5531, maps = {
+    [5522] = { t = "Leonid Barthalomew", z = 46, rl = 58, ql = 60, ps = {4735}, nc = 5531, si = {13761}, maps = {
       [1423] = {{81.73,57.83,nil,nil,6,nil,1,11036}},
     },
     turnins = {
@@ -25007,7 +25007,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{83.26,68.14,nil,nil,7,nil,1,10856}},
     },
     },
-    [5526] = { t = "Shards of the Felvine", z = 493, rl = 56, ql = 60, ps = {5527}, maps = {
+    [5526] = { t = "Shards of the Felvine", z = 493, rl = 56, ql = 60, ps = {5527}, si = {18539,18501}, maps = {
       [1450] = {{51.69,45.10,nil,nil,6,nil,1,11801}},
     },
     turnins = {
@@ -25037,7 +25037,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{81.47,59.66,nil,nil,7,nil,1,11035}},
     },
     },
-    [5531] = { t = "Betina Bigglezink", z = 2057, rl = 58, ql = 60, ps = {5522}, nc = 4771, dq = 1, dm = 306, maps = {
+    [5531] = { t = "Betina Bigglezink", z = 2057, rl = 58, ql = 60, ps = {5522}, nc = 4771, dq = 1, dm = 306, si = {13761}, maps = {
       [1423] = {{81.47,59.66,nil,nil,6,nil,1,11035}},
     },
     turnins = {
@@ -25097,7 +25097,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{42.66,83.77,nil,nil,7,nil,1,11056}},
     },
     },
-    [5538] = { t = "Mold Rhymes With...", z = 28, rl = 55, ql = 57, rr = 1101, ps = {5537}, nc = 5801, maps = {
+    [5538] = { t = "Mold Rhymes With...", z = 28, rl = 55, ql = 57, rr = 1101, ps = {5537}, nc = 5801, si = {14628}, maps = {
       [1446] = {{51.46,28.81,nil,nil,6,nil,1,5411}},
     },
     turnins = {
@@ -25160,7 +25160,7 @@ VanillaEnhancedQuestsDB = {
       [1429] = {{81.38,66.11,nil,nil,7,nil,1,10616}},
     },
     },
-    [5561] = { t = "Kodo Roundup", z = 405, rl = 30, ql = 34, maps = {
+    [5561] = { t = "Kodo Roundup", z = 405, rl = 30, ql = 34, si = {13892}, maps = {
       [1443] = {{44.87,19.43,0.59,3,1,"Aged Kodo",1,4700,nil,nil,1,{44.82,19.81,44.87,18.84,44.92,19.65}}, {49.37,40.63,0.60,3,1,"Aged Kodo",1,4700,nil,nil,1,{49.36,41.23,49.37,40.17,49.37,40.48}}, {50.45,60.69,2.20,3,1,"Aged Kodo",1,4700,nil,nil,1,{48.29,60.25,52.24,60.64,50.82,61.17}}, {52.18,56.72,1.67,4,1,"Aged Kodo",1,4700,nil,nil,1,{50.51,56.63,51.95,56.10,53.65,56.69,52.61,57.46}}, {56.82,82.67,0.62,3,1,"Aged Kodo",1,4700,nil,nil,1,{56.74,82.06,56.94,82.97,56.79,82.99}}, {57.76,71.05,nil,nil,1,"Aged Kodo",1,4700,nil,nil,1}, {58.53,34.53,0.59,3,1,"Aged Kodo",1,4700,nil,nil,1,{58.03,34.84,58.63,34.44,58.93,34.32}}, {45.14,18.46,nil,nil,1,"Dying Kodo",1,4701,nil,nil,1}, {49.49,40.82,nil,nil,1,"Dying Kodo",1,4701,nil,nil,1}, {50.12,58.23,4.85,9,1,"Dying Kodo",1,4701,nil,nil,1,{46.48,60.66,47.00,58.86,49.13,55.62,54.97,58.23}}, {55.68,62.65,nil,nil,1,"Dying Kodo",1,4701,nil,nil,1}, {54.27,63.24,nil,nil,1,"Dying Kodo",1,4701,nil,nil,1}, {56.75,83.18,nil,nil,1,"Dying Kodo",1,4701,nil,nil,1}, {58.42,34.24,nil,nil,1,"Dying Kodo",1,4701,nil,nil,1}, {49.45,59.73,nil,nil,1,"Ancient Kodo",1,4702,nil,nil,1}, {51.41,58.29,nil,nil,1,"Ancient Kodo",1,4702,nil,nil,1}, {53.94,60.99,nil,nil,1,"Ancient Kodo",1,4702,nil,nil,1}, {52.42,62.20,nil,nil,1,"Ancient Kodo",1,4702,nil,nil,1}, {60.58,62.00,nil,nil,3,"Attirez les kodos vers Smeed Scrabblescrew"}},
     },
     turnins = {
@@ -25170,7 +25170,7 @@ VanillaEnhancedQuestsDB = {
       [1443] = {{60.86,61.86,nil,nil,7,nil,1,11596}},
     },
     },
-    [5581] = { t = "Portals of the Legion", z = 405, rl = 32, ql = 38, rr = 690, ps = {5381}, maps = {
+    [5581] = { t = "Portals of the Legion", z = 405, rl = 32, ql = 38, rr = 690, ps = {5381}, si = {14547}, maps = {
       [1443] = {{49.83,75.93,1.67,6,1,"Portals Banished",1,11937,nil,nil,1,{49.40,76.00,50.00,74.60,50.20,74.40,50.00,77.60}}, {50.68,70.72,1.14,5,1,"Portals Banished",1,11937,nil,nil,1,{50.40,70.40,50.60,70.40,51.40,71.60,50.40,70.60}}, {52.98,80.74,3.36,13,1,"Portals Banished",1,11937,nil,nil,1,{50.80,81.00,52.60,77.40,55.00,79.20,55.00,79.60,53.00,83.80}}, {55.20,71.60,nil,nil,1,"Portals Banished",1,11937,nil,nil,1}, {55.40,71.20,nil,nil,1,"Portals Banished",1,11937,nil,nil,1}},
     },
     turnins = {
@@ -25180,7 +25180,7 @@ VanillaEnhancedQuestsDB = {
       [1443] = {{25.82,68.21,nil,nil,7,nil,1,11624}},
     },
     },
-    [5582] = { t = "Healthy Dragon Scale", z = 2057, rl = 55, ql = 58, ps = {5529}, sf = 1, dq = 1, dm = 306, maps = {
+    [5582] = { t = "Healthy Dragon Scale", z = 2057, rl = 55, ql = 58, ps = {5529}, sf = 1, dq = 1, dm = 306, si = {13920}, maps = {
       [1423] = {{81.47,59.66,nil,nil,6,nil,1,11035}},
     },
     turnins = {
@@ -25707,7 +25707,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{45.94,90.29,nil,nil,7,nil,1,11711}},
     },
     },
-    [5721] = { t = "The Battle of Darrowshire", z = 139, rl = 55, ql = 60, ps = {5941}, nc = 5942, maps = {
+    [5721] = { t = "The Battle of Darrowshire", z = 139, rl = 55, ql = 60, ps = {5941}, nc = 5942, si = {15209}, maps = {
       [1423] = {{39.20,91.33,nil,nil,1,"Joseph Redpath",1,10936,nil,nil,1}, {38.80,91.20,nil,nil,3," À mettre l'Ensemble de Reliques sur la place centrale de Darrowshire"}},
     },
     turnins = {
@@ -25733,7 +25733,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{70.14,29.52,nil,nil,7,nil,1,11833}},
     },
     },
-    [5724] = { t = "Returning the Lost Satchel", z = 2437, rl = 9, ql = 16, rr = 690, ps = {5722}, dq = 1, dm = 213, maps = {
+    [5724] = { t = "Returning the Lost Satchel", z = 2437, rl = 9, ql = 16, rr = 690, ps = {5722}, dq = 1, dm = 213, si = {14381}, maps = {
       [1456] = {{70.14,29.52,nil,nil,6,nil,1,11833}},
     },
     turnins = {
@@ -25760,7 +25760,7 @@ VanillaEnhancedQuestsDB = {
       [1454] = {{31.73,37.82,nil,nil,7,nil,1,4949}},
     },
     },
-    [5727] = { t = "Hidden Enemies", z = 1637, rl = 9, ql = 12, rr = 690, ps = {5726}, nc = 5728, sf = 2, maps = {
+    [5727] = { t = "Hidden Enemies", z = 1637, rl = 9, ql = 12, rr = 690, ps = {5726}, nc = 5728, sf = 2, si = {14544}, maps = {
       [1454] = {{49.47,50.59,nil,nil,1,"Neeru Fireblade",1,3216,nil,nil,1}},
     },
     turnins = {
@@ -25830,7 +25830,7 @@ VanillaEnhancedQuestsDB = {
       [1454] = {{49.47,50.59,nil,nil,7,nil,1,3216}},
     },
     },
-    [5762] = { t = "Hemet Nesingwary Jr.", z = 400, rl = 28, ql = 31, maps = {
+    [5762] = { t = "Hemet Nesingwary Jr.", z = 400, rl = 28, ql = 31, si = {14542}, maps = {
       [1434] = {{35.66,10.81,nil,nil,6,nil,1,715}},
     },
     turnins = {
@@ -25840,7 +25840,7 @@ VanillaEnhancedQuestsDB = {
       [1441] = {{77.79,77.27,nil,nil,7,nil,1,4452}},
     },
     },
-    [5763] = { t = "Hunting in Stranglethorn", z = 405, rl = 28, ql = 31, rr = 690, maps = {
+    [5763] = { t = "Hunting in Stranglethorn", z = 405, rl = 28, ql = 31, rr = 690, si = {14546}, maps = {
       [1434] = {{35.66,10.81,nil,nil,6,nil,1,715}},
     },
     turnins = {
@@ -25860,7 +25860,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{7.62,43.64,nil,nil,7,nil,1,1855}},
     },
     },
-    [5801] = { t = "Fire Plume Forged", z = 440, rl = 55, ql = 57, rr = 1101, ps = {5538}, nc = 5803, maps = {
+    [5801] = { t = "Fire Plume Forged", z = 440, rl = 55, ql = 57, rr = 1101, ps = {5538}, nc = 5803, si = {14644}, maps = {
       [1449] = {{48.86,47.01,nil,nil,4,"Unfinished Skeleton Key",3,14645,nil,nil,1}},
     },
     turnins = {
@@ -25870,7 +25870,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{51.46,28.81,nil,nil,7,nil,1,5411}},
     },
     },
-    [5802] = { t = "Fire Plume Forged", z = 440, rl = 55, ql = 57, rr = 690, ps = {5514}, nc = 5804, maps = {
+    [5802] = { t = "Fire Plume Forged", z = 440, rl = 55, ql = 57, rr = 690, ps = {5514}, nc = 5804, si = {14644}, maps = {
       [1449] = {{48.86,47.01,nil,nil,4,"Unfinished Skeleton Key",3,14645,nil,nil,1}},
     },
     turnins = {
@@ -25940,7 +25940,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{65.77,75.37,nil,nil,7,nil,1,11936}},
     },
     },
-    [5861] = { t = "Find Myranda", z = 28, rl = 52, ql = 60, ps = {5848}, nc = 5862, maps = {
+    [5861] = { t = "Find Myranda", z = 28, rl = 52, ql = 60, ps = {5848}, nc = 5862, si = {14872}, maps = {
       [1422] = {{50.79,77.85,nil,nil,6,nil,1,11872}},
     },
     turnins = {
@@ -25950,7 +25950,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{7.62,43.64,nil,nil,7,nil,1,1855}},
     },
     },
-    [5862] = { t = "Scarlet Subterfuge", z = 28, rl = 52, ql = 60, ps = {5861}, maps = {
+    [5862] = { t = "Scarlet Subterfuge", z = 28, rl = 52, ql = 60, ps = {5861}, si = {14872}, maps = {
       [1422] = {{42.02,14.79,nil,nil,6,nil,1,1842}},
     },
     turnins = {
@@ -25970,7 +25970,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{52.82,27.40,nil,nil,7,nil,1,11758}},
     },
     },
-    [5881] = { t = "Calling in the Reserves", z = 406, rl = 23, ql = 28, rr = 690, maps = {
+    [5881] = { t = "Calling in the Reserves", z = 406, rl = 23, ql = 28, rr = 690, si = {16189}, maps = {
       [1441] = {{31.86,21.66,nil,nil,6,nil,1,12576}},
     },
     turnins = {
@@ -26164,7 +26164,7 @@ VanillaEnhancedQuestsDB = {
       [1459] = {{46.62,84.22,nil,nil,7,nil,1,12097}},
     },
     },
-    [5901] = { t = "A Plague Upon Thee", z = 85, rl = 48, ql = 55, rr = 690, nc = 5902, maps = {
+    [5901] = { t = "A Plague Upon Thee", z = 85, rl = 48, ql = 55, rr = 690, nc = 5902, si = {15042}, maps = {
       [1423] = {{25.05,35.67,5.81,8,4,"Plagueland Termites",3,15043,nil,nil,1,{19.51,33.91,22.34,33.59,26.75,33.77,28.68,38.38,25.17,37.91}}, {22.86,24.59,4.78,10,4,"Plagueland Termites",3,15043,nil,nil,1,{20.36,27.05,20.42,20.75,24.41,21.94,26.57,23.92,21.84,29.26}}, {31.70,32.44,6.20,10,4,"Plagueland Termites",3,15043,nil,nil,1,{26.14,29.69,31.35,29.64,33.86,29.96,35.99,31.76,33.37,37.28,28.49,32.40}}, {33.06,24.53,4.01,7,4,"Plagueland Termites",3,15043,nil,nil,1,{29.94,23.07,30.38,21.55,35.56,23.78,36.27,24.82,34.82,27.68,30.70,25.05}}, {43.45,28.40,6.51,15,4,"Plagueland Termites",3,15043,nil,nil,1,{39.68,23.10,43.65,24.22,45.86,25.63,48.71,30.79,45.88,34.04,42.85,34.19,40.62,31.45,39.85,24.63}}, {41.47,37.42,5.84,9,4,"Plagueland Termites",3,15043,nil,nil,1,{37.80,38.86,38.00,36.51,38.76,34.85,43.70,33.01,46.89,35.26,44.54,40.01,41.95,40.66}}, {39.70,19.17,2.76,4,4,"Plagueland Termites",3,15043,nil,nil,1,{37.23,17.94,40.24,18.15,41.52,20.66,39.82,19.93}}},
     },
     turnins = {
@@ -26174,7 +26174,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{83.29,72.34,nil,nil,7,nil,1,11615}},
     },
     },
-    [5902] = { t = "A Plague Upon Thee", z = 85, rl = 51, ql = 55, rr = 690, ps = {5901}, nc = 6390, maps = {
+    [5902] = { t = "A Plague Upon Thee", z = 85, rl = 51, ql = 55, rr = 690, ps = {5901}, nc = 6390, si = {15044}, maps = {
       [1422] = {{48.35,32.00,nil,nil,6,nil,2,177491}},
     },
     turnins = {
@@ -26184,7 +26184,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{83.29,72.34,nil,nil,7,nil,1,11615}},
     },
     },
-    [5903] = { t = "A Plague Upon Thee", z = 28, rl = 48, ql = 55, rr = 1101, nc = 5904, maps = {
+    [5903] = { t = "A Plague Upon Thee", z = 28, rl = 48, ql = 55, rr = 1101, nc = 5904, si = {15042}, maps = {
       [1423] = {{25.05,35.67,5.81,8,4,"Plagueland Termites",3,15043,nil,nil,1,{19.51,33.91,22.34,33.59,26.75,33.77,28.68,38.38,25.17,37.91}}, {22.86,24.59,4.78,10,4,"Plagueland Termites",3,15043,nil,nil,1,{20.36,27.05,20.42,20.75,24.41,21.94,26.57,23.92,21.84,29.26}}, {31.70,32.44,6.20,10,4,"Plagueland Termites",3,15043,nil,nil,1,{26.14,29.69,31.35,29.64,33.86,29.96,35.99,31.76,33.37,37.28,28.49,32.40}}, {33.06,24.53,4.01,7,4,"Plagueland Termites",3,15043,nil,nil,1,{29.94,23.07,30.38,21.55,35.56,23.78,36.27,24.82,34.82,27.68,30.70,25.05}}, {43.45,28.40,6.51,15,4,"Plagueland Termites",3,15043,nil,nil,1,{39.68,23.10,43.65,24.22,45.86,25.63,48.71,30.79,45.88,34.04,42.85,34.19,40.62,31.45,39.85,24.63}}, {41.47,37.42,5.84,9,4,"Plagueland Termites",3,15043,nil,nil,1,{37.80,38.86,38.00,36.51,38.76,34.85,43.70,33.01,46.89,35.26,44.54,40.01,41.95,40.66}}, {39.70,19.17,2.76,4,4,"Plagueland Termites",3,15043,nil,nil,1,{37.23,17.94,40.24,18.15,41.52,20.66,39.82,19.93}}},
     },
     turnins = {
@@ -26194,7 +26194,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{43.42,84.83,nil,nil,7,nil,1,11616}},
     },
     },
-    [5904] = { t = "A Plague Upon Thee", z = 28, rl = 48, ql = 55, rr = 1101, ps = {5903}, nc = 6389, maps = {
+    [5904] = { t = "A Plague Upon Thee", z = 28, rl = 48, ql = 55, rr = 1101, ps = {5903}, nc = 6389, si = {15044}, maps = {
       [1422] = {{48.35,32.00,nil,nil,6,nil,2,177491}},
     },
     turnins = {
@@ -26325,7 +26325,7 @@ VanillaEnhancedQuestsDB = {
       [1450] = {{56.21,30.64,nil,nil,7,nil,1,11802}},
     },
     },
-    [5941] = { t = "Return to Chromie", z = 139, rl = 54, ql = 60, ps = {5206}, nc = 5721, maps = {
+    [5941] = { t = "Return to Chromie", z = 139, rl = 54, ql = 60, ps = {5206}, nc = 5721, si = {15314}, maps = {
       [1422] = {{39.46,66.76,nil,nil,6,nil,1,10667}},
     },
     turnins = {
@@ -26335,7 +26335,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{81.52,59.77,nil,nil,7,nil,1,11063}},
     },
     },
-    [5942] = { t = "Hidden Treasures", z = 139, rl = 59, ql = 60, ps = {5721}, maps = {
+    [5942] = { t = "Hidden Treasures", z = 139, rl = 59, ql = 60, ps = {5721}, si = {15328}, maps = {
       [1423] = {{36.20,90.58,nil,nil,6,nil,2,177544}},
     },
     turnins = {
@@ -26385,7 +26385,7 @@ VanillaEnhancedQuestsDB = {
       [1452] = {{49.94,9.84,nil,nil,7,nil,1,10618}},
     },
     },
-    [6001] = { t = "Body and Heart", z = -263, rl = 10, ql = -1, rr = 8, rc = 1024, ps = {5931}, sf = 2, maps = {
+    [6001] = { t = "Body and Heart", z = -263, rl = 10, ql = -1, rr = 8, rc = 1024, ps = {5931}, sf = 2, si = {15208}, maps = {
       [1457] = {{35.37,8.40,nil,nil,6,nil,1,4217}},
     },
     turnins = {
@@ -26395,7 +26395,7 @@ VanillaEnhancedQuestsDB = {
       [1457] = {{35.37,8.40,nil,nil,7,nil,1,4217}},
     },
     },
-    [6002] = { t = "Body and Heart", z = -263, rl = 10, ql = -1, rr = 32, rc = 1024, ps = {5932}, sf = 2, maps = {
+    [6002] = { t = "Body and Heart", z = -263, rl = 10, ql = -1, rr = 32, rc = 1024, ps = {5932}, sf = 2, si = {15710}, maps = {
       [1456] = {{76.48,27.22,nil,nil,6,nil,1,3033}},
     },
     turnins = {
@@ -26425,7 +26425,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{79.55,63.86,nil,nil,7,nil,1,11038}},
     },
     },
-    [6022] = { t = "To Kill With Purpose", z = 139, rl = 54, ql = 58, rr = 690, maps = {
+    [6022] = { t = "To Kill With Purpose", z = 139, rl = 54, ql = 58, rr = 690, si = {15454,15447}, maps = {
       [1423] = {{28.90,28.08,7.38,21,2,"Living Rot",3,15447,{8525,8541,8543,12262},{8525,55,8541,61,8543,59,12262,2},nil,{21.57,28.94,22.32,26.83,26.45,23.61,33.81,22.68,34.16,31.14,32.12,31.62,25.63,32.16,24.23,31.38}}, {37.36,23.81,7.50,19,2,"Living Rot",3,15447,{8525,8541,8543,12262},{8525,55,8541,61,8543,59,12262,2},nil,{31.94,23.70,37.36,18.95,37.78,18.82,40.48,20.26,42.82,23.82,43.53,26.44,36.86,31.29}}, {60.01,69.17,5.84,48,2,"Living Rot",3,15447,{8525,8526,8531,8538,8541,8543},{8525,55,8526,46,8531,61,8538,60,8541,61,8543,59},nil,{56.90,68.03,58.20,63.62,61.92,65.38,62.59,66.73,62.05,71.84,61.09,72.88,60.14,73.59,58.41,72.95,57.54,70.43}}, {22.47,19.67,2.71,3,2,"Living Rot",3,15447,{8543,12262},{8543,59,12262,2},nil,{21.59,19.77,22.29,17.08,23.53,22.17}}, {41.25,34.90,6.46,7,2,"Living Rot",3,15447,{8543,12262},{8543,59,12262,2},nil,{35.14,32.79,44.07,32.74,43.60,35.33,40.71,38.94}}, {26.84,36.51,2.91,3,2,"Living Rot",3,15447,{8543,12262},{8543,59,12262,2},nil,{26.02,33.82,27.06,36.34,27.43,39.36}}},
     },
     turnins = {
@@ -26475,7 +26475,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{80.61,57.98,nil,nil,7,nil,1,11033}},
     },
     },
-    [6027] = { t = "Book of the Ancients", z = 405, rl = 30, ql = 38, ps = {5741}, maps = {
+    [6027] = { t = "Book of the Ancients", z = 405, rl = 30, ql = 38, ps = {5741}, si = {15766}, maps = {
       [1443] = {{28.24,6.67,nil,nil,2,"Book of the Ancients",3,15803,{12369},{12369,100},1}},
     },
     turnins = {
@@ -26485,7 +26485,7 @@ VanillaEnhancedQuestsDB = {
       [1443] = {{38.88,27.16,nil,nil,7,nil,1,11863}},
     },
     },
-    [6028] = { t = "The Everlook Report", z = 618, rl = 50, ql = 52, rr = 1101, maps = {
+    [6028] = { t = "The Everlook Report", z = 618, rl = 50, ql = 52, rr = 1101, si = {15788}, maps = {
       [1422] = {{42.97,83.55,nil,nil,6,nil,1,10840}},
     },
     turnins = {
@@ -26495,7 +26495,7 @@ VanillaEnhancedQuestsDB = {
       [1452] = {{61.35,38.97,nil,nil,7,nil,1,10431}},
     },
     },
-    [6029] = { t = "The Everlook Report", z = 618, rl = 50, ql = 52, rr = 690, maps = {
+    [6029] = { t = "The Everlook Report", z = 618, rl = 50, ql = 52, rr = 690, si = {15788}, maps = {
       [1420] = {{83.19,68.45,nil,nil,6,nil,1,10839}},
     },
     turnins = {
@@ -26505,7 +26505,7 @@ VanillaEnhancedQuestsDB = {
       [1452] = {{61.35,38.97,nil,nil,7,nil,1,10431}},
     },
     },
-    [6030] = { t = "Duke Nicholas Zverenhoff", z = 618, rl = 50, ql = 52, maps = {
+    [6030] = { t = "Duke Nicholas Zverenhoff", z = 618, rl = 50, ql = 52, si = {15790}, maps = {
       [1423] = {{81.44,59.82,nil,nil,6,nil,1,11039}},
     },
     turnins = {
@@ -26541,7 +26541,7 @@ VanillaEnhancedQuestsDB = {
       [1448] = {{65.69,2.81,nil,nil,7,nil,1,11557}},
     },
     },
-    [6041] = { t = "When Smokey Sings, I Get Violent", z = 139, rl = 54, ql = 58, ps = {6026}, maps = {
+    [6041] = { t = "When Smokey Sings, I Get Violent", z = 139, rl = 54, ql = 58, ps = {6026}, si = {15736}, maps = {
       [1423] = {{23.51,21.89,nil,nil,1,"Scourge Structures Destroyed",1,12247,nil,nil,1}, {27.05,36.59,nil,nil,1,"Scourge Structures Destroyed",1,12247,nil,nil,1}, {29.32,24.02,nil,nil,1,"Scourge Structures Destroyed",1,12247,nil,nil,1}, {32.25,30.76,nil,nil,1,"Scourge Structures Destroyed",1,12247,nil,nil,1}, {32.96,23.91,nil,nil,1,"Scourge Structures Destroyed",1,12247,nil,nil,1}, {37.67,19.66,nil,nil,1,"Scourge Structures Destroyed",1,12247,nil,nil,1}, {40.67,38.62,nil,nil,1,"Scourge Structures Destroyed",1,12247,nil,nil,1}, {43.49,26.17,nil,nil,1,"Scourge Structures Destroyed",1,12247,nil,nil,1}},
     },
     turnins = {
@@ -26561,7 +26561,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{26.54,74.73,nil,nil,7,nil,1,11878}},
     },
     },
-    [6061] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 32, rc = 4, nc = 6087, bc = {6065,6066,6067}, maps = {
+    [6061] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 32, rc = 4, nc = 6087, bc = {6065,6066,6067}, si = {15914}, maps = {
       [1412] = {{33.27,31.11,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {33.67,30.66,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {34.35,34.07,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {35.70,79.07,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {34.88,79.88,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {35.73,44.24,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {35.76,39.49,1.94,3,1,"Adult Plainstrider",1,2956,nil,nil,1,{35.06,39.19,35.56,38.08,36.67,41.20}}, {35.88,74.03,4.46,7,1,"Adult Plainstrider",1,2956,nil,nil,1,{34.16,69.92,35.63,71.43,36.90,73.20,37.77,75.17,36.92,77.18,34.79,76.95}}, {36.18,53.19,4.96,8,1,"Adult Plainstrider",1,2956,nil,nil,1,{35.31,48.30,36.63,49.99,36.99,51.04,36.80,57.99,35.88,56.69,35.64,55.26}}, {37.59,35.29,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {39.41,67.79,4.56,14,1,"Adult Plainstrider",1,2956,nil,nil,1,{35.06,66.43,36.84,65.82,41.97,66.44,43.46,67.53,40.19,70.17,39.41,70.17,36.98,69.38,36.35,68.43}}, {39.54,53.97,2.94,6,1,"Adult Plainstrider",1,2956,nil,nil,1,{38.83,54.30,39.19,52.96,39.46,52.16,40.47,51.37,39.97,56.88,39.34,56.13}}, {39.56,61.71,3.27,8,1,"Adult Plainstrider",1,2956,nil,nil,1,{36.31,61.59,40.79,59.70,42.07,59.62,41.58,63.42,38.21,63.46}}, {40.88,73.19,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {42.24,72.34,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {42.96,55.01,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {43.69,51.40,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {43.78,44.09,1.90,3,1,"Adult Plainstrider",1,2956,nil,nil,1,{42.20,43.28,43.73,43.92,45.40,45.08}}, {44.75,38.31,2.50,4,1,"Adult Plainstrider",1,2956,nil,nil,1,{43.48,38.91,44.84,36.29,45.83,37.22,44.85,40.81}}, {46.49,31.52,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {47.50,68.73,3.36,6,1,"Adult Plainstrider",1,2956,nil,nil,1,{45.14,71.11,46.65,68.38,49.12,66.41,50.20,66.96,46.03,71.18}}, {48.84,45.83,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {48.98,40.09,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {52.47,45.07,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {53.88,61.63,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {52.51,60.64,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {54.63,68.57,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {55.83,39.80,3.52,6,1,"Adult Plainstrider",1,2956,nil,nil,1,{54.49,39.22,55.11,36.86,57.39,36.93,57.35,42.97,54.65,41.95}}, {55.68,46.09,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {58.38,46.83,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {57.04,57.50,2.47,3,1,"Adult Plainstrider",1,2956,nil,nil,1,{55.09,57.75,59.47,57.06,56.55,57.68}}, {58.08,66.64,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {57.76,67.36,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {58.43,72.27,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {61.66,59.65,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}, {62.58,54.76,nil,nil,1,"Adult Plainstrider",1,2956,nil,nil,1}},
     },
     turnins = {
@@ -26571,7 +26571,7 @@ VanillaEnhancedQuestsDB = {
       [1412] = {{47.82,55.69,nil,nil,7,nil,1,3065}},
     },
     },
-    [6062] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 130, rc = 4, nc = 6083, bc = {6068,6069,6070}, maps = {
+    [6062] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 130, rc = 4, nc = 6083, bc = {6068,6069,6070}, si = {15917}, maps = {
       [1411] = {{39.38,36.77,1.69,4,1,"Dire Mottled Boar",1,3099,nil,nil,1,{38.11,35.87,41.07,36.82,38.96,37.84}}, {40.37,48.42,3.89,8,1,"Dire Mottled Boar",1,3099,nil,nil,1,{38.62,44.95,42.93,50.12,40.69,50.77,38.93,47.06}}, {40.67,40.66,nil,nil,1,"Dire Mottled Boar",1,3099,nil,nil,1}, {43.21,33.45,3.13,6,1,"Dire Mottled Boar",1,3099,nil,nil,1,{40.45,32.76,41.99,31.52,45.98,34.91,44.42,34.63}}, {44.68,44.99,3.91,22,1,"Dire Mottled Boar",1,3099,nil,nil,1,{40.77,44.86,45.22,41.27,47.00,42.76,47.66,43.40,48.30,45.89,45.97,48.27,45.38,48.59,42.81,47.68,42.03,47.14}}, {48.32,36.65,4.50,10,1,"Dire Mottled Boar",1,3099,nil,nil,1,{44.56,37.08,51.10,33.11,51.52,34.13,48.22,40.19,46.21,39.14}}, {51.24,72.74,3.46,5,1,"Dire Mottled Boar",1,3099,nil,nil,1,{49.57,73.70,50.46,71.78,54.08,70.77,50.46,75.00}}, {51.75,78.12,nil,nil,1,"Dire Mottled Boar",1,3099,nil,nil,1}, {52.31,50.03,4.12,11,1,"Dire Mottled Boar",1,3099,nil,nil,1,{50.77,53.86,51.21,49.42,51.71,46.04,53.43,46.16,54.21,53.06}}, {52.46,64.38,3.87,12,1,"Dire Mottled Boar",1,3099,nil,nil,1,{51.52,63.73,51.54,62.09,52.23,60.72,53.91,62.59,54.58,67.44,53.53,68.10,51.89,66.94,51.60,65.40}}, {53.39,57.38,3.04,12,1,"Dire Mottled Boar",1,3099,nil,nil,1,{50.74,55.90,55.72,56.23,55.65,58.74,53.85,59.12,51.72,59.03}}, {53.98,31.82,1.67,5,1,"Dire Mottled Boar",1,3099,nil,nil,1,{53.07,31.31,54.20,30.65,55.36,32.76,53.36,32.77}}, {54.54,37.68,4.00,15,1,"Dire Mottled Boar",1,3099,nil,nil,1,{50.67,36.66,53.52,34.98,54.58,34.67,55.83,35.36,56.54,36.71,56.22,41.31,51.38,37.64}}, {56.89,45.05,2.04,3,1,"Dire Mottled Boar",1,3099,nil,nil,1,{55.38,43.96,57.36,44.38,57.93,46.80}}, {58.36,41.55,nil,nil,1,"Dire Mottled Boar",1,3099,nil,nil,1}},
     },
     turnins = {
@@ -26581,7 +26581,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{51.85,43.49,nil,nil,7,nil,1,3171}},
     },
     },
-    [6063] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 8, rc = 4, nc = 6101, bc = {6071,6072,6073,6721,6722}, maps = {
+    [6063] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 8, rc = 4, nc = 6101, bc = {6071,6072,6073,6721,6722}, si = {15921}, maps = {
       [1438] = {{45.86,46.71,nil,nil,1,"Webwood Lurker",1,1998,nil,nil,1}, {47.05,46.96,nil,nil,1,"Webwood Lurker",1,1998,nil,nil,1}, {51.78,56.60,2.86,5,1,"Webwood Lurker",1,1998,nil,nil,1,{51.02,53.85,52.25,55.58,52.24,55.71,51.61,59.39}}, {53.02,64.44,3.14,9,1,"Webwood Lurker",1,1998,nil,nil,1,{51.01,65.25,53.61,61.35,54.23,62.51,54.27,64.24,53.33,66.71,52.58,67.40,51.67,66.30}}, {60.37,57.35,3.97,11,1,"Webwood Lurker",1,1998,nil,nil,1,{58.17,55.84,60.86,54.53,61.43,54.60,61.13,61.25,59.55,59.70}}, {63.77,61.92,1.31,3,1,"Webwood Lurker",1,1998,nil,nil,1,{63.34,63.16,63.91,60.84,64.05,61.77}}, {68.39,62.76,3.77,6,1,"Webwood Lurker",1,1998,nil,nil,1,{67.05,66.29,67.22,62.04,69.51,60.35,70.06,60.25,68.47,63.57}}, {69.52,57.15,nil,nil,1,"Webwood Lurker",1,1998,nil,nil,1}},
     },
     turnins = {
@@ -26591,7 +26591,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{56.68,59.49,nil,nil,7,nil,1,3601}},
     },
     },
-    [6064] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 4, rc = 4, nc = 6084, bc = {6074,6075,6076}, maps = {
+    [6064] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 4, rc = 4, nc = 6084, bc = {6074,6075,6076}, si = {15911}, maps = {
       [1426] = {{36.65,52.83,3.64,8,1,"Large Crag Boar",1,1126,nil,nil,1,{34.33,55.63,36.33,52.17,36.98,51.05,38.14,50.98,38.12,51.13,37.28,52.73,36.39,54.22}}, {39.43,47.51,1.82,5,1,"Large Crag Boar",1,1126,nil,nil,1,{38.56,46.73,39.57,46.90,41.22,47.18,38.66,48.64}}, {43.91,29.70,nil,nil,1,"Large Crag Boar",1,1126,nil,nil,1}, {41.22,30.54,nil,nil,1,"Large Crag Boar",1,1126,nil,nil,1}, {43.51,38.02,nil,nil,1,"Large Crag Boar",1,1126,nil,nil,1}, {41.65,39.53,nil,nil,1,"Large Crag Boar",1,1126,nil,nil,1}, {43.50,34.30,nil,nil,1,"Large Crag Boar",1,1126,nil,nil,1}, {45.36,41.69,nil,nil,1,"Large Crag Boar",1,1126,nil,nil,1}, {45.06,41.59,nil,nil,1,"Large Crag Boar",1,1126,nil,nil,1}, {45.23,45.32,nil,nil,1,"Large Crag Boar",1,1126,nil,nil,1}, {48.22,47.20,0.29,3,1,"Large Crag Boar",1,1126,nil,nil,1,{48.08,47.01,48.48,47.33,48.10,47.25}}, {47.26,63.92,nil,nil,1,"Large Crag Boar",1,1126,nil,nil,1}, {49.44,62.61,nil,nil,1,"Large Crag Boar",1,1126,nil,nil,1}, {49.37,56.45,4.53,6,1,"Large Crag Boar",1,1126,nil,nil,1,{48.03,56.69,50.49,52.07,50.53,60.00}}, {50.38,43.24,nil,nil,1,"Large Crag Boar",1,1126,nil,nil,1}, {56.16,47.74,nil,nil,1,"Large Crag Boar",1,1126,nil,nil,1}, {55.90,47.80,nil,nil,1,"Large Crag Boar",1,1126,nil,nil,1}, {60.37,54.21,3.87,5,1,"Large Crag Boar",1,1126,nil,nil,1,{56.82,52.67,64.16,53.90,62.39,55.14,59.77,55.26}}, {65.35,50.23,nil,nil,1,"Large Crag Boar",1,1126,nil,nil,1}, {66.97,50.31,nil,nil,1,"Large Crag Boar",1,1126,nil,nil,1}},
     },
     turnins = {
@@ -26721,7 +26721,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{51.85,43.49,nil,nil,7,nil,1,3171}},
     },
     },
-    [6082] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 130, rc = 4, ps = {6083}, nc = 6081, maps = {
+    [6082] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 130, rc = 4, ps = {6083}, nc = 6081, si = {15920}, maps = {
       [1411] = {{37.04,35.84,2.44,8,1,"Armored Scorpid",1,3126,nil,nil,1,{35.73,37.91,35.74,36.87,37.26,33.85,38.30,33.89,38.97,35.72,36.99,37.25}}, {39.11,40.89,2.81,7,1,"Armored Scorpid",1,3126,nil,nil,1,{36.31,41.19,40.67,38.82,41.40,41.42,39.22,42.14,37.67,42.46}}, {41.93,28.75,nil,nil,1,"Armored Scorpid",1,3126,nil,nil,1}, {42.08,47.29,4.51,14,1,"Armored Scorpid",1,3126,nil,nil,1,{37.93,46.49,40.07,45.27,44.56,44.54,45.63,46.74,41.11,51.69}}, {43.96,32.95,2.23,4,1,"Armored Scorpid",1,3126,nil,nil,1,{42.50,34.41,43.37,32.43,45.52,31.35,44.45,33.61}}, {45.23,28.21,nil,nil,1,"Armored Scorpid",1,3126,nil,nil,1}, {45.28,26.55,nil,nil,1,"Armored Scorpid",1,3126,nil,nil,1}, {48.50,36.83,2.64,7,1,"Armored Scorpid",1,3126,nil,nil,1,{46.84,35.53,47.57,35.62,49.30,36.65,50.99,37.70,48.34,38.62}}, {48.57,30.56,nil,nil,1,"Armored Scorpid",1,3126,nil,nil,1}, {51.27,19.55,2.10,4,1,"Armored Scorpid",1,3126,nil,nil,1,{50.49,19.50,51.10,17.81,52.84,19.35,50.65,21.56}}, {54.76,36.64,nil,nil,1,"Armored Scorpid",1,3126,nil,nil,1}, {56.64,23.19,2.62,7,1,"Armored Scorpid",1,3126,nil,nil,1,{54.93,23.07,55.04,22.07,56.47,21.36,58.44,23.26,58.36,25.17,57.16,24.58}}, {56.76,30.22,4.31,7,1,"Armored Scorpid",1,3126,nil,nil,1,{54.41,33.83,57.19,27.37,58.49,29.18,57.56,30.90}}},
     },
     turnins = {
@@ -26731,7 +26731,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{51.85,43.49,nil,nil,7,nil,1,3171}},
     },
     },
-    [6083] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 130, rc = 4, ps = {6062}, nc = 6082, maps = {
+    [6083] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 130, rc = 4, ps = {6062}, nc = 6082, si = {15919}, maps = {
       [1411] = {{59.96,25.33,3.21,7,1,"Surf Crawler",1,3107,nil,nil,1,{58.85,28.34,59.78,23.62,60.18,22.79,60.81,25.39,59.89,27.17}}, {60.29,92.26,nil,nil,1,"Surf Crawler",1,3107,nil,nil,1}, {60.80,83.47,4.34,10,1,"Surf Crawler",1,3107,nil,nil,1,{58.28,83.54,59.63,81.31,62.10,79.33,62.85,81.35,61.54,87.39,58.89,86.20}}, {60.91,17.71,nil,nil,1,"Surf Crawler",1,3107,nil,nil,1}, {64.17,93.29,4.97,14,1,"Surf Crawler",1,3107,nil,nil,1,{61.89,94.94,62.07,90.54,63.90,89.03,66.99,90.78,64.60,98.24,63.30,97.99}}, {66.23,78.18,4.63,9,1,"Surf Crawler",1,3107,nil,nil,1,{62.10,76.63,62.72,76.07,69.27,78.26,69.72,78.79,70.45,80.10,66.06,79.39,64.15,78.85}}, {67.08,73.39,4.73,15,1,"Surf Crawler",1,3107,nil,nil,1,{63.15,74.03,64.11,72.16,66.09,69.96,67.89,68.73,71.12,71.47,70.98,73.95,70.47,75.93,68.99,76.25,67.04,76.41}}, {69.55,87.53,nil,nil,1,"Surf Crawler",1,3107,nil,nil,1}, {70.52,68.99,nil,nil,1,"Surf Crawler",1,3107,nil,nil,1}},
     },
     turnins = {
@@ -26741,7 +26741,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{51.85,43.49,nil,nil,7,nil,1,3171}},
     },
     },
-    [6084] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 4, rc = 4, ps = {6064}, nc = 6085, maps = {
+    [6084] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 4, rc = 4, ps = {6064}, nc = 6085, si = {15913}, maps = {
       [1426] = {{28.09,51.14,4.85,9,1,"Snow Leopard",1,1201,nil,nil,1,{25.70,46.92,28.17,48.92,29.09,49.70,29.49,50.82,29.10,54.19,27.55,54.76}}, {29.87,40.49,4.81,8,1,"Snow Leopard",1,1201,nil,nil,1,{27.60,42.51,28.23,39.97,33.15,37.82,28.15,44.98}}, {34.39,47.66,nil,nil,1,"Snow Leopard",1,1201,nil,nil,1}, {32.59,48.46,nil,nil,1,"Snow Leopard",1,1201,nil,nil,1}, {36.03,36.44,3.06,7,1,"Snow Leopard",1,1201,nil,nil,1,{34.08,35.27,35.20,35.01,37.56,36.76,38.39,38.39,36.74,37.57}}, {39.89,31.38,4.23,6,1,"Snow Leopard",1,1201,nil,nil,1,{36.67,31.87,37.58,30.89,43.97,30.25,38.30,33.53}}, {48.66,60.83,4.32,8,1,"Snow Leopard",1,1201,nil,nil,1,{47.29,63.32,48.29,56.53,49.94,60.21,49.55,61.80,47.94,63.16}}, {56.10,56.38,4.18,12,1,"Snow Leopard",1,1201,nil,nil,1,{53.81,57.75,53.91,56.54,56.08,52.66,56.34,52.21,59.46,55.87,55.85,60.42}}, {60.89,58.99,2.96,13,1,"Snow Leopard",1,1201,nil,nil,1,{58.49,59.65,59.09,58.64,59.96,58.02,62.34,56.58,62.95,57.33,63.58,60.22,59.54,61.02}}, {79.96,36.48,2.52,5,1,"Snow Leopard",1,1201,nil,nil,1,{78.96,36.29,79.23,35.36,80.36,35.94,82.22,37.60,79.05,37.20}}},
     },
     turnins = {
@@ -26751,7 +26751,7 @@ VanillaEnhancedQuestsDB = {
       [1426] = {{45.81,53.04,nil,nil,7,nil,1,1231}},
     },
     },
-    [6085] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 4, rc = 4, ps = {6084}, nc = 6086, maps = {
+    [6085] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 4, rc = 4, ps = {6084}, nc = 6086, si = {15908}, maps = {
       [1426] = {{27.09,47.11,1.75,4,1,"Ice Claw Bear",1,1196,nil,nil,1,{25.50,46.37,26.88,46.91,28.34,47.54,27.62,47.63}}, {27.31,54.27,3.51,6,1,"Ice Claw Bear",1,1196,nil,nil,1,{25.32,55.76,28.10,52.24,29.72,51.71,28.05,54.51,26.70,56.19}}, {29.89,41.50,3.43,6,1,"Ice Claw Bear",1,1196,nil,nil,1,{28.05,43.10,29.30,41.51,31.79,38.64,30.95,40.81,30.19,42.26}}, {30.48,59.60,nil,nil,1,"Ice Claw Bear",1,1196,nil,nil,1}, {30.60,35.08,nil,nil,1,"Ice Claw Bear",1,1196,nil,nil,1}, {32.37,47.18,nil,nil,1,"Ice Claw Bear",1,1196,nil,nil,1}, {32.27,49.90,nil,nil,1,"Ice Claw Bear",1,1196,nil,nil,1}, {33.35,36.80,nil,nil,1,"Ice Claw Bear",1,1196,nil,nil,1}, {35.20,35.91,nil,nil,1,"Ice Claw Bear",1,1196,nil,nil,1}, {34.99,30.94,1.35,3,1,"Ice Claw Bear",1,1196,nil,nil,1,{34.22,32.05,34.57,30.30,36.18,30.46}}, {35.90,46.93,nil,nil,1,"Ice Claw Bear",1,1196,nil,nil,1}, {37.77,33.92,nil,nil,1,"Ice Claw Bear",1,1196,nil,nil,1}, {38.08,42.43,2.30,5,1,"Ice Claw Bear",1,1196,nil,nil,1,{37.14,43.93,37.73,41.59,38.91,40.29,38.52,43.45}}, {43.84,28.78,nil,nil,1,"Ice Claw Bear",1,1196,nil,nil,1}, {41.24,29.17,nil,nil,1,"Ice Claw Bear",1,1196,nil,nil,1}, {47.45,62.98,1.96,3,1,"Ice Claw Bear",1,1196,nil,nil,1,{46.35,63.35,49.28,62.28,46.71,63.30}}, {50.24,59.37,nil,nil,1,"Ice Claw Bear",1,1196,nil,nil,1}, {50.34,53.80,nil,nil,1,"Ice Claw Bear",1,1196,nil,nil,1}, {51.16,43.14,nil,nil,1,"Ice Claw Bear",1,1196,nil,nil,1}, {56.26,43.27,nil,nil,1,"Ice Claw Bear",1,1196,nil,nil,1}, {58.71,61.27,nil,nil,1,"Ice Claw Bear",1,1196,nil,nil,1}, {59.27,51.98,nil,nil,1,"Ice Claw Bear",1,1196,nil,nil,1}, {60.97,56.87,nil,nil,1,"Ice Claw Bear",1,1196,nil,nil,1}, {64.93,59.95,nil,nil,1,"Ice Claw Bear",1,1196,nil,nil,1}, {66.50,50.47,nil,nil,1,"Ice Claw Bear",1,1196,nil,nil,1}, {74.78,48.09,nil,nil,1,"Ice Claw Bear",1,1196,nil,nil,1}, {80.07,48.61,nil,nil,1,"Ice Claw Bear",1,1196,nil,nil,1}},
     },
     turnins = {
@@ -26771,7 +26771,7 @@ VanillaEnhancedQuestsDB = {
       [1426] = {{45.81,53.04,nil,nil,7,nil,1,1231}},
     },
     },
-    [6087] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 32, rc = 4, ps = {6061}, nc = 6088, maps = {
+    [6087] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 32, rc = 4, ps = {6061}, nc = 6088, si = {15915}, maps = {
       [1412] = {{34.10,29.17,1.89,3,1,"Prairie Stalker",1,2959,nil,nil,1,{33.74,28.73,34.35,27.72,34.20,31.05}}, {35.43,50.87,0.89,3,1,"Prairie Stalker",1,2959,nil,nil,1,{35.36,51.67,35.42,49.98,35.51,50.97}}, {35.01,43.00,nil,nil,1,"Prairie Stalker",1,2959,nil,nil,1}, {36.28,45.01,nil,nil,1,"Prairie Stalker",1,2959,nil,nil,1}, {36.32,35.18,1.87,6,1,"Prairie Stalker",1,2959,nil,nil,1,{34.72,35.81,35.87,33.37,36.97,34.34,37.53,35.39,37.14,35.86,35.71,36.31}}, {41.96,40.53,3.65,16,1,"Prairie Stalker",1,2959,nil,nil,1,{38.34,40.02,38.93,39.59,41.40,37.91,44.78,38.33,45.35,39.97,43.44,42.12,39.52,42.36}}, {42.43,48.15,4.96,15,1,"Prairie Stalker",1,2959,nil,nil,1,{40.13,49.69,41.08,43.98,42.19,43.19,44.55,47.74,45.00,49.07,42.84,52.95,41.70,52.04}}, {46.43,33.66,3.42,7,1,"Prairie Stalker",1,2959,nil,nil,1,{45.23,35.50,45.36,33.25,48.68,31.08,46.66,35.37}}, {48.14,47.80,3.26,11,1,"Prairie Stalker",1,2959,nil,nil,1,{46.54,47.91,46.68,45.06,51.39,47.98,47.36,49.97,46.61,48.93}}, {49.45,39.59,3.66,12,1,"Prairie Stalker",1,2959,nil,nil,1,{46.97,37.84,49.34,36.21,50.21,36.87,51.48,38.88,51.88,40.04,49.92,43.22,49.01,43.13,48.01,42.15}}, {51.22,34.11,nil,nil,1,"Prairie Stalker",1,2959,nil,nil,1}, {54.49,37.26,nil,nil,1,"Prairie Stalker",1,2959,nil,nil,1}, {54.73,44.73,4.68,26,1,"Prairie Stalker",1,2959,nil,nil,1,{50.85,45.05,51.17,44.18,51.83,43.20,53.80,40.53,58.13,42.84,59.35,45.46,57.36,47.55,55.43,48.15,50.96,46.59}}, {55.18,50.23,nil,nil,1,"Prairie Stalker",1,2959,nil,nil,1}, {57.93,55.35,4.59,13,1,"Prairie Stalker",1,2959,nil,nil,1,{55.78,57.85,55.99,55.82,57.54,51.61,58.17,50.76,60.94,56.05,56.38,59.55}}, {58.97,68.41,4.78,12,1,"Prairie Stalker",1,2959,nil,nil,1,{56.52,71.28,57.20,65.57,58.92,64.60,60.91,66.45,61.80,69.31,57.80,73.04}}, {59.74,61.27,3.00,7,1,"Prairie Stalker",1,2959,nil,nil,1,{57.00,62.49,60.24,59.37,60.88,58.76,60.46,63.33}}, {62.99,53.24,nil,nil,1,"Prairie Stalker",1,2959,nil,nil,1}},
       [1456] = {{26.36,39.58,nil,nil,1,"Prairie Stalker",1,2959,nil,nil,1}, {26.07,41.13,nil,nil,1,"Prairie Stalker",1,2959,nil,nil,1}, {28.60,77.22,nil,nil,1,"Prairie Stalker",1,2959,nil,nil,1}},
     },
@@ -26782,7 +26782,7 @@ VanillaEnhancedQuestsDB = {
       [1412] = {{47.82,55.69,nil,nil,7,nil,1,3065}},
     },
     },
-    [6088] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 32, rc = 4, ps = {6087}, nc = 6089, maps = {
+    [6088] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 32, rc = 4, ps = {6087}, nc = 6089, si = {15916}, maps = {
       [1412] = {{35.22,49.46,nil,nil,1,"Swoop",1,2970,nil,nil,1}, {36.18,44.93,nil,nil,1,"Swoop",1,2970,nil,nil,1}, {34.82,42.76,nil,nil,1,"Swoop",1,2970,nil,nil,1}, {37.62,41.16,nil,nil,1,"Swoop",1,2970,nil,nil,1}, {42.73,45.16,nil,nil,1,"Swoop",1,2970,nil,nil,1}, {42.25,43.54,nil,nil,1,"Swoop",1,2970,nil,nil,1}, {42.77,39.85,nil,nil,1,"Swoop",1,2970,nil,nil,1}, {43.45,49.83,2.71,4,1,"Swoop",1,2970,nil,nil,1,{41.50,48.56,46.15,49.65,42.81,51.88}}, {46.28,35.42,1.65,3,1,"Swoop",1,2970,nil,nil,1,{44.72,34.89,46.76,34.84,47.37,36.53}}, {49.01,48.01,nil,nil,1,"Swoop",1,2970,nil,nil,1}, {51.09,44.41,2.80,4,1,"Swoop",1,2970,nil,nil,1,{48.61,44.11,52.10,44.12,53.81,45.04,49.82,44.36}}, {51.94,40.49,3.85,5,1,"Swoop",1,2970,nil,nil,1,{49.23,38.39,53.82,40.74,55.34,42.30,49.57,40.68}}, {52.86,36.46,2.14,3,1,"Swoop",1,2970,nil,nil,1,{51.72,34.79,54.79,37.39,52.08,37.19}}, {57.43,48.62,nil,nil,1,"Swoop",1,2970,nil,nil,1}, {56.74,46.10,nil,nil,1,"Swoop",1,2970,nil,nil,1}, {57.73,68.36,nil,nil,1,"Swoop",1,2970,nil,nil,1}, {58.28,51.96,nil,nil,1,"Swoop",1,2970,nil,nil,1}, {58.87,64.52,nil,nil,1,"Swoop",1,2970,nil,nil,1}, {59.77,59.74,nil,nil,1,"Swoop",1,2970,nil,nil,1}, {60.24,54.91,nil,nil,1,"Swoop",1,2970,nil,nil,1}},
     },
     turnins = {
@@ -26802,7 +26802,7 @@ VanillaEnhancedQuestsDB = {
       [1412] = {{47.82,55.69,nil,nil,7,nil,1,3065}},
     },
     },
-    [6101] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 8, rc = 4, ps = {6063}, nc = 6102, maps = {
+    [6101] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 8, rc = 4, ps = {6063}, nc = 6102, si = {15922}, maps = {
       [1438] = {{39.67,57.26,2.41,7,1,"Nightsaber Stalker",1,2043,nil,nil,1,{38.24,58.56,38.49,56.22,40.50,55.57,40.79,57.03,40.66,59.46}}, {40.48,69.61,0.88,4,1,"Nightsaber Stalker",1,2043,nil,nil,1,{39.89,69.30,40.42,69.13,41.17,70.15,40.44,69.86}}, {45.68,73.43,2.90,7,1,"Nightsaber Stalker",1,2043,nil,nil,1,{43.15,74.32,45.19,72.09,47.09,70.90,46.97,75.11,45.81,75.68}}, {50.32,77.71,1.57,5,1,"Nightsaber Stalker",1,2043,nil,nil,1,{49.71,77.11,50.31,76.14,50.94,77.15,50.63,79.00,50.00,79.15}}, {55.54,72.90,1.72,3,1,"Nightsaber Stalker",1,2043,nil,nil,1,{53.90,72.51,55.79,72.27,56.93,73.92}}, {62.77,71.96,1.90,6,1,"Nightsaber Stalker",1,2043,nil,nil,1,{61.46,73.32,62.19,72.10,63.42,70.18,63.53,71.26,63.42,72.17,62.57,72.75}}},
     },
     turnins = {
@@ -26812,7 +26812,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{56.68,59.49,nil,nil,7,nil,1,3601}},
     },
     },
-    [6102] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 8, rc = 4, ps = {6101}, nc = 6103, maps = {
+    [6102] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 8, rc = 4, ps = {6101}, nc = 6103, si = {15923}, maps = {
       [1438] = {{38.82,63.71,1.66,3,1,"Strigid Screecher",1,1996,nil,nil,1,{38.43,62.47,38.75,63.36,39.28,65.31}}, {40.28,52.02,4.13,11,1,"Strigid Screecher",1,1996,nil,nil,1,{37.60,51.29,42.79,48.93,43.90,50.57,42.67,52.08,39.55,54.54,38.20,55.58}}, {41.05,68.39,nil,nil,1,"Strigid Screecher",1,1996,nil,nil,1}, {41.86,71.53,nil,nil,1,"Strigid Screecher",1,1996,nil,nil,1}, {42.35,72.25,nil,nil,1,"Strigid Screecher",1,1996,nil,nil,1}, {44.80,76.02,3.83,6,1,"Strigid Screecher",1,1996,nil,nil,1,{42.17,75.34,48.16,74.19,45.58,76.52,43.77,77.43,42.91,77.12}}, {52.89,77.35,0.98,5,1,"Strigid Screecher",1,1996,nil,nil,1,{51.91,77.36,53.29,76.63,53.71,77.07,53.06,77.89,52.46,77.78}}, {58.26,75.80,1.32,4,1,"Strigid Screecher",1,1996,nil,nil,1,{57.61,75.01,58.47,75.00,58.88,76.96,58.06,76.21}}, {64.97,67.49,1.89,4,1,"Strigid Screecher",1,1996,nil,nil,1,{64.20,67.23,65.55,66.45,65.88,67.03,64.25,69.24}}},
     },
     turnins = {
@@ -26842,7 +26842,7 @@ VanillaEnhancedQuestsDB = {
       [1457] = {{35.37,8.40,nil,nil,7,nil,1,4217}},
     },
     },
-    [6122] = { t = "The Principal Source", z = -263, rl = 14, ql = -1, rr = 1101, rc = 1024, ps = {6121}, nc = 6123, maps = {
+    [6122] = { t = "The Principal Source", z = -263, rl = 14, ql = -1, rr = 1101, rc = 1024, ps = {6121}, nc = 6123, si = {15844}, maps = {
       [1439] = {{54.92,33.31,nil,nil,4,"Filled Cliffspring Falls Sampler",3,15845,nil,nil,1}},
     },
     turnins = {
@@ -26899,7 +26899,7 @@ VanillaEnhancedQuestsDB = {
       [1439] = {{37.69,40.66,nil,nil,7,nil,1,3702}},
     },
     },
-    [6124] = { t = "Curing the Sick", z = -263, rl = 14, ql = -1, rr = 1101, rc = 1024, ps = {6123}, nc = 6125, maps = {
+    [6124] = { t = "Curing the Sick", z = -263, rl = 14, ql = -1, rr = 1101, rc = 1024, ps = {6123}, nc = 6125, si = {15826}, maps = {
       [1439] = {{36.19,81.94,nil,nil,1,"Sickly Deer",1,12298,nil,nil,1}, {38.29,89.31,4.97,6,1,"Sickly Deer",1,12298,nil,nil,1,{34.57,87.25,43.18,88.41,40.67,89.83,37.06,91.20,35.17,89.26}}, {39.50,60.41,1.52,3,1,"Sickly Deer",1,12298,nil,nil,1,{38.57,59.21,40.84,60.16,39.10,61.87}}, {38.36,77.52,nil,nil,1,"Sickly Deer",1,12298,nil,nil,1}, {41.02,77.81,nil,nil,1,"Sickly Deer",1,12298,nil,nil,1}, {38.56,36.07,nil,nil,1,"Sickly Deer",1,12298,nil,nil,1}, {41.04,34.80,nil,nil,1,"Sickly Deer",1,12298,nil,nil,1}, {40.30,81.84,nil,nil,1,"Sickly Deer",1,12298,nil,nil,1}, {40.32,69.95,1.66,3,1,"Sickly Deer",1,12298,nil,nil,1,{38.92,70.36,40.08,69.85,41.95,69.65}}, {41.11,53.10,2.87,4,1,"Sickly Deer",1,12298,nil,nil,1,{38.68,54.53,40.34,52.30,43.97,52.89}}, {42.20,73.37,nil,nil,1,"Sickly Deer",1,12298,nil,nil,1}, {43.07,75.47,nil,nil,1,"Sickly Deer",1,12298,nil,nil,1}, {43.10,48.32,4.68,6,1,"Sickly Deer",1,12298,nil,nil,1,{39.09,47.85,41.50,46.08,46.17,48.28,46.81,51.18}}, {43.70,64.03,nil,nil,1,"Sickly Deer",1,12298,nil,nil,1}, {43.28,66.94,nil,nil,1,"Sickly Deer",1,12298,nil,nil,1}, {43.53,83.42,nil,nil,1,"Sickly Deer",1,12298,nil,nil,1}, {43.97,80.14,nil,nil,1,"Sickly Deer",1,12298,nil,nil,1}, {44.56,27.62,nil,nil,1,"Sickly Deer",1,12298,nil,nil,1}, {43.62,31.44,nil,nil,1,"Sickly Deer",1,12298,nil,nil,1}, {45.56,31.68,nil,nil,1,"Sickly Deer",1,12298,nil,nil,1}, {45.23,41.24,4.59,11,1,"Sickly Deer",1,12298,nil,nil,1,{41.85,38.14,48.17,38.98,46.99,44.10,45.02,44.31,42.30,39.60}}, {47.88,27.04,4.33,5,1,"Sickly Deer",1,12298,nil,nil,1,{44.48,24.36,46.56,24.97,51.18,29.79,47.68,27.50}}, {49.44,34.24,2.89,6,1,"Sickly Deer",1,12298,nil,nil,1,{46.92,33.91,51.92,32.75,49.11,36.08}}},
     },
     turnins = {
@@ -26929,7 +26929,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{76.48,27.22,nil,nil,7,nil,1,3033}},
     },
     },
-    [6127] = { t = "The Principal Source", z = -263, rl = 14, ql = -1, rr = 690, rc = 1024, ps = {6126}, nc = 6128, maps = {
+    [6127] = { t = "The Principal Source", z = -263, rl = 14, ql = -1, rr = 690, rc = 1024, ps = {6126}, nc = 6128, si = {15842}, maps = {
       [1413] = {{48.40,18.89,nil,nil,4,"Filled Dreadmist Peak Sampler",3,15843,nil,nil,1}},
     },
     turnins = {
@@ -26986,7 +26986,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{52.26,31.93,nil,nil,7,nil,1,3448}},
     },
     },
-    [6129] = { t = "Curing the Sick", z = -263, rl = 14, ql = -1, rr = 690, rc = 1024, ps = {6128}, nc = 6130, maps = {
+    [6129] = { t = "Curing the Sick", z = -263, rl = 14, ql = -1, rr = 690, rc = 1024, ps = {6128}, nc = 6130, si = {15826}, maps = {
       [1413] = {{41.18,25.68,nil,nil,1,"Sickly Gazelle",1,12296,nil,nil,1}, {43.12,18.75,4.67,7,1,"Sickly Gazelle",1,12296,nil,nil,1,{40.81,20.67,42.81,15.28,45.53,14.75,44.20,19.76,41.49,22.70}}, {44.71,33.76,nil,nil,1,"Sickly Gazelle",1,12296,nil,nil,1}, {42.74,36.02,nil,nil,1,"Sickly Gazelle",1,12296,nil,nil,1}, {43.74,39.33,nil,nil,1,"Sickly Gazelle",1,12296,nil,nil,1}, {47.92,27.39,4.71,11,1,"Sickly Gazelle",1,12296,nil,nil,1,{43.27,28.12,47.00,24.16,50.18,23.26,50.01,31.15,46.08,29.96}}, {49.66,36.26,1.14,4,1,"Sickly Gazelle",1,12296,nil,nil,1,{48.71,36.90,48.76,36.48,50.47,35.75,50.70,35.92}}, {52.16,13.26,4.24,8,1,"Sickly Gazelle",1,12296,nil,nil,1,{48.11,14.51,50.52,13.04,54.67,10.57,54.99,13.34,50.39,15.37}}, {53.13,21.02,3.34,7,1,"Sickly Gazelle",1,12296,nil,nil,1,{51.02,19.46,52.77,18.57,54.41,21.93,54.25,24.17}}, {53.44,26.84,nil,nil,1,"Sickly Gazelle",1,12296,nil,nil,1}, {54.50,32.09,nil,nil,1,"Sickly Gazelle",1,12296,nil,nil,1}, {54.67,29.98,nil,nil,1,"Sickly Gazelle",1,12296,nil,nil,1}, {54.88,38.24,3.74,5,1,"Sickly Gazelle",1,12296,nil,nil,1,{51.15,38.53,53.28,37.96,58.03,37.06,56.93,38.97}}, {57.82,34.84,2.79,4,1,"Sickly Gazelle",1,12296,nil,nil,1,{55.09,35.44,57.43,33.98,60.32,35.27}}, {58.03,19.95,3.94,9,1,"Sickly Gazelle",1,12296,nil,nil,1,{56.61,16.61,59.18,17.75,60.27,21.63,58.22,23.88,56.65,18.12}}, {59.94,31.01,nil,nil,1,"Sickly Gazelle",1,12296,nil,nil,1}, {60.29,28.13,nil,nil,1,"Sickly Gazelle",1,12296,nil,nil,1}},
     },
     turnins = {
@@ -27026,7 +27026,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{26.54,74.73,nil,nil,7,nil,1,11878}},
     },
     },
-    [6134] = { t = "Ghost-o-plasm Round Up", z = 405, rl = 34, ql = 39, maps = {
+    [6134] = { t = "Ghost-o-plasm Round Up", z = 405, rl = 34, ql = 39, si = {15848}, maps = {
       [1443] = {{64.18,91.63,nil,nil,2,"Ghost-o-plasm",3,15849,{11560},{11560,100},1}, {63.71,91.90,nil,nil,3,"Placez la Caisse d'Aimants Fantômes"}},
     },
     turnins = {
@@ -27066,7 +27066,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{42.58,24.23,nil,nil,7,nil,1,12336}},
     },
     },
-    [6142] = { t = "Clam Bait", z = 405, rl = 31, ql = 35, rr = 690, maps = {
+    [6142] = { t = "Clam Bait", z = 405, rl = 31, ql = 35, rr = 690, si = {15874}, maps = {
       [1443] = {{32.66,32.16,4.08,8,2,"Soft-shelled Clam Meat",3,15924,{12347},{12347,100},1,{30.50,31.87,31.56,28.23,34.48,29.06,34.33,35.87,30.96,35.75}}, {34.05,24.76,3.18,5,2,"Soft-shelled Clam Meat",3,15924,{12347},{12347,100},1,{30.89,24.36,35.24,22.48,36.75,24.39,34.58,25.93,32.78,26.64}}, {25.48,41.88,5.93,4,4,"Soft-shelled Clam Meat",3,15924,nil,nil,1,{24.60,44.10,25.70,38.90,26.20,36.70,25.40,47.80}}, {32.13,34.33,3.94,11,4,"Soft-shelled Clam Meat",3,15924,nil,nil,1,{28.20,34.10,30.60,31.90,33.90,33.20,35.26,34.72,29.70,36.70}}, {33.13,26.89,3.96,20,4,"Soft-shelled Clam Meat",3,15924,nil,nil,1,{30.00,26.10,30.80,24.40,30.84,24.33,34.32,23.12,35.50,25.00,34.11,30.70,31.93,30.58,30.10,29.10}}, {32.74,32.42,4.35,15,2,"Soft-shelled Clam Meat",3,15874,{12347},{12347,35.893},1,{30.50,31.87,31.56,28.23,34.48,29.06,34.33,35.87,30.96,35.75}}, {33.82,25.08,3.88,11,2,"Soft-shelled Clam Meat",3,15874,{12347},{12347,35.893},1,{30.89,24.36,35.24,22.48,36.75,24.39,31.56,28.23}}, {25.47,41.87,5.93,8,4,"Soft-shelled Clam Meat",3,15874,nil,nil,1,{24.60,44.10,25.70,38.90,26.20,36.70,25.40,47.80}}, {32.13,34.33,3.94,22,4,"Soft-shelled Clam Meat",3,15874,nil,nil,1,{28.20,34.10,30.60,31.90,33.90,33.20,35.26,34.72,29.70,36.70}}, {33.13,26.89,3.96,40,4,"Soft-shelled Clam Meat",3,15874,nil,nil,1,{30.00,26.10,30.80,24.40,30.84,24.33,34.32,23.12,35.50,25.00,34.11,30.70,31.93,30.58,30.10,29.10}}},
     },
     turnins = {
@@ -27106,7 +27106,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{56.25,92.20,nil,nil,7,nil,1,2425}},
     },
     },
-    [6146] = { t = "Nathanos' Ruse", z = 139, rl = 56, ql = 60, rr = 690, ps = {6145}, nc = 6147, maps = {
+    [6146] = { t = "Nathanos' Ruse", z = 139, rl = 56, ql = 60, rr = 690, ps = {6145}, nc = 6147, si = {15876}, maps = {
       [1423] = {{85.42,83.24,nil,nil,6,nil,1,11898}},
     },
     turnins = {
@@ -27176,7 +27176,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{14.45,33.48,nil,nil,7,nil,1,12384}},
     },
     },
-    [6181] = { t = "A Swift Message", z = 40, rl = 10, ql = 10, rr = 1, nc = 6281, maps = {
+    [6181] = { t = "A Swift Message", z = 40, rl = 10, ql = 10, rr = 1, nc = 6281, si = {15998}, maps = {
       [1436] = {{56.55,52.64,nil,nil,6,nil,1,523}},
     },
     turnins = {
@@ -27246,7 +27246,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{78.22,17.98,nil,nil,7,nil,1,1748}},
     },
     },
-    [6261] = { t = "Dungar Longdrink", z = 40, rl = 10, ql = 10, rr = 1, ps = {6281}, nc = 6285, maps = {
+    [6261] = { t = "Dungar Longdrink", z = 40, rl = 10, ql = 10, rr = 1, ps = {6281}, nc = 6285, si = {16115}, maps = {
       [1453] = {{66.27,62.13,nil,nil,6,nil,1,352}},
     },
     turnins = {
@@ -27256,7 +27256,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{74.31,47.24,nil,nil,7,nil,1,1323}},
     },
     },
-    [6281] = { t = "Continue to Stormwind", z = 40, rl = 10, ql = 10, rr = 1, ps = {6181}, nc = 6261, maps = {
+    [6281] = { t = "Continue to Stormwind", z = 40, rl = 10, ql = 10, rr = 1, ps = {6181}, nc = 6261, si = {15998}, maps = {
       [1453] = {{74.31,47.24,nil,nil,6,nil,1,1323}},
     },
     turnins = {
@@ -27296,7 +27296,7 @@ VanillaEnhancedQuestsDB = {
       [1442] = {{59.06,75.71,nil,nil,7,nil,2,177904}},
     },
     },
-    [6285] = { t = "Return to Lewis", z = 40, rl = 10, ql = 10, rr = 1, ps = {6261}, maps = {
+    [6285] = { t = "Return to Lewis", z = 40, rl = 10, ql = 10, rr = 1, ps = {6261}, si = {16115}, maps = {
       [1436] = {{57.00,47.17,nil,nil,6,nil,1,491}},
     },
     turnins = {
@@ -27316,7 +27316,7 @@ VanillaEnhancedQuestsDB = {
       [1442] = {{47.46,58.38,nil,nil,7,nil,1,11864}},
     },
     },
-    [6321] = { t = "Supplying the Sepulcher", z = 130, rl = 10, ql = 10, rr = 16, nc = 6323, maps = {
+    [6321] = { t = "Supplying the Sepulcher", z = 130, rl = 10, ql = 10, rr = 16, nc = 6323, si = {16209}, maps = {
       [1421] = {{45.62,42.60,nil,nil,6,nil,1,2226}},
     },
     turnins = {
@@ -27326,7 +27326,7 @@ VanillaEnhancedQuestsDB = {
       [1421] = {{43.42,41.68,nil,nil,7,nil,1,6389}},
     },
     },
-    [6322] = { t = "Michael Garrett", z = 130, rl = 10, ql = 10, rr = 16, ps = {6323}, nc = 6324, maps = {
+    [6322] = { t = "Michael Garrett", z = 130, rl = 10, ql = 10, rr = 16, ps = {6323}, nc = 6324, si = {16210}, maps = {
       [1458] = {{63.25,48.56,nil,nil,6,nil,1,4551}},
     },
     turnins = {
@@ -27336,7 +27336,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{61.49,41.79,nil,nil,7,nil,1,4556}},
     },
     },
-    [6323] = { t = "Ride to the Undercity", z = 130, rl = 10, ql = 10, rr = 16, ps = {6321}, nc = 6322, maps = {
+    [6323] = { t = "Ride to the Undercity", z = 130, rl = 10, ql = 10, rr = 16, ps = {6321}, nc = 6322, si = {16209}, maps = {
       [1458] = {{61.49,41.79,nil,nil,6,nil,1,4556}},
     },
     turnins = {
@@ -27346,7 +27346,7 @@ VanillaEnhancedQuestsDB = {
       [1421] = {{45.62,42.60,nil,nil,7,nil,1,2226}},
     },
     },
-    [6324] = { t = "Return to Podrig", z = 130, rl = 10, ql = 10, rr = 16, ps = {6322}, maps = {
+    [6324] = { t = "Return to Podrig", z = 130, rl = 10, ql = 10, rr = 16, ps = {6322}, si = {16210}, maps = {
       [1421] = {{43.42,41.68,nil,nil,6,nil,1,6389}},
     },
     turnins = {
@@ -27356,7 +27356,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{63.25,48.56,nil,nil,7,nil,1,4551}},
     },
     },
-    [6341] = { t = "The Bounty of Teldrassil", z = 148, rl = 10, ql = 10, rr = 8, nc = 6342, bc = {6344}, maps = {
+    [6341] = { t = "The Bounty of Teldrassil", z = 148, rl = 10, ql = 10, rr = 8, nc = 6342, bc = {6344}, si = {16262}, maps = {
       [1438] = {{58.40,94.02,nil,nil,6,nil,1,3838}},
     },
     turnins = {
@@ -27366,7 +27366,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{56.26,92.44,nil,nil,7,nil,1,10118}},
     },
     },
-    [6342] = { t = "Flight to Auberdine", z = 148, rl = 10, ql = 10, rr = 8, ps = {6341}, nc = 6343, maps = {
+    [6342] = { t = "Flight to Auberdine", z = 148, rl = 10, ql = 10, rr = 8, ps = {6341}, nc = 6343, si = {16262}, maps = {
       [1439] = {{36.77,44.28,nil,nil,6,nil,1,4200}},
     },
     turnins = {
@@ -27376,7 +27376,7 @@ VanillaEnhancedQuestsDB = {
       [1438] = {{58.40,94.02,nil,nil,7,nil,1,3838}},
     },
     },
-    [6343] = { t = "Return to Nessa", z = 148, rl = 10, ql = 10, rr = 8, ps = {6342}, maps = {
+    [6343] = { t = "Return to Nessa", z = 148, rl = 10, ql = 10, rr = 8, ps = {6342}, si = {16263}, maps = {
       [1438] = {{56.26,92.44,nil,nil,6,nil,1,10118}},
     },
     turnins = {
@@ -27396,7 +27396,7 @@ VanillaEnhancedQuestsDB = {
       [1457] = {{70.68,45.38,nil,nil,7,nil,1,4241}},
     },
     },
-    [6361] = { t = "A Bundle of Hides", z = 17, rl = 10, ql = 10, rr = 32, nc = 6362, maps = {
+    [6361] = { t = "A Bundle of Hides", z = 17, rl = 10, ql = 10, rr = 32, nc = 6362, si = {16282}, maps = {
       [1413] = {{51.50,30.34,nil,nil,6,nil,1,3615}},
     },
     turnins = {
@@ -27406,7 +27406,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{51.21,29.05,nil,nil,7,nil,1,3483}},
     },
     },
-    [6362] = { t = "Ride to Thunder Bluff", z = 17, rl = 10, ql = 10, rr = 32, ps = {6361}, nc = 6363, maps = {
+    [6362] = { t = "Ride to Thunder Bluff", z = 17, rl = 10, ql = 10, rr = 32, ps = {6361}, nc = 6363, si = {16282}, maps = {
       [1456] = {{45.77,55.84,nil,nil,6,nil,1,8359}},
     },
     turnins = {
@@ -27416,7 +27416,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{51.50,30.34,nil,nil,7,nil,1,3615}},
     },
     },
-    [6363] = { t = "Tal the Wind Rider Master", z = 17, rl = 10, ql = 10, rr = 32, ps = {6362}, nc = 6364, maps = {
+    [6363] = { t = "Tal the Wind Rider Master", z = 17, rl = 10, ql = 10, rr = 32, ps = {6362}, nc = 6364, si = {16283}, maps = {
       [1456] = {{47.00,49.83,nil,nil,6,nil,1,2995}},
     },
     turnins = {
@@ -27426,7 +27426,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{45.77,55.84,nil,nil,7,nil,1,8359}},
     },
     },
-    [6364] = { t = "Return to Jahan", z = 17, rl = 10, ql = 10, rr = 32, ps = {6363}, maps = {
+    [6364] = { t = "Return to Jahan", z = 17, rl = 10, ql = 10, rr = 32, ps = {6363}, si = {16283}, maps = {
       [1413] = {{51.21,29.05,nil,nil,6,nil,1,3483}},
     },
     turnins = {
@@ -27436,7 +27436,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{47.00,49.83,nil,nil,7,nil,1,2995}},
     },
     },
-    [6365] = { t = "Meats to Orgrimmar", z = 17, rl = 10, ql = 10, rr = 130, nc = 6384, maps = {
+    [6365] = { t = "Meats to Orgrimmar", z = 17, rl = 10, ql = 10, rr = 130, nc = 6384, si = {16306}, maps = {
       [1413] = {{51.50,30.34,nil,nil,6,nil,1,3615}},
     },
     turnins = {
@@ -27446,7 +27446,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{52.62,29.84,nil,nil,7,nil,1,3489}},
     },
     },
-    [6381] = { t = "New Life", z = 406, rl = 17, ql = 25, rr = 690, ps = {6301}, maps = {
+    [6381] = { t = "New Life", z = 406, rl = 17, ql = 25, rr = 690, ps = {6301}, si = {16208}, maps = {
       [1442] = {{32.93,66.28,6.94,23,4,"Gaea seed planted",2,177929,nil,nil,1,{27.82,64.70,30.11,62.51,31.33,61.38,34.22,61.26,37.80,66.20,36.88,71.99,29.06,68.86}}, {32.79,71.77,4.63,11,4,"Gaea seed planted",2,177929,nil,nil,1,{29.62,71.34,30.50,70.79,32.27,70.09,35.89,70.00,36.62,74.37,30.45,73.78}}},
     },
     turnins = {
@@ -27476,7 +27476,7 @@ VanillaEnhancedQuestsDB = {
       [1440] = {{73.78,61.46,nil,nil,7,nil,1,12696}},
     },
     },
-    [6384] = { t = "Ride to Orgrimmar", z = 17, rl = 10, ql = 10, rr = 130, ps = {6365}, nc = 6385, maps = {
+    [6384] = { t = "Ride to Orgrimmar", z = 17, rl = 10, ql = 10, rr = 130, ps = {6365}, nc = 6385, si = {16306}, maps = {
       [1454] = {{54.10,68.41,nil,nil,6,nil,1,6929}},
     },
     turnins = {
@@ -27486,7 +27486,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{51.50,30.34,nil,nil,7,nil,1,3615}},
     },
     },
-    [6385] = { t = "Doras the Wind Rider Master", z = 17, rl = 10, ql = 10, rr = 130, ps = {6384}, nc = 6386, maps = {
+    [6385] = { t = "Doras the Wind Rider Master", z = 17, rl = 10, ql = 10, rr = 130, ps = {6384}, nc = 6386, si = {16307}, maps = {
       [1454] = {{45.12,63.89,nil,nil,6,nil,1,3310}},
     },
     turnins = {
@@ -27496,7 +27496,7 @@ VanillaEnhancedQuestsDB = {
       [1454] = {{54.10,68.41,nil,nil,7,nil,1,6929}},
     },
     },
-    [6386] = { t = "Return to the Crossroads.", z = 17, rl = 10, ql = 10, rr = 130, ps = {6385}, maps = {
+    [6386] = { t = "Return to the Crossroads.", z = 17, rl = 10, ql = 10, rr = 130, ps = {6385}, si = {16307}, maps = {
       [1413] = {{52.62,29.84,nil,nil,6,nil,1,3489}},
     },
     turnins = {
@@ -27506,7 +27506,7 @@ VanillaEnhancedQuestsDB = {
       [1454] = {{45.12,63.89,nil,nil,7,nil,1,3310}},
     },
     },
-    [6387] = { t = "Honor Students", z = 38, rl = 10, ql = 10, rr = 68, nc = 6391, maps = {
+    [6387] = { t = "Honor Students", z = 38, rl = 10, ql = 10, rr = 68, nc = 6391, si = {16310}, maps = {
       [1432] = {{33.94,50.95,nil,nil,6,nil,1,1572}},
     },
     turnins = {
@@ -27516,7 +27516,7 @@ VanillaEnhancedQuestsDB = {
       [1432] = {{37.02,47.81,nil,nil,7,nil,1,1681}},
     },
     },
-    [6388] = { t = "Gryth Thurden", z = 38, rl = 10, ql = 10, rr = 68, ps = {6391}, nc = 6392, maps = {
+    [6388] = { t = "Gryth Thurden", z = 38, rl = 10, ql = 10, rr = 68, ps = {6391}, nc = 6392, si = {16311}, maps = {
       [1455] = {{55.50,47.74,nil,nil,6,nil,1,1573}},
     },
     turnins = {
@@ -27526,7 +27526,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{51.52,26.31,nil,nil,7,nil,1,4256}},
     },
     },
-    [6389] = { t = "A Plague Upon Thee", z = 28, rl = 48, ql = 55, rr = 1101, ps = {5904}, maps = {
+    [6389] = { t = "A Plague Upon Thee", z = 28, rl = 48, ql = 55, rr = 1101, ps = {5904}, si = {15044}, maps = {
       [1422] = {{43.42,84.83,nil,nil,6,nil,1,11616}},
     },
     turnins = {
@@ -27536,7 +27536,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{48.35,32.00,nil,nil,7,nil,2,177491}},
     },
     },
-    [6390] = { t = "A Plague Upon Thee", z = 28, rl = 51, ql = 55, rr = 690, ps = {5902}, maps = {
+    [6390] = { t = "A Plague Upon Thee", z = 28, rl = 51, ql = 55, rr = 690, ps = {5902}, si = {15044}, maps = {
       [1420] = {{83.29,72.34,nil,nil,6,nil,1,11615}},
     },
     turnins = {
@@ -27546,7 +27546,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{48.35,32.00,nil,nil,7,nil,2,177491}},
     },
     },
-    [6391] = { t = "Ride to Ironforge", z = 38, rl = 10, ql = 10, rr = 68, ps = {6387}, nc = 6388, maps = {
+    [6391] = { t = "Ride to Ironforge", z = 38, rl = 10, ql = 10, rr = 68, ps = {6387}, nc = 6388, si = {16310}, maps = {
       [1455] = {{51.52,26.31,nil,nil,6,nil,1,4256}},
     },
     turnins = {
@@ -27556,7 +27556,7 @@ VanillaEnhancedQuestsDB = {
       [1432] = {{33.94,50.95,nil,nil,7,nil,1,1572}},
     },
     },
-    [6392] = { t = "Return to Brock", z = 38, rl = 10, ql = 10, rr = 68, ps = {6388}, maps = {
+    [6392] = { t = "Return to Brock", z = 38, rl = 10, ql = 10, rr = 68, ps = {6388}, si = {16311}, maps = {
       [1432] = {{37.02,47.81,nil,nil,6,nil,1,1681}},
     },
     turnins = {
@@ -27586,7 +27586,7 @@ VanillaEnhancedQuestsDB = {
       [1411] = {{44.63,68.65,nil,nil,7,nil,1,11378}},
     },
     },
-    [6395] = { t = "Marla's Last Wish", z = 154, rl = 3, ql = 5, rr = 690, ps = {376}, maps = {
+    [6395] = { t = "Marla's Last Wish", z = 154, rl = 3, ql = 5, rr = 690, ps = {376}, si = {16333}, maps = {
       [1420] = {{31.17,65.08,nil,nil,4,"Samuel's Remains Buried",2,178090,nil,nil,1}, {36.68,61.56,nil,nil,2,"Samuel's Remains",3,16333,{1919},{1919,100}}},
     },
     turnins = {
@@ -27677,7 +27677,7 @@ VanillaEnhancedQuestsDB = {
       [1440] = {{11.65,34.85,nil,nil,7,nil,1,12721}},
     },
     },
-    [6481] = { t = "Earthen Arise", z = 406, rl = 14, ql = 20, rr = 690, ps = {6421}, maps = {
+    [6481] = { t = "Earthen Arise", z = 406, rl = 14, ql = 20, rr = 690, ps = {6421}, si = {16603}, maps = {
       [1442] = {{57.40,89.40,nil,nil,1,"Goggeroc",1,11920,nil,nil,1}},
     },
     turnins = {
@@ -27697,7 +27697,7 @@ VanillaEnhancedQuestsDB = {
       [1440] = {{41.53,34.49,nil,nil,7,nil,1,12818}},
     },
     },
-    [6501] = { t = "The Dragon's Eye", z = 1519, rl = 52, ql = 60, rr = 1101, ps = {6403}, nc = 6502, maps = {
+    [6501] = { t = "The Dragon's Eye", z = 1519, rl = 52, ql = 60, rr = 1101, ps = {6403}, nc = 6502, si = {16662}, maps = {
       [1452] = {{54.55,51.20,nil,nil,6,nil,1,10929}},
     },
     turnins = {
@@ -27727,7 +27727,7 @@ VanillaEnhancedQuestsDB = {
       [1440] = {{71.11,68.12,nil,nil,7,nil,1,12867}},
     },
     },
-    [6504] = { t = "The Lost Pages", z = 331, rl = 23, ql = 30, rr = 690, maps = {
+    [6504] = { t = "The Lost Pages", z = 331, rl = 23, ql = 30, rr = 690, si = {16645,16646,16647,16648,16649,16650,16651,16652,16653,16654,16655,16656}, maps = {
       [1440] = {{70.01,71.16,nil,nil,6,nil,1,12718}},
     },
     turnins = {
@@ -27747,7 +27747,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{56.25,92.20,nil,nil,7,nil,1,2425}},
     },
     },
-    [6522] = { t = "An Unholy Alliance", z = 722, rl = 28, ql = 36, rr = 690, nc = 6521, dq = 1, dm = 300, maps = {
+    [6522] = { t = "An Unholy Alliance", z = 722, rl = 28, ql = 36, rr = 690, nc = 6521, dq = 1, dm = 300, si = {17008}, maps = {
       [1458] = {{56.25,92.20,nil,nil,6,nil,1,2425}},
     },
     turnins = {
@@ -27784,7 +27784,7 @@ VanillaEnhancedQuestsDB = {
       [1442] = {{73.25,94.89,nil,nil,7,nil,1,11821}},
     },
     },
-    [6543] = { t = "The Warsong Reports", z = 17, rl = 17, ql = 19, rr = 690, bc = {6541,6542}, maps = {
+    [6543] = { t = "The Warsong Reports", z = 17, rl = 17, ql = 19, rr = 690, bc = {6541,6542}, si = {16783}, maps = {
       [1413] = {{48.12,5.42,nil,nil,6,nil,1,8582}},
     },
     turnins = {
@@ -27872,7 +27872,7 @@ VanillaEnhancedQuestsDB = {
       [1440] = {{11.56,34.29,nil,nil,7,nil,1,12736}},
     },
     },
-    [6564] = { t = "Allegiance to the Old Gods", z = 719, rl = 17, ql = 22, rr = 690, ps = {6562}, nc = 6565, dq = 1, dm = 221, maps = {
+    [6564] = { t = "Allegiance to the Old Gods", z = 719, rl = 17, ql = 22, rr = 690, ps = {6562}, nc = 6565, dq = 1, dm = 221, si = {16790}, maps = {
       [1440] = {{11.56,34.29,nil,nil,6,nil,1,12736}},
     },
     turnins = {
@@ -27909,7 +27909,7 @@ VanillaEnhancedQuestsDB = {
       [1454] = {{31.73,37.82,nil,nil,7,nil,1,4949}},
     },
     },
-    [6568] = { t = "Mistress of Deception", z = 405, rl = 55, ql = 60, rr = 690, ps = {6567}, nc = 6569, maps = {
+    [6568] = { t = "Mistress of Deception", z = 405, rl = 55, ql = 60, rr = 690, ps = {6567}, nc = 6569, si = {16785}, maps = {
       [1422] = {{50.79,77.85,nil,nil,6,nil,1,11872}},
     },
     turnins = {
@@ -27929,7 +27929,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{50.79,77.85,nil,nil,7,nil,1,11872}},
     },
     },
-    [6570] = { t = "Emberstrife", z = 15, rl = 55, ql = 60, rr = 690, ps = {6569}, maps = {
+    [6570] = { t = "Emberstrife", z = 15, rl = 55, ql = 60, rr = 690, ps = {6569}, si = {16787}, maps = {
       [1445] = {{56.66,87.72,nil,nil,6,nil,1,10321}},
     },
     turnins = {
@@ -28000,7 +28000,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{56.66,87.72,nil,nil,7,nil,1,10321}},
     },
     },
-    [6601] = { t = "Ascension...", z = 15, rl = 60, ql = 60, rr = 690, ps = {6585}, nc = 6602, maps = {
+    [6601] = { t = "Ascension...", z = 15, rl = 60, ql = 60, rr = 690, ps = {6585}, nc = 6602, si = {16888}, maps = {
       [1443] = {{25.60,70.00,nil,nil,6,nil,1,10182}},
     },
     turnins = {
@@ -28145,7 +28145,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{60.08,36.43,nil,nil,7,nil,1,5159}},
     },
     },
-    [6621] = { t = "King of the Foulweald", z = 331, rl = 21, ql = 26, rr = 690, ps = {216}, maps = {
+    [6621] = { t = "King of the Foulweald", z = 331, rl = 21, ql = 26, rr = 690, ps = {216}, si = {16972}, maps = {
       [1440] = {{56.43,63.50,nil,nil,2,"Murgut's Totem",3,16976,{12918},{12918,100},1}, {56.50,63.50,nil,nil,4,"Murgut's Totem",3,16976,nil,nil,1}},
     },
     turnins = {
@@ -28155,7 +28155,7 @@ VanillaEnhancedQuestsDB = {
       [1440] = {{11.90,34.54,nil,nil,7,nil,1,12757}},
     },
     },
-    [6622] = { t = "Triage", z = -324, rl = 35, ql = 45, rr = 690, sk = {129,225}, sf = 2, bc = {6623}, maps = {
+    [6622] = { t = "Triage", z = -324, rl = 35, ql = 45, rr = 690, sk = {129,225}, sf = 2, bc = {6623}, si = {16991}, maps = {
       [1445] = {{67.79,49.06,nil,nil,3,"15 Patients Saved!"}},
     },
     turnins = {
@@ -28175,7 +28175,7 @@ VanillaEnhancedQuestsDB = {
       [1454] = {{34.18,84.58,nil,nil,7,nil,1,3373}},
     },
     },
-    [6624] = { t = "Triage", z = -324, rl = 35, ql = 45, rr = 1101, sk = {129,225}, sf = 2, bc = {6625}, maps = {
+    [6624] = { t = "Triage", z = -324, rl = 35, ql = 45, rr = 1101, sk = {129,225}, sf = 2, bc = {6625}, si = {16991}, maps = {
       [1445] = {{67.79,49.06,nil,nil,3,"15 Patients Saved!"}},
     },
     turnins = {
@@ -28258,7 +28258,7 @@ VanillaEnhancedQuestsDB = {
       [1428] = {{81.30,44.76,5.40,18,2,"Blood of the Mountain",3,11382,{7035,8977},nil,1,{78.17,40.37,81.46,41.77,81.88,42.05,85.00,45.34,84.67,46.99,82.42,48.21,80.36,48.28,79.66,47.43}}, {82.70,37.02,3.95,4,2,"Blood of the Mountain",3,11382,{7035},nil,1,{79.11,35.38,85.80,36.33,81.47,39.42}}, {65.05,38.91,5.91,11,2,"Blood of the Mountain",3,11382,{7039},nil,1,{60.79,43.01,62.77,34.99,66.68,36.27,68.34,37.71,68.64,38.89,66.78,40.37,64.48,41.74}}, {57.81,35.42,6.01,12,2,"Blood of the Mountain",3,11382,{7039,7048},nil,1,{52.51,38.26,57.59,31.63,61.13,31.24,61.06,35.44,59.40,37.85,55.70,40.50}}, {60.93,61.56,5.95,4,2,"Blood of the Mountain",3,11382,{7048},nil,1,{55.73,64.44,63.78,57.27,64.36,60.61,59.86,63.91}}, {52.67,26.04,nil,nil,2,"Blood of the Mountain",3,11382,{7048},nil,1}, {40.92,48.81,nil,nil,2,"Blood of the Mountain",3,11382,{7048},nil,1}, {38.74,46.15,nil,nil,2,"Blood of the Mountain",3,11382,{7048},nil,1}, {74.66,27.60,3.73,3,2,"Blood of the Mountain",3,11382,{7048},nil,1,{72.40,28.17,73.18,27.12,78.39,27.50}}, {34.62,55.43,nil,nil,2,"Blood of the Mountain",3,11382,{7048},nil,1}, {37.81,62.51,nil,nil,2,"Blood of the Mountain",3,11382,{7048},nil,1}, {70.94,62.13,nil,nil,2,"Blood of the Mountain",3,11382,{7048},nil,1}, {87.11,22.85,1.90,3,4,"Blood of the Mountain",3,11382,nil,nil,1,{86.73,21.76,87.20,22.07,87.41,24.73}}, {16.93,52.62,5.47,5,4,"Blood of the Mountain",3,11382,nil,nil,1,{15.58,50.39,17.22,50.91,18.65,53.06,16.91,58.09}}, {80.27,41.61,8.21,41,4,"Blood of the Mountain",3,11382,nil,nil,1,{76.01,44.96,76.59,37.84,83.35,34.00,83.93,34.67,83.55,46.04}}, {93.44,51.81,1.44,3,4,"Blood of the Mountain",3,11382,nil,nil,1,{93.28,52.85,93.38,52.19,93.66,50.39}}, {13.52,30.75,1.97,4,4,"Blood of the Mountain",3,11382,nil,nil,1,{12.10,32.11,12.20,30.16,14.97,29.98,14.83,30.77}}, {84.98,70.59,2.35,3,4,"Blood of the Mountain",3,11382,nil,nil,1,{83.24,70.53,87.02,69.42,84.68,71.81}}, {70.78,23.33,7.11,12,4,"Blood of the Mountain",3,11382,nil,nil,1,{65.76,22.07,65.80,21.71,65.93,21.42,77.88,22.83,77.20,24.27,72.42,27.34,65.76,22.68}}, {80.63,49.00,4.56,15,4,"Blood of the Mountain",3,11382,nil,nil,1,{76.35,47.42,79.67,45.65,83.28,46.25,84.81,48.84,81.60,53.21,78.67,51.88}}, {69.62,39.06,5.89,9,4,"Blood of the Mountain",3,11382,nil,nil,1,{64.19,36.77,69.28,35.64,71.74,38.66,72.01,40.20,67.74,44.40}}, {38.10,64.09,7.72,15,4,"Blood of the Mountain",3,11382,nil,nil,1,{34.59,67.81,36.27,56.59,42.76,60.14,42.69,63.30,35.28,69.61}}, {65.78,30.72,6.22,12,4,"Blood of the Mountain",3,11382,nil,nil,1,{61.80,31.18,62.52,27.09,64.13,24.73,71.36,29.85,71.81,30.26,71.43,30.67,63.68,35.69}}, {72.72,59.90,5.79,13,4,"Blood of the Mountain",3,11382,nil,nil,1,{68.94,62.79,70.00,56.29,76.38,55.42,76.28,63.21,74.06,64.38,71.98,64.12,69.57,63.29}}, {61.82,57.59,6.52,11,4,"Blood of the Mountain",3,11382,nil,nil,1,{56.67,59.30,62.15,54.80,66.99,53.62,64.96,57.87,62.10,62.09}}, {46.27,39.58,6.17,17,4,"Blood of the Mountain",3,11382,nil,nil,1,{42.53,37.40,44.53,33.80,47.26,33.49,50.33,42.86,49.02,43.66,48.08,43.79,47.36,43.84,45.59,43.89,42.72,38.10}}, {25.28,67.35,7.03,16,4,"Blood of the Mountain",3,11382,nil,nil,1,{21.76,69.86,22.02,63.02,22.48,62.48,27.97,64.48,28.31,64.74,31.34,70.92,22.99,73.19}}, {49.17,61.43,5.88,8,4,"Blood of the Mountain",3,11382,nil,nil,1,{43.57,59.62,47.23,59.46,54.33,60.18,48.73,63.92}}, {50.51,52.99,5.13,6,4,"Blood of the Mountain",3,11382,nil,nil,1,{45.40,53.45,47.53,50.80,53.23,53.67}}, {22.10,43.58,4.59,5,4,"Blood of the Mountain",3,11382,nil,nil,1,{20.76,42.67,20.80,42.30,22.00,42.40,26.13,45.78,20.80,44.76}}, {95.47,31.63,0.26,3,4,"Blood of the Mountain",3,11382,nil,nil,1,{95.36,31.39,95.58,31.75,95.47,31.75}}, {60.81,43.34,4.84,13,4,"Blood of the Mountain",3,11382,nil,nil,1,{55.97,43.38,60.95,38.57,65.25,44.55,60.98,45.89,58.83,45.34}}, {90.75,60.39,4.88,3,4,"Blood of the Mountain",3,11382,nil,nil,1,{85.93,61.16,94.82,58.69,91.50,61.31}}, {55.90,34.35,4.40,6,4,"Blood of the Mountain",3,11382,nil,nil,1,{54.74,33.39,55.15,30.01,57.64,37.59,57.49,37.92}}, {39.58,42.41,4.13,9,4,"Blood of the Mountain",3,11382,nil,nil,1,{37.50,42.45,37.67,41.17,39.10,38.31,42.31,43.12,41.80,44.76,40.26,45.17}}, {31.90,56.37,5.86,4,4,"Blood of the Mountain",3,11382,nil,nil,1,{26.30,54.65,34.64,53.99,36.34,58.18,30.33,58.64}}, {54.26,68.73,nil,nil,4,"Blood of the Mountain",3,11382,nil,nil,1}, {39.35,29.28,1.13,4,4,"Blood of the Mountain",3,11382,nil,nil,1,{38.59,30.11,39.14,28.37,39.85,28.52,39.82,30.11}}, {58.49,25.19,nil,nil,4,"Blood of the Mountain",3,11382,nil,nil,1}, {62.76,24.47,nil,nil,4,"Blood of the Mountain",3,11382,nil,nil,1}, {79.17,25.27,nil,nil,4,"Blood of the Mountain",3,11382,nil,nil,1}, {92.53,43.76,nil,nil,4,"Blood of the Mountain",3,11382,nil,nil,1}},
     },
     },
-    [6681] = { t = "The Manor, Ravenholdt", z = -162, rl = 24, ql = 24, rc = 8, maps = {
+    [6681] = { t = "The Manor, Ravenholdt", z = -162, rl = 24, ql = 24, rc = 8, si = {17125}, maps = {
       [1416] = {{81.27,74.62,nil,nil,1,"Rite of Cunning",1,13936,nil,nil,1}},
     },
     turnins = {
@@ -28359,7 +28359,7 @@ VanillaEnhancedQuestsDB = {
       [1459] = {{50.12,85.13,nil,nil,7,nil,1,13236}},
     },
     },
-    [6804] = { t = "Poisoned Water", z = 16, rl = 55, ql = 56, maps = {
+    [6804] = { t = "Poisoned Water", z = 16, rl = 55, ql = 56, si = {17310}, maps = {
       [1423] = {{62.06,80.35,4.18,20,2,"Discordant Bracers",3,17309,{8519,8520},{8519,23.454,8520,22.858},1,{58.78,79.80,60.11,76.75,65.35,79.63,66.10,81.43,65.17,82.09,62.85,83.17,60.90,83.43}}, {71.53,34.38,2.15,4,2,"Discordant Bracers",3,17309,{8521,8522},{8521,47.944,8522,47.211},1,{70.60,32.44,72.77,35.19,71.18,35.75}}, {51.02,50.03,2.80,9,2,"Discordant Bracers",3,17309,{8521,8522},{8521,47.944,8522,47.211},1,{49.97,51.00,50.66,47.26,51.76,48.07,52.01,50.70,50.82,51.91}}},
     },
     turnins = {
@@ -28455,7 +28455,7 @@ VanillaEnhancedQuestsDB = {
       [1459] = {{44.90,14.60,nil,nil,7,nil,1,13181}, {49.84,85.91,nil,nil,7,nil,1,13181}},
     },
     },
-    [6844] = { t = "Umber, Archivist", z = 1377, rl = 54, ql = 57, ps = {1126}, nc = 6845, maps = {
+    [6844] = { t = "Umber, Archivist", z = 1377, rl = 54, ql = 57, ps = {1126}, nc = 6845, si = {17346}, maps = {
       [1450] = {{44.88,35.60,nil,nil,6,nil,1,11939}, {47.80,39.60,nil,nil,6,nil,1,11939}},
     },
     turnins = {
@@ -28505,7 +28505,7 @@ VanillaEnhancedQuestsDB = {
       [1440] = {{11.56,34.29,nil,nil,7,nil,1,12736}},
     },
     },
-    [6922] = { t = "Baron Aquanis", z = 719, rl = 21, ql = 30, rr = 690, dq = 1, dm = 221, maps = {
+    [6922] = { t = "Baron Aquanis", z = 719, rl = 21, ql = 30, rr = 690, dq = 1, dm = 221, si = {16782}, maps = {
       [1440] = {{11.56,34.29,nil,nil,6,nil,1,12736}},
     },
     turnins = {
@@ -28548,7 +28548,7 @@ VanillaEnhancedQuestsDB = {
       [1459] = {{42.80,18.00,nil,nil,7,nil,1,13437}, {48.28,84.35,nil,nil,7,nil,1,13437}},
     },
     },
-    [6981] = { t = "The Glowing Shard", z = 718, rl = 15, ql = 26, sf = 2, dq = 1, dm = 279, maps = {
+    [6981] = { t = "The Glowing Shard", z = 718, rl = 15, ql = 26, sf = 2, dq = 1, dm = 279, si = {10441}, maps = {
       [1413] = {{62.98,37.22,nil,nil,1,"Sputtervalve",1,3442,nil,nil,1}},
     },
     turnins = {
@@ -28575,7 +28575,7 @@ VanillaEnhancedQuestsDB = {
       [1459] = {{46.62,84.22,nil,nil,7,nil,1,12097}},
     },
     },
-    [7001] = { t = "Empty Stables", z = 2597, rl = 51, ql = -1, rr = 690, sf = 3, dq = 1, dm = 1459, maps = {
+    [7001] = { t = "Empty Stables", z = 2597, rl = 51, ql = -1, rr = 690, sf = 3, dq = 1, dm = 1459, si = {17626}, maps = {
       [1459] = {{49.22,81.56,nil,nil,1,"Frostwolf Bloodhound",1,14282,nil,nil,1}, {49.15,81.67,nil,nil,1,"Frostwolf Bloodhound",1,14282,nil,nil,1}, {50.21,64.64,nil,nil,1,"Frostwolf Bloodhound",1,14282,nil,nil,1}, {50.12,64.69,nil,nil,1,"Frostwolf Bloodhound",1,14282,nil,nil,1}, {58.63,91.24,nil,nil,1,"Frostwolf Bloodhound",1,14282,nil,nil,1}, {58.59,91.31,nil,nil,1,"Frostwolf Bloodhound",1,14282,nil,nil,1}},
     },
     turnins = {
@@ -28595,7 +28595,7 @@ VanillaEnhancedQuestsDB = {
       [1459] = {{57.04,82.63,nil,nil,7,nil,1,13441}},
     },
     },
-    [7003] = { t = "Zapped Giants", z = 357, rl = 45, ql = 48, maps = {
+    [7003] = { t = "Zapped Giants", z = 357, rl = 45, ql = 48, si = {18904}, maps = {
       [1444] = {{39.37,22.84,4.76,51,2,"Miniaturization Residue",3,18956,{5357,5358,14604,14640},{5357,100,5358,100,14604,100,14640,100},1,{37.76,21.92,38.07,18.26,41.05,22.62,41.15,24.82,40.93,25.55,38.52,24.39,37.99,23.60}}, {37.10,35.40,4.46,14,2,"Miniaturization Residue",3,18956,{5359,5360,5361,14603,14638,14639},{5359,100,5360,100,5361,100,14603,100,14638,100,14639,100},1,{34.54,33.98,36.14,33.44,37.71,34.47,38.25,34.95,40.15,38.65,36.42,36.53}}, {43.91,49.75,3.41,12,2,"Miniaturization Residue",3,18956,{5359,5360,5361,14603,14638,14639},{5359,100,5360,100,5361,100,14603,100,14638,100,14639,100},1,{42.52,46.88,44.34,46.61,45.23,52.90,43.13,52.95}}, {45.94,61.18,5.34,14,2,"Miniaturization Residue",3,18956,{5359,5360,5361,14603,14638,14639},{5359,100,5360,100,5361,100,14603,100,14638,100,14639,100},1,{44.99,66.44,45.10,61.95,45.90,57.90,46.78,57.88,46.83,62.22}}},
     },
     turnins = {
@@ -28615,7 +28615,7 @@ VanillaEnhancedQuestsDB = {
       [1459] = {{42.10,17.18,nil,nil,7,nil,1,13577}},
     },
     },
-    [7027] = { t = "Empty Stables", z = 2597, rl = 51, ql = -1, rr = 1101, sf = 3, dq = 1, dm = 1459, maps = {
+    [7027] = { t = "Empty Stables", z = 2597, rl = 51, ql = -1, rr = 1101, sf = 3, dq = 1, dm = 1459, si = {17689}, maps = {
       [1459] = {{46.52,40.52,nil,nil,1,"Alterac Ram",1,10990,nil,nil,1}, {46.60,40.38,nil,nil,1,"Alterac Ram",1,10990,nil,nil,1}, {49.02,28.20,nil,nil,1,"Alterac Ram",1,10990,nil,nil,1}, {49.29,23.97,nil,nil,1,"Alterac Ram",1,10990,nil,nil,1}, {50.25,24.67,nil,nil,1,"Alterac Ram",1,10990,nil,nil,1}, {51.16,32.47,2.48,3,1,"Alterac Ram",1,10990,nil,nil,1,{49.73,34.50,52.10,30.36,51.64,32.56}}, {52.79,21.26,nil,nil,1,"Alterac Ram",1,10990,nil,nil,1}, {53.31,20.14,nil,nil,1,"Alterac Ram",1,10990,nil,nil,1}},
     },
     turnins = {
@@ -28635,7 +28635,7 @@ VanillaEnhancedQuestsDB = {
       [1443] = {{62.20,39.63,nil,nil,7,nil,1,13656}},
     },
     },
-    [7029] = { t = "Vyletongue Corruption", z = 2100, rl = 41, ql = 47, rr = 690, dq = 1, dm = 280, maps = {
+    [7029] = { t = "Vyletongue Corruption", z = 2100, rl = 41, ql = 47, rr = 690, dq = 1, dm = 280, si = {17693}, maps = {
       [1443] = {{33.22,65.67,nil,nil,4,"Filled Cerulean Vial",3,17696,nil,nil,2}},
     },
     turnins = {
@@ -28645,7 +28645,7 @@ VanillaEnhancedQuestsDB = {
       [1443] = {{23.22,70.33,nil,nil,7,nil,1,11823}},
     },
     },
-    [7041] = { t = "Vyletongue Corruption", z = 2100, rl = 41, ql = 47, rr = 1101, dq = 1, dm = 280, maps = {
+    [7041] = { t = "Vyletongue Corruption", z = 2100, rl = 41, ql = 47, rr = 1101, dq = 1, dm = 280, si = {17693}, maps = {
       [1443] = {{33.22,65.67,nil,nil,4,"Filled Cerulean Vial",3,17696,nil,nil,2}},
     },
     turnins = {
@@ -28681,14 +28681,14 @@ VanillaEnhancedQuestsDB = {
       [1443] = {{63.83,10.67,nil,nil,7,nil,1,13698}},
     },
     },
-    [7066] = { t = "Seed of Life", z = 2100, rl = 39, ql = 51, dq = 1, dm = 280, maps = {
+    [7066] = { t = "Seed of Life", z = 2100, rl = 39, ql = 51, dq = 1, dm = 280, si = {17760}, maps = {
       [1450] = {{36.18,41.79,nil,nil,6,nil,1,11832}},
     },
     turnins = {
       [1450] = {{36.18,41.79,nil,nil,6,nil,1,11832}},
     },
     },
-    [7067] = { t = "The Pariah's Instructions", z = 2100, rl = 39, ql = 48, dq = 1, dm = 280, maps = {
+    [7067] = { t = "The Pariah's Instructions", z = 2100, rl = 39, ql = 48, dq = 1, dm = 280, si = {17781,17757,17761,17762,17763,17764,17765}, maps = {
       [1443] = {{28.09,63.03,1.17,4,2,"Amulet of Spirits",3,17757,{13718},{13718,100},nil,{27.24,63.14,28.15,62.39,28.75,62.40,28.20,64.19}}, {29.66,60.48,nil,nil,2,"Gem of the First Khan",3,17761,{12240},{12240,100}}, {29.43,56.93,nil,nil,2,"Gem of the Second Khan",3,17762,{12239},{12239,100}}, {35.79,60.43,nil,nil,2,"Gem of the Third Khan",3,17763,{12241},{12241,100}}},
     },
     turnins = {
@@ -29081,7 +29081,7 @@ VanillaEnhancedQuestsDB = {
       [1416] = {{39.46,81.23,nil,nil,6,nil,1,13841}},
     },
     },
-    [7383] = { t = "Crown of the Earth", z = 141, rl = 1, ql = 11, rr = 1101, ps = {933}, nc = 935, maps = {
+    [7383] = { t = "Crown of the Earth", z = 141, rl = 1, ql = 11, rr = 1101, ps = {933}, nc = 935, si = {18152}, maps = {
       [1438] = {{38.44,34.06,nil,nil,4,"Filled Amethyst Phial",3,18151,nil,nil,1}},
     },
     turnins = {
@@ -29213,7 +29213,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{76.18,43.83,nil,nil,7,nil,1,7776}},
     },
     },
-    [7490] = { t = "Victory for the Horde", z = 1637, rl = 60, ql = 60, rr = 690, ps = {6602}, nc = 7491, maps = {
+    [7490] = { t = "Victory for the Horde", z = 1637, rl = 60, ql = 60, rr = 690, ps = {6602}, nc = 7491, si = {18422}, maps = {
       [1454] = {{31.73,37.82,nil,nil,6,nil,1,4949}},
     },
     turnins = {
@@ -29264,7 +29264,7 @@ VanillaEnhancedQuestsDB = {
       [1457] = {{47.81,81.97,nil,nil,7,nil,1,10878}},
     },
     },
-    [7495] = { t = "Victory for the Alliance", z = 1519, rl = 60, ql = 60, rr = 1101, ps = {6502}, nc = 7496, maps = {
+    [7495] = { t = "Victory for the Alliance", z = 1519, rl = 60, ql = 60, rr = 1101, ps = {6502}, nc = 7496, si = {18423}, maps = {
       [1453] = {{78.22,17.98,nil,nil,6,nil,1,1748}},
     },
     turnins = {
@@ -29326,7 +29326,7 @@ VanillaEnhancedQuestsDB = {
       [1428] = {{12.69,31.64,nil,nil,7,nil,1,14436}},
     },
     },
-    [7564] = { t = "Wildeyes", z = -61, rl = 60, ql = -1, rr = 595, rc = 256, ps = {7563}, maps = {
+    [7564] = { t = "Wildeyes", z = -61, rl = 60, ql = -1, rr = 595, rc = 256, ps = {7563}, si = {18591}, maps = {
       [1428] = {{12.44,31.63,nil,nil,6,nil,1,14437}},
     },
     turnins = {
@@ -29356,7 +29356,7 @@ VanillaEnhancedQuestsDB = {
       [1419] = {{34.13,50.14,nil,nil,7,nil,1,14463}},
     },
     },
-    [7583] = { t = "Suppression", z = -61, rl = 60, ql = -1, rc = 256, pg = {7581,7582}, maps = {
+    [7583] = { t = "Suppression", z = -61, rl = 60, ql = -1, rc = 256, pg = {7581,7582}, si = {18601}, maps = {
       [1419] = {{37.53,65.30,3.90,5,4,"Imprisoned Doomguard",3,18605,nil,nil,1,{34.55,63.73,40.09,63.33,40.13,66.54,37.95,69.18}}, {43.34,75.43,4.69,8,4,"Imprisoned Doomguard",3,18605,nil,nil,1,{39.96,78.68,42.87,74.12,44.77,72.97,45.08,73.43,44.27,75.29,43.12,77.19,41.75,78.48}}, {59.44,55.40,nil,nil,4,"Imprisoned Doomguard",3,18605,nil,nil,1}, {56.97,55.22,nil,nil,4,"Imprisoned Doomguard",3,18605,nil,nil,1}},
     },
     turnins = {
@@ -29388,7 +29388,7 @@ VanillaEnhancedQuestsDB = {
       [1448] = {{41.36,45.02,nil,nil,7,nil,1,14470}},
     },
     },
-    [7603] = { t = "Kroshius' Infernal Core", z = -61, rl = 50, ql = -1, rc = 256, ps = {7602}, maps = {
+    [7603] = { t = "Kroshius' Infernal Core", z = -61, rl = 50, ql = -1, rc = 256, ps = {7602}, si = {18626}, maps = {
       [1448] = {{45.70,34.76,nil,nil,2,"Kroshius' Infernal Core",3,18625,{14467},{14467,100},1}},
     },
     turnins = {
@@ -29480,7 +29480,7 @@ VanillaEnhancedQuestsDB = {
       [1428] = {{12.69,31.64,nil,nil,7,nil,1,14436}},
     },
     },
-    [7629] = { t = "Imp Delivery", z = -61, rl = 60, ql = -1, rr = 595, rc = 256, ps = {7625}, maps = {
+    [7629] = { t = "Imp Delivery", z = -61, rl = 60, ql = -1, rr = 595, rc = 256, ps = {7625}, si = {18688}, maps = {
       [1428] = {{12.44,31.63,nil,nil,6,nil,1,14437}},
     },
     turnins = {
@@ -29500,13 +29500,13 @@ VanillaEnhancedQuestsDB = {
       [1428] = {{12.44,31.63,nil,nil,7,nil,1,14437}},
     },
     },
-    [7631] = { t = "Dreadsteed of Xoroth", z = -61, rl = 60, ql = -1, rr = 595, rc = 256, pg = {7629,7630}, maps = {
+    [7631] = { t = "Dreadsteed of Xoroth", z = -61, rl = 60, ql = -1, rr = 595, rc = 256, pg = {7629,7630}, si = {18818,18663,18629,18670}, maps = {
     },
     starts = {
       [1428] = {{12.69,31.64,nil,nil,7,nil,1,14436}},
     },
     },
-    [7632] = { t = "The Ancient Leaf", z = -261, rl = 60, ql = 60, rc = 4, maps = {
+    [7632] = { t = "The Ancient Leaf", z = -261, rl = 60, ql = 60, rc = 4, si = {18703}, maps = {
       [1448] = {{47.78,24.08,nil,nil,6,nil,1,14524}},
     },
     turnins = {
@@ -29544,7 +29544,7 @@ VanillaEnhancedQuestsDB = {
       [1448] = {{48.39,22.29,nil,nil,7,nil,1,14525}},
     },
     },
-    [7636] = { t = "Stave of the Ancients", z = -261, rl = 60, ql = 60, rc = 4, ps = {7632}, maps = {
+    [7636] = { t = "Stave of the Ancients", z = -261, rl = 60, ql = 60, rc = 4, ps = {7632}, si = {18708}, maps = {
       [1428] = {{24.82,65.93,nil,nil,2,"Klinfran's Head",3,18953,{14529},{14529,88.797},2}},
       [1449] = {{34.32,40.79,nil,nil,2,"Simone's Head",3,18952,{14527},{14527,89.744},1}},
       [1451] = {{24.72,76.02,nil,nil,2,"Solenor's Head",3,18954,{14536},{14536,84.661},3}},
@@ -29577,7 +29577,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{39.81,29.79,nil,nil,7,nil,1,6171}},
     },
     },
-    [7639] = { t = "To Show Due Judgment", z = -141, rl = 60, ql = -1, rr = 1029, rc = 2, ps = {7637}, nc = 7640, maps = {
+    [7639] = { t = "To Show Due Judgment", z = -141, rl = 60, ql = -1, rr = 1029, rc = 2, ps = {7637}, nc = 7640, si = {18819}, maps = {
       [1453] = {{37.16,33.32,nil,nil,6,nil,1,928}},
     },
     turnins = {
@@ -29587,7 +29587,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{24.73,8.16,nil,nil,7,nil,1,11406}},
     },
     },
-    [7640] = { t = "Exorcising Terrordale", z = -141, rl = 60, ql = -1, rr = 1029, rc = 2, ps = {7639}, maps = {
+    [7640] = { t = "Exorcising Terrordale", z = -141, rl = 60, ql = -1, rr = 1029, rc = 2, ps = {7639}, si = {18752}, maps = {
       [1423] = {{13.20,21.86,nil,nil,1,"Terrordale Spirit",1,14564,nil,nil,1}, {14.45,27.57,4.62,31,1,"Terrordale Spirit",1,14564,nil,nil,1,{10.84,27.36,11.48,26.20,14.18,23.53,19.03,27.43,16.42,31.75,11.99,29.29,11.32,28.17}}, {18.40,31.19,1.54,3,1,"Terrordale Spirit",1,14564,nil,nil,1,{18.04,32.68,18.32,29.66,18.85,31.22}}},
     },
     turnins = {
@@ -29626,13 +29626,13 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{51.76,12.08,nil,nil,7,nil,1,1416}},
     },
     },
-    [7643] = { t = "Ancient Equine Spirit", z = -141, rl = 60, ql = -1, rr = 1029, rc = 2, ps = {7642}, nc = 7644, maps = {
+    [7643] = { t = "Ancient Equine Spirit", z = -141, rl = 60, ql = -1, rr = 1029, rc = 2, ps = {7642}, nc = 7644, si = {18753}, maps = {
     },
     starts = {
       [1453] = {{37.16,33.32,nil,nil,7,nil,1,928}},
     },
     },
-    [7644] = { t = "Blessed Arcanite Barding", z = -141, rl = 60, ql = -1, rr = 1029, rc = 2, ps = {7643}, nc = 7646, maps = {
+    [7644] = { t = "Blessed Arcanite Barding", z = -141, rl = 60, ql = -1, rr = 1029, rc = 2, ps = {7643}, nc = 7646, si = {18792}, maps = {
       [1453] = {{37.16,33.32,nil,nil,6,nil,1,928}},
     },
     turnins = {
@@ -29677,13 +29677,13 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{37.16,33.32,nil,nil,7,nil,1,928}},
     },
     },
-    [7647] = { t = "Judgment and Redemption", z = -141, rl = 60, ql = -1, rr = 1029, rc = 2, ps = {7646}, maps = {
+    [7647] = { t = "Judgment and Redemption", z = -141, rl = 60, ql = -1, rr = 1029, rc = 2, ps = {7646}, si = {18804,18749}, maps = {
     },
     starts = {
       [1453] = {{37.16,33.32,nil,nil,7,nil,1,928}},
     },
     },
-    [7648] = { t = "Grimand's Finest Work", z = -141, rl = 60, ql = -1, rr = 1101, rc = 2, ps = {7642}, maps = {
+    [7648] = { t = "Grimand's Finest Work", z = -141, rl = 60, ql = -1, rr = 1101, rc = 2, ps = {7642}, si = {18753}, maps = {
       [1453] = {{37.16,33.32,nil,nil,6,nil,1,928}},
     },
     turnins = {
@@ -29882,7 +29882,7 @@ VanillaEnhancedQuestsDB = {
       [1427] = {{38.58,27.81,nil,nil,7,nil,1,14627}},
     },
     },
-    [7725] = { t = "Again With the Zapped Giants", z = 357, rl = 45, ql = 55, ps = {7003}, sf = 1, maps = {
+    [7725] = { t = "Again With the Zapped Giants", z = 357, rl = 45, ql = 55, ps = {7003}, sf = 1, si = {18904}, maps = {
       [1444] = {{39.37,22.84,4.76,51,2,"Miniaturization Residue",3,18956,{5357,5358,14604,14640},{5357,100,5358,100,14604,100,14640,100},1,{37.76,21.92,38.07,18.26,41.05,22.62,41.15,24.82,40.93,25.55,38.52,24.39,37.99,23.60}}, {37.10,35.40,4.46,14,2,"Miniaturization Residue",3,18956,{5359,5360,5361,14603,14638,14639},{5359,100,5360,100,5361,100,14603,100,14638,100,14639,100},1,{34.54,33.98,36.14,33.44,37.71,34.47,38.25,34.95,40.15,38.65,36.42,36.53}}, {43.91,49.75,3.41,12,2,"Miniaturization Residue",3,18956,{5359,5360,5361,14603,14638,14639},{5359,100,5360,100,5361,100,14603,100,14638,100,14639,100},1,{42.52,46.88,44.34,46.61,45.23,52.90,43.13,52.95}}, {45.94,61.18,5.34,14,2,"Miniaturization Residue",3,18956,{5359,5360,5361,14603,14638,14639},{5359,100,5360,100,5361,100,14603,100,14638,100,14639,100},1,{44.99,66.44,45.10,61.95,45.90,57.90,46.78,57.88,46.83,62.22}}},
     },
     turnins = {
@@ -29952,7 +29952,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{74.91,42.46,nil,nil,7,nil,1,7875}},
     },
     },
-    [7732] = { t = "Zukk'ash Report", z = 357, rl = 39, ql = 48, rr = 690, pg = {7730,7731}, maps = {
+    [7732] = { t = "Zukk'ash Report", z = 357, rl = 39, ql = 48, rr = 690, pg = {7730,7731}, si = {19020}, maps = {
       [1454] = {{56.26,46.68,nil,nil,6,nil,1,7010}},
     },
     turnins = {
@@ -29982,7 +29982,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{74.43,42.91,nil,nil,7,nil,1,7854}},
     },
     },
-    [7735] = { t = "Pristine Yeti Hide", z = 357, rl = 40, ql = 48, rr = 1101, ps = {2821}, sf = 1, maps = {
+    [7735] = { t = "Pristine Yeti Hide", z = 357, rl = 40, ql = 48, rr = 1101, ps = {2821}, sf = 1, si = {18969}, maps = {
       [1444] = {{30.63,42.71,nil,nil,6,nil,1,7852}},
     },
     turnins = {
@@ -30041,14 +30041,14 @@ VanillaEnhancedQuestsDB = {
       [1427] = {{38.80,28.51,nil,nil,7,nil,1,14624}},
     },
     },
-    [7738] = { t = "Perfect Yeti Hide", z = 357, rl = 40, ql = 48, rr = 690, ps = {2822}, sf = 1, maps = {
+    [7738] = { t = "Perfect Yeti Hide", z = 357, rl = 40, ql = 48, rr = 690, ps = {2822}, sf = 1, si = {18972}, maps = {
       [1444] = {{74.43,42.91,nil,nil,6,nil,1,7854}},
     },
     turnins = {
       [1444] = {{74.43,42.91,nil,nil,6,nil,1,7854}},
     },
     },
-    [7781] = { t = "The Lord of Blackrock", z = 1519, rl = 60, ql = 60, rr = 1101, ps = {7761}, nc = 7782, maps = {
+    [7781] = { t = "The Lord of Blackrock", z = 1519, rl = 60, ql = 60, rr = 1101, ps = {7761}, nc = 7782, si = {19003}, maps = {
       [1453] = {{78.22,17.98,nil,nil,6,nil,1,1748}},
     },
     turnins = {
@@ -30065,7 +30065,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{78.22,17.98,nil,nil,7,nil,1,1748}},
     },
     },
-    [7783] = { t = "The Lord of Blackrock", z = 1637, rl = 60, ql = 60, rr = 690, ps = {7761}, nc = 7784, maps = {
+    [7783] = { t = "The Lord of Blackrock", z = 1637, rl = 60, ql = 60, rr = 690, ps = {7761}, nc = 7784, si = {19002}, maps = {
       [1454] = {{31.73,37.82,nil,nil,6,nil,1,4949}},
     },
     turnins = {
@@ -30082,7 +30082,7 @@ VanillaEnhancedQuestsDB = {
       [1454] = {{31.73,37.82,nil,nil,7,nil,1,4949}},
     },
     },
-    [7785] = { t = "Examine the Vessel", z = -344, rl = 60, ql = 60, nc = 7786, maps = {
+    [7785] = { t = "Examine the Vessel", z = -344, rl = 60, ql = 60, nc = 7786, si = {19016}, maps = {
       [1451] = {{21.71,8.57,nil,nil,6,nil,1,14347}},
     },
     turnins = {
@@ -30099,7 +30099,7 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{21.71,8.57,nil,nil,7,nil,1,14347}},
     },
     },
-    [7787] = { t = "Rise, Thunderfury!", z = -344, rl = 60, ql = 60, ps = {7786}, maps = {
+    [7787] = { t = "Rise, Thunderfury!", z = -344, rl = 60, ql = 60, ps = {7786}, si = {19018}, maps = {
       [1451] = {{21.71,8.57,nil,nil,6,nil,1,14347}},
     },
     turnins = {
@@ -30606,7 +30606,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{74.09,48.22,nil,nil,7,nil,1,14724}},
     },
     },
-    [7810] = { t = "Arena Master", z = 33, rl = 1, ql = 55, nc = 7838, maps = {
+    [7810] = { t = "Arena Master", z = 33, rl = 1, ql = 55, nc = 7838, si = {18706}, maps = {
       [1434] = {{29.59,47.38,nil,nil,6,nil,1,14508}},
     },
     turnins = {
@@ -31280,7 +31280,7 @@ VanillaEnhancedQuestsDB = {
       [1425] = {{79.38,79.08,nil,nil,7,nil,1,14738}},
     },
     },
-    [7843] = { t = "The Final Message to the Wildhammer", z = 47, rl = 44, ql = 50, rr = 690, ps = {7842}, sf = 2, maps = {
+    [7843] = { t = "The Final Message to the Wildhammer", z = 47, rl = 44, ql = 50, rr = 690, ps = {7842}, sf = 2, si = {19036}, maps = {
       [1425] = {{14.34,48.07,nil,nil,3,"Message to the Wildhammer Delivered"}},
     },
     turnins = {
@@ -32280,7 +32280,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{66.89,24.03,nil,nil,7,nil,1,10460}},
     },
     },
-    [8183] = { t = "The Heart of Hakkar", z = 1977, rl = 58, ql = 60, dq = 1, dm = 233, maps = {
+    [8183] = { t = "The Heart of Hakkar", z = 1977, rl = 58, ql = 60, dq = 1, dm = 233, si = {19802}, maps = {
       [1434] = {{15.04,15.13,nil,nil,6,nil,1,14875}},
     },
     turnins = {
@@ -32307,7 +32307,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{15.07,16.00,nil,nil,7,nil,1,14921}},
     },
     },
-    [8201] = { t = "A Collection of Heads", z = 1977, rl = 58, ql = 60, dq = 1, dm = 233, maps = {
+    [8201] = { t = "A Collection of Heads", z = 1977, rl = 58, ql = 60, dq = 1, dm = 233, si = {19883,19881}, maps = {
       [1434] = {{15.26,15.50,nil,nil,6,nil,1,14910}},
     },
     turnins = {
@@ -32317,7 +32317,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{15.26,15.50,nil,nil,7,nil,1,14910}},
     },
     },
-    [8227] = { t = "Nat's Measuring Tape", z = 1977, rl = 58, ql = 60, dq = 1, dm = 233, maps = {
+    [8227] = { t = "Nat's Measuring Tape", z = 1977, rl = 58, ql = 60, dq = 1, dm = 233, si = {19973}, maps = {
       [1445] = {{58.76,60.17,nil,nil,6,nil,1,12919}},
     },
     turnins = {
@@ -32409,7 +32409,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{14.50,15.83,nil,nil,7,nil,1,15070}},
     },
     },
-    [8240] = { t = "A Bijou for Zanza", z = 1977, rl = 58, ql = 60, sf = 2, dq = 1, dm = 233, maps = {
+    [8240] = { t = "A Bijou for Zanza", z = 1977, rl = 58, ql = 60, sf = 2, dq = 1, dm = 233, si = {19707,19708,19709,19710,19711,19712,19713,19714,19715}, maps = {
       [1434] = {{14.50,15.83,nil,nil,6,nil,1,15070}},
     },
     turnins = {
@@ -32587,7 +32587,7 @@ VanillaEnhancedQuestsDB = {
       [1447] = {{42.40,42.62,nil,nil,7,nil,1,8405}},
     },
     },
-    [8258] = { t = "The Darkreaver Menace", z = -82, rl = 58, ql = 60, rr = 690, rc = 64, ps = {7667}, ex = {7668}, maps = {
+    [8258] = { t = "The Darkreaver Menace", z = -82, rl = 58, ql = 60, rr = 690, rc = 64, ps = {7667}, ex = {7668}, si = {18746}, maps = {
       [1454] = {{38.66,35.92,nil,nil,6,nil,1,13417}},
     },
     turnins = {
@@ -32800,7 +32800,7 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{49.67,37.46,nil,nil,7,nil,1,15183}},
     },
     },
-    [8285] = { t = "The Deserter", z = 1377, rl = 54, ql = 59, ps = {8284}, nc = 8279, maps = {
+    [8285] = { t = "The Deserter", z = 1377, rl = 54, ql = 59, ps = {8284}, nc = 8279, si = {20401}, maps = {
       [1451] = {{67.19,69.76,nil,nil,6,nil,1,15194}},
     },
     turnins = {
@@ -32820,7 +32820,7 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{49.45,36.45,nil,nil,7,nil,1,15180}},
     },
     },
-    [8287] = { t = "A Terrible Purpose", z = 1377, rl = 54, ql = 60, ps = {8279}, maps = {
+    [8287] = { t = "A Terrible Purpose", z = 1377, rl = 54, ql = 60, ps = {8279}, si = {20405}, maps = {
       [1451] = {{49.20,34.18,nil,nil,6,nil,1,15181}},
     },
     turnins = {
@@ -32840,7 +32840,7 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{49.45,36.45,nil,nil,7,nil,1,15180}},
     },
     },
-    [8301] = { t = "The Path of the Righteous", z = 1377, rl = 60, ql = 60, ps = {8288}, nc = 8303, maps = {
+    [8301] = { t = "The Path of the Righteous", z = 1377, rl = 60, ql = 60, ps = {8288}, nc = 8303, si = {20402}, maps = {
       [1451] = {{43.31,29.06,7.45,18,2,"Silithid Carapace Fragment",3,20384,{11698,11721,11722,11723,11724},{11698,65.786,11721,68.978,11722,58.961,11723,58.895,11724,65.111},1,{38.73,23.19,44.44,27.26,46.20,28.65,47.49,30.78,45.30,33.70,43.06,31.77,42.14,30.36,40.83,28.05,39.56,25.55}}, {51.66,44.68,6.80,22,2,"Silithid Carapace Fragment",3,20384,{11698,11724},{11698,65.786,11724,65.111},1,{47.22,45.86,47.72,42.79,50.21,40.97,53.41,39.73,56.34,44.25,56.09,49.85,48.48,49.92,47.30,48.44}}, {42.02,15.30,7.18,37,2,"Silithid Carapace Fragment",3,20384,{11698,11721,11722,11723,11724},{11698,65.786,11721,68.978,11722,58.961,11723,58.895,11724,65.111},1,{37.85,13.26,39.17,11.79,44.50,11.29,45.50,11.26,47.17,16.44,42.88,20.29,39.52,22.03}}, {47.93,24.80,6.75,29,2,"Silithid Carapace Fragment",3,20384,{11698,11721,11722,11723,11724},{11698,65.786,11721,68.978,11722,58.961,11723,58.895,11724,65.111},1,{41.67,22.29,48.54,18.44,50.34,23.91,51.10,26.26,50.97,27.30,49.73,31.30,45.72,26.85}}, {53.07,51.66,3.87,9,2,"Silithid Carapace Fragment",3,20384,{11724},{11724,65.111},1,{49.20,51.44,55.09,48.53,54.92,51.49,54.16,53.35,53.27,54.08}}, {26.03,50.46,5.67,31,2,"Silithid Carapace Fragment",3,20384,{11725,11726,11727,11728,11729},{11725,55.193,11726,63.467,11727,37.318,11728,55.319,11729,57.22},1,{21.12,51.50,21.71,47.25,27.48,46.59,29.56,49.21,31.25,52.28,31.22,52.46,29.56,54.90,28.46,55.32,28.05,55.39,21.48,52.26,21.43,52.17}}, {23.68,60.11,8.21,72,2,"Silithid Carapace Fragment",3,20384,{11725,11726,11727,11728,11729},{11725,55.193,11726,63.467,11727,37.318,11728,55.319,11729,57.22},1,{19.02,58.75,19.59,55.08,21.36,54.52,26.45,55.13,31.66,58.16,26.53,63.77,25.87,64.00,24.02,64.28,20.89,64.25,19.97,61.65}}, {34.33,63.44,7.59,45,2,"Silithid Carapace Fragment",3,20384,{11725,11726,11727,11728,11729},{11725,55.193,11726,63.467,11727,37.318,11728,55.319,11729,57.22},1,{30.21,68.42,30.76,62.56,31.61,56.35,37.81,61.56,38.00,61.95,38.06,62.63,33.54,68.65,33.01,68.72}}, {22.78,69.14,6.25,47,2,"Silithid Carapace Fragment",3,20384,{11725,11726,11727,11728,11729},{11725,55.193,11726,63.467,11727,37.318,11728,55.319,11729,57.22},1,{16.78,68.33,17.05,67.35,17.33,66.98,20.13,65.44,26.73,65.03,27.33,65.57,28.59,67.20,29.02,69.42,24.83,72.82,22.70,72.72}}, {61.68,96.45,5.42,19,2,"Silithid Carapace Fragment",3,20384,{11730,11731,11732,11733,11734},{11730,66.874,11731,75.749,11732,69.396,11733,69.126,11734,72.422},1,{57.30,99.65,61.23,91.39,62.60,91.51,63.08,94.18,63.81,99.40,62.59,99.91}}, {52.40,79.28,6.66,18,2,"Silithid Carapace Fragment",3,20384,{11730,11731,11732,11733,11734},{11730,66.874,11731,75.749,11732,69.396,11733,69.126,11734,72.422},1,{48.54,76.24,49.54,73.26,56.27,78.52,57.25,80.40,56.43,81.21,50.72,83.41,49.31,82.74}}, {52.31,94.82,6.48,21,2,"Silithid Carapace Fragment",3,20384,{11730,11731,11732,11733,11734},{11730,66.874,11731,75.749,11732,69.396,11733,69.126,11734,72.422},1,{49.84,88.83,52.28,89.74,54.38,94.89,54.87,96.98,53.36,99.63,51.59,99.42,50.58,93.59}}, {58.06,86.97,5.87,24,2,"Silithid Carapace Fragment",3,20384,{11730,11731,11732,11733,11734},{11730,66.874,11731,75.749,11732,69.396,11733,69.126,11734,72.422},1,{53.25,88.60,53.38,85.31,54.92,83.05,57.84,81.83,60.81,83.07,62.97,89.00,62.68,90.59,58.93,91.30}}, {62.56,76.24,5.41,27,2,"Silithid Carapace Fragment",3,20384,{11730,11731,11732,11733,11734},{11730,66.874,11731,75.749,11732,69.396,11733,69.126,11734,72.422},1,{58.25,79.04,58.56,77.35,61.05,72.37,64.88,71.35,65.95,73.73,66.19,77.49,62.00,80.34,58.85,79.95}}, {64.64,82.04,4.69,14,2,"Silithid Carapace Fragment",3,20384,{11730,11731,11732,11733,11734},{11730,66.874,11731,75.749,11732,69.396,11733,69.126,11734,72.422},1,{60.03,81.18,65.86,79.05,66.95,82.15,67.04,83.39,66.43,83.71,62.12,84.91}}, {56.26,73.18,4.82,15,2,"Silithid Carapace Fragment",3,20384,{11731,11732,11733,11734},{11731,75.749,11732,69.396,11733,69.126,11734,72.422},1,{53.06,71.94,54.79,70.96,58.98,71.35,60.79,71.52,60.25,72.53,55.08,76.30,53.14,73.88}}, {61.23,51.80,2.62,4,2,"Silithid Carapace Fragment",3,20384,{13136,13301},{13136,27.502,13301,0.414},1,{60.20,52.40,62.79,49.69,61.73,52.51,60.20,52.60}}},
     },
     turnins = {
@@ -32860,7 +32860,7 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{49.45,36.45,nil,nil,7,nil,1,15180}},
     },
     },
-    [8303] = { t = "Anachronos", z = 1377, rl = 60, ql = 60, rmin = {910,0}, ps = {8301}, nc = 8305, maps = {
+    [8303] = { t = "Anachronos", z = 1377, rl = 60, ql = 60, rmin = {910,0}, ps = {8301}, nc = 8305, si = {20415}, maps = {
       [1446] = {{64.20,51.42,nil,nil,6,nil,1,15192}},
     },
     turnins = {
@@ -32910,14 +32910,14 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{51.89,39.16,nil,nil,7,nil,1,15174}},
     },
     },
-    [8308] = { t = "Brann Bronzebeard's Lost Letter", z = 1377, rl = 58, ql = 60, maps = {
+    [8308] = { t = "Brann Bronzebeard's Lost Letter", z = 1377, rl = 58, ql = 60, si = {20461}, maps = {
       [1451] = {{41.28,88.45,nil,nil,6,nil,1,15170}},
     },
     turnins = {
       [1451] = {{41.28,88.45,nil,nil,6,nil,1,15170}},
     },
     },
-    [8309] = { t = "Glyph Chasing", z = 1377, rl = 58, ql = 60, ps = {8304}, maps = {
+    [8309] = { t = "Glyph Chasing", z = 1377, rl = 58, ql = 60, ps = {8304}, si = {20453}, maps = {
       [1414] = {{44.40,86.10,nil,nil,4,"Hive'Regal Rubbing",3,20456,nil,nil,3}},
       [1451] = {{50.87,26.76,nil,nil,4,"Hive'Ashi Rubbing",3,20455,nil,nil,1}, {37.27,62.50,nil,nil,4,"Hive'Zora Rubbing",3,20454,nil,nil,2}},
     },
@@ -32938,7 +32938,7 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{40.81,88.86,nil,nil,7,nil,1,15171}},
     },
     },
-    [8313] = { t = "Sharing the Knowledge", z = -304, rl = 54, ql = 57, sk = {185,285}, ps = {8307}, nc = 8317, maps = {
+    [8313] = { t = "Sharing the Knowledge", z = -304, rl = 54, ql = 57, sk = {185,285}, ps = {8307}, nc = 8317, si = {20467}, maps = {
       [1451] = {{51.89,39.16,nil,nil,6,nil,1,15174}},
     },
     turnins = {
@@ -32948,7 +32948,7 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{37.94,45.31,nil,nil,7,nil,2,180503}},
     },
     },
-    [8314] = { t = "Unraveling the Mystery", z = 1377, rl = 58, ql = 60, pg = {8309,8310}, nc = 8315, maps = {
+    [8314] = { t = "Unraveling the Mystery", z = 1377, rl = 58, ql = 60, pg = {8309,8310}, nc = 8315, si = {20463}, maps = {
       [1451] = {{49.67,37.46,nil,nil,6,nil,1,15183}},
     },
     turnins = {
@@ -32958,7 +32958,7 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{41.28,88.45,nil,nil,7,nil,1,15170}},
     },
     },
-    [8315] = { t = "The Calling", z = 1377, rl = 58, ql = 60, ps = {8314}, maps = {
+    [8315] = { t = "The Calling", z = 1377, rl = 58, ql = 60, ps = {8314}, si = {20464}, maps = {
       [1451] = {{48.77,58.14,nil,nil,2,"Crystal Unlocking Mechanism",3,20465,{14862},{14862,100},1}, {47.50,54.50,nil,nil,3,"Tracez les glyphes dans le sol pour invoquer un Émissaire des Qiraji"}},
     },
     turnins = {
@@ -32978,7 +32978,7 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{49.67,37.46,nil,nil,7,nil,1,15183}},
     },
     },
-    [8317] = { t = "Kitchen Assistance", z = -304, rl = 54, ql = 57, sk = {185,285}, ps = {8313}, maps = {
+    [8317] = { t = "Kitchen Assistance", z = -304, rl = 54, ql = 57, sk = {185,285}, ps = {8313}, si = {20424}, maps = {
       [1451] = {{36.51,15.89,nil,nil,2,"Sandworm Meat",3,20424,{11740},{11740,27.859}}, {34.77,18.27,nil,nil,2,"Sandworm Meat",3,20424,{11740},{11740,27.859}}, {58.16,14.19,4.67,7,2,"Sandworm Meat",3,20424,{11740},{11740,27.859},nil,{54.71,11.04,60.65,12.76,60.31,15.82,59.42,17.68,56.00,13.82}}, {70.56,36.61,6.25,6,2,"Sandworm Meat",3,20424,{11740},{11740,27.859},nil,{68.17,41.52,70.74,30.36,73.24,36.79}}, {62.20,31.25,6.57,8,2,"Sandworm Meat",3,20424,{11740},{11740,27.859},nil,{58.42,29.69,62.46,27.95,68.76,30.93,61.72,32.81,60.42,33.07,58.87,31.26}}, {33.06,28.22,6.50,10,2,"Sandworm Meat",3,20424,{11740,11741},{11740,27.859,11741,27.751},nil,{26.57,27.80,32.58,24.60,38.93,28.53,34.46,32.56,32.39,31.34}}, {53.07,17.66,5.04,9,2,"Sandworm Meat",3,20424,{11740},{11740,27.859},nil,{50.81,19.04,52.17,14.75,53.61,12.65,55.88,17.68,53.97,20.97,52.68,21.01}}, {59.83,23.41,4.91,8,2,"Sandworm Meat",3,20424,{11740},{11740,27.859},nil,{56.37,23.93,56.66,22.26,64.41,21.66,63.69,22.72,59.93,26.71,57.19,25.65}}, {39.38,36.68,6.09,11,2,"Sandworm Meat",3,20424,{11740,11741},{11740,27.859,11741,27.751},nil,{34.31,37.94,36.85,33.26,44.68,36.56,45.06,38.87,41.96,39.32,36.31,38.93}}, {64.11,42.14,6.00,7,2,"Sandworm Meat",3,20424,{11740},{11740,27.859},nil,{60.23,41.69,62.43,37.78,65.04,40.43,67.54,47.07}}, {54.22,30.82,3.02,6,2,"Sandworm Meat",3,20424,{11740},{11740,27.859},nil,{51.43,31.98,54.12,28.07,55.73,28.63,55.19,32.63,54.06,32.55}}, {20.05,47.29,nil,nil,2,"Sandworm Meat",3,20424,{11741},{11741,27.751}}, {30.58,42.97,6.26,16,2,"Sandworm Meat",3,20424,{11741},{11741,27.751},nil,{25.32,41.04,28.28,39.21,30.61,39.58,34.97,40.42,33.13,48.68,30.67,46.38,28.34,44.13}}, {37.17,62.57,5.44,9,2,"Sandworm Meat",3,20424,{11741},{11741,27.751},nil,{32.89,61.64,33.32,59.85,37.99,60.09,41.86,61.20,42.29,64.39,36.24,66.04,33.13,65.65}}, {38.14,53.92,3.84,9,2,"Sandworm Meat",3,20424,{11741},{11741,27.751},nil,{34.76,52.09,39.28,50.33,40.78,52.67,39.75,56.94,37.90,56.88,34.88,55.76}}, {46.29,53.21,6.65,7,2,"Sandworm Meat",3,20424,{11741},{11741,27.751},nil,{40.94,49.26,44.21,48.19,49.54,53.47,48.99,56.94,48.53,58.54}}, {21.02,39.57,3.06,3,2,"Sandworm Meat",3,20424,{11741},{11741,27.751},nil,{20.55,42.59,20.98,36.82,21.53,39.29}}, {63.60,63.08,nil,nil,2,"Sandworm Meat",3,20424,{11741},{11741,27.751}}, {62.95,61.99,nil,nil,2,"Sandworm Meat",3,20424,{11741},{11741,27.751}}, {52.88,60.59,5.90,13,2,"Sandworm Meat",3,20424,{11741},{11741,27.751},nil,{48.22,62.91,48.26,56.93,55.14,56.83,57.78,58.99,53.33,64.36,52.19,65.65}}},
     },
     turnins = {
@@ -33088,7 +33088,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{38.21,20.83,nil,nil,7,nil,1,15278}},
     },
     },
-    [8330] = { t = "Solanian's Belongings", z = 3431, rl = 2, ql = 4, rr = 512, bc = {10068,10069,10070,10071,10072,10073}, maps = {
+    [8330] = { t = "Solanian's Belongings", z = 3431, rl = 2, ql = 4, rr = 512, bc = {10068,10069,10070,10071,10072,10073}, si = {20474}, maps = {
       [1941] = {{35.14,28.89,nil,nil,4,"Solanian's Scrying Orb",3,20470,nil,nil,1}, {31.33,22.74,nil,nil,4,"Scroll of Scourge Magic",3,20471,nil,nil,2}, {37.70,24.91,nil,nil,4,"Solanian's Journal",3,20472,nil,nil,3}},
     },
     turnins = {
@@ -33158,7 +33158,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{38.27,19.13,nil,nil,7,nil,1,15296}},
     },
     },
-    [8338] = { t = "Tainted Arcane Sliver", z = 3431, rl = 1, ql = 4, rr = 512, maps = {
+    [8338] = { t = "Tainted Arcane Sliver", z = 3431, rl = 1, ql = 4, rr = 512, si = {20483}, maps = {
       [1941] = {{37.18,18.94,nil,nil,6,nil,1,15297}},
     },
     turnins = {
@@ -33255,7 +33255,7 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{51.96,38.16,nil,nil,7,nil,1,15282}},
     },
     },
-    [8350] = { t = "Completing the Delivery", z = 3431, rl = 4, ql = 5, rr = 690, ps = {9705}, maps = {
+    [8350] = { t = "Completing the Delivery", z = 3431, rl = 4, ql = 5, rr = 690, ps = {9705}, si = {20804}, maps = {
       [1941] = {{48.16,47.66,nil,nil,6,nil,1,15433}},
     },
     turnins = {
@@ -33569,7 +33569,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{23.13,6.14,nil,nil,7,nil,1,5149}},
     },
     },
-    [8416] = { t = "Inert Scourgestones", z = -141, rl = 50, ql = 52, rr = 1101, rc = 2, ps = {8414}, nc = 8418, maps = {
+    [8416] = { t = "Inert Scourgestones", z = -141, rl = 50, ql = 52, rr = 1101, rc = 2, ps = {8414}, nc = 8418, si = {20612}, maps = {
       [1422] = {{42.70,84.03,nil,nil,6,nil,1,10838}},
     },
     turnins = {
@@ -33687,7 +33687,7 @@ VanillaEnhancedQuestsDB = {
       [1435] = {{34.29,66.14,nil,nil,7,nil,1,7572}},
     },
     },
-    [8446] = { t = "Shrouded in Nightmare", z = -1, rl = 60, ql = 60, nc = 8447, maps = {
+    [8446] = { t = "Shrouded in Nightmare", z = -1, rl = 60, ql = 60, nc = 8447, si = {20644}, maps = {
       [1450] = {{36.18,41.79,nil,nil,6,nil,1,11832}},
     },
     turnins = {
@@ -33805,14 +33805,14 @@ VanillaEnhancedQuestsDB = {
       [1452] = {{27.73,34.50,nil,nil,7,nil,1,11556}},
     },
     },
-    [8470] = { t = "Deadwood Ritual Totem", z = 361, rl = 45, ql = 55, maps = {
+    [8470] = { t = "Deadwood Ritual Totem", z = 361, rl = 45, ql = 55, si = {20741}, maps = {
       [1448] = {{65.50,3.52,nil,nil,6,nil,1,11558}},
     },
     turnins = {
       [1448] = {{65.50,3.52,nil,nil,6,nil,1,11558}},
     },
     },
-    [8471] = { t = "Winterfall Ritual Totem", z = 618, rl = 50, ql = 56, maps = {
+    [8471] = { t = "Winterfall Ritual Totem", z = 618, rl = 50, ql = 56, si = {20742}, maps = {
       [1448] = {{65.50,3.52,nil,nil,6,nil,1,11558}},
     },
     turnins = {
@@ -33839,7 +33839,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{34.06,80.02,nil,nil,7,nil,1,15398}},
     },
     },
-    [8474] = { t = "Old Whitebark's Pendant", z = 3430, rl = 7, ql = 10, rr = 690, nc = 10166, maps = {
+    [8474] = { t = "Old Whitebark's Pendant", z = 3430, rl = 7, ql = 10, rr = 690, nc = 10166, si = {23228}, maps = {
       [1941] = {{34.06,80.02,nil,nil,6,nil,1,15398}},
     },
     turnins = {
@@ -33896,7 +33896,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{36.36,66.77,nil,nil,7,nil,1,15404}},
     },
     },
-    [8481] = { t = "The Root of All Evil", z = 1769, rl = 45, ql = 60, rmin = {576,42000}, maps = {
+    [8481] = { t = "The Root of All Evil", z = 1769, rl = 45, ql = 60, rmin = {576,42000}, si = {21144}, maps = {
       [1448] = {{65.18,2.68,nil,nil,6,nil,1,11555}},
     },
     turnins = {
@@ -33906,7 +33906,7 @@ VanillaEnhancedQuestsDB = {
       [1448] = {{65.18,2.68,nil,nil,7,nil,1,11555}},
     },
     },
-    [8482] = { t = "Incriminating Documents", z = 3430, rl = 4, ql = 6, rr = 690, nc = 8483, maps = {
+    [8482] = { t = "Incriminating Documents", z = 3430, rl = 4, ql = 6, rr = 690, nc = 8483, si = {20765}, maps = {
       [1941] = {{48.17,46.00,nil,nil,6,nil,1,15403}},
     },
     turnins = {
@@ -33923,7 +33923,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{48.17,46.00,nil,nil,7,nil,1,15403}},
     },
     },
-    [8484] = { t = "The Brokering of Peace", z = 1769, rl = 45, ql = 60, rr = 1101, rmin = {576,42000}, ps = {8481}, maps = {
+    [8484] = { t = "The Brokering of Peace", z = 1769, rl = 45, ql = 60, rr = 1101, rmin = {576,42000}, ps = {8481}, si = {21155}, maps = {
       [1455] = {{39.09,56.20,nil,nil,6,nil,1,2784}},
     },
     turnins = {
@@ -33933,7 +33933,7 @@ VanillaEnhancedQuestsDB = {
       [1448] = {{65.18,2.68,nil,nil,7,nil,1,11555}},
     },
     },
-    [8485] = { t = "The Brokering of Peace", z = 1769, rl = 45, ql = 60, rr = 690, rmin = {576,42000}, ps = {8481}, maps = {
+    [8485] = { t = "The Brokering of Peace", z = 1769, rl = 45, ql = 60, rr = 690, rmin = {576,42000}, ps = {8481}, si = {21155}, maps = {
       [1454] = {{31.73,37.82,nil,nil,6,nil,1,4949}},
     },
     turnins = {
@@ -33973,7 +33973,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{54.28,70.98,nil,nil,7,nil,1,15402}},
     },
     },
-    [8490] = { t = "Powering our Defenses", z = 3430, rl = 8, ql = 10, rr = 690, bc = {9253}, maps = {
+    [8490] = { t = "Powering our Defenses", z = 3430, rl = 8, ql = 10, rr = 690, bc = {9253}, si = {22693}, maps = {
       [1941] = {{44.19,85.47,nil,nil,6,nil,1,16362}},
     },
     turnins = {
@@ -33993,14 +33993,14 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{44.72,69.63,nil,nil,7,nil,1,15417}},
     },
     },
-    [8496] = { t = "Bandages for the Field", z = 1377, rl = 60, ql = 60, rr = 1101, sf = 1, maps = {
+    [8496] = { t = "Bandages for the Field", z = 1377, rl = 60, ql = 60, rr = 1101, sf = 1, si = {20806}, maps = {
       [1451] = {{51.15,38.29,nil,nil,6,nil,1,15191}},
     },
     turnins = {
       [1451] = {{51.15,38.29,nil,nil,6,nil,1,15191}},
     },
     },
-    [8497] = { t = "Desert Survival Kits", z = 1377, rl = 60, ql = 60, rr = 1101, sf = 1, maps = {
+    [8497] = { t = "Desert Survival Kits", z = 1377, rl = 60, ql = 60, rr = 1101, sf = 1, si = {20807}, maps = {
       [1423] = {{62.06,80.35,4.18,20,2,"Globe of Water",3,7079,{8519,8520},{8519,6.078,8520,5.856},1,{58.78,79.80,60.11,76.75,65.35,79.63,66.10,81.43,65.17,82.09,62.85,83.17,60.90,83.43}}, {71.51,34.41,2.17,5,2,"Globe of Water",3,7079,{8521,8522,13279},{8521,5.586,8522,5.477},1,{70.60,32.44,72.77,35.19,71.18,35.75}}, {51.02,49.92,2.69,10,2,"Globe of Water",3,7079,{8521,8522,13279},{8521,5.586,8522,5.477},1,{49.97,51.00,50.66,47.26,51.76,48.07,52.01,50.70,50.82,51.91}}},
       [1427] = {{15.50,37.20,5.89,9,2,"Globe of Water",3,7079,{8837},{8837,7.492},1,{13.52,35.95,14.36,34.60,15.43,35.28,16.03,36.04,17.23,38.39,17.65,42.68,13.57,37.55}}},
       [1444] = {{45.71,63.42,5.50,16,2,"Globe of Water",3,7079,{5461,5462},{5461,5.957,5462,5.787},1,{43.58,65.27,45.91,59.35,46.38,58.64,47.18,59.67,46.37,63.61,45.44,67.95,44.07,68.67}}, {36.58,34.89,3.73,13,2,"Globe of Water",3,7079,{5461,5462},{5461,5.957,5462,5.787},1,{34.23,33.29,37.54,33.08,38.51,33.60,39.73,36.89,35.62,36.61,34.41,35.62}}, {47.06,52.32,6.38,22,2,"Globe of Water",3,7079,{5461,5462},{5461,5.957,5462,5.787},1,{44.21,49.69,44.97,46.29,48.47,48.69,49.82,51.71,49.12,53.14,46.97,56.90,46.29,56.66,45.83,56.38}}, {42.75,38.69,2.42,8,2,"Globe of Water",3,7079,{5461,5462},{5461,5.957,5462,5.787},1,{40.52,37.75,44.75,38.83,44.40,39.20,43.51,39.27,41.62,38.77}}},
@@ -34012,28 +34012,28 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{51.89,39.16,nil,nil,6,nil,1,15174}},
     },
     },
-    [8498] = { t = "Twilight Battle Orders", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8498] = { t = "Twilight Battle Orders", z = 1377, rl = 60, ql = 60, sf = 1, si = {20943}, maps = {
       [1451] = {{22.82,68.66,nil,nil,2,"Twilight Battle Orders",3,20803,{15308},{15308,100},1}, {18.28,31.40,nil,nil,2,"Twilight Battle Orders",3,20803,{15308},{15308,100},1}},
     },
     turnins = {
       [1451] = {{49.20,34.18,nil,nil,6,nil,1,15181}},
     },
     },
-    [8501] = { t = "Target: Hive'Ashi Stingers", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8501] = { t = "Target: Hive'Ashi Stingers", z = 1377, rl = 60, ql = 60, sf = 1, si = {20941}, maps = {
       [1451] = {{42.14,30.36,nil,nil,1,"Hive'Ashi Stinger",1,11698,nil,nil,1}, {42.48,12.59,nil,nil,1,"Hive'Ashi Stinger",1,11698,nil,nil,1}, {43.60,17.71,nil,nil,1,"Hive'Ashi Stinger",1,11698,nil,nil,1}, {46.62,29.77,nil,nil,1,"Hive'Ashi Stinger",1,11698,nil,nil,1}, {46.93,24.35,1.77,3,1,"Hive'Ashi Stinger",1,11698,nil,nil,1,{46.44,22.98,47.88,25.84,46.46,24.23}}, {50.19,49.62,nil,nil,1,"Hive'Ashi Stinger",1,11698,nil,nil,1}, {49.47,48.45,nil,nil,1,"Hive'Ashi Stinger",1,11698,nil,nil,1}, {49.99,42.47,4.39,7,1,"Hive'Ashi Stinger",1,11698,nil,nil,1,{47.22,45.86,47.72,42.79,50.21,40.97,53.41,39.73,50.98,42.98}}, {54.12,44.94,nil,nil,1,"Hive'Ashi Stinger",1,11698,nil,nil,1}, {56.34,44.25,nil,nil,1,"Hive'Ashi Stinger",1,11698,nil,nil,1}, {56.09,49.85,nil,nil,1,"Hive'Ashi Stinger",1,11698,nil,nil,1}},
     },
     turnins = {
       [1451] = {{49.20,34.18,nil,nil,6,nil,1,15181}},
     },
     },
-    [8502] = { t = "Target: Hive'Ashi Workers", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8502] = { t = "Target: Hive'Ashi Workers", z = 1377, rl = 60, ql = 60, sf = 1, si = {20942}, maps = {
       [1451] = {{40.41,15.18,nil,nil,1,"Hive'Ashi Worker",1,11721,nil,nil,1}, {41.55,11.92,nil,nil,1,"Hive'Ashi Worker",1,11721,nil,nil,1}, {43.31,18.21,nil,nil,1,"Hive'Ashi Worker",1,11721,nil,nil,1}, {43.93,16.80,nil,nil,1,"Hive'Ashi Worker",1,11721,nil,nil,1}, {44.40,30.25,nil,nil,1,"Hive'Ashi Worker",1,11721,nil,nil,1}, {45.66,13.21,nil,nil,1,"Hive'Ashi Worker",1,11721,nil,nil,1}, {45.72,26.85,nil,nil,1,"Hive'Ashi Worker",1,11721,nil,nil,1}, {47.37,27.36,nil,nil,1,"Hive'Ashi Worker",1,11721,nil,nil,1}, {49.09,23.90,nil,nil,1,"Hive'Ashi Worker",1,11721,nil,nil,1}, {47.98,22.96,nil,nil,1,"Hive'Ashi Worker",1,11721,nil,nil,1}, {50.64,26.72,nil,nil,1,"Hive'Ashi Worker",1,11721,nil,nil,1}},
     },
     turnins = {
       [1451] = {{49.20,34.18,nil,nil,6,nil,1,15181}},
     },
     },
-    [8507] = { t = "Field Duty", z = 1377, rl = 60, ql = 60, rr = 1101, sf = 1, maps = {
+    [8507] = { t = "Field Duty", z = 1377, rl = 60, ql = 60, rr = 1101, sf = 1, si = {21143}, maps = {
       [1451] = {{49.98,36.35,nil,nil,6,nil,1,15540}},
     },
     turnins = {
@@ -34043,7 +34043,7 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{49.98,36.35,nil,nil,7,nil,1,15540}},
     },
     },
-    [8508] = { t = "Field Duty Papers", z = 1377, rl = 60, ql = 60, rr = 1101, sf = 1, pq = 8507, maps = {
+    [8508] = { t = "Field Duty Papers", z = 1377, rl = 60, ql = 60, rr = 1101, sf = 1, pq = 8507, si = {20810}, maps = {
       [1451] = {{32.80,52.60,nil,nil,6,nil,1,15440}},
     },
     turnins = {
@@ -34063,56 +34063,56 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{28.68,89.14,nil,nil,7,nil,2,180633}},
     },
     },
-    [8534] = { t = "Hive'Zora Scout Report", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8534] = { t = "Hive'Zora Scout Report", z = 1377, rl = 60, ql = 60, sf = 1, si = {21165}, maps = {
       [1451] = {{23.63,62.42,nil,nil,2,"Hive'Zora Scout Report",3,21158,{15610},nil,1}},
     },
     turnins = {
       [1451] = {{51.15,38.29,nil,nil,6,nil,1,15191}},
     },
     },
-    [8535] = { t = "Hoary Templar", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8535] = { t = "Hoary Templar", z = 1377, rl = 60, ql = 60, sf = 1, si = {20947}, maps = {
       [1451] = {{18.23,81.12,nil,nil,1,"Hoary Templar",1,15212,nil,nil,1}, {20.46,86.16,nil,nil,1,"Hoary Templar",1,15212,nil,nil,1}, {24.44,36.00,nil,nil,1,"Hoary Templar",1,15212,nil,nil,1}, {27.94,30.62,nil,nil,1,"Hoary Templar",1,15212,nil,nil,1}, {38.29,46.46,nil,nil,1,"Hoary Templar",1,15212,nil,nil,1}, {38.96,42.44,nil,nil,1,"Hoary Templar",1,15212,nil,nil,1}},
     },
     turnins = {
       [1451] = {{48.57,37.78,nil,nil,6,nil,1,15306}},
     },
     },
-    [8536] = { t = "Earthen Templar", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8536] = { t = "Earthen Templar", z = 1377, rl = 60, ql = 60, sf = 1, si = {21751}, maps = {
       [1451] = {{18.23,81.12,nil,nil,1,"Earthen Templar",1,15307,nil,nil,1}, {20.46,86.16,nil,nil,1,"Earthen Templar",1,15307,nil,nil,1}, {24.44,36.00,nil,nil,1,"Earthen Templar",1,15307,nil,nil,1}, {27.94,30.62,nil,nil,1,"Earthen Templar",1,15307,nil,nil,1}, {38.29,46.46,nil,nil,1,"Earthen Templar",1,15307,nil,nil,1}, {38.96,42.44,nil,nil,1,"Earthen Templar",1,15307,nil,nil,1}},
     },
     turnins = {
       [1451] = {{48.57,37.78,nil,nil,6,nil,1,15306}},
     },
     },
-    [8537] = { t = "Crimson Templar", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8537] = { t = "Crimson Templar", z = 1377, rl = 60, ql = 60, sf = 1, si = {20945}, maps = {
       [1451] = {{18.23,81.12,nil,nil,1,"Crimson Templar",1,15209,nil,nil,1}, {20.46,86.16,nil,nil,1,"Crimson Templar",1,15209,nil,nil,1}, {24.44,36.00,nil,nil,1,"Crimson Templar",1,15209,nil,nil,1}, {27.94,30.62,nil,nil,1,"Crimson Templar",1,15209,nil,nil,1}, {38.29,46.46,nil,nil,1,"Crimson Templar",1,15209,nil,nil,1}, {38.96,42.44,nil,nil,1,"Crimson Templar",1,15209,nil,nil,1}},
     },
     turnins = {
       [1451] = {{48.57,37.78,nil,nil,6,nil,1,15306}},
     },
     },
-    [8538] = { t = "The Four Dukes", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8538] = { t = "The Four Dukes", z = 1377, rl = 60, ql = 60, sf = 1, si = {20948}, maps = {
       [1451] = {{17.21,84.81,nil,nil,1,"The Duke of Cynders",1,15206,nil,nil,1}, {24.70,32.65,nil,nil,1,"The Duke of Cynders",1,15206,nil,nil,1}, {37.63,44.80,nil,nil,1,"The Duke of Cynders",1,15206,nil,nil,1}, {17.21,84.81,nil,nil,1,"The Duke of Fathoms",1,15207,nil,nil,2}, {24.70,32.65,nil,nil,1,"The Duke of Fathoms",1,15207,nil,nil,2}, {37.63,44.80,nil,nil,1,"The Duke of Fathoms",1,15207,nil,nil,2}, {17.21,84.81,nil,nil,1,"The Duke of Zephyrs",1,15220,nil,nil,3}, {24.70,32.65,nil,nil,1,"The Duke of Zephyrs",1,15220,nil,nil,3}, {37.63,44.80,nil,nil,1,"The Duke of Zephyrs",1,15220,nil,nil,3}, {17.21,84.81,nil,nil,1,"The Duke of Shards",1,15208,nil,nil,4}, {24.70,32.65,nil,nil,1,"The Duke of Shards",1,15208,nil,nil,4}, {37.63,44.80,nil,nil,1,"The Duke of Shards",1,15208,nil,nil,4}},
     },
     turnins = {
       [1451] = {{49.20,34.18,nil,nil,6,nil,1,15181}},
     },
     },
-    [8539] = { t = "Target: Hive'Zora Hive Sisters", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8539] = { t = "Target: Hive'Zora Hive Sisters", z = 1377, rl = 60, ql = 60, sf = 1, si = {21249}, maps = {
       [1451] = {{19.59,55.08,nil,nil,1,"Hive'Zora Hive Sister",1,11729,nil,nil,1}, {21.71,47.25,nil,nil,1,"Hive'Zora Hive Sister",1,11729,nil,nil,1}, {23.39,63.25,3.93,8,1,"Hive'Zora Hive Sister",1,11729,nil,nil,1,{20.13,65.44,20.89,64.25,24.89,60.73,25.35,61.45,24.02,64.28}}, {23.93,70.51,2.98,4,1,"Hive'Zora Hive Sister",1,11729,nil,nil,1,{23.26,69.43,23.31,67.60,24.83,72.82,24.30,72.20}}, {24.22,51.61,nil,nil,1,"Hive'Zora Hive Sister",1,11729,nil,nil,1}, {25.33,50.30,nil,nil,1,"Hive'Zora Hive Sister",1,11729,nil,nil,1}, {28.31,48.46,nil,nil,1,"Hive'Zora Hive Sister",1,11729,nil,nil,1}, {29.56,54.90,nil,nil,1,"Hive'Zora Hive Sister",1,11729,nil,nil,1}, {31.02,65.22,4.79,10,1,"Hive'Zora Hive Sister",1,11729,nil,nil,1,{26.53,63.77,33.36,62.33,35.01,62.57,33.21,65.54,30.21,68.42,28.59,67.20,27.33,65.57}}, {32.14,57.31,nil,nil,1,"Hive'Zora Hive Sister",1,11729,nil,nil,1}},
     },
     turnins = {
       [1451] = {{49.20,34.18,nil,nil,6,nil,1,15181}},
     },
     },
-    [8540] = { t = "Boots for the Guard", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8540] = { t = "Boots for the Guard", z = 1377, rl = 60, ql = 60, sf = 1, si = {20939}, maps = {
       [1451] = {{50.75,33.65,nil,nil,6,nil,1,15182}},
     },
     turnins = {
       [1451] = {{50.75,33.65,nil,nil,6,nil,1,15182}},
     },
     },
-    [8541] = { t = "Grinding Stones for the Guard", z = 1377, rl = 60, ql = 60, rr = 1101, sf = 1, maps = {
+    [8541] = { t = "Grinding Stones for the Guard", z = 1377, rl = 60, ql = 60, rr = 1101, sf = 1, si = {20940}, maps = {
       [1451] = {{50.75,33.65,nil,nil,6,nil,1,15182}},
     },
     turnins = {
@@ -34139,7 +34139,7 @@ VanillaEnhancedQuestsDB = {
       [1434] = {{26.69,73.61,nil,nil,7,nil,1,2500}},
     },
     },
-    [8552] = { t = "The Monogrammed Sash", z = 33, rl = 35, ql = 50, nc = 8553, maps = {
+    [8552] = { t = "The Monogrammed Sash", z = 33, rl = 35, ql = 50, nc = 8553, si = {3985}, maps = {
       [1434] = {{26.69,73.61,nil,nil,6,nil,1,2500}},
     },
     turnins = {
@@ -34256,7 +34256,7 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{51.23,38.86,nil,nil,7,nil,1,15176}},
     },
     },
-    [8575] = { t = "Azuregos's Magical Ledger", z = 16, rl = 60, ql = 60, rmin = {910,0}, ps = {8555}, nc = 8576, maps = {
+    [8575] = { t = "Azuregos's Magical Ledger", z = 16, rl = 60, ql = 60, rmin = {910,0}, ps = {8555}, nc = 8576, si = {20949}, maps = {
       [1446] = {{65.24,18.58,nil,nil,6,nil,1,11811}},
     },
     turnins = {
@@ -34340,7 +34340,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{52.63,28.11,nil,nil,7,nil,1,8125}},
     },
     },
-    [8587] = { t = "Return to Narain", z = 440, rl = 60, ql = 60, rmin = {910,0}, ps = {8586}, maps = {
+    [8587] = { t = "Return to Narain", z = 440, rl = 60, ql = 60, rmin = {910,0}, ps = {8586}, si = {21028}, maps = {
       [1446] = {{65.24,18.58,nil,nil,6,nil,1,11811}},
     },
     turnins = {
@@ -34360,7 +34360,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{65.24,18.58,nil,nil,7,nil,1,11811}},
     },
     },
-    [8598] = { t = "rAnS0m", z = 440, rl = 60, ql = 60, rmin = {910,0}, ps = {8597}, nc = 8606, maps = {
+    [8598] = { t = "rAnS0m", z = 440, rl = 60, ql = 60, rmin = {910,0}, ps = {8597}, nc = 8606, si = {21029}, maps = {
       [1446] = {{65.24,18.58,nil,nil,6,nil,1,11811}},
     },
     turnins = {
@@ -34370,7 +34370,7 @@ VanillaEnhancedQuestsDB = {
       [947] = {{29.99,89.15,nil,nil,7,nil,2,180652}},
     },
     },
-    [8599] = { t = "Love Song for Narain", z = 440, rl = 60, ql = 60, rmin = {910,0}, pq = 8597, maps = {
+    [8599] = { t = "Love Song for Narain", z = 440, rl = 60, ql = 60, rmin = {910,0}, pq = 8597, si = {21032}, maps = {
       [1446] = {{65.24,18.58,nil,nil,6,nil,1,11811}},
     },
     turnins = {
@@ -34380,7 +34380,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{59.43,96.05,nil,nil,7,nil,1,15526}},
     },
     },
-    [8606] = { t = "Decoy!", z = 440, rl = 60, ql = 60, rmin = {910,0}, ps = {8598}, nc = 8620, maps = {
+    [8606] = { t = "Decoy!", z = 440, rl = 60, ql = 60, rmin = {910,0}, ps = {8598}, nc = 8620, si = {21042}, maps = {
       [1452] = {{67.20,72.60,nil,nil,1,"Who Does Number Two Work For?",1,15554,nil,nil,1}},
     },
     turnins = {
@@ -34390,7 +34390,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{65.24,18.58,nil,nil,7,nil,1,11811}},
     },
     },
-    [8620] = { t = "The Only Prescription", z = 440, rl = 60, ql = 60, rmin = {910,0}, ps = {8606}, maps = {
+    [8620] = { t = "The Only Prescription", z = 440, rl = 60, ql = 60, rmin = {910,0}, ps = {8606}, si = {21112,21103,21104,21105,21106,21107,21108,21109,21110}, maps = {
       [1419] = {{40.60,72.40,6.70,23,2,"Draconic for Dummies",3,21104,{8716,8717,12396},{8716,2.032,8717,5.945,12396,3.099},nil,{34.90,70.73,38.27,66.12,42.16,66.27,45.08,73.43,44.27,75.29,43.12,77.19,41.75,78.48,39.96,78.68}}, {39.37,60.40,6.86,30,2,"Draconic for Dummies",3,21104,{8716,8717,12396},{8716,2.032,8717,5.945,12396,3.099},nil,{34.16,61.01,36.03,54.41,41.27,55.75,43.02,57.62,44.12,59.02,44.07,59.79,43.01,61.70,42.02,63.38,41.01,64.89,38.89,64.82,34.58,64.21}}, {37.35,53.74,3.15,8,2,"Draconic for Dummies",3,21104,{8717},{8717,5.945},nil,{34.25,54.28,35.83,51.49,39.22,53.30,40.10,54.49,38.93,56.03}}},
       [1445] = {{77.85,17.13,nil,nil,2,"Draconic for Dummies",3,21103,{15552},{15552,95.477}}},
       [1452] = {{56.18,84.09,7.13,23,2,"Draconic for Dummies",3,21105,{7461,7463},{7461,0.958,7463,1.043},nil,{50.92,88.18,52.25,84.72,54.92,79.54,56.24,79.01,57.69,79.78,61.41,83.61,59.21,88.05,57.67,88.70,51.88,89.78}}, {61.50,78.45,5.20,11,2,"Draconic for Dummies",3,21105,{7461,7463},{7461,0.958,7463,1.043},nil,{59.39,75.13,59.77,75.16,64.52,78.80,64.94,79.68,62.33,83.59,60.14,78.08,59.74,76.58}}},
@@ -34404,7 +34404,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{65.24,18.58,nil,nil,7,nil,1,11811}},
     },
     },
-    [8687] = { t = "Target: Hive'Zora Tunnelers", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8687] = { t = "Target: Hive'Zora Tunnelers", z = 1377, rl = 60, ql = 60, sf = 1, si = {21251}, maps = {
       [1451] = {{19.07,66.83,nil,nil,1,"Hive'Zora Tunneler",1,11726,nil,nil,1}, {21.48,52.26,nil,nil,1,"Hive'Zora Tunneler",1,11726,nil,nil,1}, {22.70,72.72,nil,nil,1,"Hive'Zora Tunneler",1,11726,nil,nil,1}, {22.49,70.98,nil,nil,1,"Hive'Zora Tunneler",1,11726,nil,nil,1}, {23.17,58.65,nil,nil,1,"Hive'Zora Tunneler",1,11726,nil,nil,1}, {26.43,61.83,nil,nil,1,"Hive'Zora Tunneler",1,11726,nil,nil,1}, {27.43,68.74,nil,nil,1,"Hive'Zora Tunneler",1,11726,nil,nil,1}, {32.53,64.15,nil,nil,1,"Hive'Zora Tunneler",1,11726,nil,nil,1}, {37.07,63.65,nil,nil,1,"Hive'Zora Tunneler",1,11726,nil,nil,1}},
     },
     turnins = {
@@ -34675,7 +34675,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{65.24,18.58,nil,nil,7,nil,1,11811}},
     },
     },
-    [8729] = { t = "The Wrath of Neptulon", z = 16, rl = 60, ql = 60, rmin = {910,0}, ps = {8728}, maps = {
+    [8729] = { t = "The Wrath of Neptulon", z = 16, rl = 60, ql = 60, rmin = {910,0}, ps = {8728}, si = {21136}, maps = {
       [1446] = {{64.20,51.42,nil,nil,6,nil,1,15192}},
     },
     turnins = {
@@ -34692,7 +34692,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{64.20,51.42,nil,nil,6,nil,1,15192}},
     },
     },
-    [8731] = { t = "Field Duty", z = 1377, rl = 60, ql = 60, rr = 690, sf = 1, maps = {
+    [8731] = { t = "Field Duty", z = 1377, rl = 60, ql = 60, rr = 690, sf = 1, si = {21143}, maps = {
       [1451] = {{49.98,36.35,nil,nil,6,nil,1,15540}},
     },
     turnins = {
@@ -34702,7 +34702,7 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{49.98,36.35,nil,nil,7,nil,1,15540}},
     },
     },
-    [8732] = { t = "Field Duty Papers", z = 1377, rl = 60, ql = 60, rr = 690, sf = 1, pq = 8731, maps = {
+    [8732] = { t = "Field Duty Papers", z = 1377, rl = 60, ql = 60, rr = 690, sf = 1, pq = 8731, si = {20810}, maps = {
       [1451] = {{51.40,68.40,nil,nil,6,nil,1,15612}},
     },
     turnins = {
@@ -34752,35 +34752,35 @@ VanillaEnhancedQuestsDB = {
       [1450] = {{36.18,41.79,nil,nil,7,nil,1,11832}},
     },
     },
-    [8737] = { t = "Azure Templar", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8737] = { t = "Azure Templar", z = 1377, rl = 60, ql = 60, sf = 1, si = {21245}, maps = {
       [1451] = {{18.23,81.12,nil,nil,1,"Azure Templar",1,15211,nil,nil,1}, {20.46,86.16,nil,nil,1,"Azure Templar",1,15211,nil,nil,1}, {24.44,36.00,nil,nil,1,"Azure Templar",1,15211,nil,nil,1}, {27.94,30.62,nil,nil,1,"Azure Templar",1,15211,nil,nil,1}, {38.29,46.46,nil,nil,1,"Azure Templar",1,15211,nil,nil,1}, {38.96,42.44,nil,nil,1,"Azure Templar",1,15211,nil,nil,1}},
     },
     turnins = {
       [1451] = {{48.57,37.78,nil,nil,6,nil,1,15306}},
     },
     },
-    [8738] = { t = "Hive'Regal Scout Report", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8738] = { t = "Hive'Regal Scout Report", z = 1377, rl = 60, ql = 60, sf = 1, si = {21166}, maps = {
       [1451] = {{53.71,97.48,nil,nil,2,"Hive'Regal Scout Report",3,21160,{15609},nil,1}},
     },
     turnins = {
       [1451] = {{51.15,38.29,nil,nil,6,nil,1,15191}},
     },
     },
-    [8739] = { t = "Hive'Ashi Scout Report", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8739] = { t = "Hive'Ashi Scout Report", z = 1377, rl = 60, ql = 60, sf = 1, si = {21167}, maps = {
       [1451] = {{43.94,13.81,nil,nil,2,"Hive'Ashi Scout Report",3,21161,{15611},nil,1}},
     },
     turnins = {
       [1451] = {{51.15,38.29,nil,nil,6,nil,1,15191}},
     },
     },
-    [8740] = { t = "Twilight Marauders", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8740] = { t = "Twilight Marauders", z = 1377, rl = 60, ql = 60, sf = 1, si = {20944}, maps = {
       [1451] = {{57.57,17.90,nil,nil,1,"Twilight Marauder Morna",1,15541,nil,nil,1}, {57.00,17.38,nil,nil,1,"Twilight Marauder",1,15542,nil,nil,2}, {57.29,17.57,nil,nil,1,"Twilight Marauder",1,15542,nil,nil,2}},
     },
     turnins = {
       [1451] = {{51.15,38.29,nil,nil,6,nil,1,15191}},
     },
     },
-    [8741] = { t = "The Champion Returns", z = 493, rl = 60, ql = 60, rmin = {910,0}, ps = {8736}, maps = {
+    [8741] = { t = "The Champion Returns", z = 493, rl = 60, ql = 60, rmin = {910,0}, ps = {8736}, si = {21139}, maps = {
       [1446] = {{64.20,51.42,nil,nil,6,nil,1,15192}},
     },
     turnins = {
@@ -34990,63 +34990,63 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{64.20,51.42,nil,nil,7,nil,1,15192}},
     },
     },
-    [8770] = { t = "Target: Hive'Ashi Defenders", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8770] = { t = "Target: Hive'Ashi Defenders", z = 1377, rl = 60, ql = 60, sf = 1, si = {21749}, maps = {
       [1451] = {{39.52,22.03,nil,nil,1,"Hive'Ashi Defender",1,11722,nil,nil,1}, {41.08,14.85,4.33,10,1,"Hive'Ashi Defender",1,11722,nil,nil,1,{37.85,13.26,39.04,12.33,41.59,11.99,43.79,12.74,44.02,15.66,43.21,18.62,40.99,17.97,38.88,15.41}}, {43.33,29.07,4.50,6,1,"Hive'Ashi Defender",1,11722,nil,nil,1,{40.60,27.33,42.01,28.03,47.49,30.78,45.40,30.84,43.87,30.09,40.60,27.37}}, {48.54,18.44,nil,nil,1,"Hive'Ashi Defender",1,11722,nil,nil,1}, {47.17,16.44,nil,nil,1,"Hive'Ashi Defender",1,11722,nil,nil,1}, {48.19,26.20,2.68,5,1,"Hive'Ashi Defender",1,11722,nil,nil,1,{45.59,25.56,49.72,24.70,50.04,26.77,47.41,27.42}}},
     },
     turnins = {
       [1451] = {{49.20,34.18,nil,nil,6,nil,1,15181}},
     },
     },
-    [8771] = { t = "Target: Hive'Ashi Sandstalkers", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8771] = { t = "Target: Hive'Ashi Sandstalkers", z = 1377, rl = 60, ql = 60, sf = 1, si = {21750}, maps = {
       [1451] = {{38.73,23.19,nil,nil,1,"Hive'Ashi Sandstalker",1,11723,nil,nil,1}, {39.57,14.59,2.34,3,1,"Hive'Ashi Sandstalker",1,11723,nil,nil,1,{38.57,16.56,40.32,12.38,39.83,14.84}}, {42.54,20.19,2.27,4,1,"Hive'Ashi Sandstalker",1,11723,nil,nil,1,{41.67,22.29,42.07,19.08,43.54,19.11,42.88,20.29}}, {44.49,13.77,nil,nil,1,"Hive'Ashi Sandstalker",1,11723,nil,nil,1}, {46.02,32.17,nil,nil,1,"Hive'Ashi Sandstalker",1,11723,nil,nil,1}, {46.79,15.86,nil,nil,1,"Hive'Ashi Sandstalker",1,11723,nil,nil,1}, {49.73,31.30,nil,nil,1,"Hive'Ashi Sandstalker",1,11723,nil,nil,1}, {49.96,25.28,2.30,4,1,"Hive'Ashi Sandstalker",1,11723,nil,nil,1,{47.96,24.13,50.34,23.91,51.10,26.26,50.42,26.81}}},
     },
     turnins = {
       [1451] = {{49.20,34.18,nil,nil,6,nil,1,15181}},
     },
     },
-    [8772] = { t = "Target: Hive'Zora Waywatchers", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8772] = { t = "Target: Hive'Zora Waywatchers", z = 1377, rl = 60, ql = 60, sf = 1, si = {21250}, maps = {
       [1451] = {{22.87,70.06,2.17,4,1,"Hive'Zora Waywatcher",1,11725,nil,nil,1,{20.81,70.74,22.91,68.04,24.44,69.77,23.31,71.71}}, {22.18,48.62,nil,nil,1,"Hive'Zora Waywatcher",1,11725,nil,nil,1}, {23.85,50.57,nil,nil,1,"Hive'Zora Waywatcher",1,11725,nil,nil,1}, {24.06,60.92,2.79,6,1,"Hive'Zora Waywatcher",1,11725,nil,nil,1,{21.58,61.03,23.43,59.56,26.57,59.70,25.84,61.49,22.85,62.07}}, {24.86,55.47,nil,nil,1,"Hive'Zora Waywatcher",1,11725,nil,nil,1}, {26.45,55.13,nil,nil,1,"Hive'Zora Waywatcher",1,11725,nil,nil,1}, {26.73,65.03,nil,nil,1,"Hive'Zora Waywatcher",1,11725,nil,nil,1}, {29.56,49.21,nil,nil,1,"Hive'Zora Waywatcher",1,11725,nil,nil,1}, {30.58,68.33,nil,nil,1,"Hive'Zora Waywatcher",1,11725,nil,nil,1}, {31.66,58.16,nil,nil,1,"Hive'Zora Waywatcher",1,11725,nil,nil,1}, {33.99,64.02,1.54,3,1,"Hive'Zora Waywatcher",1,11725,nil,nil,1,{32.55,63.48,34.31,63.72,35.12,64.86}}},
     },
     turnins = {
       [1451] = {{49.20,34.18,nil,nil,6,nil,1,15181}},
     },
     },
-    [8773] = { t = "Target: Hive'Zora Reavers", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8773] = { t = "Target: Hive'Zora Reavers", z = 1377, rl = 60, ql = 60, sf = 1, si = {21248}, maps = {
       [1451] = {{22.54,69.27,2.38,4,1,"Hive'Zora Reaver",1,11728,nil,nil,1,{20.33,69.51,22.80,68.72,24.92,69.27,22.10,69.56}}, {23.05,72.64,nil,nil,1,"Hive'Zora Reaver",1,11728,nil,nil,1}, {23.44,63.27,2.54,5,1,"Hive'Zora Reaver",1,11728,nil,nil,1,{21.59,64.08,22.34,62.13,25.87,64.00}}, {24.17,57.46,4.07,8,1,"Hive'Zora Reaver",1,11728,nil,nil,1,{21.36,54.52,25.35,55.98,25.87,58.39,25.47,60.59,24.24,59.83,23.21,58.75}}, {24.58,48.16,nil,nil,1,"Hive'Zora Reaver",1,11728,nil,nil,1}, {29.02,69.42,nil,nil,1,"Hive'Zora Reaver",1,11728,nil,nil,1}, {29.82,51.13,nil,nil,1,"Hive'Zora Reaver",1,11728,nil,nil,1}, {31.61,56.35,nil,nil,1,"Hive'Zora Reaver",1,11728,nil,nil,1}, {31.83,66.30,nil,nil,1,"Hive'Zora Reaver",1,11728,nil,nil,1}, {34.11,63.18,3.40,6,1,"Hive'Zora Reaver",1,11728,nil,nil,1,{30.76,62.56,33.02,61.45,35.25,62.16,36.11,64.22,35.36,65.37}}},
     },
     turnins = {
       [1451] = {{49.20,34.18,nil,nil,6,nil,1,15181}},
     },
     },
-    [8774] = { t = "Target: Hive'Regal Ambushers", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8774] = { t = "Target: Hive'Regal Ambushers", z = 1377, rl = 60, ql = 60, sf = 1, si = {21252}, maps = {
       [1451] = {{48.54,76.24,nil,nil,1,"Hive'Regal Ambusher",1,11730,nil,nil,1}, {49.31,80.12,nil,nil,1,"Hive'Regal Ambusher",1,11730,nil,nil,1}, {50.58,93.59,nil,nil,1,"Hive'Regal Ambusher",1,11730,nil,nil,1}, {52.34,78.47,nil,nil,1,"Hive'Regal Ambusher",1,11730,nil,nil,1}, {53.23,99.06,nil,nil,1,"Hive'Regal Ambusher",1,11730,nil,nil,1}, {53.10,97.35,nil,nil,1,"Hive'Regal Ambusher",1,11730,nil,nil,1}, {56.04,87.39,2.33,3,1,"Hive'Regal Ambusher",1,11730,nil,nil,1,{53.94,88.39,56.10,86.89,58.08,86.89}}, {61.05,72.37,nil,nil,1,"Hive'Regal Ambusher",1,11730,nil,nil,1}, {62.00,80.34,nil,nil,1,"Hive'Regal Ambusher",1,11730,nil,nil,1}, {60.81,83.07,nil,nil,1,"Hive'Regal Ambusher",1,11730,nil,nil,1}, {61.92,90.25,nil,nil,1,"Hive'Regal Ambusher",1,11730,nil,nil,1}, {61.94,96.61,3.54,4,1,"Hive'Regal Ambusher",1,11730,nil,nil,1,{61.04,95.67,61.74,93.08,62.40,97.80,62.59,99.91}}, {65.31,75.72,1.04,3,1,"Hive'Regal Ambusher",1,11730,nil,nil,1,{64.82,76.64,65.34,75.48,65.76,75.03}}, {66.43,83.71,nil,nil,1,"Hive'Regal Ambusher",1,11730,nil,nil,1}, {66.00,82.94,nil,nil,1,"Hive'Regal Ambusher",1,11730,nil,nil,1}},
     },
     turnins = {
       [1451] = {{49.20,34.18,nil,nil,6,nil,1,15181}},
     },
     },
-    [8775] = { t = "Target: Hive'Regal Spitfires", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8775] = { t = "Target: Hive'Regal Spitfires", z = 1377, rl = 60, ql = 60, sf = 1, si = {21253}, maps = {
       [1451] = {{49.54,73.26,nil,nil,1,"Hive'Regal Spitfire",1,11732,nil,nil,1}, {50.72,83.41,nil,nil,1,"Hive'Regal Spitfire",1,11732,nil,nil,1}, {49.31,82.74,nil,nil,1,"Hive'Regal Spitfire",1,11732,nil,nil,1}, {50.72,92.78,nil,nil,1,"Hive'Regal Spitfire",1,11732,nil,nil,1}, {52.07,78.22,2.32,4,1,"Hive'Regal Spitfire",1,11732,nil,nil,1,{51.03,77.12,51.38,77.07,54.29,78.90,51.57,79.80}}, {52.28,89.74,nil,nil,1,"Hive'Regal Spitfire",1,11732,nil,nil,1}, {52.86,96.03,nil,nil,1,"Hive'Regal Spitfire",1,11732,nil,nil,1}, {53.36,99.63,nil,nil,1,"Hive'Regal Spitfire",1,11732,nil,nil,1}, {53.98,85.65,nil,nil,1,"Hive'Regal Spitfire",1,11732,nil,nil,1}, {54.52,74.63,1.57,3,1,"Hive'Regal Spitfire",1,11732,nil,nil,1,{53.14,73.88,55.50,75.14,54.92,74.86}}, {59.29,86.75,2.92,4,1,"Hive'Regal Spitfire",1,11732,nil,nil,1,{58.18,89.45,58.30,84.08,60.43,85.76,60.25,87.70}}, {58.93,99.50,nil,nil,1,"Hive'Regal Spitfire",1,11732,nil,nil,1}, {60.01,98.30,nil,nil,1,"Hive'Regal Spitfire",1,11732,nil,nil,1}, {59.73,80.65,3.34,4,1,"Hive'Regal Spitfire",1,11732,nil,nil,1,{56.43,81.21,58.85,79.95,60.77,80.17,62.85,81.28}}, {62.13,73.88,2.32,4,1,"Hive'Regal Spitfire",1,11732,nil,nil,1,{60.25,72.53,62.90,73.48,64.04,74.29,61.35,75.23}}, {62.16,95.13,nil,nil,1,"Hive'Regal Spitfire",1,11732,nil,nil,1}, {62.15,95.21,nil,nil,1,"Hive'Regal Spitfire",1,11732,nil,nil,1}, {62.97,89.00,nil,nil,1,"Hive'Regal Spitfire",1,11732,nil,nil,1}, {66.19,77.49,nil,nil,1,"Hive'Regal Spitfire",1,11732,nil,nil,1}, {67.04,83.39,nil,nil,1,"Hive'Regal Spitfire",1,11732,nil,nil,1}, {65.52,83.31,nil,nil,1,"Hive'Regal Spitfire",1,11732,nil,nil,1}},
     },
     turnins = {
       [1451] = {{49.20,34.18,nil,nil,6,nil,1,15181}},
     },
     },
-    [8776] = { t = "Target: Hive'Regal Slavemakers", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8776] = { t = "Target: Hive'Regal Slavemakers", z = 1377, rl = 60, ql = 60, sf = 1, si = {21255}, maps = {
       [1451] = {{51.76,89.15,1.94,3,1,"Hive'Regal Slavemaker",1,11733,nil,nil,1,{49.84,88.83,53.25,88.60,52.18,90.02}}, {52.09,81.14,nil,nil,1,"Hive'Regal Slavemaker",1,11733,nil,nil,1}, {52.55,95.92,3.63,7,1,"Hive'Regal Slavemaker",1,11733,nil,nil,1,{50.92,94.05,52.80,92.97,53.90,95.21,54.22,96.95,51.59,99.42}}, {54.04,73.11,nil,nil,1,"Hive'Regal Slavemaker",1,11733,nil,nil,1}, {55.15,71.23,nil,nil,1,"Hive'Regal Slavemaker",1,11733,nil,nil,1}, {55.18,76.18,2.58,3,1,"Hive'Regal Slavemaker",1,11733,nil,nil,1,{53.21,77.60,57.26,74.65,55.08,76.30}}, {55.22,83.92,2.31,3,1,"Hive'Regal Slavemaker",1,11733,nil,nil,1,{53.38,85.31,54.92,83.05,57.36,83.40}}, {57.30,99.65,nil,nil,1,"Hive'Regal Slavemaker",1,11733,nil,nil,1}, {60.47,77.88,4.98,10,1,"Hive'Regal Slavemaker",1,11733,nil,nil,1,{56.27,78.52,59.87,75.71,63.50,73.93,63.12,76.61,62.34,80.81,60.03,81.18}}, {60.79,71.52,nil,nil,1,"Hive'Regal Slavemaker",1,11733,nil,nil,1}, {61.19,90.90,2.29,4,1,"Hive'Regal Slavemaker",1,11733,nil,nil,1,{58.93,91.30,60.54,90.20,62.68,90.59,62.60,91.51}}, {63.08,97.44,nil,nil,1,"Hive'Regal Slavemaker",1,11733,nil,nil,1}, {61.48,97.81,nil,nil,1,"Hive'Regal Slavemaker",1,11733,nil,nil,1}, {65.86,79.05,nil,nil,1,"Hive'Regal Slavemaker",1,11733,nil,nil,1}, {66.95,82.15,nil,nil,1,"Hive'Regal Slavemaker",1,11733,nil,nil,1}, {65.13,81.97,nil,nil,1,"Hive'Regal Slavemaker",1,11733,nil,nil,1}},
     },
     turnins = {
       [1451] = {{49.20,34.18,nil,nil,6,nil,1,15181}},
     },
     },
-    [8777] = { t = "Target: Hive'Regal Burrowers", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8777] = { t = "Target: Hive'Regal Burrowers", z = 1377, rl = 60, ql = 60, sf = 1, si = {21256}, maps = {
       [1451] = {{51.82,81.17,nil,nil,1,"Hive'Regal Burrower",1,11731,nil,nil,1}, {53.58,85.10,nil,nil,1,"Hive'Regal Burrower",1,11731,nil,nil,1}, {54.38,94.89,nil,nil,1,"Hive'Regal Burrower",1,11731,nil,nil,1}, {54.79,70.96,nil,nil,1,"Hive'Regal Burrower",1,11731,nil,nil,1}, {59.89,71.65,nil,nil,1,"Hive'Regal Burrower",1,11731,nil,nil,1}, {60.65,95.27,nil,nil,1,"Hive'Regal Burrower",1,11731,nil,nil,1}, {60.97,78.77,nil,nil,1,"Hive'Regal Burrower",1,11731,nil,nil,1}, {64.41,80.95,nil,nil,1,"Hive'Regal Burrower",1,11731,nil,nil,1}, {64.88,71.35,nil,nil,1,"Hive'Regal Burrower",1,11731,nil,nil,1}, {65.40,74.98,nil,nil,1,"Hive'Regal Burrower",1,11731,nil,nil,1}},
     },
     turnins = {
       [1451] = {{49.20,34.18,nil,nil,6,nil,1,15181}},
     },
     },
-    [8778] = { t = "The Ironforge Brigade Needs Explosives!", z = 1377, rl = 60, ql = 60, rr = 1101, sf = 1, maps = {
+    [8778] = { t = "The Ironforge Brigade Needs Explosives!", z = 1377, rl = 60, ql = 60, rr = 1101, sf = 1, si = {21257}, maps = {
       [1418] = {{55.07,83.62,nil,nil,2,"Goblin Rocket Fuel",3,9061,{14224},{14224,1.923},2}, {54.25,53.54,nil,nil,2,"Goblin Rocket Fuel",3,9061,{14224},{14224,1.923},2}, {13.58,66.99,nil,nil,2,"Goblin Rocket Fuel",3,9061,{14224},{14224,1.923},2}, {2.74,80.30,nil,nil,2,"Goblin Rocket Fuel",3,9061,{14224},{14224,1.923},2}, {19.63,78.29,nil,nil,2,"Goblin Rocket Fuel",3,9061,{14224},{14224,1.923},2}, {28.72,68.72,nil,nil,2,"Goblin Rocket Fuel",3,9061,{14224},{14224,1.923},2}, {23.76,52.38,nil,nil,2,"Goblin Rocket Fuel",3,9061,{14224},{14224,1.923},2}},
       [1423] = {{62.12,30.50,7.01,14,2,"Oil of Immolation",3,8956,{8598},nil,1,{55.16,29.71,56.23,28.45,67.69,26.29,67.08,33.99,66.09,34.05,61.07,32.68}}, {50.03,36.24,7.17,20,2,"Oil of Immolation",3,8956,{8598},nil,1,{44.41,36.43,48.11,29.83,52.11,29.82,55.39,31.47,53.80,39.63,50.20,40.55,44.96,39.45}}, {62.02,37.35,4.67,5,2,"Oil of Immolation",3,8956,{8598},nil,1,{58.16,34.72,63.59,35.74,63.94,37.84,62.63,41.65}}, {33.25,40.63,4.35,6,2,"Oil of Immolation",3,8956,{8598},nil,1,{31.10,36.86,35.45,40.51,34.76,43.18,31.16,41.91}}, {20.17,25.20,2.49,5,2,"Oil of Immolation",3,8956,{8598},nil,1,{19.61,25.90,19.97,22.72,20.58,25.88,20.41,26.84}}, {69.60,41.73,5.68,11,2,"Oil of Immolation",3,8956,{8598},nil,1,{64.41,44.05,68.81,36.23,72.37,37.95,72.83,40.53,72.39,41.38,70.42,44.72,69.61,46.00,65.49,44.58}}, {59.45,21.97,3.94,3,2,"Oil of Immolation",3,8956,{8598},nil,1,{57.87,21.29,57.94,20.19,62.53,24.43}}, {23.52,35.46,1.33,3,2,"Oil of Immolation",3,8956,{8598},nil,1,{22.85,35.33,23.93,34.29,23.78,36.76}}, {65.14,48.42,4.86,3,2,"Oil of Immolation",3,8956,{8598},nil,1,{62.38,47.74,69.87,49.55,63.17,47.97}}, {53.06,43.58,4.10,3,2,"Oil of Immolation",3,8956,{8598},nil,1,{50.55,41.61,56.35,46.03,52.29,43.11}}},
       [1427] = {{34.69,51.89,nil,nil,2,"Goblin Rocket Fuel",3,9061,{8447},nil,2}},
@@ -35059,7 +35059,7 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{32.54,52.03,nil,nil,6,nil,1,15444}},
     },
     },
-    [8779] = { t = "Scrying Materials", z = 1377, rl = 60, ql = 60, rr = 1101, sf = 1, maps = {
+    [8779] = { t = "Scrying Materials", z = 1377, rl = 60, ql = 60, rr = 1101, sf = 1, si = {21259}, maps = {
       [1418] = {{8.06,93.36,2.54,12,4,"Huge Emerald",3,12364,nil,nil,3,{7.11,94.04,7.59,91.32,10.07,92.88,7.95,95.90}}},
       [1419] = {{54.15,57.84,4.32,8,4,"Huge Emerald",3,12364,nil,nil,3,{50.52,55.49,54.88,55.67,57.60,60.11,56.67,59.79,50.83,57.61}}, {44.49,15.89,5.57,11,4,"Huge Emerald",3,12364,nil,nil,3,{41.67,15.30,42.54,10.67,46.07,13.81,47.00,16.13,47.20,16.90,46.58,20.39,43.23,20.84}}, {66.10,3.33,6.14,8,4,"Huge Emerald",3,12364,nil,nil,3,{61.38,2.48,62.31,2.07,72.04,2.61,71.41,6.42}}, {58.57,51.08,6.31,5,4,"Huge Emerald",3,12364,nil,nil,3,{55.77,53.39,58.18,47.84,64.80,50.10}}, {64.53,31.08,6.30,19,4,"Huge Emerald",3,12364,nil,nil,3,{58.56,33.00,63.23,24.91,69.14,30.19,69.17,30.78,62.89,36.76}}, {43.27,28.38,6.59,13,4,"Huge Emerald",3,12364,nil,nil,3,{38.52,29.25,42.13,24.15,49.80,27.50,43.48,30.76,40.94,30.37}}, {50.26,34.72,6.10,8,4,"Huge Emerald",3,12364,nil,nil,3,{48.52,33.01,51.65,31.90,50.64,40.81,48.94,34.99}}, {40.98,37.00,6.25,7,4,"Huge Emerald",3,12364,nil,nil,3,{37.95,34.67,38.17,33.17,42.10,36.82,42.16,37.22,42.75,42.99}}, {61.59,58.13,4.31,7,4,"Huge Emerald",3,12364,nil,nil,3,{57.71,60.01,61.14,56.79,63.62,57.24,63.14,57.96,62.52,58.31}}, {60.12,40.81,5.12,7,4,"Huge Emerald",3,12364,nil,nil,3,{55.26,42.01,57.41,36.69,64.62,41.24,64.43,43.58}}, {56.46,10.50,5.88,15,4,"Huge Emerald",3,12364,nil,nil,3,{52.97,9.60,54.40,4.99,60.75,7.43,58.67,14.70,57.02,14.70,54.25,13.13,53.29,10.67}}, {49.77,44.20,3.83,6,4,"Huge Emerald",3,12364,nil,nil,3,{48.76,43.49,51.41,42.33,49.38,48.01}}, {45.55,52.18,1.35,3,4,"Huge Emerald",3,12364,nil,nil,3,{45.05,50.97,46.52,53.12,45.08,52.45}}, {70.61,16.04,nil,nil,4,"Huge Emerald",3,12364,nil,nil,3}, {68.80,9.41,nil,nil,4,"Huge Emerald",3,12364,nil,nil,3}},
       [1422] = {{51.21,24.24,5.19,6,4,"Huge Emerald",3,12364,nil,nil,3,{47.39,27.75,48.58,20.51,52.93,21.78,54.87,23.10,53.34,27.46}}, {52.47,39.44,6.30,6,4,"Huge Emerald",3,12364,nil,nil,3,{49.68,40.45,50.62,33.42,54.69,36.28,55.82,44.57}}, {63.37,36.12,3.24,9,4,"Huge Emerald",3,12364,nil,nil,3,{61.49,37.74,61.71,33.33,64.21,33.50,64.85,36.55,65.07,38.33}}, {45.54,46.49,4.12,3,4,"Huge Emerald",3,12364,nil,nil,3,{44.62,42.47,47.36,49.66,44.65,47.33}}, {45.31,35.27,3.65,3,4,"Huge Emerald",3,12364,nil,nil,3,{43.50,33.35,45.19,34.09,47.23,38.38}}, {53.78,56.97,4.47,3,4,"Huge Emerald",3,12364,nil,nil,3,{51.88,57.94,54.26,52.52,55.19,60.44}}, {59.58,50.77,nil,nil,4,"Huge Emerald",3,12364,nil,nil,3}, {63.27,44.38,nil,nil,4,"Huge Emerald",3,12364,nil,nil,3}, {64.47,58.99,5.36,4,4,"Huge Emerald",3,12364,nil,nil,3,{61.21,61.86,66.87,54.20,65.16,60.50}}, {42.38,69.48,5.06,4,4,"Huge Emerald",3,12364,nil,nil,3,{39.35,66.73,45.10,65.22,43.15,72.91,41.94,73.08}}, {40.79,51.96,nil,nil,4,"Huge Emerald",3,12364,nil,nil,3}, {37.93,54.35,nil,nil,4,"Huge Emerald",3,12364,nil,nil,3}, {49.87,66.44,4.16,3,4,"Huge Emerald",3,12364,nil,nil,3,{46.65,66.53,53.80,65.07,49.16,67.71}}, {44.85,12.61,8.35,8,4,"Huge Emerald",3,12364,nil,nil,3,{40.88,14.33,45.51,8.73,48.33,13.52,42.04,20.47}}},
@@ -35080,7 +35080,7 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{49.67,37.46,nil,nil,6,nil,1,15183}},
     },
     },
-    [8780] = { t = "Armor Kits for the Field", z = 1377, rl = 60, ql = 60, rr = 1101, sf = 1, maps = {
+    [8780] = { t = "Armor Kits for the Field", z = 1377, rl = 60, ql = 60, rr = 1101, sf = 1, si = {21263}, maps = {
       [1446] = {{31.24,58.94,6.13,18,2,"Rugged Armor Kit",3,15564,{5427},nil,1,{25.67,56.37,27.72,56.13,31.31,55.97,33.97,55.99,33.97,58.90,33.74,59.69,32.13,63.72}}, {45.87,74.70,6.37,15,2,"Rugged Armor Kit",3,15564,{5427},nil,1,{40.57,77.79,46.52,69.20,49.27,69.31,48.26,77.63}}, {33.01,74.50,6.07,18,2,"Rugged Armor Kit",3,15564,{5427},nil,1,{29.00,71.89,30.05,69.20,31.94,68.84,37.69,72.21,38.83,76.13,32.90,79.08,29.91,77.69}}, {29.49,48.87,nil,nil,2,"Rugged Armor Kit",3,15564,{5427},nil,1}, {30.43,53.15,nil,nil,2,"Rugged Armor Kit",3,15564,{5427},nil,1}, {37.66,65.45,6.14,24,2,"Rugged Armor Kit",3,15564,{5427},nil,1,{31.88,67.54,34.13,63.30,35.79,60.55,38.44,60.50,41.97,62.59,42.49,63.29,37.85,70.51}}, {44.23,48.98,6.87,22,2,"Rugged Armor Kit",3,15564,{5427},nil,1,{40.54,44.99,42.43,44.28,44.28,44.39,50.41,46.03,51.09,49.35,43.45,52.42,40.56,49.17}}},
       [1449] = {{52.28,45.14,5.46,7,2,"Rugged Armor Kit",3,15564,{6520},nil,1,{46.83,45.43,49.74,44.05,52.78,42.76,55.11,44.72,55.10,48.83}}, {48.72,53.36,5.45,5,2,"Rugged Armor Kit",3,15564,{6520},nil,1,{45.71,51.58,53.96,54.84,46.66,53.85}}},
     },
@@ -35088,14 +35088,14 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{32.88,52.53,nil,nil,6,nil,1,15443}},
     },
     },
-    [8781] = { t = "Arms for the Field", z = 1377, rl = 60, ql = 60, rr = 1101, sf = 1, maps = {
+    [8781] = { t = "Arms for the Field", z = 1377, rl = 60, ql = 60, rr = 1101, sf = 1, si = {21260}, maps = {
       [1451] = {{32.88,52.53,nil,nil,6,nil,1,15443}},
     },
     turnins = {
       [1451] = {{32.88,52.53,nil,nil,6,nil,1,15443}},
     },
     },
-    [8782] = { t = "Uniform Supplies", z = 1377, rl = 60, ql = 60, rr = 1101, sf = 1, maps = {
+    [8782] = { t = "Uniform Supplies", z = 1377, rl = 60, ql = 60, rr = 1101, sf = 1, si = {21262}, maps = {
       [1422] = {{52.74,62.59,7.86,13,2,"Ironweb Spider Silk",3,14227,{1821,1824},{1821,10.85,1824,12.794},3,{48.89,61.92,52.53,58.41,55.80,63.56,52.53,70.45}}, {47.73,37.58,6.12,19,2,"Ironweb Spider Silk",3,14227,{1821},{1821,10.85},3,{43.50,40.18,44.97,32.12,51.02,32.93,52.03,34.21,47.35,41.27,45.74,41.42}}, {45.62,57.78,4.80,9,2,"Ironweb Spider Silk",3,14227,{1821},{1821,10.85},3,{42.53,54.11,48.57,58.47,49.38,59.55,48.58,60.24,44.95,59.83,42.59,56.29}}, {46.31,46.78,7.94,22,2,"Ironweb Spider Silk",3,14227,{1821},{1821,10.85},3,{39.64,48.46,44.91,42.50,46.47,42.65,51.84,46.96,51.14,53.08}}, {48.64,28.26,3.70,7,2,"Ironweb Spider Silk",3,14227,{1821},{1821,10.85},3,{46.58,29.67,47.28,28.28,48.76,26.11,49.64,27.25,51.18,30.95}}, {33.79,61.39,7.35,22,2,"Ironweb Spider Silk",3,14227,{1822},{1822,10.002},3,{28.94,56.00,33.19,54.07,39.88,62.07,38.64,64.49,35.55,66.85,34.24,66.77,32.57,64.64,29.99,60.96,29.13,59.24}}, {65.26,49.75,7.71,30,2,"Ironweb Spider Silk",3,14227,{1824},{1824,12.794},3,{61.88,47.03,63.55,45.17,65.87,44.02,68.05,45.53,68.11,48.47,67.44,55.32,65.97,57.43,61.89,51.83}}, {56.61,51.27,5.69,28,2,"Ironweb Spider Silk",3,14227,{1824},{1824,12.794},3,{52.24,54.30,52.86,49.52,53.41,48.30,54.96,45.82,60.53,49.43,60.85,51.04,60.79,53.54,60.44,54.11}}, {57.37,60.04,2.63,10,2,"Ironweb Spider Silk",3,14227,{1824},{1824,12.794},3,{55.80,58.59,56.63,57.52,59.11,59.56,58.99,61.01,58.16,62.14,56.73,62.08,55.93,60.97}}},
       [1425] = {{33.82,72.97,nil,nil,2,"Ironweb Spider Silk",3,14227,{2707},{2707,9.191},3}},
       [1427] = {{58.37,26.37,3.71,5,2,"Ironweb Spider Silk",3,14227,{5857,8277},{5857,6.009,8277,13.979},3,{56.71,26.23,57.61,22.74,59.76,25.83,59.75,29.31,58.04,27.72}}, {54.26,35.93,4.04,5,2,"Ironweb Spider Silk",3,14227,{5857},{5857,6.009},3,{50.59,34.25,55.93,33.35,56.10,35.36,55.27,38.06,53.42,38.61}}, {58.03,82.90,2.01,3,2,"Ironweb Spider Silk",3,14227,{5857},{5857,6.009},3,{56.77,82.92,59.76,81.87,57.57,83.92}}, {50.55,72.04,2.72,6,2,"Ironweb Spider Silk",3,14227,{5857,8277},{5857,6.009,8277,13.979},3,{48.08,71.84,51.25,69.66,53.02,70.90,52.21,72.85,50.01,73.50,48.76,73.51}}, {56.93,70.37,5.76,7,2,"Ironweb Spider Silk",3,14227,{5857,8277},{5857,6.009,8277,13.979},3,{53.81,70.10,56.16,65.56,61.92,73.23,56.41,72.84}}, {47.89,64.48,5.47,4,2,"Ironweb Spider Silk",3,14227,{5857,5858},{5857,6.009,5858,7.742},3,{43.85,68.16,47.45,62.54,51.10,61.58,49.17,65.63}}, {38.01,33.34,nil,nil,2,"Ironweb Spider Silk",3,14227,{5858},{5858,7.742},3}, {35.04,27.96,nil,nil,2,"Ironweb Spider Silk",3,14227,{8277},{8277,13.979},3}, {29.30,41.67,4.84,6,2,"Ironweb Spider Silk",3,14227,{5858},{5858,7.742},3,{27.12,37.34,32.27,39.81,29.49,43.82,28.15,44.76,27.72,43.45}}, {27.13,49.98,1.43,3,2,"Ironweb Spider Silk",3,14227,{5858},{5858,7.742},3,{26.25,51.03,27.17,48.55,27.98,50.37}}, {29.56,58.88,3.91,4,2,"Ironweb Spider Silk",3,14227,{5858},{5858,7.742},3,{28.28,55.19,29.56,56.52,31.10,61.43,29.31,62.39}}, {25.74,75.31,6.15,7,2,"Ironweb Spider Silk",3,14227,{5858},{5858,7.742},3,{22.03,77.29,22.84,74.89,26.04,69.17,29.08,76.17,28.94,77.61}}, {29.99,69.67,3.49,4,2,"Ironweb Spider Silk",3,14227,{5858,8277},{5858,7.742,8277,13.979},3,{27.91,66.88,31.36,67.98,30.33,72.99}}, {40.36,69.00,nil,nil,2,"Ironweb Spider Silk",3,14227,{5858},{5858,7.742},3}},
@@ -35106,14 +35106,14 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{51.15,38.29,nil,nil,6,nil,1,15191}},
     },
     },
-    [8783] = { t = "Extraordinary Materials", z = 1377, rl = 60, ql = 60, rr = 1101, sf = 1, maps = {
+    [8783] = { t = "Extraordinary Materials", z = 1377, rl = 60, ql = 60, rr = 1101, sf = 1, si = {21265}, maps = {
       [1451] = {{51.23,38.86,nil,nil,6,nil,1,15176}},
     },
     turnins = {
       [1451] = {{51.23,38.86,nil,nil,6,nil,1,15176}},
     },
     },
-    [8785] = { t = "The Orgrimmar Legion Needs Mojo!", z = 1377, rl = 60, ql = 60, rr = 690, sf = 1, maps = {
+    [8785] = { t = "The Orgrimmar Legion Needs Mojo!", z = 1377, rl = 60, ql = 60, rr = 690, sf = 1, si = {21258}, maps = {
       [1423] = {{62.12,30.50,7.01,14,2,"Oil of Immolation",3,8956,{8598},nil,1,{55.16,29.71,56.23,28.45,67.69,26.29,67.08,33.99,66.09,34.05,61.07,32.68}}, {50.03,36.24,7.17,20,2,"Oil of Immolation",3,8956,{8598},nil,1,{44.41,36.43,48.11,29.83,52.11,29.82,55.39,31.47,53.80,39.63,50.20,40.55,44.96,39.45}}, {62.02,37.35,4.67,5,2,"Oil of Immolation",3,8956,{8598},nil,1,{58.16,34.72,63.59,35.74,63.94,37.84,62.63,41.65}}, {33.25,40.63,4.35,6,2,"Oil of Immolation",3,8956,{8598},nil,1,{31.10,36.86,35.45,40.51,34.76,43.18,31.16,41.91}}, {20.17,25.20,2.49,5,2,"Oil of Immolation",3,8956,{8598},nil,1,{19.61,25.90,19.97,22.72,20.58,25.88,20.41,26.84}}, {69.60,41.73,5.68,11,2,"Oil of Immolation",3,8956,{8598},nil,1,{64.41,44.05,68.81,36.23,72.37,37.95,72.83,40.53,72.39,41.38,70.42,44.72,69.61,46.00,65.49,44.58}}, {59.45,21.97,3.94,3,2,"Oil of Immolation",3,8956,{8598},nil,1,{57.87,21.29,57.94,20.19,62.53,24.43}}, {23.52,35.46,1.33,3,2,"Oil of Immolation",3,8956,{8598},nil,1,{22.85,35.33,23.93,34.29,23.78,36.76}}, {65.14,48.42,4.86,3,2,"Oil of Immolation",3,8956,{8598},nil,1,{62.38,47.74,69.87,49.55,63.17,47.97}}, {53.06,43.58,4.10,3,2,"Oil of Immolation",3,8956,{8598},nil,1,{50.55,41.61,56.35,46.03,52.29,43.11}}, {71.33,15.58,5.36,46,2,"Powerful Mojo",3,12804,{8560,8561,8562,10822,10823,12248},{8560,10.137,8561,11.192,8562,10.38,10822,4.376,10823,5.058,12248,4.865},3,{68.47,20.11,68.79,16.30,69.11,15.36,69.79,13.77,70.51,13.11,72.07,11.92,72.40,12.37,73.65,14.24,73.55,15.89,72.73,18.09,71.53,18.90}}, {65.62,22.30,3.85,14,2,"Powerful Mojo",3,12804,{8560,8561,8562},{8560,10.137,8561,11.192,8562,10.38},3,{63.50,23.68,64.75,21.31,68.48,19.95,68.89,20.27,66.07,24.13,65.08,24.84}}, {27.47,84.86,nil,nil,2,"Powerful Mojo",3,12804,{12250},{12250,4.142},3}},
       [1425] = {{65.13,70.77,7.27,57,2,"Flask of Big Mojo",3,8152,{2641,2642,2643,2644,2645,2646,2647,4465},{2641,11.734,2642,12.564,2643,11.882,2644,11.384,2645,11.452,2646,11.345,2647,11.217,4465,11.876},2,{59.93,74.14,60.05,73.12,63.48,65.79,68.59,64.38,68.74,70.64,67.48,76.24,65.02,77.08}}, {61.24,66.99,7.04,36,2,"Flask of Big Mojo",3,8152,{2644,2645,2646,2647,2648,4465},{2644,11.384,2645,11.452,2646,11.345,2647,11.217,2648,11.845,4465,11.876},2,{57.06,68.76,57.15,68.01,57.61,66.63,63.03,60.82,65.10,61.82,67.68,64.13,66.44,65.46,59.98,71.48,58.27,72.79,57.98,72.81}}, {65.27,79.23,6.57,38,2,"Flask of Big Mojo",3,8152,{2644,2645,2646,2647,2648,8217},{2644,11.384,2645,11.452,2646,11.345,2647,11.217,2648,11.845,8217,6.552},2,{58.88,77.71,64.96,74.39,66.57,74.45,68.00,74.69,68.31,75.28,67.35,80.25,67.05,80.86,65.98,82.36,63.55,84.07}}, {57.59,82.47,5.84,25,2,"Flask of Big Mojo",3,8152,{2648,7995,10802},{2648,11.845,7995,9.553,10802,5.496},2,{54.48,83.98,57.95,76.64,59.47,78.26,61.39,81.66,57.32,86.64}}, {48.64,68.24,nil,nil,2,"Flask of Big Mojo",3,8152,{7996},{7996,5.376},2}, {48.77,68.36,nil,nil,2,"Flask of Big Mojo",3,8152,{8636},{8636,11.93},2}},
       [1434] = {{44.30,45.00,nil,nil,2,"Flask of Big Mojo",3,8152,{1059},{1059,6.987},2}, {47.74,44.25,nil,nil,2,"Flask of Big Mojo",3,8152,{1060},{1060,7.897},2}, {38.83,57.10,6.71,7,2,"Flask of Big Mojo",3,8152,{1490,2534},{1490,13.524,2534,13.347},2,{34.88,51.68,40.07,58.01,39.19,59.25}}, {51.48,17.48,2.50,32,2,"Powerful Mojo",3,12804,{11346,11355,11383},{11346,6.188,11355,7.274},3,{48.99,17.41,50.29,15.96,52.91,16.75,52.96,16.83,53.02,18.28,52.97,18.36,51.68,18.56,50.65,18.36,48.99,17.71}}},
@@ -35127,14 +35127,14 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{51.34,68.80,nil,nil,6,nil,1,15615}},
     },
     },
-    [8786] = { t = "Arms for the Field", z = 1377, rl = 60, ql = 60, rr = 690, sf = 1, maps = {
+    [8786] = { t = "Arms for the Field", z = 1377, rl = 60, ql = 60, rr = 690, sf = 1, si = {21261}, maps = {
       [1451] = {{51.86,67.97,nil,nil,6,nil,1,15613}},
     },
     turnins = {
       [1451] = {{51.86,67.97,nil,nil,6,nil,1,15613}},
     },
     },
-    [8787] = { t = "Armor Kits for the Field", z = 1377, rl = 60, ql = 60, rr = 690, sf = 1, maps = {
+    [8787] = { t = "Armor Kits for the Field", z = 1377, rl = 60, ql = 60, rr = 690, sf = 1, si = {21264}, maps = {
       [1446] = {{31.24,58.94,6.13,18,2,"Rugged Armor Kit",3,15564,{5427},nil,1,{25.67,56.37,27.72,56.13,31.31,55.97,33.97,55.99,33.97,58.90,33.74,59.69,32.13,63.72}}, {45.87,74.70,6.37,15,2,"Rugged Armor Kit",3,15564,{5427},nil,1,{40.57,77.79,46.52,69.20,49.27,69.31,48.26,77.63}}, {33.01,74.50,6.07,18,2,"Rugged Armor Kit",3,15564,{5427},nil,1,{29.00,71.89,30.05,69.20,31.94,68.84,37.69,72.21,38.83,76.13,32.90,79.08,29.91,77.69}}, {29.49,48.87,nil,nil,2,"Rugged Armor Kit",3,15564,{5427},nil,1}, {30.43,53.15,nil,nil,2,"Rugged Armor Kit",3,15564,{5427},nil,1}, {37.66,65.45,6.14,24,2,"Rugged Armor Kit",3,15564,{5427},nil,1,{31.88,67.54,34.13,63.30,35.79,60.55,38.44,60.50,41.97,62.59,42.49,63.29,37.85,70.51}}, {44.23,48.98,6.87,22,2,"Rugged Armor Kit",3,15564,{5427},nil,1,{40.54,44.99,42.43,44.28,44.28,44.39,50.41,46.03,51.09,49.35,43.45,52.42,40.56,49.17}}},
       [1449] = {{52.28,45.14,5.46,7,2,"Rugged Armor Kit",3,15564,{6520},nil,1,{46.83,45.43,49.74,44.05,52.78,42.76,55.11,44.72,55.10,48.83}}, {48.72,53.36,5.45,5,2,"Rugged Armor Kit",3,15564,{6520},nil,1,{45.71,51.58,53.96,54.84,46.66,53.85}}},
     },
@@ -35142,7 +35142,7 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{51.86,67.97,nil,nil,6,nil,1,15613}},
     },
     },
-    [8791] = { t = "The Fall of Ossirian", z = 3429, rl = 60, ql = 60, dq = 1, dm = 247, maps = {
+    [8791] = { t = "The Fall of Ossirian", z = 3429, rl = 60, ql = 60, dq = 1, dm = 247, si = {21220}, maps = {
       [1451] = {{49.20,34.18,nil,nil,6,nil,1,15181}},
     },
     turnins = {
@@ -35169,14 +35169,14 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{49.98,36.35,nil,nil,7,nil,1,15540}},
     },
     },
-    [8802] = { t = "The Savior of Kalimdor", z = 3428, rl = 60, ql = 60, ps = {8801}, dq = 1, dm = 320, maps = {
+    [8802] = { t = "The Savior of Kalimdor", z = 3428, rl = 60, ql = 60, ps = {8801}, dq = 1, dm = 320, si = {21221}, maps = {
       [1446] = {{64.20,51.42,nil,nil,6,nil,1,15192}},
     },
     turnins = {
       [1446] = {{64.20,51.42,nil,nil,6,nil,1,15192}},
     },
     },
-    [8804] = { t = "Desert Survival Kits", z = 1377, rl = 55, ql = 60, sf = 1, maps = {
+    [8804] = { t = "Desert Survival Kits", z = 1377, rl = 55, ql = 60, sf = 1, si = {21378}, maps = {
       [1423] = {{62.06,80.35,4.18,20,2,"Globe of Water",3,7079,{8519,8520},{8519,6.078,8520,5.856},1,{58.78,79.80,60.11,76.75,65.35,79.63,66.10,81.43,65.17,82.09,62.85,83.17,60.90,83.43}}, {71.51,34.41,2.17,5,2,"Globe of Water",3,7079,{8521,8522,13279},{8521,5.586,8522,5.477},1,{70.60,32.44,72.77,35.19,71.18,35.75}}, {51.02,49.92,2.69,10,2,"Globe of Water",3,7079,{8521,8522,13279},{8521,5.586,8522,5.477},1,{49.97,51.00,50.66,47.26,51.76,48.07,52.01,50.70,50.82,51.91}}},
       [1427] = {{15.50,37.20,5.89,9,2,"Globe of Water",3,7079,{8837},{8837,7.492},1,{13.52,35.95,14.36,34.60,15.43,35.28,16.03,36.04,17.23,38.39,17.65,42.68,13.57,37.55}}},
       [1444] = {{45.71,63.42,5.50,16,2,"Globe of Water",3,7079,{5461,5462},{5461,5.957,5462,5.787},1,{43.58,65.27,45.91,59.35,46.38,58.64,47.18,59.67,46.37,63.61,45.44,67.95,44.07,68.67}}, {36.58,34.89,3.73,13,2,"Globe of Water",3,7079,{5461,5462},{5461,5.957,5462,5.787},1,{34.23,33.29,37.54,33.08,38.51,33.60,39.73,36.89,35.62,36.61,34.41,35.62}}, {47.06,52.32,6.38,22,2,"Globe of Water",3,7079,{5461,5462},{5461,5.957,5462,5.787},1,{44.21,49.69,44.97,46.29,48.47,48.69,49.82,51.71,49.12,53.14,46.97,56.90,46.29,56.66,45.83,56.38}}, {42.75,38.69,2.42,8,2,"Globe of Water",3,7079,{5461,5462},{5461,5.957,5462,5.787},1,{40.52,37.75,44.75,38.83,44.40,39.20,43.51,39.27,41.62,38.77}}},
@@ -35188,21 +35188,21 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{51.89,39.16,nil,nil,6,nil,1,15174}},
     },
     },
-    [8805] = { t = "Boots for the Guard", z = 1377, rl = 55, ql = 60, sf = 1, maps = {
+    [8805] = { t = "Boots for the Guard", z = 1377, rl = 55, ql = 60, sf = 1, si = {21379}, maps = {
       [1451] = {{50.75,33.65,nil,nil,6,nil,1,15182}},
     },
     turnins = {
       [1451] = {{50.75,33.65,nil,nil,6,nil,1,15182}},
     },
     },
-    [8806] = { t = "Grinding Stones for the Guard", z = 1377, rl = 55, ql = 60, sf = 1, maps = {
+    [8806] = { t = "Grinding Stones for the Guard", z = 1377, rl = 55, ql = 60, sf = 1, si = {21380}, maps = {
       [1451] = {{50.75,33.65,nil,nil,6,nil,1,15182}},
     },
     turnins = {
       [1451] = {{50.75,33.65,nil,nil,6,nil,1,15182}},
     },
     },
-    [8807] = { t = "Scrying Materials", z = 1377, rl = 55, ql = 60, sf = 1, maps = {
+    [8807] = { t = "Scrying Materials", z = 1377, rl = 55, ql = 60, sf = 1, si = {21382}, maps = {
       [1418] = {{8.06,93.36,2.54,12,4,"Huge Emerald",3,12364,nil,nil,3,{7.11,94.04,7.59,91.32,10.07,92.88,7.95,95.90}}},
       [1419] = {{54.15,57.84,4.32,8,4,"Huge Emerald",3,12364,nil,nil,3,{50.52,55.49,54.88,55.67,57.60,60.11,56.67,59.79,50.83,57.61}}, {44.49,15.89,5.57,11,4,"Huge Emerald",3,12364,nil,nil,3,{41.67,15.30,42.54,10.67,46.07,13.81,47.00,16.13,47.20,16.90,46.58,20.39,43.23,20.84}}, {66.10,3.33,6.14,8,4,"Huge Emerald",3,12364,nil,nil,3,{61.38,2.48,62.31,2.07,72.04,2.61,71.41,6.42}}, {58.57,51.08,6.31,5,4,"Huge Emerald",3,12364,nil,nil,3,{55.77,53.39,58.18,47.84,64.80,50.10}}, {64.53,31.08,6.30,19,4,"Huge Emerald",3,12364,nil,nil,3,{58.56,33.00,63.23,24.91,69.14,30.19,69.17,30.78,62.89,36.76}}, {43.27,28.38,6.59,13,4,"Huge Emerald",3,12364,nil,nil,3,{38.52,29.25,42.13,24.15,49.80,27.50,43.48,30.76,40.94,30.37}}, {50.26,34.72,6.10,8,4,"Huge Emerald",3,12364,nil,nil,3,{48.52,33.01,51.65,31.90,50.64,40.81,48.94,34.99}}, {40.98,37.00,6.25,7,4,"Huge Emerald",3,12364,nil,nil,3,{37.95,34.67,38.17,33.17,42.10,36.82,42.16,37.22,42.75,42.99}}, {61.59,58.13,4.31,7,4,"Huge Emerald",3,12364,nil,nil,3,{57.71,60.01,61.14,56.79,63.62,57.24,63.14,57.96,62.52,58.31}}, {60.12,40.81,5.12,7,4,"Huge Emerald",3,12364,nil,nil,3,{55.26,42.01,57.41,36.69,64.62,41.24,64.43,43.58}}, {56.46,10.50,5.88,15,4,"Huge Emerald",3,12364,nil,nil,3,{52.97,9.60,54.40,4.99,60.75,7.43,58.67,14.70,57.02,14.70,54.25,13.13,53.29,10.67}}, {49.77,44.20,3.83,6,4,"Huge Emerald",3,12364,nil,nil,3,{48.76,43.49,51.41,42.33,49.38,48.01}}, {45.55,52.18,1.35,3,4,"Huge Emerald",3,12364,nil,nil,3,{45.05,50.97,46.52,53.12,45.08,52.45}}, {70.61,16.04,nil,nil,4,"Huge Emerald",3,12364,nil,nil,3}, {68.80,9.41,nil,nil,4,"Huge Emerald",3,12364,nil,nil,3}},
       [1422] = {{51.21,24.24,5.19,6,4,"Huge Emerald",3,12364,nil,nil,3,{47.39,27.75,48.58,20.51,52.93,21.78,54.87,23.10,53.34,27.46}}, {52.47,39.44,6.30,6,4,"Huge Emerald",3,12364,nil,nil,3,{49.68,40.45,50.62,33.42,54.69,36.28,55.82,44.57}}, {63.37,36.12,3.24,9,4,"Huge Emerald",3,12364,nil,nil,3,{61.49,37.74,61.71,33.33,64.21,33.50,64.85,36.55,65.07,38.33}}, {45.54,46.49,4.12,3,4,"Huge Emerald",3,12364,nil,nil,3,{44.62,42.47,47.36,49.66,44.65,47.33}}, {45.31,35.27,3.65,3,4,"Huge Emerald",3,12364,nil,nil,3,{43.50,33.35,45.19,34.09,47.23,38.38}}, {53.78,56.97,4.47,3,4,"Huge Emerald",3,12364,nil,nil,3,{51.88,57.94,54.26,52.52,55.19,60.44}}, {59.58,50.77,nil,nil,4,"Huge Emerald",3,12364,nil,nil,3}, {63.27,44.38,nil,nil,4,"Huge Emerald",3,12364,nil,nil,3}, {64.47,58.99,5.36,4,4,"Huge Emerald",3,12364,nil,nil,3,{61.21,61.86,66.87,54.20,65.16,60.50}}, {42.38,69.48,5.06,4,4,"Huge Emerald",3,12364,nil,nil,3,{39.35,66.73,45.10,65.22,43.15,72.91,41.94,73.08}}, {40.79,51.96,nil,nil,4,"Huge Emerald",3,12364,nil,nil,3}, {37.93,54.35,nil,nil,4,"Huge Emerald",3,12364,nil,nil,3}, {49.87,66.44,4.16,3,4,"Huge Emerald",3,12364,nil,nil,3,{46.65,66.53,53.80,65.07,49.16,67.71}}, {44.85,12.61,8.35,8,4,"Huge Emerald",3,12364,nil,nil,3,{40.88,14.33,45.51,8.73,48.33,13.52,42.04,20.47}}},
@@ -35223,7 +35223,7 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{49.67,37.46,nil,nil,6,nil,1,15183}},
     },
     },
-    [8808] = { t = "Uniform Supplies", z = 1377, rl = 60, ql = 60, rr = 690, sf = 1, maps = {
+    [8808] = { t = "Uniform Supplies", z = 1377, rl = 60, ql = 60, rr = 690, sf = 1, si = {21384}, maps = {
       [1422] = {{52.74,62.59,7.86,13,2,"Ironweb Spider Silk",3,14227,{1821,1824},{1821,10.85,1824,12.794},3,{48.89,61.92,52.53,58.41,55.80,63.56,52.53,70.45}}, {47.73,37.58,6.12,19,2,"Ironweb Spider Silk",3,14227,{1821},{1821,10.85},3,{43.50,40.18,44.97,32.12,51.02,32.93,52.03,34.21,47.35,41.27,45.74,41.42}}, {45.62,57.78,4.80,9,2,"Ironweb Spider Silk",3,14227,{1821},{1821,10.85},3,{42.53,54.11,48.57,58.47,49.38,59.55,48.58,60.24,44.95,59.83,42.59,56.29}}, {46.31,46.78,7.94,22,2,"Ironweb Spider Silk",3,14227,{1821},{1821,10.85},3,{39.64,48.46,44.91,42.50,46.47,42.65,51.84,46.96,51.14,53.08}}, {48.64,28.26,3.70,7,2,"Ironweb Spider Silk",3,14227,{1821},{1821,10.85},3,{46.58,29.67,47.28,28.28,48.76,26.11,49.64,27.25,51.18,30.95}}, {33.79,61.39,7.35,22,2,"Ironweb Spider Silk",3,14227,{1822},{1822,10.002},3,{28.94,56.00,33.19,54.07,39.88,62.07,38.64,64.49,35.55,66.85,34.24,66.77,32.57,64.64,29.99,60.96,29.13,59.24}}, {65.26,49.75,7.71,30,2,"Ironweb Spider Silk",3,14227,{1824},{1824,12.794},3,{61.88,47.03,63.55,45.17,65.87,44.02,68.05,45.53,68.11,48.47,67.44,55.32,65.97,57.43,61.89,51.83}}, {56.61,51.27,5.69,28,2,"Ironweb Spider Silk",3,14227,{1824},{1824,12.794},3,{52.24,54.30,52.86,49.52,53.41,48.30,54.96,45.82,60.53,49.43,60.85,51.04,60.79,53.54,60.44,54.11}}, {57.37,60.04,2.63,10,2,"Ironweb Spider Silk",3,14227,{1824},{1824,12.794},3,{55.80,58.59,56.63,57.52,59.11,59.56,58.99,61.01,58.16,62.14,56.73,62.08,55.93,60.97}}},
       [1425] = {{33.82,72.97,nil,nil,2,"Ironweb Spider Silk",3,14227,{2707},{2707,9.191},3}},
       [1427] = {{58.37,26.37,3.71,5,2,"Ironweb Spider Silk",3,14227,{5857,8277},{5857,6.009,8277,13.979},3,{56.71,26.23,57.61,22.74,59.76,25.83,59.75,29.31,58.04,27.72}}, {54.26,35.93,4.04,5,2,"Ironweb Spider Silk",3,14227,{5857},{5857,6.009},3,{50.59,34.25,55.93,33.35,56.10,35.36,55.27,38.06,53.42,38.61}}, {58.03,82.90,2.01,3,2,"Ironweb Spider Silk",3,14227,{5857},{5857,6.009},3,{56.77,82.92,59.76,81.87,57.57,83.92}}, {50.55,72.04,2.72,6,2,"Ironweb Spider Silk",3,14227,{5857,8277},{5857,6.009,8277,13.979},3,{48.08,71.84,51.25,69.66,53.02,70.90,52.21,72.85,50.01,73.50,48.76,73.51}}, {56.93,70.37,5.76,7,2,"Ironweb Spider Silk",3,14227,{5857,8277},{5857,6.009,8277,13.979},3,{53.81,70.10,56.16,65.56,61.92,73.23,56.41,72.84}}, {47.89,64.48,5.47,4,2,"Ironweb Spider Silk",3,14227,{5857,5858},{5857,6.009,5858,7.742},3,{43.85,68.16,47.45,62.54,51.10,61.58,49.17,65.63}}, {38.01,33.34,nil,nil,2,"Ironweb Spider Silk",3,14227,{5858},{5858,7.742},3}, {35.04,27.96,nil,nil,2,"Ironweb Spider Silk",3,14227,{8277},{8277,13.979},3}, {29.30,41.67,4.84,6,2,"Ironweb Spider Silk",3,14227,{5858},{5858,7.742},3,{27.12,37.34,32.27,39.81,29.49,43.82,28.15,44.76,27.72,43.45}}, {27.13,49.98,1.43,3,2,"Ironweb Spider Silk",3,14227,{5858},{5858,7.742},3,{26.25,51.03,27.17,48.55,27.98,50.37}}, {29.56,58.88,3.91,4,2,"Ironweb Spider Silk",3,14227,{5858},{5858,7.742},3,{28.28,55.19,29.56,56.52,31.10,61.43,29.31,62.39}}, {25.74,75.31,6.15,7,2,"Ironweb Spider Silk",3,14227,{5858},{5858,7.742},3,{22.03,77.29,22.84,74.89,26.04,69.17,29.08,76.17,28.94,77.61}}, {29.99,69.67,3.49,4,2,"Ironweb Spider Silk",3,14227,{5858,8277},{5858,7.742,8277,13.979},3,{27.91,66.88,31.36,67.98,30.33,72.99}}, {40.36,69.00,nil,nil,2,"Ironweb Spider Silk",3,14227,{5858},{5858,7.742},3}},
@@ -35234,21 +35234,21 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{51.15,38.29,nil,nil,6,nil,1,15191}},
     },
     },
-    [8809] = { t = "Extraordinary Materials", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8809] = { t = "Extraordinary Materials", z = 1377, rl = 60, ql = 60, sf = 1, si = {21381}, maps = {
       [1451] = {{51.23,38.86,nil,nil,6,nil,1,15176}},
     },
     turnins = {
       [1451] = {{51.23,38.86,nil,nil,6,nil,1,15176}},
     },
     },
-    [8810] = { t = "Bandages for the Field", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8810] = { t = "Bandages for the Field", z = 1377, rl = 60, ql = 60, sf = 1, si = {21385}, maps = {
       [1451] = {{51.15,38.29,nil,nil,6,nil,1,15191}},
     },
     turnins = {
       [1451] = {{51.15,38.29,nil,nil,6,nil,1,15191}},
     },
     },
-    [8829] = { t = "The Ultimate Deception", z = 1377, rl = 60, ql = 60, sf = 1, maps = {
+    [8829] = { t = "The Ultimate Deception", z = 1377, rl = 60, ql = 60, sf = 1, si = {21514}, maps = {
       [1451] = {{69.19,16.39,6.91,43,2,"Twilight Cultist Robe",3,20407,{11880,11883,15201,15213},{11880,5.944,11883,5.663,15201,5.715,15213,5.769},3,{64.94,15.55,65.37,15.20,71.34,12.19,72.30,11.97,74.32,11.75,73.05,15.82,66.22,22.36,65.57,22.05,65.05,19.79}}, {25.76,33.93,8.03,42,2,"Twilight Cultist Robe",3,20407,{11880,11881,11882,14479},{11880,5.944,11881,6.089,11882,6.26,14479,4.051},3,{18.16,31.36,18.23,31.23,28.38,30.99,29.10,32.53,27.48,35.60,26.31,37.02,24.82,38.48}}, {39.35,44.59,3.83,43,2,"Twilight Cultist Robe",3,20407,{11880,11881,11882,14479},{11880,5.944,11881,6.089,11882,6.26,14479,4.051},3,{36.72,45.20,37.06,42.86,38.14,41.46,38.79,40.80,39.72,40.81,42.03,43.64,41.56,45.51,40.93,46.99,39.25,47.21,37.38,47.12}}, {18.92,84.43,4.46,37,2,"Twilight Cultist Robe",3,20407,{11880,11881,11882,11883,14479},{11880,5.944,11881,6.089,11882,6.26,11883,5.663,14479,4.051},3,{16.73,86.92,16.76,85.47,16.97,83.05,18.04,80.06,18.67,80.23,20.65,82.74,21.49,84.26,21.71,85.65,20.71,88.42,19.63,88.72}}, {22.82,68.62,nil,nil,2,"Twilight Cultist Robe",3,20407,{11880},{11880,5.944},3}, {22.79,68.72,nil,nil,2,"Twilight Cultist Robe",3,20407,{11880},{11880,5.944},3}, {57.29,17.62,0.40,3,2,"Twilight Cultist Robe",3,20407,{15541,15542},{15541,6.395,15542,7.84},3,{57.00,17.38,57.29,17.57,57.57,17.90}}},
     },
     turnins = {
@@ -35285,7 +35285,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{36.36,66.62,nil,nil,7,nil,1,15921}},
     },
     },
-    [8887] = { t = "Captain Kelisendra's Lost Rutters", z = 3430, rl = 5, ql = 8, rr = 690, maps = {
+    [8887] = { t = "Captain Kelisendra's Lost Rutters", z = 3430, rl = 5, ql = 8, rr = 690, si = {21776}, maps = {
       [1941] = {{36.36,66.62,nil,nil,6,nil,1,15921}},
     },
     turnins = {
@@ -35302,7 +35302,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{60.32,61.38,nil,nil,7,nil,1,15951}},
     },
     },
-    [8889] = { t = "Deactivating the Spire", z = 3430, rl = 8, ql = 10, rr = 690, nc = 8890, bc = {8888}, maps = {
+    [8889] = { t = "Deactivating the Spire", z = 3430, rl = 8, ql = 10, rr = 690, nc = 8890, bc = {8888}, si = {24337}, maps = {
       [1941] = {{68.96,51.95,nil,nil,4,"First Power Source Deactivated",2,180916,nil,nil,1}, {68.97,51.94,nil,nil,4,"Second Power Source Deactivated",2,180919,nil,nil,2}, {69.64,53.35,nil,nil,4,"Third Power Source Deactivated",2,180920,nil,nil,3}},
     },
     turnins = {
@@ -35322,7 +35322,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{67.81,56.51,nil,nil,7,nil,1,15924}},
     },
     },
-    [8891] = { t = "Abandoned Investigations", z = 3430, rl = 8, ql = 10, rr = 690, maps = {
+    [8891] = { t = "Abandoned Investigations", z = 3430, rl = 8, ql = 10, rr = 690, si = {21783}, maps = {
       [1941] = {{60.32,61.38,nil,nil,6,nil,1,15951}},
     },
     turnins = {
@@ -35362,7 +35362,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{68.71,46.95,nil,nil,7,nil,1,15969}},
     },
     },
-    [8895] = { t = "Delivery to the North Sanctum", z = 3430, rl = 4, ql = 6, rr = 690, ps = {8472}, nc = 9119, maps = {
+    [8895] = { t = "Delivery to the North Sanctum", z = 3430, rl = 4, ql = 6, rr = 690, ps = {8472}, nc = 9119, si = {21807}, maps = {
       [1941] = {{44.63,53.13,nil,nil,6,nil,1,15405}},
     },
     turnins = {
@@ -35544,7 +35544,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{52.47,27.23,nil,nil,7,nil,1,16014}},
     },
     },
-    [8922] = { t = "A Supernatural Device", z = 440, rl = 58, ql = 60, rr = 1101, ps = {8905,8906,8907,8908,8909,8910,8911,8912,10492}, nc = 8921, maps = {
+    [8922] = { t = "A Supernatural Device", z = 440, rl = 58, ql = 60, rr = 1101, ps = {8905,8906,8907,8908,8909,8910,8911,8912,10492}, nc = 8921, si = {21985}, maps = {
       [1446] = {{52.47,27.23,nil,nil,6,nil,1,16014}},
     },
     turnins = {
@@ -35554,7 +35554,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{43.53,52.64,nil,nil,7,nil,1,16013}},
     },
     },
-    [8923] = { t = "A Supernatural Device", z = 440, rl = 58, ql = 60, rr = 690, ps = {8913,8914,8915,8916,8917,8918,8919,8920,10493}, nc = 8921, maps = {
+    [8923] = { t = "A Supernatural Device", z = 440, rl = 58, ql = 60, rr = 690, ps = {8913,8914,8915,8916,8917,8918,8919,8920,10493}, nc = 8921, si = {22382}, maps = {
       [1446] = {{52.47,27.23,nil,nil,6,nil,1,16014}},
     },
     turnins = {
@@ -35564,7 +35564,7 @@ VanillaEnhancedQuestsDB = {
       [1454] = {{34.95,38.29,nil,nil,7,nil,1,16012}},
     },
     },
-    [8924] = { t = "Hunting for Ectoplasm", z = 440, rl = 58, ql = 60, ps = {8921}, nc = 8925, maps = {
+    [8924] = { t = "Hunting for Ectoplasm", z = 440, rl = 58, ql = 60, ps = {8921}, nc = 8925, si = {21946}, maps = {
       [1423] = {{60.16,69.31,4.42,25,2,"Stable Ectoplasm",3,21935,{8538,8541},{8538,7.225,8541,7.662},3,{57.96,68.02,58.57,66.24,59.46,65.00,60.99,64.97,62.59,66.73,62.05,71.84,59.35,72.98,58.47,71.73}}, {71.20,30.35,2.57,16,2,"Stable Ectoplasm",3,21935,{8539,8542},{8539,7.759,8542,5.652},3,{69.63,29.01,70.53,27.87,72.29,29.18,72.83,30.48,73.02,31.61,71.69,32.41,69.78,31.75}}, {39.07,52.79,4.22,5,2,"Stable Ectoplasm",3,21935,{8539,8542},{8539,7.759,8542,5.652},3,{37.28,54.74,37.39,52.41,40.89,48.98,41.97,52.36,37.84,55.47}}, {83.81,41.75,4.37,4,2,"Stable Ectoplasm",3,21935,{8539,8542},{8539,7.759,8542,5.652},3,{83.06,40.54,84.46,37.43,84.55,44.40,83.18,44.62}}, {34.36,61.36,4.38,5,2,"Stable Ectoplasm",3,21935,{8539,8542},{8539,7.759,8542,5.652},3,{32.53,65.34,34.05,59.86,36.26,58.86,34.35,62.59}}, {41.79,31.65,7.43,8,2,"Stable Ectoplasm",3,21935,{8540},{8540,1.404},3,{36.31,36.67,39.77,31.85,40.52,31.08,42.98,29.03,45.37,27.91,44.51,34.36}}, {29.22,33.48,2.63,3,2,"Stable Ectoplasm",3,21935,{8540},{8540,1.404},3,{28.29,35.94,29.25,31.30,30.13,33.19}}, {18.04,31.53,2.34,6,2,"Stable Ectoplasm",3,21935,{8540},{8540,1.404},3,{16.66,30.36,17.72,31.01,18.74,31.66,19.91,32.94,17.62,31.82}}, {24.98,25.34,4.11,9,2,"Stable Ectoplasm",3,21935,{8540,8541},{8540,1.404,8541,7.662},3,{21.95,23.85,24.52,22.87,27.54,25.06,28.98,26.29,25.66,27.53,23.59,27.81}}, {38.87,23.41,3.53,6,2,"Stable Ectoplasm",3,21935,{8540,8541},{8540,1.404,8541,7.662},3,{35.37,23.87,38.69,21.83,41.74,22.81,38.91,26.38}}, {77.41,52.08,2.16,6,2,"Stable Ectoplasm",3,21935,{8542},{8542,5.652},3,{76.55,52.42,77.49,49.92,78.27,52.56,77.62,54.12}}},
       [1451] = {{62.46,52.88,6.19,45,2,"Scorched Ectoplasm",3,21937,{12178,12179},{12178,11.791,12179,14.466},1,{58.78,55.57,58.83,52.76,60.36,50.13,61.64,48.51,63.67,47.22,64.92,47.20,65.91,48.49,65.90,49.89,64.67,58.18,63.96,58.43,61.75,58.46,60.94,58.39}}},
       [1452] = {{53.27,43.22,4.25,42,2,"Frozen Ectoplasm",3,21936,{7523,7524},{7523,19.045,7524,15.635},2,{50.17,41.30,52.54,39.83,53.44,39.82,56.88,42.50,56.84,44.67,51.19,46.93,50.86,46.70,50.66,45.39,50.31,42.72}}},
@@ -35616,7 +35616,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{52.47,27.23,nil,nil,7,nil,1,16014}},
     },
     },
-    [8929] = { t = "In Search of Anthion", z = 139, rl = 58, ql = 60, rr = 1101, ps = {8926,8931,8932,8933,8934,8935,8936,8937,10494}, nc = 8945, maps = {
+    [8929] = { t = "In Search of Anthion", z = 139, rl = 58, ql = 60, rr = 1101, ps = {8926,8931,8932,8933,8934,8935,8936,8937,10494}, nc = 8945, si = {22115}, maps = {
       [1423] = {{30.85,16.75,nil,nil,6,nil,1,16016}},
     },
     turnins = {
@@ -35626,7 +35626,7 @@ VanillaEnhancedQuestsDB = {
       [1455] = {{43.53,52.64,nil,nil,7,nil,1,16013}},
     },
     },
-    [8930] = { t = "In Search of Anthion", z = 139, rl = 58, ql = 60, rr = 690, ps = {8927,8938,8939,8940,8941,8942,8943,8944,10495}, nc = 8945, maps = {
+    [8930] = { t = "In Search of Anthion", z = 139, rl = 58, ql = 60, rr = 690, ps = {8927,8938,8939,8940,8941,8942,8943,8944,10495}, nc = 8945, si = {22115}, maps = {
       [1423] = {{30.85,16.75,nil,nil,6,nil,1,16016}},
     },
     turnins = {
@@ -35785,7 +35785,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{30.85,16.75,nil,nil,7,nil,1,16016}},
     },
     },
-    [8946] = { t = "Proof of Life", z = 139, rl = 58, ql = 60, ps = {8945}, nc = 8947, maps = {
+    [8946] = { t = "Proof of Life", z = 139, rl = 58, ql = 60, ps = {8945}, nc = 8947, si = {22139}, maps = {
       [1423] = {{30.85,16.75,nil,nil,6,nil,1,16016}},
     },
     turnins = {
@@ -35802,7 +35802,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{30.85,16.75,nil,nil,7,nil,1,16016}},
     },
     },
-    [8948] = { t = "Anthion's Old Friend", z = 2557, rl = 58, ql = 60, ps = {8947}, nc = 8949, dq = 1, dm = 234, maps = {
+    [8948] = { t = "Anthion's Old Friend", z = 2557, rl = 58, ql = 60, ps = {8947}, nc = 8949, dq = 1, dm = 234, si = {21983}, maps = {
     },
     starts = {
       [1423] = {{30.85,16.75,nil,nil,7,nil,1,16016}},
@@ -35812,7 +35812,7 @@ VanillaEnhancedQuestsDB = {
       [1444] = {{59.43,43.38,5.92,75,2,"Ogre Warbeads",3,21982,{11440,11443},{11440,10,11443,10},1,{53.69,44.81,58.88,39.53,59.92,38.75,61.67,38.07,62.24,38.83,65.01,43.88,64.28,45.60,58.86,48.52,54.02,45.60}}, {62.99,31.66,5.86,65,2,"Ogre Warbeads",3,21982,{11440,11442,11443},{11440,10,11442,10,11443,10},1,{59.17,36.00,61.13,26.35,61.60,25.96,63.11,26.13,64.09,26.49,64.89,28.50,64.98,28.75,65.61,35.78,65.58,36.26,63.81,36.54}}},
     },
     },
-    [8951] = { t = "Anthion's Parting Words", z = 1537, rl = 60, ql = 60, rr = 1101, rc = 1024, ps = {9015}, nc = 8960, maps = {
+    [8951] = { t = "Anthion's Parting Words", z = 1537, rl = 60, ql = 60, rr = 1101, rc = 1024, ps = {9015}, nc = 8960, si = {22047}, maps = {
       [1455] = {{43.53,52.64,nil,nil,6,nil,1,16013}},
     },
     turnins = {
@@ -35822,7 +35822,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{30.85,16.75,nil,nil,7,nil,1,16016}},
     },
     },
-    [8952] = { t = "Anthion's Parting Words", z = 1537, rl = 60, ql = 60, rr = 1101, rc = 4, ps = {9015}, nc = 8960, maps = {
+    [8952] = { t = "Anthion's Parting Words", z = 1537, rl = 60, ql = 60, rr = 1101, rc = 4, ps = {9015}, nc = 8960, si = {22047}, maps = {
       [1455] = {{43.53,52.64,nil,nil,6,nil,1,16013}},
     },
     turnins = {
@@ -35832,7 +35832,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{30.85,16.75,nil,nil,7,nil,1,16016}},
     },
     },
-    [8953] = { t = "Anthion's Parting Words", z = 1537, rl = 60, ql = 60, rr = 1101, rc = 128, ps = {9015}, nc = 8960, maps = {
+    [8953] = { t = "Anthion's Parting Words", z = 1537, rl = 60, ql = 60, rr = 1101, rc = 128, ps = {9015}, nc = 8960, si = {22047}, maps = {
       [1455] = {{43.53,52.64,nil,nil,6,nil,1,16013}},
     },
     turnins = {
@@ -35842,7 +35842,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{30.85,16.75,nil,nil,7,nil,1,16016}},
     },
     },
-    [8954] = { t = "Anthion's Parting Words", z = 1537, rl = 60, ql = 60, rr = 1101, rc = 2, ps = {9015}, nc = 8960, maps = {
+    [8954] = { t = "Anthion's Parting Words", z = 1537, rl = 60, ql = 60, rr = 1101, rc = 2, ps = {9015}, nc = 8960, si = {22047}, maps = {
       [1455] = {{43.53,52.64,nil,nil,6,nil,1,16013}},
     },
     turnins = {
@@ -35852,7 +35852,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{30.85,16.75,nil,nil,7,nil,1,16016}},
     },
     },
-    [8955] = { t = "Anthion's Parting Words", z = 1537, rl = 60, ql = 60, rr = 1101, rc = 16, ps = {9015}, nc = 8960, maps = {
+    [8955] = { t = "Anthion's Parting Words", z = 1537, rl = 60, ql = 60, rr = 1101, rc = 16, ps = {9015}, nc = 8960, si = {22047}, maps = {
       [1455] = {{43.53,52.64,nil,nil,6,nil,1,16013}},
     },
     turnins = {
@@ -35862,7 +35862,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{30.85,16.75,nil,nil,7,nil,1,16016}},
     },
     },
-    [8956] = { t = "Anthion's Parting Words", z = 1537, rl = 60, ql = 60, rr = 1101, rc = 8, ps = {9015}, nc = 8960, maps = {
+    [8956] = { t = "Anthion's Parting Words", z = 1537, rl = 60, ql = 60, rr = 1101, rc = 8, ps = {9015}, nc = 8960, si = {22047}, maps = {
       [1455] = {{43.53,52.64,nil,nil,6,nil,1,16013}},
     },
     turnins = {
@@ -35872,7 +35872,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{30.85,16.75,nil,nil,7,nil,1,16016}},
     },
     },
-    [8957] = { t = "Anthion's Parting Words", z = 1637, rl = 60, ql = 60, rr = 690, rc = 64, ps = {9015}, nc = 9032, maps = {
+    [8957] = { t = "Anthion's Parting Words", z = 1637, rl = 60, ql = 60, rr = 690, rc = 64, ps = {9015}, nc = 9032, si = {22047}, maps = {
       [1454] = {{34.95,38.29,nil,nil,6,nil,1,16012}},
     },
     turnins = {
@@ -35882,7 +35882,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{30.85,16.75,nil,nil,7,nil,1,16016}},
     },
     },
-    [8958] = { t = "Anthion's Parting Words", z = 1537, rl = 60, ql = 60, rr = 1101, rc = 256, ps = {9015}, nc = 8960, maps = {
+    [8958] = { t = "Anthion's Parting Words", z = 1537, rl = 60, ql = 60, rr = 1101, rc = 256, ps = {9015}, nc = 8960, si = {22047}, maps = {
       [1455] = {{43.53,52.64,nil,nil,6,nil,1,16013}},
     },
     turnins = {
@@ -35892,7 +35892,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{30.85,16.75,nil,nil,7,nil,1,16016}},
     },
     },
-    [8959] = { t = "Anthion's Parting Words", z = 1537, rl = 60, ql = 60, rr = 1101, rc = 1, ps = {9015}, nc = 8960, maps = {
+    [8959] = { t = "Anthion's Parting Words", z = 1537, rl = 60, ql = 60, rr = 1101, rc = 1, ps = {9015}, nc = 8960, si = {22047}, maps = {
       [1455] = {{43.53,52.64,nil,nil,6,nil,1,16013}},
     },
     turnins = {
@@ -35962,7 +35962,7 @@ VanillaEnhancedQuestsDB = {
       [1415] = {{48.90,63.93,nil,nil,7,nil,1,16033}},
     },
     },
-    [8966] = { t = "The Left Piece of Lord Valthalak's Amulet", z = 1583, rl = 60, ql = 60, ps = {8962,8963,8964,8965}, ex = {8967,8968,8969}, nc = 8970, dq = 1, dm = 253, maps = {
+    [8966] = { t = "The Left Piece of Lord Valthalak's Amulet", z = 1583, rl = 60, ql = 60, ps = {8962,8963,8964,8965}, ex = {8967,8968,8969}, nc = 8970, dq = 1, dm = 253, si = {22049}, maps = {
       [1415] = {{48.90,63.93,nil,nil,6,nil,1,16033}},
     },
     turnins = {
@@ -35972,7 +35972,7 @@ VanillaEnhancedQuestsDB = {
       [1415] = {{48.90,63.93,nil,nil,7,nil,1,16033}},
     },
     },
-    [8967] = { t = "The Left Piece of Lord Valthalak's Amulet", z = 2557, rl = 60, ql = 60, ps = {8962,8963,8964,8965}, ex = {8966,8968,8969}, nc = 8970, dq = 1, dm = 234, maps = {
+    [8967] = { t = "The Left Piece of Lord Valthalak's Amulet", z = 2557, rl = 60, ql = 60, ps = {8962,8963,8964,8965}, ex = {8966,8968,8969}, nc = 8970, dq = 1, dm = 234, si = {22050}, maps = {
       [1415] = {{48.90,63.93,nil,nil,6,nil,1,16033}},
     },
     turnins = {
@@ -35982,7 +35982,7 @@ VanillaEnhancedQuestsDB = {
       [1415] = {{48.90,63.93,nil,nil,7,nil,1,16033}},
     },
     },
-    [8968] = { t = "The Left Piece of Lord Valthalak's Amulet", z = 2017, rl = 60, ql = 60, ps = {8962,8963,8964,8965}, ex = {8966,8967,8969}, nc = 8970, dq = 1, dm = 317, maps = {
+    [8968] = { t = "The Left Piece of Lord Valthalak's Amulet", z = 2017, rl = 60, ql = 60, ps = {8962,8963,8964,8965}, ex = {8966,8967,8969}, nc = 8970, dq = 1, dm = 317, si = {22051}, maps = {
       [1415] = {{48.90,63.93,nil,nil,6,nil,1,16033}},
     },
     turnins = {
@@ -35992,7 +35992,7 @@ VanillaEnhancedQuestsDB = {
       [1415] = {{48.90,63.93,nil,nil,7,nil,1,16033}},
     },
     },
-    [8969] = { t = "The Left Piece of Lord Valthalak's Amulet", z = 2057, rl = 60, ql = 60, ps = {8962,8963,8964,8965}, ex = {8966,8967,8968}, nc = 8970, dq = 1, dm = 306, maps = {
+    [8969] = { t = "The Left Piece of Lord Valthalak's Amulet", z = 2057, rl = 60, ql = 60, ps = {8962,8963,8964,8965}, ex = {8966,8967,8968}, nc = 8970, dq = 1, dm = 306, si = {22052}, maps = {
       [1415] = {{48.90,63.93,nil,nil,6,nil,1,16033}},
     },
     turnins = {
@@ -36002,7 +36002,7 @@ VanillaEnhancedQuestsDB = {
       [1415] = {{48.90,63.93,nil,nil,7,nil,1,16033}},
     },
     },
-    [8970] = { t = "I See Alcaz Island In Your Future...", z = 2079, rl = 60, ql = 60, ps = {8966,8967,8968,8969}, nc = 8985, maps = {
+    [8970] = { t = "I See Alcaz Island In Your Future...", z = 2079, rl = 60, ql = 60, ps = {8966,8967,8968,8969}, nc = 8985, si = {21984}, maps = {
       [1445] = {{76.00,18.36,4.28,29,2,"Bloodkelp",3,22094,{4364,4366,4368,4370,4371,16072},{4364,20,4366,20,4368,20,4370,20,4371,15,16072,20},1,{73.16,18.53,75.11,14.17,75.44,14.57,76.86,17.07,77.41,19.03,77.35,20.14,76.53,22.19,75.62,22.01,75.33,21.82}}, {75.95,18.87,3.99,3,4,"Bloodkelp",3,22094,nil,nil,1,{75.10,14.98,76.94,19.81,75.81,21.83}}},
     },
     turnins = {
@@ -36012,7 +36012,7 @@ VanillaEnhancedQuestsDB = {
       [1415] = {{48.90,63.93,nil,nil,7,nil,1,16033}},
     },
     },
-    [8977] = { t = "Return to Deliana", z = 1537, rl = 58, ql = 60, rr = 1101, ps = {8928}, maps = {
+    [8977] = { t = "Return to Deliana", z = 1537, rl = 58, ql = 60, rr = 1101, ps = {8928}, si = {22115}, maps = {
       [1455] = {{43.53,52.64,nil,nil,6,nil,1,16013}},
     },
     turnins = {
@@ -36022,7 +36022,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{52.47,27.23,nil,nil,7,nil,1,16014}},
     },
     },
-    [8978] = { t = "Return to Mokvar", z = 1637, rl = 58, ql = 60, rr = 690, ps = {8928}, maps = {
+    [8978] = { t = "Return to Mokvar", z = 1637, rl = 58, ql = 60, rr = 690, ps = {8928}, si = {22115}, maps = {
       [1454] = {{34.95,38.29,nil,nil,6,nil,1,16012}},
     },
     turnins = {
@@ -36072,7 +36072,7 @@ VanillaEnhancedQuestsDB = {
       [1415] = {{48.90,63.93,nil,nil,7,nil,1,16033}},
     },
     },
-    [8989] = { t = "The Right Piece of Lord Valthalak's Amulet", z = 1583, rl = 60, ql = 60, ps = {8985,8986,8987,8988}, ex = {8990,8991,8992}, nc = 8994, dq = 1, dm = 253, maps = {
+    [8989] = { t = "The Right Piece of Lord Valthalak's Amulet", z = 1583, rl = 60, ql = 60, ps = {8985,8986,8987,8988}, ex = {8990,8991,8992}, nc = 8994, dq = 1, dm = 253, si = {22049,22046}, maps = {
       [1415] = {{48.90,63.93,nil,nil,6,nil,1,16033}},
     },
     turnins = {
@@ -36082,7 +36082,7 @@ VanillaEnhancedQuestsDB = {
       [1415] = {{48.90,63.93,nil,nil,7,nil,1,16033}},
     },
     },
-    [8990] = { t = "The Right Piece of Lord Valthalak's Amulet", z = 2557, rl = 60, ql = 60, ps = {8985,8986,8987,8988}, ex = {8989,8991,8992}, nc = 8994, dq = 1, dm = 234, maps = {
+    [8990] = { t = "The Right Piece of Lord Valthalak's Amulet", z = 2557, rl = 60, ql = 60, ps = {8985,8986,8987,8988}, ex = {8989,8991,8992}, nc = 8994, dq = 1, dm = 234, si = {22050,22046}, maps = {
       [1415] = {{48.90,63.93,nil,nil,6,nil,1,16033}},
     },
     turnins = {
@@ -36092,7 +36092,7 @@ VanillaEnhancedQuestsDB = {
       [1415] = {{48.90,63.93,nil,nil,7,nil,1,16033}},
     },
     },
-    [8991] = { t = "The Right Piece of Lord Valthalak's Amulet", z = 2017, rl = 60, ql = 60, ps = {8985,8986,8987,8988}, ex = {8989,8990,8992}, nc = 8994, dq = 1, dm = 317, maps = {
+    [8991] = { t = "The Right Piece of Lord Valthalak's Amulet", z = 2017, rl = 60, ql = 60, ps = {8985,8986,8987,8988}, ex = {8989,8990,8992}, nc = 8994, dq = 1, dm = 317, si = {22051,22046}, maps = {
       [1415] = {{48.90,63.93,nil,nil,6,nil,1,16033}},
     },
     turnins = {
@@ -36102,7 +36102,7 @@ VanillaEnhancedQuestsDB = {
       [1415] = {{48.90,63.93,nil,nil,7,nil,1,16033}},
     },
     },
-    [8992] = { t = "The Right Piece of Lord Valthalak's Amulet", z = 2057, rl = 60, ql = 60, ps = {8985,8986,8987,8988}, ex = {8989,8990,8991}, nc = 8994, dq = 1, dm = 306, maps = {
+    [8992] = { t = "The Right Piece of Lord Valthalak's Amulet", z = 2057, rl = 60, ql = 60, ps = {8985,8986,8987,8988}, ex = {8989,8990,8991}, nc = 8994, dq = 1, dm = 306, si = {22052,22046}, maps = {
       [1415] = {{48.90,63.93,nil,nil,6,nil,1,16033}},
     },
     turnins = {
@@ -36112,7 +36112,7 @@ VanillaEnhancedQuestsDB = {
       [1415] = {{48.90,63.93,nil,nil,7,nil,1,16033}},
     },
     },
-    [8994] = { t = "Final Preparations", z = 25, rl = 60, ql = 60, ps = {8989,8990,8991,8992}, nc = 8995, maps = {
+    [8994] = { t = "Final Preparations", z = 25, rl = 60, ql = 60, ps = {8989,8990,8991,8992}, nc = 8995, si = {22048}, maps = {
       [1415] = {{48.90,63.93,nil,nil,6,nil,1,16033}},
     },
     turnins = {
@@ -36122,7 +36122,7 @@ VanillaEnhancedQuestsDB = {
       [1415] = {{48.90,63.93,nil,nil,7,nil,1,16033}},
     },
     },
-    [8995] = { t = "Mea Culpa, Lord Valthalak", z = 1583, rl = 60, ql = 60, ps = {8994}, nc = 8996, dq = 1, dm = 253, maps = {
+    [8995] = { t = "Mea Culpa, Lord Valthalak", z = 1583, rl = 60, ql = 60, ps = {8994}, nc = 8996, dq = 1, dm = 253, si = {22056}, maps = {
     },
     starts = {
       [1415] = {{48.90,63.93,nil,nil,7,nil,1,16033}},
@@ -36315,14 +36315,14 @@ VanillaEnhancedQuestsDB = {
       [1454] = {{34.95,38.29,nil,nil,7,nil,1,16012}},
     },
     },
-    [9015] = { t = "The Challenge", z = 1584, rl = 58, ql = 60, ps = {8950}, dq = 1, dm = 242, maps = {
+    [9015] = { t = "The Challenge", z = 1584, rl = 58, ql = 60, ps = {8950}, dq = 1, dm = 242, si = {21986}, maps = {
       [1423] = {{30.85,16.75,nil,nil,6,nil,1,16016}},
     },
     turnins = {
       [1423] = {{30.85,16.75,nil,nil,6,nil,1,16016}},
     },
     },
-    [9016] = { t = "Anthion's Parting Words", z = 1637, rl = 60, ql = 60, rr = 690, rc = 1024, ps = {9015}, nc = 9032, maps = {
+    [9016] = { t = "Anthion's Parting Words", z = 1637, rl = 60, ql = 60, rr = 690, rc = 1024, ps = {9015}, nc = 9032, si = {22047}, maps = {
       [1454] = {{34.95,38.29,nil,nil,6,nil,1,16012}},
     },
     turnins = {
@@ -36332,7 +36332,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{30.85,16.75,nil,nil,7,nil,1,16016}},
     },
     },
-    [9017] = { t = "Anthion's Parting Words", z = 1637, rl = 60, ql = 60, rr = 690, rc = 4, ps = {9015}, nc = 9032, maps = {
+    [9017] = { t = "Anthion's Parting Words", z = 1637, rl = 60, ql = 60, rr = 690, rc = 4, ps = {9015}, nc = 9032, si = {22047}, maps = {
       [1454] = {{34.95,38.29,nil,nil,6,nil,1,16012}},
     },
     turnins = {
@@ -36342,7 +36342,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{30.85,16.75,nil,nil,7,nil,1,16016}},
     },
     },
-    [9018] = { t = "Anthion's Parting Words", z = 1637, rl = 60, ql = 60, rr = 690, rc = 128, ps = {9015}, nc = 9032, maps = {
+    [9018] = { t = "Anthion's Parting Words", z = 1637, rl = 60, ql = 60, rr = 690, rc = 128, ps = {9015}, nc = 9032, si = {21986}, maps = {
       [1454] = {{34.95,38.29,nil,nil,6,nil,1,16012}},
     },
     turnins = {
@@ -36352,7 +36352,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{30.85,16.75,nil,nil,7,nil,1,16016}},
     },
     },
-    [9019] = { t = "Anthion's Parting Words", z = 1637, rl = 60, ql = 60, rr = 690, rc = 16, ps = {9015}, nc = 9032, maps = {
+    [9019] = { t = "Anthion's Parting Words", z = 1637, rl = 60, ql = 60, rr = 690, rc = 16, ps = {9015}, nc = 9032, si = {22047}, maps = {
       [1454] = {{34.95,38.29,nil,nil,6,nil,1,16012}},
     },
     turnins = {
@@ -36362,7 +36362,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{30.85,16.75,nil,nil,7,nil,1,16016}},
     },
     },
-    [9020] = { t = "Anthion's Parting Words", z = 1637, rl = 60, ql = 60, rr = 690, rc = 8, ps = {9015}, nc = 9032, maps = {
+    [9020] = { t = "Anthion's Parting Words", z = 1637, rl = 60, ql = 60, rr = 690, rc = 8, ps = {9015}, nc = 9032, si = {22047}, maps = {
       [1454] = {{34.95,38.29,nil,nil,6,nil,1,16012}},
     },
     turnins = {
@@ -36372,7 +36372,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{30.85,16.75,nil,nil,7,nil,1,16016}},
     },
     },
-    [9021] = { t = "Anthion's Parting Words", z = 1637, rl = 60, ql = 60, rr = 690, rc = 256, ps = {9015}, nc = 9032, maps = {
+    [9021] = { t = "Anthion's Parting Words", z = 1637, rl = 60, ql = 60, rr = 690, rc = 256, ps = {9015}, nc = 9032, si = {22047}, maps = {
       [1454] = {{34.95,38.29,nil,nil,6,nil,1,16012}},
     },
     turnins = {
@@ -36382,7 +36382,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{30.85,16.75,nil,nil,7,nil,1,16016}},
     },
     },
-    [9022] = { t = "Anthion's Parting Words", z = 1637, rl = 60, ql = 60, rr = 690, rc = 1, ps = {9015}, nc = 9032, maps = {
+    [9022] = { t = "Anthion's Parting Words", z = 1637, rl = 60, ql = 60, rr = 690, rc = 1, ps = {9015}, nc = 9032, si = {22047}, maps = {
       [1454] = {{34.95,38.29,nil,nil,6,nil,1,16012}},
     },
     turnins = {
@@ -36592,7 +36592,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{81.54,58.16,nil,nil,7,nil,1,16115}},
     },
     },
-    [9051] = { t = "Toxic Test", z = -263, rl = 50, ql = 52, rc = 1024, ps = {9052}, nc = 9053, sf = 2, maps = {
+    [9051] = { t = "Toxic Test", z = -263, rl = 50, ql = 52, rc = 1024, ps = {9052}, nc = 9053, sf = 2, si = {22432}, maps = {
       [1449] = {{31.19,36.42,nil,nil,1,"Devilsaur",1,6498,nil,nil,1}, {34.60,22.37,nil,nil,1,"Devilsaur",1,6498,nil,nil,1}, {57.26,23.68,nil,nil,1,"Devilsaur",1,6498,nil,nil,1}, {57.29,61.75,nil,nil,1,"Ironhide Devilsaur",1,6499,nil,nil,1}, {50.13,60.71,nil,nil,1,"Tyrant Devilsaur",1,6500,nil,nil,1}, {74.20,33.04,nil,nil,1,"Tyrant Devilsaur",1,6500,nil,nil,1}},
     },
     turnins = {
@@ -36727,7 +36727,7 @@ VanillaEnhancedQuestsDB = {
       [1954] = {{71.55,55.76,nil,nil,7,nil,1,16655}},
     },
     },
-    [9064] = { t = "Taking the Fall", z = 3430, rl = 4, ql = 6, rr = 690, ps = {9062}, nc = 9066, maps = {
+    [9064] = { t = "Taking the Fall", z = 3430, rl = 4, ql = 6, rr = 690, ps = {9062}, nc = 9066, si = {22414}, maps = {
       [1941] = {{55.70,54.51,nil,nil,6,nil,1,15970}},
     },
     turnins = {
@@ -36737,7 +36737,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{44.88,61.03,nil,nil,7,nil,1,15945}},
     },
     },
-    [9066] = { t = "Swift Discipline", z = 3430, rl = 4, ql = 6, rr = 690, ps = {9064}, maps = {
+    [9066] = { t = "Swift Discipline", z = 3430, rl = 4, ql = 6, rr = 690, ps = {9064}, si = {22473}, maps = {
       [1941] = {{44.88,61.03,nil,nil,1,"Apprentice Meledor",1,15945,nil,nil,1}, {45.19,56.43,nil,nil,1,"Apprentice Ralen",1,15941,nil,nil,2}},
     },
     turnins = {
@@ -37392,7 +37392,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{44.63,53.13,nil,nil,7,nil,1,15405}},
     },
     },
-    [9120] = { t = "The Fall of Kel'Thuzad", z = 3456, rl = 60, ql = 60, ps = {9121,9122,9123}, dq = 1, dm = 166, maps = {
+    [9120] = { t = "The Fall of Kel'Thuzad", z = 3456, rl = 60, ql = 60, ps = {9121,9122,9123}, dq = 1, dm = 166, si = {22520}, maps = {
       [1423] = {{81.47,58.15,nil,nil,6,nil,1,16113}},
     },
     turnins = {
@@ -37533,7 +37533,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{81.52,58.27,nil,nil,7,nil,1,16116}},
     },
     },
-    [9130] = { t = "Goods from Silvermoon City", z = 3433, rl = 10, ql = 10, rr = 512, ps = {9327}, nc = 9133, maps = {
+    [9130] = { t = "Goods from Silvermoon City", z = 3433, rl = 10, ql = 10, rr = 512, ps = {9327}, nc = 9133, si = {22549}, maps = {
       [1942] = {{45.42,30.52,nil,nil,6,nil,1,16189}},
     },
     turnins = {
@@ -37567,7 +37567,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{81.80,58.08,nil,nil,7,nil,1,16112}},
     },
     },
-    [9133] = { t = "Fly to Silvermoon City", z = 3433, rl = 10, ql = 10, rr = 512, ps = {9130}, nc = 9134, maps = {
+    [9133] = { t = "Fly to Silvermoon City", z = 3433, rl = 10, ql = 10, rr = 512, ps = {9130}, nc = 9134, si = {22549}, maps = {
       [1954] = {{53.93,71.02,nil,nil,6,nil,1,16191}},
     },
     turnins = {
@@ -37577,7 +37577,7 @@ VanillaEnhancedQuestsDB = {
       [1942] = {{45.42,30.52,nil,nil,7,nil,1,16189}},
     },
     },
-    [9134] = { t = "Skymistress Gloaming", z = 3433, rl = 10, ql = 10, rr = 512, ps = {9133}, nc = 9135, maps = {
+    [9134] = { t = "Skymistress Gloaming", z = 3433, rl = 10, ql = 10, rr = 512, ps = {9133}, nc = 9135, si = {22550}, maps = {
       [1941] = {{54.36,50.72,nil,nil,6,nil,1,16192}},
     },
     turnins = {
@@ -37587,7 +37587,7 @@ VanillaEnhancedQuestsDB = {
       [1954] = {{53.93,71.02,nil,nil,7,nil,1,16191}},
     },
     },
-    [9135] = { t = "Return to Quartermaster Lymel", z = 3433, rl = 10, ql = 10, rr = 512, ps = {9134}, maps = {
+    [9135] = { t = "Return to Quartermaster Lymel", z = 3433, rl = 10, ql = 10, rr = 512, ps = {9134}, si = {22550}, maps = {
       [1942] = {{47.34,29.26,nil,nil,6,nil,1,16187}},
     },
     turnins = {
@@ -37721,7 +37721,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{49.02,89.05,nil,nil,7,nil,1,16196}},
     },
     },
-    [9148] = { t = "Delivery to Tranquillien", z = 3433, rl = 9, ql = 10, rr = 690, ps = {9147}, maps = {
+    [9148] = { t = "Delivery to Tranquillien", z = 3433, rl = 9, ql = 10, rr = 690, ps = {9147}, si = {22717}, maps = {
       [1942] = {{46.55,28.38,nil,nil,6,nil,1,16197}},
     },
     turnins = {
@@ -37786,7 +37786,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{80.91,60.40,nil,nil,7,nil,1,16361}},
     },
     },
-    [9154] = { t = "Light's Hope Chapel", z = -368, rl = 50, ql = 60, maps = {
+    [9154] = { t = "Light's Hope Chapel", z = -368, rl = 50, ql = 60, si = {22595}, maps = {
       [1423] = {{80.91,60.34,nil,nil,6,nil,1,16281}},
     },
     turnins = {
@@ -37863,7 +37863,7 @@ VanillaEnhancedQuestsDB = {
       [1942] = {{71.96,32.64,nil,nil,7,nil,1,16203}},
     },
     },
-    [9162] = { t = "Hints of the Past", z = 3433, rl = 15, ql = 16, rr = 690, ps = {9161}, nc = 9172, maps = {
+    [9162] = { t = "Hints of the Past", z = 3433, rl = 15, ql = 16, rr = 690, ps = {9161}, nc = 9172, si = {22706}, maps = {
       [1942] = {{71.96,32.64,nil,nil,6,nil,1,16203}},
     },
     turnins = {
@@ -37883,7 +37883,7 @@ VanillaEnhancedQuestsDB = {
       [1942] = {{44.88,32.51,nil,nil,7,nil,1,16231}},
     },
     },
-    [9164] = { t = "Captives at Deatholme", z = 3433, rl = 17, ql = 20, rr = 690, ps = {9877}, maps = {
+    [9164] = { t = "Captives at Deatholme", z = 3433, rl = 17, ql = 20, rr = 690, ps = {9877}, si = {22628}, maps = {
       [1942] = {{32.13,73.93,nil,nil,1,"Apothecary Enith",1,16208,nil,nil,1}, {40.98,83.22,nil,nil,1,"Apprentice Varnis",1,16206,nil,nil,2}, {32.79,89.93,nil,nil,1,"Ranger Vedoran",1,16209,nil,nil,3}},
     },
     turnins = {
@@ -37893,7 +37893,7 @@ VanillaEnhancedQuestsDB = {
       [1942] = {{47.66,34.86,nil,nil,7,nil,1,16198}},
     },
     },
-    [9165] = { t = "Writ of Safe Passage", z = 139, rl = 60, ql = 60, sf = 1, maps = {
+    [9165] = { t = "Writ of Safe Passage", z = 139, rl = 60, ql = 60, sf = 1, si = {22593}, maps = {
       [1423] = {{47.20,42.60,nil,nil,5,"Writ of Safe Passage Signed",1,16254,nil,nil,1}},
     },
     turnins = {
@@ -37903,7 +37903,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{80.30,57.80,nil,nil,7,nil,1,16226}},
     },
     },
-    [9166] = { t = "Deliver the Plans to An'telas", z = 3433, rl = 11, ql = 16, rr = 690, ps = {9163}, maps = {
+    [9166] = { t = "Deliver the Plans to An'telas", z = 3433, rl = 11, ql = 16, rr = 690, ps = {9163}, si = {22594}, maps = {
       [1942] = {{60.29,35.63,nil,nil,6,nil,1,16237}},
     },
     turnins = {
@@ -37923,7 +37923,7 @@ VanillaEnhancedQuestsDB = {
       [1942] = {{55.07,48.83,nil,nil,7,nil,1,16239}},
     },
     },
-    [9169] = { t = "Deactivate An'owyn", z = 3433, rl = 11, ql = 16, rr = 690, ps = {9166}, maps = {
+    [9169] = { t = "Deactivate An'owyn", z = 3433, rl = 11, ql = 16, rr = 690, ps = {9166}, si = {23191}, maps = {
       [1942] = {{58.17,65.14,nil,nil,4,"Night Elf Moon Crystal Deactivated",2,181359,nil,nil,1}, {57.52,65.37,3.89,30,2,"Crystal Controlling Orb",3,23191,{16333},{16333,15},nil,{55.41,63.81,55.46,63.07,55.75,62.59,56.00,62.32,58.56,62.88,59.22,64.55,59.58,65.75,58.65,67.93,57.55,68.64,56.51,69.13}}},
     },
     turnins = {
@@ -37964,7 +37964,7 @@ VanillaEnhancedQuestsDB = {
       [1942] = {{48.43,30.93,nil,nil,7,nil,1,16253}},
     },
     },
-    [9172] = { t = "Report to Magister Kaendris", z = 3433, rl = 15, ql = 16, rr = 690, ps = {9162}, nc = 9176, maps = {
+    [9172] = { t = "Report to Magister Kaendris", z = 3433, rl = 15, ql = 16, rr = 690, ps = {9162}, nc = 9176, si = {22706}, maps = {
       [1942] = {{55.07,48.83,nil,nil,6,nil,1,16239}},
     },
     turnins = {
@@ -37984,7 +37984,7 @@ VanillaEnhancedQuestsDB = {
       [1942] = {{44.77,32.45,nil,nil,7,nil,1,16252}},
     },
     },
-    [9174] = { t = "Vanquishing Aquantion", z = 3433, rl = 10, ql = 13, rr = 690, ps = {9157}, maps = {
+    [9174] = { t = "Vanquishing Aquantion", z = 3433, rl = 10, ql = 13, rr = 690, ps = {9157}, si = {22675}, maps = {
       [1942] = {{71.32,14.95,nil,nil,1,"Aquantion",1,16292,nil,nil,1}},
     },
     turnins = {
@@ -37994,7 +37994,7 @@ VanillaEnhancedQuestsDB = {
       [1942] = {{72.29,19.10,nil,nil,7,nil,1,16201}},
     },
     },
-    [9175] = { t = "The Lady's Necklace", z = 3433, rl = 15, ql = 15, rr = 690, maps = {
+    [9175] = { t = "The Lady's Necklace", z = 3433, rl = 15, ql = 15, rr = 690, si = {22597}, maps = {
       [1942] = {{44.77,32.45,nil,nil,6,nil,1,16252}},
     },
     turnins = {
@@ -38011,7 +38011,7 @@ VanillaEnhancedQuestsDB = {
       [1942] = {{55.07,48.83,nil,nil,7,nil,1,16239}},
     },
     },
-    [9177] = { t = "Journey to Undercity", z = 1497, rl = 15, ql = 15, rr = 178, ps = {9175}, maps = {
+    [9177] = { t = "Journey to Undercity", z = 1497, rl = 15, ql = 15, rr = 178, ps = {9175}, si = {22627}, maps = {
       [1458] = {{58.05,91.79,nil,nil,6,nil,1,10181}},
     },
     turnins = {
@@ -38021,21 +38021,21 @@ VanillaEnhancedQuestsDB = {
       [1942] = {{44.77,32.45,nil,nil,7,nil,1,16252}},
     },
     },
-    [9178] = { t = "Craftsman's Writ - Dense Weightstone", z = 139, rl = 55, ql = 60, sf = 1, maps = {
+    [9178] = { t = "Craftsman's Writ - Dense Weightstone", z = 139, rl = 55, ql = 60, sf = 1, si = {22600}, maps = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     turnins = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     },
-    [9179] = { t = "Craftsman's Writ - Imperial Plate Chest", z = 139, rl = 50, ql = 60, sf = 1, maps = {
+    [9179] = { t = "Craftsman's Writ - Imperial Plate Chest", z = 139, rl = 50, ql = 60, sf = 1, si = {22601}, maps = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     turnins = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     },
-    [9180] = { t = "Journey to Undercity", z = 1497, rl = 15, ql = 15, rr = 512, ps = {9175}, maps = {
+    [9180] = { t = "Journey to Undercity", z = 1497, rl = 15, ql = 15, rr = 512, ps = {9175}, si = {22627}, maps = {
       [1458] = {{58.05,91.79,nil,nil,6,nil,1,10181}},
     },
     turnins = {
@@ -38045,35 +38045,35 @@ VanillaEnhancedQuestsDB = {
       [1942] = {{44.77,32.45,nil,nil,7,nil,1,16252}},
     },
     },
-    [9181] = { t = "Craftsman's Writ - Volcanic Hammer", z = 139, rl = 55, ql = 60, sf = 1, maps = {
+    [9181] = { t = "Craftsman's Writ - Volcanic Hammer", z = 139, rl = 55, ql = 60, sf = 1, si = {22602}, maps = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     turnins = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     },
-    [9182] = { t = "Craftsman's Writ - Huge Thorium Battleaxe", z = 139, rl = 55, ql = 60, sf = 1, maps = {
+    [9182] = { t = "Craftsman's Writ - Huge Thorium Battleaxe", z = 139, rl = 55, ql = 60, sf = 1, si = {22603}, maps = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     turnins = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     },
-    [9183] = { t = "Craftsman's Writ - Radiant Circlet", z = 139, rl = 55, ql = 60, sf = 1, maps = {
+    [9183] = { t = "Craftsman's Writ - Radiant Circlet", z = 139, rl = 55, ql = 60, sf = 1, si = {22604}, maps = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     turnins = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     },
-    [9184] = { t = "Craftsman's Writ - Wicked Leather Headband", z = 139, rl = 55, ql = 60, sf = 1, maps = {
+    [9184] = { t = "Craftsman's Writ - Wicked Leather Headband", z = 139, rl = 55, ql = 60, sf = 1, si = {22605}, maps = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     turnins = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     },
-    [9185] = { t = "Craftsman's Writ - Rugged Armor Kit", z = 139, rl = 55, ql = 60, sf = 1, maps = {
+    [9185] = { t = "Craftsman's Writ - Rugged Armor Kit", z = 139, rl = 55, ql = 60, sf = 1, si = {22606}, maps = {
       [1446] = {{31.24,58.94,6.13,18,2,"Rugged Armor Kit",3,15564,{5427},nil,1,{25.67,56.37,27.72,56.13,31.31,55.97,33.97,55.99,33.97,58.90,33.74,59.69,32.13,63.72}}, {45.87,74.70,6.37,15,2,"Rugged Armor Kit",3,15564,{5427},nil,1,{40.57,77.79,46.52,69.20,49.27,69.31,48.26,77.63}}, {33.01,74.50,6.07,18,2,"Rugged Armor Kit",3,15564,{5427},nil,1,{29.00,71.89,30.05,69.20,31.94,68.84,37.69,72.21,38.83,76.13,32.90,79.08,29.91,77.69}}, {29.49,48.87,nil,nil,2,"Rugged Armor Kit",3,15564,{5427},nil,1}, {30.43,53.15,nil,nil,2,"Rugged Armor Kit",3,15564,{5427},nil,1}, {37.66,65.45,6.14,24,2,"Rugged Armor Kit",3,15564,{5427},nil,1,{31.88,67.54,34.13,63.30,35.79,60.55,38.44,60.50,41.97,62.59,42.49,63.29,37.85,70.51}}, {44.23,48.98,6.87,22,2,"Rugged Armor Kit",3,15564,{5427},nil,1,{40.54,44.99,42.43,44.28,44.28,44.39,50.41,46.03,51.09,49.35,43.45,52.42,40.56,49.17}}},
       [1449] = {{52.28,45.14,5.46,7,2,"Rugged Armor Kit",3,15564,{6520},nil,1,{46.83,45.43,49.74,44.05,52.78,42.76,55.11,44.72,55.10,48.83}}, {48.72,53.36,5.45,5,2,"Rugged Armor Kit",3,15564,{6520},nil,1,{45.71,51.58,53.96,54.84,46.66,53.85}}},
     },
@@ -38081,28 +38081,28 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     },
-    [9186] = { t = "Craftsman's Writ - Wicked Leather Belt", z = 139, rl = 55, ql = 60, sf = 1, maps = {
+    [9186] = { t = "Craftsman's Writ - Wicked Leather Belt", z = 139, rl = 55, ql = 60, sf = 1, si = {22607}, maps = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     turnins = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     },
-    [9187] = { t = "Craftsman's Writ - Runic Leather Pants", z = 139, rl = 55, ql = 60, sf = 1, maps = {
+    [9187] = { t = "Craftsman's Writ - Runic Leather Pants", z = 139, rl = 55, ql = 60, sf = 1, si = {22608}, maps = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     turnins = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     },
-    [9188] = { t = "Craftsman's Writ - Brightcloth Pants", z = 139, rl = 55, ql = 60, sf = 1, maps = {
+    [9188] = { t = "Craftsman's Writ - Brightcloth Pants", z = 139, rl = 55, ql = 60, sf = 1, si = {22609}, maps = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     turnins = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     },
-    [9189] = { t = "Delivery to the Sepulcher", z = 130, rl = 15, ql = 15, rr = 512, ps = {9180}, maps = {
+    [9189] = { t = "Delivery to the Sepulcher", z = 130, rl = 15, ql = 15, rr = 512, ps = {9180}, si = {22629}, maps = {
       [1421] = {{43.40,40.75,nil,nil,6,nil,1,16288}},
     },
     turnins = {
@@ -38112,14 +38112,14 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{57.77,90.56,nil,nil,7,nil,1,16287}},
     },
     },
-    [9190] = { t = "Craftsman's Writ - Runecloth Boots", z = 139, rl = 58, ql = 60, sf = 1, maps = {
+    [9190] = { t = "Craftsman's Writ - Runecloth Boots", z = 139, rl = 58, ql = 60, sf = 1, si = {22610}, maps = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     turnins = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     },
-    [9191] = { t = "Craftsman's Writ - Runecloth Bag", z = 139, rl = 55, ql = 60, sf = 1, maps = {
+    [9191] = { t = "Craftsman's Writ - Runecloth Bag", z = 139, rl = 55, ql = 60, sf = 1, si = {22611}, maps = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     turnins = {
@@ -38136,7 +38136,7 @@ VanillaEnhancedQuestsDB = {
       [1942] = {{44.75,32.28,nil,nil,7,nil,1,16251}},
     },
     },
-    [9193] = { t = "Investigate the Amani Catacombs", z = 3433, rl = 14, ql = 17, rr = 690, sf = 2, maps = {
+    [9193] = { t = "Investigate the Amani Catacombs", z = 3433, rl = 14, ql = 17, rr = 690, sf = 2, si = {22755}, maps = {
       [1942] = {{62.08,29.43,4.06,62,4,"Mummified Troll Remains Burned",2,181148,nil,nil,1,{58.31,27.90,58.59,27.51,61.26,27.43,61.50,27.43,65.91,28.26,65.92,28.88,63.23,32.56,62.92,32.59,62.62,32.58,59.55,30.90,59.23,30.41}}, {62.91,30.98,nil,nil,3,"Investigate the Amani Catacombs"}},
     },
     turnins = {
@@ -38146,35 +38146,35 @@ VanillaEnhancedQuestsDB = {
       [1942] = {{44.84,32.81,nil,nil,7,nil,1,16289}},
     },
     },
-    [9194] = { t = "Craftsman's Writ - Runecloth Robe", z = 139, rl = 55, ql = 60, sf = 1, maps = {
+    [9194] = { t = "Craftsman's Writ - Runecloth Robe", z = 139, rl = 55, ql = 60, sf = 1, si = {22612}, maps = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     turnins = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     },
-    [9195] = { t = "Craftsman's Writ - Goblin Sapper Charge", z = 139, rl = 55, ql = 60, sf = 1, maps = {
+    [9195] = { t = "Craftsman's Writ - Goblin Sapper Charge", z = 139, rl = 55, ql = 60, sf = 1, si = {22613}, maps = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     turnins = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     },
-    [9196] = { t = "Craftsman's Writ - Thorium Grenade", z = 139, rl = 55, ql = 60, sf = 1, maps = {
+    [9196] = { t = "Craftsman's Writ - Thorium Grenade", z = 139, rl = 55, ql = 60, sf = 1, si = {22614}, maps = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     turnins = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     },
-    [9197] = { t = "Craftsman's Writ - Gnomish Battle Chicken", z = 139, rl = 55, ql = 60, sf = 1, maps = {
+    [9197] = { t = "Craftsman's Writ - Gnomish Battle Chicken", z = 139, rl = 55, ql = 60, sf = 1, si = {22615}, maps = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     turnins = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     },
-    [9198] = { t = "Craftsman's Writ - Thorium Tube", z = 139, rl = 55, ql = 60, sf = 1, maps = {
+    [9198] = { t = "Craftsman's Writ - Thorium Tube", z = 139, rl = 55, ql = 60, sf = 1, si = {22616}, maps = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     turnins = {
@@ -38191,7 +38191,7 @@ VanillaEnhancedQuestsDB = {
       [1942] = {{44.75,32.28,nil,nil,7,nil,1,16251}},
     },
     },
-    [9200] = { t = "Craftsman's Writ - Major Mana Potion", z = 139, rl = 55, ql = 60, sf = 1, maps = {
+    [9200] = { t = "Craftsman's Writ - Major Mana Potion", z = 139, rl = 55, ql = 60, sf = 1, si = {22617}, maps = {
       [1416] = {{65.70,54.18,5.04,10,2,"Major Mana Potion",3,13444,{14285},nil,1,{63.93,58.86,65.46,54.03,66.58,51.70,66.87,51.36,66.95,51.50,63.98,58.92}}},
       [1419] = {{45.33,29.90,4.58,3,2,"Major Mana Potion",3,13444,{7664,7667,7734},{7664,18.182},1,{40.75,29.97,47.64,29.83,47.61,29.90}}, {42.57,13.01,nil,nil,2,"Major Mana Potion",3,13444,{7665},nil,1}, {40.60,72.40,6.70,23,2,"Major Mana Potion",3,13444,{8716,8717,12396},nil,1,{34.90,70.73,38.27,66.12,42.16,66.27,45.08,73.43,44.27,75.29,43.12,77.19,41.75,78.48,39.96,78.68}}, {39.37,60.40,6.86,30,2,"Major Mana Potion",3,13444,{8716,8717,12396},nil,1,{34.16,61.01,36.03,54.41,41.27,55.75,43.02,57.62,44.12,59.02,44.07,59.79,43.01,61.70,42.02,63.38,41.01,64.89,38.89,64.82,34.58,64.21}}, {37.35,53.74,3.15,8,2,"Major Mana Potion",3,13444,{8717},nil,1,{34.25,54.28,35.83,51.49,39.22,53.30,40.10,54.49,38.93,56.03}}},
       [1420] = {{82.93,71.87,0.84,3,2,"Major Mana Potion",3,13444,{10996},nil,1,{82.80,72.70,83.00,71.40,83.00,71.50}}},
@@ -38219,14 +38219,14 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     },
-    [9201] = { t = "Craftsman's Writ - Greater Arcane Protection Potion", z = 139, rl = 60, ql = 60, sf = 1, maps = {
+    [9201] = { t = "Craftsman's Writ - Greater Arcane Protection Potion", z = 139, rl = 60, ql = 60, sf = 1, si = {22620}, maps = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     turnins = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     },
-    [9202] = { t = "Craftsman's Writ - Major Healing Potion", z = 139, rl = 55, ql = 60, sf = 1, maps = {
+    [9202] = { t = "Craftsman's Writ - Major Healing Potion", z = 139, rl = 55, ql = 60, sf = 1, si = {22618}, maps = {
       [1415] = {{46.82,67.70,nil,nil,2,"Major Healing Potion",3,5758,{9026},nil,1}},
       [1418] = {{56.11,61.73,nil,nil,2,"Major Healing Potion",3,5758,{2931},nil,1}, {35.38,66.49,nil,nil,2,"Major Healing Potion",3,5758,{2931},nil,1}, {34.49,53.74,nil,nil,2,"Major Healing Potion",3,5758,{2931},nil,1}},
       [1419] = {{46.27,42.74,9.08,33,2,"Major Healing Potion",3,13446,{5977,5978,5981,6007,6008,6009,7669,7671,8297,8298,8304},{5977,3.469,5978,4.049,6007,4.029,6008,3.925,6009,4.655,7669,5.711,7671,5.138},1,{40.99,40.09,41.32,38.73,50.06,41.14,55.25,44.07,46.02,48.04,45.08,48.14}}, {39.74,32.25,6.71,18,2,"Major Healing Potion",3,13446,{5981,6007,6008,6009,7667,7671},{6007,4.029,6008,3.925,6009,4.655,7671,5.138},1,{38.24,33.88,38.32,31.09,38.50,30.64,40.75,29.97,44.31,33.60,41.37,38.76}}, {66.12,32.18,10.82,42,2,"Major Healing Potion",3,13446,{6004,6005,6006,7666,7670,7728},{6004,3.834,6005,3.901,6006,4.222,7670,3.801},1,{61.81,42.11,63.76,30.13,66.69,29.24,67.36,29.16,69.27,30.79,69.49,30.98,62.98,41.31}}, {62.95,44.06,5.00,28,2,"Major Healing Potion",3,13446,{6004,6005,6006,7670,8298},{6004,3.834,6005,3.901,6006,4.222,7670,3.801},1,{58.35,46.03,59.04,43.56,62.11,39.86,63.18,39.21,63.88,39.34,64.58,46.89,64.64,47.59,64.06,48.15,62.90,48.47}}, {59.60,53.30,6.57,10,2,"Major Healing Potion",3,13446,{6011,7668},{6011,3.135,7668,4.032},1,{54.63,54.09,55.05,48.55,61.79,51.17,63.09,55.73,62.84,56.81,62.49,58.31}}, {47.63,29.91,0.09,3,2,"Major Healing Potion",3,13446,{7664,7734,7735},nil,1,{47.61,29.90,47.64,29.83,47.63,30.00}}, {42.39,12.69,2.28,3,2,"Major Healing Potion",3,13446,{7665,7669},{7669,5.711},1,{41.22,14.43,43.38,10.64,42.57,13.01}}, {52.48,54.68,4.21,5,2,"Major Healing Potion",3,13446,{7668,8298},{7668,4.032},1,{51.31,53.12,52.01,51.85,54.09,52.49,53.27,58.82,51.72,57.12}}, {64.96,19.21,3.95,14,2,"Major Healing Potion",3,13446,{7851},nil,1,{63.51,16.49,63.53,16.33,63.61,15.74,65.08,16.25,67.18,18.41,67.21,19.09,65.68,21.89,64.42,23.12,64.23,22.65,64.17,22.49}}, {40.60,72.40,6.70,23,2,"Major Healing Potion",3,13446,{8716,8717,12396},nil,1,{34.90,70.73,38.27,66.12,42.16,66.27,45.08,73.43,44.27,75.29,43.12,77.19,41.75,78.48,39.96,78.68}}, {39.37,60.40,6.86,30,2,"Major Healing Potion",3,13446,{8716,8717,12396},nil,1,{34.16,61.01,36.03,54.41,41.27,55.75,43.02,57.62,44.12,59.02,44.07,59.79,43.01,61.70,42.02,63.38,41.01,64.89,38.89,64.82,34.58,64.21}}, {37.35,53.74,3.15,8,2,"Major Healing Potion",3,13446,{8717},nil,1,{34.25,54.28,35.83,51.49,39.22,53.30,40.10,54.49,38.93,56.03}}, {49.46,39.59,7.61,115,2,"Major Healing Potion",3,5758,{5977,5978,5981,5993,6007,6008,6009,7669,7671,8300,8675},nil,1,{42.25,42.01,42.26,39.95,45.00,36.40,52.04,33.63,54.00,35.00,54.60,36.80,55.25,44.07,48.61,45.91,47.33,45.54}}, {45.84,31.20,6.92,46,2,"Major Healing Potion",3,5758,{5981,5988,5993,6007,8300,8675},nil,1,{38.92,31.25,44.40,25.20,50.80,27.40,51.60,27.80,52.00,29.00,52.00,29.60,47.80,35.40,46.60,35.80,44.40,36.40}}, {47.31,20.27,5.56,57,2,"Major Healing Potion",3,5758,{5988},nil,1,{44.20,19.80,44.40,19.40,47.00,15.40,50.00,15.40,49.60,23.80,44.80,24.80,44.40,24.40}}, {60.76,39.82,7.77,43,2,"Major Healing Potion",3,5758,{5988,5991,5993,6004,6005,6006,7670,8298,8300},nil,1,{54.80,44.80,58.63,35.63,59.20,35.40,64.27,33.77,64.80,34.78,63.86,42.31,60.40,44.80}}, {49.66,52.32,6.66,43,2,"Major Healing Potion",3,5758,{5991,5993,6010,6011,8298},nil,1,{45.08,48.14,46.60,47.40,56.07,50.50,54.72,54.01,52.60,56.60,51.20,57.60,45.31,54.95}}, {62.46,48.09,7.38,21,2,"Major Healing Potion",3,5758,{5991,6004,6005,6006,6010,6011,7670,8298},nil,1,{58.08,51.25,58.35,46.03,63.84,44.08,64.58,46.89,64.64,47.59,64.10,52.48,62.14,55.46}}, {65.01,19.60,4.11,19,2,"Major Healing Potion",3,5758,{6003,7851},nil,1,{63.51,16.49,63.53,16.33,63.61,15.74,65.08,16.25,67.18,18.41,67.21,19.09,66.59,22.26,64.42,23.12,63.71,21.60}}, {66.39,31.63,4.29,37,2,"Major Healing Potion",3,5758,{6004,6005,6006,7670,7728},nil,1,{63.70,31.82,63.76,30.13,67.36,29.16,69.27,30.79,69.49,30.98,66.04,34.51,64.08,35.24}}, {39.41,33.12,7.14,14,2,"Major Healing Potion",3,5758,{6007,6008,6009,7671},nil,1,{38.24,33.88,38.32,31.09,38.50,30.64,39.41,30.53,40.68,32.71,41.37,38.76,40.99,40.09}}, {62.37,57.27,2.03,3,2,"Major Healing Potion",3,5758,{6010,6011},nil,1,{62.08,55.26,62.53,58.24,62.49,58.31}}, {43.38,10.64,nil,nil,2,"Major Healing Potion",3,5758,{7669},nil,1}, {41.22,14.43,nil,nil,2,"Major Healing Potion",3,5758,{7669},nil,1}},
@@ -38266,28 +38266,28 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     },
-    [9203] = { t = "Craftsman's Writ - Flask of Petrification", z = 139, rl = 55, ql = 60, sf = 1, maps = {
+    [9203] = { t = "Craftsman's Writ - Flask of Petrification", z = 139, rl = 55, ql = 60, sf = 1, si = {22621}, maps = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     turnins = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     },
-    [9204] = { t = "Craftsman's Writ - Stonescale Eel", z = 139, rl = 55, ql = 60, sf = 1, maps = {
+    [9204] = { t = "Craftsman's Writ - Stonescale Eel", z = 139, rl = 55, ql = 60, sf = 1, si = {22622}, maps = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     turnins = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     },
-    [9205] = { t = "Craftsman's Writ - Plated Armorfish", z = 139, rl = 60, ql = 60, sf = 1, maps = {
+    [9205] = { t = "Craftsman's Writ - Plated Armorfish", z = 139, rl = 60, ql = 60, sf = 1, si = {22623}, maps = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     turnins = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     },
-    [9206] = { t = "Craftsman's Writ - Lightning Eel", z = 139, rl = 55, ql = 60, sf = 1, maps = {
+    [9206] = { t = "Craftsman's Writ - Lightning Eel", z = 139, rl = 55, ql = 60, sf = 1, si = {22624}, maps = {
       [1423] = {{80.38,58.02,nil,nil,6,nil,1,16283}},
     },
     turnins = {
@@ -38542,7 +38542,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{81.01,59.62,nil,nil,7,nil,1,16376}},
     },
     },
-    [9233] = { t = "Omarion's Handbook", z = 3456, rl = 60, ql = 60, rmin = {529,21000}, ps = {9121,9122,9123}, rk = {{197,-4},{164,-4},{165,-4}}, dq = 1, dm = 166, maps = {
+    [9233] = { t = "Omarion's Handbook", z = 3456, rl = 60, ql = 60, rmin = {529,21000}, ps = {9121,9122,9123}, rk = {{197,-4},{164,-4},{165,-4}}, dq = 1, dm = 166, si = {22719}, maps = {
       [1423] = {{81.01,59.62,nil,nil,6,nil,1,16376}},
     },
     turnins = {
@@ -38744,7 +38744,7 @@ VanillaEnhancedQuestsDB = {
       [1451] = {{51.96,38.16,nil,nil,7,nil,1,15282}},
     },
     },
-    [9250] = { t = "Frame of Atiesh", z = -344, rl = 60, ql = 60, rc = 1424, nc = 9251, maps = {
+    [9250] = { t = "Frame of Atiesh", z = -344, rl = 60, ql = 60, rc = 1424, nc = 9251, si = {22727}, maps = {
       [1446] = {{64.20,51.42,nil,nil,6,nil,1,15192}},
     },
     turnins = {
@@ -38791,7 +38791,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{44.03,70.76,nil,nil,7,nil,1,16210}},
     },
     },
-    [9255] = { t = "Research Notes", z = 3430, rl = 7, ql = 9, rr = 690, ps = {8488}, maps = {
+    [9255] = { t = "Research Notes", z = 3430, rl = 7, ql = 9, rr = 690, ps = {8488}, si = {22735}, maps = {
       [1941] = {{44.03,70.76,nil,nil,6,nil,1,16210}},
     },
     turnins = {
@@ -38811,7 +38811,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{48.17,46.00,nil,nil,7,nil,1,15403}},
     },
     },
-    [9257] = { t = "Atiesh, Greatstaff of the Guardian", z = -344, rl = 60, ql = 60, rc = 16, ps = {9251}, ex = {9269,9270,9271}, maps = {
+    [9257] = { t = "Atiesh, Greatstaff of the Guardian", z = -344, rl = 60, ql = 60, rc = 16, ps = {9251}, ex = {9269,9270,9271}, si = {22737}, maps = {
       [1446] = {{64.20,51.42,nil,nil,6,nil,1,15192}},
     },
     turnins = {
@@ -39042,7 +39042,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{50.41,26.25,nil,nil,7,nil,1,16417}},
     },
     },
-    [9269] = { t = "Atiesh, Greatstaff of the Guardian", z = -344, rl = 60, ql = 60, rc = 1024, ps = {9251}, ex = {9257,9270,9271}, maps = {
+    [9269] = { t = "Atiesh, Greatstaff of the Guardian", z = -344, rl = 60, ql = 60, rc = 1024, ps = {9251}, ex = {9257,9270,9271}, si = {22737}, maps = {
       [1446] = {{64.20,51.42,nil,nil,6,nil,1,15192}},
     },
     turnins = {
@@ -39052,7 +39052,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{64.20,51.42,nil,nil,7,nil,1,15192}},
     },
     },
-    [9270] = { t = "Atiesh, Greatstaff of the Guardian", z = -344, rl = 60, ql = 60, rc = 128, ps = {9251}, ex = {9257,9269,9271}, maps = {
+    [9270] = { t = "Atiesh, Greatstaff of the Guardian", z = -344, rl = 60, ql = 60, rc = 128, ps = {9251}, ex = {9257,9269,9271}, si = {22737}, maps = {
       [1446] = {{64.20,51.42,nil,nil,6,nil,1,15192}},
     },
     turnins = {
@@ -39062,7 +39062,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{64.20,51.42,nil,nil,7,nil,1,15192}},
     },
     },
-    [9271] = { t = "Atiesh, Greatstaff of the Guardian", z = -344, rl = 60, ql = 60, rc = 256, ps = {9251}, ex = {9257,9269,9270}, maps = {
+    [9271] = { t = "Atiesh, Greatstaff of the Guardian", z = -344, rl = 60, ql = 60, rc = 256, ps = {9251}, ex = {9257,9269,9270}, si = {22737}, maps = {
       [1446] = {{64.20,51.42,nil,nil,6,nil,1,15192}},
     },
     turnins = {
@@ -39092,7 +39092,7 @@ VanillaEnhancedQuestsDB = {
       [1942] = {{72.21,29.78,nil,nil,7,nil,1,16462}},
     },
     },
-    [9275] = { t = "A Little Dash of Seasoning", z = 3433, rl = 16, ql = 19, rr = 690, maps = {
+    [9275] = { t = "A Little Dash of Seasoning", z = 3433, rl = 16, ql = 19, rr = 690, si = {22796}, maps = {
       [1942] = {{65.11,66.74,nil,nil,4,"Poison the Raw Meat Rack",2,181250,nil,nil,1}, {63.03,74.99,nil,nil,4,"Poison the Smoked Meat Rack",2,181251,nil,nil,2}, {68.24,57.78,nil,nil,4,"Poison the Fresh Fish Rack",2,181252,nil,nil,3}},
     },
     turnins = {
@@ -39222,7 +39222,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{80.13,48.89,nil,nil,7,nil,1,16502}},
     },
     },
-    [9292] = { t = "Cracked Necrotic Crystal", z = -368, rl = 1, ql = -1, rr = 1101, maps = {
+    [9292] = { t = "Cracked Necrotic Crystal", z = -368, rl = 1, ql = -1, rr = 1101, si = {22949}, maps = {
       [1453] = {{63.80,75.60,nil,nil,6,nil,1,16478}},
     },
     turnins = {
@@ -39239,7 +39239,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{79.14,46.54,nil,nil,7,nil,1,16514}},
     },
     },
-    [9294] = { t = "Healing the Lake", z = 3526, rl = 2, ql = 3, rr = 1101, ps = {9293}, maps = {
+    [9294] = { t = "Healing the Lake", z = 3526, rl = 2, ql = 3, rr = 1101, ps = {9293}, si = {22955}, maps = {
       [1943] = {{77.22,59.00,nil,nil,4,"Disperse the Neutralizing Agent",2,181433,nil,nil,1}},
     },
     turnins = {
@@ -39249,42 +39249,42 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{79.14,46.54,nil,nil,7,nil,1,16514}},
     },
     },
-    [9295] = { t = "Letter from the Front", z = -368, rl = 45, ql = -1, maps = {
+    [9295] = { t = "Letter from the Front", z = -368, rl = 45, ql = -1, si = {22932}, maps = {
       [1423] = {{80.91,60.34,nil,nil,6,nil,1,16281}},
     },
     turnins = {
       [1423] = {{80.91,60.34,nil,nil,6,nil,1,16281}},
     },
     },
-    [9299] = { t = "Note from the Front", z = -368, rl = 45, ql = -1, maps = {
+    [9299] = { t = "Note from the Front", z = -368, rl = 45, ql = -1, si = {22945}, maps = {
       [1423] = {{80.91,60.34,nil,nil,6,nil,1,16281}},
     },
     turnins = {
       [1423] = {{80.91,60.34,nil,nil,6,nil,1,16281}},
     },
     },
-    [9300] = { t = "Page from the Front", z = -368, rl = 45, ql = -1, maps = {
+    [9300] = { t = "Page from the Front", z = -368, rl = 45, ql = -1, si = {22946}, maps = {
       [1423] = {{80.91,60.34,nil,nil,6,nil,1,16281}},
     },
     turnins = {
       [1423] = {{80.91,60.34,nil,nil,6,nil,1,16281}},
     },
     },
-    [9301] = { t = "Envelope from the Front", z = -368, rl = 45, ql = -1, maps = {
+    [9301] = { t = "Envelope from the Front", z = -368, rl = 45, ql = -1, si = {22930}, maps = {
       [1423] = {{80.91,60.34,nil,nil,6,nil,1,16281}},
     },
     turnins = {
       [1423] = {{80.91,60.34,nil,nil,6,nil,1,16281}},
     },
     },
-    [9302] = { t = "Missive from the Front", z = -368, rl = 45, ql = -1, maps = {
+    [9302] = { t = "Missive from the Front", z = -368, rl = 45, ql = -1, si = {22944}, maps = {
       [1423] = {{80.91,60.34,nil,nil,6,nil,1,16281}},
     },
     turnins = {
       [1423] = {{80.91,60.34,nil,nil,6,nil,1,16281}},
     },
     },
-    [9303] = { t = "Inoculation", z = 3526, rl = 2, ql = 4, rr = 1101, nc = 9309, bc = {10304}, maps = {
+    [9303] = { t = "Inoculation", z = 3526, rl = 2, ql = 4, rr = 1101, nc = 9309, bc = {10304}, si = {22962}, maps = {
       [1943] = {{80.72,59.68,4.27,8,1,"Nestlewood Owlkin",1,16518,nil,nil,1,{78.01,61.84,78.22,60.49,78.88,58.88,81.66,57.54,84.92,58.89,83.12,60.16}}, {86.18,65.96,4.90,10,1,"Nestlewood Owlkin",1,16518,nil,nil,1,{84.39,67.93,85.05,64.72,88.97,61.93,86.22,68.25,85.14,69.02}}},
     },
     turnins = {
@@ -39294,7 +39294,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{79.49,51.62,nil,nil,7,nil,1,16535}},
     },
     },
-    [9304] = { t = "Document from the Front", z = -368, rl = 45, ql = -1, maps = {
+    [9304] = { t = "Document from the Front", z = -368, rl = 45, ql = -1, si = {22948}, maps = {
       [1423] = {{80.91,60.34,nil,nil,6,nil,1,16281}},
     },
     turnins = {
@@ -39321,7 +39321,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{79.49,51.62,nil,nil,7,nil,1,16535}},
     },
     },
-    [9310] = { t = "Faint Necrotic Crystal", z = -368, rl = 1, ql = -1, rr = 690, maps = {
+    [9310] = { t = "Faint Necrotic Crystal", z = -368, rl = 1, ql = -1, rr = 690, si = {22950}, maps = {
       [1458] = {{66.80,21.40,nil,nil,6,nil,1,16494}},
     },
     turnins = {
@@ -39472,7 +39472,7 @@ VanillaEnhancedQuestsDB = {
       [1942] = {{46.55,28.38,nil,nil,7,nil,1,16197}},
     },
     },
-    [9328] = { t = "Hero of the Sin'dorei", z = 3433, rl = 15, ql = 21, rr = 512, ps = {9167}, nc = 9621, maps = {
+    [9328] = { t = "Hero of the Sin'dorei", z = 3433, rl = 15, ql = 21, rr = 512, ps = {9167}, nc = 9621, si = {22653}, maps = {
       [1954] = {{53.80,20.23,nil,nil,6,nil,1,16802}},
     },
     turnins = {
@@ -39740,14 +39740,14 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{43.34,70.82,nil,nil,7,nil,1,15939}},
     },
     },
-    [9360] = { t = "Amani Invasion", z = 3430, rl = 8, ql = 11, rr = 690, nc = 9363, maps = {
+    [9360] = { t = "Amani Invasion", z = 3430, rl = 8, ql = 11, rr = 690, nc = 9363, si = {23249}, maps = {
       [1941] = {{60.32,62.77,nil,nil,6,nil,1,15399}},
     },
     turnins = {
       [1941] = {{60.32,62.77,nil,nil,6,nil,1,15399}},
     },
     },
-    [9361] = { t = "Helboar, the Other White Meat", z = 3483, rl = 58, ql = 61, ps = {9349}, nc = 9356, maps = {
+    [9361] = { t = "Helboar, the Other White Meat", z = 3483, rl = 58, ql = 61, ps = {9349}, nc = 9356, si = {23268,23270}, maps = {
       [1944] = {{49.72,68.60,8.93,30,2,"Tainted Helboar Meat",3,23270,{16863},{16863,100},nil,{43.77,69.37,44.95,65.73,46.85,62.96,48.33,63.01,49.00,63.09,50.06,63.87,51.01,65.13,54.61,70.61,56.22,74.73,51.46,73.45,46.25,71.05}}, {49.20,29.51,7.71,17,2,"Tainted Helboar Meat",3,23270,{16863},{16863,100},nil,{46.22,32.56,51.62,23.17,52.24,22.42,50.72,29.45,47.58,34.86,46.86,35.43}}, {50.61,42.03,5.94,14,2,"Tainted Helboar Meat",3,23270,{16863},{16863,100},nil,{46.50,39.58,47.57,36.92,50.22,38.38,51.27,39.87,54.02,44.17,53.14,45.59,50.17,44.60}}, {43.34,45.44,nil,nil,2,"Tainted Helboar Meat",3,23270,{16863},{16863,100}}, {43.63,46.37,nil,nil,2,"Tainted Helboar Meat",3,23270,{16863},{16863,100}}, {57.54,55.97,5.39,17,2,"Tainted Helboar Meat",3,23270,{16863,16879},{16863,100,16879,100},nil,{52.61,58.14,53.61,56.60,55.97,55.43,57.22,55.00,58.38,54.83,60.82,54.87,61.78,56.00}}, {57.46,45.63,1.47,3,2,"Tainted Helboar Meat",3,23270,{16863},{16863,100},nil,{56.01,45.40,58.84,45.83,57.54,45.65}}, {45.93,77.12,6.26,29,2,"Tainted Helboar Meat",3,23270,{16863,16880,16992},{16863,100,16880,100,16992,100},nil,{42.58,78.10,42.88,75.41,44.57,71.01,50.84,74.29,51.29,75.34,51.36,77.84,50.14,79.47,43.19,80.51}}, {42.30,59.88,5.03,8,2,"Tainted Helboar Meat",3,23270,{16863},{16863,100},nil,{39.72,60.89,42.90,55.41,43.67,55.98,44.35,57.07,41.70,64.87}}, {32.35,51.36,5.90,10,2,"Tainted Helboar Meat",3,23270,{16863},{16863,100},nil,{29.14,48.67,31.58,48.49,32.60,48.54,36.64,55.41,33.25,56.02,31.33,55.98}}, {61.14,68.76,4.08,8,2,"Tainted Helboar Meat",3,23270,{16879},{16879,100},nil,{59.22,65.92,59.58,65.18,60.24,64.78,63.93,69.28,63.27,70.62,61.63,71.40,61.12,71.51,60.14,71.38}}, {68.57,64.11,5.71,17,2,"Tainted Helboar Meat",3,23270,{16879},{16879,100},nil,{63.58,61.33,68.17,61.56,69.25,62.00,70.37,64.66,70.73,65.56,70.81,67.68,65.79,66.49}}, {66.71,41.14,3.61,9,2,"Tainted Helboar Meat",3,23270,{16879},{16879,100},nil,{63.25,42.14,64.91,39.27,67.76,39.58,68.23,40.28,68.64,41.62,68.74,42.33,68.86,43.75}}, {68.03,31.48,1.61,3,2,"Tainted Helboar Meat",3,23270,{16879},{16879,100},nil,{67.53,31.05,68.35,30.30,68.20,33.08}}, {59.57,35.97,2.87,5,2,"Tainted Helboar Meat",3,23270,{16879},{16879,100},nil,{58.80,38.73,59.14,35.60,60.09,33.38,59.95,37.67}}, {67.18,52.32,nil,nil,2,"Tainted Helboar Meat",3,23270,{16879},{16879,100}}, {67.66,51.12,nil,nil,2,"Tainted Helboar Meat",3,23270,{16879},{16879,100}}, {60.59,75.90,3.46,13,2,"Tainted Helboar Meat",3,23270,{16879},{16879,100},nil,{58.55,74.50,59.95,72.97,61.14,72.89,62.60,78.71,60.59,78.50,59.47,77.49}}, {22.26,55.91,12.70,77,2,"Tainted Helboar Meat",3,23270,{16880,16992},{16880,100,16992,100},nil,{16.99,52.16,24.00,50.70,24.61,51.82,25.19,53.55,26.39,67.92,18.66,56.61,17.58,54.21}}, {28.37,40.97,5.48,35,2,"Tainted Helboar Meat",3,23270,{16880,16992},{16880,100,16992,100},nil,{25.59,41.21,26.48,37.46,26.74,37.48,29.47,39.59,31.05,41.48,32.71,44.32,31.44,44.43,29.45,43.69,27.45,42.55}}, {25.12,63.78,3.27,6,2,"Tainted Helboar Meat",3,23270,{16992},{16992,100},nil,{23.66,61.87,24.33,60.97,25.41,63.77,26.33,66.82}}},
     },
     turnins = {
@@ -39777,7 +39777,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{60.32,62.77,nil,nil,7,nil,1,15399}},
     },
     },
-    [9364] = { t = "Fragmented Magic", z = -161, rl = 60, ql = -1, rc = 128, ps = {9362}, maps = {
+    [9364] = { t = "Fragmented Magic", z = -161, rl = 60, ql = -1, rc = 128, ps = {9362}, si = {23250}, maps = {
       [1447] = {{29.94,53.51,nil,nil,1,"Polymorph Clone",1,16479,nil,nil,1}, {36.16,54.59,nil,nil,1,"Polymorph Clone",1,16479,nil,nil,1}},
     },
     turnins = {
@@ -39807,7 +39807,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{80.42,45.89,nil,nil,7,nil,1,16477}},
     },
     },
-    [9370] = { t = "The Cleansing Must Be Stopped", z = 3483, rl = 60, ql = 62, rr = 690, ps = {9366}, maps = {
+    [9370] = { t = "The Cleansing Must Be Stopped", z = 3483, rl = 60, ql = 62, rr = 690, ps = {9366}, si = {23358}, maps = {
       [1944] = {{39.04,40.32,nil,nil,1,"Draenei Anchorite",1,16994,nil,nil,1}},
     },
     turnins = {
@@ -39837,7 +39837,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{15.70,52.09,nil,nil,7,nil,1,16991}},
     },
     },
-    [9373] = { t = "Missing Missive", z = 3483, rl = 58, ql = 61, maps = {
+    [9373] = { t = "Missing Missive", z = 3483, rl = 58, ql = 61, si = {23338}, maps = {
       [1944] = {{15.70,52.09,nil,nil,6,nil,1,16991}},
     },
     turnins = {
@@ -39884,7 +39884,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{27.71,60.33,nil,nil,7,nil,1,16790}},
     },
     },
-    [9383] = { t = "An Ambitious Plan", z = 3483, rl = 61, ql = 63, rr = 1101, maps = {
+    [9383] = { t = "An Ambitious Plan", z = 3483, rl = 61, ql = 63, rr = 1101, si = {23417}, maps = {
       [1944] = {{23.21,36.66,nil,nil,6,nil,1,17006}},
     },
     turnins = {
@@ -39924,7 +39924,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{23.00,40.37,nil,nil,7,nil,1,16834}},
     },
     },
-    [9391] = { t = "Marking the Path", z = 3483, rl = 60, ql = 62, rr = 690, ps = {9340}, maps = {
+    [9391] = { t = "Marking the Path", z = 3483, rl = 60, ql = 62, rr = 690, ps = {9340}, si = {23480}, maps = {
       [1944] = {{30.02,60.58,nil,nil,4,"Western Beacon",2,181581,nil,nil,1}, {34.07,60.00,nil,nil,4,"Central Beacon",2,181580,nil,nil,2}, {36.13,65.37,nil,nil,4,"Southern Beacon",2,181579,nil,nil,3}},
     },
     turnins = {
@@ -39984,7 +39984,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{27.05,59.78,nil,nil,7,nil,1,16792}},
     },
     },
-    [9397] = { t = "Birds of a Feather", z = 3483, rl = 60, ql = 62, rr = 690, maps = {
+    [9397] = { t = "Birds of a Feather", z = 3483, rl = 60, ql = 62, rr = 690, si = {23485}, maps = {
       [1944] = {{26.59,76.43,5.64,10,2,"Caged Female Kaliri Hatchling",3,23486,{17034},nil,1,{24.91,74.93,25.34,71.56,26.39,74.26,29.02,81.48,28.62,81.70,25.66,76.92}}},
     },
     turnins = {
@@ -40024,7 +40024,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{55.02,35.96,nil,nil,7,nil,1,3230}},
     },
     },
-    [9401] = { t = "A Strange Weapon", z = 3483, rl = 60, ql = 62, rr = 690, ps = {9400}, nc = 9405, maps = {
+    [9401] = { t = "A Strange Weapon", z = 3483, rl = 60, ql = 62, rr = 690, ps = {9400}, nc = 9405, si = {23550}, maps = {
       [1944] = {{55.02,35.96,nil,nil,6,nil,1,3230}},
     },
     turnins = {
@@ -40044,7 +40044,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{55.70,54.51,nil,nil,7,nil,1,15970}},
     },
     },
-    [9403] = { t = "The Purest Water", z = -161, rl = 10, ql = 10, rr = 690, rc = 128, ps = {1882,1884,9402}, nc = 9404, maps = {
+    [9403] = { t = "The Purest Water", z = -161, rl = 10, ql = 10, rr = 690, rc = 128, ps = {1882,1884,9402}, nc = 9404, si = {23566}, maps = {
       [1941] = {{64.31,72.84,nil,nil,4,"Filled Azure Phial",3,23552,nil,nil,1}},
     },
     turnins = {
@@ -40064,7 +40064,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{55.70,54.51,nil,nil,7,nil,1,15970}},
     },
     },
-    [9405] = { t = "The Warchief's Mandate", z = 3483, rl = 60, ql = 62, rr = 690, ps = {9401}, nc = 9410, maps = {
+    [9405] = { t = "The Warchief's Mandate", z = 3483, rl = 60, ql = 62, rr = 690, ps = {9401}, nc = 9410, si = {23550}, maps = {
       [1944] = {{54.23,37.90,nil,nil,6,nil,1,16574}},
     },
     turnins = {
@@ -40074,7 +40074,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{55.02,35.96,nil,nil,7,nil,1,3230}},
     },
     },
-    [9406] = { t = "The Mag'har", z = 3483, rl = 60, ql = 62, rr = 690, ps = {9410}, nc = 9438, maps = {
+    [9406] = { t = "The Mag'har", z = 3483, rl = 60, ql = 62, rr = 690, ps = {9410}, nc = 9438, si = {23569}, maps = {
       [1944] = {{55.02,35.96,nil,nil,6,nil,1,3230}},
     },
     turnins = {
@@ -40094,7 +40094,7 @@ VanillaEnhancedQuestsDB = {
       [1419] = {{58.10,56.00,nil,nil,7,nil,1,19254}},
     },
     },
-    [9409] = { t = "Urgent Delivery!", z = 3526, rl = 1, ql = 2, rr = 1101, ps = {9280,9369}, nc = 9283, maps = {
+    [9409] = { t = "Urgent Delivery!", z = 3526, rl = 1, ql = 2, rr = 1101, ps = {9280,9369}, nc = 9283, si = {23568}, maps = {
       [1943] = {{80.13,48.89,nil,nil,6,nil,1,16502}},
     },
     turnins = {
@@ -40104,7 +40104,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{80.42,45.89,nil,nil,7,nil,1,16477}},
     },
     },
-    [9410] = { t = "A Spirit Guide", z = 3483, rl = 60, ql = 62, rr = 690, ps = {9405}, nc = 9406, maps = {
+    [9410] = { t = "A Spirit Guide", z = 3483, rl = 60, ql = 62, rr = 690, ps = {9405}, nc = 9406, si = {23669}, maps = {
       [1944] = {{31.99,27.79,nil,nil,6,nil,1,16845}},
     },
     turnins = {
@@ -40144,7 +40144,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{23.89,72.17,nil,nil,7,nil,1,16850}},
     },
     },
-    [9418] = { t = "Avruu's Orb", z = 3483, rl = 60, ql = 63, maps = {
+    [9418] = { t = "Avruu's Orb", z = 3483, rl = 60, ql = 63, si = {23580}, maps = {
       [1944] = {{28.94,81.46,nil,nil,6,nil,1,17085}},
     },
     turnins = {
@@ -40231,7 +40231,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{23.42,36.54,nil,nil,7,nil,1,16796}},
     },
     },
-    [9427] = { t = "Cleansing the Waters", z = 3483, rl = 60, ql = 62, rr = 1101, ps = {9426}, maps = {
+    [9427] = { t = "Cleansing the Waters", z = 3483, rl = 60, ql = 62, rr = 1101, ps = {9426}, si = {23361}, maps = {
       [1944] = {{40.22,31.09,nil,nil,1,"Aggonar's Presence Cleansed",1,17000,nil,nil,1}},
     },
     turnins = {
@@ -40291,7 +40291,7 @@ VanillaEnhancedQuestsDB = {
       [1457] = {{38.71,81.33,nil,nil,7,nil,1,17105}},
     },
     },
-    [9433] = { t = "A Dip in the Moonwell", z = 400, rl = 24, ql = 28, rr = 690, ps = {9431}, nc = 9434, maps = {
+    [9433] = { t = "A Dip in the Moonwell", z = 400, rl = 24, ql = 28, rr = 690, ps = {9431}, nc = 9434, si = {23675}, maps = {
       [1444] = {{89.55,46.32,nil,nil,4,"Thalanaar Moonwell Water",3,23670,nil,nil,1}},
     },
     turnins = {
@@ -40301,7 +40301,7 @@ VanillaEnhancedQuestsDB = {
       [1441] = {{21.43,32.55,nil,nil,7,nil,1,10941}},
     },
     },
-    [9434] = { t = "Testing the Tonic", z = 400, rl = 24, ql = 28, rr = 690, ps = {9433}, maps = {
+    [9434] = { t = "Testing the Tonic", z = 400, rl = 24, ql = 28, rr = 690, ps = {9433}, si = {23644}, maps = {
       [1441] = {{46.21,50.40,nil,nil,6,nil,1,17093}},
     },
     turnins = {
@@ -40341,7 +40341,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{35.86,31.74,nil,nil,7,nil,1,17095}},
     },
     },
-    [9438] = { t = "Messenger to Thrall", z = 3483, rl = 60, ql = 62, rr = 690, ps = {9406}, maps = {
+    [9438] = { t = "Messenger to Thrall", z = 3483, rl = 60, ql = 62, rr = 690, ps = {9406}, si = {23662}, maps = {
       [1454] = {{31.73,37.82,nil,nil,6,nil,1,4949}},
     },
     turnins = {
@@ -40361,7 +40361,7 @@ VanillaEnhancedQuestsDB = {
       [1418] = {{6.00,48.06,nil,nil,7,nil,1,17097}},
     },
     },
-    [9440] = { t = "Little Morsels", z = 8, rl = 35, ql = 38, rr = 690, maps = {
+    [9440] = { t = "Little Morsels", z = 8, rl = 35, ql = 38, rr = 690, si = {23659}, maps = {
       [1435] = {{60.49,22.18,nil,nil,1,"Captured Crocolisk Fed",1,17113,nil,nil,1}, {65.39,22.71,nil,nil,1,"Captured Jaguar Fed",1,17111,nil,nil,2}, {62.90,23.70,nil,nil,1,"Captured Tarantula Fed",1,17112,nil,nil,3}},
     },
     turnins = {
@@ -40401,7 +40401,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{83.22,71.32,nil,nil,7,nil,1,17099}},
     },
     },
-    [9444] = { t = "Defiling Uther's Tomb", z = 28, rl = 55, ql = 58, rr = 690, ps = {9443}, maps = {
+    [9444] = { t = "Defiling Uther's Tomb", z = 28, rl = 55, ql = 58, rr = 690, ps = {9443}, si = {23691}, maps = {
       [1422] = {{52.13,83.50,nil,nil,4,"Uther's Tomb Defiled",2,181653,nil,nil,1}},
     },
     turnins = {
@@ -40421,7 +40421,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{42.91,84.50,nil,nil,7,nil,1,17238}},
     },
     },
-    [9447] = { t = "Administering the Salve", z = 3483, rl = 60, ql = 63, rr = 690, ps = {9442}, maps = {
+    [9447] = { t = "Administering the Salve", z = 3483, rl = 60, ql = 63, rr = 690, ps = {9442}, si = {23394}, maps = {
       [1944] = {{35.23,31.13,3.79,18,5,"Debilitated Grunts Healed",1,16847,nil,nil,1,{32.53,32.25,33.87,29.52,36.09,27.59,36.24,27.48,36.37,27.96,36.64,33.89,36.39,34.60,32.55,32.80}}},
     },
     turnins = {
@@ -40461,7 +40461,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{71.80,40.20,nil,nil,7,nil,1,17087}},
     },
     },
-    [9451] = { t = "Call of Earth", z = -82, rl = 4, ql = -1, rr = 1101, rc = 64, ps = {9450}, maps = {
+    [9451] = { t = "Call of Earth", z = -82, rl = 4, ql = -1, rr = 1101, rc = 64, ps = {9450}, si = {23671}, maps = {
       [1943] = {{79.28,49.12,nil,nil,6,nil,1,17089}},
     },
     turnins = {
@@ -40471,7 +40471,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{71.80,40.20,nil,nil,7,nil,1,17087}},
     },
     },
-    [9452] = { t = "Red Snapper - Very Tasty!", z = 3524, rl = 4, ql = 6, rr = 1101, nc = 9453, maps = {
+    [9452] = { t = "Red Snapper - Very Tasty!", z = 3524, rl = 4, ql = 6, rr = 1101, nc = 9453, si = {23654}, maps = {
       [1943] = {{61.58,45.80,7.47,11,4,"Red Snapper",3,23614,nil,nil,1,{60.84,44.59,61.02,38.35,62.22,39.63,62.17,52.39,61.38,50.11,61.06,48.58}}, {62.35,63.05,7.37,9,4,"Red Snapper",3,23614,nil,nil,1,{61.32,61.68,61.38,59.66,61.89,57.51,62.60,55.68,63.56,68.21,62.93,68.84,62.26,67.03}}},
     },
     turnins = {
@@ -40481,7 +40481,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{61.05,54.25,nil,nil,7,nil,1,17101}},
     },
     },
-    [9453] = { t = "Find Acteon!", z = 3524, rl = 4, ql = 6, rr = 1101, ps = {9452}, maps = {
+    [9453] = { t = "Find Acteon!", z = 3524, rl = 4, ql = 6, rr = 1101, ps = {9452}, si = {23672}, maps = {
       [1943] = {{49.78,51.94,nil,nil,6,nil,1,17110}},
     },
     turnins = {
@@ -40502,7 +40502,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{49.78,51.94,nil,nil,7,nil,1,17110}},
     },
     },
-    [9455] = { t = "Strange Findings", z = 3524, rl = 5, ql = 7, rr = 1101, nc = 9456, maps = {
+    [9455] = { t = "Strange Findings", z = 3524, rl = 5, ql = 7, rr = 1101, nc = 9456, si = {23678}, maps = {
       [1943] = {{47.11,50.60,nil,nil,6,nil,1,17116}},
     },
     turnins = {
@@ -40519,7 +40519,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{47.11,50.60,nil,nil,7,nil,1,17116}},
     },
     },
-    [9457] = { t = "An Unusual Patron", z = 33, rl = 30, ql = 36, rr = 690, ps = {9436}, maps = {
+    [9457] = { t = "An Unusual Patron", z = 33, rl = 30, ql = 36, rr = 690, ps = {9436}, si = {23680}, maps = {
       [1434] = {{31.97,28.61,nil,nil,6,nil,1,17094}},
     },
     turnins = {
@@ -40600,7 +40600,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{28.04,60.30,nil,nil,7,nil,2,181638}},
     },
     },
-    [9467] = { t = "Call of Fire", z = -82, rl = 10, ql = -1, rr = 1024, rc = 64, ps = {9465}, nc = 9468, maps = {
+    [9467] = { t = "Call of Fire", z = -82, rl = 10, ql = -1, rr = 1024, rc = 64, ps = {9465}, nc = 9468, si = {24336,24335}, maps = {
       [1943] = {{11.36,82.34,nil,nil,2,"Hauteur's Ashes",3,23688,{17206},{17206,100},1}},
     },
     turnins = {
@@ -40610,7 +40610,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{59.65,17.97,nil,nil,7,nil,1,17205}},
     },
     },
-    [9468] = { t = "Call of Fire", z = -82, rl = 10, ql = -1, rr = 1024, rc = 64, ps = {9467}, nc = 9461, maps = {
+    [9468] = { t = "Call of Fire", z = -82, rl = 10, ql = -1, rr = 1024, rc = 64, ps = {9467}, nc = 9461, si = {23688}, maps = {
       [1943] = {{48.05,50.42,nil,nil,6,nil,1,17212}},
     },
     turnins = {
@@ -40650,7 +40650,7 @@ VanillaEnhancedQuestsDB = {
       [1425] = {{15.11,47.21,nil,nil,7,nil,1,17223}},
     },
     },
-    [9472] = { t = "Arelion's Mistress", z = 3483, rl = 60, ql = 62, rr = 690, ps = {10287}, maps = {
+    [9472] = { t = "Arelion's Mistress", z = 3483, rl = 60, ql = 62, rr = 690, ps = {10287}, si = {23693,29112}, maps = {
       [1944] = {{27.15,62.11,nil,nil,1,"Viera Sunwhisper",1,17226,nil,nil,1}},
       [1946] = {{78.49,62.94,nil,nil,2,"Cenarion Spirits",3,29112,{18907}}},
     },
@@ -40681,7 +40681,7 @@ VanillaEnhancedQuestsDB = {
       [1422] = {{42.91,84.50,nil,nil,7,nil,1,17238}},
     },
     },
-    [9475] = { t = "Reclaiming the Eggs", z = 47, rl = 42, ql = 46, rr = 1101, ps = {9476}, maps = {
+    [9475] = { t = "Reclaiming the Eggs", z = 47, rl = 42, ql = 46, rr = 1101, ps = {9476}, si = {23695}, maps = {
       [1425] = {{34.64,70.85,7.09,29,4,"Gryphon Egg",3,23694,nil,nil,1,{30.53,70.23,32.08,67.18,39.86,66.05,39.87,66.08,39.62,66.83,37.07,71.39,35.90,72.76,33.79,75.07,31.66,74.24}}},
     },
     turnins = {
@@ -40711,7 +40711,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{27.15,62.11,nil,nil,7,nil,1,17226}},
     },
     },
-    [9484] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 512, rc = 4, nc = 9486, sf = 2, bc = {9617,10530}, maps = {
+    [9484] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 512, rc = 4, nc = 9486, sf = 2, bc = {9617,10530}, si = {23697}, maps = {
       [1941] = {{25.58,83.04,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {25.60,79.40,1.51,3,1,"Crazed Dragonhawk",1,15650,nil,nil,1,{24.93,79.28,25.00,78.70,26.86,80.22}}, {26.86,73.85,3.78,9,1,"Crazed Dragonhawk",1,15650,nil,nil,1,{25.58,74.90,25.66,72.61,27.47,70.12,27.85,71.10,28.19,76.63,26.95,76.85,25.64,76.36}}, {30.25,54.70,1.25,4,1,"Crazed Dragonhawk",1,15650,nil,nil,1,{29.16,54.34,31.05,54.25,30.35,55.95}}, {30.62,80.71,2.78,4,1,"Crazed Dragonhawk",1,15650,nil,nil,1,{29.78,82.56,29.93,81.11,32.29,78.49}}, {31.71,86.08,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {32.28,84.79,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {33.00,64.43,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {34.20,73.39,3.99,8,1,"Crazed Dragonhawk",1,15650,nil,nil,1,{30.56,71.78,31.47,71.77,36.72,72.92,37.87,74.76,33.76,74.74,31.14,74.12}}, {36.34,57.34,3.70,5,1,"Crazed Dragonhawk",1,15650,nil,nil,1,{34.31,55.29,35.73,55.60,37.52,58.42,37.79,60.75}}, {36.83,86.59,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {38.15,85.80,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {38.79,68.85,3.82,8,1,"Crazed Dragonhawk",1,15650,nil,nil,1,{35.58,67.31,37.21,65.87,40.06,67.63,42.52,69.71,37.92,70.70,35.74,70.20}}, {41.00,83.31,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {42.96,85.29,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {46.49,70.08,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {50.61,86.15,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {52.75,85.00,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {52.85,57.80,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {54.29,75.16,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {54.78,74.72,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {57.48,85.49,4.61,11,1,"Crazed Dragonhawk",1,15650,nil,nil,1,{53.51,87.83,57.40,81.72,60.82,85.17,57.96,87.18}}, {58.36,71.12,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {56.69,70.02,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {57.72,59.39,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {60.14,58.81,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {60.62,74.35,2.16,3,1,"Crazed Dragonhawk",1,15650,nil,nil,1,{58.48,74.65,60.70,73.55,62.68,74.86}}, {61.07,69.68,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {61.97,83.16,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {64.81,66.91,4.54,11,1,"Crazed Dragonhawk",1,15650,nil,nil,1,{61.43,65.86,62.15,65.22,67.32,66.69,68.82,69.03,64.55,68.32}}, {66.16,73.19,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {65.54,70.86,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {66.93,60.03,4.66,15,1,"Crazed Dragonhawk",1,15650,nil,nil,1,{62.28,59.72,67.02,56.43,71.27,60.59,68.30,61.72,64.01,62.52}}, {66.89,86.78,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {67.79,87.14,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {69.34,39.37,1.94,4,1,"Crazed Dragonhawk",1,15650,nil,nil,1,{69.08,41.29,69.16,37.53,69.94,39.13}}, {71.23,43.45,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}, {72.48,47.54,nil,nil,1,"Crazed Dragonhawk",1,15650,nil,nil,1}},
     },
     turnins = {
@@ -40721,7 +40721,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{60.32,62.77,nil,nil,7,nil,1,15399}},
     },
     },
-    [9485] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 512, rc = 4, ps = {9486}, nc = 9673, sf = 2, maps = {
+    [9485] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 512, rc = 4, ps = {9486}, nc = 9673, sf = 2, si = {23703}, maps = {
       [1942] = {{21.32,26.76,nil,nil,1,"Mistbat",1,16353,nil,nil,1}, {22.06,14.67,nil,nil,1,"Mistbat",1,16353,nil,nil,1}, {22.10,8.27,nil,nil,1,"Mistbat",1,16353,nil,nil,1}, {22.95,21.94,nil,nil,1,"Mistbat",1,16353,nil,nil,1}, {24.93,31.26,1.61,3,1,"Mistbat",1,16353,nil,nil,1,{23.71,30.22,25.61,31.04,25.48,32.52}}, {29.80,27.58,2.11,3,1,"Mistbat",1,16353,nil,nil,1,{28.94,29.51,29.28,26.87,31.19,26.37}}, {30.39,21.92,nil,nil,1,"Mistbat",1,16353,nil,nil,1}, {35.22,20.63,nil,nil,1,"Mistbat",1,16353,nil,nil,1}, {36.58,21.46,nil,nil,1,"Mistbat",1,16353,nil,nil,1}, {36.31,28.67,nil,nil,1,"Mistbat",1,16353,nil,nil,1}, {45.59,20.24,nil,nil,1,"Mistbat",1,16353,nil,nil,1}, {49.11,15.42,3.36,6,1,"Mistbat",1,16353,nil,nil,1,{46.45,13.37,51.22,15.36,51.85,16.24,49.31,16.87,47.09,14.75}}, {50.39,25.56,nil,nil,1,"Mistbat",1,16353,nil,nil,1}, {52.78,22.52,nil,nil,1,"Mistbat",1,16353,nil,nil,1}, {55.63,11.81,nil,nil,1,"Mistbat",1,16353,nil,nil,1}, {63.45,23.68,nil,nil,1,"Mistbat",1,16353,nil,nil,1}, {64.19,19.26,nil,nil,1,"Mistbat",1,16353,nil,nil,1}, {65.64,20.74,nil,nil,1,"Mistbat",1,16353,nil,nil,1}},
     },
     turnins = {
@@ -40731,7 +40731,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{60.32,62.77,nil,nil,7,nil,1,15399}},
     },
     },
-    [9486] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 512, rc = 4, ps = {9484}, nc = 9485, sf = 2, maps = {
+    [9486] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 512, rc = 4, ps = {9484}, nc = 9485, sf = 2, si = {23702}, maps = {
       [1941] = {{24.32,80.00,2.63,4,1,"Elder Springpaw",1,15652,nil,nil,1,{23.35,77.71,25.16,80.92,25.09,82.52,23.67,78.86}}, {27.77,77.70,nil,nil,1,"Elder Springpaw",1,15652,nil,nil,1}, {30.85,81.28,nil,nil,1,"Elder Springpaw",1,15652,nil,nil,1}, {32.01,77.56,nil,nil,1,"Elder Springpaw",1,15652,nil,nil,1}, {53.11,86.86,1.60,3,1,"Elder Springpaw",1,15652,nil,nil,1,{51.52,87.02,53.60,86.35,54.21,87.21}}, {66.04,60.92,4.63,10,1,"Elder Springpaw",1,15652,nil,nil,1,{63.20,63.41,66.21,57.45,68.89,58.29,70.39,60.42,63.26,64.62}}, {66.92,68.28,3.29,5,1,"Elder Springpaw",1,15652,nil,nil,1,{63.63,68.39,68.12,67.52,70.03,67.86,65.58,69.86}}, {67.55,86.33,1.48,3,1,"Elder Springpaw",1,15652,nil,nil,1,{66.26,87.04,67.59,85.03,68.81,86.91}}, {69.69,38.27,nil,nil,1,"Elder Springpaw",1,15652,nil,nil,1}, {72.52,50.88,nil,nil,1,"Elder Springpaw",1,15652,nil,nil,1}},
     },
     turnins = {
@@ -40796,7 +40796,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{23.09,40.22,nil,nil,7,nil,1,16799}},
     },
     },
-    [9491] = { t = "Greed", z = -162, rl = 16, ql = 18, rr = 690, rc = 8, ex = {2379}, nc = 10548, bc = {10372}, maps = {
+    [9491] = { t = "Greed", z = -162, rl = 16, ql = 18, rr = 690, rc = 8, ex = {2379}, nc = 10548, bc = {10372}, si = {5060}, maps = {
       [1942] = {{63.09,28.99,4.08,14,4,"Pitted Gold Band",3,23717,nil,nil,1,{59.21,27.71,61.71,27.49,65.05,28.30,64.64,30.41,63.54,31.99}}},
     },
     turnins = {
@@ -40826,7 +40826,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{56.84,62.72,nil,nil,7,nil,1,16830}},
     },
     },
-    [9494] = { t = "Fel Embers", z = 3563, rl = 67, ql = 70, rr = 1101, dq = 1, maps = {
+    [9494] = { t = "Fel Embers", z = 3563, rl = 67, ql = 70, rr = 1101, dq = 1, si = {23735}, maps = {
       [1944] = {{53.86,65.74,nil,nil,6,nil,1,16829}},
     },
     turnins = {
@@ -40886,7 +40886,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{48.05,50.42,nil,nil,7,nil,1,17212}},
     },
     },
-    [9501] = { t = "Call of Water", z = -82, rl = 20, ql = -1, rr = 1024, rc = 64, nc = 9503, bc = {9500,9502,10490}, maps = {
+    [9501] = { t = "Call of Water", z = -82, rl = 20, ql = -1, rr = 1024, rc = 64, nc = 9503, bc = {9500,9502,10490}, si = {23871}, maps = {
       [1950] = {{32.30,16.18,nil,nil,6,nil,1,17275}},
     },
     turnins = {
@@ -40917,7 +40917,7 @@ VanillaEnhancedQuestsDB = {
       [1950] = {{32.30,16.18,nil,nil,7,nil,1,17275}},
     },
     },
-    [9504] = { t = "Call of Water", z = -82, rl = 20, ql = -1, rr = 1024, rc = 64, ps = {9503}, nc = 9508, maps = {
+    [9504] = { t = "Call of Water", z = -82, rl = 20, ql = -1, rr = 1024, rc = 64, ps = {9503}, nc = 9508, si = {23749}, maps = {
       [1440] = {{33.55,67.47,nil,nil,4,"Filled Bota Bag",3,23750,nil,nil,1}},
     },
     turnins = {
@@ -40947,7 +40947,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{47.04,70.21,nil,nil,7,nil,1,17240}},
     },
     },
-    [9508] = { t = "Call of Water", z = -82, rl = 20, ql = -1, rr = 1024, rc = 64, ps = {9504}, nc = 9509, maps = {
+    [9508] = { t = "Call of Water", z = -82, rl = 20, ql = -1, rr = 1024, rc = 64, ps = {9504}, nc = 9509, si = {23751}, maps = {
       [1950] = {{25.94,40.96,nil,nil,2,"Head of Tel'athion",3,23997,{17359},{17359,100},1}},
     },
     turnins = {
@@ -40957,7 +40957,7 @@ VanillaEnhancedQuestsDB = {
       [1950] = {{32.30,16.18,nil,nil,7,nil,1,17275}},
     },
     },
-    [9509] = { t = "Call of Water", z = -82, rl = 20, ql = -1, rr = 1024, rc = 64, ps = {9508}, maps = {
+    [9509] = { t = "Call of Water", z = -82, rl = 20, ql = -1, rr = 1024, rc = 64, ps = {9508}, si = {23752}, maps = {
       [1947] = {{29.78,33.26,nil,nil,6,nil,1,17204}},
     },
     turnins = {
@@ -40987,7 +40987,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{47.13,70.28,nil,nil,7,nil,1,17241}},
     },
     },
-    [9514] = { t = "Rune Covered Tablet", z = 3524, rl = 6, ql = 8, rr = 1101, ps = {9506}, maps = {
+    [9514] = { t = "Rune Covered Tablet", z = 3524, rl = 6, ql = 8, rr = 1101, ps = {9506}, si = {23759}, maps = {
       [1943] = {{47.13,70.28,nil,nil,6,nil,1,17241}},
     },
     turnins = {
@@ -41044,14 +41044,14 @@ VanillaEnhancedQuestsDB = {
       [1440] = {{85.24,44.71,nil,nil,7,nil,1,3848}},
     },
     },
-    [9520] = { t = "Diabolical Plans", z = 331, rl = 27, ql = 30, rr = 1101, nc = 9522, maps = {
+    [9520] = { t = "Diabolical Plans", z = 331, rl = 27, ql = 30, rr = 1101, nc = 9522, si = {23780}, maps = {
       [1440] = {{86.47,43.64,nil,nil,6,nil,1,17303}},
     },
     turnins = {
       [1440] = {{86.47,43.64,nil,nil,6,nil,1,17303}},
     },
     },
-    [9521] = { t = "Report from the Northern Front", z = 331, rl = 21, ql = 25, rr = 1101, maps = {
+    [9521] = { t = "Report from the Northern Front", z = 331, rl = 21, ql = 25, rr = 1101, si = {23778}, maps = {
       [1440] = {{61.85,83.90,nil,nil,6,nil,1,14733}},
     },
     turnins = {
@@ -41081,7 +41081,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{47.24,69.99,nil,nil,7,nil,1,17242}},
     },
     },
-    [9526] = { t = "Reclaiming Felfire Hill", z = 331, rl = 27, ql = 30, rr = 1101, maps = {
+    [9526] = { t = "Reclaiming Felfire Hill", z = 331, rl = 27, ql = 30, rr = 1101, si = {23788}, maps = {
       [1440] = {{82.38,68.46,4.41,20,4,"Tree Seedling Planted",2,181690,nil,nil,1,{80.09,64.69,82.03,65.05,83.70,66.34,84.17,67.59,85.06,70.41,84.51,71.17,80.84,71.08,80.40,69.55,80.09,66.56}}},
     },
     turnins = {
@@ -41131,7 +41131,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{47.04,70.21,nil,nil,7,nil,1,17240}},
     },
     },
-    [9531] = { t = "Tree's Company", z = 3524, rl = 5, ql = 9, rr = 1101, ps = {9530}, nc = 9537, maps = {
+    [9531] = { t = "Tree's Company", z = 3524, rl = 5, ql = 9, rr = 1101, ps = {9530}, nc = 9537, si = {23792}, maps = {
       [1943] = {{18.48,84.35,nil,nil,4,"Naga Flag",2,181694,nil,nil,1}},
     },
     turnins = {
@@ -41171,7 +41171,7 @@ VanillaEnhancedQuestsDB = {
       [1440] = {{73.23,60.39,nil,nil,7,nil,1,17355}},
     },
     },
-    [9535] = { t = "Diabolical Plans", z = 331, rl = 27, ql = 30, rr = 690, nc = 9536, maps = {
+    [9535] = { t = "Diabolical Plans", z = 331, rl = 27, ql = 30, rr = 690, nc = 9536, si = {23798}, maps = {
       [1440] = {{73.23,60.39,nil,nil,6,nil,1,17355}},
     },
     turnins = {
@@ -41198,7 +41198,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{47.04,70.21,nil,nil,7,nil,1,17240}},
     },
     },
-    [9538] = { t = "Learning the Language", z = 3524, rl = 8, ql = 8, rr = 1101, nc = 9539, sf = 2, maps = {
+    [9538] = { t = "Learning the Language", z = 3524, rl = 8, ql = 8, rr = 1101, nc = 9539, sf = 2, si = {23818}, maps = {
       [1943] = {{49.29,51.07,nil,nil,3,"Stillpine Furbolg Language Primer Read"}},
     },
     turnins = {
@@ -41258,7 +41258,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{23.00,40.37,nil,nil,7,nil,1,16834}},
     },
     },
-    [9544] = { t = "The Prophecy of Akida", z = 3524, rl = 8, ql = 10, rr = 1101, ps = {9542}, maps = {
+    [9544] = { t = "The Prophecy of Akida", z = 3524, rl = 8, ql = 10, rr = 1101, ps = {9542}, si = {23801}, maps = {
       [1943] = {{26.69,65.86,3.76,15,1,"Stillpine Captive",1,17375,nil,nil,1,{24.41,67.84,24.53,67.21,26.87,62.99,27.35,62.20,27.70,62.24,27.99,63.44,28.56,67.02,28.17,67.44,25.45,68.37}}, {26.72,65.63,4.54,35,2,"Bristlelimb Key",3,23801,{17183,17184,17185},{17183,59.086,17184,59.592,17185,59.829},nil,{24.17,66.83,26.67,61.32,27.42,61.15,29.01,63.45,29.08,68.35,26.05,69.57,25.13,69.31,24.17,68.24}}},
     },
     turnins = {
@@ -41268,7 +41268,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{28.11,62.39,nil,nil,7,nil,1,17364}},
     },
     },
-    [9545] = { t = "The Seer's Relic", z = 3483, rl = 60, ql = 63, rr = 1101, ps = {9430}, maps = {
+    [9545] = { t = "The Seer's Relic", z = 3483, rl = 60, ql = 63, rr = 1101, ps = {9430}, si = {23645}, maps = {
       [1944] = {{26.90,37.43,nil,nil,1,"Sedai's Corpse",1,16852,nil,nil,1}},
     },
     turnins = {
@@ -41308,7 +41308,7 @@ VanillaEnhancedQuestsDB = {
       [1950] = {{42.15,21.22,nil,nil,7,nil,1,17421}},
     },
     },
-    [9550] = { t = "A Map to Where?", z = 3525, rl = 13, ql = 16, rr = 1101, ps = {9549}, nc = 9557, maps = {
+    [9550] = { t = "A Map to Where?", z = 3525, rl = 13, ql = 16, rr = 1101, ps = {9549}, nc = 9557, si = {23837}, maps = {
       [1950] = {{61.16,41.89,nil,nil,6,nil,2,181756}},
     },
     turnins = {
@@ -41346,7 +41346,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{24.90,35.92,nil,nil,7,nil,1,17431}},
     },
     },
-    [9554] = { t = "Call of Air", z = -82, rl = 30, ql = -1, rr = 1024, rc = 64, ps = {9553}, maps = {
+    [9554] = { t = "Call of Air", z = -82, rl = 30, ql = -1, rr = 1024, rc = 64, ps = {9553}, si = {23843}, maps = {
       [1947] = {{29.78,33.26,nil,nil,6,nil,1,17204}},
     },
     turnins = {
@@ -41366,7 +41366,7 @@ VanillaEnhancedQuestsDB = {
       [1947] = {{32.87,54.50,nil,nil,7,nil,1,17468}},
     },
     },
-    [9557] = { t = "Deciphering the Book", z = 3525, rl = 13, ql = 16, rr = 1101, ps = {9550}, nc = 9561, maps = {
+    [9557] = { t = "Deciphering the Book", z = 3525, rl = 13, ql = 16, rr = 1101, ps = {9550}, nc = 9561, si = {23851}, maps = {
       [1950] = {{54.66,53.94,nil,nil,6,nil,1,17424}},
     },
     turnins = {
@@ -41436,7 +41436,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{23.97,72.35,nil,nil,7,nil,1,16851}},
     },
     },
-    [9564] = { t = "Gurf's Dignity", z = 3524, rl = 7, ql = 11, rr = 1101, ps = {9559}, as = 9562, maps = {
+    [9564] = { t = "Gurf's Dignity", z = 3524, rl = 7, ql = 11, rr = 1101, ps = {9559}, as = 9562, si = {23850}, maps = {
       [1943] = {{44.62,23.48,nil,nil,6,nil,1,17441}},
     },
     turnins = {
@@ -41493,7 +41493,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{46.97,22.27,nil,nil,7,nil,1,17443}},
     },
     },
-    [9571] = { t = "The Kurken's Hide", z = 3524, rl = 7, ql = 10, rr = 1101, ps = {9570}, maps = {
+    [9571] = { t = "The Kurken's Hide", z = 3524, rl = 7, ql = 10, rr = 1101, ps = {9570}, si = {23860}, maps = {
       [1943] = {{44.76,23.91,nil,nil,6,nil,1,17442}},
     },
     turnins = {
@@ -41543,7 +41543,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{56.73,66.34,nil,nil,7,nil,1,17557}},
     },
     },
-    [9576] = { t = "Cruelfin's Necklace", z = 3525, rl = 9, ql = 12, rr = 1101, maps = {
+    [9576] = { t = "Cruelfin's Necklace", z = 3525, rl = 9, ql = 12, rr = 1101, si = {23870}, maps = {
       [1950] = {{53.24,57.74,nil,nil,6,nil,1,17434}},
     },
     turnins = {
@@ -41580,7 +41580,7 @@ VanillaEnhancedQuestsDB = {
       [1950] = {{55.86,57.00,nil,nil,7,nil,1,17642}},
     },
     },
-    [9581] = { t = "Learning from the Crystals", z = 3525, rl = 10, ql = 11, rr = 1101, nc = 9620, maps = {
+    [9581] = { t = "Learning from the Crystals", z = 3525, rl = 10, ql = 11, rr = 1101, nc = 9620, si = {23875}, maps = {
       [1950] = {{58.16,83.40,nil,nil,4,"Impact Site Crystal Sample",3,23878,nil,nil,1}},
     },
     turnins = {
@@ -41590,7 +41590,7 @@ VanillaEnhancedQuestsDB = {
       [1950] = {{52.59,53.21,nil,nil,7,nil,1,17423}},
     },
     },
-    [9582] = { t = "Strength of One", z = -81, rl = 10, ql = 10, rr = 1101, rc = 1, ex = {1678,1683,1639}, nc = 10350, maps = {
+    [9582] = { t = "Strength of One", z = -81, rl = 10, ql = 10, rr = 1101, rc = 1, ex = {1678,1683,1639}, nc = 10350, si = {23925}, maps = {
       [1943] = {{54.03,9.95,nil,nil,1,"Death Ravager",1,17556,nil,nil,1}},
     },
     turnins = {
@@ -41600,7 +41600,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{50.02,50.52,nil,nil,7,nil,1,17480}},
     },
     },
-    [9584] = { t = "The Second Sample", z = 3525, rl = 10, ql = 14, rr = 1101, ps = {9628}, nc = 9585, maps = {
+    [9584] = { t = "The Second Sample", z = 3525, rl = 10, ql = 14, rr = 1101, ps = {9628}, nc = 9585, si = {23876}, maps = {
       [1950] = {{45.68,47.80,nil,nil,4,"Altered Crystal Sample",3,23879,nil,nil,1}},
     },
     turnins = {
@@ -41610,7 +41610,7 @@ VanillaEnhancedQuestsDB = {
       [1950] = {{52.59,53.21,nil,nil,7,nil,1,17423}},
     },
     },
-    [9585] = { t = "The Final Sample", z = 3525, rl = 10, ql = 18, rr = 1101, ps = {9584}, maps = {
+    [9585] = { t = "The Final Sample", z = 3525, rl = 10, ql = 18, rr = 1101, ps = {9584}, si = {23877}, maps = {
       [1950] = {{41.00,30.00,nil,nil,4,"Axxarien Crystal Sample",3,23880,nil,nil,1}},
     },
     turnins = {
@@ -41630,14 +41630,14 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{48.60,49.29,nil,nil,7,nil,1,17482}},
     },
     },
-    [9587] = { t = "Dark Tidings", z = 3483, rl = 59, ql = 62, rr = 1101, nc = 9589, maps = {
+    [9587] = { t = "Dark Tidings", z = 3483, rl = 59, ql = 62, rr = 1101, nc = 9589, si = {23891}, maps = {
       [1944] = {{56.64,66.70,nil,nil,6,nil,1,16819}},
     },
     turnins = {
       [1944] = {{56.64,66.70,nil,nil,6,nil,1,16819}},
     },
     },
-    [9588] = { t = "Dark Tidings", z = 3483, rl = 59, ql = 62, rr = 690, nc = 9590, maps = {
+    [9588] = { t = "Dark Tidings", z = 3483, rl = 59, ql = 62, rr = 690, nc = 9590, si = {23893}, maps = {
       [1944] = {{55.02,35.96,nil,nil,6,nil,1,3230}},
     },
     turnins = {
@@ -41664,7 +41664,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{54.88,36.00,nil,nil,7,nil,1,17558}},
     },
     },
-    [9591] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 1024, rc = 4, nc = 9592, sf = 2, bc = {9757}, maps = {
+    [9591] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 1024, rc = 4, nc = 9592, sf = 2, bc = {9757}, si = {23896}, maps = {
       [1943] = {{13.58,95.92,nil,nil,1,"Barbed Crawler",1,17217,nil,nil,1}, {15.00,75.65,nil,nil,1,"Barbed Crawler",1,17217,nil,nil,1}, {16.90,72.89,nil,nil,1,"Barbed Crawler",1,17217,nil,nil,1}, {18.07,91.38,3.19,4,1,"Barbed Crawler",1,17217,nil,nil,1,{15.21,92.80,20.27,89.29,19.30,91.26,17.50,92.19}}, {18.19,76.82,nil,nil,1,"Barbed Crawler",1,17217,nil,nil,1}, {21.74,74.52,2.63,7,1,"Barbed Crawler",1,17217,nil,nil,1,{20.15,74.45,21.75,72.31,22.47,73.31,22.73,74.86,21.90,76.81,21.45,77.13}}, {22.06,82.30,3.89,5,1,"Barbed Crawler",1,17217,nil,nil,1,{20.26,80.03,23.27,79.20,22.55,84.38,21.72,86.17}}, {46.64,3.84,2.65,12,1,"Barbed Crawler",1,17217,nil,nil,1,{44.61,4.22,45.19,3.38,45.42,3.15,49.13,2.92,48.87,3.27,47.80,4.67,46.33,4.57,44.91,4.43}}, {53.43,6.12,3.83,10,1,"Barbed Crawler",1,17217,nil,nil,1,{51.39,3.78,52.99,2.78,55.92,9.03,53.59,8.12,52.95,7.21}}, {57.60,31.81,1.14,3,1,"Barbed Crawler",1,17217,nil,nil,1,{56.95,32.75,57.60,31.76,58.24,30.91}}, {60.10,24.21,3.91,7,1,"Barbed Crawler",1,17217,nil,nil,1,{58.57,27.81,59.54,24.22,60.99,21.28,61.79,21.84,60.28,25.53}}, {60.74,14.71,4.94,7,1,"Barbed Crawler",1,17217,nil,nil,1,{58.16,12.16,59.67,11.36,62.04,15.36,62.61,19.29,61.57,17.71}}},
     },
     turnins = {
@@ -41674,7 +41674,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{24.18,54.35,nil,nil,7,nil,1,17614}},
     },
     },
-    [9592] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 1024, rc = 4, ps = {9591}, nc = 9593, sf = 2, maps = {
+    [9592] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 1024, rc = 4, ps = {9591}, nc = 9593, sf = 2, si = {23897}, maps = {
       [1943] = {{34.79,30.45,nil,nil,1,"Greater Timberstrider",1,17374,nil,nil,1}, {35.06,35.17,nil,nil,1,"Greater Timberstrider",1,17374,nil,nil,1}, {35.57,25.02,nil,nil,1,"Greater Timberstrider",1,17374,nil,nil,1}, {35.70,15.54,nil,nil,1,"Greater Timberstrider",1,17374,nil,nil,1}, {39.04,19.72,nil,nil,1,"Greater Timberstrider",1,17374,nil,nil,1}, {40.12,11.24,nil,nil,1,"Greater Timberstrider",1,17374,nil,nil,1}, {40.42,26.82,3.07,7,1,"Greater Timberstrider",1,17374,nil,nil,1,{38.63,24.44,42.85,26.19,39.43,29.73}}, {41.24,36.29,nil,nil,1,"Greater Timberstrider",1,17374,nil,nil,1}, {42.14,14.29,nil,nil,1,"Greater Timberstrider",1,17374,nil,nil,1}, {43.86,30.06,nil,nil,1,"Greater Timberstrider",1,17374,nil,nil,1}, {47.34,9.43,2.26,5,1,"Greater Timberstrider",1,17374,nil,nil,1,{45.08,9.57,47.35,8.02,49.47,9.45,47.04,10.78}}, {46.50,26.58,nil,nil,1,"Greater Timberstrider",1,17374,nil,nil,1}, {48.73,27.08,nil,nil,1,"Greater Timberstrider",1,17374,nil,nil,1}},
     },
     turnins = {
@@ -41684,7 +41684,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{24.18,54.35,nil,nil,7,nil,1,17614}},
     },
     },
-    [9593] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 1024, rc = 4, ps = {9592}, nc = 9675, sf = 2, maps = {
+    [9593] = { t = "Taming the Beast", z = -261, rl = 10, ql = -1, rr = 1024, rc = 4, ps = {9592}, nc = 9675, sf = 2, si = {23898}, maps = {
       [1943] = {{35.13,34.41,3.95,9,1,"Nightstalker",1,17203,nil,nil,1,{33.44,36.03,33.97,30.64,37.92,34.94,34.85,38.32}}, {36.99,19.40,nil,nil,1,"Nightstalker",1,17203,nil,nil,1}, {35.75,20.65,nil,nil,1,"Nightstalker",1,17203,nil,nil,1}, {37.88,39.92,2.07,4,1,"Nightstalker",1,17203,nil,nil,1,{36.66,40.96,37.11,40.16,37.95,39.40,39.81,39.16}}, {38.55,13.45,4.78,7,1,"Nightstalker",1,17203,nil,nil,1,{35.44,17.02,39.02,10.56,40.19,8.96,40.27,15.85}}, {38.71,25.65,4.07,5,1,"Nightstalker",1,17203,nil,nil,1,{34.76,26.60,37.39,25.19,39.11,25.21,42.31,25.25,40.00,26.00}}, {41.68,20.94,nil,nil,1,"Nightstalker",1,17203,nil,nil,1}, {41.39,21.63,nil,nil,1,"Nightstalker",1,17203,nil,nil,1}, {42.07,31.42,4.69,14,1,"Nightstalker",1,17203,nil,nil,1,{37.58,30.19,41.65,27.77,44.36,28.02,46.76,31.53,42.37,36.06,40.11,35.61}}, {43.08,14.51,nil,nil,1,"Nightstalker",1,17203,nil,nil,1}, {44.04,14.71,nil,nil,1,"Nightstalker",1,17203,nil,nil,1}, {46.28,8.86,4.81,10,1,"Nightstalker",1,17203,nil,nil,1,{41.96,10.98,43.94,8.11,48.16,5.53,49.24,8.55,47.87,10.56}}, {47.11,27.89,nil,nil,1,"Nightstalker",1,17203,nil,nil,1}, {49.55,21.94,nil,nil,1,"Nightstalker",1,17203,nil,nil,1}, {49.64,24.22,nil,nil,1,"Nightstalker",1,17203,nil,nil,1}, {50.28,27.71,nil,nil,1,"Nightstalker",1,17203,nil,nil,1}, {50.92,15.11,nil,nil,1,"Nightstalker",1,17203,nil,nil,1}},
     },
     turnins = {
@@ -41694,7 +41694,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{24.18,54.35,nil,nil,7,nil,1,17614}},
     },
     },
-    [9594] = { t = "Signs of the Legion", z = 3525, rl = 10, ql = 14, rr = 1101, maps = {
+    [9594] = { t = "Signs of the Legion", z = 3525, rl = 10, ql = 14, rr = 1101, si = {23900}, maps = {
       [1950] = {{32.05,79.28,nil,nil,1,"Nazzivus Satyr",1,17337,nil,nil,1}, {32.81,82.23,nil,nil,1,"Nazzivus Satyr",1,17337,nil,nil,1}, {33.84,72.09,1.49,3,1,"Nazzivus Satyr",1,17337,nil,nil,1,{33.19,71.79,33.41,71.36,34.91,73.13}}, {35.84,81.69,nil,nil,1,"Nazzivus Satyr",1,17337,nil,nil,1}, {37.97,76.43,3.68,11,1,"Nazzivus Satyr",1,17337,nil,nil,1,{35.01,76.08,38.32,73.33,39.49,73.08,41.17,76.23,39.98,79.29,36.09,78.98,35.06,77.71}}, {35.26,81.20,2.95,6,1,"Nazzivus Felsworn",1,17339,nil,nil,2,{32.38,80.57,35.96,80.25,37.00,81.11,36.79,82.46}}, {36.16,76.67,4.94,11,1,"Nazzivus Felsworn",1,17339,nil,nil,2,{32.90,73.70,33.82,73.03,40.39,78.28,40.15,79.58,34.83,77.32,34.26,76.60}}, {38.52,72.88,nil,nil,1,"Nazzivus Felsworn",1,17339,nil,nil,2}},
     },
     turnins = {
@@ -41711,7 +41711,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{49.87,49.95,nil,nil,7,nil,1,17481}},
     },
     },
-    [9598] = { t = "Redemption", z = -141, rl = 12, ql = -1, rr = 1024, rc = 2, nc = 9600, bc = {10366}, maps = {
+    [9598] = { t = "Redemption", z = -141, rl = 12, ql = -1, rr = 1024, rc = 2, nc = 9600, bc = {10366}, si = {23926}, maps = {
       [1947] = {{38.37,82.57,nil,nil,6,nil,1,17509}},
     },
     turnins = {
@@ -41721,7 +41721,7 @@ VanillaEnhancedQuestsDB = {
       [1947] = {{38.37,82.57,nil,nil,7,nil,1,17509}},
     },
     },
-    [9600] = { t = "Redemption", z = -141, rl = 12, ql = -1, rr = 1024, rc = 2, ps = {9598}, maps = {
+    [9600] = { t = "Redemption", z = -141, rl = 12, ql = -1, rr = 1024, rc = 2, ps = {9598}, si = {6866}, maps = {
       [1950] = {{65.29,77.54,nil,nil,1,"Young Furbolg Shaman",1,17542,nil,nil,1}},
     },
     turnins = {
@@ -41742,7 +41742,7 @@ VanillaEnhancedQuestsDB = {
       [1954] = {{92.20,37.52,nil,nil,7,nil,1,16681}},
     },
     },
-    [9602] = { t = "Deliver Them From Evil...", z = 3524, rl = 5, ql = 9, rr = 1101, ps = {9537}, maps = {
+    [9602] = { t = "Deliver Them From Evil...", z = 3524, rl = 5, ql = 9, rr = 1101, ps = {9537}, si = {23899}, maps = {
       [1943] = {{47.11,50.60,nil,nil,6,nil,1,17116}},
     },
     turnins = {
@@ -41752,7 +41752,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{47.04,70.21,nil,nil,7,nil,1,17240}},
     },
     },
-    [9603] = { t = "Beds, Bandages, and Beyond", z = 3525, rl = 10, ql = 10, rr = 1024, nc = 9604, maps = {
+    [9603] = { t = "Beds, Bandages, and Beyond", z = 3525, rl = 10, ql = 10, rr = 1024, nc = 9604, si = {23902}, maps = {
       [1950] = {{57.68,53.87,nil,nil,6,nil,1,17554}},
     },
     turnins = {
@@ -41762,7 +41762,7 @@ VanillaEnhancedQuestsDB = {
       [1950] = {{55.85,59.81,nil,nil,7,nil,1,17553}},
     },
     },
-    [9604] = { t = "On the Wings of a Hippogryph", z = 3525, rl = 10, ql = 10, rr = 1024, ps = {9603}, nc = 9605, maps = {
+    [9604] = { t = "On the Wings of a Hippogryph", z = 3525, rl = 10, ql = 10, rr = 1024, ps = {9603}, nc = 9605, si = {23902}, maps = {
       [1947] = {{57.02,50.08,nil,nil,6,nil,1,16768}},
     },
     turnins = {
@@ -41772,7 +41772,7 @@ VanillaEnhancedQuestsDB = {
       [1950] = {{57.68,53.87,nil,nil,7,nil,1,17554}},
     },
     },
-    [9605] = { t = "Hippogryph Master Stephanos", z = 3525, rl = 10, ql = 10, rr = 1024, ps = {9604}, nc = 9606, maps = {
+    [9605] = { t = "Hippogryph Master Stephanos", z = 3525, rl = 10, ql = 10, rr = 1024, ps = {9604}, nc = 9606, si = {23903}, maps = {
       [1947] = {{68.34,63.50,nil,nil,6,nil,1,17555}},
     },
     turnins = {
@@ -41782,7 +41782,7 @@ VanillaEnhancedQuestsDB = {
       [1947] = {{57.02,50.08,nil,nil,7,nil,1,16768}},
     },
     },
-    [9606] = { t = "Return to Topher Loaal", z = 3525, rl = 10, ql = 10, rr = 1024, ps = {9605}, maps = {
+    [9606] = { t = "Return to Topher Loaal", z = 3525, rl = 10, ql = 10, rr = 1024, ps = {9605}, si = {23903}, maps = {
       [1950] = {{55.85,59.81,nil,nil,6,nil,1,17553}},
     },
     turnins = {
@@ -41842,7 +41842,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{42.86,57.14,nil,nil,7,nil,1,17587}, {37.84,18.12,nil,nil,7,nil,1,17587}, {39.60,37.80,nil,nil,7,nil,1,17587}, {56.83,59.81,nil,nil,7,nil,1,17587}, {40.27,71.21,nil,nil,7,nil,1,17587}, {46.60,31.90,nil,nil,7,nil,1,17587}, {55.20,28.60,nil,nil,7,nil,1,17587}, {55.80,43.87,3.60,3,7,nil,1,17587,nil,nil,nil,{53.60,42.60,58.60,41.60,55.20,47.40}}},
     },
     },
-    [9616] = { t = "Bandits!", z = 3524, rl = 5, ql = 7, rr = 1101, maps = {
+    [9616] = { t = "Bandits!", z = 3524, rl = 5, ql = 7, rr = 1101, si = {23910}, maps = {
       [1943] = {{47.11,50.60,nil,nil,6,nil,1,17116}},
     },
     turnins = {
@@ -41862,7 +41862,7 @@ VanillaEnhancedQuestsDB = {
       [1954] = {{84.39,26.03,nil,nil,7,nil,1,16673}},
     },
     },
-    [9618] = { t = "Return the Reports", z = -162, rl = 10, ql = 10, rr = 512, rc = 8, ps = {9460}, maps = {
+    [9618] = { t = "Return the Reports", z = -162, rl = 10, ql = 10, rr = 512, rc = 8, ps = {9460}, si = {23919}, maps = {
       [1954] = {{79.71,52.16,nil,nil,6,nil,1,16684}},
     },
     turnins = {
@@ -41872,7 +41872,7 @@ VanillaEnhancedQuestsDB = {
       [1942] = {{32.98,11.17,nil,nil,7,nil,1,17224}},
     },
     },
-    [9619] = { t = "The Rune of Summoning", z = -61, rl = 10, ql = -1, rr = 512, rc = 256, ps = {9529}, maps = {
+    [9619] = { t = "The Rune of Summoning", z = -61, rl = 10, ql = -1, rr = 512, rc = 256, ps = {9529}, si = {23732}, maps = {
       [1453] = {{25.16,77.49,nil,nil,1,"Summoned Voidwalker",1,5676,nil,nil,1}},
       [1454] = {{49.66,50.14,nil,nil,1,"Summoned Voidwalker",1,5676,nil,nil,1}},
       [1458] = {{86.51,26.94,nil,nil,1,"Summoned Voidwalker",1,5676,nil,nil,1}},
@@ -41895,7 +41895,7 @@ VanillaEnhancedQuestsDB = {
       [1950] = {{52.59,53.21,nil,nil,7,nil,1,17423}},
     },
     },
-    [9621] = { t = "Envoy to the Horde", z = 1497, rl = 15, ql = 21, rr = 512, ps = {9328}, nc = 9626, maps = {
+    [9621] = { t = "Envoy to the Horde", z = 1497, rl = 15, ql = 21, rr = 512, ps = {9328}, nc = 9626, si = {23929}, maps = {
       [1458] = {{58.05,91.79,nil,nil,6,nil,1,10181}},
     },
     turnins = {
@@ -41915,7 +41915,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{46.69,20.61,nil,nil,7,nil,1,17440}},
     },
     },
-    [9623] = { t = "Coming of Age", z = 3524, rl = 10, ql = 11, rr = 1101, nc = 9625, maps = {
+    [9623] = { t = "Coming of Age", z = 3524, rl = 10, ql = 11, rr = 1101, nc = 9625, si = {23928}, maps = {
       [1947] = {{81.49,51.44,nil,nil,6,nil,1,17584}},
     },
     turnins = {
@@ -41945,7 +41945,7 @@ VanillaEnhancedQuestsDB = {
       [1947] = {{81.49,51.44,nil,nil,7,nil,1,17584}},
     },
     },
-    [9626] = { t = "Meeting the Warchief", z = 1637, rl = 15, ql = 21, rr = 512, ps = {9621}, nc = 9627, maps = {
+    [9626] = { t = "Meeting the Warchief", z = 1637, rl = 15, ql = 21, rr = 512, ps = {9621}, nc = 9627, si = {23930}, maps = {
       [1454] = {{31.73,37.82,nil,nil,6,nil,1,4949}},
     },
     turnins = {
@@ -41975,7 +41975,7 @@ VanillaEnhancedQuestsDB = {
       [1950] = {{61.25,48.38,nil,nil,7,nil,1,17600}},
     },
     },
-    [9629] = { t = "Catch and Release", z = 3525, rl = 10, ql = 13, rr = 1101, nc = 9574, maps = {
+    [9629] = { t = "Catch and Release", z = 3525, rl = 10, ql = 13, rr = 1101, nc = 9574, si = {23995}, maps = {
       [1950] = {{38.54,94.98,4.11,6,1,"Blacksilt Scout",1,17326,nil,nil,1,{34.70,95.99,35.20,94.09,41.60,94.14,42.65,94.76,39.87,95.25,37.24,95.68}}, {49.98,93.72,3.95,5,1,"Blacksilt Scout",1,17326,nil,nil,1,{46.10,94.48,51.27,92.26,52.38,93.23,51.22,94.98}}},
     },
     turnins = {
@@ -41991,7 +41991,7 @@ VanillaEnhancedQuestsDB = {
       [1430] = {{46.93,75.64,nil,nil,7,nil,1,17613}},
     },
     },
-    [9631] = { t = "A Colleague's Aid", z = 3523, rl = 70, ql = 70, rmin = {967,9000}, ps = {9680}, nc = 9637, maps = {
+    [9631] = { t = "A Colleague's Aid", z = 3523, rl = 70, ql = 70, rmin = {967,9000}, ps = {9680}, nc = 9637, si = {24152}, maps = {
       [1953] = {{32.22,63.60,nil,nil,6,nil,1,17636}},
     },
     turnins = {
@@ -42001,7 +42001,7 @@ VanillaEnhancedQuestsDB = {
       [1430] = {{46.93,75.64,nil,nil,7,nil,1,17613}},
     },
     },
-    [9632] = { t = "Newfound Allies", z = 3525, rl = 15, ql = 15, rr = 1101, nc = 9633, maps = {
+    [9632] = { t = "Newfound Allies", z = 3525, rl = 15, ql = 15, rr = 1101, nc = 9633, si = {23937}, maps = {
       [1943] = {{24.18,54.35,nil,nil,6,nil,1,17614}},
     },
     turnins = {
@@ -42011,7 +42011,7 @@ VanillaEnhancedQuestsDB = {
       [1950] = {{54.66,53.94,nil,nil,7,nil,1,17424}},
     },
     },
-    [9633] = { t = "The Way to Auberdine", z = 3525, rl = 15, ql = 15, rr = 1101, ps = {9632}, maps = {
+    [9633] = { t = "The Way to Auberdine", z = 3525, rl = 15, ql = 15, rr = 1101, ps = {9632}, si = {23937}, maps = {
       [1439] = {{37.40,40.13,nil,nil,6,nil,1,3649}},
     },
     turnins = {
@@ -42091,7 +42091,7 @@ VanillaEnhancedQuestsDB = {
       [1950] = {{55.86,57.00,nil,nil,7,nil,1,17642}},
     },
     },
-    [9644] = { t = "Nightbane", z = 3457, rl = 70, ql = 70, rmin = {967,9000}, ps = {9637}, dq = 1, dm = 350, maps = {
+    [9644] = { t = "Nightbane", z = 3457, rl = 70, ql = 70, rmin = {967,9000}, ps = {9637}, dq = 1, dm = 350, si = {24140}, maps = {
       [1430] = {{46.93,75.64,nil,nil,6,nil,1,17613}},
     },
     turnins = {
@@ -42101,7 +42101,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{32.22,63.60,nil,nil,7,nil,1,17636}},
     },
     },
-    [9645] = { t = "The Master's Terrace", z = 3457, rl = 70, ql = 70, rmin = {967,9000}, ps = {9640}, nc = 9680, sf = 2, dq = 1, dm = 350, maps = {
+    [9645] = { t = "The Master's Terrace", z = 3457, rl = 70, ql = 70, rmin = {967,9000}, ps = {9640}, nc = 9680, sf = 2, dq = 1, dm = 350, si = {23934}, maps = {
       [1430] = {{46.93,75.64,nil,nil,6,nil,1,17613}},
     },
     turnins = {
@@ -42178,7 +42178,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{80.04,57.44,nil,nil,7,nil,1,17072}},
     },
     },
-    [9666] = { t = "Declaration of Power", z = 3525, rl = 10, ql = 13, rr = 1101, ps = {9663}, nc = 9668, sf = 2, maps = {
+    [9666] = { t = "Declaration of Power", z = 3525, rl = 10, ql = 13, rr = 1101, ps = {9663}, nc = 9668, sf = 2, si = {24084}, maps = {
       [1950] = {{68.77,68.16,nil,nil,1,"Lord Xiz",1,17701,nil,nil,1}, {68.77,68.16,nil,nil,1,"Lord Xiz",1,17701,nil,nil,2}},
     },
     turnins = {
@@ -42188,7 +42188,7 @@ VanillaEnhancedQuestsDB = {
       [1950] = {{62.99,87.54,nil,nil,7,nil,1,17649}},
     },
     },
-    [9667] = { t = "Saving Princess Stillpine", z = 3525, rl = 10, ql = 13, rr = 1101, ps = {9559}, maps = {
+    [9667] = { t = "Saving Princess Stillpine", z = 3525, rl = 10, ql = 13, rr = 1101, ps = {9559}, si = {24099}, maps = {
       [1950] = {{68.26,80.99,nil,nil,1,"Princess Stillpine",1,17682,nil,nil,1}, {64.20,76.40,nil,nil,2,"The High Chief's Key",3,24099,{17702},{17702,100}}},
     },
     turnins = {
@@ -42345,7 +42345,7 @@ VanillaEnhancedQuestsDB = {
       [1950] = {{79.15,22.65,nil,nil,7,nil,1,17712}},
     },
     },
-    [9684] = { t = "Claiming the Light", z = -141, rl = 12, ql = -1, rr = 512, rc = 2, ps = {9681}, nc = 9685, maps = {
+    [9684] = { t = "Claiming the Light", z = -141, rl = 12, ql = -1, rr = 512, rc = 2, ps = {9681}, nc = 9685, si = {24157}, maps = {
       [1954] = {{92.60,37.50,nil,nil,2,"Filled Shimmering Vessel",3,24156,{17544},nil,1}},
     },
     turnins = {
@@ -42355,7 +42355,7 @@ VanillaEnhancedQuestsDB = {
       [1954] = {{92.06,36.24,nil,nil,7,nil,1,17718}},
     },
     },
-    [9685] = { t = "Redeeming the Dead", z = -141, rl = 12, ql = -1, rr = 512, rc = 2, ps = {9684,63866}, maps = {
+    [9685] = { t = "Redeeming the Dead", z = -141, rl = 12, ql = -1, rr = 512, rc = 2, ps = {9684,63866}, si = {24184}, maps = {
       [1954] = {{80.12,60.30,nil,nil,1,"Resurrect Sangrias Stillblade",1,17768,nil,nil,1}},
     },
     turnins = {
@@ -42395,7 +42395,7 @@ VanillaEnhancedQuestsDB = {
       [1950] = {{74.47,33.46,nil,nil,7,nil,1,17674}},
     },
     },
-    [9689] = { t = "Razormaw", z = 3525, rl = 19, ql = 21, rr = 1101, ps = {9688}, maps = {
+    [9689] = { t = "Razormaw", z = 3525, rl = 19, ql = 21, rr = 1101, ps = {9688}, si = {24221}, maps = {
       [1950] = {{72.81,20.83,nil,nil,1,"Razormaw",1,17592,nil,nil,1}},
     },
     turnins = {
@@ -42425,7 +42425,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{42.88,28.69,nil,nil,7,nil,1,17807}},
     },
     },
-    [9692] = { t = "The Path of the Adept", z = -141, rl = 20, ql = 23, rr = 512, rc = 2, ps = {9691}, nc = 9707, maps = {
+    [9692] = { t = "The Path of the Adept", z = -141, rl = 20, ql = 23, rr = 512, rc = 2, ps = {9691}, nc = 9707, si = {24223}, maps = {
       [1439] = {{32.37,92.79,2.45,22,2,"Corrupted Kor Gem",3,6995,{4803},{4803,50},1,{30.00,92.63,31.37,91.37,31.85,91.44,34.75,93.38,34.74,93.40,33.78,94.35,33.55,94.39}}},
       [1440] = {{13.55,12.06,nil,nil,2,"Corrupted Kor Gem",3,6995,{4802},{4802,50},1}},
       [1942] = {{34.86,81.86,nil,nil,2,"Blood Knight Insignia",3,24226,{17832},nil,4}},
@@ -42457,7 +42457,7 @@ VanillaEnhancedQuestsDB = {
       [1950] = {{55.42,55.27,nil,nil,7,nil,1,17684}},
     },
     },
-    [9696] = { t = "Translations...", z = 3525, rl = 14, ql = 16, rr = 1101, ps = {9779}, nc = 9698, maps = {
+    [9696] = { t = "Translations...", z = 3525, rl = 14, ql = 16, rr = 1101, ps = {9779}, nc = 9698, si = {24399}, maps = {
       [1950] = {{54.44,54.45,nil,nil,6,nil,1,17825}},
     },
     turnins = {
@@ -42477,7 +42477,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{78.53,63.15,nil,nil,7,nil,1,17834}},
     },
     },
-    [9698] = { t = "Audience with the Prophet", z = 3525, rl = 14, ql = 16, rr = 1101, ps = {9696}, nc = 9699, maps = {
+    [9698] = { t = "Audience with the Prophet", z = 3525, rl = 14, ql = 16, rr = 1101, ps = {9696}, nc = 9699, si = {24323}, maps = {
       [1947] = {{32.87,54.50,nil,nil,6,nil,1,17468}},
     },
     turnins = {
@@ -42487,7 +42487,7 @@ VanillaEnhancedQuestsDB = {
       [1950] = {{54.44,54.45,nil,nil,7,nil,1,17825}},
     },
     },
-    [9699] = { t = "Truth or Fiction", z = 3525, rl = 14, ql = 16, rr = 1101, ps = {9698}, nc = 9700, maps = {
+    [9699] = { t = "Truth or Fiction", z = 3525, rl = 14, ql = 16, rr = 1101, ps = {9698}, nc = 9700, si = {24230}, maps = {
       [1950] = {{55.42,55.27,nil,nil,6,nil,1,17684}},
     },
     turnins = {
@@ -42547,7 +42547,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{40.42,32.21,nil,nil,7,nil,1,15301}},
     },
     },
-    [9705] = { t = "Package Recovery", z = 3431, rl = 4, ql = 5, rr = 690, ps = {9704}, nc = 8350, maps = {
+    [9705] = { t = "Package Recovery", z = 3431, rl = 4, ql = 5, rr = 690, ps = {9704}, nc = 8350, si = {20804}, maps = {
       [1941] = {{40.42,32.21,nil,nil,6,nil,1,15301}},
     },
     turnins = {
@@ -42557,7 +42557,7 @@ VanillaEnhancedQuestsDB = {
       [1941] = {{42.02,35.65,nil,nil,7,nil,1,17849}},
     },
     },
-    [9706] = { t = "Galaen's Journal - The Fate of Vindicator Saruan", z = 3525, rl = 15, ql = 18, rr = 1101, ps = {9694}, nc = 9711, maps = {
+    [9706] = { t = "Galaen's Journal - The Fate of Vindicator Saruan", z = 3525, rl = 15, ql = 18, rr = 1101, ps = {9694}, nc = 9711, si = {24237}, maps = {
       [1950] = {{55.64,55.22,nil,nil,6,nil,1,17843}},
     },
     turnins = {
@@ -42567,7 +42567,7 @@ VanillaEnhancedQuestsDB = {
       [1950] = {{37.55,61.25,nil,nil,7,nil,2,182032}},
     },
     },
-    [9707] = { t = "Forging the Weapon", z = -141, rl = 20, ql = 23, rr = 512, rc = 2, ps = {9692}, nc = 9710, maps = {
+    [9707] = { t = "Forging the Weapon", z = -141, rl = 20, ql = 23, rr = 512, rc = 2, ps = {9692}, nc = 9710, si = {24239}, maps = {
       [1954] = {{79.38,38.64,nil,nil,6,nil,1,16669}},
     },
     turnins = {
@@ -42607,7 +42607,7 @@ VanillaEnhancedQuestsDB = {
       [1954] = {{79.38,38.64,nil,nil,7,nil,1,16669}},
     },
     },
-    [9711] = { t = "Matis the Cruel", z = 3525, rl = 15, ql = 18, rr = 1101, ps = {9706}, sf = 2, maps = {
+    [9711] = { t = "Matis the Cruel", z = 3525, rl = 15, ql = 18, rr = 1101, ps = {9706}, sf = 2, si = {24278}, maps = {
       [1950] = {{26.99,52.41,nil,nil,1,"Matis the Cruel",1,17664,nil,nil,1}},
     },
     turnins = {
@@ -42657,7 +42657,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{19.37,49.78,nil,nil,7,nil,1,17857}},
     },
     },
-    [9718] = { t = "As the Crow Flies", z = 3521, rl = 61, ql = 63, ps = {9716}, nc = 9720, sf = 2, maps = {
+    [9718] = { t = "As the Crow Flies", z = 3521, rl = 61, ql = 63, ps = {9716}, nc = 9720, sf = 2, si = {25465}, maps = {
       [1946] = {{76.80,44.10,nil,nil,3,"Use the Stormcrow Amulet and explore the lakes of Zangarmarsh"}},
     },
     turnins = {
@@ -42677,7 +42677,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{19.65,49.70,nil,nil,7,nil,1,17866}},
     },
     },
-    [9720] = { t = "Balance Must Be Preserved", z = 3521, rl = 61, ql = 64, ps = {9718}, maps = {
+    [9720] = { t = "Balance Must Be Preserved", z = 3521, rl = 61, ql = 64, ps = {9718}, si = {24355}, maps = {
       [1946] = {{70.60,80.29,nil,nil,1,"Umbrafen Steam Pump Credit Marker",1,17998,nil,nil,1}, {25.40,42.86,nil,nil,1,"Marshlight Steam Pump Credit Marker",1,18002,nil,nil,2}, {61.97,40.84,nil,nil,1,"Serpent Steam Pump Credit Marker",1,18000,nil,nil,3}, {63.11,64.10,nil,nil,1,"Lagoon Steam Pump Credit Marker",1,17999,nil,nil,4}},
     },
     turnins = {
@@ -42747,7 +42747,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{79.08,64.88,nil,nil,7,nil,2,182115}},
     },
     },
-    [9731] = { t = "Drain Schematics", z = 3521, rl = 59, ql = 63, ps = {9718}, nc = 9724, sf = 2, maps = {
+    [9731] = { t = "Drain Schematics", z = 3521, rl = 59, ql = 63, ps = {9718}, nc = 9724, sf = 2, si = {24330}, maps = {
       [1946] = {{50.44,40.91,nil,nil,3,"Drain Located"}},
     },
     turnins = {
@@ -42854,7 +42854,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{80.40,64.16,nil,nil,7,nil,1,17956}},
     },
     },
-    [9748] = { t = "Don't Drink the Water", z = 3525, rl = 16, ql = 18, rr = 1101, ps = {9703}, nc = 9746, maps = {
+    [9748] = { t = "Don't Drink the Water", z = 3525, rl = 16, ql = 18, rr = 1101, ps = {9703}, nc = 9746, si = {24318}, maps = {
       [1950] = {{34.38,33.67,nil,nil,4,"Bloodmyst Water Sample",3,24317,nil,nil,1}},
     },
     turnins = {
@@ -42974,7 +42974,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{52.29,35.98,nil,nil,7,nil,1,17884}},
     },
     },
-    [9764] = { t = "Orders from Lady Vashj", z = 3715, rl = 67, ql = 70, nc = 9765, dq = 1, dm = 263, maps = {
+    [9764] = { t = "Orders from Lady Vashj", z = 3715, rl = 67, ql = 70, nc = 9765, dq = 1, dm = 263, si = {24367}, maps = {
       [1946] = {{78.40,62.02,nil,nil,6,nil,1,17841}},
     },
     turnins = {
@@ -43041,7 +43041,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{80.75,36.27,nil,nil,7,nil,1,18035}},
     },
     },
-    [9773] = { t = "No More Mushrooms!", z = 3521, rl = 58, ql = 61, rr = 690, nc = 9899, maps = {
+    [9773] = { t = "No More Mushrooms!", z = 3521, rl = 58, ql = 61, rr = 690, nc = 9899, si = {25539}, maps = {
       [1946] = {{74.49,67.54,6.93,44,2,"Eel Filet",3,24374,{18138},{18138,35.535},1,{70.97,63.46,72.73,60.83,74.15,61.15,75.85,63.09,76.43,63.85,77.38,68.20,77.43,69.02,77.39,72.21,75.75,73.24,74.44,73.33,73.59,72.95,73.28,72.27,72.68,70.34,71.15,65.38}}, {74.62,78.02,5.23,25,2,"Eel Filet",3,24374,{18138},{18138,35.535},1,{71.92,82.49,72.11,77.64,73.27,74.19,74.53,73.68,77.35,76.22,77.38,78.71,76.33,80.14,75.32,81.24}}},
     },
     turnins = {
@@ -43051,7 +43051,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{84.36,54.33,nil,nil,7,nil,1,18016}},
     },
     },
-    [9774] = { t = "Thick Hydra Scales", z = 3521, rl = 59, ql = 62, rr = 690, nc = 9771, maps = {
+    [9774] = { t = "Thick Hydra Scales", z = 3521, rl = 59, ql = 62, rr = 690, nc = 9771, si = {25539}, maps = {
       [1946] = {{74.27,66.04,7.23,14,2,"Thick Hydra Scale",3,24375,{18213},{18213,80},1,{70.51,63.23,71.56,61.40,72.84,60.48,73.93,60.47,75.27,62.41,77.81,66.49,77.95,68.30,77.92,70.34,77.87,72.32,72.36,72.55,70.82,65.25}}, {72.72,81.52,3.31,4,2,"Thick Hydra Scale",3,24375,{18213},{18213,80},1,{71.26,81.28,71.46,79.07,75.97,82.17,72.19,83.55}}, {77.87,77.19,3.14,4,2,"Thick Hydra Scale",3,24375,{18213},{18213,80},1,{77.31,80.28,78.06,74.30,78.19,77.95}}, {58.62,59.96,6.27,12,2,"Thick Hydra Scale",3,24375,{18213},{18213,80},1,{53.10,62.29,56.27,57.40,57.27,56.62,58.90,56.41,59.98,56.35,61.51,58.50,63.01,61.13,61.49,64.38,60.73,65.86}}, {55.56,67.42,4.19,6,2,"Thick Hydra Scale",3,24375,{18213},{18213,80},1,{52.91,64.18,58.78,68.87,57.45,69.05,56.04,69.19,54.62,67.33,53.59,65.92}}, {50.74,40.68,5.29,22,2,"Thick Hydra Scale",3,24375,{18214},{18214,80},1,{47.51,40.14,49.65,37.15,50.22,36.83,51.47,36.45,52.18,37.47,53.52,41.57,51.58,44.31,50.86,45.09,49.50,45.33,48.26,45.35}}, {42.23,41.42,nil,nil,2,"Thick Hydra Scale",3,24375,{18286},{18286,80},1}, {82.17,42.86,4.38,11,2,"Thick Hydra Scale",3,24375,{20324},{20324,80},1,{78.97,44.79,80.93,41.15,82.76,39.85,83.46,40.16,85.37,44.29,82.45,47.23,80.53,46.19}}, {79.93,37.52,3.00,5,2,"Thick Hydra Scale",3,24375,{20324},{20324,80},1,{78.78,39.44,79.00,36.23,80.12,34.52,82.37,38.38}}},
     },
     turnins = {
@@ -43061,7 +43061,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{85.28,54.75,nil,nil,7,nil,1,18011}},
     },
     },
-    [9775] = { t = "Report to Shadow Hunter Denjai", z = 3521, rl = 62, ql = 62, rr = 690, maps = {
+    [9775] = { t = "Report to Shadow Hunter Denjai", z = 3521, rl = 62, ql = 62, rr = 690, si = {24382}, maps = {
       [1946] = {{30.74,50.89,nil,nil,6,nil,1,18013}},
     },
     turnins = {
@@ -43111,7 +43111,7 @@ VanillaEnhancedQuestsDB = {
       [1950] = {{55.42,55.27,nil,nil,7,nil,1,17684}},
     },
     },
-    [9780] = { t = "Umbrafen Eel Filets", z = 3521, rl = 60, ql = 62, rr = 1101, ps = {9791}, maps = {
+    [9780] = { t = "Umbrafen Eel Filets", z = 3521, rl = 60, ql = 62, rr = 1101, ps = {9791}, si = {25539}, maps = {
       [1946] = {{74.49,67.54,6.93,44,2,"Eel Filet",3,24374,{18138},{18138,35.535},1,{70.97,63.46,72.73,60.83,74.15,61.15,75.85,63.09,76.43,63.85,77.38,68.20,77.43,69.02,77.39,72.21,75.75,73.24,74.44,73.33,73.59,72.95,73.28,72.27,72.68,70.34,71.15,65.38}}, {74.62,78.02,5.23,25,2,"Eel Filet",3,24374,{18138},{18138,35.535},1,{71.92,82.49,72.11,77.64,73.27,74.19,74.53,73.68,77.35,76.22,77.38,78.71,76.33,80.14,75.32,81.24}}},
     },
     turnins = {
@@ -43121,7 +43121,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{67.64,47.87,nil,nil,7,nil,1,18006}},
     },
     },
-    [9781] = { t = "Too Many Mouths to Feed", z = 3521, rl = 60, ql = 62, rr = 1101, nc = 9790, maps = {
+    [9781] = { t = "Too Many Mouths to Feed", z = 3521, rl = 60, ql = 62, rr = 1101, nc = 9790, si = {25539}, maps = {
       [1946] = {{53.91,63.38,4.09,6,1,"Mire Hydra",1,18213,nil,nil,1,{52.91,64.18,53.10,62.29,54.99,59.43,54.62,67.33,53.59,65.92}}, {57.42,69.04,1.39,3,1,"Mire Hydra",1,18213,nil,nil,1,{56.04,69.19,58.78,68.87,57.45,69.05}}, {59.84,58.06,4.42,7,1,"Mire Hydra",1,18213,nil,nil,1,{56.27,57.40,57.27,56.62,58.90,56.41,59.98,56.35,61.51,58.50,63.01,61.13}}, {60.73,65.86,nil,nil,1,"Mire Hydra",1,18213,nil,nil,1}, {61.49,64.38,nil,nil,1,"Mire Hydra",1,18213,nil,nil,1}, {71.64,81.30,2.32,3,1,"Mire Hydra",1,18213,nil,nil,1,{71.26,81.28,71.46,79.07,72.19,83.55}}, {72.05,69.12,nil,nil,1,"Mire Hydra",1,18213,nil,nil,1}, {72.36,72.55,nil,nil,1,"Mire Hydra",1,18213,nil,nil,1}, {72.42,62.89,4.12,7,1,"Mire Hydra",1,18213,nil,nil,1,{70.51,63.23,71.56,61.40,72.84,60.48,73.93,60.47,75.27,62.41,72.01,66.99,70.82,65.25}}, {75.97,82.17,nil,nil,1,"Mire Hydra",1,18213,nil,nil,1}, {77.31,80.28,nil,nil,1,"Mire Hydra",1,18213,nil,nil,1}, {77.55,66.69,1.66,3,1,"Mire Hydra",1,18213,nil,nil,1,{76.89,65.27,77.81,66.49,77.95,68.30}}, {77.99,74.22,3.88,5,1,"Mire Hydra",1,18213,nil,nil,1,{77.87,72.32,77.92,70.34,78.19,77.95,77.90,76.21}}},
     },
     turnins = {
@@ -43243,7 +43243,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{41.94,27.19,nil,nil,7,nil,1,18008}},
     },
     },
-    [9793] = { t = "The Fate of Tuurem", z = 3521, rl = 62, ql = 62, rr = 1101, ex = {10104}, maps = {
+    [9793] = { t = "The Fate of Tuurem", z = 3521, rl = 62, ql = 62, rr = 1101, ex = {10104}, si = {24415}, maps = {
       [1952] = {{58.53,53.56,nil,nil,6,nil,1,18252}},
     },
     turnins = {
@@ -43253,7 +43253,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{68.34,50.08,nil,nil,7,nil,1,18004}},
     },
     },
-    [9794] = { t = "No Time for Curiosity", z = 3522, rl = 64, ql = 65, rr = 1101, maps = {
+    [9794] = { t = "No Time for Curiosity", z = 3522, rl = 64, ql = 65, rr = 1101, si = {26048}, maps = {
       [1949] = {{35.97,67.76,nil,nil,6,nil,1,18098}},
     },
     turnins = {
@@ -43293,7 +43293,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{32.01,50.43,nil,nil,7,nil,1,18091}},
     },
     },
-    [9798] = { t = "Blood Elf Plans", z = 3526, rl = 2, ql = 5, rr = 1101, ps = {9309}, maps = {
+    [9798] = { t = "Blood Elf Plans", z = 3526, rl = 2, ql = 5, rr = 1101, ps = {9309}, si = {23003}, maps = {
       [1943] = {{79.49,51.62,nil,nil,6,nil,1,16535}},
     },
     turnins = {
@@ -43342,7 +43342,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{80.32,64.17,nil,nil,7,nil,1,17909}},
     },
     },
-    [9803] = { t = "Messenger to the Feralfen", z = 3521, rl = 60, ql = 62, rr = 1101, ps = {9801}, maps = {
+    [9803] = { t = "Messenger to the Feralfen", z = 3521, rl = 60, ql = 62, rr = 1101, ps = {9801}, si = {24428}, maps = {
       [1946] = {{44.11,69.49,nil,nil,2,"Elder Kuruti's Response",3,24573,{18197},nil,1}},
     },
     turnins = {
@@ -43362,7 +43362,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{60.80,22.38,nil,nil,7,nil,1,18073}},
     },
     },
-    [9805] = { t = "Blessing of Incineratus", z = 3518, rl = 64, ql = 65, ps = {9804}, nc = 9810, maps = {
+    [9805] = { t = "Blessing of Incineratus", z = 3518, rl = 64, ql = 65, ps = {9804}, nc = 9810, si = {24467}, maps = {
       [1951] = {{72.43,50.25,nil,nil,1,"Windyreed Quest Credit (Big Hut)",1,18110,nil,nil,1}, {70.73,51.11,nil,nil,1,"Windyreed Quest Credit (Hut 01)",1,18142,nil,nil,2}, {71.19,53.27,nil,nil,1,"Windyreed Quest Credit (Hut 02)",1,18143,nil,nil,3}, {72.77,54.73,nil,nil,1,"Windyreed Quest Credit (Hut 03)",1,18144,nil,nil,4}},
     },
     turnins = {
@@ -43422,7 +43422,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{60.80,22.38,nil,nil,7,nil,1,18073}},
     },
     },
-    [9811] = { t = "Friend of the Sin'dorei", z = 3433, rl = 15, ql = 21, rr = 178, ps = {9167}, nc = 9812, maps = {
+    [9811] = { t = "Friend of the Sin'dorei", z = 3433, rl = 15, ql = 21, rr = 178, ps = {9167}, nc = 9812, si = {22653}, maps = {
       [1954] = {{53.80,20.23,nil,nil,6,nil,1,16802}},
     },
     turnins = {
@@ -43432,7 +43432,7 @@ VanillaEnhancedQuestsDB = {
       [1942] = {{55.07,48.83,nil,nil,7,nil,1,16239}},
     },
     },
-    [9812] = { t = "Envoy to the Horde", z = 1497, rl = 15, ql = 21, rr = 178, ps = {9811}, nc = 9813, maps = {
+    [9812] = { t = "Envoy to the Horde", z = 1497, rl = 15, ql = 21, rr = 178, ps = {9811}, nc = 9813, si = {23929}, maps = {
       [1458] = {{58.05,91.79,nil,nil,6,nil,1,10181}},
     },
     turnins = {
@@ -43442,7 +43442,7 @@ VanillaEnhancedQuestsDB = {
       [1954] = {{53.80,20.23,nil,nil,7,nil,1,16802}},
     },
     },
-    [9813] = { t = "Meeting the Warchief", z = 1637, rl = 15, ql = 21, rr = 178, ps = {9812}, maps = {
+    [9813] = { t = "Meeting the Warchief", z = 1637, rl = 15, ql = 21, rr = 178, ps = {9812}, si = {23930}, maps = {
       [1454] = {{31.73,37.82,nil,nil,6,nil,1,4949}},
     },
     turnins = {
@@ -43472,7 +43472,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{60.80,22.38,nil,nil,7,nil,1,18073}},
     },
     },
-    [9816] = { t = "Have You Ever Seen One of These?", z = 3521, rl = 62, ql = 64, rr = 690, ps = {9814}, maps = {
+    [9816] = { t = "Have You Ever Seen One of These?", z = 3521, rl = 62, ql = 64, rr = 690, ps = {9814}, si = {24470}, maps = {
       [1946] = {{26.78,22.61,nil,nil,4,"Murloc Cage",2,182164,nil,nil,1}},
     },
     turnins = {
@@ -43522,7 +43522,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{32.00,49.33,nil,nil,7,nil,2,182165}},
     },
     },
-    [9821] = { t = "Eating Damnation", z = 3518, rl = 64, ql = 66, ps = {9819}, nc = 9849, maps = {
+    [9821] = { t = "Eating Damnation", z = 3518, rl = 64, ql = 66, ps = {9819}, nc = 9849, si = {24475}, maps = {
       [1951] = {{65.22,79.72,nil,nil,2,"Enraged Crusher Core",3,24473,{18062},{18062,100},1}, {49.93,66.14,7.92,9,2,"Enraged Crusher Core",3,24473,{18062},{18062,100},1,{43.08,62.17,55.99,65.29,51.01,69.22,45.54,64.51}}, {50.20,79.59,5.88,3,2,"Enraged Crusher Core",3,24473,{18062},{18062,100},1,{46.63,78.20,48.47,78.45,55.51,82.12}}, {43.19,55.01,9.39,16,2,"Enraged Crusher Core",3,24473,{18062},{18062,100},1,{34.60,55.85,36.49,53.29,43.25,50.14,48.13,50.23,48.08,57.85,36.80,61.89}}, {57.31,54.76,3.73,11,2,"Enraged Crusher Core",3,24473,{18062},{18062,100},1,{54.89,55.63,56.40,52.32,57.52,52.26,58.72,53.30,60.68,56.36,55.03,57.61}}, {41.63,35.74,7.38,10,2,"Enraged Crusher Core",3,24473,{18062},{18062,100},1,{37.58,36.69,38.33,33.83,41.91,30.86,46.40,35.74,46.77,41.03,38.99,37.40}}, {38.85,21.57,4.56,6,2,"Enraged Crusher Core",3,24473,{18062},{18062,100},1,{36.15,17.90,37.86,19.56,40.59,23.22,41.31,24.31,38.45,22.42}}, {46.01,28.66,4.07,3,2,"Enraged Crusher Core",3,24473,{18062},{18062,100},1,{43.84,27.89,49.99,27.78,44.21,30.31}}, {53.19,19.18,4.48,9,2,"Enraged Crusher Core",3,24473,{18062},{18062,100},1,{48.71,19.10,49.52,18.24,56.97,17.09,56.79,18.06,54.04,21.48,50.14,19.95}}},
     },
     turnins = {
@@ -43552,7 +43552,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{30.74,50.89,nil,nil,7,nil,1,18013}},
     },
     },
-    [9824] = { t = "Arcane Disturbances", z = 3457, rl = 68, ql = 70, dq = 1, dm = 350, maps = {
+    [9824] = { t = "Arcane Disturbances", z = 3457, rl = 68, ql = 70, dq = 1, dm = 350, si = {24474}, maps = {
       [1430] = {{53.20,90.22,nil,nil,1,"Underground Well Credit Marker",1,18161,nil,nil,1}, {42.62,78.37,nil,nil,1,"Underground Pond Credit Marker",1,18162,nil,nil,2}},
     },
     turnins = {
@@ -43572,7 +43572,7 @@ VanillaEnhancedQuestsDB = {
       [1430] = {{46.93,75.64,nil,nil,7,nil,1,17613}},
     },
     },
-    [9826] = { t = "Contact from Dalaran", z = 279, rl = 68, ql = 70, pg = {9824,9825}, nc = 9829, maps = {
+    [9826] = { t = "Contact from Dalaran", z = 279, rl = 68, ql = 70, pg = {9824,9825}, nc = 9829, si = {24482}, maps = {
       [1416] = {{15.61,54.58,nil,nil,6,nil,1,18165}},
     },
     turnins = {
@@ -43582,14 +43582,14 @@ VanillaEnhancedQuestsDB = {
       [1430] = {{46.93,75.64,nil,nil,7,nil,1,17613}},
     },
     },
-    [9827] = { t = "Withered Basidium", z = 3521, rl = 60, ql = 62, rr = 1101, nc = 10355, maps = {
+    [9827] = { t = "Withered Basidium", z = 3521, rl = 60, ql = 62, rr = 1101, nc = 10355, si = {24483}, maps = {
       [1946] = {{68.63,48.73,nil,nil,6,nil,1,18007}},
     },
     turnins = {
       [1946] = {{68.63,48.73,nil,nil,6,nil,1,18007}},
     },
     },
-    [9828] = { t = "Withered Basidium", z = 3521, rl = 60, ql = 62, rr = 690, maps = {
+    [9828] = { t = "Withered Basidium", z = 3521, rl = 60, ql = 62, rr = 690, si = {24484}, maps = {
       [1946] = {{84.96,54.03,nil,nil,6,nil,1,18012}},
     },
     turnins = {
@@ -43647,7 +43647,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{40.85,28.66,nil,nil,7,nil,1,18009}},
     },
     },
-    [9834] = { t = "Natural Armor", z = 3521, rl = 62, ql = 64, rr = 1101, rmin = {978,0}, nc = 9905, maps = {
+    [9834] = { t = "Natural Armor", z = 3521, rl = 62, ql = 64, rr = 1101, rmin = {978,0}, nc = 9905, si = {25539}, maps = {
       [1946] = {{50.74,40.68,5.29,22,2,"Fenclaw Hide",3,24486,{18214},{18214,100},1,{47.51,40.14,49.65,37.15,50.22,36.83,51.47,36.45,52.18,37.47,53.52,41.57,51.58,44.31,50.86,45.09,49.50,45.33,48.26,45.35}}, {42.23,41.42,nil,nil,2,"Fenclaw Hide",3,24486,{18286},{18286,100},1}},
     },
     turnins = {
@@ -43667,7 +43667,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{41.94,27.19,nil,nil,7,nil,1,18008}},
     },
     },
-    [9836] = { t = "The Master's Touch", z = 1941, rl = 69, ql = 70, ps = {9832}, nc = 9837, sf = 2, dq = 1, maps = {
+    [9836] = { t = "The Master's Touch", z = 1941, rl = 69, ql = 70, ps = {9832}, nc = 9837, sf = 2, dq = 1, si = {24489}, maps = {
     },
     starts = {
       [1955] = {{54.75,44.32,nil,nil,7,nil,1,18166}},
@@ -43744,7 +43744,7 @@ VanillaEnhancedQuestsDB = {
       [1430] = {{46.93,75.64,nil,nil,7,nil,1,17613}},
     },
     },
-    [9845] = { t = "Angling to Beat the Competition", z = 3521, rl = 62, ql = 64, rr = 690, nc = 9903, maps = {
+    [9845] = { t = "Angling to Beat the Competition", z = 3521, rl = 62, ql = 64, rr = 690, nc = 9903, si = {25539}, maps = {
       [1946] = {{49.52,44.30,2.12,6,1,"Fenclaw Thrasher",1,18214,nil,nil,1,{48.24,43.39,48.69,42.35,51.58,44.31,50.86,45.09,49.50,45.33,48.26,45.35}}, {51.20,39.32,3.78,16,1,"Fenclaw Thrasher",1,18214,nil,nil,1,{47.51,40.14,49.65,37.15,50.22,36.83,51.47,36.45,52.18,37.47,53.52,41.57,52.88,42.39,51.62,42.30}}},
     },
     turnins = {
@@ -43764,7 +43764,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{32.38,51.96,nil,nil,7,nil,1,18017}},
     },
     },
-    [9847] = { t = "A Spirit Ally?", z = 3521, rl = 60, ql = 64, rr = 690, ps = {9846}, maps = {
+    [9847] = { t = "A Spirit Ally?", z = 3521, rl = 60, ql = 64, rr = 690, ps = {9846}, si = {24498}, maps = {
       [1946] = {{32.38,51.96,nil,nil,6,nil,1,18017}},
     },
     turnins = {
@@ -43784,7 +43784,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{41.21,28.67,nil,nil,7,nil,1,18019}},
     },
     },
-    [9849] = { t = "Shattering the Veil", z = 3518, rl = 64, ql = 67, ps = {9821}, nc = 9853, maps = {
+    [9849] = { t = "Shattering the Veil", z = 3518, rl = 64, ql = 67, ps = {9821}, nc = 9853, si = {24501}, maps = {
       [1951] = {{24.45,49.17,nil,nil,1,"Minion of Gurok",1,18181,nil,nil,1}, {27.27,52.13,nil,nil,1,"Minion of Gurok",1,18181,nil,nil,1}, {27.59,72.44,4.36,22,1,"Minion of Gurok",1,18181,nil,nil,1,{24.09,71.44,28.56,68.23,29.14,68.43,30.92,72.28,28.10,76.77,27.32,75.84}}, {28.57,65.45,1.38,5,1,"Minion of Gurok",1,18181,nil,nil,1,{28.03,65.57,28.36,64.28,29.21,65.86,28.68,66.83}}, {33.02,81.28,4.46,19,1,"Minion of Gurok",1,18181,nil,nil,1,{29.19,80.28,29.86,78.81,33.94,80.03,34.73,80.27,37.39,82.18,36.83,82.86,34.93,83.23,31.72,82.22,29.86,81.24}}, {39.88,83.39,2.54,13,1,"Minion of Gurok",1,18181,nil,nil,1,{38.07,83.61,38.83,82.03,41.63,81.55,41.01,85.31,39.18,84.81}}, {42.67,73.78,nil,nil,1,"Minion of Gurok",1,18181,nil,nil,1}, {42.73,77.78,0.94,3,1,"Minion of Gurok",1,18181,nil,nil,1,{42.26,76.97,43.35,78.19,42.59,78.19}}, {50.05,82.02,2.78,5,1,"Minion of Gurok",1,18181,nil,nil,1,{47.70,80.74,52.82,82.30,52.00,82.50,49.20,82.58,48.55,81.96}}, {50.19,75.48,4.29,10,1,"Minion of Gurok",1,18181,nil,nil,1,{49.03,76.64,49.14,71.93,49.70,71.22,52.35,78.37,51.29,79.23}}, {53.93,86.83,nil,nil,1,"Minion of Gurok",1,18181,nil,nil,1}, {57.44,86.67,nil,nil,1,"Minion of Gurok",1,18181,nil,nil,1}, {58.42,86.21,nil,nil,1,"Minion of Gurok",1,18181,nil,nil,1}, {60.39,80.98,4.15,18,1,"Minion of Gurok",1,18181,nil,nil,1,{57.44,81.08,58.41,80.27,61.23,79.43,63.16,79.69,62.69,81.68,57.45,83.91}}},
     },
     turnins = {
@@ -43824,7 +43824,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{71.52,40.82,nil,nil,7,nil,1,18180}},
     },
     },
-    [9853] = { t = "Gurok the Usurper", z = 3518, rl = 64, ql = 67, ps = {9849}, maps = {
+    [9853] = { t = "Gurok the Usurper", z = 3518, rl = 64, ql = 67, ps = {9849}, si = {24502}, maps = {
       [1951] = {{29.05,25.04,nil,nil,2,"Gurok's Earthen Head",3,24503,{18182},{18182,100},1}, {45.91,22.32,4.42,41,2,"Warmaul Skull",3,24502,{17138,18064},{17138,30,18064,30},nil,{41.52,22.76,42.34,21.81,42.77,21.43,45.75,18.86,46.19,18.94,49.25,21.57,49.04,23.39,47.06,24.57,46.03,24.70}}, {27.36,23.49,7.15,30,2,"Warmaul Skull",3,24502,{18037,18065},{18037,30,18065,30},nil,{23.73,29.66,26.04,21.37,26.67,19.44,27.12,18.48,29.46,20.44,29.31,25.97}}, {26.29,29.16,3.72,17,2,"Warmaul Skull",3,24502,{18037,18065},{18037,30,18065,30},nil,{23.29,28.95,24.30,27.05,29.11,27.30,28.79,29.51,28.38,30.29,23.63,31.77}}, {26.79,14.22,4.75,19,2,"Warmaul Skull",3,24502,{18037,18065},{18037,30,18065,30},nil,{25.38,14.77,25.91,13.21,27.32,11.58,27.59,11.29,28.61,12.18,28.71,18.57,26.61,17.29,26.00,16.77,25.52,15.74}}},
     },
     turnins = {
@@ -43904,7 +43904,7 @@ VanillaEnhancedQuestsDB = {
       [1430] = {{46.93,75.64,nil,nil,7,nil,1,17613}},
     },
     },
-    [9861] = { t = "The Howling Wind", z = 3518, rl = 64, ql = 67, nc = 9862, maps = {
+    [9861] = { t = "The Howling Wind", z = 3518, rl = 64, ql = 67, nc = 9862, si = {24504}, maps = {
       [1951] = {{60.50,22.37,nil,nil,6,nil,1,18074}},
     },
     turnins = {
@@ -44001,14 +44001,14 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{55.44,37.99,nil,nil,7,nil,1,18234}},
     },
     },
-    [9871] = { t = "Murkblood Invaders", z = 3518, rl = 64, ql = 67, rr = 1101, nc = 9873, maps = {
+    [9871] = { t = "Murkblood Invaders", z = 3518, rl = 64, ql = 67, rr = 1101, nc = 9873, si = {24559}, maps = {
       [1951] = {{55.48,68.70,nil,nil,6,nil,1,18183}},
     },
     turnins = {
       [1951] = {{55.48,68.70,nil,nil,6,nil,1,18183}},
     },
     },
-    [9872] = { t = "Murkblood Invaders", z = 3518, rl = 64, ql = 67, rr = 690, maps = {
+    [9872] = { t = "Murkblood Invaders", z = 3518, rl = 64, ql = 67, rr = 690, si = {24558}, maps = {
       [1951] = {{55.44,37.64,nil,nil,6,nil,1,18063}},
     },
     turnins = {
@@ -44025,7 +44025,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{55.48,68.70,nil,nil,7,nil,1,18183}},
     },
     },
-    [9874] = { t = "Stopping the Spread", z = 3518, rl = 64, ql = 67, rr = 1101, rmin = {978,0}, maps = {
+    [9874] = { t = "Stopping the Spread", z = 3518, rl = 64, ql = 67, rr = 1101, rmin = {978,0}, si = {24560}, maps = {
       [1951] = {{31.75,40.26,nil,nil,1,"Sunspring Villager",1,18240,nil,nil,1}, {31.76,39.62,nil,nil,1,"Sunspring Villager",1,18240,nil,nil,1}, {33.13,44.81,4.52,33,1,"Sunspring Villager",1,18240,nil,nil,1,{30.37,42.37,30.58,41.99,33.78,40.34,35.16,46.00,35.10,46.71,34.54,47.49,33.93,48.07,33.26,48.50,33.10,48.28,30.42,42.63}}},
     },
     turnins = {
@@ -44035,7 +44035,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{54.48,72.08,nil,nil,7,nil,1,18222}},
     },
     },
-    [9875] = { t = "Uncatalogued Species", z = 3521, rl = 60, ql = 63, rmax = {942,20999}, sf = 1, maps = {
+    [9875] = { t = "Uncatalogued Species", z = 3521, rl = 60, ql = 63, rmax = {942,20999}, sf = 1, si = {24407}, maps = {
       [1946] = {{80.32,64.17,nil,nil,6,nil,1,17909}},
     },
     turnins = {
@@ -44232,7 +44232,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{68.56,49.37,nil,nil,7,nil,1,18295}},
     },
     },
-    [9897] = { t = "I'm Saved!", z = 3518, rl = 64, ql = 65, maps = {
+    [9897] = { t = "I'm Saved!", z = 3518, rl = 64, ql = 65, si = {25449}, maps = {
       [1951] = {{71.38,40.62,nil,nil,6,nil,1,18218}},
     },
     turnins = {
@@ -44282,7 +44282,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{68.56,49.37,nil,nil,7,nil,1,18295}},
     },
     },
-    [9902] = { t = "The Terror of Marshlight Lake", z = 3521, rl = 62, ql = 64, rr = 1101, rmin = {978,0}, maps = {
+    [9902] = { t = "The Terror of Marshlight Lake", z = 3521, rl = 62, ql = 64, rr = 1101, rmin = {978,0}, si = {25539}, maps = {
       [1946] = {{22.31,45.78,nil,nil,1,"Terrorclaw",1,20477,nil,nil,1}},
     },
     turnins = {
@@ -44292,7 +44292,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{40.85,28.66,nil,nil,7,nil,1,18009}},
     },
     },
-    [9903] = { t = "The Biggest of Them All", z = 3521, rl = 62, ql = 64, rr = 690, ps = {9845}, maps = {
+    [9903] = { t = "The Biggest of Them All", z = 3521, rl = 62, ql = 64, rr = 690, ps = {9845}, si = {25539}, maps = {
       [1946] = {{42.23,41.42,nil,nil,1,"Mragesh",1,18286,nil,nil,1}},
     },
     turnins = {
@@ -44302,7 +44302,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{32.25,49.61,nil,nil,7,nil,1,18018}},
     },
     },
-    [9904] = { t = "Pursuing Terrorclaw", z = 3521, rl = 62, ql = 64, rr = 690, ps = {9845}, maps = {
+    [9904] = { t = "Pursuing Terrorclaw", z = 3521, rl = 62, ql = 64, rr = 690, ps = {9845}, si = {25539}, maps = {
       [1946] = {{22.31,45.78,nil,nil,1,"Terrorclaw",1,20477,nil,nil,1}},
     },
     turnins = {
@@ -44312,7 +44312,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{32.25,49.61,nil,nil,7,nil,1,18018}},
     },
     },
-    [9905] = { t = "Maktu's Revenge", z = 3521, rl = 62, ql = 64, rr = 1101, rmin = {978,0}, ps = {9834}, maps = {
+    [9905] = { t = "Maktu's Revenge", z = 3521, rl = 62, ql = 64, rr = 1101, rmin = {978,0}, ps = {9834}, si = {25539}, maps = {
       [1946] = {{42.23,41.42,nil,nil,1,"Mragesh",1,18286,nil,nil,1}},
     },
     turnins = {
@@ -44342,7 +44342,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{55.56,37.62,nil,nil,7,nil,1,18106}},
     },
     },
-    [9910] = { t = "Standards and Practices", z = 3518, rl = 64, ql = 65, rr = 690, ps = {9891}, nc = 9916, maps = {
+    [9910] = { t = "Standards and Practices", z = 3518, rl = 64, ql = 65, rr = 690, ps = {9891}, nc = 9916, si = {25458}, maps = {
       [1951] = {{72.19,69.90,nil,nil,4,"First Burning Blade Pyre",2,182261,nil,nil,1}, {74.70,69.91,nil,nil,4,"Second Burning Blade Pyre",2,182264,nil,nil,2}, {75.83,68.33,nil,nil,4,"Third Burning Blade Pyre",2,182262,nil,nil,3}},
     },
     turnins = {
@@ -44352,7 +44352,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{55.63,37.53,nil,nil,7,nil,1,18300}},
     },
     },
-    [9911] = { t = "The Count of the Marshes", z = 3521, rl = 62, ql = 64, maps = {
+    [9911] = { t = "The Count of the Marshes", z = 3521, rl = 62, ql = 64, si = {25459}, maps = {
       [1946] = {{23.32,66.21,nil,nil,6,nil,1,17831}},
     },
     turnins = {
@@ -44429,7 +44429,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{55.05,70.53,nil,nil,7,nil,1,18353}},
     },
     },
-    [9919] = { t = "Sporeggar", z = 3521, rl = 60, ql = 64, rmin = {970,0}, maps = {
+    [9919] = { t = "Sporeggar", z = 3521, rl = 60, ql = 64, rmin = {970,0}, si = {25491}, maps = {
       [1946] = {{19.68,52.07,nil,nil,6,nil,1,17924}},
     },
     turnins = {
@@ -44469,7 +44469,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{54.61,72.21,nil,nil,7,nil,1,18223}},
     },
     },
-    [9923] = { t = "HELP!", z = 3518, rl = 64, ql = 65, rr = 1101, rmin = {978,0}, nc = 9924, maps = {
+    [9923] = { t = "HELP!", z = 3518, rl = 64, ql = 65, rr = 1101, rmin = {978,0}, nc = 9924, si = {25490}, maps = {
       [1951] = {{72.53,70.74,nil,nil,1,"Corki",1,18369,nil,nil,1}, {74.31,67.02,7.38,36,2,"Boulderfist Key",3,25490,{17134,17135},{17134,2.047,17135,1.895},nil,{72.07,70.02,73.62,62.34,76.88,60.11,77.26,60.41,77.55,61.29,75.85,68.54,75.03,71.40,74.34,72.28,73.42,71.59,72.52,70.58,72.14,70.13}}, {77.18,60.16,2.60,8,2,"Boulderfist Key",3,25490,{17134,17135},{17134,2.047,17135,1.895},nil,{75.69,62.29,76.27,60.16,76.77,59.21,78.10,58.66,78.12,59.13,78.10,59.67,77.46,61.05}}},
     },
     turnins = {
@@ -44479,7 +44479,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{72.53,70.74,nil,nil,7,nil,1,18369}},
     },
     },
-    [9924] = { t = "Corki's Gone Missing Again!", z = 3518, rl = 64, ql = 66, rr = 1101, ps = {9923}, nc = 9954, maps = {
+    [9924] = { t = "Corki's Gone Missing Again!", z = 3518, rl = 64, ql = 66, rr = 1101, ps = {9923}, nc = 9954, si = {25509}, maps = {
       [1951] = {{39.25,27.42,nil,nil,1,"Corki",1,20812,nil,nil,1}, {40.23,31.31,4.11,39,2,"Northwind Cleft Key",3,25509,{17136,17137},{17136,1.074,17137,1.05},nil,{38.84,29.30,39.09,27.58,39.40,27.58,39.62,27.88,40.51,29.19,41.41,32.60,41.23,35.08,40.98,35.35,40.73,35.18,38.92,29.74}}, {50.87,56.42,3.37,30,2,"Northwind Cleft Key",3,25509,{17136,17137},{17136,1.074,17137,1.05},nil,{48.20,54.37,48.63,54.28,49.12,54.23,52.08,55.72,52.35,55.93,53.08,57.29,52.91,57.55,52.59,57.74,51.43,57.80,48.31,55.85}}},
     },
     turnins = {
@@ -44499,7 +44499,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{30.78,58.13,nil,nil,7,nil,1,18276}},
     },
     },
-    [9927] = { t = "Ruthless Cunning", z = 3518, rl = 64, ql = 66, ps = {10107,10108}, maps = {
+    [9927] = { t = "Ruthless Cunning", z = 3518, rl = 64, ql = 66, ps = {10107,10108}, si = {25552}, maps = {
       [1951] = {{69.99,79.50,3.92,23,1,"Kil'sorrow Spellbinder",1,17146,nil,nil,1,{67.73,78.69,69.27,76.69,70.55,76.73,71.98,79.23,72.13,81.94,68.42,83.09,68.26,82.98,67.89,82.28}}, {69.44,79.38,3.83,23,1,"Kil'sorrow Cultist",1,17147,nil,nil,1,{67.67,78.62,67.73,77.71,67.86,77.36,69.34,76.72,70.25,76.80,71.94,79.16,72.13,81.94,68.23,83.01,67.94,82.36}}, {70.42,79.64,3.90,35,1,"Kil'sorrow Deathsworn",1,17148,nil,nil,1,{67.09,79.40,68.93,77.11,69.86,76.39,70.08,76.42,72.59,77.19,72.64,77.41,72.57,79.58,71.72,82.81,70.86,83.20,68.03,82.72}}},
     },
     turnins = {
@@ -44519,7 +44519,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{73.81,62.60,nil,nil,7,nil,1,18261}},
     },
     },
-    [9931] = { t = "Returning the Favor", z = 3518, rl = 64, ql = 66, pg = {9927,9928}, maps = {
+    [9931] = { t = "Returning the Favor", z = 3518, rl = 64, ql = 66, pg = {9927,9928}, si = {25555}, maps = {
       [1951] = {{45.96,22.55,4.45,24,1,"Warmaul Reaver",1,17138,nil,nil,1,{41.52,22.76,42.34,21.81,46.19,18.94,49.25,21.57,49.04,23.39,46.03,24.70}}, {45.84,22.00,3.14,17,1,"Warmaul Shaman",1,18064,nil,nil,1,{42.77,21.43,45.75,18.86,48.68,21.97,47.06,24.57,46.55,24.25,43.64,22.36}}},
     },
     turnins = {
@@ -44529,7 +44529,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{73.81,62.60,nil,nil,7,nil,1,18261}},
     },
     },
-    [9932] = { t = "Body of Evidence", z = 3518, rl = 64, ql = 66, pg = {9927,9928}, maps = {
+    [9932] = { t = "Body of Evidence", z = 3518, rl = 64, ql = 66, pg = {9927,9928}, si = {25658}, maps = {
       [1951] = {{46.57,24.42,nil,nil,1,"Kil'sorrow Bodies Planted",1,18395,nil,nil,1}},
     },
     turnins = {
@@ -44539,7 +44539,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{73.81,62.60,nil,nil,7,nil,1,18261}},
     },
     },
-    [9933] = { t = "Message to Telaar", z = 3518, rl = 64, ql = 66, rr = 1101, pg = {9931,9932}, maps = {
+    [9933] = { t = "Message to Telaar", z = 3518, rl = 64, ql = 66, rr = 1101, pg = {9931,9932}, si = {25586}, maps = {
       [1951] = {{55.48,68.70,nil,nil,6,nil,1,18183}},
     },
     turnins = {
@@ -44549,7 +44549,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{73.81,62.60,nil,nil,7,nil,1,18261}},
     },
     },
-    [9934] = { t = "Message to Garadar", z = 3518, rl = 64, ql = 66, rr = 690, pg = {9931,9932}, maps = {
+    [9934] = { t = "Message to Garadar", z = 3518, rl = 64, ql = 66, rr = 690, pg = {9931,9932}, si = {25586}, maps = {
       [1951] = {{55.44,37.64,nil,nil,6,nil,1,18063}},
     },
     turnins = {
@@ -44649,7 +44649,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{32.31,36.15,nil,nil,7,nil,1,18414}},
     },
     },
-    [9948] = { t = "Finding the Survivors", z = 3518, rl = 65, ql = 67, rr = 690, rmin = {941,0}, maps = {
+    [9948] = { t = "Finding the Survivors", z = 3518, rl = 65, ql = 67, rr = 690, rmin = {941,0}, si = {25604}, maps = {
       [1951] = {{23.71,29.51,2.32,5,1,"Mag'har Prisoner",1,18428,nil,nil,1,{23.15,29.35,23.42,28.34,24.67,27.63,23.57,31.83}}, {28.07,19.53,nil,nil,1,"Mag'har Prisoner",1,18428,nil,nil,1}, {26.47,19.73,nil,nil,1,"Mag'har Prisoner",1,18428,nil,nil,1}, {27.93,24.94,2.71,13,1,"Mag'har Prisoner",1,18428,nil,nil,1,{25.23,25.11,25.34,24.25,26.59,23.57,29.36,24.09,29.64,25.95,29.24,26.28}}, {27.36,23.49,7.15,30,2,"Warmaul Prison Key",3,25604,{18037,18065},{18037,25,18065,20},nil,{23.73,29.66,26.04,21.37,26.67,19.44,27.12,18.48,29.46,20.44,29.31,25.97}}, {26.29,29.16,3.72,17,2,"Warmaul Prison Key",3,25604,{18037,18065},{18037,25,18065,20},nil,{23.29,28.95,24.30,27.05,29.11,27.30,28.79,29.51,28.38,30.29,23.63,31.77}}, {26.76,14.21,4.78,20,2,"Warmaul Prison Key",3,25604,{18037,18065,18423},{18037,25,18065,20,18423,20},nil,{25.38,14.77,25.91,13.21,27.32,11.58,27.59,11.29,28.61,12.18,28.71,18.57,26.61,17.29,26.00,16.77,25.52,15.74}}},
     },
     turnins = {
@@ -44679,7 +44679,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{55.48,68.70,nil,nil,7,nil,1,18183}},
     },
     },
-    [9955] = { t = "Cho'war the Pillager", z = 3518, rl = 65, ql = 67, rr = 1101, ps = {9954}, maps = {
+    [9955] = { t = "Cho'war the Pillager", z = 3518, rl = 65, ql = 67, rr = 1101, ps = {9954}, si = {25648}, maps = {
       [1951] = {{29.54,26.06,nil,nil,1,"Corki",1,18445,nil,nil,1}, {26.03,13.94,nil,nil,2,"Cho'war's Key",3,25648,{18423}}},
     },
     turnins = {
@@ -44909,7 +44909,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{50.13,44.88,nil,nil,7,nil,1,18385}},
     },
     },
-    [9994] = { t = "What Are These Things?", z = 3519, rl = 62, ql = 64, rr = 1101, ps = {9990}, nc = 10444, maps = {
+    [9994] = { t = "What Are These Things?", z = 3519, rl = 62, ql = 64, rr = 1101, ps = {9990}, nc = 10444, si = {25746}, maps = {
       [1952] = {{57.01,53.49,nil,nil,6,nil,1,18459}},
     },
     turnins = {
@@ -44919,7 +44919,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{44.33,26.31,nil,nil,7,nil,1,18446}},
     },
     },
-    [9995] = { t = "What Are These Things?", z = 3519, rl = 62, ql = 64, rr = 690, ps = {9990}, nc = 10448, maps = {
+    [9995] = { t = "What Are These Things?", z = 3519, rl = 62, ql = 64, rr = 690, ps = {9990}, nc = 10448, si = {25746}, maps = {
       [1952] = {{50.04,45.93,nil,nil,6,nil,1,18447}},
     },
     turnins = {
@@ -45009,7 +45009,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{63.39,42.72,nil,nil,7,nil,1,18566}},
     },
     },
-    [10004] = { t = "Patience and Understanding", z = 3518, rl = 66, ql = 68, ps = {10001}, nc = 10009, sf = 2, maps = {
+    [10004] = { t = "Patience and Understanding", z = 3518, rl = 66, ql = 68, ps = {10001}, nc = 10009, sf = 2, si = {25751}, maps = {
       [1955] = {{77.26,34.85,nil,nil,1,"Sal'salabim",1,18584,nil,nil,1}},
     },
     turnins = {
@@ -45059,7 +45059,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{63.39,42.72,nil,nil,7,nil,1,18566}},
     },
     },
-    [10009] = { t = "Crackin' Some Skulls", z = 3519, rl = 66, ql = 68, ps = {10004}, nc = 10010, maps = {
+    [10009] = { t = "Crackin' Some Skulls", z = 3519, rl = 66, ql = 68, ps = {10004}, nc = 10010, si = {25766}, maps = {
       [1946] = {{80.75,91.04,nil,nil,2,"Coosh'coosh's Debt",3,25768,{18586},{18586,100},2}},
       [1952] = {{27.26,57.70,nil,nil,2,"Floon's Debt",3,25769,{18588},{18588,100},3}},
       [1955] = {{74.99,31.40,nil,nil,2,"Raliq's Debt",3,25767,{18585},{18585,90},1}},
@@ -45081,7 +45081,7 @@ VanillaEnhancedQuestsDB = {
       [1955] = {{77.26,34.85,nil,nil,7,nil,1,18584}},
     },
     },
-    [10011] = { t = "Forge Camp: Annihilated", z = 3518, rl = 66, ql = 68, ps = {10010}, maps = {
+    [10011] = { t = "Forge Camp: Annihilated", z = 3518, rl = 66, ql = 68, ps = {10010}, si = {25770,25771}, maps = {
       [1951] = {{25.10,35.98,nil,nil,1,"Forge Camp: Hate Destroyed",1,19067,nil,nil,1}, {19.37,50.77,nil,nil,1,"Forge Camp: Fear Destroyed",1,19210,nil,nil,2}, {24.99,36.09,nil,nil,2,"Fel Cannon Activator",3,25770,{18535},{18535,100}}, {19.61,51.10,nil,nil,2,"Fel Cannon Activator",3,25771,{18536},{18536,100}}},
     },
     turnins = {
@@ -45091,7 +45091,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{27.34,43.09,nil,nil,7,nil,1,18417}},
     },
     },
-    [10012] = { t = "Fel Orc Plans", z = 3519, rl = 62, ql = 64, rr = 1101, ps = {9998,10000}, maps = {
+    [10012] = { t = "Fel Orc Plans", z = 3519, rl = 62, ql = 64, rr = 1101, ps = {9998,10000}, si = {25765}, maps = {
       [1952] = {{58.30,54.75,nil,nil,6,nil,1,18387}},
     },
     turnins = {
@@ -45101,7 +45101,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{67.92,53.56,nil,nil,7,nil,2,182549}},
     },
     },
-    [10013] = { t = "An Unseen Hand", z = 3519, rl = 62, ql = 64, rr = 690, ps = {9998,10000}, maps = {
+    [10013] = { t = "An Unseen Hand", z = 3519, rl = 62, ql = 64, rr = 690, ps = {9998,10000}, si = {25765}, maps = {
       [1952] = {{48.97,44.63,nil,nil,6,nil,1,18386}},
     },
     turnins = {
@@ -45161,7 +45161,7 @@ VanillaEnhancedQuestsDB = {
       [1955] = {{64.48,15.10,nil,nil,7,nil,1,18597}},
     },
     },
-    [10021] = { t = "Restoring the Light", z = 3703, rl = 62, ql = 64, rmin = {932,0}, ps = {10551}, maps = {
+    [10021] = { t = "Restoring the Light", z = 3703, rl = 62, ql = 64, rmin = {932,0}, ps = {10551}, si = {25817}, maps = {
       [1952] = {{50.66,16.56,nil,nil,4,"Northern Altar",2,182563,nil,nil,1}, {49.25,20.32,nil,nil,4,"Eastern Altar",2,182565,nil,nil,2}, {48.10,14.51,nil,nil,4,"Western Altar",2,182566,nil,nil,3}},
     },
     turnins = {
@@ -45281,7 +45281,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{49.81,45.28,nil,nil,7,nil,2,182588}},
     },
     },
-    [10035] = { t = "Torgos!", z = 3519, rl = 63, ql = 65, rr = 1101, ps = {10033}, maps = {
+    [10035] = { t = "Torgos!", z = 3519, rl = 63, ql = 65, rr = 1101, ps = {10033}, si = {30618}, maps = {
       [1952] = {{27.05,55.66,nil,nil,2,"Tail Feather of Torgos",3,25852,{18707},{18707,100},1}, {43.18,51.56,nil,nil,2,"Trachela's Carcass",3,30618,{21515},{21515,100}}},
     },
     turnins = {
@@ -45291,7 +45291,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{58.10,53.42,nil,nil,7,nil,1,18704}},
     },
     },
-    [10036] = { t = "Torgos!", z = 3519, rl = 63, ql = 65, rr = 690, ps = {10034}, maps = {
+    [10036] = { t = "Torgos!", z = 3519, rl = 63, ql = 65, rr = 690, ps = {10034}, si = {30618}, maps = {
       [1952] = {{27.05,55.66,nil,nil,2,"Tail Feather of Torgos",3,25852,{18707},{18707,100},1}, {43.18,51.56,nil,nil,2,"Trachela's Carcass",3,30618,{21515},{21515,100}}},
     },
     turnins = {
@@ -45381,7 +45381,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{55.44,37.64,nil,nil,7,nil,1,18063}},
     },
     },
-    [10045] = { t = "Material Components", z = 3518, rl = 66, ql = 68, rr = 690, ps = {10044}, nc = 10081, maps = {
+    [10045] = { t = "Material Components", z = 3518, rl = 66, ql = 68, rr = 690, ps = {10044}, nc = 10081, si = {25866}, maps = {
       [1946] = {{19.20,7.64,3.08,8,4,"Marshberry",3,25862,nil,nil,2,{16.66,9.35,19.26,4.56,20.82,5.78,20.12,9.93}}, {47.21,29.77,0.05,5,4,"Dragonspine",3,25865,nil,nil,4,{47.18,29.79,47.19,29.75,47.23,29.72,47.24,29.76,47.20,29.81}}},
       [1949] = {{49.31,70.97,3.72,7,4,"Dragonspine",3,25865,nil,nil,4,{48.64,67.31,49.75,71.51,50.14,74.19,49.52,73.70,48.74,69.10}}, {39.34,74.89,4.25,7,4,"Dragonspine",3,25865,nil,nil,4,{38.52,77.55,38.65,75.54,39.28,73.34,39.64,72.40,41.16,71.04,38.84,78.23}}, {41.39,65.71,4.56,5,4,"Dragonspine",3,25865,nil,nil,4,{40.57,63.06,41.23,63.45,41.73,64.70,41.73,70.25}}},
       [1951] = {{54.80,63.72,5.96,8,4,"Telaari Frond",3,25864,nil,nil,3,{52.47,67.36,55.89,57.86,56.08,59.38,55.52,65.83}}, {60.08,54.23,4.28,13,4,"Telaari Frond",3,25864,nil,nil,3,{55.85,53.61,56.96,51.67,63.85,52.41,63.87,53.47,63.16,54.57,62.24,55.64,60.47,56.73,56.36,55.27}}},
@@ -45394,7 +45394,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{56.70,34.31,nil,nil,7,nil,1,18141}},
     },
     },
-    [10047] = { t = "The Path of Glory", z = 3483, rl = 58, ql = 61, rr = 1101, ps = {10143,10483}, nc = 10093, maps = {
+    [10047] = { t = "The Path of Glory", z = 3483, rl = 58, ql = 61, rr = 1101, ps = {10143,10483}, nc = 10093, si = {25889}, maps = {
       [1944] = {{64.69,49.27,4.44,22,4,"Cleanse Trampled Skeleton",2,182789,nil,nil,1,{60.71,49.86,61.36,49.06,67.80,48.34,69.10,48.76,69.07,49.89}}, {54.43,50.56,6.19,29,4,"Cleanse Trampled Skeleton",2,182789,nil,nil,1,{48.95,51.22,49.70,50.01,60.19,49.30,60.00,50.02,49.12,53.74}}},
     },
     turnins = {
@@ -45614,7 +45614,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{41.20,44.20,nil,nil,7,nil,1,18817}},
     },
     },
-    [10078] = { t = "Laying Waste to the Unwanted", z = 3483, rl = 58, ql = 61, rr = 1101, ps = {10055}, maps = {
+    [10078] = { t = "Laying Waste to the Unwanted", z = 3483, rl = 58, ql = 61, rr = 1101, ps = {10055}, si = {26002}, maps = {
       [1944] = {{58.49,47.67,nil,nil,1,"Invis Horde Siege Engine - East",1,18818,nil,nil,1}, {55.69,47.67,nil,nil,1,"Invis Horde Siege Engine - East 02",1,21237,nil,nil,2}, {53.56,48.35,nil,nil,1,"Invis Horde Siege Engine - West",1,19009,nil,nil,3}, {52.65,47.92,nil,nil,1,"Invis Horde Siege Engine - West 02",1,21236,nil,nil,4}},
     },
     turnins = {
@@ -45675,7 +45675,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{55.18,38.79,nil,nil,7,nil,1,21283}},
     },
     },
-    [10087] = { t = "Burn It Up... For the Horde!", z = 3483, rl = 58, ql = 61, rr = 690, ps = {10086}, maps = {
+    [10087] = { t = "Burn It Up... For the Horde!", z = 3483, rl = 58, ql = 61, rr = 690, ps = {10086}, si = {27479}, maps = {
       [1944] = {{60.70,51.78,nil,nil,1,"Eastern Cannon Burned",1,18849,nil,nil,1}, {54.79,53.33,nil,nil,1,"Western Cannon Burned",1,19008,nil,nil,2}},
     },
     turnins = {
@@ -45735,7 +45735,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{44.07,64.96,nil,nil,7,nil,1,18933}},
     },
     },
-    [10098] = { t = "Terokk's Legacy", z = 3917, rl = 65, ql = 69, dq = 1, maps = {
+    [10098] = { t = "Terokk's Legacy", z = 3917, rl = 65, ql = 69, dq = 1, si = {32888}, maps = {
       [1952] = {{44.07,64.96,nil,nil,6,nil,1,18933}},
     },
     turnins = {
@@ -45945,7 +45945,7 @@ VanillaEnhancedQuestsDB = {
       [1419] = {{58.32,55.90,nil,nil,7,nil,1,16841}},
     },
     },
-    [10120] = { t = "Arrival in Outland", z = 3483, rl = 58, ql = 61, rr = 690, nc = 10289, bc = {9407}, maps = {
+    [10120] = { t = "Arrival in Outland", z = 3483, rl = 58, ql = 61, rr = 690, nc = 10289, bc = {9407}, si = {28024}, maps = {
       [1944] = {{87.35,48.14,nil,nil,6,nil,1,18930}},
     },
     turnins = {
@@ -45985,7 +45985,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{58.14,41.27,nil,nil,7,nil,1,19256}},
     },
     },
-    [10129] = { t = "Mission: Gateways Murketh and Shaadraz", z = 3483, rl = 58, ql = 62, rr = 690, ps = {10208}, nc = 10162, maps = {
+    [10129] = { t = "Mission: Gateways Murketh and Shaadraz", z = 3483, rl = 58, ql = 62, rr = 690, ps = {10208}, nc = 10162, si = {28038}, maps = {
       [1944] = {{78.00,47.21,nil,nil,4,"Gateway Murketh",2,183350,nil,nil,1}, {77.71,51.83,nil,nil,4,"Gateway Shaadraz",2,183351,nil,nil,2}},
     },
     turnins = {
@@ -46005,7 +46005,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{15.62,52.04,nil,nil,7,nil,1,19293}},
     },
     },
-    [10134] = { t = "Crimson Crystal Clue", z = 3483, rl = 61, ql = 63, nc = 10349, maps = {
+    [10134] = { t = "Crimson Crystal Clue", z = 3483, rl = 61, ql = 63, nc = 10349, si = {29476}, maps = {
       [1944] = {{15.62,52.04,nil,nil,6,nil,1,19293}},
     },
     turnins = {
@@ -46022,7 +46022,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{55.02,35.96,nil,nil,7,nil,1,3230}},
     },
     },
-    [10140] = { t = "Journey to Honor Hold", z = 3483, rl = 58, ql = 61, rr = 1101, ps = {10288}, nc = 10254, maps = {
+    [10140] = { t = "Journey to Honor Hold", z = 3483, rl = 58, ql = 61, rr = 1101, ps = {10288}, nc = 10254, si = {28105}, maps = {
       [1944] = {{54.81,62.79,nil,nil,6,nil,1,19308}},
     },
     turnins = {
@@ -46062,7 +46062,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{61.72,60.95,nil,nil,7,nil,1,19309}},
     },
     },
-    [10144] = { t = "Disrupt Their Reinforcements", z = 3483, rl = 58, ql = 62, rr = 1101, ps = {10143}, nc = 10146, maps = {
+    [10144] = { t = "Disrupt Their Reinforcements", z = 3483, rl = 58, ql = 62, rr = 1101, ps = {10143}, nc = 10146, si = {28106,28513}, maps = {
       [1944] = {{71.46,55.16,nil,nil,4,"Portal Grimh",2,184414,nil,nil,1}, {72.72,58.95,nil,nil,4,"Portal Kaalez",2,184415,nil,nil,2}, {72.04,42.75,6.12,61,2,"Demonic Rune Stone",3,28513,{16950,18975,18981,19190,19282},{16950,75,18975,75,18981,75,19190,75,19282,75},nil,{69.28,47.93,69.76,44.68,70.26,42.18,70.57,41.62,73.22,37.15,73.75,37.36,74.50,38.12,75.54,42.43,75.54,42.52,71.86,47.53,69.99,48.52}}, {71.91,56.02,4.46,49,2,"Demonic Rune Stone",3,28513,{16950,18975,18981,19190},{16950,75,18975,75,18981,75,19190,75},nil,{70.31,54.16,70.68,52.87,70.73,52.75,71.52,52.39,72.90,51.84,74.24,53.07,73.52,58.50,73.16,59.90,73.04,60.33,71.71,60.12,70.58,59.23,70.34,57.37}}},
     },
     turnins = {
@@ -46072,7 +46072,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{71.34,62.77,nil,nil,7,nil,1,19310}},
     },
     },
-    [10146] = { t = "Mission: The Murketh and Shaadraz Gateways", z = 3483, rl = 58, ql = 62, rr = 1101, ps = {10144}, nc = 10340, maps = {
+    [10146] = { t = "Mission: The Murketh and Shaadraz Gateways", z = 3483, rl = 58, ql = 62, rr = 1101, ps = {10144}, nc = 10340, si = {28038}, maps = {
       [1944] = {{78.00,47.21,nil,nil,4,"Gateway Murketh",2,183350,nil,nil,1}, {77.71,51.83,nil,nil,4,"Gateway Shaadraz",2,183351,nil,nil,2}},
     },
     turnins = {
@@ -46112,7 +46112,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{49.15,74.86,nil,nil,7,nil,1,19367}},
     },
     },
-    [10162] = { t = "Mission: The Abyssal Shelf", z = 3483, rl = 58, ql = 62, rr = 690, ps = {10129}, maps = {
+    [10162] = { t = "Mission: The Abyssal Shelf", z = 3483, rl = 58, ql = 62, rr = 690, ps = {10129}, si = {28132}, maps = {
       [1944] = {{72.88,12.67,2.62,26,1,"Gan'arg Peon",1,19398,nil,nil,1,{71.95,14.79,72.05,12.17,72.90,10.05,74.20,11.41,74.32,11.64,73.65,13.57,73.31,14.09,72.30,14.82}}, {73.10,18.90,4.87,66,1,"Gan'arg Peon",1,19398,nil,nil,1,{71.59,16.38,73.21,15.20,73.93,15.15,75.08,15.10,74.80,17.64,74.54,19.53,72.89,23.48,72.83,23.60,72.47,23.73,71.97,23.29,71.62,22.12,71.59,18.44}}, {71.27,18.41,nil,nil,1,"Mo'arg Overseer",1,19397,nil,nil,2}, {71.49,14.40,nil,nil,1,"Mo'arg Overseer",1,19397,nil,nil,2}, {72.22,23.66,1.44,3,1,"Mo'arg Overseer",1,19397,nil,nil,2,{71.18,22.67,73.27,24.20,72.22,24.10}}, {73.03,10.85,1.36,3,1,"Mo'arg Overseer",1,19397,nil,nil,2,{71.70,10.56,74.02,10.50,73.38,11.48}}, {74.64,16.53,nil,nil,1,"Mo'arg Overseer",1,19397,nil,nil,2}, {74.72,20.49,nil,nil,1,"Mo'arg Overseer",1,19397,nil,nil,2}, {72.68,21.90,2.96,9,1,"Fel Cannon Destroyed",1,19399,nil,nil,3,{71.42,19.22,73.96,20.45,74.13,22.28,72.80,24.10,71.44,24.22}}, {72.82,15.11,3.82,12,1,"Fel Cannon Destroyed",1,19399,nil,nil,3,{71.44,15.35,71.50,13.43,72.09,11.59,73.38,11.48,74.24,15.11,73.85,18.79,72.79,18.24,71.49,17.41}}},
     },
     turnins = {
@@ -46122,7 +46122,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{65.89,43.59,nil,nil,7,nil,1,19273}},
     },
     },
-    [10163] = { t = "Mission: The Abyssal Shelf", z = 3483, rl = 58, ql = 62, rr = 1101, ps = {10146}, nc = 10382, bc = {10344}, maps = {
+    [10163] = { t = "Mission: The Abyssal Shelf", z = 3483, rl = 58, ql = 62, rr = 1101, ps = {10146}, nc = 10382, bc = {10344}, si = {28132}, maps = {
       [1944] = {{72.88,12.67,2.62,26,1,"Gan'arg Peon",1,19398,nil,nil,1,{71.95,14.79,72.05,12.17,72.90,10.05,74.20,11.41,74.32,11.64,73.65,13.57,73.31,14.09,72.30,14.82}}, {73.10,18.90,4.87,66,1,"Gan'arg Peon",1,19398,nil,nil,1,{71.59,16.38,73.21,15.20,73.93,15.15,75.08,15.10,74.80,17.64,74.54,19.53,72.89,23.48,72.83,23.60,72.47,23.73,71.97,23.29,71.62,22.12,71.59,18.44}}, {71.27,18.41,nil,nil,1,"Mo'arg Overseer",1,19397,nil,nil,2}, {71.49,14.40,nil,nil,1,"Mo'arg Overseer",1,19397,nil,nil,2}, {72.22,23.66,1.44,3,1,"Mo'arg Overseer",1,19397,nil,nil,2,{71.18,22.67,73.27,24.20,72.22,24.10}}, {73.03,10.85,1.36,3,1,"Mo'arg Overseer",1,19397,nil,nil,2,{71.70,10.56,74.02,10.50,73.38,11.48}}, {74.64,16.53,nil,nil,1,"Mo'arg Overseer",1,19397,nil,nil,2}, {74.72,20.49,nil,nil,1,"Mo'arg Overseer",1,19397,nil,nil,2}, {72.68,21.90,2.96,9,1,"Fel Cannon Destroyed",1,19399,nil,nil,3,{71.42,19.22,73.96,20.45,74.13,22.28,72.80,24.10,71.44,24.22}}, {72.82,15.11,3.82,12,1,"Fel Cannon Destroyed",1,19399,nil,nil,3,{71.44,15.35,71.50,13.43,72.09,11.59,73.38,11.48,74.24,15.11,73.85,18.79,72.79,18.24,71.49,17.41}}},
     },
     turnins = {
@@ -46152,7 +46152,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{39.37,58.48,nil,nil,7,nil,1,19674}},
     },
     },
-    [10166] = { t = "Whitebark's Memory", z = 3430, rl = 7, ql = 10, rr = 690, ps = {8474}, maps = {
+    [10166] = { t = "Whitebark's Memory", z = 3430, rl = 7, ql = 10, rr = 690, ps = {8474}, si = {28209}, maps = {
       [1941] = {{37.80,86.20,nil,nil,6,nil,1,19456}},
     },
     turnins = {
@@ -46205,7 +46205,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{55.44,37.64,nil,nil,7,nil,1,18063}},
     },
     },
-    [10173] = { t = "The Archmage's Staff", z = 3523, rl = 67, ql = 68, nc = 10300, maps = {
+    [10173] = { t = "The Archmage's Staff", z = 3523, rl = 67, ql = 68, nc = 10300, si = {29207}, maps = {
       [1953] = {{40.80,72.60,nil,nil,2,"Archmage Vargoth's Staff",3,28292,{19493},{19493,100},1}},
     },
     turnins = {
@@ -46215,7 +46215,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{31.36,66.15,nil,nil,7,nil,1,19217}},
     },
     },
-    [10174] = { t = "Curse of the Violet Tower", z = 3523, rl = 67, ql = 68, ps = {10300}, nc = 10188, maps = {
+    [10174] = { t = "Curse of the Violet Tower", z = 3523, rl = 67, ql = 68, ps = {10300}, nc = 10188, si = {28455}, maps = {
       [1953] = {{31.36,66.15,nil,nil,6,nil,1,19644}},
     },
     turnins = {
@@ -46271,14 +46271,14 @@ VanillaEnhancedQuestsDB = {
       [1955] = {{57.98,15.16,nil,nil,7,nil,1,19045}},
     },
     },
-    [10182] = { t = "Battle-Mage Dathric", z = 3523, rl = 67, ql = 68, maps = {
+    [10182] = { t = "Battle-Mage Dathric", z = 3523, rl = 67, ql = 68, si = {28351}, maps = {
       [1953] = {{56.88,86.85,nil,nil,4,"Weapon Rack",2,183269,nil,nil,1}},
     },
     turnins = {
       [1953] = {{57.50,86.34,nil,nil,6,nil,1,19488}},
     },
     },
-    [10183] = { t = "Off To Area 52", z = 3523, rl = 67, ql = 68, ex = {11036,11037,11038,11039,11040,11042}, nc = 10186, bf = 10186, maps = {
+    [10183] = { t = "Off To Area 52", z = 3523, rl = 67, ql = 68, ex = {11036,11037,11038,11039,11040,11042}, nc = 10186, bf = 10186, si = {28359}, maps = {
       [1953] = {{32.73,64.96,nil,nil,6,nil,1,19570}, {32.68,64.41,nil,nil,6,nil,1,19570}},
     },
     turnins = {
@@ -46318,7 +46318,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{32.73,64.96,nil,nil,7,nil,1,19570}, {32.68,64.41,nil,nil,7,nil,1,19570}},
     },
     },
-    [10188] = { t = "The Sigil of Krasus", z = 3523, rl = 67, ql = 69, ps = {10174}, nc = 10192, maps = {
+    [10188] = { t = "The Sigil of Krasus", z = 3523, rl = 67, ql = 69, ps = {10174}, nc = 10192, si = {28455}, maps = {
       [1953] = {{51.33,81.15,nil,nil,2,"Sigil of Krasus",3,28368,{19593},{19593,100},1}},
     },
     turnins = {
@@ -46338,7 +46338,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{32.00,64.07,nil,nil,7,nil,1,19468}},
     },
     },
-    [10190] = { t = "Recharging the Batteries", z = 3523, rl = 67, ql = 68, maps = {
+    [10190] = { t = "Recharging the Batteries", z = 3523, rl = 67, ql = 68, si = {28369}, maps = {
       [1953] = {{21.62,64.92,4.52,9,1,"Phase Hunter",1,18879,nil,nil,1,{18.75,68.32,19.15,67.28,20.19,64.95,21.53,64.01,25.00,61.91,24.58,63.23,24.12,64.48}}, {23.35,43.29,3.01,8,1,"Phase Hunter",1,18879,nil,nil,1,{22.25,40.49,22.80,41.36,24.45,44.13,23.89,45.34,22.77,43.39}}, {23.62,35.10,2.92,5,1,"Phase Hunter",1,18879,nil,nil,1,{22.74,37.88,23.22,33.69,25.01,32.61,24.05,35.12}}, {23.97,57.43,nil,nil,1,"Phase Hunter",1,18879,nil,nil,1}, {25.76,58.39,nil,nil,1,"Phase Hunter",1,18879,nil,nil,1}, {27.13,46.06,nil,nil,1,"Phase Hunter",1,18879,nil,nil,1}, {28.83,50.70,3.82,8,1,"Phase Hunter",1,18879,nil,nil,1,{26.04,50.27,32.05,48.64,29.81,52.10,26.93,51.45}}, {28.97,35.73,3.57,5,1,"Phase Hunter",1,18879,nil,nil,1,{27.29,34.63,28.13,34.55,32.02,37.59,29.81,36.83,27.62,35.03}}, {34.79,50.21,nil,nil,1,"Phase Hunter",1,18879,nil,nil,1}, {35.00,48.58,nil,nil,1,"Phase Hunter",1,18879,nil,nil,1}, {39.47,62.04,nil,nil,1,"Phase Hunter",1,18879,nil,nil,1}, {40.44,62.16,nil,nil,1,"Phase Hunter",1,18879,nil,nil,1}, {40.95,54.34,4.86,11,1,"Phase Hunter",1,18879,nil,nil,1,{39.41,52.39,41.01,50.62,41.26,51.90,42.37,57.77,41.84,59.12,40.20,54.61}}, {44.76,70.05,nil,nil,1,"Phase Hunter",1,18879,nil,nil,1}, {43.64,68.36,nil,nil,1,"Phase Hunter",1,18879,nil,nil,1}, {45.48,73.71,1.65,4,1,"Phase Hunter",1,18879,nil,nil,1,{44.18,74.68,44.93,73.81,46.72,72.63,46.09,73.73}}, {46.62,63.62,3.24,5,1,"Phase Hunter",1,18879,nil,nil,1,{45.89,62.79,46.62,60.38,47.71,65.62,46.63,65.52}}, {49.53,70.10,nil,nil,1,"Phase Hunter",1,18879,nil,nil,1}, {49.44,68.49,nil,nil,1,"Phase Hunter",1,18879,nil,nil,1}},
     },
     turnins = {
@@ -46358,7 +46358,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{31.59,56.63,nil,nil,7,nil,1,19589}},
     },
     },
-    [10192] = { t = "Krasus's Compendium", z = 3523, rl = 67, ql = 69, ps = {10188}, nc = 10301, maps = {
+    [10192] = { t = "Krasus's Compendium", z = 3523, rl = 67, ql = 69, ps = {10188}, nc = 10301, si = {28455}, maps = {
       [1953] = {{58.60,89.21,nil,nil,4,"Krasus's Compendium - Chapter 1",3,28472,nil,nil,1}, {57.55,89.59,nil,nil,4,"Krasus's Compendium - Chapter 2",3,28473,nil,nil,2}, {58.82,87.95,nil,nil,4,"Krasus's Compendium - Chapter 3",3,28474,nil,nil,3}},
     },
     turnins = {
@@ -46398,7 +46398,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{48.24,86.60,nil,nil,7,nil,1,19840}},
     },
     },
-    [10198] = { t = "Information Gathering", z = 3523, rl = 67, ql = 68, rmin = {934,3000}, ps = {10197}, nc = 10330, sf = 2, maps = {
+    [10198] = { t = "Information Gathering", z = 3523, rl = 67, ql = 68, rmin = {934,3000}, ps = {10197}, nc = 10330, sf = 2, si = {28607}, maps = {
       [1953] = {{48.18,84.08,nil,nil,3,"Information Gathering"}},
     },
     turnins = {
@@ -46448,7 +46448,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{32.05,64.00,nil,nil,7,nil,1,19469}},
     },
     },
-    [10203] = { t = "Invaluable Asset Zapping", z = 3523, rl = 67, ql = 69, ps = {10186}, nc = 10221, maps = {
+    [10203] = { t = "Invaluable Asset Zapping", z = 3523, rl = 67, ql = 69, ps = {10186}, nc = 10221, si = {30354}, maps = {
       [1953] = {{41.10,73.73,nil,nil,4,"Hyper Rotational Dig-A-Matic retrieved",2,183805,nil,nil,1}, {41.46,71.79,nil,nil,4,"Servo-Pneumatic Dredging Claw retrieved",2,183806,nil,nil,2}, {40.25,72.91,nil,nil,4,"Multi-Spectrum Terrain Analyzer retrieved",2,183807,nil,nil,3}, {42.49,72.17,nil,nil,4,"Big Wagon Full of Explosives retrieved",2,183808,nil,nil,4}},
     },
     turnins = {
@@ -46458,7 +46458,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{32.73,64.96,nil,nil,7,nil,1,19570}, {32.68,64.41,nil,nil,7,nil,1,19570}},
     },
     },
-    [10204] = { t = "Bloodgem Crystals", z = 3523, rl = 67, ql = 68, rmin = {934,3000}, ps = {10189}, sf = 2, maps = {
+    [10204] = { t = "Bloodgem Crystals", z = 3523, rl = 67, ql = 68, rmin = {934,3000}, ps = {10189}, sf = 2, si = {28452}, maps = {
       [1953] = {{25.42,66.51,nil,nil,3,"Siphon Bloodgem Crystal"}, {22.37,65.73,nil,nil,3,"Siphon Bloodgem Crystal"}, {24.62,66.67,2.89,19,2,"Bloodgem Shard",3,28452,{18855},{18855,26.869},nil,{22.04,65.77,22.54,65.25,25.47,65.12,26.53,68.25,26.44,68.92,25.63,68.82,25.43,68.70,22.04,66.25}}, {24.26,75.10,2.50,10,2,"Bloodgem Shard",3,28452,{18855},{18855,26.869},nil,{21.87,75.70,22.36,75.10,26.41,74.16,26.65,74.90,26.23,75.24,21.98,76.11}}, {55.82,76.92,nil,nil,2,"Bloodgem Shard",3,28452,{19926},{19926,34.675}}},
     },
     turnins = {
@@ -46488,7 +46488,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{32.99,64.66,nil,nil,7,nil,1,19645}},
     },
     },
-    [10208] = { t = "Disrupt Their Reinforcements", z = 3483, rl = 58, ql = 62, rr = 690, ps = {10124}, nc = 10129, maps = {
+    [10208] = { t = "Disrupt Their Reinforcements", z = 3483, rl = 58, ql = 62, rr = 690, ps = {10124}, nc = 10129, si = {28478,28513}, maps = {
       [1944] = {{70.83,45.47,nil,nil,4,"Disrupt Port Xilus",2,184290,nil,nil,1}, {73.99,38.74,nil,nil,4,"Disrupt Port Kruul",2,184289,nil,nil,2}, {72.04,42.75,6.12,61,2,"Demonic Rune Stone",3,28513,{16950,18975,18981,19190,19282},{16950,75,18975,75,18981,75,19190,75,19282,75},nil,{69.28,47.93,69.76,44.68,70.26,42.18,70.57,41.62,73.22,37.15,73.75,37.36,74.50,38.12,75.54,42.43,75.54,42.52,71.86,47.53,69.99,48.52}}, {71.91,56.02,4.46,49,2,"Demonic Rune Stone",3,28513,{16950,18975,18981,19190},{16950,75,18975,75,18981,75,19190,75},nil,{70.31,54.16,70.68,52.87,70.73,52.75,71.52,52.39,72.90,51.84,74.24,53.07,73.52,58.50,73.16,59.90,73.04,60.33,71.71,60.12,70.58,59.23,70.34,57.37}}},
     },
     turnins = {
@@ -46498,7 +46498,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{65.89,43.59,nil,nil,7,nil,1,19273}},
     },
     },
-    [10209] = { t = "Summoner Kanthin's Prize", z = 3523, rl = 67, ql = 69, ps = {10301}, nc = 10176, maps = {
+    [10209] = { t = "Summoner Kanthin's Prize", z = 3523, rl = 67, ql = 69, ps = {10301}, nc = 10176, si = {28455}, maps = {
       [1953] = {{57.45,67.37,nil,nil,2,"Stone of Glacius",3,28479,{19657},{19657,100},1}},
     },
     turnins = {
@@ -46571,7 +46571,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{61.78,81.71,nil,nil,7,nil,1,19682}},
     },
     },
-    [10221] = { t = "Dr. Boom!", z = 3523, rl = 67, ql = 68, ps = {10203}, maps = {
+    [10221] = { t = "Dr. Boom!", z = 3523, rl = 67, ql = 68, ps = {10203}, si = {29429}, maps = {
       [1953] = {{35.01,59.56,nil,nil,1,"Dr. Boom",1,20284,nil,nil,1}},
     },
     turnins = {
@@ -46611,7 +46611,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{32.43,66.78,nil,nil,7,nil,1,19709}},
     },
     },
-    [10225] = { t = "Report to Engineering", z = 3523, rl = 67, ql = 68, ps = {10186}, nc = 10224, maps = {
+    [10225] = { t = "Report to Engineering", z = 3523, rl = 67, ql = 68, ps = {10186}, nc = 10224, si = {28526}, maps = {
       [1953] = {{32.43,66.78,nil,nil,6,nil,1,19709}},
     },
     turnins = {
@@ -46621,7 +46621,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{32.73,64.96,nil,nil,7,nil,1,19570}, {32.68,64.41,nil,nil,7,nil,1,19570}},
     },
     },
-    [10226] = { t = "Elemental Power Extraction", z = 3523, rl = 67, ql = 68, ps = {10224}, maps = {
+    [10226] = { t = "Elemental Power Extraction", z = 3523, rl = 67, ql = 68, ps = {10224}, si = {28547}, maps = {
       [1953] = {{21.01,77.06,4.18,12,4,"Elemental Power",3,28548,nil,nil,1,{18.54,73.68,19.44,74.00,24.42,78.22,23.75,79.38,19.59,78.58,19.39,78.38}}, {36.07,58.43,1.31,4,4,"Elemental Power",3,28548,nil,nil,1,{34.93,58.48,35.53,57.98,37.25,57.88,36.56,59.40}}, {31.73,71.52,nil,nil,4,"Elemental Power",3,28548,nil,nil,1}, {35.99,77.76,5.93,18,4,"Elemental Power",3,28548,nil,nil,1,{32.30,79.15,33.91,75.74,33.97,75.64,41.87,77.04,40.37,78.64,32.94,79.62,32.43,79.37}}},
     },
     turnins = {
@@ -46651,7 +46651,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{35.15,66.24,nil,nil,7,nil,1,19417}},
     },
     },
-    [10229] = { t = "Decipher the Tome", z = 3483, rl = 58, ql = 61, rr = 690, nc = 10230, maps = {
+    [10229] = { t = "Decipher the Tome", z = 3483, rl = 58, ql = 61, rr = 690, nc = 10230, si = {28552}, maps = {
       [1944] = {{61.74,81.79,nil,nil,6,nil,1,19736}},
     },
     turnins = {
@@ -46688,7 +46688,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{32.99,64.66,nil,nil,7,nil,1,19645}},
     },
     },
-    [10233] = { t = "Torching Sunfury Hold", z = 3523, rl = 67, ql = 69, ps = {10192}, maps = {
+    [10233] = { t = "Torching Sunfury Hold", z = 3523, rl = 67, ql = 69, ps = {10192}, si = {28550}, maps = {
       [1953] = {{55.89,78.74,2.15,9,1,"Sunfury Ballista Destroyed",1,19723,nil,nil,1,{55.21,79.12,55.54,77.23,55.91,76.59,57.08,78.35,56.48,80.23,55.45,79.54}}, {56.22,78.04,2.50,9,1,"Sunfury Tent Destroyed",1,19724,nil,nil,2,{55.63,76.95,55.74,76.73,56.11,76.81,56.71,77.40,56.92,78.84,56.34,80.53}}, {56.02,79.36,2.32,5,2,"Flaming Torch",3,28550,{20221},{20221,100},nil,{55.70,77.06,56.42,78.46,56.25,80.74,55.73,80.26}}},
     },
     turnins = {
@@ -46758,7 +46758,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{57.58,86.30,nil,nil,7,nil,1,19489}},
     },
     },
-    [10240] = { t = "Building a Perimeter", z = 3523, rl = 67, ql = 69, ps = {10239}, maps = {
+    [10240] = { t = "Building a Perimeter", z = 3523, rl = 67, ql = 69, ps = {10239}, si = {28725}, maps = {
       [1953] = {{59.23,85.36,nil,nil,1,"Invis East KV Rune",1,19866,nil,nil,1}, {57.35,82.90,nil,nil,1,"Invis NE KV Rune",1,19867,nil,nil,2}, {54.30,86.07,nil,nil,1,"Invis West KV Rune",1,19868,nil,nil,3}},
     },
     turnins = {
@@ -46778,7 +46778,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{32.07,64.18,nil,nil,7,nil,1,19466}},
     },
     },
-    [10242] = { t = "Spinebreaker Post", z = 3483, rl = 58, ql = 60, rr = 690, ps = {10449}, maps = {
+    [10242] = { t = "Spinebreaker Post", z = 3483, rl = 58, ql = 60, rr = 690, ps = {10449}, si = {30404}, maps = {
       [1944] = {{61.14,81.77,nil,nil,6,nil,1,21279}},
     },
     turnins = {
@@ -46788,7 +46788,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{66.17,41.95,nil,nil,7,nil,1,21257}},
     },
     },
-    [10243] = { t = "Naaru Technology", z = 3523, rl = 67, ql = 68, rmin = {932,3000}, ps = {10241}, nc = 10245, maps = {
+    [10243] = { t = "Naaru Technology", z = 3523, rl = 67, ql = 68, rmin = {932,3000}, ps = {10241}, nc = 10245, si = {28571}, maps = {
       [1953] = {{23.21,68.25,nil,nil,6,nil,2,183770}},
     },
     turnins = {
@@ -46798,7 +46798,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{32.04,64.18,nil,nil,7,nil,1,19467}},
     },
     },
-    [10245] = { t = "B'naar Console Transcription", z = 3523, rl = 67, ql = 68, rmin = {932,3000}, ps = {10243}, nc = 10299, maps = {
+    [10245] = { t = "B'naar Console Transcription", z = 3523, rl = 67, ql = 68, rmin = {932,3000}, ps = {10243}, nc = 10299, si = {28580}, maps = {
       [1953] = {{32.04,64.18,nil,nil,6,nil,1,19467}},
     },
     turnins = {
@@ -46828,7 +46828,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{32.73,64.96,nil,nil,7,nil,1,19570}, {32.68,64.41,nil,nil,7,nil,1,19570}},
     },
     },
-    [10248] = { t = "You, Robot", z = 3523, rl = 67, ql = 69, ps = {10247}, nc = 10249, maps = {
+    [10248] = { t = "You, Robot", z = 3523, rl = 67, ql = 69, ps = {10247}, nc = 10249, si = {28634}, maps = {
       [1953] = {{37.32,63.74,nil,nil,6,nil,1,19832}},
     },
     turnins = {
@@ -46848,7 +46848,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{37.32,63.74,nil,nil,7,nil,1,19832}},
     },
     },
-    [10250] = { t = "Bloody Vengeance", z = 3483, rl = 58, ql = 61, rr = 690, ps = {10230}, nc = 10258, maps = {
+    [10250] = { t = "Bloody Vengeance", z = 3483, rl = 58, ql = 61, rr = 690, ps = {10230}, nc = 10258, si = {28651}, maps = {
       [1944] = {{63.41,77.12,nil,nil,1,"Urtrak",1,19862,nil,nil,1}},
     },
     turnins = {
@@ -46868,7 +46868,7 @@ VanillaEnhancedQuestsDB = {
       [1955] = {{43.63,29.76,nil,nil,7,nil,1,19720}},
     },
     },
-    [10252] = { t = "Vision of the Dead", z = 3518, rl = 64, ql = 67, ps = {10251}, nc = 10253, maps = {
+    [10252] = { t = "Vision of the Dead", z = 3518, rl = 64, ql = 67, ps = {10251}, nc = 10253, si = {28664}, maps = {
       [1951] = {{28.25,27.41,nil,nil,2,"Mountain Gronn Eyeball",3,28665,{19201},{19201,100},1}, {27.57,33.45,nil,nil,2,"Mountain Gronn Eyeball",3,28665,{19201},{19201,100},1}, {24.92,48.04,5.94,3,2,"Mountain Gronn Eyeball",3,28665,{19201},{19201,100},1,{23.24,52.56,24.31,42.14,27.22,49.43}}, {34.06,24.35,6.31,9,2,"Flawless Greater Windroc Beak",3,28667,{17129},{17129,17.743},2,{32.56,22.27,32.78,21.98,35.92,19.65,37.16,29.84,32.85,25.91}}, {31.03,33.26,0.62,4,2,"Flawless Greater Windroc Beak",3,28667,{17129},{17129,17.743},2,{30.71,33.10,30.76,32.91,31.54,33.16,31.13,33.88}}, {36.48,78.66,6.51,12,2,"Aged Clefthoof Blubber",3,28668,{17133},{17133,14.111},3,{31.89,74.04,40.64,79.44,41.23,80.31,38.25,81.21,34.63,79.34,32.21,77.62}}, {31.37,65.42,7.96,20,2,"Aged Clefthoof Blubber",3,28668,{17133},{17133,14.111},3,{29.16,62.29,29.21,59.65,35.18,61.47,36.49,63.06,29.23,73.09}}, {38.17,60.33,nil,nil,2,"Aged Clefthoof Blubber",3,28668,{17133},{17133,14.111},3}, {38.17,60.33,nil,nil,2,"Aged Clefthoof Blubber",3,28668,{17133},{17133,14.111},3}, {25.22,51.78,4.76,6,2,"Aged Clefthoof Blubber",3,28668,{17133},{17133,14.111},3,{24.30,47.81,25.89,50.99,25.48,56.53}}, {32.29,34.22,8.50,12,2,"Aged Clefthoof Blubber",3,28668,{17133},{17133,14.111},3,{27.86,41.48,28.60,34.18,35.88,28.72,35.83,34.13}}, {33.94,22.39,4.01,3,2,"Aged Clefthoof Blubber",3,28668,{17133},{17133,14.111},3,{32.82,22.35,35.65,18.77,33.34,26.06}}},
     },
     turnins = {
@@ -46898,7 +46898,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{54.81,62.79,nil,nil,7,nil,1,19308}},
     },
     },
-    [10255] = { t = "Testing the Antidote", z = 3483, rl = 61, ql = 63, ps = {9372}, maps = {
+    [10255] = { t = "Testing the Antidote", z = 3483, rl = 61, ql = 63, ps = {9372}, si = {23337}, maps = {
       [1944] = {{18.68,54.73,3.07,11,1,"Hulking Helboar",1,16880,nil,nil,1,{16.99,52.16,18.11,52.10,19.96,54.71,20.36,57.06,18.66,56.61,17.58,54.21}}, {23.40,55.39,4.73,25,1,"Hulking Helboar",1,16880,nil,nil,1,{21.19,55.99,22.46,52.25,23.08,51.08,24.00,50.70,24.61,51.82,25.19,53.55,24.60,58.71,23.72,59.86,22.99,58.95,22.45,58.09}}, {25.13,63.96,4.15,6,1,"Hulking Helboar",1,16880,nil,nil,1,{23.66,61.87,24.33,60.97,25.41,63.77,26.20,66.41,26.39,67.92}}, {27.75,40.22,3.53,15,1,"Hulking Helboar",1,16880,nil,nil,1,{25.59,41.21,26.48,37.46,29.47,39.59,31.05,41.48,27.45,42.55}}, {31.12,43.94,1.69,4,1,"Hulking Helboar",1,16880,nil,nil,1,{29.45,43.69,30.88,43.32,32.71,44.32,31.44,44.43}}, {43.23,78.02,2.63,8,1,"Hulking Helboar",1,16880,nil,nil,1,{42.58,78.10,42.88,75.41,44.30,79.35,43.19,80.51}}},
     },
     turnins = {
@@ -46908,7 +46908,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{15.70,52.09,nil,nil,7,nil,1,16991}},
     },
     },
-    [10256] = { t = "Finding the Keymaster", z = 3523, rl = 67, ql = 69, ps = {10176}, nc = 10257, maps = {
+    [10256] = { t = "Finding the Keymaster", z = 3523, rl = 67, ql = 69, ps = {10176}, nc = 10257, si = {28786}, maps = {
       [1953] = {{51.84,70.46,nil,nil,2,"Apex's Crystal Focus",3,28786,{19940},{19940,100}}},
     },
     turnins = {
@@ -47008,7 +47008,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{46.67,56.95,nil,nil,7,nil,1,20066}},
     },
     },
-    [10268] = { t = "An Audience with the Prince", z = 3523, rl = 67, ql = 69, ps = {10267}, nc = 10269, maps = {
+    [10268] = { t = "An Audience with the Prince", z = 3523, rl = 67, ql = 69, ps = {10267}, nc = 10269, si = {28934}, maps = {
       [1953] = {{45.87,35.96,nil,nil,6,nil,1,20084}},
     },
     turnins = {
@@ -47018,7 +47018,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{46.67,56.95,nil,nil,7,nil,1,20066}},
     },
     },
-    [10269] = { t = "Triangulation Point One", z = 3523, rl = 67, ql = 69, ps = {10268}, nc = 10275, sf = 2, maps = {
+    [10269] = { t = "Triangulation Point One", z = 3523, rl = 67, ql = 69, ps = {10268}, nc = 10275, sf = 2, si = {28962}, maps = {
       [1953] = {{66.67,33.85,nil,nil,3,"First triangulation point discovered"}},
     },
     turnins = {
@@ -47068,7 +47068,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{71.22,35.12,nil,nil,7,nil,1,20110}},
     },
     },
-    [10274] = { t = "Securing the Celestial Ridge", z = 3523, rl = 68, ql = 70, ps = {10273}, maps = {
+    [10274] = { t = "Securing the Celestial Ridge", z = 3523, rl = 68, ql = 70, ps = {10273}, si = {29101}, maps = {
       [1953] = {{72.33,44.98,nil,nil,1,"Slay Veraku",1,18544,nil,nil,1}},
     },
     turnins = {
@@ -47078,7 +47078,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{71.22,35.12,nil,nil,7,nil,1,20110}},
     },
     },
-    [10275] = { t = "Triangulation Point Two", z = 3523, rl = 67, ql = 70, ps = {10269}, nc = 10276, sf = 2, maps = {
+    [10275] = { t = "Triangulation Point Two", z = 3523, rl = 67, ql = 70, ps = {10269}, nc = 10276, sf = 2, si = {29018}, maps = {
       [1953] = {{28.92,41.25,nil,nil,3,"Second triangulation point discovered"}},
     },
     turnins = {
@@ -47108,7 +47108,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{58.43,54.28,nil,nil,7,nil,1,20130}},
     },
     },
-    [10278] = { t = "The Warp Rifts", z = 3483, rl = 58, ql = 61, rr = 690, nc = 10294, maps = {
+    [10278] = { t = "The Warp Rifts", z = 3483, rl = 58, ql = 61, rr = 690, nc = 10294, si = {29027}, maps = {
       [1944] = {{48.62,83.02,3.08,10,2,"Warp Nether",3,29051,{20145},{20145,100},1,{45.60,82.40,50.00,82.00,51.00,82.60,50.20,83.60,48.20,85.00,46.20,83.20}}},
     },
     turnins = {
@@ -47128,7 +47128,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{66.02,49.70,nil,nil,7,nil,1,20142}},
     },
     },
-    [10280] = { t = "Special Delivery to Shattrath City", z = 3703, rl = 67, ql = 70, ps = {10276}, nc = 10704, maps = {
+    [10280] = { t = "Special Delivery to Shattrath City", z = 3703, rl = 67, ql = 70, ps = {10276}, nc = 10704, si = {29106}, maps = {
       [1955] = {{53.99,44.75,nil,nil,6,nil,1,18481}},
     },
     turnins = {
@@ -47181,7 +47181,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{26.56,63.04,nil,nil,7,nil,1,20159}},
     },
     },
-    [10288] = { t = "Arrival in Outland", z = 3483, rl = 58, ql = 61, rr = 1101, nc = 10140, bc = {10119}, maps = {
+    [10288] = { t = "Arrival in Outland", z = 3483, rl = 58, ql = 61, rr = 1101, nc = 10140, bc = {10119}, si = {28105}, maps = {
       [1944] = {{87.36,52.42,nil,nil,6,nil,1,18931}},
     },
     turnins = {
@@ -47191,7 +47191,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{87.34,50.75,nil,nil,7,nil,1,19229}},
     },
     },
-    [10289] = { t = "Journey to Thrallmar", z = 3483, rl = 58, ql = 61, rr = 690, ps = {10120}, nc = 10291, bf = 10291, maps = {
+    [10289] = { t = "Journey to Thrallmar", z = 3483, rl = 58, ql = 61, rr = 690, ps = {10120}, nc = 10291, bf = 10291, si = {28024}, maps = {
       [1944] = {{55.88,36.65,nil,nil,6,nil,1,19255}},
     },
     turnins = {
@@ -47241,7 +47241,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{61.87,81.53,nil,nil,7,nil,1,19683}},
     },
     },
-    [10295] = { t = "From the Abyss", z = 3483, rl = 58, ql = 63, rr = 690, ps = {10294}, maps = {
+    [10295] = { t = "From the Abyss", z = 3483, rl = 58, ql = 63, rr = 690, ps = {10294}, si = {29226}, maps = {
       [1944] = {{81.09,78.89,nil,nil,2,"Galaxis Soul Shard",3,29162,{16939},{16939,100},1}},
     },
     turnins = {
@@ -47284,7 +47284,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{31.36,66.15,nil,nil,7,nil,1,19217}},
     },
     },
-    [10301] = { t = "Unlocking the Compendium", z = 3523, rl = 67, ql = 69, ps = {10192}, nc = 10209, maps = {
+    [10301] = { t = "Unlocking the Compendium", z = 3523, rl = 67, ql = 69, ps = {10192}, nc = 10209, si = {28455}, maps = {
       [1953] = {{55.82,76.92,nil,nil,2,"Heliotrope Oculus",3,28475,{19926},{19926,100},1}},
     },
     turnins = {
@@ -47324,21 +47324,21 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{79.14,46.54,nil,nil,7,nil,1,16514}},
     },
     },
-    [10305] = { t = "Abjurist Belmara", z = 3523, rl = 67, ql = 69, maps = {
+    [10305] = { t = "Abjurist Belmara", z = 3523, rl = 67, ql = 69, si = {28336}, maps = {
       [1953] = {{55.49,86.55,nil,nil,4,"Bookshelf",2,183268,nil,nil,1}},
     },
     turnins = {
       [1953] = {{57.50,86.34,nil,nil,6,nil,1,19488}},
     },
     },
-    [10306] = { t = "Conjurer Luminrath", z = 3523, rl = 67, ql = 69, maps = {
+    [10306] = { t = "Conjurer Luminrath", z = 3523, rl = 67, ql = 69, si = {28352}, maps = {
       [1953] = {{56.42,87.83,nil,nil,4,"Dresser",2,183267,nil,nil,1}},
     },
     turnins = {
       [1953] = {{57.50,86.34,nil,nil,6,nil,1,19488}},
     },
     },
-    [10307] = { t = "Cohlien Frostweaver", z = 3523, rl = 67, ql = 69, maps = {
+    [10307] = { t = "Cohlien Frostweaver", z = 3523, rl = 67, ql = 69, si = {28353}, maps = {
       [1953] = {{55.09,87.55,nil,nil,4,"Footlocker",2,183266,nil,nil,1}},
     },
     turnins = {
@@ -47355,7 +47355,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{32.44,64.21,nil,nil,7,nil,1,19880}},
     },
     },
-    [10309] = { t = "It's a Fel Reaver, But with Heart", z = 3523, rl = 67, ql = 68, maps = {
+    [10309] = { t = "It's a Fel Reaver, But with Heart", z = 3523, rl = 67, ql = 68, si = {29447}, maps = {
       [1953] = {{26.52,78.70,nil,nil,2,"Heart of the Fel Reaver",3,29260,{20243},{20243,100},1}},
     },
     turnins = {
@@ -47395,7 +47395,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{57.50,86.34,nil,nil,7,nil,1,19488}},
     },
     },
-    [10313] = { t = "Measuring Warp Energies", z = 3523, rl = 67, ql = 68, rmin = {932,3000}, ps = {10241}, maps = {
+    [10313] = { t = "Measuring Warp Energies", z = 3523, rl = 67, ql = 68, rmin = {932,3000}, ps = {10241}, si = {29324}, maps = {
       [1953] = {{25.68,60.26,nil,nil,1,"Northern Pipe Credit Marker",1,20333,nil,nil,1}, {28.99,72.37,nil,nil,1,"Eastern Pipe Credit Marker",1,20336,nil,nil,2}, {20.55,71.03,nil,nil,1,"Southern Pipe Credit Marker",1,20337,nil,nil,3}, {20.93,67.30,nil,nil,1,"Western Pipe Credit Marker",1,20338,nil,nil,4}},
     },
     turnins = {
@@ -47609,7 +47609,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{32.99,64.66,nil,nil,7,nil,1,19645}},
     },
     },
-    [10334] = { t = "Needs More Cowbell", z = 3523, rl = 67, ql = 69, nc = 10337, maps = {
+    [10334] = { t = "Needs More Cowbell", z = 3523, rl = 67, ql = 69, nc = 10337, si = {29428}, maps = {
       [1953] = {{59.15,78.79,nil,nil,6,nil,1,20415}},
     },
     turnins = {
@@ -47619,7 +47619,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{57.72,84.94,nil,nil,7,nil,1,20464}},
     },
     },
-    [10335] = { t = "Surveying the Ruins", z = 3523, rl = 68, ql = 70, maps = {
+    [10335] = { t = "Surveying the Ruins", z = 3523, rl = 68, ql = 70, si = {29445}, maps = {
       [1953] = {{51.66,20.47,nil,nil,1,"Surveying Marker One",1,20473,nil,nil,1}, {54.55,22.82,nil,nil,1,"Surveying Marker Two",1,20475,nil,nil,2}, {55.81,19.91,nil,nil,1,"Surveying Marker Three",1,20476,nil,nil,3}},
     },
     turnins = {
@@ -47719,7 +47719,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{78.42,34.90,nil,nil,7,nil,1,20234}},
     },
     },
-    [10345] = { t = "The Flesh Lies...", z = 3523, rl = 68, ql = 70, maps = {
+    [10345] = { t = "The Flesh Lies...", z = 3523, rl = 68, ql = 70, si = {29473}, maps = {
       [1953] = {{60.71,43.01,3.94,26,1,"Withered Corpses Burned",1,20561,nil,nil,1,{59.72,43.14,60.10,39.53,60.46,40.02,61.53,41.80,62.06,42.73,61.49,45.88,60.75,46.95}}},
     },
     turnins = {
@@ -47729,7 +47729,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{59.42,45.03,nil,nil,7,nil,1,20551}},
     },
     },
-    [10346] = { t = "Return to the Abyssal Shelf", z = 3483, rl = 58, ql = 62, rr = 1101, ps = {10163}, sf = 1, maps = {
+    [10346] = { t = "Return to the Abyssal Shelf", z = 3483, rl = 58, ql = 62, rr = 1101, ps = {10163}, sf = 1, si = {28132}, maps = {
       [1944] = {{72.88,12.67,2.62,26,1,"Gan'arg Peon",1,19398,nil,nil,1,{71.95,14.79,72.05,12.17,72.90,10.05,74.20,11.41,74.32,11.64,73.65,13.57,73.31,14.09,72.30,14.82}}, {73.10,18.90,4.87,66,1,"Gan'arg Peon",1,19398,nil,nil,1,{71.59,16.38,73.21,15.20,73.93,15.15,75.08,15.10,74.80,17.64,74.54,19.53,72.89,23.48,72.83,23.60,72.47,23.73,71.97,23.29,71.62,22.12,71.59,18.44}}, {71.27,18.41,nil,nil,1,"Mo'arg Overseer",1,19397,nil,nil,2}, {71.49,14.40,nil,nil,1,"Mo'arg Overseer",1,19397,nil,nil,2}, {72.22,23.66,1.44,3,1,"Mo'arg Overseer",1,19397,nil,nil,2,{71.18,22.67,73.27,24.20,72.22,24.10}}, {73.03,10.85,1.36,3,1,"Mo'arg Overseer",1,19397,nil,nil,2,{71.70,10.56,74.02,10.50,73.38,11.48}}, {74.64,16.53,nil,nil,1,"Mo'arg Overseer",1,19397,nil,nil,2}, {74.72,20.49,nil,nil,1,"Mo'arg Overseer",1,19397,nil,nil,2}, {72.68,21.90,2.96,9,1,"Fel Cannon Destroyed",1,19399,nil,nil,3,{71.42,19.22,73.96,20.45,74.13,22.28,72.80,24.10,71.44,24.22}}, {72.82,15.11,3.82,12,1,"Fel Cannon Destroyed",1,19399,nil,nil,3,{71.44,15.35,71.50,13.43,72.09,11.59,73.38,11.48,74.24,15.11,73.85,18.79,72.79,18.24,71.49,17.41}}},
     },
     turnins = {
@@ -47739,7 +47739,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{78.25,34.46,nil,nil,7,nil,1,20235}},
     },
     },
-    [10347] = { t = "Return to the Abyssal Shelf", z = 3483, rl = 58, ql = 62, rr = 690, ps = {10162}, sf = 1, maps = {
+    [10347] = { t = "Return to the Abyssal Shelf", z = 3483, rl = 58, ql = 62, rr = 690, ps = {10162}, sf = 1, si = {28132}, maps = {
       [1944] = {{72.88,12.67,2.62,26,1,"Gan'arg Peon",1,19398,nil,nil,1,{71.95,14.79,72.05,12.17,72.90,10.05,74.20,11.41,74.32,11.64,73.65,13.57,73.31,14.09,72.30,14.82}}, {73.10,18.90,4.87,66,1,"Gan'arg Peon",1,19398,nil,nil,1,{71.59,16.38,73.21,15.20,73.93,15.15,75.08,15.10,74.80,17.64,74.54,19.53,72.89,23.48,72.83,23.60,72.47,23.73,71.97,23.29,71.62,22.12,71.59,18.44}}, {71.27,18.41,nil,nil,1,"Mo'arg Overseer",1,19397,nil,nil,2}, {71.49,14.40,nil,nil,1,"Mo'arg Overseer",1,19397,nil,nil,2}, {72.22,23.66,1.44,3,1,"Mo'arg Overseer",1,19397,nil,nil,2,{71.18,22.67,73.27,24.20,72.22,24.10}}, {73.03,10.85,1.36,3,1,"Mo'arg Overseer",1,19397,nil,nil,2,{71.70,10.56,74.02,10.50,73.38,11.48}}, {74.64,16.53,nil,nil,1,"Mo'arg Overseer",1,19397,nil,nil,2}, {74.72,20.49,nil,nil,1,"Mo'arg Overseer",1,19397,nil,nil,2}, {72.68,21.90,2.96,9,1,"Fel Cannon Destroyed",1,19399,nil,nil,3,{71.42,19.22,73.96,20.45,74.13,22.28,72.80,24.10,71.44,24.22}}, {72.82,15.11,3.82,12,1,"Fel Cannon Destroyed",1,19399,nil,nil,3,{71.44,15.35,71.50,13.43,72.09,11.59,73.38,11.48,74.24,15.11,73.85,18.79,72.79,18.24,71.49,17.41}}},
     },
     turnins = {
@@ -47759,7 +47759,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{46.45,56.41,nil,nil,7,nil,1,20810}},
     },
     },
-    [10349] = { t = "The Earthbinder", z = 3483, rl = 61, ql = 63, ps = {10134}, maps = {
+    [10349] = { t = "The Earthbinder", z = 3483, rl = 61, ql = 63, ps = {10134}, si = {29477}, maps = {
       [1944] = {{15.96,51.57,nil,nil,6,nil,1,19294}},
     },
     turnins = {
@@ -47779,7 +47779,7 @@ VanillaEnhancedQuestsDB = {
       [1943] = {{50.02,50.52,nil,nil,7,nil,1,17480}},
     },
     },
-    [10351] = { t = "Natural Remedies", z = 3483, rl = 61, ql = 63, ps = {10349}, maps = {
+    [10351] = { t = "Natural Remedies", z = 3483, rl = 61, ql = 63, ps = {10349}, si = {29478}, maps = {
       [1944] = {{13.64,39.12,nil,nil,1,"Fallen Sky Ridge Revitalized",1,19305,nil,nil,1}},
     },
     turnins = {
@@ -48105,7 +48105,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{16.27,65.09,nil,nil,7,nil,1,19361}},
     },
     },
-    [10368] = { t = "The Dreghood Elders", z = 3483, rl = 60, ql = 62, ps = {10367}, nc = 10369, maps = {
+    [10368] = { t = "The Dreghood Elders", z = 3483, rl = 60, ql = 62, ps = {10367}, nc = 10369, si = {29501}, maps = {
       [1944] = {{13.13,61.04,nil,nil,1,"Morod the Windstirrer",1,20677,nil,nil,1}, {15.59,58.75,nil,nil,1,"Akoru the Firecaller",1,20678,nil,nil,2}, {13.01,58.42,nil,nil,1,"Aylaan the Waterwaker",1,20679,nil,nil,3}},
     },
     turnins = {
@@ -48115,7 +48115,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{16.27,65.09,nil,nil,7,nil,1,19361}},
     },
     },
-    [10369] = { t = "Arzeth's Demise", z = 3483, rl = 60, ql = 62, ps = {10368}, maps = {
+    [10369] = { t = "Arzeth's Demise", z = 3483, rl = 60, ql = 62, ps = {10368}, si = {29513}, maps = {
       [1944] = {{14.32,62.18,nil,nil,1,"Arzeth the Merciless",1,19354,nil,nil,1}},
     },
     turnins = {
@@ -48205,7 +48205,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{56.82,38.70,nil,nil,7,nil,1,20482}},
     },
     },
-    [10385] = { t = "Potential for Brain Damage = High", z = 3523, rl = 68, ql = 70, ps = {10384}, nc = 10405, maps = {
+    [10385] = { t = "Potential for Brain Damage = High", z = 3523, rl = 68, ql = 70, ps = {10384}, nc = 10405, si = {29482}, maps = {
       [1953] = {{55.80,41.05,2.73,10,2,"Ethereum Relay Data",3,29459,{20619},{20619,100},1,{54.94,40.80,55.54,39.64,56.33,38.48,56.61,41.70,55.87,43.78,55.21,43.61,55.01,41.82}}, {56.63,37.37,5.83,27,2,"Ethereum Essence",3,29482,{20452,20453,20454,20456,20854},{20452,30,20453,30,20454,30,20456,30,20854,30},nil,{53.62,42.36,57.05,33.41,57.37,32.80,58.29,36.33,56.71,40.20}}, {55.04,42.87,3.62,30,2,"Ethereum Essence",3,29482,{20458,20459,20474,20770},{20458,30,20459,30,20474,30,20770,30},nil,{53.14,41.91,54.67,40.82,55.48,40.62,56.26,42.24,56.38,43.05,56.15,45.44,55.96,46.37,55.47,46.39,54.80,45.22,53.25,42.41}}},
     },
     turnins = {
@@ -48265,7 +48265,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{55.02,35.96,nil,nil,7,nil,1,3230}},
     },
     },
-    [10393] = { t = "Vile Plans", z = 3483, rl = 58, ql = 61, rr = 690, maps = {
+    [10393] = { t = "Vile Plans", z = 3483, rl = 58, ql = 61, rr = 690, si = {29589}, maps = {
       [1944] = {{55.13,36.03,nil,nil,6,nil,1,21175}},
     },
     turnins = {
@@ -48282,7 +48282,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{68.29,28.55,nil,nil,7,nil,1,20793}},
     },
     },
-    [10395] = { t = "The Dark Missive", z = 3483, rl = 58, ql = 61, rr = 1101, nc = 10399, maps = {
+    [10395] = { t = "The Dark Missive", z = 3483, rl = 58, ql = 61, rr = 1101, nc = 10399, si = {29589}, maps = {
       [1944] = {{56.69,66.52,nil,nil,6,nil,1,16839}},
     },
     turnins = {
@@ -48369,7 +48369,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{32.04,64.18,nil,nil,7,nil,1,19467}},
     },
     },
-    [10408] = { t = "Nexus-King Salhadaar", z = 3523, rl = 68, ql = 70, ps = {10406}, maps = {
+    [10408] = { t = "Nexus-King Salhadaar", z = 3523, rl = 68, ql = 70, ps = {10406}, si = {29618}, maps = {
       [1953] = {{53.62,42.36,nil,nil,1,"Nexus-King Salhadaar",1,20454,nil,nil,1}},
     },
     turnins = {
@@ -48379,7 +48379,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{56.82,38.70,nil,nil,7,nil,1,20482}},
     },
     },
-    [10409] = { t = "Deathblow to the Legion", z = 3523, rl = 67, ql = 70, rmin = {932,3000}, ps = {10410}, sf = 2, maps = {
+    [10409] = { t = "Deathblow to the Legion", z = 3523, rl = 67, ql = 70, rmin = {932,3000}, ps = {10410}, sf = 2, si = {29796}, maps = {
       [1953] = {{29.31,13.70,nil,nil,1,"Socrethar",1,20132,nil,nil,1}, {36.44,18.35,nil,nil,3,"Open a portal to Socrethar's Seat with Socrethar's Teleporting Stone"}, {30.56,17.69,nil,nil,3,"After defeating Socrethar, you can open a portal back"}},
     },
     turnins = {
@@ -48389,7 +48389,7 @@ VanillaEnhancedQuestsDB = {
       [1955] = {{23.97,29.73,nil,nil,7,nil,1,18538}},
     },
     },
-    [10410] = { t = "Ishanah's Help", z = 3523, rl = 67, ql = 70, rmin = {932,3000}, ps = {10407}, nc = 10409, maps = {
+    [10410] = { t = "Ishanah's Help", z = 3523, rl = 67, ql = 70, rmin = {932,3000}, ps = {10407}, nc = 10409, si = {29699}, maps = {
       [1955] = {{23.97,29.73,nil,nil,6,nil,1,18538}},
     },
     turnins = {
@@ -48399,7 +48399,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{32.04,64.18,nil,nil,7,nil,1,19467}},
     },
     },
-    [10411] = { t = "Electro-Shock Goodness!", z = 3523, rl = 68, ql = 70, maps = {
+    [10411] = { t = "Electro-Shock Goodness!", z = 3523, rl = 68, ql = 70, si = {29737}, maps = {
       [1953] = {{59.25,32.58,nil,nil,6,nil,1,20449}},
     },
     turnins = {
@@ -48419,7 +48419,7 @@ VanillaEnhancedQuestsDB = {
       [1955] = {{45.20,81.44,nil,nil,7,nil,1,18531}},
     },
     },
-    [10413] = { t = "The Horrors of Pollution", z = 3523, rl = 68, ql = 70, maps = {
+    [10413] = { t = "The Horrors of Pollution", z = 3523, rl = 68, ql = 70, si = {29738}, maps = {
       [1953] = {{59.25,32.58,nil,nil,6,nil,1,20449}},
     },
     turnins = {
@@ -48522,7 +48522,7 @@ VanillaEnhancedQuestsDB = {
       [1955] = {{23.97,29.73,nil,nil,7,nil,1,18538}},
     },
     },
-    [10422] = { t = "Captain Tyralius", z = 3523, rl = 68, ql = 70, maps = {
+    [10422] = { t = "Captain Tyralius", z = 3523, rl = 68, ql = 70, si = {29742}, maps = {
       [1953] = {{53.30,41.43,nil,nil,1,"Captain Tyralius",1,20787,nil,nil,1}, {53.30,41.43,nil,nil,1,"Ethereum Prisoner (Tyralius)",1,20825,nil,nil,1}, {54.39,41.28,nil,nil,2,"The Warden's Key",3,29742,{20770},{20770,100}}},
     },
     turnins = {
@@ -48542,7 +48542,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{46.45,56.41,nil,nil,7,nil,1,20810}},
     },
     },
-    [10424] = { t = "Diagnosis: Critical", z = 3523, rl = 67, ql = 69, ps = {10423}, nc = 10430, maps = {
+    [10424] = { t = "Diagnosis: Critical", z = 3523, rl = 67, ql = 69, ps = {10423}, nc = 10430, si = {29803}, maps = {
       [1953] = {{47.62,26.75,nil,nil,4,"Diagnostic Results",3,29769,nil,nil,1}},
     },
     turnins = {
@@ -48562,7 +48562,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{57.30,37.71,nil,nil,7,nil,1,20763}},
     },
     },
-    [10426] = { t = "Flora of the Eco-Domes", z = 3523, rl = 67, ql = 69, nc = 10427, maps = {
+    [10426] = { t = "Flora of the Eco-Domes", z = 3523, rl = 67, ql = 69, nc = 10427, si = {29818}, maps = {
       [1953] = {{39.85,37.24,4.95,38,1,"Farahlon Lasher",1,20774,nil,nil,1,{37.68,36.01,38.32,34.95,40.59,32.45,41.15,32.46,41.79,38.61,41.81,39.67,41.22,40.61,38.93,40.71,38.20,39.69,37.87,38.84}}, {44.97,27.00,2.30,7,1,"Farahlon Lasher",1,20774,nil,nil,1,{43.21,28.02,44.33,25.12,46.62,26.23,46.61,26.73,43.64,28.87}}, {45.38,31.42,3.67,11,1,"Farahlon Lasher",1,20774,nil,nil,1,{41.91,30.76,47.76,28.78,47.88,29.82,47.78,34.20,43.13,32.28}}, {45.46,39.90,3.19,14,1,"Farahlon Lasher",1,20774,nil,nil,1,{43.06,38.73,48.38,38.60,47.28,40.02,45.50,41.39,43.07,40.54}}},
     },
     turnins = {
@@ -48572,7 +48572,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{42.32,32.56,nil,nil,7,nil,1,20871}},
     },
     },
-    [10427] = { t = "Creatures of the Eco-Domes", z = 3523, rl = 67, ql = 69, ps = {10426}, nc = 10429, maps = {
+    [10427] = { t = "Creatures of the Eco-Domes", z = 3523, rl = 67, ql = 69, ps = {10426}, nc = 10429, si = {29817}, maps = {
       [1953] = {{39.84,37.34,2.27,12,1,"Talbuk Doe",1,20610,nil,nil,1,{38.40,36.72,39.80,35.19,40.61,35.25,41.24,38.81,40.59,39.48,38.52,37.90}}, {45.96,28.68,4.43,16,1,"Talbuk Doe",1,20610,nil,nil,1,{43.45,30.36,43.59,29.80,46.53,24.29,47.24,25.26,47.32,30.73,47.17,31.72}}, {46.59,38.38,3.34,15,1,"Talbuk Doe",1,20610,nil,nil,1,{43.49,38.85,47.77,36.05,49.17,36.26,48.95,37.11,47.88,38.82,45.97,40.59,43.70,39.50}}, {39.77,37.55,3.60,7,1,"Talbuk Sire",1,20777,nil,nil,1,{37.61,38.35,40.40,35.34,41.51,34.41,40.81,40.50}}, {43.78,30.41,nil,nil,1,"Talbuk Sire",1,20777,nil,nil,1}, {43.30,28.34,nil,nil,1,"Talbuk Sire",1,20777,nil,nil,1}, {45.16,40.25,1.63,3,1,"Talbuk Sire",1,20777,nil,nil,1,{43.98,39.12,45.82,40.45,45.69,41.17}}, {46.58,27.07,2.08,3,1,"Talbuk Sire",1,20777,nil,nil,1,{46.53,28.39,46.58,24.99,46.64,27.82}}, {47.51,34.37,4.11,6,1,"Talbuk Sire",1,20777,nil,nil,1,{46.21,33.89,46.87,31.24,47.30,31.75,48.67,36.35,48.12,38.43}}},
     },
     turnins = {
@@ -48602,7 +48602,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{42.32,32.56,nil,nil,7,nil,1,20871}},
     },
     },
-    [10430] = { t = "Testing the Prototype", z = 3523, rl = 67, ql = 69, ps = {10424}, nc = 10436, maps = {
+    [10430] = { t = "Testing the Prototype", z = 3523, rl = 67, ql = 69, ps = {10424}, nc = 10436, si = {29770}, maps = {
       [1953] = {{44.69,14.57,nil,nil,6,nil,1,20913}},
     },
     turnins = {
@@ -48682,7 +48682,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{60.11,31.72,nil,nil,7,nil,1,20907}},
     },
     },
-    [10438] = { t = "On Nethery Wings", z = 3523, rl = 68, ql = 70, ps = {10437}, nc = 10439, maps = {
+    [10438] = { t = "On Nethery Wings", z = 3523, rl = 68, ql = 70, ps = {10437}, nc = 10439, si = {29778}, maps = {
       [1953] = {{62.42,40.89,nil,nil,1,"Void Conduit Destroyed",1,20899,nil,nil,1}},
     },
     turnins = {
@@ -48752,7 +48752,7 @@ VanillaEnhancedQuestsDB = {
       [1446] = {{61.05,56.95,nil,nil,7,nil,1,19935}, {60.86,57.31,nil,nil,7,nil,1,19936}},
     },
     },
-    [10446] = { t = "The Final Code", z = 3519, rl = 62, ql = 65, rr = 1101, ps = {9996}, nc = 10005, maps = {
+    [10446] = { t = "The Final Code", z = 3519, rl = 62, ql = 65, rr = 1101, ps = {9996}, nc = 10005, si = {29912}, maps = {
       [1952] = {{71.27,37.37,nil,nil,4,"Mana Bomb",2,184725,nil,nil,1}, {73.92,35.80,nil,nil,2,"The Final Code",3,29912,{18554},{18554,100}}},
     },
     turnins = {
@@ -48762,7 +48762,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{69.66,44.18,nil,nil,7,nil,1,21006}},
     },
     },
-    [10447] = { t = "The Final Code", z = 3519, rl = 62, ql = 65, rr = 690, ps = {9997}, nc = 10006, maps = {
+    [10447] = { t = "The Final Code", z = 3519, rl = 62, ql = 65, rr = 690, ps = {9997}, nc = 10006, si = {29912}, maps = {
       [1952] = {{71.27,37.37,nil,nil,4,"Mana Bomb",2,184725,nil,nil,1}, {73.92,35.80,nil,nil,2,"The Final Code",3,29912,{18554},{18554,100}}},
     },
     turnins = {
@@ -48782,7 +48782,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{50.04,45.93,nil,nil,7,nil,1,18447}},
     },
     },
-    [10449] = { t = "Apothecary Zelana", z = 3483, rl = 58, ql = 60, rr = 690, ps = {10450}, maps = {
+    [10449] = { t = "Apothecary Zelana", z = 3483, rl = 58, ql = 60, rr = 690, ps = {10450}, si = {30326}, maps = {
       [1944] = {{66.17,41.95,nil,nil,6,nil,1,21257}},
     },
     turnins = {
@@ -48832,7 +48832,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{36.21,67.13,nil,nil,7,nil,1,21066}},
     },
     },
-    [10457] = { t = "Protecting Our Own", z = 3522, rl = 65, ql = 66, rr = 1101, ps = {10456}, nc = 10506, maps = {
+    [10457] = { t = "Protecting Our Own", z = 3522, rl = 65, ql = 66, rr = 1101, ps = {10456}, nc = 10506, si = {29952}, maps = {
       [1949] = {{37.96,78.02,2.38,5,4,"Living Grove Defenders summoned",2,184631,nil,nil,1,{37.53,78.19,37.70,75.66,38.29,77.22,38.54,78.99,37.76,80.05}}, {39.07,69.42,5.29,21,4,"Living Grove Defenders summoned",2,184631,nil,nil,1,{35.95,71.95,36.43,69.85,40.18,64.25,41.40,64.75,41.51,66.67,41.55,67.98,41.06,69.15,38.85,73.60,37.73,73.94}}},
     },
     turnins = {
@@ -48842,7 +48842,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{36.21,67.13,nil,nil,7,nil,1,21066}},
     },
     },
-    [10458] = { t = "Enraged Spirits of Fire and Earth", z = 3520, rl = 68, ql = 70, nc = 10480, bc = {10680,10681}, maps = {
+    [10458] = { t = "Enraged Spirits of Fire and Earth", z = 3520, rl = 68, ql = 70, nc = 10480, bc = {10680,10681}, si = {30094}, maps = {
       [1948] = {{45.20,47.99,4.61,13,1,"Enraged Earth Spirit",1,21050,nil,nil,1,{42.69,48.43,43.12,46.84,46.74,44.94,49.02,50.56,42.78,49.21}}, {45.32,40.00,4.82,13,1,"Enraged Earth Spirit",1,21050,nil,nil,1,{41.83,43.12,42.45,41.30,46.00,36.24,47.12,35.53,47.83,39.66,47.06,41.62,45.80,42.96}}, {48.21,53.39,3.50,11,1,"Enraged Earth Spirit",1,21050,nil,nil,1,{45.43,52.35,45.84,51.10,46.78,51.41,51.37,53.00,51.47,53.42,50.20,56.27,46.86,55.17}}, {50.99,32.50,3.34,6,1,"Enraged Earth Spirit",1,21050,nil,nil,1,{49.09,33.45,50.67,30.75,51.99,31.10,53.36,31.70,49.29,35.38}}, {52.81,35.87,nil,nil,1,"Enraged Earth Spirit",1,21050,nil,nil,1}, {53.81,53.37,2.67,6,1,"Enraged Earth Spirit",1,21050,nil,nil,1,{52.47,55.68,53.53,51.80,54.02,50.85,55.38,52.63,53.49,54.95}}, {44.13,45.17,nil,nil,1,"Enraged Fire Spirit",1,21061,nil,nil,2}, {47.09,40.70,4.55,15,1,"Enraged Fire Spirit",1,21061,nil,nil,2,{44.22,39.95,44.94,39.05,48.66,36.43,49.36,39.23,48.11,44.44,45.63,44.03}}, {48.18,49.01,3.72,15,1,"Enraged Fire Spirit",1,21061,nil,nil,2,{45.26,47.29,49.27,45.63,50.08,51.00,49.67,52.17,48.87,52.67,46.25,49.30}}, {50.67,36.23,nil,nil,1,"Enraged Fire Spirit",1,21061,nil,nil,2}, {49.42,34.63,nil,nil,1,"Enraged Fire Spirit",1,21061,nil,nil,2}, {51.81,53.55,3.10,8,1,"Enraged Fire Spirit",1,21061,nil,nil,2,{49.26,54.40,52.27,51.48,52.48,51.38,53.01,52.80,52.27,56.62}}},
     },
     turnins = {
@@ -49052,7 +49052,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{55.79,37.95,nil,nil,7,nil,1,18407}},
     },
     },
-    [10480] = { t = "Enraged Spirits of Water", z = 3520, rl = 68, ql = 70, ps = {10458}, nc = 10481, maps = {
+    [10480] = { t = "Enraged Spirits of Water", z = 3520, rl = 68, ql = 70, ps = {10458}, nc = 10481, si = {30094}, maps = {
       [1948] = {{44.87,34.52,nil,nil,1,"Enraged Water Spirit",1,21059,nil,nil,1}, {44.67,34.26,nil,nil,1,"Enraged Water Spirit",1,21059,nil,nil,1}, {45.94,28.03,2.08,4,1,"Enraged Water Spirit",1,21059,nil,nil,1,{44.80,28.74,45.81,26.73,47.58,29.32}}, {50.80,24.58,4.84,12,1,"Enraged Water Spirit",1,21059,nil,nil,1,{46.62,22.75,48.96,21.96,49.95,21.89,55.24,26.53,54.43,27.22,53.87,27.47,52.48,27.51}}},
     },
     turnins = {
@@ -49062,7 +49062,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{42.19,45.06,nil,nil,7,nil,1,21024}},
     },
     },
-    [10481] = { t = "Enraged Spirits of Air", z = 3520, rl = 68, ql = 70, ps = {10480}, nc = 10513, maps = {
+    [10481] = { t = "Enraged Spirits of Air", z = 3520, rl = 68, ql = 70, ps = {10480}, nc = 10513, si = {30094}, maps = {
       [1948] = {{55.40,71.81,nil,nil,1,"Enraged Air Spirit",1,21060,nil,nil,1}, {58.10,73.01,4.59,5,1,"Enraged Air Spirit",1,21060,nil,nil,1,{57.11,77.49,57.77,69.88,59.49,70.27}}, {60.18,66.08,1.60,5,1,"Enraged Air Spirit",1,21060,nil,nil,1,{58.81,65.24,61.70,65.84,61.11,67.21,58.83,65.77}}, {61.34,21.35,1.63,5,1,"Enraged Air Spirit",1,21060,nil,nil,1,{59.80,21.89,61.29,20.54,62.73,20.99,60.90,22.13}}, {62.98,61.57,4.43,8,1,"Enraged Air Spirit",1,21060,nil,nil,1,{58.90,59.85,60.83,60.10,64.95,61.72,65.77,62.48,66.11,63.70,61.88,61.83}}, {63.14,55.36,4.24,7,1,"Enraged Air Spirit",1,21060,nil,nil,1,{58.94,54.78,59.98,53.70,64.70,53.62,66.15,57.72}}, {69.52,67.40,2.22,6,1,"Enraged Air Spirit",1,21060,nil,nil,1,{67.75,68.62,68.48,67.56,70.38,66.38,71.62,66.67}}, {70.52,28.94,1.46,4,1,"Enraged Air Spirit",1,21060,nil,nil,1,{69.66,29.36,70.76,27.99,71.96,28.68,69.70,29.72}}},
     },
     turnins = {
@@ -49132,7 +49132,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{52.37,57.94,nil,nil,7,nil,1,21117}},
     },
     },
-    [10488] = { t = "Protecting Our Own", z = 3522, rl = 65, ql = 66, rr = 690, ps = {10487}, maps = {
+    [10488] = { t = "Protecting Our Own", z = 3522, rl = 65, ql = 66, rr = 690, ps = {10487}, si = {30175}, maps = {
       [1949] = {{48.58,55.78,nil,nil,1,"Thunderlord Dire Wolf",1,20748,nil,nil,1}, {51.00,65.25,4.99,12,1,"Thunderlord Dire Wolf",1,20748,nil,nil,1,{49.00,64.30,49.08,63.33,49.92,60.37,52.86,62.11,54.80,68.22,50.00,69.74,49.28,68.81}}, {51.32,79.84,nil,nil,1,"Thunderlord Dire Wolf",1,20748,nil,nil,1}, {51.66,77.19,nil,nil,1,"Thunderlord Dire Wolf",1,20748,nil,nil,1}, {52.81,72.39,2.04,4,1,"Thunderlord Dire Wolf",1,20748,nil,nil,1,{51.94,74.23,52.11,72.61,52.74,71.27,54.47,71.43}}, {54.66,65.68,nil,nil,1,"Thunderlord Dire Wolf",1,20748,nil,nil,1}},
     },
     turnins = {
@@ -49213,7 +49213,7 @@ VanillaEnhancedQuestsDB = {
       [1454] = {{34.95,38.29,nil,nil,7,nil,1,16012}},
     },
     },
-    [10496] = { t = "Anthion's Parting Words", z = 1537, rl = 60, ql = 60, rr = 1101, rc = 64, ps = {9015}, nc = 8960, maps = {
+    [10496] = { t = "Anthion's Parting Words", z = 1537, rl = 60, ql = 60, rr = 1101, rc = 64, ps = {9015}, nc = 8960, si = {22047}, maps = {
       [1455] = {{43.53,52.64,nil,nil,6,nil,1,16013}},
     },
     turnins = {
@@ -49223,7 +49223,7 @@ VanillaEnhancedQuestsDB = {
       [1423] = {{30.85,16.75,nil,nil,7,nil,1,16016}},
     },
     },
-    [10497] = { t = "Anthion's Parting Words", z = 1637, rl = 60, ql = 60, rr = 690, rc = 2, ps = {9015}, nc = 9032, maps = {
+    [10497] = { t = "Anthion's Parting Words", z = 1637, rl = 60, ql = 60, rr = 690, rc = 2, ps = {9015}, nc = 9032, si = {22047}, maps = {
       [1454] = {{34.95,38.29,nil,nil,6,nil,1,16012}},
     },
     turnins = {
@@ -49293,7 +49293,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{51.94,58.41,nil,nil,7,nil,1,21147}},
     },
     },
-    [10506] = { t = "A Dire Situation", z = 3522, rl = 65, ql = 66, rr = 1101, ps = {10457}, maps = {
+    [10506] = { t = "A Dire Situation", z = 3522, rl = 65, ql = 66, rr = 1101, ps = {10457}, si = {30251}, maps = {
       [1949] = {{42.45,81.73,1.31,4,1,"Bloodmaul Dire Wolf",1,20058,nil,nil,1,{41.72,81.12,42.07,81.07,43.75,81.90,42.27,82.82}}, {45.36,75.85,4.87,10,1,"Bloodmaul Dire Wolf",1,20058,nil,nil,1,{43.29,74.64,43.59,71.78,44.91,71.00,47.46,73.96,46.09,79.74,44.06,79.74}}, {45.46,67.10,nil,nil,1,"Bloodmaul Dire Wolf",1,20058,nil,nil,1}},
     },
     turnins = {
@@ -49303,7 +49303,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{36.21,67.13,nil,nil,7,nil,1,21066}},
     },
     },
-    [10507] = { t = "Turning Point", z = 3523, rl = 67, ql = 70, rmin = {934,3000}, ps = {10509}, maps = {
+    [10507] = { t = "Turning Point", z = 3523, rl = 67, ql = 70, rmin = {934,3000}, ps = {10509}, si = {30260}, maps = {
       [1953] = {{29.31,13.70,nil,nil,1,"Socrethar",1,20132,nil,nil,1}, {36.44,18.35,nil,nil,3,"Open a portal to Socrethar's Seat with Socrethar's Teleporting Stone"}, {30.56,17.69,nil,nil,3,"After defeating Socrethar, you can open a portal back"}},
     },
     turnins = {
@@ -49353,7 +49353,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{37.40,64.66,nil,nil,7,nil,1,21151}},
     },
     },
-    [10512] = { t = "Getting the Bladespire Tanked", z = 3522, rl = 65, ql = 66, rr = 1101, ps = {10511}, maps = {
+    [10512] = { t = "Getting the Bladespire Tanked", z = 3522, rl = 65, ql = 66, rr = 1101, ps = {10511}, si = {30353}, maps = {
       [1949] = {{40.14,54.92,3.51,9,1,"Bladespire Shaman",1,19998,nil,nil,1,{38.57,52.96,38.78,52.26,42.28,52.41,42.73,54.34,40.64,57.03,38.81,58.17}}, {43.59,50.24,nil,nil,1,"Bladespire Shaman",1,19998,nil,nil,1}, {47.66,50.58,1.42,5,1,"Bladespire Shaman",1,19998,nil,nil,1,{46.90,49.51,48.97,50.62,47.19,51.92}}, {40.52,54.25,nil,nil,1,"Bladespire Cook",1,20334,nil,nil,1}, {39.67,52.21,nil,nil,1,"Bladespire Cook",1,20334,nil,nil,1}, {41.78,47.45,nil,nil,1,"Bladespire Cook",1,20334,nil,nil,1}, {43.49,48.19,nil,nil,1,"Bladespire Cook",1,20334,nil,nil,1}, {42.89,57.13,nil,nil,1,"Bladespire Cook",1,20334,nil,nil,1}, {43.41,47.05,nil,nil,1,"Korgaah",1,20723,nil,nil,1}, {42.66,59.69,nil,nil,1,"Mugdorg",1,20726,nil,nil,1}, {41.09,51.69,nil,nil,1,"Glumdor",1,20730,nil,nil,1}, {38.34,52.38,nil,nil,1,"Droggam",1,20731,nil,nil,1}, {38.94,48.67,nil,nil,1,"Gorr'Dim",1,20732,nil,nil,1}, {40.27,58.41,nil,nil,1,"Bladespire Champion",1,21296,nil,nil,1}, {38.82,57.86,nil,nil,1,"Bladespire Champion",1,21296,nil,nil,1}, {41.29,46.71,nil,nil,1,"Bladespire Champion",1,21296,nil,nil,1}, {48.13,50.89,nil,nil,1,"Bladespire Champion",1,21296,nil,nil,1}, {38.35,52.67,nil,nil,1,"Bladespire Sober Defender",1,21975,nil,nil,1}, {38.46,52.17,nil,nil,1,"Bladespire Sober Defender",1,21975,nil,nil,1}, {39.10,48.50,nil,nil,1,"Bladespire Sober Defender",1,21975,nil,nil,1}, {38.91,48.98,nil,nil,1,"Bladespire Sober Defender",1,21975,nil,nil,1}, {42.81,59.41,nil,nil,1,"Bladespire Sober Defender",1,21975,nil,nil,1}, {42.44,59.61,nil,nil,1,"Bladespire Sober Defender",1,21975,nil,nil,1}, {43.53,46.91,nil,nil,1,"Bladespire Sober Defender",1,21975,nil,nil,1}, {43.29,47.01,nil,nil,1,"Bladespire Sober Defender",1,21975,nil,nil,1}, {42.10,54.92,4.26,15,1,"Bladespire Brute",1,19995,nil,nil,1,{38.41,56.22,40.77,51.71,42.90,51.51,43.75,52.19,43.44,55.41,42.73,58.86,42.24,59.11,39.46,58.26}}, {42.22,47.69,3.42,11,1,"Bladespire Brute",1,19995,nil,nil,1,{39.20,49.29,39.43,48.82,40.96,45.77,43.46,46.56,44.10,48.68}}, {43.91,61.70,nil,nil,1,"Bladespire Brute",1,19995,nil,nil,1}, {43.55,62.08,nil,nil,1,"Bladespire Brute",1,19995,nil,nil,1}, {47.40,51.91,4.27,8,1,"Bladespire Brute",1,19995,nil,nil,1,{46.24,55.83,46.64,50.53,47.84,48.84,49.79,48.38,46.65,55.08}}},
     },
     turnins = {
@@ -49373,7 +49373,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{42.19,45.06,nil,nil,7,nil,1,21024}},
     },
     },
-    [10514] = { t = "I Was A Lot Of Things...", z = 3520, rl = 68, ql = 70, ps = {10513}, nc = 10515, maps = {
+    [10514] = { t = "I Was A Lot Of Things...", z = 3520, rl = 68, ql = 70, ps = {10513}, nc = 10515, si = {30462}, maps = {
       [1948] = {{53.40,16.51,5.02,30,4,"Shadowmoon Tuber",3,30356,nil,nil,1,{49.80,20.01,50.75,15.97,52.59,14.14,53.19,14.12,55.02,14.17,55.91,15.49,55.92,16.44,55.62,16.87,52.56,20.45}}},
     },
     turnins = {
@@ -49453,7 +49453,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{53.95,23.52,nil,nil,7,nil,1,21183}},
     },
     },
-    [10522] = { t = "The Cipher of Damnation - Grom'tor's Charge", z = 3520, rl = 68, ql = 70, ps = {10521}, nc = 10523, maps = {
+    [10522] = { t = "The Cipher of Damnation - Grom'tor's Charge", z = 3520, rl = 68, ql = 70, ps = {10521}, nc = 10523, si = {30426}, maps = {
       [1948] = {{46.96,28.32,7.36,67,4,"First Fragment of the Cipher of Damnation",3,30428,nil,nil,1,{44.24,26.96,46.35,25.39,51.38,22.44,53.59,27.08,53.46,27.31,47.70,31.88,46.84,32.06,45.17,32.39,44.83,31.25,44.52,29.47}}, {53.33,21.54,6.14,37,4,"First Fragment of the Cipher of Damnation",3,30428,nil,nil,1,{51.27,17.13,51.61,16.97,54.31,18.41,55.41,19.75,55.72,20.82,55.96,22.91,53.12,27.67,52.24,27.05,51.54,26.37,51.32,22.82}}, {46.13,28.65,5.51,37,2,"Coilskar Chest Key",3,30426,{19762,19768,19789},{19762,45.464,19768,44.043,19789,44.923},nil,{44.38,25.68,44.63,24.66,47.92,25.58,48.16,26.75,48.10,29.44,47.71,32.71,47.40,33.01,44.60,33.94}}},
     },
     turnins = {
@@ -49463,7 +49463,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{44.62,23.66,nil,nil,7,nil,1,21291}},
     },
     },
-    [10523] = { t = "The Cipher of Damnation - The First Fragment Recovered", z = 3520, rl = 68, ql = 70, ps = {10522}, maps = {
+    [10523] = { t = "The Cipher of Damnation - The First Fragment Recovered", z = 3520, rl = 68, ql = 70, ps = {10522}, si = {30429}, maps = {
       [1948] = {{53.95,23.52,nil,nil,6,nil,1,21183}},
     },
     turnins = {
@@ -49473,14 +49473,14 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{44.62,23.66,nil,nil,7,nil,1,21291}},
     },
     },
-    [10524] = { t = "Thunderlord Clan Artifacts", z = 3522, rl = 65, ql = 66, rr = 690, nc = 10525, maps = {
+    [10524] = { t = "Thunderlord Clan Artifacts", z = 3522, rl = 65, ql = 66, rr = 690, nc = 10525, si = {30431}, maps = {
       [1949] = {{41.54,52.66,nil,nil,4,"Thunderlord Clan Arrow",3,30433,nil,nil,1}, {40.18,58.34,nil,nil,4,"Thunderlord Clan Drum",3,30432,nil,nil,2}, {41.20,46.50,nil,nil,4,"Thunderlord Clan Tablet",3,30434,nil,nil,3}},
     },
     turnins = {
       [1949] = {{52.80,58.96,nil,nil,6,nil,1,21311}},
     },
     },
-    [10525] = { t = "Vision Guide", z = 3522, rl = 65, ql = 66, rr = 690, ps = {10524}, nc = 10526, sf = 2, maps = {
+    [10525] = { t = "Vision Guide", z = 3522, rl = 65, ql = 66, rr = 690, ps = {10524}, nc = 10526, sf = 2, si = {30481}, maps = {
       [1949] = {{52.76,58.89,nil,nil,3,"Final Thunderlord artifact discovered"}},
     },
     turnins = {
@@ -49540,7 +49540,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{29.53,50.52,nil,nil,7,nil,1,21318}},
     },
     },
-    [10538] = { t = "Boiling Blood", z = 3483, rl = 58, ql = 60, rr = 690, ps = {10242}, nc = 10835, maps = {
+    [10538] = { t = "Boiling Blood", z = 3483, rl = 58, ql = 60, rr = 690, ps = {10242}, nc = 10835, si = {30425}, maps = {
       [1944] = {{65.21,71.20,nil,nil,4,"Boiled Blood",3,30430,nil,nil,1}, {67.38,72.31,6.74,119,2,"Bleeding Hollow Blood",3,30425,{16871,16873,16907,19422,19424,19442,19457},{16871,50,16873,50,16907,50,19422,50,19424,50,19442,50,19457,50},nil,{61.79,74.43,65.83,67.86,68.73,65.70,71.20,68.10,70.68,76.31,70.45,77.64,70.34,78.00,66.07,77.86,63.30,77.48,62.11,75.98}}, {60.19,76.60,nil,nil,2,"Bleeding Hollow Blood",3,30425,{16907},{16907,50}}},
     },
     turnins = {
@@ -49560,7 +49560,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{29.53,50.52,nil,nil,7,nil,1,21318}},
     },
     },
-    [10541] = { t = "The Cipher of Damnation - The Second Fragment Recovered", z = 3520, rl = 68, ql = 70, ps = {10540}, maps = {
+    [10541] = { t = "The Cipher of Damnation - The Second Fragment Recovered", z = 3520, rl = 68, ql = 70, ps = {10540}, si = {30454}, maps = {
       [1948] = {{53.95,23.52,nil,nil,6,nil,1,21183}},
     },
     turnins = {
@@ -49590,7 +49590,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{44.97,72.31,nil,nil,7,nil,1,21349}},
     },
     },
-    [10544] = { t = "A Curse Upon Both of Your Clans!", z = 3522, rl = 65, ql = 66, rr = 690, ps = {10543}, maps = {
+    [10544] = { t = "A Curse Upon Both of Your Clans!", z = 3522, rl = 65, ql = 66, rr = 690, ps = {10543}, si = {30479}, maps = {
       [1949] = {{39.40,53.00,nil,nil,1,"Bladespire Hold building cursed",1,21446,nil,nil,1}, {40.23,57.27,1.91,6,1,"Bladespire Hold building cursed",1,21446,nil,nil,1,{38.80,56.00,42.00,57.20,42.00,57.60,40.40,57.80,39.00,57.60}}, {42.07,49.07,2.09,3,1,"Bladespire Hold building cursed",1,21446,nil,nil,1,{40.20,50.00,43.00,47.20,43.00,50.00}}, {42.40,53.80,nil,nil,1,"Bladespire Hold building cursed",1,21446,nil,nil,1}, {47.00,77.80,nil,nil,1,"Bloodmaul Outpost building cursed",1,21452,nil,nil,2}, {46.60,79.20,nil,nil,1,"Bloodmaul Outpost building cursed",1,21452,nil,nil,2}},
     },
     turnins = {
@@ -49600,7 +49600,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{44.97,72.31,nil,nil,7,nil,1,21349}},
     },
     },
-    [10545] = { t = "Bladespire Kegger", z = 3522, rl = 65, ql = 66, rr = 690, ps = {10542}, nc = 10543, maps = {
+    [10545] = { t = "Bladespire Kegger", z = 3522, rl = 65, ql = 66, rr = 690, ps = {10542}, nc = 10543, si = {30353}, maps = {
       [1949] = {{40.14,54.92,3.51,9,1,"Bladespire Shaman",1,19998,nil,nil,1,{38.57,52.96,38.78,52.26,42.28,52.41,42.73,54.34,40.64,57.03,38.81,58.17}}, {43.59,50.24,nil,nil,1,"Bladespire Shaman",1,19998,nil,nil,1}, {47.66,50.58,1.42,5,1,"Bladespire Shaman",1,19998,nil,nil,1,{46.90,49.51,48.97,50.62,47.19,51.92}}, {40.52,54.25,nil,nil,1,"Bladespire Cook",1,20334,nil,nil,1}, {39.67,52.21,nil,nil,1,"Bladespire Cook",1,20334,nil,nil,1}, {41.78,47.45,nil,nil,1,"Bladespire Cook",1,20334,nil,nil,1}, {43.49,48.19,nil,nil,1,"Bladespire Cook",1,20334,nil,nil,1}, {42.89,57.13,nil,nil,1,"Bladespire Cook",1,20334,nil,nil,1}, {43.41,47.05,nil,nil,1,"Korgaah",1,20723,nil,nil,1}, {42.66,59.69,nil,nil,1,"Mugdorg",1,20726,nil,nil,1}, {41.09,51.69,nil,nil,1,"Glumdor",1,20730,nil,nil,1}, {38.34,52.38,nil,nil,1,"Droggam",1,20731,nil,nil,1}, {38.94,48.67,nil,nil,1,"Gorr'Dim",1,20732,nil,nil,1}, {40.27,58.41,nil,nil,1,"Bladespire Champion",1,21296,nil,nil,1}, {38.82,57.86,nil,nil,1,"Bladespire Champion",1,21296,nil,nil,1}, {41.29,46.71,nil,nil,1,"Bladespire Champion",1,21296,nil,nil,1}, {48.13,50.89,nil,nil,1,"Bladespire Champion",1,21296,nil,nil,1}, {38.35,52.67,nil,nil,1,"Bladespire Sober Defender",1,21975,nil,nil,1}, {38.46,52.17,nil,nil,1,"Bladespire Sober Defender",1,21975,nil,nil,1}, {39.10,48.50,nil,nil,1,"Bladespire Sober Defender",1,21975,nil,nil,1}, {38.91,48.98,nil,nil,1,"Bladespire Sober Defender",1,21975,nil,nil,1}, {42.81,59.41,nil,nil,1,"Bladespire Sober Defender",1,21975,nil,nil,1}, {42.44,59.61,nil,nil,1,"Bladespire Sober Defender",1,21975,nil,nil,1}, {43.53,46.91,nil,nil,1,"Bladespire Sober Defender",1,21975,nil,nil,1}, {43.29,47.01,nil,nil,1,"Bladespire Sober Defender",1,21975,nil,nil,1}, {42.10,54.92,4.26,15,1,"Bladespire Brute",1,19995,nil,nil,1,{38.41,56.22,40.77,51.71,42.90,51.51,43.75,52.19,43.44,55.41,42.73,58.86,42.24,59.11,39.46,58.26}}, {42.22,47.69,3.42,11,1,"Bladespire Brute",1,19995,nil,nil,1,{39.20,49.29,39.43,48.82,40.96,45.77,43.46,46.56,44.10,48.68}}, {43.91,61.70,nil,nil,1,"Bladespire Brute",1,19995,nil,nil,1}, {43.55,62.08,nil,nil,1,"Bladespire Brute",1,19995,nil,nil,1}, {47.40,51.91,4.27,8,1,"Bladespire Brute",1,19995,nil,nil,1,{46.24,55.83,46.64,50.53,47.84,48.84,49.79,48.38,46.65,55.08}}},
     },
     turnins = {
@@ -49640,7 +49640,7 @@ VanillaEnhancedQuestsDB = {
       [1942] = {{47.20,34.31,nil,nil,7,nil,1,16268}},
     },
     },
-    [10550] = { t = "The Bundle of Bloodthistle", z = 3520, rl = 68, ql = 70, ps = {10547}, nc = 10570, maps = {
+    [10550] = { t = "The Bundle of Bloodthistle", z = 3520, rl = 68, ql = 70, ps = {10547}, nc = 10570, si = {30501}, maps = {
       [1948] = {{47.56,57.18,nil,nil,6,nil,1,21293}},
     },
     turnins = {
@@ -49700,7 +49700,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{37.07,65.61,nil,nil,7,nil,1,21469}},
     },
     },
-    [10556] = { t = "Scratches", z = 3522, rl = 65, ql = 66, rr = 1101, ps = {10555}, maps = {
+    [10556] = { t = "Scratches", z = 3522, rl = 65, ql = 66, rr = 1101, ps = {10555}, si = {30530}, maps = {
       [1949] = {{37.07,65.61,nil,nil,6,nil,1,21469}},
     },
     turnins = {
@@ -49730,7 +49730,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{39.50,53.73,nil,nil,7,nil,1,21357}},
     },
     },
-    [10563] = { t = "To Legion Hold", z = 3520, rl = 67, ql = 69, rr = 1101, ps = {10562}, nc = 10572, maps = {
+    [10563] = { t = "To Legion Hold", z = 3520, rl = 67, ql = 69, rr = 1101, ps = {10562}, nc = 10572, si = {30638}, maps = {
       [1948] = {{23.60,36.89,nil,nil,4,"Legion Communication Device",2,184833,nil,nil,1}},
     },
     turnins = {
@@ -49740,7 +49740,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{39.50,53.73,nil,nil,7,nil,1,21357}},
     },
     },
-    [10564] = { t = "Blast the Infernals!", z = 3520, rl = 67, ql = 69, rr = 1101, ps = {10572}, nc = 10573, maps = {
+    [10564] = { t = "Blast the Infernals!", z = 3520, rl = 67, ql = 69, rr = 1101, ps = {10572}, nc = 10573, si = {30614}, maps = {
       [1948] = {{22.65,39.88,nil,nil,1,"Invis Legion Hold Glyph",1,21512,nil,nil,1}},
     },
     turnins = {
@@ -49750,7 +49750,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{39.50,53.73,nil,nil,7,nil,1,21357}},
     },
     },
-    [10565] = { t = "The Stones of Vekh'nir", z = 3522, rl = 64, ql = 66, rr = 690, maps = {
+    [10565] = { t = "The Stones of Vekh'nir", z = 3522, rl = 64, ql = 66, rr = 690, si = {30561}, maps = {
       [1949] = {{75.72,74.72,6.64,55,2,"Vekh'nir Crystal",3,30561,{19982,19983,19984,20161},{19982,30,19983,30,19984,25,20161,10},nil,{69.51,76.98,69.62,72.09,70.54,71.67,77.22,72.60,77.33,72.65,77.91,73.17,78.38,73.61,78.74,74.96,78.42,75.92,78.09,76.45,77.35,77.30}}, {77.81,74.67,nil,nil,3,"Charge the Vekh'nir Crystal"}},
     },
     turnins = {
@@ -49760,7 +49760,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{75.14,62.10,nil,nil,7,nil,1,21496}},
     },
     },
-    [10566] = { t = "Trial and Error", z = 3522, rl = 64, ql = 66, rr = 690, ps = {10565}, nc = 10615, maps = {
+    [10566] = { t = "Trial and Error", z = 3522, rl = 64, ql = 66, rr = 690, ps = {10565}, nc = 10615, si = {30650,30651,30652,30653,30654,30655}, maps = {
       [1949] = {{70.72,73.95,3.36,48,1,"Dullgrom Dredger",1,21254,nil,nil,1,{69.19,76.72,69.68,72.45,70.25,71.52,72.96,73.53,72.04,75.28,69.59,77.11}}, {75.72,74.72,6.64,55,2,"Infused Vekh'nir Crystal",3,30655,{19982,19983,19984,20161},{19982,30,19983,30,19984,25,20161,10},nil,{69.51,76.98,69.62,72.09,70.54,71.67,77.22,72.60,77.33,72.65,77.91,73.17,78.38,73.61,78.74,74.96,78.42,75.92,78.09,76.45,77.35,77.30}}},
     },
     turnins = {
@@ -49770,7 +49770,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{75.14,62.10,nil,nil,7,nil,1,21496}},
     },
     },
-    [10567] = { t = "Creating the Pendant", z = 3522, rl = 66, ql = 66, nc = 10607, maps = {
+    [10567] = { t = "Creating the Pendant", z = 3522, rl = 66, ql = 66, nc = 10607, si = {30704}, maps = {
       [1949] = {{64.47,33.14,nil,nil,2,"Harbinger's Pendant",3,30706,{21767},{21767,100},1}, {64.75,32.17,3.09,26,2,"Ruuan'ok Claw",3,30704,{19985,19986,19987,20211},{19985,33,19986,32,19987,35,20211,31},nil,{63.35,30.54,64.23,29.44,65.12,29.10,65.36,30.26,65.52,31.13,65.62,32.93,65.42,34.84,65.12,34.99,64.56,34.90,63.61,34.42}}, {64.48,33.11,nil,nil,3,"Use 6 Ruuan'ok Claws to summon a Harbinger of the Raven"}},
     },
     turnins = {
@@ -49800,7 +49800,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{38.79,54.21,nil,nil,7,nil,1,22042}},
     },
     },
-    [10570] = { t = "To Catch A Thistlehead", z = 3520, rl = 68, ql = 70, ps = {10550}, nc = 10576, maps = {
+    [10570] = { t = "To Catch A Thistlehead", z = 3520, rl = 68, ql = 70, ps = {10550}, nc = 10576, si = {30616}, maps = {
       [1948] = {{48.96,57.60,nil,nil,2,"Stormrage Missive",3,30617,{21409},{21409,100},1}},
     },
     turnins = {
@@ -49870,7 +49870,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{47.56,57.18,nil,nil,7,nil,1,21293}},
     },
     },
-    [10577] = { t = "What Illidan Wants, Illidan Gets...", z = 3520, rl = 68, ql = 70, ps = {10576}, nc = 10578, sf = 2, maps = {
+    [10577] = { t = "What Illidan Wants, Illidan Gets...", z = 3520, rl = 68, ql = 70, ps = {10576}, nc = 10578, sf = 2, si = {30639}, maps = {
       [1948] = {{46.45,71.93,nil,nil,1,"Grand Commander Ruusk",1,20563,nil,nil,1}},
     },
     turnins = {
@@ -49890,7 +49890,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{47.56,57.18,nil,nil,7,nil,1,21293}},
     },
     },
-    [10579] = { t = "The Cipher of Damnation - The Third Fragment Recovered", z = 3520, rl = 68, ql = 70, ps = {10578}, maps = {
+    [10579] = { t = "The Cipher of Damnation - The Third Fragment Recovered", z = 3520, rl = 68, ql = 70, ps = {10578}, si = {30646}, maps = {
       [1948] = {{53.95,23.52,nil,nil,6,nil,1,21183}},
     },
     turnins = {
@@ -49940,7 +49940,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{40.45,41.29,nil,nil,7,nil,1,21471}},
     },
     },
-    [10584] = { t = "Picking Up Some Power Converters", z = 3522, rl = 65, ql = 67, rr = 1101, nc = 10657, maps = {
+    [10584] = { t = "Picking Up Some Power Converters", z = 3522, rl = 65, ql = 67, rr = 1101, nc = 10657, si = {30656}, maps = {
       [1949] = {{57.76,57.15,3.62,20,1,"Electromental",1,21729,nil,nil,1,{56.45,59.73,56.71,56.37,56.96,55.01,57.31,54.37,58.48,54.22,59.75,54.58,57.94,60.39,57.47,60.75}}},
     },
     turnins = {
@@ -49960,7 +49960,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{40.45,41.29,nil,nil,7,nil,1,21471}},
     },
     },
-    [10586] = { t = "Bring Down the Warbringer!", z = 3520, rl = 67, ql = 69, rr = 1101, pg = {10583,10585}, nc = 10589, maps = {
+    [10586] = { t = "Bring Down the Warbringer!", z = 3520, rl = 67, ql = 69, rr = 1101, pg = {10583,10585}, nc = 10589, si = {30688}, maps = {
       [1948] = {{38.95,46.89,nil,nil,1,"Warbringer Razuun",1,21287,nil,nil,1}, {38.95,46.89,nil,nil,2,"Razuun's Orders",3,30689,{21287},{21287,100},2}},
     },
     turnins = {
@@ -49980,7 +49980,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{61.20,29.23,nil,nil,7,nil,1,21860}},
     },
     },
-    [10588] = { t = "The Cipher of Damnation", z = 3520, rl = 68, ql = 70, pg = {10523,10541,10579}, maps = {
+    [10588] = { t = "The Cipher of Damnation", z = 3520, rl = 68, ql = 70, pg = {10523,10541,10579}, si = {30657}, maps = {
       [1948] = {{43.20,46.20,nil,nil,1,"Cyrukh the Firelord",1,21181,nil,nil,1}},
     },
     turnins = {
@@ -50011,7 +50011,7 @@ VanillaEnhancedQuestsDB = {
       [1420] = {{83.22,71.32,nil,nil,7,nil,1,17099}},
     },
     },
-    [10592] = { t = "Wisdom of the Banshee Queen", z = -141, rl = 50, ql = 52, rr = 690, rc = 2, ps = {10590}, nc = 10593, maps = {
+    [10592] = { t = "Wisdom of the Banshee Queen", z = -141, rl = 50, ql = 52, rr = 690, rc = 2, ps = {10590}, nc = 10593, si = {30700}, maps = {
       [1458] = {{58.05,91.79,nil,nil,6,nil,1,10181}},
     },
     turnins = {
@@ -50031,7 +50031,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{58.05,91.79,nil,nil,7,nil,1,10181}},
     },
     },
-    [10594] = { t = "Gauging the Resonant Frequency", z = 3522, rl = 65, ql = 67, rr = 1101, ps = {10608}, sf = 2, maps = {
+    [10594] = { t = "Gauging the Resonant Frequency", z = 3522, rl = 65, ql = 67, rr = 1101, ps = {10608}, sf = 2, si = {30701}, maps = {
       [1949] = {{59.77,73.83,nil,nil,3,"Singing crystal resonant frequency gauged"}},
     },
     turnins = {
@@ -50051,7 +50051,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{30.45,32.40,nil,nil,7,nil,1,21359}},
     },
     },
-    [10596] = { t = "To Legion Hold", z = 3520, rl = 67, ql = 69, rr = 690, ps = {10595}, nc = 10597, maps = {
+    [10596] = { t = "To Legion Hold", z = 3520, rl = 67, ql = 69, rr = 690, ps = {10595}, nc = 10597, si = {30638}, maps = {
       [1948] = {{23.60,36.89,nil,nil,4,"Legion Communication Device",2,184833,nil,nil,1}},
     },
     turnins = {
@@ -50071,7 +50071,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{30.45,32.40,nil,nil,7,nil,1,21359}},
     },
     },
-    [10598] = { t = "Blast the Infernals!", z = 3520, rl = 67, ql = 69, rr = 690, ps = {10597}, nc = 10599, maps = {
+    [10598] = { t = "Blast the Infernals!", z = 3520, rl = 67, ql = 69, rr = 690, ps = {10597}, nc = 10599, si = {30614}, maps = {
       [1948] = {{22.65,39.88,nil,nil,1,"Invis Legion Hold Glyph",1,21512,nil,nil,1}},
     },
     turnins = {
@@ -50121,7 +50121,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{38.59,38.18,nil,nil,7,nil,1,21475}},
     },
     },
-    [10603] = { t = "Bring Down the Warbringer!", z = 3520, rl = 67, ql = 69, rr = 690, pg = {10601,10602}, nc = 10604, maps = {
+    [10603] = { t = "Bring Down the Warbringer!", z = 3520, rl = 67, ql = 69, rr = 690, pg = {10601,10602}, nc = 10604, si = {30688}, maps = {
       [1948] = {{38.95,46.89,nil,nil,1,"Warbringer Razuun",1,21287,nil,nil,1}, {38.95,46.89,nil,nil,2,"Razuun's Orders",3,30689,{21287},{21287,100},2}},
     },
     turnins = {
@@ -50181,7 +50181,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{60.23,68.94,nil,nil,7,nil,1,21755}},
     },
     },
-    [10609] = { t = "What Came First, the Drake or the Egg?", z = 3522, rl = 65, ql = 67, rr = 1101, maps = {
+    [10609] = { t = "What Came First, the Drake or the Egg?", z = 3522, rl = 65, ql = 67, rr = 1101, si = {30742}, maps = {
       [1949] = {{63.53,76.65,6.28,32,2,"Proto-Nether Drake Essence",3,30743,{20021},{20021,100},1,{58.61,74.23,58.68,72.67,59.94,72.55,66.43,74.73,67.27,75.44,68.42,76.83,65.13,78.63,62.31,79.31,59.68,79.16}}, {63.53,76.65,6.28,32,2,"Adolescent Nether Drake Essence",3,30782,{20021},{20021,100},2,{58.61,74.23,58.68,72.67,59.94,72.55,66.43,74.73,67.27,75.44,68.42,76.83,65.13,78.63,62.31,79.31,59.68,79.16}}, {63.53,76.65,6.28,32,2,"Mature Nether Drake Essence",3,30783,{20021},{20021,100},3,{58.61,74.23,58.68,72.67,59.94,72.55,66.43,74.73,67.27,75.44,68.42,76.83,65.13,78.63,62.31,79.31,59.68,79.16}}},
     },
     turnins = {
@@ -50281,7 +50281,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{60.40,68.76,nil,nil,7,nil,1,21824}},
     },
     },
-    [10621] = { t = "Illidari-Bane Shard", z = 3520, rl = 67, ql = 69, rr = 1101, nc = 10626, maps = {
+    [10621] = { t = "Illidari-Bane Shard", z = 3520, rl = 67, ql = 69, rr = 1101, nc = 10626, si = {30756}, maps = {
       [1948] = {{36.82,54.89,nil,nil,6,nil,1,19370}},
     },
     turnins = {
@@ -50298,7 +50298,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{57.33,49.58,nil,nil,7,nil,1,21826}},
     },
     },
-    [10623] = { t = "Illidari-Bane Shard", z = 3520, rl = 67, ql = 69, rr = 690, nc = 10627, maps = {
+    [10623] = { t = "Illidari-Bane Shard", z = 3520, rl = 67, ql = 69, rr = 690, nc = 10627, si = {30579}, maps = {
       [1948] = {{29.79,31.26,nil,nil,6,nil,1,19333}},
     },
     turnins = {
@@ -50315,7 +50315,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{29.96,27.75,nil,nil,7,nil,1,21772}},
     },
     },
-    [10625] = { t = "Spectrecles", z = 3520, rl = 67, ql = 69, rr = 690, ps = {10624}, nc = 10633, maps = {
+    [10625] = { t = "Spectrecles", z = 3520, rl = 67, ql = 69, rr = 690, ps = {10624}, nc = 10633, si = {30719}, maps = {
       [1948] = {{30.71,29.29,2.96,20,1,"Shadowmoon Zealot",1,21788,nil,nil,1,{28.82,27.01,30.77,27.39,31.65,27.99,31.70,28.27,32.11,30.67,30.68,31.28,30.00,31.57,29.41,30.60}}},
     },
     turnins = {
@@ -50355,7 +50355,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{57.33,49.58,nil,nil,7,nil,1,21826}},
     },
     },
-    [10629] = { t = "Shizz Work", z = 3483, rl = 58, ql = 61, ps = {10238}, nc = 10630, maps = {
+    [10629] = { t = "Shizz Work", z = 3483, rl = 58, ql = 61, ps = {10238}, nc = 10630, si = {30803}, maps = {
       [1944] = {{48.68,29.50,6.55,31,4,"Shredder Keys",3,30794,nil,nil,1,{45.90,28.20,51.30,23.50,51.30,31.20,47.80,32.50,46.60,32.60,46.40,32.50}}, {50.11,40.79,6.94,38,4,"Shredder Keys",3,30794,nil,nil,1,{46.70,39.60,46.90,35.60,47.50,34.40,50.20,35.90,55.20,45.50,53.40,45.70,50.20,45.70,46.80,40.70}}, {51.87,22.13,0.78,3,4,"Shredder Keys",3,30794,nil,nil,1,{51.60,21.40,52.20,22.20,51.80,22.80}}},
     },
     turnins = {
@@ -50385,7 +50385,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{60.15,68.21,nil,nil,7,nil,1,21118}},
     },
     },
-    [10633] = { t = "Teron Gorefiend - Lore and Legend", z = 3520, rl = 67, ql = 70, rr = 690, ps = {10625}, maps = {
+    [10633] = { t = "Teron Gorefiend - Lore and Legend", z = 3520, rl = 67, ql = 70, rr = 690, ps = {10625}, si = {30721}, maps = {
       [1948] = {{58.23,70.79,nil,nil,6,nil,1,21797}},
     },
     turnins = {
@@ -50425,7 +50425,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{58.23,70.79,nil,nil,7,nil,1,21797}},
     },
     },
-    [10637] = { t = "A Necessary Distraction", z = 3520, rl = 68, ql = 70, rmin = {932,3000}, ps = {10587}, nc = 10640, maps = {
+    [10637] = { t = "A Necessary Distraction", z = 3520, rl = 68, ql = 70, rmin = {932,3000}, ps = {10587}, nc = 10640, si = {30811}, maps = {
       [1948] = {{69.83,51.41,nil,nil,1,"Azaloth",1,21506,nil,nil,1}, {70.57,50.47,3.43,15,2,"Scroll of Demonic Unbanishing",3,30811,{21503,21505},{21503,35,21505,35},nil,{69.25,48.45,71.85,48.21,72.29,49.13,72.20,50.54,71.31,52.27,69.59,53.75}}},
     },
     turnins = {
@@ -50455,7 +50455,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{61.20,29.23,nil,nil,7,nil,1,21860}},
     },
     },
-    [10641] = { t = "Against the Legion", z = 3518, rl = 68, ql = 70, ps = {10640,10689}, maps = {
+    [10641] = { t = "Against the Legion", z = 3518, rl = 68, ql = 70, ps = {10640,10689}, si = {30850}, maps = {
       [1953] = {{41.22,21.81,1.98,4,1,"Avatar of Sathal",1,21925,nil,nil,1,{39.62,20.63,42.72,21.59,41.29,23.27}}, {41.22,21.81,1.98,4,2,"Freshly Drawn Blood",3,30850,{18859},{18859,100},nil,{39.62,20.63,42.72,21.59,41.29,23.27}}},
     },
     turnins = {
@@ -50475,7 +50475,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{37.13,55.57,nil,nil,7,nil,1,21774}},
     },
     },
-    [10643] = { t = "Harbingers of Shadowmoon", z = 3520, rl = 67, ql = 69, rr = 1101, ps = {10642}, nc = 10644, maps = {
+    [10643] = { t = "Harbingers of Shadowmoon", z = 3520, rl = 67, ql = 69, rr = 1101, ps = {10642}, nc = 10644, si = {30719}, maps = {
       [1948] = {{37.13,55.76,4.20,24,1,"Shadowmoon Harbinger",1,21795,nil,nil,1,{35.08,57.89,35.62,54.62,38.66,52.52,39.47,52.28,39.54,54.02,38.50,57.25,35.75,58.79}}},
     },
     turnins = {
@@ -50485,7 +50485,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{37.13,55.57,nil,nil,7,nil,1,21774}},
     },
     },
-    [10644] = { t = "Teron Gorefiend - Lore and Legend", z = 3520, rl = 67, ql = 70, rr = 1101, ps = {10643}, maps = {
+    [10644] = { t = "Teron Gorefiend - Lore and Legend", z = 3520, rl = 67, ql = 70, rr = 1101, ps = {10643}, si = {30721}, maps = {
       [1948] = {{58.23,70.79,nil,nil,6,nil,1,21797}},
     },
     turnins = {
@@ -50555,7 +50555,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{27.34,43.09,nil,nil,7,nil,1,18417}},
     },
     },
-    [10651] = { t = "Varedis Must Be Stopped", z = 3520, rl = 68, ql = 70, rmin = {932,3000}, ps = {10650}, maps = {
+    [10651] = { t = "Varedis Must Be Stopped", z = 3520, rl = 68, ql = 70, rmin = {932,3000}, ps = {10650}, si = {30854}, maps = {
       [1948] = {{72.16,53.67,nil,nil,1,"Varedis",1,21178,nil,nil,1}, {69.00,52.36,nil,nil,1,"Netharel",1,21164,nil,nil,2}, {72.36,48.38,nil,nil,1,"Theras",1,21168,nil,nil,3}, {69.57,54.09,nil,nil,1,"Alandien",1,21171,nil,nil,4}},
     },
     turnins = {
@@ -50629,7 +50629,7 @@ VanillaEnhancedQuestsDB = {
       [1955] = {{45.20,81.44,nil,nil,7,nil,1,18531}},
     },
     },
-    [10657] = { t = "Ride the Lightning", z = 3522, rl = 65, ql = 67, rr = 1101, ps = {10584}, nc = 10674, maps = {
+    [10657] = { t = "Ride the Lightning", z = 3522, rl = 65, ql = 67, rr = 1101, ps = {10584}, nc = 10674, si = {30818}, maps = {
       [1949] = {{64.19,52.14,3.28,4,1,"Scalewing Serpent",1,20749,nil,nil,1,{61.66,54.24,65.18,50.51,66.08,51.49}}, {66.92,55.13,nil,nil,1,"Scalewing Serpent",1,20749,nil,nil,1}, {66.33,57.49,nil,nil,1,"Scalewing Serpent",1,20749,nil,nil,1}, {66.69,61.01,nil,nil,1,"Scalewing Serpent",1,20749,nil,nil,1}, {68.13,61.77,nil,nil,1,"Scalewing Serpent",1,20749,nil,nil,1}, {68.27,69.74,4.92,12,1,"Scalewing Serpent",1,20749,nil,nil,1,{67.45,64.89,68.77,67.14,69.19,73.78,68.53,74.02,68.13,73.87,67.45,66.63}}, {65.60,55.49,6.77,8,2,"Scalewing Lightning Gland",3,30849,{20749},{20749,80},2,{61.66,54.24,65.18,50.51,66.08,51.49,66.92,55.13,68.13,61.77,66.69,61.01}}, {68.27,69.74,4.92,12,2,"Scalewing Lightning Gland",3,30849,{20749},{20749,80},2,{67.45,64.89,68.77,67.14,69.19,73.78,68.53,74.02,68.13,73.87,67.45,66.63}}},
     },
     turnins = {
@@ -50683,7 +50683,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{36.54,55.24,nil,nil,7,nil,1,21777}},
     },
     },
-    [10662] = { t = "The Hermit Smith", z = 3520, rl = 67, ql = 69, rr = 1101, ps = {10626}, nc = 10664, maps = {
+    [10662] = { t = "The Hermit Smith", z = 3520, rl = 67, ql = 69, rr = 1101, ps = {10626}, nc = 10664, si = {30822}, maps = {
       [1952] = {{77.58,38.72,nil,nil,6,nil,1,21465}},
     },
     turnins = {
@@ -50693,7 +50693,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{36.82,54.89,nil,nil,7,nil,1,19370}},
     },
     },
-    [10663] = { t = "The Hermit Smith", z = 3520, rl = 67, ql = 69, rr = 690, ps = {10627}, nc = 10664, maps = {
+    [10663] = { t = "The Hermit Smith", z = 3520, rl = 67, ql = 69, rr = 690, ps = {10627}, nc = 10664, si = {30822}, maps = {
       [1952] = {{77.58,38.72,nil,nil,6,nil,1,21465}},
     },
     turnins = {
@@ -50760,7 +50760,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{27.34,43.09,nil,nil,7,nil,1,18417}},
     },
     },
-    [10669] = { t = "Against All Odds", z = 3518, rl = 68, ql = 70, ps = {10640,10689}, maps = {
+    [10669] = { t = "Against All Odds", z = 3518, rl = 68, ql = 70, ps = {10640,10689}, si = {30853}, maps = {
       [1946] = {{15.90,40.50,nil,nil,1,"Xeleth",1,21894,nil,nil,1}, {15.90,40.50,nil,nil,3,"Use the Imbued Silver Spear at Portal Clearing near Marshlight Lake to awake Xeleth"}},
     },
     turnins = {
@@ -50810,7 +50810,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{30.07,28.26,nil,nil,7,nil,1,21770}},
     },
     },
-    [10674] = { t = "Trapping the Light Fantastic", z = 3522, rl = 65, ql = 67, rr = 1101, ps = {10657}, nc = 10675, maps = {
+    [10674] = { t = "Trapping the Light Fantastic", z = 3522, rl = 65, ql = 67, rr = 1101, ps = {10657}, nc = 10675, si = {30852}, maps = {
       [1949] = {{66.82,41.67,0.56,8,1,"Razaani Light Orb",1,20635,nil,nil,1,{66.48,41.65,66.63,41.29,67.10,41.19,67.11,41.26,67.12,41.82,66.85,42.00,66.65,42.09,66.61,42.05}}},
     },
     turnins = {
@@ -50860,7 +50860,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{36.54,55.24,nil,nil,7,nil,1,21777}},
     },
     },
-    [10679] = { t = "Quenching the Blade", z = 3520, rl = 70, ql = 70, ps = {10676}, maps = {
+    [10679] = { t = "Quenching the Blade", z = 3520, rl = 70, ql = 70, ps = {10676}, si = {30875}, maps = {
       [1948] = {{51.85,40.17,nil,nil,4,"Quenched Illidari-Bane Blade",3,30876,nil,nil,1}},
     },
     turnins = {
@@ -50950,7 +50950,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{55.73,58.17,nil,nil,7,nil,1,21954}},
     },
     },
-    [10688] = { t = "A Necessary Distraction", z = 3520, rl = 68, ql = 70, rmin = {934,3000}, ps = {10687}, nc = 10689, maps = {
+    [10688] = { t = "A Necessary Distraction", z = 3520, rl = 68, ql = 70, rmin = {934,3000}, ps = {10687}, nc = 10689, si = {30811}, maps = {
       [1948] = {{69.84,51.42,nil,nil,5,"Azaloth Freed",1,21892,nil,nil,1}, {70.57,50.47,3.43,15,2,"Scroll of Demonic Unbanishing",3,30811,{21503,21505},{21503,35,21505,35},nil,{69.25,48.45,71.85,48.21,72.29,49.13,72.20,50.54,71.31,52.27,69.59,53.75}}},
     },
     turnins = {
@@ -50990,7 +50990,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{27.34,43.09,nil,nil,7,nil,1,18417}},
     },
     },
-    [10692] = { t = "Varedis Must Be Stopped", z = 3520, rl = 68, ql = 70, rmin = {934,3000}, ps = {10691}, maps = {
+    [10692] = { t = "Varedis Must Be Stopped", z = 3520, rl = 68, ql = 70, rmin = {934,3000}, ps = {10691}, si = {30854}, maps = {
       [1948] = {{72.16,53.67,nil,nil,1,"Varedis",1,21178,nil,nil,1}, {69.00,52.36,nil,nil,1,"Netharel",1,21164,nil,nil,2}, {72.36,48.38,nil,nil,1,"Theras",1,21168,nil,nil,3}, {69.57,54.09,nil,nil,1,"Alandien",1,21171,nil,nil,4}},
     },
     turnins = {
@@ -51063,7 +51063,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{58.11,48.18,nil,nil,7,nil,1,21700}},
     },
     },
-    [10708] = { t = "Akama's Promise", z = 3520, rl = 68, ql = 70, rr = 1101, ps = {10707}, ex = {11052}, nc = 10944, maps = {
+    [10708] = { t = "Akama's Promise", z = 3520, rl = 68, ql = 70, rr = 1101, ps = {10707}, ex = {11052}, nc = 10944, si = {32646}, maps = {
       [1955] = {{53.99,44.75,nil,nil,6,nil,1,18481}},
     },
     turnins = {
@@ -51083,7 +51083,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{75.29,60.86,nil,nil,7,nil,1,22004}},
     },
     },
-    [10710] = { t = "Test Flight: The Singing Ridge", z = 3522, rl = 62, ql = 64, rr = 1101, ps = {10557,10584}, sf = 2, maps = {
+    [10710] = { t = "Test Flight: The Singing Ridge", z = 3522, rl = 62, ql = 64, rr = 1101, ps = {10557,10584}, sf = 2, si = {30540,30539}, maps = {
       [1949] = {{60.17,68.80,nil,nil,3,"Test Tally's Experiment"}},
     },
     turnins = {
@@ -51103,7 +51103,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{60.28,68.39,nil,nil,7,nil,1,21460}},
     },
     },
-    [10712] = { t = "Test Flight: Ruuan Weald", z = 3522, rl = 62, ql = 64, rr = 1101, pg = {10711,10675}, sf = 2, maps = {
+    [10712] = { t = "Test Flight: Ruuan Weald", z = 3522, rl = 62, ql = 64, rr = 1101, pg = {10711,10675}, sf = 2, si = {31124}, maps = {
       [1949] = {{60.17,68.80,nil,nil,3,"Test Tally's Experiment"}},
     },
     turnins = {
@@ -51123,7 +51123,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{61.98,39.48,nil,nil,7,nil,1,22007}},
     },
     },
-    [10714] = { t = "On Spirit's Wings", z = 3522, rl = 65, ql = 67, rr = 690, ps = {10709}, nc = 10783, maps = {
+    [10714] = { t = "On Spirit's Wings", z = 3522, rl = 65, ql = 67, rr = 690, ps = {10709}, nc = 10783, si = {31128}, maps = {
       [1949] = {{54.74,32.41,nil,nil,1,"Bloodmaul Taskmaster",1,22160,nil,nil,1}, {55.44,36.40,nil,nil,1,"Bloodmaul Taskmaster",1,22160,nil,nil,1}, {58.18,33.47,nil,nil,1,"Bloodmaul Taskmaster",1,22160,nil,nil,1}, {57.91,31.30,nil,nil,1,"Bloodmaul Taskmaster",1,22160,nil,nil,1}, {54.78,32.17,nil,nil,1,"Bloodmaul Soothsayer",1,22384,nil,nil,1}, {55.31,36.39,nil,nil,1,"Bloodmaul Soothsayer",1,22384,nil,nil,1}, {58.07,33.62,nil,nil,1,"Bloodmaul Soothsayer",1,22384,nil,nil,1}, {57.83,31.05,nil,nil,1,"Bloodmaul Soothsayer",1,22384,nil,nil,1}},
     },
     turnins = {
@@ -51164,14 +51164,14 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{52.75,59.04,nil,nil,7,nil,1,21950}},
     },
     },
-    [10719] = { t = "Did You Get The Note?", z = 3522, rl = 65, ql = 67, ps = {10682}, nc = 10894, maps = {
+    [10719] = { t = "Did You Get The Note?", z = 3522, rl = 65, ql = 67, ps = {10682}, nc = 10894, si = {31120}, maps = {
       [1949] = {{61.98,39.48,nil,nil,6,nil,1,22007}},
     },
     turnins = {
       [1949] = {{61.98,39.48,nil,nil,6,nil,1,22007}},
     },
     },
-    [10720] = { t = "The Smallest Creatures", z = 3522, rl = 65, ql = 67, rr = 690, ps = {10749}, nc = 10721, maps = {
+    [10720] = { t = "The Smallest Creatures", z = 3522, rl = 65, ql = 67, rr = 690, ps = {10749}, nc = 10721, si = {31141}, maps = {
       [1949] = {{55.28,25.99,nil,nil,4,"Green Spot Grog Keg",2,185206,nil,nil,1}, {55.35,28.19,nil,nil,4,"Ripe Moonshine Keg",2,185213,nil,nil,2}, {55.97,23.09,nil,nil,4,"Fermented Seed Beer Keg",2,185214,nil,nil,3}},
     },
     turnins = {
@@ -51181,7 +51181,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{51.82,58.35,nil,nil,7,nil,1,21984}},
     },
     },
-    [10721] = { t = "A Boaring Time for Grulloc", z = 3522, rl = 65, ql = 67, rr = 690, ps = {10720}, nc = 10785, maps = {
+    [10721] = { t = "A Boaring Time for Grulloc", z = 3522, rl = 65, ql = 67, rr = 690, ps = {10720}, nc = 10785, si = {31350}, maps = {
       [1949] = {{60.89,47.78,nil,nil,4,"Grulloc's Sack",3,31349,nil,nil,1}},
     },
     turnins = {
@@ -51191,7 +51191,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{51.82,58.35,nil,nil,7,nil,1,21984}},
     },
     },
-    [10722] = { t = "Meeting at the Blackwing Coven", z = 3522, rl = 65, ql = 68, ps = {10893}, nc = 10748, sf = 2, maps = {
+    [10722] = { t = "Meeting at the Blackwing Coven", z = 3522, rl = 65, ql = 68, ps = {10893}, nc = 10748, sf = 2, si = {31121,31122}, maps = {
       [1949] = {{32.65,37.50,nil,nil,1,"Kolphis Darkscale",1,22019,nil,nil,1}, {32.24,33.93,3.30,23,2,"Costume Scraps",3,31121,{21382,21383,21492,21637},{21382,45.738,21383,44.154,21637,47.946},nil,{30.71,31.93,31.33,31.63,32.44,31.58,33.20,31.97,33.27,32.18,33.95,35.70,31.78,37.19,31.48,36.42,30.92,33.71}}, {61.18,39.19,7.63,61,2,"Costume Scraps",3,31121,{21809,21810},{21809,10.163,21810,15.314},nil,{57.36,38.89,57.72,37.81,58.33,36.51,61.64,32.36,65.04,35.67,65.12,36.08,64.05,43.21,63.07,46.49,63.02,46.59,57.73,41.48}}, {62.90,28.82,5.14,18,2,"Costume Scraps",3,31121,{21809,21810},{21809,10.163,21810,15.314},nil,{60.82,33.52,61.70,28.15,62.88,25.83,63.30,25.96,64.92,28.53,65.13,28.99,61.72,33.08}}, {46.50,33.33,2.35,16,2,"Costume Scraps",3,31121,{21809,21810,22308},{21809,10.163,21810,15.314,22308,36.328},nil,{44.71,32.02,46.53,32.85,47.57,33.52,48.08,35.07,45.34,32.72}}},
     },
     turnins = {
@@ -51201,7 +51201,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{50.03,35.95,nil,nil,7,nil,1,22386}},
     },
     },
-    [10723] = { t = "Gorgrom the Dragon-Eater", z = 3522, rl = 65, ql = 68, rr = 690, ps = {10785}, nc = 10724, maps = {
+    [10723] = { t = "Gorgrom the Dragon-Eater", z = 3522, rl = 65, ql = 68, rr = 690, ps = {10785}, nc = 10724, si = {31752,31754}, maps = {
       [1949] = {{30.65,22.10,nil,nil,1,"Gorgrom the Dragon-Eater",1,21514,nil,nil,1}, {30.58,22.51,2.60,19,2,"Grisly Totem",3,31754,{21046,21047,21048},{21046,50,21047,45,21048,5},nil,{29.58,23.75,29.79,21.52,31.17,19.97,31.99,21.34,31.98,21.92,31.83,22.74,30.98,24.33,30.22,24.71}}},
     },
     turnins = {
@@ -51211,7 +51211,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{51.82,58.35,nil,nil,7,nil,1,21984}},
     },
     },
-    [10724] = { t = "Prisoner of the Bladespire", z = 3522, rl = 65, ql = 67, rr = 690, ps = {10723}, nc = 10742, maps = {
+    [10724] = { t = "Prisoner of the Bladespire", z = 3522, rl = 65, ql = 67, rr = 690, ps = {10723}, nc = 10742, si = {31144,31755}, maps = {
       [1949] = {{65.74,20.25,nil,nil,1,"Leokk",1,22268,nil,nil,1}, {64.98,22.39,6.67,41,2,"Wyvern Cage Key",3,31755,{19996,19997,20756},{19996,10,19997,10,20756,2},nil,{58.32,22.67,60.05,20.34,63.12,19.08,64.82,18.73,66.29,18.44,66.46,18.65,67.51,26.56,66.95,27.80,66.81,28.03,58.57,23.13}}},
     },
     turnins = {
@@ -51381,7 +51381,7 @@ VanillaEnhancedQuestsDB = {
       [1430] = {{47.24,74.99,nil,nil,7,nil,1,18253}},
     },
     },
-    [10742] = { t = "Showdown", z = 3522, rl = 65, ql = 70, rr = 690, ps = {10724}, maps = {
+    [10742] = { t = "Showdown", z = 3522, rl = 65, ql = 70, rr = 690, ps = {10724}, si = {31146}, maps = {
       [1949] = {{63.79,19.43,nil,nil,1,"Goc",1,20555,nil,nil,1}},
     },
     turnins = {
@@ -51411,7 +51411,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{27.49,21.21,nil,nil,7,nil,1,21789}},
     },
     },
-    [10747] = { t = "Whelps of the Wyrmcult", z = 3522, rl = 65, ql = 68, ps = {10717}, maps = {
+    [10747] = { t = "Whelps of the Wyrmcult", z = 3522, rl = 65, ql = 68, ps = {10717}, si = {31129}, maps = {
       [1949] = {{32.57,35.43,2.11,7,2,"Wyrmcult Blackwhelp",3,31130,{21387},nil,1,{31.12,36.11,32.84,34.41,34.05,33.93,32.28,37.28}}},
     },
     turnins = {
@@ -51431,7 +51431,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{61.98,39.48,nil,nil,7,nil,1,22007}},
     },
     },
-    [10749] = { t = "Baron Sablemane's Poison", z = 3522, rl = 65, ql = 67, rr = 690, ps = {10715}, nc = 10720, maps = {
+    [10749] = { t = "Baron Sablemane's Poison", z = 3522, rl = 65, ql = 67, rr = 690, ps = {10715}, nc = 10720, si = {31135}, maps = {
       [1949] = {{51.82,58.35,nil,nil,6,nil,1,21984}},
     },
     turnins = {
@@ -51441,7 +51441,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{53.25,41.18,nil,nil,7,nil,1,22103}},
     },
     },
-    [10750] = { t = "The Path of Conquest", z = 3520, rl = 68, ql = 70, rr = 690, nc = 10751, sf = 2, maps = {
+    [10750] = { t = "The Path of Conquest", z = 3520, rl = 68, ql = 70, rr = 690, nc = 10751, sf = 2, si = {31108}, maps = {
       [1948] = {{51.23,62.75,nil,nil,3,"The Path of Conquest Discovered"}, {52.45,59.19,nil,nil,3,"The Path of Conquest Discovered"}},
     },
     turnins = {
@@ -51481,7 +51481,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{62.56,38.26,nil,nil,7,nil,1,22133}},
     },
     },
-    [10754] = { t = "Entry Into the Citadel", z = 3483, rl = 68, ql = 70, rr = 1101, nc = 10762, maps = {
+    [10754] = { t = "Entry Into the Citadel", z = 3483, rl = 68, ql = 70, rr = 1101, nc = 10762, si = {31239}, maps = {
       [1944] = {{56.64,66.70,nil,nil,6,nil,1,16819}},
     },
     turnins = {
@@ -51491,7 +51491,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{67.64,36.20,nil,nil,7,nil,1,22037}},
     },
     },
-    [10755] = { t = "Entry Into the Citadel", z = 3483, rl = 68, ql = 70, rr = 690, nc = 10756, maps = {
+    [10755] = { t = "Entry Into the Citadel", z = 3483, rl = 68, ql = 70, rr = 690, nc = 10756, si = {31241}, maps = {
       [1944] = {{55.02,35.96,nil,nil,6,nil,1,3230}},
     },
     turnins = {
@@ -51501,7 +51501,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{67.64,36.20,nil,nil,7,nil,1,22037}},
     },
     },
-    [10756] = { t = "Grand Master Rohok", z = 3483, rl = 68, ql = 70, rr = 690, ps = {10755}, nc = 10757, maps = {
+    [10756] = { t = "Grand Master Rohok", z = 3483, rl = 68, ql = 70, rr = 690, ps = {10755}, nc = 10757, si = {31245}, maps = {
       [1944] = {{53.13,38.16,nil,nil,6,nil,1,16583}},
     },
     turnins = {
@@ -51528,7 +51528,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{53.13,38.16,nil,nil,7,nil,1,16583}},
     },
     },
-    [10758] = { t = "Hotter than Hell", z = 3483, rl = 68, ql = 70, rr = 690, ps = {10757}, maps = {
+    [10758] = { t = "Hotter than Hell", z = 3483, rl = 68, ql = 70, rr = 690, ps = {10757}, si = {31251}, maps = {
       [1944] = {{71.36,43.95,nil,nil,2,"Charred Key Mold",3,31252,{18733},nil,1}, {48.33,28.16,nil,nil,2,"Charred Key Mold",3,31252,{18733},nil,1}},
     },
     turnins = {
@@ -51568,7 +51568,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{31.02,29.76,nil,nil,7,nil,1,22043}},
     },
     },
-    [10762] = { t = "Grand Master Dumphry", z = 3483, rl = 68, ql = 70, rr = 1101, ps = {10754}, nc = 10763, maps = {
+    [10762] = { t = "Grand Master Dumphry", z = 3483, rl = 68, ql = 70, rr = 1101, ps = {10754}, nc = 10763, si = {31245}, maps = {
       [1944] = {{51.12,60.30,nil,nil,6,nil,1,21209}},
     },
     turnins = {
@@ -51595,7 +51595,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{51.12,60.30,nil,nil,7,nil,1,21209}},
     },
     },
-    [10764] = { t = "Hotter than Hell", z = 3483, rl = 68, ql = 70, rr = 1101, ps = {10763}, maps = {
+    [10764] = { t = "Hotter than Hell", z = 3483, rl = 68, ql = 70, rr = 1101, ps = {10763}, si = {31251}, maps = {
       [1944] = {{71.36,43.95,nil,nil,2,"Charred Key Mold",3,31252,{18733},nil,1}, {48.33,28.16,nil,nil,2,"Charred Key Mold",3,31252,{18733},nil,1}},
     },
     turnins = {
@@ -51645,7 +51645,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{51.23,62.75,nil,nil,7,nil,1,21998}, {52.45,59.19,nil,nil,7,nil,1,21998}},
     },
     },
-    [10769] = { t = "Dissension Amongst the Ranks...", z = 3520, rl = 67, ql = 70, rr = 690, ps = {10768}, maps = {
+    [10769] = { t = "Dissension Amongst the Ranks...", z = 3520, rl = 67, ql = 70, rr = 690, ps = {10768}, si = {31279}, maps = {
       [1948] = {{34.38,66.87,nil,nil,1,"Crazed Colossus slain while in disguise",1,19823,nil,nil,1}, {39.03,70.19,3.67,8,1,"Crazed Colossus slain while in disguise",1,19823,nil,nil,1,{35.51,69.13,37.09,68.56,40.47,69.24,42.52,71.25,41.23,71.44,40.00,71.27,36.87,70.25}}},
     },
     turnins = {
@@ -51665,7 +51665,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{61.25,38.45,nil,nil,7,nil,1,22053}},
     },
     },
-    [10771] = { t = "From the Ashes", z = 3522, rl = 65, ql = 67, maps = {
+    [10771] = { t = "From the Ashes", z = 3522, rl = 65, ql = 67, si = {31300}, maps = {
       [1949] = {{71.66,22.35,nil,nil,4,"Southern Volcanic Soil",2,185124,nil,nil,1}, {71.59,20.35,nil,nil,4,"Central Volcanic Soil",2,185147,nil,nil,2}, {71.59,18.47,nil,nil,4,"Northern Volcanic Soil",2,185148,nil,nil,3}},
     },
     turnins = {
@@ -51675,7 +51675,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{61.25,38.45,nil,nil,7,nil,1,22053}},
     },
     },
-    [10772] = { t = "The Path of Conquest", z = 3520, rl = 68, ql = 70, rr = 1101, nc = 10773, sf = 2, maps = {
+    [10772] = { t = "The Path of Conquest", z = 3520, rl = 68, ql = 70, rr = 1101, nc = 10773, sf = 2, si = {31310}, maps = {
       [1948] = {{51.23,62.75,nil,nil,3,"The Path of Conquest Discovered"}, {52.45,59.19,nil,nil,3,"The Path of Conquest Discovered"}},
     },
     turnins = {
@@ -51715,7 +51715,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{51.23,62.75,nil,nil,7,nil,1,22059}, {52.45,59.19,nil,nil,7,nil,1,22059}},
     },
     },
-    [10776] = { t = "Dissension Amongst the Ranks...", z = 3520, rl = 68, ql = 70, rr = 1101, ps = {10775}, maps = {
+    [10776] = { t = "Dissension Amongst the Ranks...", z = 3520, rl = 68, ql = 70, rr = 1101, ps = {10775}, si = {31279}, maps = {
       [1948] = {{34.38,66.87,nil,nil,1,"Crazed Colossus slain while in disguise",1,19823,nil,nil,1}, {39.03,70.19,3.67,8,1,"Crazed Colossus slain while in disguise",1,19823,nil,nil,1,{35.51,69.13,37.09,68.56,40.47,69.24,42.52,71.25,41.23,71.44,40.00,71.27,36.87,70.25}}},
     },
     turnins = {
@@ -51765,7 +51765,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{51.38,72.79,nil,nil,7,nil,2,185126}},
     },
     },
-    [10782] = { t = "Imbuing the Headpiece", z = 3520, rl = 67, ql = 69, ps = {10780}, nc = 10808, maps = {
+    [10782] = { t = "Imbuing the Headpiece", z = 3520, rl = 67, ql = 69, ps = {10780}, nc = 10808, si = {31360}, maps = {
       [1948] = {{35.42,42.15,nil,nil,6,nil,1,22024}},
     },
     turnins = {
@@ -51795,7 +51795,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{51.94,58.41,nil,nil,7,nil,1,21147}},
     },
     },
-    [10785] = { t = "It's a Trap!", z = 3522, rl = 65, ql = 67, rr = 690, ps = {10721}, nc = 10723, maps = {
+    [10785] = { t = "It's a Trap!", z = 3522, rl = 65, ql = 67, rr = 690, ps = {10721}, nc = 10723, si = {31351}, maps = {
       [1949] = {{51.82,58.35,nil,nil,6,nil,1,21984}},
     },
     turnins = {
@@ -51848,7 +51848,7 @@ VanillaEnhancedQuestsDB = {
       [1954] = {{74.39,47.15,nil,nil,7,nil,1,16647}},
     },
     },
-    [10791] = { t = "Welcoming the Wolf Spirit", z = 3519, rl = 62, ql = 64, rr = 690, ps = {10023}, maps = {
+    [10791] = { t = "Welcoming the Wolf Spirit", z = 3519, rl = 62, ql = 64, rr = 690, ps = {10023}, si = {31344}, maps = {
       [1952] = {{50.18,46.44,nil,nil,1,"Malukaz",1,18384,nil,nil,1}},
     },
     turnins = {
@@ -51858,7 +51858,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{50.18,46.44,nil,nil,7,nil,1,18384}},
     },
     },
-    [10792] = { t = "Zeth'Gor Must Burn!", z = 3483, rl = 58, ql = 61, rr = 690, ps = {10809}, maps = {
+    [10792] = { t = "Zeth'Gor Must Burn!", z = 3483, rl = 58, ql = 61, rr = 690, ps = {10809}, si = {31347,31346}, maps = {
       [1944] = {{69.49,76.36,nil,nil,1,"Barracks",1,20813,nil,nil,1}, {69.93,70.23,nil,nil,1,"Eastern Hovel",1,20815,nil,nil,2}, {67.23,76.31,nil,nil,1,"Western Hovel",1,20816,nil,nil,3}, {68.53,73.68,nil,nil,1,"Stable",1,20814,nil,nil,4}, {66.76,72.81,7.58,33,2,"Bleeding Hollow Torch",3,31347,{16907},{16907,80},nil,{60.19,76.60,65.83,67.86,68.07,67.12,70.55,70.83,70.97,71.63,70.68,76.31,70.45,77.64,70.34,78.00,63.30,77.48}}},
     },
     turnins = {
@@ -51868,7 +51868,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{61.21,81.32,nil,nil,7,nil,1,22107}},
     },
     },
-    [10793] = { t = "The Journal of Val'zareq: Portends of War", z = 3520, rl = 68, ql = 70, nc = 10781, maps = {
+    [10793] = { t = "The Journal of Val'zareq: Portends of War", z = 3520, rl = 68, ql = 70, nc = 10781, si = {31345}, maps = {
       [1948] = {{51.38,72.79,nil,nil,6,nil,2,185126}},
     },
     turnins = {
@@ -51905,7 +51905,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{61.99,37.94,nil,nil,7,nil,1,22150}},
     },
     },
-    [10797] = { t = "Favor of the Gronn", z = 3522, rl = 65, ql = 67, rr = 1101, nc = 10798, maps = {
+    [10797] = { t = "Favor of the Gronn", z = 3522, rl = 65, ql = 67, rr = 1101, nc = 10798, si = {31363}, maps = {
       [1949] = {{61.99,37.98,nil,nil,6,nil,1,22149}},
     },
     turnins = {
@@ -51936,7 +51936,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{53.25,41.18,nil,nil,7,nil,1,22103}},
     },
     },
-    [10800] = { t = "Goodnight, Gronn", z = 3522, rl = 65, ql = 67, rr = 1101, ps = {10799}, nc = 10801, maps = {
+    [10800] = { t = "Goodnight, Gronn", z = 3522, rl = 65, ql = 67, rr = 1101, ps = {10799}, nc = 10801, si = {31403}, maps = {
       [1949] = {{60.89,47.78,nil,nil,4,"Grulloc's Sack",3,31349,nil,nil,1}},
     },
     turnins = {
@@ -51946,7 +51946,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{53.25,41.18,nil,nil,7,nil,1,22103}},
     },
     },
-    [10801] = { t = "It's a Trap!", z = 3522, rl = 65, ql = 67, rr = 1101, ps = {10800}, nc = 10802, maps = {
+    [10801] = { t = "It's a Trap!", z = 3522, rl = 65, ql = 67, rr = 1101, ps = {10800}, nc = 10802, si = {31351}, maps = {
       [1949] = {{61.99,37.98,nil,nil,6,nil,1,22149}},
     },
     turnins = {
@@ -51956,7 +51956,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{53.25,41.18,nil,nil,7,nil,1,22103}},
     },
     },
-    [10802] = { t = "Gorgrom the Dragon-Eater", z = 3522, rl = 65, ql = 68, rr = 1101, ps = {10801}, nc = 10818, maps = {
+    [10802] = { t = "Gorgrom the Dragon-Eater", z = 3522, rl = 65, ql = 68, rr = 1101, ps = {10801}, nc = 10818, si = {31827,31754}, maps = {
       [1949] = {{30.65,22.10,nil,nil,1,"Gorgrom the Dragon-Eater",1,21514,nil,nil,1}, {30.58,22.51,2.60,19,2,"Grisly Totem",3,31754,{21046,21047,21048},{21046,50,21047,45,21048,5},nil,{29.58,23.75,29.79,21.52,31.17,19.97,31.99,21.34,31.98,21.92,31.83,22.74,30.98,24.33,30.22,24.71}}},
     },
     turnins = {
@@ -51976,7 +51976,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{61.99,37.94,nil,nil,7,nil,1,22150}},
     },
     },
-    [10804] = { t = "Kindness", z = 3520, rl = 70, ql = 70, nc = 10811, maps = {
+    [10804] = { t = "Kindness", z = 3520, rl = 70, ql = 70, nc = 10811, si = {31372,31373}, maps = {
       [1948] = {{59.00,54.69,4.08,9,1,"Mature Netherwing Drake",1,21648,nil,nil,1,{54.99,55.47,58.91,53.25,61.67,53.67,61.92,54.58,57.43,57.27}}, {62.48,58.35,3.46,9,1,"Mature Netherwing Drake",1,21648,nil,nil,1,{60.12,59.60,60.20,58.28,65.00,55.99,64.40,58.26,62.88,60.01}}, {61.71,57.80,4.78,7,2,"Rocknail Flayer Carcass",3,31372,{21477},{21477,86.628},nil,{58.39,56.28,63.18,53.26,64.04,55.94,63.69,61.51,59.31,60.24}}, {62.15,56.80,5.11,43,2,"Rocknail Flayer Giblets",3,31373,{21478},{21478,82.79},nil,{58.45,56.75,58.52,56.34,60.52,54.00,63.16,53.49,64.45,54.44,65.21,56.89,65.22,57.26,64.17,61.50,62.37,61.16,59.64,60.31}}},
     },
     turnins = {
@@ -51996,7 +51996,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{53.25,41.18,nil,nil,7,nil,1,22103}},
     },
     },
-    [10806] = { t = "Showdown", z = 3522, rl = 65, ql = 70, rr = 1101, ps = {10805}, maps = {
+    [10806] = { t = "Showdown", z = 3522, rl = 65, ql = 70, rr = 1101, ps = {10805}, si = {31808}, maps = {
       [1949] = {{63.79,19.43,nil,nil,1,"Goc",1,20555,nil,nil,1}},
     },
     turnins = {
@@ -52016,7 +52016,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{54.73,58.19,nil,nil,7,nil,1,21953}},
     },
     },
-    [10808] = { t = "Thwart the Dark Conclave", z = 3520, rl = 67, ql = 69, ps = {10782}, maps = {
+    [10808] = { t = "Thwart the Dark Conclave", z = 3520, rl = 67, ql = 69, ps = {10782}, si = {31386}, maps = {
       [1948] = {{40.36,61.21,nil,nil,1,"Summoned Old God",1,22137,nil,nil,1}},
     },
     turnins = {
@@ -52036,7 +52036,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{61.20,80.62,nil,nil,7,nil,2,185166}},
     },
     },
-    [10810] = { t = "Damaged Mask", z = 3522, rl = 65, ql = 68, nc = 10812, maps = {
+    [10810] = { t = "Damaged Mask", z = 3522, rl = 65, ql = 68, nc = 10812, si = {31384}, maps = {
       [1949] = {{62.65,40.38,nil,nil,6,nil,1,22020}},
     },
     turnins = {
@@ -52053,7 +52053,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{59.19,58.69,nil,nil,7,nil,1,22113}},
     },
     },
-    [10812] = { t = "Mystery Mask", z = 3522, rl = 65, ql = 68, ps = {10810}, nc = 10819, maps = {
+    [10812] = { t = "Mystery Mask", z = 3522, rl = 65, ql = 68, ps = {10810}, nc = 10819, si = {31387}, maps = {
       [1949] = {{62.31,40.05,nil,nil,6,nil,1,22127}},
     },
     turnins = {
@@ -52063,7 +52063,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{62.65,40.38,nil,nil,7,nil,1,22020}},
     },
     },
-    [10813] = { t = "The Eyes of Grillok", z = 3483, rl = 58, ql = 62, rr = 690, ps = {10809}, nc = 10834, maps = {
+    [10813] = { t = "The Eyes of Grillok", z = 3483, rl = 58, ql = 62, rr = 690, ps = {10809}, nc = 10834, si = {31463}, maps = {
       [1944] = {{67.29,72.12,nil,nil,1,"Eye of Grillok",1,19440,nil,nil,1}, {67.01,72.52,nil,nil,1,"Eye of Grillok",1,19440,nil,nil,1}, {68.99,75.54,nil,nil,1,"Eye of Grillok",1,19440,nil,nil,1}, {69.23,69.80,nil,nil,1,"Eye of Grillok",1,19440,nil,nil,1}, {61.69,81.81,nil,nil,1,"Eye of Grillok Quest Credit Bunny",1,22177,nil,nil,1}},
     },
     turnins = {
@@ -52113,7 +52113,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{61.99,37.98,nil,nil,7,nil,1,22149}},
     },
     },
-    [10819] = { t = "Felsworn Gas Mask", z = 3522, rl = 65, ql = 68, ps = {10812}, nc = 10820, maps = {
+    [10819] = { t = "Felsworn Gas Mask", z = 3522, rl = 65, ql = 68, ps = {10812}, nc = 10820, si = {31366}, maps = {
       [1949] = {{73.27,40.03,nil,nil,6,nil,2,185165}},
     },
     turnins = {
@@ -52133,7 +52133,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{73.27,40.03,nil,nil,7,nil,2,185165}},
     },
     },
-    [10821] = { t = "You're Fired!", z = 3522, rl = 65, ql = 68, ps = {10820}, nc = 10910, maps = {
+    [10821] = { t = "You're Fired!", z = 3522, rl = 65, ql = 68, ps = {10820}, nc = 10910, si = {31536}, maps = {
       [1949] = {{73.37,41.14,2.68,9,2,"Camp Anger Key",3,31536,{16952},{16952,66.544},nil,{72.82,40.37,74.01,38.54,74.37,41.90,73.39,43.64,72.91,41.97}}},
     },
     turnins = {
@@ -52179,7 +52179,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{56.29,58.80,nil,nil,7,nil,1,22211}},
     },
     },
-    [10825] = { t = "The Truth Unorbed", z = 3522, rl = 66, ql = 68, nc = 10829, maps = {
+    [10825] = { t = "The Truth Unorbed", z = 3522, rl = 66, ql = 68, nc = 10829, si = {31489}, maps = {
       [1949] = {{61.98,39.48,nil,nil,6,nil,1,22007}},
     },
     turnins = {
@@ -52238,7 +52238,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{61.98,39.48,nil,nil,7,nil,1,22007}},
     },
     },
-    [10830] = { t = "Exorcising the Trees", z = 3522, rl = 66, ql = 68, ps = {10829}, maps = {
+    [10830] = { t = "Exorcising the Trees", z = 3522, rl = 66, ql = 68, ps = {10829}, si = {31517,31495,31518}, maps = {
       [1949] = {{29.49,28.97,1.09,3,1,"Leafbeard Exorcised",1,22226,nil,nil,1,{28.91,28.05,30.05,29.74,29.52,29.12}}, {29.50,32.97,nil,nil,1,"Leafbeard Exorcised",1,22226,nil,nil,1}, {34.38,21.07,3.41,6,1,"Leafbeard Exorcised",1,22226,nil,nil,1,{33.52,21.46,33.72,19.78,34.30,17.66,35.80,23.25,33.77,22.92}}, {36.13,28.22,4.18,11,1,"Leafbeard Exorcised",1,22226,nil,nil,1,{32.55,30.07,34.41,27.73,36.17,25.67,38.17,24.90,40.25,28.92,36.00,29.92}}, {37.38,17.58,nil,nil,1,"Leafbeard Exorcised",1,22226,nil,nil,1}, {34.75,29.16,5.78,14,2,"Dire Pinfeather",3,31517,{21042},{21042,72.099},nil,{28.98,29.57,29.94,28.39,38.44,25.84,39.51,29.13,37.29,30.64,29.85,30.96,29.41,30.96}}, {35.21,20.79,3.67,9,2,"Dire Pinfeather",3,31517,{21042},{21042,72.099},nil,{33.53,20.74,35.52,17.67,36.86,19.06,36.22,22.17,33.99,24.25}}, {40.83,22.00,6.26,24,4,"Grishnath Orb",3,31495,nil,nil,nil,{38.82,24.83,39.31,17.41,41.35,16.66,42.36,18.66,42.74,20.91,42.76,21.08,42.65,21.50,39.53,28.12}}},
     },
     turnins = {
@@ -52248,7 +52248,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{37.17,22.10,nil,nil,7,nil,1,22215}},
     },
     },
-    [10831] = { t = "Becoming a Mooncloth Tailor", z = -264, rl = 60, ql = 70, sk = {197,350}, ex = {10832,10833}, maps = {
+    [10831] = { t = "Becoming a Mooncloth Tailor", z = -264, rl = 60, ql = 70, sk = {197,350}, ex = {10832,10833}, si = {31522}, maps = {
       [1946] = {{80.32,65.06,nil,nil,4,"Sample of Primal Mooncloth",3,31530,nil,nil,1}},
     },
     turnins = {
@@ -52258,7 +52258,7 @@ VanillaEnhancedQuestsDB = {
       [1955] = {{66.55,69.33,nil,nil,7,nil,1,22208}},
     },
     },
-    [10832] = { t = "Becoming a Spellfire Tailor", z = -264, rl = 60, ql = 70, sk = {197,350}, ex = {10831,10833}, maps = {
+    [10832] = { t = "Becoming a Spellfire Tailor", z = -264, rl = 60, ql = 70, sk = {197,350}, ex = {10831,10833}, si = {31742}, maps = {
       [1953] = {{35.60,66.60,nil,nil,2,"Nether-wraith Essence",3,31741,{22408},{22408,100},1}},
     },
     turnins = {
@@ -52268,7 +52268,7 @@ VanillaEnhancedQuestsDB = {
       [1955] = {{66.82,68.75,nil,nil,7,nil,1,22213}},
     },
     },
-    [10833] = { t = "Becoming a Shadoweave Tailor", z = -264, rl = 60, ql = 70, sk = {197,350}, ex = {10831,10832}, maps = {
+    [10833] = { t = "Becoming a Shadoweave Tailor", z = -264, rl = 60, ql = 70, sk = {197,350}, ex = {10831,10832}, si = {31736}, maps = {
       [1948] = {{58.30,70.92,nil,nil,1,"Deepen Altar of Shadows Attunement",1,22395,nil,nil,1}},
     },
     turnins = {
@@ -52288,7 +52288,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{61.66,81.86,nil,nil,7,nil,1,22231}},
     },
     },
-    [10835] = { t = "Apothecary Antonivich", z = 3483, rl = 58, ql = 61, rr = 690, ps = {10538}, nc = 10864, maps = {
+    [10835] = { t = "Apothecary Antonivich", z = 3483, rl = 58, ql = 61, rr = 690, ps = {10538}, nc = 10864, si = {31550}, maps = {
       [1944] = {{52.28,36.46,nil,nil,6,nil,1,16588}},
     },
     turnins = {
@@ -52318,7 +52318,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{61.31,59.98,nil,nil,7,nil,1,21657}},
     },
     },
-    [10838] = { t = "The Demoniac Scryer", z = 3483, rl = 58, ql = 61, rr = 690, ps = {10864}, nc = 10875, maps = {
+    [10838] = { t = "The Demoniac Scryer", z = 3483, rl = 58, ql = 61, rr = 690, ps = {10864}, nc = 10875, si = {31606}, maps = {
       [1944] = {{44.07,51.04,nil,nil,2,"Demoniac Scryer Reading",3,31607,{22258},nil,1}, {44.00,51.00,nil,nil,3,"Use the Demoniac Scryer"}},
     },
     turnins = {
@@ -52328,7 +52328,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{52.28,36.46,nil,nil,7,nil,1,16588}},
     },
     },
-    [10839] = { t = "Veil Skith: Darkstone of Terokk", z = 3519, rl = 62, ql = 64, ps = {10849}, nc = 10848, sf = 2, maps = {
+    [10839] = { t = "Veil Skith: Darkstone of Terokk", z = 3519, rl = 62, ql = 64, ps = {10849}, nc = 10848, sf = 2, si = {31610}, maps = {
       [1952] = {{30.82,42.02,nil,nil,4,"Darkstone of Terokk",2,185191,nil,nil,1}},
     },
     turnins = {
@@ -52348,7 +52348,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{37.45,50.76,nil,nil,7,nil,1,22278}},
     },
     },
-    [10842] = { t = "The Vengeful Harbinger", z = 3519, rl = 63, ql = 65, ps = {10915,10852}, maps = {
+    [10842] = { t = "The Vengeful Harbinger", z = 3519, rl = 63, ql = 65, ps = {10915,10852}, si = {30527}, maps = {
       [1952] = {{50.88,54.76,nil,nil,1,"Vengeful Harbinger",1,21638,nil,nil,1}},
     },
     turnins = {
@@ -52408,7 +52408,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{37.45,51.54,nil,nil,7,nil,1,22272}},
     },
     },
-    [10849] = { t = "Seek Out Kirrik", z = 3519, rl = 62, ql = 63, ps = {10847}, nc = 10839, maps = {
+    [10849] = { t = "Seek Out Kirrik", z = 3519, rl = 62, ql = 63, ps = {10847}, nc = 10839, si = {31662}, maps = {
       [1952] = {{37.45,51.54,nil,nil,6,nil,1,22272}},
     },
     turnins = {
@@ -52438,7 +52438,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{74.91,60.47,nil,nil,7,nil,1,22312}},
     },
     },
-    [10852] = { t = "Missing Friends", z = 3519, rl = 62, ql = 64, ps = {10849}, maps = {
+    [10852] = { t = "Missing Friends", z = 3519, rl = 62, ql = 64, ps = {10849}, si = {31655}, maps = {
       [1952] = {{30.90,42.65,2.00,14,1,"Captive Child",1,22314,nil,nil,1,{29.60,42.91,31.13,40.67,31.14,40.66,31.47,42.38,31.47,42.40,30.61,43.90,29.61,42.93}}, {31.20,41.88,3.47,25,2,"Veil Skith Prison Key",3,31655,{18452,18453},nil,nil,{30.02,42.53,30.12,41.55,31.04,39.60,31.38,39.41,32.18,40.16,32.61,41.15,32.22,42.85,31.13,45.35,30.27,43.97,30.02,43.13}}},
     },
     turnins = {
@@ -52448,7 +52448,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{37.74,51.34,nil,nil,7,nil,1,22365}},
     },
     },
-    [10853] = { t = "Spirit Calling", z = 3522, rl = 65, ql = 67, rr = 690, ps = {10851}, nc = 10859, maps = {
+    [10853] = { t = "Spirit Calling", z = 3522, rl = 65, ql = 67, rr = 690, ps = {10851}, nc = 10859, si = {31663}, maps = {
       [1949] = {{62.58,76.20,5.36,22,2,"Lesser Nether Drake Spirit",3,31656,{21004},{21004,100},1,{59.13,75.14,59.15,74.06,59.45,72.63,67.70,74.59,67.26,78.06,61.08,79.26,60.30,79.07,59.32,76.70}}},
     },
     turnins = {
@@ -52458,7 +52458,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{74.91,60.47,nil,nil,7,nil,1,22312}},
     },
     },
-    [10854] = { t = "The Force of Neltharaku", z = 3520, rl = 70, ql = 70, ps = {10837}, nc = 10858, maps = {
+    [10854] = { t = "The Force of Neltharaku", z = 3520, rl = 70, ql = 70, ps = {10837}, nc = 10858, si = {31652}, maps = {
       [1948] = {{69.44,61.42,3.72,15,1,"Enslaved Netherwing Drake",1,21722,nil,nil,1,{66.89,61.08,67.27,59.75,68.37,57.97,72.14,61.49,72.23,62.75,71.67,64.18,71.03,64.78}}},
     },
     turnins = {
@@ -52468,7 +52468,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{61.31,59.98,nil,nil,7,nil,1,21657}},
     },
     },
-    [10855] = { t = "Fel Reavers, No Thanks!", z = 3523, rl = 67, ql = 69, nc = 10856, maps = {
+    [10855] = { t = "Fel Reavers, No Thanks!", z = 3523, rl = 67, ql = 69, nc = 10856, si = {31653}, maps = {
       [1953] = {{35.86,28.85,nil,nil,1,"Inactive Fel Reaver",1,22293,nil,nil,1}, {36.73,25.15,nil,nil,1,"Inactive Fel Reaver",1,22293,nil,nil,1}, {37.95,25.69,nil,nil,1,"Inactive Fel Reaver",1,22293,nil,nil,1}, {37.39,27.93,3.33,28,2,"Condensed Nether Gas",3,31653,{16949},{16949,25},nil,{35.42,28.27,36.01,25.66,36.74,24.75,38.73,24.89,39.52,27.52,39.22,28.65,38.01,30.46,37.31,31.00,36.27,30.04,35.53,29.00}}},
     },
     turnins = {
@@ -52488,7 +52488,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{44.70,34.94,nil,nil,7,nil,1,20471}},
     },
     },
-    [10857] = { t = "Teleport This!", z = 3523, rl = 67, ql = 69, ps = {10856}, maps = {
+    [10857] = { t = "Teleport This!", z = 3523, rl = 67, ql = 69, ps = {10856}, si = {31678}, maps = {
       [1953] = {{39.20,20.43,nil,nil,1,"Western Gehenna Teleporter Credit",1,22348,nil,nil,1}, {41.08,19.42,nil,nil,1,"Central Gehenna Teleporter Credit",1,22350,nil,nil,2}, {42.28,21.08,nil,nil,1,"Eastern Gehenna Teleporter Credit",1,22351,nil,nil,3}},
     },
     turnins = {
@@ -52508,7 +52508,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{61.31,59.98,nil,nil,7,nil,1,21657}},
     },
     },
-    [10859] = { t = "Gather the Orbs", z = 3522, rl = 65, ql = 67, rr = 690, ps = {10853}, nc = 10865, maps = {
+    [10859] = { t = "Gather the Orbs", z = 3522, rl = 65, ql = 67, rr = 690, ps = {10853}, nc = 10865, si = {31668}, maps = {
       [1949] = {{66.82,41.67,0.56,8,1,"Razaani Light Orb",1,20635,nil,nil,1,{66.48,41.65,66.63,41.29,67.10,41.19,67.11,41.26,67.12,41.82,66.85,42.00,66.65,42.09,66.61,42.05}}},
     },
     turnins = {
@@ -52578,7 +52578,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{74.91,60.47,nil,nil,7,nil,1,22312}},
     },
     },
-    [10866] = { t = "Zuluhed the Whacked", z = 3520, rl = 70, ql = 70, rr = 1790, ps = {10858}, nc = 10870, maps = {
+    [10866] = { t = "Zuluhed the Whacked", z = 3520, rl = 70, ql = 70, rr = 1790, ps = {10858}, nc = 10870, si = {31664}, maps = {
       [1948] = {{69.84,61.29,nil,nil,4,"Zuluhed's Chains",2,185156,nil,nil,1}, {71.00,62.20,nil,nil,1,"Zuluhed the Whacked",1,11980,nil,nil,2}, {71.00,62.20,nil,nil,2,"Zuluhed's Key",3,31664,{11980},{11980,100}}},
     },
     turnins = {
@@ -52638,7 +52638,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{69.86,61.44,nil,nil,7,nil,1,22112}},
     },
     },
-    [10872] = { t = "Zuluhed the Whacked", z = 3520, rl = 70, ql = 70, rr = 1, ps = {10858}, nc = 10871, maps = {
+    [10872] = { t = "Zuluhed the Whacked", z = 3520, rl = 70, ql = 70, rr = 1, ps = {10858}, nc = 10871, si = {31664}, maps = {
       [1948] = {{69.84,61.29,nil,nil,4,"Zuluhed's Chains",2,185156,nil,nil,1}, {71.00,62.20,nil,nil,1,"Zuluhed the Whacked",1,11980,nil,nil,2}, {71.00,62.20,nil,nil,2,"Zuluhed's Key",3,31664,{11980},{11980,100}}},
     },
     turnins = {
@@ -52678,7 +52678,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{52.28,36.46,nil,nil,7,nil,1,16588}},
     },
     },
-    [10876] = { t = "The Foot of the Citadel", z = 3483, rl = 58, ql = 63, rr = 690, ps = {10875}, maps = {
+    [10876] = { t = "The Foot of the Citadel", z = 3483, rl = 58, ql = 63, rr = 690, ps = {10875}, si = {31702}, maps = {
       [1944] = {{47.31,49.66,nil,nil,2,"The Head of the Hand of Kargath",3,31706,{22374},{22374,100},1}},
     },
     turnins = {
@@ -52688,7 +52688,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{55.02,35.96,nil,nil,7,nil,1,3230}},
     },
     },
-    [10877] = { t = "The Dread Relic", z = 3519, rl = 63, ql = 66, nc = 10923, maps = {
+    [10877] = { t = "The Dread Relic", z = 3519, rl = 63, ql = 66, nc = 10923, si = {31705}, maps = {
       [1952] = {{43.92,76.40,nil,nil,4,"Dread Relic",3,31697,nil,nil,1}},
     },
     turnins = {
@@ -52718,7 +52718,7 @@ VanillaEnhancedQuestsDB = {
       [1955] = {{51.74,20.83,nil,nil,7,nil,1,22373}},
     },
     },
-    [10880] = { t = "Cabal Orders", z = 3519, rl = 62, ql = 64, nc = 10881, maps = {
+    [10880] = { t = "Cabal Orders", z = 3519, rl = 62, ql = 64, nc = 10881, si = {31707}, maps = {
       [1952] = {{37.84,51.84,nil,nil,6,nil,1,22370}},
     },
     turnins = {
@@ -52845,7 +52845,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{50.03,35.95,nil,nil,7,nil,1,22386}},
     },
     },
-    [10894] = { t = "Wyrmskull Watcher", z = 3522, rl = 65, ql = 67, ps = {10719}, nc = 10893, maps = {
+    [10894] = { t = "Wyrmskull Watcher", z = 3522, rl = 65, ql = 67, ps = {10719}, nc = 10893, si = {31740}, maps = {
       [1949] = {{50.03,35.95,nil,nil,6,nil,1,22386}},
     },
     turnins = {
@@ -52855,7 +52855,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{61.98,39.48,nil,nil,7,nil,1,22007}},
     },
     },
-    [10895] = { t = "Zeth'Gor Must Burn!", z = 3483, rl = 58, ql = 60, rr = 1101, maps = {
+    [10895] = { t = "Zeth'Gor Must Burn!", z = 3483, rl = 58, ql = 60, rr = 1101, si = {31739}, maps = {
       [1944] = {{67.98,66.73,nil,nil,1,"Northern Tower Marked",1,22401,nil,nil,1}, {66.46,76.47,nil,nil,1,"Southern Tower Marked",1,21182,nil,nil,2}, {70.13,69.06,nil,nil,1,"Forge Tower Marked",1,22402,nil,nil,3}, {70.92,71.45,nil,nil,1,"Foothill Tower Marked",1,22403,nil,nil,4}},
     },
     turnins = {
@@ -52981,7 +52981,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{37.45,51.54,nil,nil,7,nil,1,22272}},
     },
     },
-    [10909] = { t = "Fel Spirits", z = 3483, rl = 58, ql = 61, rr = 1101, ps = {10903}, nc = 10935, maps = {
+    [10909] = { t = "Fel Spirits", z = 3483, rl = 58, ql = 61, rr = 1101, ps = {10903}, nc = 10935, si = {31772}, maps = {
       [1944] = {{44.90,74.35,1.09,4,1,"Jules Avenged",1,22454,nil,nil,1,{44.40,74.00,45.60,73.60,44.60,75.40}}, {45.00,74.40,nil,nil,3,"Place the Achorite Relic"}},
     },
     turnins = {
@@ -52991,7 +52991,7 @@ VanillaEnhancedQuestsDB = {
       [1944] = {{54.32,63.65,nil,nil,7,nil,1,22430}},
     },
     },
-    [10910] = { t = "Death's Door", z = 3522, rl = 65, ql = 68, ps = {10821}, nc = 10904, maps = {
+    [10910] = { t = "Death's Door", z = 3522, rl = 65, ql = 68, ps = {10821}, nc = 10904, si = {31763}, maps = {
       [1949] = {{61.40,59.90,nil,nil,6,nil,1,22423}, {64.90,68.10,nil,nil,6,nil,1,22423}},
     },
     turnins = {
@@ -53001,7 +53001,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{62.31,40.05,nil,nil,7,nil,1,22127}},
     },
     },
-    [10911] = { t = "Fire At Will!", z = 3522, rl = 65, ql = 68, ps = {10904}, nc = 10912, maps = {
+    [10911] = { t = "Fire At Will!", z = 3522, rl = 65, ql = 68, ps = {10904}, nc = 10912, si = {31807}, maps = {
       [1949] = {{65.08,67.18,nil,nil,1,"Death's Door South Warp-Gate",1,22472,nil,nil,1}, {62.08,61.38,nil,nil,1,"Death's Door North Warp-Gate",1,22471,nil,nil,2}},
     },
     turnins = {
@@ -53011,7 +53011,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{61.40,59.90,nil,nil,7,nil,1,22423}, {64.90,68.10,nil,nil,7,nil,1,22423}},
     },
     },
-    [10912] = { t = "The Hound-Master", z = 3522, rl = 65, ql = 68, ps = {10911}, maps = {
+    [10912] = { t = "The Hound-Master", z = 3522, rl = 65, ql = 68, ps = {10911}, si = {31809}, maps = {
       [1949] = {{63.04,60.41,nil,nil,1,"Baelmon the Hound-Master",1,19747,nil,nil,1}},
     },
     turnins = {
@@ -53021,7 +53021,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{61.40,59.90,nil,nil,7,nil,1,22423}, {64.90,68.10,nil,nil,7,nil,1,22423}},
     },
     },
-    [10913] = { t = "An Improper Burial", z = 3519, rl = 63, ql = 65, nc = 10914, maps = {
+    [10913] = { t = "An Improper Burial", z = 3519, rl = 63, ql = 65, nc = 10914, si = {31769}, maps = {
       [1952] = {{34.45,75.77,3.15,36,1,"Slain Sha'tar Vindicator",1,21859,nil,nil,1,{32.07,74.65,32.59,73.44,32.69,73.33,33.34,73.19,37.44,75.92,37.42,76.84,34.60,77.31,33.12,76.50,32.52,75.97}}, {34.55,75.82,3.11,34,1,"Slain Auchenai Warrior",1,21846,nil,nil,2,{32.36,74.68,32.39,74.35,32.59,73.44,32.69,73.33,33.34,73.19,37.44,75.92,37.42,76.84,34.60,77.31,33.12,76.50,32.52,75.97}}},
     },
     turnins = {
@@ -53121,7 +53121,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{31.27,76.09,nil,nil,7,nil,1,22458}},
     },
     },
-    [10923] = { t = "Evil Draws Near", z = 3519, rl = 63, ql = 65, ps = {10877}, maps = {
+    [10923] = { t = "Evil Draws Near", z = 3519, rl = 63, ql = 65, ps = {10877}, si = {31811,31812}, maps = {
       [1952] = {{48.70,67.20,nil,nil,1,"Teribus the Cursed",1,22441,nil,nil,1}, {35.26,69.57,5.72,9,2,"Doom Skull",3,31812,{21242,21285},{21242,57.75,21285,55.572},nil,{32.49,74.58,35.73,65.15,35.99,65.13,36.94,74.57}}, {48.94,67.34,1.78,23,2,"Doom Skull",3,31812,{21242,21285},{21242,57.75,21285,55.572},nil,{47.62,66.14,49.40,65.65,50.32,68.07,50.04,68.39,49.05,68.80,47.88,68.12}}},
     },
     turnins = {
@@ -53131,7 +53131,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{31.06,76.53,nil,nil,7,nil,1,22456}},
     },
     },
-    [10924] = { t = "Bloody Imp-ossible!", z = 3523, rl = 67, ql = 69, maps = {
+    [10924] = { t = "Bloody Imp-ossible!", z = 3523, rl = 67, ql = 69, si = {31815}, maps = {
       [1953] = {{54.94,60.54,8.25,26,2,"Warp Chaser Blood",3,31813,{18884},nil,1,{52.06,68.28,53.33,57.01,53.43,56.85,56.70,56.03,59.59,58.00,53.45,67.82}}, {64.66,61.97,8.67,41,2,"Warp Chaser Blood",3,31813,{18884},nil,1,{60.27,59.18,61.12,58.37,62.42,57.43,66.38,57.59,67.74,59.41,68.21,60.49,68.70,62.87,67.57,66.53,65.01,68.47,61.77,70.05,60.56,69.61}}},
     },
     turnins = {
@@ -53171,7 +53171,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{52.96,96.22,nil,nil,7,nil,1,22489}},
     },
     },
-    [10929] = { t = "Fumping", z = 3519, rl = 63, ql = 65, ps = {10922}, nc = 10930, maps = {
+    [10929] = { t = "Fumping", z = 3519, rl = 63, ql = 65, ps = {10922}, nc = 10930, si = {31810}, maps = {
       [1952] = {{31.90,76.30,nil,nil,2,"Mature Bone Sifter Carcass",3,31814,{22482},{22482,100},1}, {31.90,76.30,nil,nil,3,"Use the Fumper to lure Mature Bone Sifter"}},
     },
     turnins = {
@@ -53181,7 +53181,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{30.98,76.19,nil,nil,7,nil,1,22481}},
     },
     },
-    [10930] = { t = "The Big Bone Worm", z = 3519, rl = 63, ql = 65, ps = {10929}, maps = {
+    [10930] = { t = "The Big Bone Worm", z = 3519, rl = 63, ql = 65, ps = {10929}, si = {31825}, maps = {
       [1952] = {{30.98,76.19,nil,nil,6,nil,1,22481}},
     },
     turnins = {
@@ -53191,7 +53191,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{30.98,76.19,nil,nil,7,nil,1,22481}},
     },
     },
-    [10935] = { t = "The Exorcism of Colonel Jules", z = 3483, rl = 58, ql = 61, rr = 1101, ps = {10909}, nc = 10936, maps = {
+    [10935] = { t = "The Exorcism of Colonel Jules", z = 3483, rl = 58, ql = 61, rr = 1101, ps = {10909}, nc = 10936, si = {31828}, maps = {
       [1944] = {{53.93,63.64,nil,nil,1,"Colonel Jules",1,22432,nil,nil,1}},
     },
     turnins = {
@@ -53272,7 +53272,7 @@ VanillaEnhancedQuestsDB = {
       [1948] = {{58.11,48.18,nil,nil,6,nil,1,21700}},
     },
     },
-    [10946] = { t = "Ruse of the Ashtongue", z = 3845, rl = 70, ql = 70, ps = {10944}, nc = 10947, sf = 2, dq = 1, dm = 334, maps = {
+    [10946] = { t = "Ruse of the Ashtongue", z = 3845, rl = 70, ql = 70, ps = {10944}, nc = 10947, sf = 2, dq = 1, dm = 334, si = {31946}, maps = {
       [1948] = {{58.11,48.18,nil,nil,6,nil,1,21700}},
     },
     turnins = {
@@ -53318,7 +53318,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{80.18,65.15,nil,nil,7,nil,1,22832}},
     },
     },
-    [10964] = { t = "Waking the Sleeper", z = -263, rl = 70, ql = -1, rc = 1024, sk = {762,300}, ps = {10961}, nc = 10965, maps = {
+    [10964] = { t = "Waking the Sleeper", z = -263, rl = 70, ql = -1, rc = 1024, sk = {762,300}, ps = {10961}, nc = 10965, si = {31953}, maps = {
       [1450] = {{75.46,67.04,nil,nil,6,nil,1,22834}},
     },
     turnins = {
@@ -53358,7 +53358,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{59.50,32.38,nil,nil,7,nil,1,20448}},
     },
     },
-    [10971] = { t = "Ethereum Secrets", z = 3523, rl = 70, ql = 70, rmin = {933,9000}, ps = {10970}, nc = 10973, maps = {
+    [10971] = { t = "Ethereum Secrets", z = 3523, rl = 70, ql = 70, rmin = {933,9000}, ps = {10970}, nc = 10973, si = {29460}, maps = {
       [1949] = {{66.79,43.99,4.74,26,2,"Ethereum Prison Key",3,29460,{20601,20609,20614},{20601,1.129,20609,0.977,20614,1.134},nil,{65.37,43.55,66.42,41.93,67.64,42.46,70.05,43.56,66.16,48.69,65.47,46.90}}, {68.13,39.06,3.42,4,2,"Ethereum Prison Key",3,29460,{20601,20609},{20601,1.129,20609,0.977},nil,{66.31,40.26,68.54,35.67,70.03,40.12}}, {51.69,17.83,3.15,56,2,"Ethereum Prison Key",3,29460,{22241,22242,22243,22244},{22241,3.545,22242,3.067,22243,3.216,22244,2.473},nil,{49.12,19.05,49.35,17.15,51.11,14.90,51.54,14.78,53.69,16.24,54.02,16.74,54.40,18.44,53.03,19.97,52.67,20.11,49.91,20.31,49.16,19.70}}, {53.81,12.06,4.91,19,2,"Ethereum Prison Key",3,29460,{22241,22242,22243,22244,23153,23154},{22241,3.545,22242,3.067,22243,3.216,22244,2.473,23153,3.509,23154,3.863},nil,{50.73,13.72,50.91,12.21,51.13,11.56,54.75,10.18,58.56,12.08,58.71,12.19,52.95,13.47}}, {66.30,8.68,2.53,6,2,"Ethereum Prison Key",3,29460,{23153,23154},{23153,3.509,23154,3.863},nil,{63.85,8.24,63.90,8.04,68.62,9.13,68.78,9.19,68.54,9.33}}, {72.47,13.59,0.11,3,2,"Ethereum Prison Key",3,29460,{23153,23154},{23153,3.509,23154,3.863},nil,{72.39,13.62,72.54,13.50,72.49,13.66}}},
       [1953] = {{54.57,43.86,3.95,14,2,"Ethereum Prisoner I.D. Tag",3,31957,{20520},{20520,88.406},1,{54.28,40.29,54.52,39.93,54.76,39.91,54.77,40.28,54.82,46.79,54.63,46.76,54.45,46.73,54.38,46.53}}, {29.43,77.39,4.48,38,2,"Ethereum Prison Key",3,29460,{18875,19641,19642},{18875,2.19,19641,1.175,19642,1.985},nil,{25.75,79.73,29.17,75.39,29.93,74.74,31.04,74.07,31.88,74.98,30.69,79.13,29.11,80.00,26.26,80.55}}, {56.74,36.33,4.71,35,2,"Ethereum Prison Key",3,29460,{20452,20453,20456,20727,20854,22821,22822},{20452,2.731,20453,2.844,20456,3.265,20727,3.286,20854,2.97,22821,5.287,22822,4.954},nil,{54.45,32.99,54.87,32.01,55.88,31.95,57.37,32.80,59.28,35.08,59.05,35.75,56.71,40.20,55.36,40.70}}, {56.01,44.99,6.61,47,2,"Ethereum Prison Key",3,29460,{20458,20459,20474,20770,22821,22822},{20458,3.811,20459,3.998,20474,5.015,20770,3.063,22821,5.287,22822,4.954},nil,{53.14,41.91,54.67,40.82,55.48,40.62,58.30,45.72,59.81,48.77,59.14,50.81,58.32,50.90,57.09,50.37,55.39,48.78,53.25,42.41}}, {66.50,47.23,7.22,42,2,"Ethereum Prison Key",3,29460,{22821,22822,23008},{22821,5.287,22822,4.954,23008,86.195},nil,{60.40,49.92,68.90,40.42,70.14,44.40,70.15,47.42,66.13,52.41,63.31,52.03}}, {65.78,32.89,5.59,36,2,"Ethereum Prison Key",3,29460,{22821,22822,23008},{22821,5.287,22822,4.954,23008,86.195},nil,{61.22,31.11,61.68,29.10,65.43,29.60,67.48,30.99,67.76,31.46,68.01,32.59,68.55,35.65,67.89,37.63,66.38,37.04,62.47,33.12}}},
     },
@@ -53390,7 +53390,7 @@ VanillaEnhancedQuestsDB = {
       [1953] = {{59.50,32.38,nil,nil,7,nil,1,20448}},
     },
     },
-    [10974] = { t = "Stasis Chambers of Bash'ir", z = 3522, rl = 70, ql = 70, rmin = {933,21000}, ps = {10973}, nc = 10976, maps = {
+    [10974] = { t = "Stasis Chambers of Bash'ir", z = 3522, rl = 70, ql = 70, rmin = {933,21000}, ps = {10973}, nc = 10976, si = {31994}, maps = {
       [1949] = {{50.33,13.63,2.25,4,2,"Evidence from Alpha",3,32061,{20889,22920},{20889,9.323,22920,100},1,{49.48,15.54,51.10,11.60,49.63,15.76}}, {51.03,20.77,1.96,6,2,"Evidence from Alpha",3,32061,{20889},{20889,9.323},1,{49.15,21.13,52.87,20.08,52.50,20.43,49.62,21.42,49.39,21.30}}},
     },
     turnins = {
@@ -53421,7 +53421,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{52.85,14.99,nil,nil,7,nil,1,22919}},
     },
     },
-    [10977] = { t = "Stasis Chambers of the Mana-Tombs", z = 3792, rl = 70, ql = 70, rmin = {933,21000}, ps = {10976}, sf = 2, dq = 1, dm = 272, maps = {
+    [10977] = { t = "Stasis Chambers of the Mana-Tombs", z = 3792, rl = 70, ql = 70, rmin = {933,21000}, ps = {10976}, sf = 2, dq = 1, dm = 272, si = {32069}, maps = {
       [1949] = {{52.85,14.99,nil,nil,6,nil,1,22919}},
     },
     turnins = {
@@ -53431,7 +53431,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{52.85,14.99,nil,nil,7,nil,1,22919}},
     },
     },
-    [10978] = { t = "Return to Morthis Whisperwing", z = -263, rl = 70, ql = -1, rc = 1024, sk = {762,300}, ps = {10965}, nc = 10979, maps = {
+    [10978] = { t = "Return to Morthis Whisperwing", z = -263, rl = 70, ql = -1, rc = 1024, sk = {762,300}, ps = {10965}, nc = 10979, si = {32074}, maps = {
       [1946] = {{80.18,65.15,nil,nil,6,nil,1,22832}},
     },
     turnins = {
@@ -53451,7 +53451,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{80.18,65.15,nil,nil,7,nil,1,22832}},
     },
     },
-    [10980] = { t = "The Book of the Raven", z = -263, rl = 70, ql = -1, rc = 1024, sk = {762,300}, ps = {10979}, nc = 10986, maps = {
+    [10980] = { t = "The Book of the Raven", z = -263, rl = 70, ql = -1, rc = 1024, sk = {762,300}, ps = {10979}, nc = 10986, si = {32244,32567}, maps = {
       [1949] = {{29.54,59.72,nil,nil,1,"Learn about the Book of the Raven",1,22932,nil,nil,1}, {61.82,10.97,5.80,14,2,"Aether Ray Eye",3,32567,{22181},{22181,100},nil,{57.16,12.90,58.28,8.51,61.60,7.79,66.53,8.82,67.44,9.54,64.11,14.75,57.28,13.62}}, {29.29,47.41,2.09,3,2,"Aether Ray Eye",3,32567,{22181},{22181,100},nil,{28.31,49.15,29.96,45.43,29.59,47.66}}, {31.55,57.54,5.44,9,2,"Aether Ray Eye",3,32567,{22181},{22181,100},nil,{28.01,61.68,29.77,53.74,32.53,53.64,33.08,54.62,33.46,60.50,32.11,62.12}}, {29.66,68.65,3.99,6,2,"Aether Ray Eye",3,32567,{22181},{22181,100},nil,{27.43,71.96,28.25,65.21,31.43,67.31,31.96,70.68}}, {71.22,12.01,3.83,8,2,"Aether Ray Eye",3,32567,{22181},{22181,100},nil,{67.56,13.11,72.10,8.73,73.94,13.00,69.45,14.21}}},
     },
     turnins = {
@@ -53511,7 +53511,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{61.47,38.27,nil,nil,7,nil,1,22924}},
     },
     },
-    [10987] = { t = "To Catch A Sparrowhawk", z = -263, rl = 70, ql = -1, rc = 1024, sk = {762,300}, ps = {10986}, maps = {
+    [10987] = { t = "To Catch A Sparrowhawk", z = -263, rl = 70, ql = -1, rc = 1024, sk = {762,300}, ps = {10986}, si = {32321}, maps = {
       [1951] = {{20.58,35.73,nil,nil,6,nil,1,22981}},
     },
     turnins = {
@@ -53521,7 +53521,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{20.58,35.73,nil,nil,7,nil,1,22981}},
     },
     },
-    [10988] = { t = "The Raven Stones", z = -263, rl = 70, ql = -1, rc = 1024, sk = {762,300}, ps = {10987}, maps = {
+    [10988] = { t = "The Raven Stones", z = -263, rl = 70, ql = -1, rc = 1024, sk = {762,300}, ps = {10987}, si = {32315}, maps = {
       [1952] = {{65.29,73.19,6.81,12,4,"Raven Stone",3,32313,nil,nil,1,{60.72,73.90,62.20,71.97,66.59,68.53,72.10,73.40,68.38,74.72,62.06,76.63}}, {67.24,85.53,8.87,18,4,"Raven Stone",3,32313,nil,nil,1,{60.56,79.70,71.03,85.77,73.30,88.34,69.91,88.78,68.05,87.89,65.54,86.35,63.21,84.68,60.74,81.35}}, {72.48,81.09,7.93,15,4,"Raven Stone",3,32313,nil,nil,1,{69.26,75.47,73.62,79.69,74.62,81.10,75.56,83.40,75.64,88.36,69.98,80.46,69.29,77.16}}},
     },
     turnins = {
@@ -53541,7 +53541,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{55.43,45.22,nil,nil,7,nil,1,22995}},
     },
     },
-    [10990] = { t = "The Eagle's Essence", z = -263, rl = 70, ql = -1, rc = 1024, sk = {762,300}, ps = {10988}, nc = 10991, maps = {
+    [10990] = { t = "The Eagle's Essence", z = -263, rl = 70, ql = -1, rc = 1024, sk = {762,300}, ps = {10988}, nc = 10991, si = {32657}, maps = {
       [1952] = {{46.50,45.10,nil,nil,6,nil,1,23338}, {60.60,60.10,nil,nil,6,nil,1,23338}},
     },
     turnins = {
@@ -53551,7 +53551,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{61.47,38.27,nil,nil,7,nil,1,22924}},
     },
     },
-    [10991] = { t = "The Falcon's Essence", z = -263, rl = 70, ql = -1, rc = 1024, sk = {762,300}, ps = {10990}, nc = 10992, maps = {
+    [10991] = { t = "The Falcon's Essence", z = -263, rl = 70, ql = -1, rc = 1024, sk = {762,300}, ps = {10990}, nc = 10992, si = {32657}, maps = {
       [1952] = {{46.50,45.10,nil,nil,6,nil,1,23338}, {60.60,60.10,nil,nil,6,nil,1,23338}},
     },
     turnins = {
@@ -53561,7 +53561,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{46.50,45.10,nil,nil,7,nil,1,23338}, {60.60,60.10,nil,nil,7,nil,1,23338}},
     },
     },
-    [10992] = { t = "The Hawk's Essence", z = -263, rl = 70, ql = -1, rc = 1024, sk = {762,300}, ps = {10991}, nc = 10993, maps = {
+    [10992] = { t = "The Hawk's Essence", z = -263, rl = 70, ql = -1, rc = 1024, sk = {762,300}, ps = {10991}, nc = 10993, si = {32657}, maps = {
       [1949] = {{61.47,38.27,nil,nil,6,nil,1,22924}},
     },
     turnins = {
@@ -53571,7 +53571,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{46.50,45.10,nil,nil,7,nil,1,23338}, {60.60,60.10,nil,nil,7,nil,1,23338}},
     },
     },
-    [10993] = { t = "Return to Cenarion Refuge", z = -263, rl = 70, ql = -1, rc = 1024, sk = {762,300}, ps = {10992}, nc = 10994, maps = {
+    [10993] = { t = "Return to Cenarion Refuge", z = -263, rl = 70, ql = -1, rc = 1024, sk = {762,300}, ps = {10992}, nc = 10994, si = {32359}, maps = {
       [1946] = {{80.18,65.15,nil,nil,6,nil,1,22832}},
     },
     turnins = {
@@ -53631,7 +53631,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{55.49,44.86,nil,nil,7,nil,1,22941}},
     },
     },
-    [11000] = { t = "Into the Soulgrinder", z = 3522, rl = 70, ql = 70, ps = {10998}, maps = {
+    [11000] = { t = "Into the Soulgrinder", z = 3522, rl = 70, ql = 70, ps = {10998}, si = {32467}, maps = {
       [1949] = {{60.70,25.46,nil,nil,4,"Skulloc's Soul",3,32383,nil,nil,1}},
     },
     turnins = {
@@ -53641,7 +53641,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{55.49,44.86,nil,nil,7,nil,1,22941}},
     },
     },
-    [11001] = { t = "Vanquish the Raven God", z = -263, rl = 70, ql = -1, rc = 1024, sk = {762,300}, ps = {10994}, maps = {
+    [11001] = { t = "Vanquish the Raven God", z = -263, rl = 70, ql = -1, rc = 1024, sk = {762,300}, ps = {10994}, si = {32462}, maps = {
       [1946] = {{80.18,65.15,nil,nil,6,nil,1,22832}},
     },
     turnins = {
@@ -53651,14 +53651,14 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{80.18,65.15,nil,nil,7,nil,1,22832}},
     },
     },
-    [11002] = { t = "The Fall of Magtheridon", z = 3483, rl = 70, ql = 70, rr = 1101, maps = {
+    [11002] = { t = "The Fall of Magtheridon", z = 3483, rl = 70, ql = 70, rr = 1101, si = {32385}, maps = {
       [1944] = {{56.64,66.70,nil,nil,6,nil,1,16819}},
     },
     turnins = {
       [1944] = {{56.64,66.70,nil,nil,6,nil,1,16819}},
     },
     },
-    [11003] = { t = "The Fall of Magtheridon", z = 3483, rl = 70, ql = 70, rr = 690, maps = {
+    [11003] = { t = "The Fall of Magtheridon", z = 3483, rl = 70, ql = 70, rr = 690, si = {32386}, maps = {
       [1944] = {{55.02,35.96,nil,nil,6,nil,1,3230}},
     },
     turnins = {
@@ -53695,14 +53695,14 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{64.05,66.88,nil,nil,7,nil,1,23042}},
     },
     },
-    [11007] = { t = "Kael'thas and the Verdant Sphere", z = 3845, rl = 70, ql = 70, dq = 1, dm = 334, maps = {
+    [11007] = { t = "Kael'thas and the Verdant Sphere", z = 3845, rl = 70, ql = 70, dq = 1, dm = 334, si = {32405}, maps = {
       [1955] = {{53.99,44.75,nil,nil,6,nil,1,18481}},
     },
     turnins = {
       [1955] = {{53.99,44.75,nil,nil,6,nil,1,18481}},
     },
     },
-    [11008] = { t = "Fires Over Skettis", z = 3679, ql = 70, sk = {762,225}, ps = {11098}, rf = 4096, sf = 1, maps = {
+    [11008] = { t = "Fires Over Skettis", z = 3679, ql = 70, sk = {762,225}, ps = {11098}, rf = 4096, sf = 1, si = {32406}, maps = {
       [1952] = {{73.31,84.59,5.45,39,4,"Monstrous Kaliri Egg",2,185549,nil,nil,1,{67.93,85.47,71.40,82.04,73.75,80.58,73.89,80.51,75.54,80.09,75.59,80.09,75.96,81.03,75.26,86.36,74.88,88.60,74.78,88.68,72.49,88.85}}, {65.33,77.28,5.41,36,4,"Monstrous Kaliri Egg",2,185549,nil,nil,1,{60.85,75.38,61.53,73.43,61.64,73.32,68.55,73.91,70.04,74.62,70.06,74.66,69.47,79.03,67.49,79.56,63.14,80.35,63.08,80.36,61.42,79.92,61.17,79.84,60.98,77.75}}},
     },
     turnins = {
@@ -53722,7 +53722,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{55.49,44.86,nil,nil,7,nil,1,22941}},
     },
     },
-    [11010] = { t = "Bombing Run", z = 3522, rl = 70, ql = 70, rc = 479, ps = {11062}, nc = 11023, maps = {
+    [11010] = { t = "Bombing Run", z = 3522, rl = 70, ql = 70, rc = 479, ps = {11062}, nc = 11023, si = {32456}, maps = {
       [1949] = {{34.90,40.71,4.93,19,4,"Fel Cannonball Stack",2,185861,nil,nil,1,{32.06,40.60,33.25,38.92,37.34,38.15,37.70,38.29,37.47,40.36,33.57,45.45,33.36,44.84}}, {29.24,80.40,6.56,19,4,"Fel Cannonball Stack",2,185861,nil,nil,1,{27.06,74.21,30.22,76.27,31.05,84.24,30.51,85.85,28.49,84.84,27.37,82.83}}},
     },
     turnins = {
@@ -53742,7 +53742,7 @@ VanillaEnhancedQuestsDB = {
       [1946] = {{80.18,65.15,nil,nil,7,nil,1,22832}},
     },
     },
-    [11021] = { t = "Ishaal's Almanac", z = 3679, rl = 70, ql = 70, sk = {762,225}, ps = {11004}, nc = 11024, maps = {
+    [11021] = { t = "Ishaal's Almanac", z = 3679, rl = 70, ql = 70, sk = {762,225}, ps = {11004}, nc = 11024, si = {32523}, maps = {
       [1952] = {{64.09,66.90,nil,nil,6,nil,1,23038}},
     },
     turnins = {
@@ -53759,7 +53759,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{55.78,46.39,nil,nil,7,nil,1,23053}},
     },
     },
-    [11023] = { t = "Bomb Them Again!", z = 3522, rl = 70, ql = 70, ps = {11010,11102}, rf = 4096, sf = 1, maps = {
+    [11023] = { t = "Bomb Them Again!", z = 3522, rl = 70, ql = 70, ps = {11010,11102}, rf = 4096, sf = 1, si = {32456}, maps = {
       [1949] = {{34.90,40.71,4.93,19,4,"Fel Cannonball Stack",2,185861,nil,nil,1,{32.06,40.60,33.25,38.92,37.34,38.15,37.70,38.29,37.47,40.36,33.57,45.45,33.36,44.84}}, {29.24,80.40,6.56,19,4,"Fel Cannonball Stack",2,185861,nil,nil,1,{27.06,74.21,30.22,76.27,31.05,84.24,30.51,85.85,28.49,84.84,27.37,82.83}}},
     },
     turnins = {
@@ -53769,7 +53769,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{27.56,52.90,nil,nil,7,nil,1,23120}},
     },
     },
-    [11024] = { t = "An Ally in Lower City", z = 3703, rl = 70, ql = 70, sk = {762,225}, ps = {11021}, nc = 11028, maps = {
+    [11024] = { t = "An Ally in Lower City", z = 3703, rl = 70, ql = 70, sk = {762,225}, ps = {11021}, nc = 11028, si = {32564}, maps = {
       [1955] = {{52.54,21.01,nil,nil,6,nil,1,22292}},
     },
     turnins = {
@@ -53789,7 +53789,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{28.76,57.36,nil,nil,7,nil,1,23233}},
     },
     },
-    [11026] = { t = "Banish the Demons", z = 3522, ql = 70, rmin = {1038,9000}, ps = {11025}, nc = 11051, maps = {
+    [11026] = { t = "Banish the Demons", z = 3522, ql = 70, rmin = {1038,9000}, ps = {11025}, nc = 11051, si = {32696}, maps = {
       [1949] = {{33.55,41.22,4.07,11,1,"Wrath Hound",1,20557,nil,nil,1,{31.11,40.49,31.96,39.32,33.33,37.71,34.48,37.42,36.28,42.46,35.81,43.30,34.29,45.22,31.17,41.97}}, {38.15,38.60,nil,nil,1,"Wrath Hound",1,20557,nil,nil,1}, {38.16,39.51,nil,nil,1,"Wrath Hound",1,20557,nil,nil,1}, {33.49,44.22,nil,nil,1,"Wrath Speaker",1,22195,nil,nil,1}, {35.67,39.64,2.52,3,1,"Wrath Speaker",1,22195,nil,nil,1,{33.24,40.29,37.73,38.79,36.04,39.83}}, {34.86,40.95,4.39,11,1,"Furnace Guard",1,22291,nil,nil,1,{32.23,40.65,33.18,39.15,36.53,38.48,37.51,38.29,37.35,40.47,33.64,45.17,33.12,43.95}}, {28.80,78.09,2.74,7,1,"Abyssal Flamebringer",1,19973,nil,nil,1,{27.74,80.62,28.23,76.10,30.42,78.79}}, {29.46,83.16,2.91,8,1,"Abyssal Flamebringer",1,19973,nil,nil,1,{26.55,83.27,30.97,81.09,30.72,83.01,28.81,85.87}}, {28.67,75.77,1.96,4,1,"Fear Fiend",1,22204,nil,nil,1,{27.06,74.65,30.36,76.28,29.58,76.89,27.68,75.25}}, {29.38,83.33,3.73,13,1,"Fear Fiend",1,22204,nil,nil,1,{27.31,85.10,27.33,82.70,28.48,79.77,30.02,79.90,30.93,84.41,31.10,86.63}}, {30.37,85.01,nil,nil,1,"Mo'arg Extractor",1,22304,nil,nil,1}, {30.37,85.01,nil,nil,1,"Mo'arg Extractor",1,22304,nil,nil,1}, {36.84,39.26,nil,nil,1,"Mo'arg Extractor",1,22304,nil,nil,1}, {36.84,39.26,nil,nil,1,"Mo'arg Extractor",1,22304,nil,nil,1}, {30.37,85.03,0.01,4,1,"Crystalfused Miner",1,23174,nil,nil,1}, {36.83,39.28,0.01,4,1,"Crystalfused Miner",1,23174,nil,nil,1}},
     },
     turnins = {
@@ -53809,7 +53809,7 @@ VanillaEnhancedQuestsDB = {
       [1955] = {{52.54,21.01,nil,nil,7,nil,1,22292}},
     },
     },
-    [11029] = { t = "A Shabby Disguise", z = 3679, ql = 70, sk = {762,225}, ps = {11056}, nc = 11885, maps = {
+    [11029] = { t = "A Shabby Disguise", z = 3679, ql = 70, sk = {762,225}, ps = {11056}, nc = 11885, si = {32741}, maps = {
       [1952] = {{67.01,79.65,nil,nil,2,"Adversarial Bloodlines",3,32742,{23363},nil,1}},
     },
     turnins = {
@@ -53869,7 +53869,7 @@ VanillaEnhancedQuestsDB = {
       [1430] = {{47.24,74.99,nil,nil,7,nil,1,18253}},
     },
     },
-    [11036] = { t = "Out of This World Produce!", z = 3522, rl = 67, ql = 67, rr = 690, ex = {10183,11037,11038,11039,11040,11042}, nc = 10186, bf = 10186, maps = {
+    [11036] = { t = "Out of This World Produce!", z = 3522, rl = 67, ql = 67, rr = 690, ex = {10183,11037,11038,11039,11040,11042}, nc = 10186, bf = 10186, si = {32619}, maps = {
       [1953] = {{32.73,64.96,nil,nil,6,nil,1,19570}, {32.68,64.41,nil,nil,6,nil,1,19570}},
     },
     turnins = {
@@ -53909,7 +53909,7 @@ VanillaEnhancedQuestsDB = {
       [1955] = {{44.58,76.41,nil,nil,7,nil,1,23272}, {60.85,63.53,nil,nil,7,nil,1,23273}},
     },
     },
-    [11040] = { t = "Parts for the Rocket-Chief", z = 3522, rl = 67, ql = 67, rr = 1101, ex = {10183,11036,11037,11038,11039,11042}, nc = 10186, bf = 10186, maps = {
+    [11040] = { t = "Parts for the Rocket-Chief", z = 3522, rl = 67, ql = 67, rr = 1101, ex = {10183,11036,11037,11038,11039,11042}, nc = 10186, bf = 10186, si = {32623}, maps = {
       [1953] = {{32.73,64.96,nil,nil,6,nil,1,19570}, {32.68,64.41,nil,nil,6,nil,1,19570}},
     },
     turnins = {
@@ -53989,7 +53989,7 @@ VanillaEnhancedQuestsDB = {
       [1951] = {{55.37,37.45,nil,nil,7,nil,1,18090}},
     },
     },
-    [11051] = { t = "Banish More Demons", z = 3522, ql = 70, ps = {11026}, rf = 4096, sf = 1, maps = {
+    [11051] = { t = "Banish More Demons", z = 3522, ql = 70, ps = {11026}, rf = 4096, sf = 1, si = {32696}, maps = {
       [1949] = {{33.55,41.22,4.07,11,1,"Wrath Hound",1,20557,nil,nil,1,{31.11,40.49,31.96,39.32,33.33,37.71,34.48,37.42,36.28,42.46,35.81,43.30,34.29,45.22,31.17,41.97}}, {38.15,38.60,nil,nil,1,"Wrath Hound",1,20557,nil,nil,1}, {38.16,39.51,nil,nil,1,"Wrath Hound",1,20557,nil,nil,1}, {33.49,44.22,nil,nil,1,"Wrath Speaker",1,22195,nil,nil,1}, {35.67,39.64,2.52,3,1,"Wrath Speaker",1,22195,nil,nil,1,{33.24,40.29,37.73,38.79,36.04,39.83}}, {34.86,40.95,4.39,11,1,"Furnace Guard",1,22291,nil,nil,1,{32.23,40.65,33.18,39.15,36.53,38.48,37.51,38.29,37.35,40.47,33.64,45.17,33.12,43.95}}, {28.80,78.09,2.74,7,1,"Abyssal Flamebringer",1,19973,nil,nil,1,{27.74,80.62,28.23,76.10,30.42,78.79}}, {29.46,83.16,2.91,8,1,"Abyssal Flamebringer",1,19973,nil,nil,1,{26.55,83.27,30.97,81.09,30.72,83.01,28.81,85.87}}, {28.67,75.77,1.96,4,1,"Fear Fiend",1,22204,nil,nil,1,{27.06,74.65,30.36,76.28,29.58,76.89,27.68,75.25}}, {29.38,83.33,3.73,13,1,"Fear Fiend",1,22204,nil,nil,1,{27.31,85.10,27.33,82.70,28.48,79.77,30.02,79.90,30.93,84.41,31.10,86.63}}, {30.37,85.01,nil,nil,1,"Mo'arg Extractor",1,22304,nil,nil,1}, {30.37,85.01,nil,nil,1,"Mo'arg Extractor",1,22304,nil,nil,1}, {36.84,39.26,nil,nil,1,"Mo'arg Extractor",1,22304,nil,nil,1}, {36.84,39.26,nil,nil,1,"Mo'arg Extractor",1,22304,nil,nil,1}, {30.37,85.03,0.01,4,1,"Crystalfused Miner",1,23174,nil,nil,1}, {36.83,39.28,0.01,4,1,"Crystalfused Miner",1,23174,nil,nil,1}},
     },
     turnins = {
@@ -53999,7 +53999,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{28.90,57.92,nil,nil,7,nil,1,23253}},
     },
     },
-    [11052] = { t = "Akama's Promise", z = 3520, rl = 68, ql = 70, rr = 1101, ex = {10708}, nc = 10944, maps = {
+    [11052] = { t = "Akama's Promise", z = 3520, rl = 68, ql = 70, rr = 1101, ex = {10708}, nc = 10944, si = {32646}, maps = {
       [1955] = {{53.99,44.75,nil,nil,6,nil,1,18481}},
     },
     turnins = {
@@ -54079,7 +54079,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{28.76,57.36,nil,nil,7,nil,1,23233}},
     },
     },
-    [11065] = { t = "Wrangle Some Aether Rays!", z = 3522, rl = 70, ql = 70, ps = {11010,11102}, nc = 11066, maps = {
+    [11065] = { t = "Wrangle Some Aether Rays!", z = 3522, rl = 70, ql = 70, ps = {11010,11102}, nc = 11066, si = {32698}, maps = {
       [1949] = {{28.01,61.68,nil,nil,1,"Aether Ray",1,22181,nil,nil,1}, {29.29,47.41,2.09,3,1,"Aether Ray",1,22181,nil,nil,1,{28.31,49.15,29.96,45.43,29.59,47.66}}, {29.52,66.18,2.22,3,1,"Aether Ray",1,22181,nil,nil,1,{28.25,65.21,31.43,67.31,28.87,66.03}}, {29.80,71.12,2.51,3,1,"Aether Ray",1,22181,nil,nil,1,{27.43,71.96,30.00,70.73,31.96,70.68}}, {31.64,54.73,2.11,5,1,"Aether Ray",1,22181,nil,nil,1,{29.77,53.74,32.53,53.64,33.08,54.62,31.87,56.35,30.95,55.28}}, {32.57,60.85,1.35,3,1,"Aether Ray",1,22181,nil,nil,1,{32.11,62.12,32.14,59.93,33.46,60.50}}, {58.28,8.51,nil,nil,1,"Aether Ray",1,22181,nil,nil,1}, {58.56,13.09,2.57,5,1,"Aether Ray",1,22181,nil,nil,1,{57.16,12.90,57.53,12.34,61.10,12.70,59.75,13.91,57.28,13.62}}, {64.29,9.95,4.80,8,1,"Aether Ray",1,22181,nil,nil,1,{61.38,8.65,61.60,7.79,66.53,8.82,67.44,9.54,64.11,14.75}}, {71.22,12.01,3.83,8,1,"Aether Ray",1,22181,nil,nil,1,{67.56,13.11,72.10,8.73,73.94,13.00,69.45,14.21}}},
     },
     turnins = {
@@ -54089,7 +54089,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{27.95,51.45,nil,nil,7,nil,1,23335}},
     },
     },
-    [11066] = { t = "Wrangle More Aether Rays!", z = 3522, ql = 70, ps = {11065}, rf = 4096, sf = 1, maps = {
+    [11066] = { t = "Wrangle More Aether Rays!", z = 3522, ql = 70, ps = {11065}, rf = 4096, sf = 1, si = {32698}, maps = {
       [1949] = {{28.01,61.68,nil,nil,1,"Aether Ray",1,22181,nil,nil,1}, {29.29,47.41,2.09,3,1,"Aether Ray",1,22181,nil,nil,1,{28.31,49.15,29.96,45.43,29.59,47.66}}, {29.52,66.18,2.22,3,1,"Aether Ray",1,22181,nil,nil,1,{28.25,65.21,31.43,67.31,28.87,66.03}}, {29.80,71.12,2.51,3,1,"Aether Ray",1,22181,nil,nil,1,{27.43,71.96,30.00,70.73,31.96,70.68}}, {31.64,54.73,2.11,5,1,"Aether Ray",1,22181,nil,nil,1,{29.77,53.74,32.53,53.64,33.08,54.62,31.87,56.35,30.95,55.28}}, {32.57,60.85,1.35,3,1,"Aether Ray",1,22181,nil,nil,1,{32.11,62.12,32.14,59.93,33.46,60.50}}, {58.28,8.51,nil,nil,1,"Aether Ray",1,22181,nil,nil,1}, {58.56,13.09,2.57,5,1,"Aether Ray",1,22181,nil,nil,1,{57.16,12.90,57.53,12.34,61.10,12.70,59.75,13.91,57.28,13.62}}, {64.29,9.95,4.80,8,1,"Aether Ray",1,22181,nil,nil,1,{61.38,8.65,61.60,7.79,66.53,8.82,67.44,9.54,64.11,14.75}}, {71.22,12.01,3.83,8,1,"Aether Ray",1,22181,nil,nil,1,{67.56,13.11,72.10,8.73,73.94,13.00,69.45,14.21}}},
     },
     turnins = {
@@ -54169,7 +54169,7 @@ VanillaEnhancedQuestsDB = {
       [1949] = {{28.76,57.36,nil,nil,7,nil,1,23233}},
     },
     },
-    [11093] = { t = "Hungry Nether Rays", z = 3679, ql = 70, sk = {762,225}, maps = {
+    [11093] = { t = "Hungry Nether Rays", z = 3679, ql = 70, sk = {762,225}, si = {32834}, maps = {
       [1952] = {{62.25,71.87,nil,nil,1,"Blackwind Warp Chaser",1,23219,nil,nil,1}, {60.45,72.63,nil,nil,1,"Blackwind Warp Chaser",1,23219,nil,nil,1}, {63.18,84.12,4.83,22,1,"Blackwind Warp Chaser",1,23219,nil,nil,1,{59.89,82.87,61.79,80.03,66.60,85.46,67.30,86.64,65.32,87.39,59.95,84.72}}, {65.29,62.78,1.70,3,1,"Blackwind Warp Chaser",1,23219,nil,nil,1,{63.62,62.47,66.48,62.70,65.77,63.17}}, {66.75,67.98,nil,nil,1,"Blackwind Warp Chaser",1,23219,nil,nil,1}, {67.24,72.76,nil,nil,1,"Blackwind Warp Chaser",1,23219,nil,nil,1}, {66.71,71.99,nil,nil,1,"Blackwind Warp Chaser",1,23219,nil,nil,1}, {72.07,89.71,3.95,8,1,"Blackwind Warp Chaser",1,23219,nil,nil,1,{69.18,88.35,70.26,87.29,75.96,90.37,75.29,91.57,69.34,90.08}}, {77.42,78.07,nil,nil,1,"Blackwind Warp Chaser",1,23219,nil,nil,1}, {76.57,79.30,nil,nil,1,"Blackwind Warp Chaser",1,23219,nil,nil,1}},
     },
     turnins = {
@@ -54189,7 +54189,7 @@ VanillaEnhancedQuestsDB = {
       [1955] = {{64.33,42.33,nil,nil,7,nil,1,23449}},
     },
     },
-    [11098] = { t = "To Skettis!", z = 3679, rl = 70, ql = 70, sk = {762,225}, ps = {11096}, nc = 11008, maps = {
+    [11098] = { t = "To Skettis!", z = 3679, rl = 70, ql = 70, sk = {762,225}, ps = {11096}, nc = 11008, si = {32848}, maps = {
       [1952] = {{64.55,66.70,nil,nil,6,nil,1,23048}},
     },
     turnins = {
@@ -54199,7 +54199,7 @@ VanillaEnhancedQuestsDB = {
       [1955] = {{64.33,42.33,nil,nil,7,nil,1,23449}},
     },
     },
-    [11102] = { t = "Bombing Run", z = 3522, rl = 70, ql = 70, rc = 1024, ps = {11062}, nc = 11023, maps = {
+    [11102] = { t = "Bombing Run", z = 3522, rl = 70, ql = 70, rc = 1024, ps = {11062}, nc = 11023, si = {32456}, maps = {
       [1949] = {{34.90,40.71,4.93,19,4,"Fel Cannonball Stack",2,185861,nil,nil,1,{32.06,40.60,33.25,38.92,37.34,38.15,37.70,38.29,37.47,40.36,33.57,45.45,33.36,44.84}}, {29.24,80.40,6.56,19,4,"Fel Cannonball Stack",2,185861,nil,nil,1,{27.06,74.21,30.22,76.27,31.05,84.24,30.51,85.85,28.49,84.84,27.37,82.83}}},
     },
     turnins = {
@@ -54299,7 +54299,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{68.33,51.04,nil,nil,7,nil,1,23566}},
     },
     },
-    [11129] = { t = "Kyle's Gone Missing!", z = 215, rl = 5, ql = 7, rr = 690, maps = {
+    [11129] = { t = "Kyle's Gone Missing!", z = 215, rl = 5, ql = 7, rr = 690, si = {33009}, maps = {
       [1412] = {{49.28,63.83,nil,nil,1,"Kyle the Frenzied",1,23616,nil,nil,1}, {38.85,62.41,5.64,14,2,"Tender Strider Meat",3,33009,{2956},{2956,10},nil,{35.06,66.43,36.80,57.99,39.97,56.88,42.07,59.62,41.58,63.42,39.63,66.32,39.14,66.60}}, {45.74,41.75,5.79,13,2,"Tender Strider Meat",3,33009,{2956,2957},{2956,10,2957,10},nil,{42.20,43.28,43.48,38.91,44.84,36.29,49.62,38.14,48.84,45.83,43.29,47.00}}, {57.23,68.71,3.76,4,2,"Tender Strider Meat",3,33009,{2956},{2956,10},nil,{54.63,68.57,58.08,66.64,58.43,72.27}}, {37.82,72.07,7.31,17,2,"Tender Strider Meat",3,33009,{2956},{2956,10},nil,{34.16,69.92,38.04,67.06,40.82,68.26,41.11,68.97,42.24,72.34,35.70,79.07,34.79,76.95}}, {55.93,58.96,5.77,6,2,"Tender Strider Meat",3,33009,{2956,2957},{2956,10,2957,10},nil,{52.51,60.64,55.90,56.42,61.66,59.65,53.88,61.63}}, {45.92,68.19,4.46,9,2,"Tender Strider Meat",3,33009,{2956},{2956,10},nil,{41.97,66.44,49.12,66.41,50.20,66.96,46.03,71.18,45.14,71.11}}, {35.72,37.67,7.30,10,2,"Tender Strider Meat",3,33009,{2956,2957},{2956,10,2957,10},nil,{33.27,31.11,33.67,30.66,37.59,35.29,38.23,39.80,37.11,43.04,35.73,44.24}}, {38.47,52.37,5.41,16,2,"Tender Strider Meat",3,33009,{2956,2957},{2956,10,2957,10},nil,{35.31,48.30,38.10,46.97,43.69,51.40,42.96,55.01,39.34,56.13,35.88,56.69,35.64,55.26}}, {59.18,53.99,4.87,5,2,"Tender Strider Meat",3,33009,{2956,2957},{2956,10,2957,10},nil,{55.66,50.63,62.58,54.76,59.47,57.06}}, {54.31,42.23,6.14,16,2,"Tender Strider Meat",3,33009,{2956,2957,3068},{2956,10,2957,10,3068,10},nil,{50.39,42.58,52.01,39.41,55.11,36.86,57.39,36.93,58.38,46.83,50.64,46.14}}, {34.88,79.88,nil,nil,2,"Tender Strider Meat",3,33009,{2956},{2956,10}}, {50.18,30.94,6.80,20,2,"Tender Strider Meat",3,33009,{2956,2957},{2956,10,2957,10},nil,{44.58,28.44,47.66,25.25,49.26,25.58,51.21,26.62,56.78,32.54,55.75,33.73,52.49,35.24,47.87,36.54,44.61,31.52}}, {33.26,26.51,nil,nil,2,"Tender Strider Meat",3,33009,{2957},{2957,10}}, {64.05,62.47,5.03,7,2,"Tender Strider Meat",3,33009,{2957},{2957,10},nil,{60.97,64.55,62.43,62.83,64.19,61.68,68.22,59.65,64.17,63.52,62.16,64.38}}, {41.19,15.29,6.69,13,2,"Tender Strider Meat",3,33009,{2957},{2957,10},nil,{37.38,14.79,39.74,8.76,42.21,11.18,46.02,17.02,45.82,18.53,38.23,18.91}}, {49.00,13.07,6.72,20,2,"Tender Strider Meat",3,33009,{2957},{2957,10},nil,{43.75,10.20,43.97,8.61,47.15,7.59,50.62,8.09,53.94,12.64,53.06,18.37,51.23,18.59,47.32,18.63}}, {56.45,24.28,6.39,22,2,"Tender Strider Meat",3,33009,{2957},{2957,10},nil,{50.96,23.63,53.71,19.70,57.02,17.92,62.02,26.26,57.79,30.31,54.03,28.94}}},
       [1456] = {{64.21,23.02,nil,nil,2,"Tender Strider Meat",3,33009,{2957},{2957,10}}, {22.35,6.34,nil,nil,2,"Tender Strider Meat",3,33009,{2957},{2957,10}}},
     },
@@ -54310,7 +54310,7 @@ VanillaEnhancedQuestsDB = {
       [1412] = {{48.24,53.27,nil,nil,7,nil,1,23618}},
     },
     },
-    [11133] = { t = "Discrediting the Deserters", z = 15, rl = 32, ql = 35, rr = 1101, ps = {11128}, nc = 11134, maps = {
+    [11133] = { t = "Discrediting the Deserters", z = 15, rl = 32, ql = 35, rr = 1101, ps = {11128}, nc = 11134, si = {33015}, maps = {
       [1445] = {{66.29,49.06,4.89,27,1,"Theramore Guard",1,4979,nil,nil,1,{63.79,44.98,63.97,44.76,69.60,49.79,69.65,50.06,68.57,52.31,68.04,52.56,65.88,52.04,64.24,49.55}}, {71.22,56.06,1.85,7,1,"Theramore Guard",1,4979,nil,nil,1,{70.56,57.17,71.64,54.26,71.64,56.15,71.39,56.55}}},
     },
     turnins = {
@@ -54350,7 +54350,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{59.67,41.08,nil,nil,7,nil,1,5086}},
     },
     },
-    [11138] = { t = "Renn McGill", z = 15, rl = 32, ql = 37, rr = 1101, ps = {11137}, nc = 11139, maps = {
+    [11138] = { t = "Renn McGill", z = 15, rl = 32, ql = 37, rr = 1101, ps = {11137}, nc = 11139, si = {33037}, maps = {
       [1445] = {{63.74,17.04,nil,nil,6,nil,1,23569}},
     },
     turnins = {
@@ -54370,7 +54370,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{63.74,17.04,nil,nil,7,nil,1,23569}},
     },
     },
-    [11140] = { t = "Recover the Cargo!", z = 15, rl = 32, ql = 37, rr = 1101, ps = {11139}, nc = 11141, maps = {
+    [11140] = { t = "Recover the Cargo!", z = 15, rl = 32, ql = 37, rr = 1101, ps = {11139}, nc = 11141, si = {33045,33040}, maps = {
       [1445] = {{66.00,15.46,5.45,19,4,"Salvaged Strongbox",3,33041,nil,nil,1,{63.43,15.14,64.01,13.44,67.06,10.88,68.27,12.20,67.07,20.81,64.80,20.15}}, {65.79,24.25,4.13,9,4,"Salvaged Strongbox",3,33041,nil,nil,1,{64.17,23.93,64.20,22.14,66.39,21.13,66.87,26.09,66.77,28.27}}},
     },
     turnins = {
@@ -54410,7 +54410,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{68.21,48.62,nil,nil,7,nil,1,4944}},
     },
     },
-    [11144] = { t = "Confirming the Suspicion", z = 15, rl = 33, ql = 38, rr = 1101, ps = {11143}, maps = {
+    [11144] = { t = "Confirming the Suspicion", z = 15, rl = 33, ql = 38, rr = 1101, ps = {11143}, si = {33050}, maps = {
       [1445] = {{41.78,11.92,1.89,6,2,"Grimtotem Note",3,33050,{23714},{23714,100},nil,{40.79,12.20,41.01,10.56,42.06,11.01,42.41,11.55,42.19,13.76}}},
     },
     turnins = {
@@ -54420,7 +54420,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{46.62,24.60,nil,nil,7,nil,1,23568}},
     },
     },
-    [11145] = { t = "Prisoners of the Grimtotems", z = 15, rl = 33, ql = 37, rr = 1101, ps = {11146}, maps = {
+    [11145] = { t = "Prisoners of the Grimtotems", z = 15, rl = 33, ql = 37, rr = 1101, ps = {11146}, si = {33061}, maps = {
       [1445] = {{41.38,12.08,1.31,7,1,"Theramore Prisoner",1,23720,nil,nil,1,{40.63,11.50,41.62,10.80,42.39,11.76,41.93,13.22,41.48,12.98,40.89,12.43,40.70,11.90}}, {42.31,13.25,5.14,28,2,"Grimtotem Key",3,33061,{23592,23593,23714},{23592,27.92,23593,37.157,23714,16.063},nil,{40.77,10.95,41.01,10.56,41.92,10.23,44.96,16.75,44.81,17.74,41.13,13.16,40.79,12.20}}},
     },
     turnins = {
@@ -54430,7 +54430,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{46.66,23.05,nil,nil,7,nil,1,23723}},
     },
     },
-    [11146] = { t = "Raptor Captor", z = 15, rl = 33, ql = 37, rr = 1101, maps = {
+    [11146] = { t = "Raptor Captor", z = 15, rl = 33, ql = 37, rr = 1101, si = {33069}, maps = {
       [1445] = {{48.73,18.61,4.27,16,1,"Bloodfen Raptor",1,4351,nil,nil,1,{45.10,20.85,45.84,16.61,46.67,15.48,48.57,15.18,49.12,15.79,51.99,21.36,50.84,21.53}}, {52.28,16.99,nil,nil,1,"Bloodfen Raptor",1,4351,nil,nil,1}, {49.14,17.83,4.77,16,1,"Bloodfen Screecher",1,4352,nil,nil,1,{45.94,19.66,47.26,16.47,47.76,15.81,52.20,15.20,52.39,19.29,51.55,21.95}}},
     },
     turnins = {
@@ -54440,7 +54440,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{46.66,23.05,nil,nil,7,nil,1,23723}},
     },
     },
-    [11147] = { t = "Unleash the Raptors", z = 15, rl = 33, ql = 37, rr = 1101, ps = {11146}, maps = {
+    [11147] = { t = "Unleash the Raptors", z = 15, rl = 33, ql = 37, rr = 1101, ps = {11146}, si = {33070}, maps = {
       [1445] = {{41.50,11.78,nil,nil,1,"Invis Raptor Credit",1,23727,nil,nil,1}},
     },
     turnins = {
@@ -54470,7 +54470,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{46.62,24.60,nil,nil,7,nil,1,23568}},
     },
     },
-    [11150] = { t = "Raze Direhorn Post!", z = 15, rl = 35, ql = 39, rr = 1101, ps = {11149}, nc = 11151, maps = {
+    [11150] = { t = "Raze Direhorn Post!", z = 15, rl = 35, ql = 39, rr = 1101, ps = {11149}, nc = 11151, si = {33072}, maps = {
       [1445] = {{46.60,45.93,nil,nil,1,"North Tent",1,23751,nil,nil,1}, {47.25,46.54,nil,nil,1,"Northeast Tent",1,23752,nil,nil,2}, {47.53,47.65,nil,nil,1,"East Tent",1,23753,nil,nil,3}},
     },
     turnins = {
@@ -54490,7 +54490,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{46.06,57.09,nil,nil,7,nil,1,6546}},
     },
     },
-    [11152] = { t = "Peace at Last", z = 15, rl = 35, ql = 39, rr = 1101, ps = {11151}, maps = {
+    [11152] = { t = "Peace at Last", z = 15, rl = 35, ql = 39, rr = 1101, ps = {11151}, si = {33082}, maps = {
       [1445] = {{63.68,42.82,nil,nil,4,"Hyal Family Monument",2,186322,nil,nil,1}},
     },
     turnins = {
@@ -54520,7 +54520,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{41.86,73.97,nil,nil,7,nil,1,23579}},
     },
     },
-    [11159] = { t = "Spirits of Stonemaul Hold", z = 15, rl = 35, ql = 41, ps = {11161}, nc = 11162, maps = {
+    [11159] = { t = "Spirits of Stonemaul Hold", z = 15, rl = 35, ql = 41, ps = {11161}, nc = 11162, si = {33091}, maps = {
       [1445] = {{44.00,66.40,3.76,24,1,"Stonemaul Spirits laid to rest",1,23786,nil,nil,1,{40.60,68.00,42.20,65.80,44.00,63.60,45.20,63.60,46.60,65.80,46.20,69.00}}},
     },
     turnins = {
@@ -54540,7 +54540,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{41.86,73.97,nil,nil,7,nil,1,23579}},
     },
     },
-    [11161] = { t = "The Essence of Enmity", z = 15, rl = 35, ql = 39, ps = {11158}, nc = 11159, maps = {
+    [11161] = { t = "The Essence of Enmity", z = 15, rl = 35, ql = 39, ps = {11158}, nc = 11159, si = {33088}, maps = {
       [1445] = {{51.75,72.71,7.04,15,2,"Black Dragonkin Essence",3,33087,{4328,4329,4331},{4328,100,4329,100,4331,100},1,{48.65,76.40,48.69,73.93,48.80,69.80,49.20,69.00,53.87,72.05,56.48,75.07,56.71,77.71}}, {55.26,82.10,3.70,4,2,"Black Dragonkin Essence",3,33087,{4328},{4328,100},1,{52.49,84.21,57.79,79.40,54.75,83.44}}, {41.46,67.04,8.08,76,2,"Black Dragonkin Essence",3,33087,{4328,4329,4331},{4328,100,4329,100,4331,100},1,{36.60,69.61,37.21,67.26,38.80,64.60,39.00,64.40,44.80,64.40,45.60,64.80,47.80,66.60,41.60,73.20,39.40,74.40,38.60,74.60}}, {43.73,77.55,6.02,17,2,"Black Dragonkin Essence",3,33087,{4329,4331},{4329,100,4331,100},1,{39.40,74.40,39.80,73.60,42.20,73.20,45.00,74.80,47.00,77.80,48.00,81.80,47.00,82.00,44.60,81.80,43.20,81.20,42.40,80.60}}},
     },
     turnins = {
@@ -54550,7 +54550,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{41.86,73.97,nil,nil,7,nil,1,23579}},
     },
     },
-    [11162] = { t = "Challenge to the Black Flight", z = 15, rl = 35, ql = 41, ps = {11159}, maps = {
+    [11162] = { t = "Challenge to the Black Flight", z = 15, rl = 35, ql = 41, ps = {11159}, si = {33095}, maps = {
       [1445] = {{52.20,76.20,nil,nil,1,"Stonemaul Clan Avenged",1,23789,nil,nil,1}},
     },
     turnins = {
@@ -54560,7 +54560,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{41.86,73.97,nil,nil,7,nil,1,23579}},
     },
     },
-    [11169] = { t = "The Grimtotem Weapon", z = 15, rl = 35, ql = 38, maps = {
+    [11169] = { t = "The Grimtotem Weapon", z = 15, rl = 35, ql = 38, si = {33101}, maps = {
       [1445] = {{37.44,58.86,4.27,17,1,"Mottled Drywallow Crocolisk",1,4344,nil,nil,1,{34.80,58.35,35.00,55.36,41.40,57.76,41.12,60.63,35.69,60.96,34.86,60.96}}, {37.73,49.86,4.79,22,1,"Mottled Drywallow Crocolisk",1,4344,nil,nil,1,{34.36,47.17,37.64,46.31,38.84,47.82,39.53,48.85,40.24,50.34,39.97,52.06,39.57,53.10,38.40,54.60,37.72,53.84,34.43,49.51}}, {42.60,56.13,2.47,8,1,"Mottled Drywallow Crocolisk",1,4344,nil,nil,1,{40.81,54.82,42.64,53.76,43.92,58.14,43.34,58.49}}, {44.16,49.57,3.85,13,1,"Mottled Drywallow Crocolisk",1,4344,nil,nil,1,{42.42,49.82,42.58,48.03,43.44,47.46,44.54,46.95,45.20,47.89,45.80,49.45,45.99,52.95,43.28,50.81}}, {41.40,70.61,4.03,12,1,"Drywallow Daggermaw",1,4345,nil,nil,1,{37.51,71.65,38.91,69.79,41.41,69.08,43.92,68.51,44.90,69.82,44.39,72.48,38.37,72.51}}, {41.95,64.24,2.14,4,1,"Drywallow Daggermaw",1,4345,nil,nil,1,{41.31,66.28,41.34,63.26,43.19,63.50}}, {46.71,78.74,4.42,13,1,"Drywallow Daggermaw",1,4345,nil,nil,1,{43.23,78.69,43.44,77.01,43.79,75.94,47.72,77.64,48.91,78.17,50.55,80.92,44.12,79.74}}, {46.96,73.08,4.76,14,1,"Drywallow Daggermaw",1,4345,nil,nil,1,{45.37,77.56,46.42,70.13,46.97,68.95,48.39,68.67,48.43,70.68,47.69,75.83}}, {47.02,62.17,4.44,18,1,"Drywallow Daggermaw",1,4345,nil,nil,1,{42.65,61.39,43.23,60.94,46.44,59.17,50.14,60.20,50.88,60.85,50.65,62.18,50.33,63.36,49.46,64.71,48.90,64.72,47.15,64.32}}, {48.45,49.14,nil,nil,1,"Drywallow Daggermaw",1,4345,nil,nil,1}, {48.80,54.63,4.57,15,1,"Drywallow Daggermaw",1,4345,nil,nil,1,{46.07,53.75,46.55,50.66,50.68,52.58,50.95,54.69,49.68,58.56,49.17,58.28}}, {51.05,74.84,nil,nil,1,"Drywallow Daggermaw",1,4345,nil,nil,1}, {50.76,76.53,nil,nil,1,"Drywallow Daggermaw",1,4345,nil,nil,1}, {53.61,70.90,3.96,20,1,"Drywallow Daggermaw",1,4345,nil,nil,1,{50.34,70.03,50.35,68.64,56.11,68.83,56.83,70.16,56.31,72.97,55.29,73.77,51.22,72.75}}},
     },
     turnins = {
@@ -54590,7 +54590,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{46.05,57.24,nil,nil,7,nil,1,23601}},
     },
     },
-    [11174] = { t = "Corrosion Prevention", z = 15, rl = 35, ql = 40, bc = {11172}, maps = {
+    [11174] = { t = "Corrosion Prevention", z = 15, rl = 35, ql = 40, bc = {11172}, si = {33108}, maps = {
       [1445] = {{45.16,58.39,nil,nil,1,"Corrosive Swamp Ooze",1,4392,nil,nil,1}, {44.25,58.62,nil,nil,1,"Corrosive Swamp Ooze",1,4392,nil,nil,1}, {44.93,54.90,nil,nil,1,"Corrosive Swamp Ooze",1,4392,nil,nil,1}, {47.62,51.70,nil,nil,1,"Corrosive Swamp Ooze",1,4392,nil,nil,1}, {50.97,50.28,nil,nil,1,"Corrosive Swamp Ooze",1,4392,nil,nil,1}, {52.67,55.29,3.44,6,1,"Corrosive Swamp Ooze",1,4392,nil,nil,1,{49.26,55.73,53.30,52.96,54.48,54.65,54.13,57.73}}, {49.22,49.86,nil,nil,1,"Acidic Swamp Ooze",1,4393,nil,nil,1}, {50.13,50.08,nil,nil,1,"Acidic Swamp Ooze",1,4393,nil,nil,1}, {53.00,55.41,4.48,20,1,"Acidic Swamp Ooze",1,4393,nil,nil,1,{50.99,58.46,51.03,51.38,54.68,52.88,55.41,53.71,54.48,56.77,53.54,58.44,52.95,58.68}}, {51.46,55.10,4.41,15,1,"Bubbling Swamp Ooze",1,4394,nil,nil,1,{48.45,54.82,49.13,51.93,49.32,51.26,53.20,52.09,54.64,54.52,54.21,58.21,51.57,59.51}}},
     },
     turnins = {
@@ -54630,7 +54630,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{55.58,26.14,nil,nil,7,nil,1,23843}},
     },
     },
-    [11183] = { t = "Cleansing Witch Hill", z = 15, rl = 30, ql = 36, ps = {11181}, maps = {
+    [11183] = { t = "Cleansing Witch Hill", z = 15, rl = 30, ql = 36, ps = {11181}, si = {33113}, maps = {
       [1445] = {{55.18,26.69,nil,nil,1,"Witch Hill Cleansed",1,23864,nil,nil,1}, {55.20,26.60,nil,nil,3,"Plant the torch at the end of the dock"}},
     },
     turnins = {
@@ -54650,7 +54650,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{41.75,73.13,nil,nil,7,nil,2,186426}},
     },
     },
-    [11185] = { t = "The Apothecary's Letter", z = 15, rl = 30, ql = 38, rr = 1101, maps = {
+    [11185] = { t = "The Apothecary's Letter", z = 15, rl = 30, ql = 38, rr = 1101, si = {33114}, maps = {
       [1445] = {{45.47,57.76,nil,nil,6,nil,1,23942}},
     },
     turnins = {
@@ -54660,7 +54660,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{47.22,46.59,nil,nil,7,nil,1,23881}},
     },
     },
-    [11186] = { t = "Signs of Treachery?", z = 15, rl = 35, ql = 38, rr = 690, maps = {
+    [11186] = { t = "Signs of Treachery?", z = 15, rl = 35, ql = 38, rr = 690, si = {33115}, maps = {
       [1445] = {{35.21,30.66,nil,nil,6,nil,1,4791}},
     },
     turnins = {
@@ -54690,7 +54690,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{72.11,47.05,nil,nil,7,nil,1,23892}},
     },
     },
-    [11193] = { t = "Dastardly Denizens of the Deep", z = 15, rl = 30, ql = 35, rr = 1101, ps = {11192}, nc = 11194, maps = {
+    [11193] = { t = "Dastardly Denizens of the Deep", z = 15, rl = 30, ql = 35, rr = 1101, ps = {11192}, nc = 11194, si = {33127}, maps = {
       [1445] = {{69.24,51.89,nil,nil,6,nil,1,23896}},
     },
     turnins = {
@@ -54730,7 +54730,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{36.42,31.88,nil,nil,7,nil,1,4926}},
     },
     },
-    [11201] = { t = "The Grimtotem Plot", z = 15, rl = 33, ql = 38, rr = 690, ps = {11204}, maps = {
+    [11201] = { t = "The Grimtotem Plot", z = 15, rl = 33, ql = 38, rr = 690, ps = {11204}, si = {33050}, maps = {
       [1445] = {{41.78,11.92,1.89,6,2,"Grimtotem Note",3,33050,{23714},{23714,100},nil,{40.79,12.20,41.01,10.56,42.06,11.01,42.41,11.55,42.19,13.76}}},
     },
     turnins = {
@@ -54760,7 +54760,7 @@ VanillaEnhancedQuestsDB = {
       [1456] = {{54.01,80.77,nil,nil,7,nil,1,4943}},
     },
     },
-    [11205] = { t = "Raze Direhorn Post!", z = 15, rl = 35, ql = 39, rr = 690, ps = {11203}, nc = 11206, maps = {
+    [11205] = { t = "Raze Direhorn Post!", z = 15, rl = 35, ql = 39, rr = 690, ps = {11203}, nc = 11206, si = {33072}, maps = {
       [1445] = {{46.60,45.93,nil,nil,1,"North Tent Burned",1,23751,nil,nil,1}, {47.25,46.54,nil,nil,1,"Northeast Tent Burned",1,23752,nil,nil,2}, {47.53,47.65,nil,nil,1,"East Tent Burned",1,23753,nil,nil,3}},
     },
     turnins = {
@@ -54790,7 +54790,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{53.57,56.92,nil,nil,7,nil,1,23797}},
     },
     },
-    [11208] = { t = "Delivery for Drazzit", z = 15, rl = 35, ql = 39, ps = {11207}, maps = {
+    [11208] = { t = "Delivery for Drazzit", z = 15, rl = 35, ql = 39, ps = {11207}, si = {33163}, maps = {
       [1445] = {{42.33,72.93,nil,nil,6,nil,1,23572}},
     },
     turnins = {
@@ -54800,7 +54800,7 @@ VanillaEnhancedQuestsDB = {
       [1445] = {{53.57,56.92,nil,nil,7,nil,1,23797}},
     },
     },
-    [11209] = { t = "Nat's Bargain", z = 15, rl = 30, ql = 37, rr = 1101, ps = {11194}, nc = 11210, maps = {
+    [11209] = { t = "Nat's Bargain", z = 15, rl = 30, ql = 37, rr = 1101, ps = {11194}, nc = 11210, si = {33166}, maps = {
       [1445] = {{56.38,62.42,nil,nil,3,"Smear the Fish Paste on yourself and swim to the ship wreck"}},
     },
     turnins = {
@@ -55206,7 +55206,7 @@ VanillaEnhancedQuestsDB = {
       [1955] = {{75.50,37.24,nil,nil,7,nil,1,24370}},
     },
     },
-    [11377] = { t = "Revenge is Tasty", z = -304, rl = 70, ql = 70, sk = {185,275}, ex = {11379,11380,11381}, rf = 4096, sf = 1, maps = {
+    [11377] = { t = "Revenge is Tasty", z = -304, rl = 70, ql = 70, sk = {185,275}, ex = {11379,11380,11381}, rf = 4096, sf = 1, si = {33837,33838}, maps = {
       [1952] = {{65.80,77.66,6.49,11,2,"Giant Kaliri Wing",3,33838,{23051},{23051,33},nil,{60.91,75.94,61.49,72.81,68.19,74.08,70.05,75.25,69.24,79.76,63.18,79.99}}, {76.17,81.00,nil,nil,2,"Giant Kaliri Wing",3,33838,{23051},{23051,33}}, {73.74,80.42,nil,nil,2,"Giant Kaliri Wing",3,33838,{23051},{23051,33}}, {63.22,86.43,nil,nil,2,"Giant Kaliri Wing",3,33838,{23051},{23051,33}}, {73.37,87.20,3.55,4,2,"Giant Kaliri Wing",3,33838,{23051},{23051,33},nil,{70.98,84.57,74.86,86.10,75.09,88.99,72.53,89.16}}},
     },
     turnins = {
@@ -55226,7 +55226,7 @@ VanillaEnhancedQuestsDB = {
       [1955] = {{75.13,36.65,nil,nil,7,nil,1,24369}},
     },
     },
-    [11379] = { t = "Super Hot Stew", z = -304, rl = 70, ql = 70, sk = {185,275}, ex = {11377,11380,11381}, rf = 4096, sf = 1, maps = {
+    [11379] = { t = "Super Hot Stew", z = -304, rl = 70, ql = 70, sk = {185,275}, ex = {11377,11380,11381}, rf = 4096, sf = 1, si = {33852}, maps = {
       [1955] = {{61.75,15.55,nil,nil,6,nil,1,24393}},
     },
     turnins = {
@@ -55246,7 +55246,7 @@ VanillaEnhancedQuestsDB = {
       [1955] = {{61.75,15.55,nil,nil,7,nil,1,24393}},
     },
     },
-    [11381] = { t = "Soup for the Soul", z = -304, rl = 70, ql = 70, sk = {185,275}, ex = {11377,11379,11380}, rf = 4096, sf = 1, maps = {
+    [11381] = { t = "Soup for the Soul", z = -304, rl = 70, ql = 70, sk = {185,275}, ex = {11377,11379,11380}, rf = 4096, sf = 1, si = {33851}, maps = {
       [1955] = {{61.75,15.55,nil,nil,6,nil,1,24393}},
     },
     turnins = {
@@ -55336,14 +55336,14 @@ VanillaEnhancedQuestsDB = {
       [1955] = {{75.50,37.24,nil,nil,7,nil,1,24370}},
     },
     },
-    [11419] = { t = "Brewfest Riding Rams", z = -370, rl = 40, ql = -1, rr = 690, maps = {
+    [11419] = { t = "Brewfest Riding Rams", z = -370, rl = 40, ql = -1, rr = 690, si = {34028}, maps = {
       [1411] = {{46.29,14.84,nil,nil,6,nil,1,24510}},
     },
     turnins = {
       [1411] = {{46.29,14.84,nil,nil,6,nil,1,24510}},
     },
     },
-    [11451] = { t = "Alicia's Poem", z = 3703, rl = 60, ql = 70, rr = 1101, maps = {
+    [11451] = { t = "Alicia's Poem", z = 3703, rl = 60, ql = 70, rr = 1101, si = {34089}, maps = {
       [1955] = {{31.19,27.74,nil,nil,6,nil,1,24727}},
     },
     turnins = {
@@ -55353,14 +55353,14 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{66.47,14.39,nil,nil,7,nil,1,24729}},
     },
     },
-    [11486] = { t = "The Best of Brews", z = -370, rl = 50, ql = 70, rr = 1101, ps = {11454}, maps = {
+    [11486] = { t = "The Best of Brews", z = -370, rl = 50, ql = 70, rr = 1101, ps = {11454}, si = {34141}, maps = {
       [1426] = {{48.01,39.83,nil,nil,6,nil,1,24710}},
     },
     turnins = {
       [1426] = {{48.01,39.83,nil,nil,6,nil,1,24710}},
     },
     },
-    [11487] = { t = "The Best of Brews", z = -370, rl = 50, ql = 70, rr = 690, ps = {11454}, maps = {
+    [11487] = { t = "The Best of Brews", z = -370, rl = 50, ql = 70, rr = 690, ps = {11454}, si = {34141}, maps = {
       [1411] = {{45.59,17.23,nil,nil,6,nil,1,24711}},
     },
     turnins = {
@@ -55427,7 +55427,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{49.90,46.67,nil,nil,7,nil,1,24886}},
     },
     },
-    [11531] = { t = "Strange Engine Part", z = -101, rl = 67, ql = 70, rr = 1101, sk = {356,1}, sf = 1, maps = {
+    [11531] = { t = "Strange Engine Part", z = -101, rl = 67, ql = 70, rr = 1101, sk = {356,1}, sf = 1, si = {34474}, maps = {
       [1946] = {{68.65,50.21,nil,nil,6,nil,1,17634}},
     },
     turnins = {
@@ -55486,7 +55486,7 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{38.73,12.80,nil,nil,7,nil,1,25580}},
     },
     },
-    [11885] = { t = "Adversarial Blood", z = 3679, rl = 70, ql = 70, sk = {762,225}, ps = {11029}, nc = 11073, maps = {
+    [11885] = { t = "Adversarial Blood", z = 3679, rl = 70, ql = 70, sk = {762,225}, ps = {11029}, nc = 11073, si = {32620}, maps = {
       [1952] = {{61.38,78.07,nil,nil,1,"Darkscreecher Akkarai",1,23161,nil,nil,1}, {61.99,74.66,nil,nil,1,"Darkscreecher Akkarai",1,23161,nil,nil,1}, {69.67,74.72,nil,nil,1,"Darkscreecher Akkarai",1,23161,nil,nil,1}, {70.06,79.45,nil,nil,1,"Darkscreecher Akkarai",1,23161,nil,nil,1}, {70.23,83.35,nil,nil,1,"Darkscreecher Akkarai",1,23161,nil,nil,1}, {72.23,88.18,nil,nil,1,"Darkscreecher Akkarai",1,23161,nil,nil,1}, {74.79,87.51,nil,nil,1,"Darkscreecher Akkarai",1,23161,nil,nil,1}, {73.50,80.70,nil,nil,1,"Darkscreecher Akkarai",1,23161,nil,nil,1}, {75.24,81.20,nil,nil,1,"Darkscreecher Akkarai",1,23161,nil,nil,1}, {61.38,78.07,nil,nil,1,"Karrog",1,23165,nil,nil,2}, {61.99,74.66,nil,nil,1,"Karrog",1,23165,nil,nil,2}, {69.67,74.72,nil,nil,1,"Karrog",1,23165,nil,nil,2}, {70.06,79.45,nil,nil,1,"Karrog",1,23165,nil,nil,2}, {70.23,83.35,nil,nil,1,"Karrog",1,23165,nil,nil,2}, {72.23,88.18,nil,nil,1,"Karrog",1,23165,nil,nil,2}, {74.79,87.51,nil,nil,1,"Karrog",1,23165,nil,nil,2}, {73.50,80.70,nil,nil,1,"Karrog",1,23165,nil,nil,2}, {75.24,81.20,nil,nil,1,"Karrog",1,23165,nil,nil,2}, {61.38,78.07,nil,nil,1,"Gezzarak the Huntress",1,23163,nil,nil,3}, {61.99,74.66,nil,nil,1,"Gezzarak the Huntress",1,23163,nil,nil,3}, {69.67,74.72,nil,nil,1,"Gezzarak the Huntress",1,23163,nil,nil,3}, {70.06,79.45,nil,nil,1,"Gezzarak the Huntress",1,23163,nil,nil,3}, {70.23,83.35,nil,nil,1,"Gezzarak the Huntress",1,23163,nil,nil,3}, {72.23,88.18,nil,nil,1,"Gezzarak the Huntress",1,23163,nil,nil,3}, {74.79,87.51,nil,nil,1,"Gezzarak the Huntress",1,23163,nil,nil,3}, {73.50,80.70,nil,nil,1,"Gezzarak the Huntress",1,23163,nil,nil,3}, {75.24,81.20,nil,nil,1,"Gezzarak the Huntress",1,23163,nil,nil,3}, {61.38,78.07,nil,nil,1,"Vakkiz the Windrager",1,23162,nil,nil,4}, {61.99,74.66,nil,nil,1,"Vakkiz the Windrager",1,23162,nil,nil,4}, {69.67,74.72,nil,nil,1,"Vakkiz the Windrager",1,23162,nil,nil,4}, {70.06,79.45,nil,nil,1,"Vakkiz the Windrager",1,23162,nil,nil,4}, {70.23,83.35,nil,nil,1,"Vakkiz the Windrager",1,23162,nil,nil,4}, {72.23,88.18,nil,nil,1,"Vakkiz the Windrager",1,23162,nil,nil,4}, {74.79,87.51,nil,nil,1,"Vakkiz the Windrager",1,23162,nil,nil,4}, {73.50,80.70,nil,nil,1,"Vakkiz the Windrager",1,23162,nil,nil,4}, {75.24,81.20,nil,nil,1,"Vakkiz the Windrager",1,23162,nil,nil,4}, {65.45,76.72,5.66,62,2,"Time-Lost Scroll",3,32620,{21651,21763,21787},{21651,49.527,21763,50.814,21787,47.885},nil,{60.80,75.60,61.40,73.00,68.60,73.60,70.20,74.40,69.60,79.00,69.40,79.20,68.00,80.20,61.00,80.20}}, {72.49,83.93,5.17,72,2,"Time-Lost Scroll",3,32620,{21651,21763,21787},{21651,49.527,21763,50.814,21787,47.885},nil,{68.40,85.20,69.80,79.60,70.00,79.40,74.00,80.20,75.20,81.20,75.20,86.80,75.00,88.00,74.60,88.60,72.20,88.00}}},
     },
     turnins = {
@@ -55496,14 +55496,14 @@ VanillaEnhancedQuestsDB = {
       [1952] = {{64.23,66.97,nil,nil,7,nil,1,23306}},
     },
     },
-    [12491] = { t = "Direbrew's Dire Brew", z = -370, rl = 65, ql = -1, rr = 1101, ps = {12318}, maps = {
+    [12491] = { t = "Direbrew's Dire Brew", z = -370, rl = 65, ql = -1, rr = 1101, ps = {12318}, si = {38280}, maps = {
       [1426] = {{48.01,39.83,nil,nil,6,nil,1,24710}},
     },
     turnins = {
       [1426] = {{48.01,39.83,nil,nil,6,nil,1,24710}},
     },
     },
-    [12492] = { t = "Direbrew's Dire Brew", z = -370, rl = 65, ql = -1, rr = 690, maps = {
+    [12492] = { t = "Direbrew's Dire Brew", z = -370, rl = 65, ql = -1, rr = 690, si = {38281}, maps = {
       [1411] = {{45.59,17.23,nil,nil,6,nil,1,24711}},
     },
     turnins = {
@@ -55550,7 +55550,7 @@ VanillaEnhancedQuestsDB = {
       [1954] = {{92.20,36.40,nil,nil,7,nil,1,17076}},
     },
     },
-    [64141] = { t = "A Gesture of Commitment", z = -141, rl = 60, ql = 60, rr = 512, rc = 2, ps = {64140}, nc = 64142, maps = {
+    [64141] = { t = "A Gesture of Commitment", z = -141, rl = 60, ql = 60, rr = 512, rc = 2, ps = {64140}, nc = 64142, si = {24277}, maps = {
       [1416] = {{35.68,54.25,nil,nil,2,"Sungrass",3,4637,{2257},nil,3}, {39.57,52.83,nil,nil,2,"Sungrass",3,4637,{2420},nil,3}, {39.32,14.58,nil,nil,2,"Sungrass",3,4637,{2423},nil,3}, {73.71,65.35,nil,nil,2,"Sungrass",3,4637,{2447},nil,3}},
       [1417] = {{30.36,59.08,5.92,5,2,"Sungrass",3,4637,{2607,2763,2780,2781,2782},nil,3,{28.36,58.11,36.16,57.91,29.07,60.23}}, {63.90,30.00,nil,nil,2,"Sungrass",3,4637,{2611},nil,3}, {62.62,34.06,nil,nil,2,"Sungrass",3,4637,{2755},nil,3}, {22.18,86.13,4.22,24,2,"Sungrass",3,4637,{2779},nil,3,{19.80,88.80,20.20,82.40,23.20,82.20,23.60,83.80,24.00,88.40,23.60,89.80,21.20,89.60}}},
       [1418] = {{82.03,49.93,nil,nil,2,"Sungrass",3,8838,{2759},nil,3}, {7.87,91.39,5.66,4,4,"Sungrass",3,8838,nil,nil,3,{6.35,90.31,7.97,85.73,9.57,93.38,7.60,96.13}}, {10.49,76.52,7.74,28,2,"Sungrass",3,4637,{2716,2717,2718,2734,2736,2944},nil,3,{6.57,76.28,6.65,73.85,8.02,72.29,10.79,70.10,13.69,74.08,13.95,75.97,9.63,83.86,8.14,83.90}}, {12.62,87.59,5.50,20,2,"Sungrass",3,4637,{2718,2720,2736,2752},nil,3,{7.57,85.70,13.32,84.08,17.03,84.30,15.97,90.15,14.74,90.46,7.66,89.53}}, {8.01,92.34,3.24,11,2,"Sungrass",3,4637,{2719,2720},nil,3,{6.53,90.64,7.59,90.40,8.64,91.00,9.93,92.33,9.70,93.03,7.59,95.56,7.09,94.53}}, {74.41,64.91,3.19,5,2,"Sungrass",3,4637,{2725},nil,3,{72.16,64.64,73.22,62.94,77.22,63.40,74.23,67.63}}, {71.48,53.83,3.65,4,2,"Sungrass",3,4637,{2725},nil,3,{69.67,53.81,71.08,51.70,72.82,52.44,72.34,57.38}}, {82.12,31.98,5.84,15,2,"Sungrass",3,4637,{2725},nil,3,{76.32,32.66,85.70,27.81,85.73,28.55,83.25,33.67,80.66,37.38}}, {81.19,53.06,5.42,12,2,"Sungrass",3,4637,{2725,2726},nil,3,{77.44,53.80,79.69,47.86,81.83,47.93,84.68,55.85,83.27,57.70,79.86,56.72}}, {82.50,41.76,3.99,4,2,"Sungrass",3,4637,{2725,2726},nil,3,{81.03,45.47,82.10,39.05,84.12,39.65,82.74,42.87}}, {70.52,33.59,3.20,6,2,"Sungrass",3,4637,{2730},nil,3,{69.04,30.76,72.68,33.39,71.48,34.79,69.36,36.22}}, {17.99,61.29,8.34,17,2,"Sungrass",3,4637,{2734,2831},nil,3,{14.63,57.07,14.88,56.01,22.86,60.22,25.88,64.01,21.28,68.93,17.95,67.18,15.04,61.82}}, {23.34,74.64,6.06,10,2,"Sungrass",3,4637,{2734,2831,14224},nil,3,{18.85,77.61,19.46,70.43,25.68,71.45,28.81,72.04,25.36,79.32,19.63,78.29}}, {10.48,57.35,2.96,3,2,"Sungrass",3,4637,{2734},nil,3,{8.38,57.82,12.71,55.40,10.35,58.82}}, {16.36,51.16,2.61,4,2,"Sungrass",3,4637,{2734,2831},nil,3,{15.21,51.77,16.54,49.94,17.54,49.15,16.15,53.76}}, {29.05,64.23,6.22,4,2,"Sungrass",3,4637,{2734,2831,14224},nil,3,{25.77,61.89,33.42,59.81,28.72,68.72}}, {3.56,80.60,4.39,18,2,"Sungrass",3,4637,{2736,2752,14224},nil,3,{0.93,78.67,4.13,77.33,5.48,76.95,6.94,80.15,4.93,83.72,1.57,84.51}}, {42.10,28.88,nil,nil,2,"Sungrass",3,4637,{2745},nil,3}, {54.70,83.89,3.43,13,2,"Sungrass",3,4637,{2791,14224},nil,3,{52.59,85.55,53.80,81.79,54.52,81.95,56.05,82.76,56.55,83.64,55.57,87.21}}, {12.69,68.62,2.38,3,2,"Sungrass",3,4637,{2831,14224},nil,3,{12.21,67.91,13.58,66.99,12.28,70.96}}, {49.65,67.75,2.05,6,2,"Sungrass",3,4637,{2894,2945},nil,3,{48.27,68.28,49.63,66.31,50.94,67.25,49.53,69.80}}, {26.01,45.78,nil,nil,2,"Sungrass",3,4637,{2919},nil,3}, {23.76,52.38,nil,nil,2,"Sungrass",3,4637,{14224},nil,3}, {54.25,53.54,nil,nil,2,"Sungrass",3,4637,{14224},nil,3}},
@@ -55638,7 +55638,7 @@ VanillaEnhancedQuestsDB = {
       [1954] = {{92.20,36.40,nil,nil,7,nil,1,17076}},
     },
     },
-    [64145] = { t = "True Masters of the Light", z = -141, rl = 60, ql = 60, rr = 512, rc = 2, ps = {64144}, maps = {
+    [64145] = { t = "True Masters of the Light", z = -141, rl = 60, ql = 60, rr = 512, rc = 2, ps = {64144}, si = {24287}, maps = {
       [1954] = {{92.20,36.40,nil,nil,6,nil,1,17076}},
     },
     turnins = {
@@ -55659,7 +55659,7 @@ VanillaEnhancedQuestsDB = {
       [1458] = {{84.81,14.83,nil,nil,7,nil,1,5693}},
     },
     },
-    [65597] = { t = "The Binding", z = -61, rl = 20, ql = -1, rr = 690, rc = 256, ps = {65593}, ex = {1507}, maps = {
+    [65597] = { t = "The Binding", z = -61, rl = 20, ql = -1, rr = 690, rc = 256, ps = {65593}, ex = {1507}, si = {190181}, maps = {
       [1458] = {{85.06,25.99,nil,nil,6,nil,1,5675}},
     },
     turnins = {
@@ -55679,7 +55679,7 @@ VanillaEnhancedQuestsDB = {
       [1454] = {{47.06,46.43,nil,nil,7,nil,1,5909}},
     },
     },
-    [65602] = { t = "What Is Love?", z = -61, rl = 20, ql = -1, rr = 1101, rc = 256, ps = {1716}, nc = 65603, maps = {
+    [65602] = { t = "What Is Love?", z = -61, rl = 20, ql = -1, rr = 1101, rc = 256, ps = {1716}, nc = 65603, si = {190307,190308}, maps = {
       [1440] = {{26.61,22.03,nil,nil,4,"Wooden Figurine",3,190309,nil,nil,1}, {26.79,22.43,nil,nil,4,"Unlit Torch",3,190307}},
     },
     turnins = {
@@ -55689,7 +55689,7 @@ VanillaEnhancedQuestsDB = {
       [1413] = {{49.31,57.10,nil,nil,7,nil,1,6244}},
     },
     },
-    [65603] = { t = "The Binding", z = -61, rl = 20, ql = -1, rr = 1101, rc = 256, ps = {65602}, maps = {
+    [65603] = { t = "The Binding", z = -61, rl = 20, ql = -1, rr = 1101, rc = 256, ps = {65602}, si = {190186}, maps = {
       [1453] = {{25.25,78.56,nil,nil,6,nil,1,6122}},
     },
     turnins = {
@@ -55699,7 +55699,7 @@ VanillaEnhancedQuestsDB = {
       [1453] = {{25.25,78.56,nil,nil,7,nil,1,6122}},
     },
     },
-    [65604] = { t = "The Binding", z = -61, rl = 20, ql = -1, rr = 690, rc = 256, ps = {65610}, ex = {1472}, maps = {
+    [65604] = { t = "The Binding", z = -61, rl = 20, ql = -1, rr = 690, rc = 256, ps = {65610}, ex = {1472}, si = {190187}, maps = {
       [1454] = {{48.25,45.28,nil,nil,6,nil,1,5875}},
     },
     turnins = {
