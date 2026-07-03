@@ -231,6 +231,7 @@ local function BuildMarkerRenderCandidate(self, candidate, currentMapId)
         opacityMultiplier = candidate.opacityMultiplier,
         color = candidate.color,
         texture = candidate.texture,
+        fogFilterKind = candidate.fogFilterKind,
     }
 
     if currentMapId and self.hbd and self.hbd.TranslateZoneCoordinates then
@@ -311,7 +312,7 @@ local function AddMarkerRenderCandidate(groupsByMap, candidate, xScale, yScale)
     AddUniqueAreaFrame(groups[#groups].areaFrames, candidate.areaFrame)
 end
 
-function Quests:AddMarkerCandidate(uiMapId, x, y, data, symbol, areaFrame, opacityMultiplier, color, texture)
+function Quests:AddMarkerCandidate(uiMapId, x, y, data, symbol, areaFrame, opacityMultiplier, color, texture, fogFilterKind)
     self.markerCandidates = self.markerCandidates or {}
 
     self.markerCandidates[#self.markerCandidates + 1] = {
@@ -324,6 +325,7 @@ function Quests:AddMarkerCandidate(uiMapId, x, y, data, symbol, areaFrame, opaci
         opacityMultiplier = opacityMultiplier,
         color = color,
         texture = texture,
+        fogFilterKind = fogFilterKind,
     }
 end
 
@@ -344,7 +346,13 @@ function Quests:RenderMarkerGroups()
         else
             local filterMapId, filterX, filterY, hideIfExplorationApiHasNoData =
                 GetMarkerFogFilterPosition(self, candidate, renderCandidate)
-            if self:IsQuestWorldMapLocationVisible(filterMapId, filterX, filterY, hideIfExplorationApiHasNoData) then
+            if self:IsQuestWorldMapLocationVisible(
+                filterMapId,
+                filterX,
+                filterY,
+                hideIfExplorationApiHasNoData,
+                candidate.fogFilterKind
+            ) then
                 AddMarkerRenderCandidate(groupsByMap, renderCandidate, xScale, yScale)
             end
         end

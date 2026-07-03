@@ -188,11 +188,28 @@ function Quests:ClearMapExplorationCache()
     self.mapExplorationCache = {}
 end
 
-function Quests:IsQuestMapFogFilterEnabled()
+function Quests:ShouldShowQuestMarkerInFogOfWar(markerKind, settings)
+    settings = settings or self:GetSettings()
+    if markerKind == "available" then
+        return settings.showAvailableQuestMarkersInFogOfWar == true
+    end
+    return settings.showQuestObjectiveMarkersInFogOfWar == true
+end
+
+function Quests:IsQuestMapFogFilterEnabled(markerKind)
     local settings = self:GetSettings()
+    local shouldFilter
+
+    if markerKind then
+        shouldFilter = not self:ShouldShowQuestMarkerInFogOfWar(markerKind, settings)
+    else
+        shouldFilter = settings.showQuestObjectiveMarkersInFogOfWar ~= true
+            or settings.showAvailableQuestMarkersInFogOfWar ~= true
+    end
+
     return settings.enabled ~= false
         and settings.showMapMarkers ~= false
-        and settings.hideMapMarkersInFogOfWar == true
+        and shouldFilter
 end
 
 function Quests:DoesQuestMapHaveFogData(uiMapId)
@@ -204,8 +221,8 @@ function Quests:DoesQuestMapHaveFogData(uiMapId)
     return entry.hasFogData == true
 end
 
-function Quests:IsQuestWorldMapLocationVisible(uiMapId, x, y, hideIfExplorationApiHasNoData)
-    if not self:IsQuestMapFogFilterEnabled() then
+function Quests:IsQuestWorldMapLocationVisible(uiMapId, x, y, hideIfExplorationApiHasNoData, markerKind)
+    if not self:IsQuestMapFogFilterEnabled(markerKind) then
         return true
     end
     if not uiMapId or not x or not y then

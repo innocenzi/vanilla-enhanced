@@ -30,7 +30,8 @@ local defaults = {
     scale = 1,
     opacity = 1,
     showMapMarkers = true,
-    hideMapMarkersInFogOfWar = true,
+    showQuestObjectiveMarkersInFogOfWar = false,
+    showAvailableQuestMarkersInFogOfWar = false,
     showRepeatableQuests = false,
     showReputationQuests = false,
     showAvailableQuests = false,
@@ -62,7 +63,29 @@ local function ClampAvailableQuestLevelWindowSetting(value, defaultValue)
 end
 
 function Quests:GetSettings()
+    local rawSettings = VanillaEnhancedSettings
+        and VanillaEnhancedSettings.modules
+        and VanillaEnhancedSettings.modules.quests
+        or nil
+    local migrateFogSettings = type(rawSettings) == "table"
+        and rawSettings.fogOfWarMarkerSettingsVersion ~= 1
+    local hadObjectiveFogSetting = migrateFogSettings
+        and rawSettings.showQuestObjectiveMarkersInFogOfWar ~= nil
+    local hadAvailableFogSetting = migrateFogSettings
+        and rawSettings.showAvailableQuestMarkersInFogOfWar ~= nil
+    local legacyHideMarkersInFog = migrateFogSettings and rawSettings.hideMapMarkersInFogOfWar
+
     local settings = VanillaEnhanced:GetModuleSettings("quests", defaults)
+    if migrateFogSettings then
+        local legacyShowMarkersInFog = legacyHideMarkersInFog == false
+        if not hadObjectiveFogSetting then
+            settings.showQuestObjectiveMarkersInFogOfWar = legacyShowMarkersInFog
+        end
+        if not hadAvailableFogSetting then
+            settings.showAvailableQuestMarkersInFogOfWar = legacyShowMarkersInFog
+        end
+        settings.fogOfWarMarkerSettingsVersion = 1
+    end
     if settings.showTooltipDropRates ~= nil then
         settings.alwaysShowTooltipDropRates = settings.showTooltipDropRates
         settings.showTooltipDropRates = nil

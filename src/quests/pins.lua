@@ -280,7 +280,7 @@ function Quests:AddPin(uiMapId, x, y, quest, cluster)
     if not self.hbdPins or not uiMapId or not x or not y then
         return
     end
-    if self.IsQuestWorldMapLocationVisible and not self:IsQuestWorldMapLocationVisible(uiMapId, x, y, true) then
+    if self.IsQuestWorldMapLocationVisible and not self:IsQuestWorldMapLocationVisible(uiMapId, x, y, true, "objective") then
         return
     end
 
@@ -309,14 +309,15 @@ function Quests:AddPin(uiMapId, x, y, quest, cluster)
         area,
         nil,
         self:GetRepeatableQuestMarkerColor(dbQuest),
-        self:GetPinMarkerTexture(kind)
+        self:GetPinMarkerTexture(kind),
+        "objective"
     )
 end
 function Quests:AddAvailablePin(uiMapId, x, y, questId, dbQuest, cluster, context)
     if not self.hbdPins or not uiMapId or not x or not y then
         return
     end
-    if self.IsQuestWorldMapLocationVisible and not self:IsQuestWorldMapLocationVisible(uiMapId, x, y, true) then
+    if self.IsQuestWorldMapLocationVisible and not self:IsQuestWorldMapLocationVisible(uiMapId, x, y, true, "available") then
         return
     end
 
@@ -331,7 +332,9 @@ function Quests:AddAvailablePin(uiMapId, x, y, questId, dbQuest, cluster, contex
         self:GetPinMarkerSymbol(self:GetClusterKind(cluster), self:GetPinMarkerSymbol("available")),
         nil,
         opacityMultiplier,
-        color
+        color,
+        nil,
+        "available"
     )
 end
 
