@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.7.2 - 2026-07-03
+
+
+### Features
+- **spellbook:** show spell ranks
+- **quests:** more control over fog of war markers
+- **quests:** allow chosing between areas or exact points
+
+
+### Fixes
+- **quests:** avoid protected quest watch refresh
+
 ## 0.7.1 - 2026-07-02
 
 
