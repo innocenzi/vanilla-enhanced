@@ -16,6 +16,7 @@ Training.displayModes = {
 
 Training.spellInfoCache = Training.spellInfoCache or {}
 Training.overriddenSpellsMap = Training.overriddenSpellsMap or {}
+Training.rankIndex = Training.rankIndex or {}
 Training.spells = Training.spells or {}
 Training.pages = Training.pages or {}
 Training.dirty = true
@@ -136,6 +137,86 @@ local function ReadSpellInfo(spellId)
     return name, rank, icon
 end
 
+function Training:BuildRankIndex(classKey)
+    local data = VanillaEnhanced.trainingData
+    local spellsByLevel = data and data.spellsByClass and data.spellsByClass[classKey]
+    local spellSet = {}
+    local spellEntries = {}
+    local spellNames = {}
+    local previousById = {}
+    local childCountById = {}
+    local rankIndex = {}
+
+    for _, levelSpells in pairs(spellsByLevel or {}) do
+        for _, spell in ipairs(levelSpells) do
+            spellSet[spell.id] = true
+            spellEntries[#spellEntries + 1] = spell
+        end
+    end
+
+    for _, spell in ipairs(spellEntries) do
+        local name = ReadSpellInfo(spell.id)
+        spellNames[spell.id] = name
+    end
+
+    for _, spell in ipairs(spellEntries) do
+        local spellName = spellNames[spell.id]
+        if spellName then
+            for _, requiredId in ipairs(spell.requiredIds or {}) do
+                if spellSet[requiredId] and spellNames[requiredId] == spellName then
+                    previousById[spell.id] = requiredId
+                    childCountById[requiredId] = (childCountById[requiredId] or 0) + 1
+                    break
+                end
+            end
+        end
+    end
+
+    local visiting = {}
+    local ResolveRank
+    ResolveRank = function(spellId)
+        if rankIndex[spellId] then
+            return rankIndex[spellId]
+        end
+        if visiting[spellId] then
+            return nil
+        end
+
+        visiting[spellId] = true
+        local previousId = previousById[spellId]
+        if previousId then
+            local previousRank = ResolveRank(previousId)
+            if previousRank then
+                rankIndex[spellId] = previousRank + 1
+            end
+        elseif childCountById[spellId] then
+            rankIndex[spellId] = 1
+        end
+        visiting[spellId] = nil
+
+        return rankIndex[spellId]
+    end
+
+    for _, spell in ipairs(spellEntries) do
+        ResolveRank(spell.id)
+    end
+
+    self.rankIndex = rankIndex
+end
+
+function Training:GetSpellRankText(spellId, rank)
+    if rank and rank ~= "" then
+        return rank
+    end
+
+    local rankNumber = self.rankIndex and self.rankIndex[spellId]
+    if rankNumber then
+        return T("training.spell.rank", { rank = rankNumber })
+    end
+
+    return rank
+end
+
 function Training:GetSpellInfo(spell)
     local cached = self.spellInfoCache[spell.id]
     if cached then
@@ -150,7 +231,7 @@ function Training:GetSpellInfo(spell)
     cached = {
         id = spell.id,
         name = name,
-        rank = rank,
+        rank = self:GetSpellRankText(spell.id, rank),
         icon = icon or "Interface\\Icons\\INV_Misc_QuestionMark",
         link = string.format("|cff71d5ff|Hspell:%d:0|h[%s]|h|r", spell.id, name),
     }
@@ -203,6 +284,7 @@ function Training:Rebuild()
     local spells = {}
 
     self:BuildOverriddenSpellsMap(classKey)
+    self:BuildRankIndex(classKey)
 
     for level, levelSpells in pairs(spellsByLevel or {}) do
         for _, spell in ipairs(levelSpells) do

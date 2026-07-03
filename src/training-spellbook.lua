@@ -134,6 +134,25 @@ local function GetStateColor(state)
     return STATE_COLORS[state] or { r = 1, g = 1, b = 1 }
 end
 
+local function TooltipContainsLine(tooltip, text)
+    if not tooltip or not text or text == "" or not tooltip.GetName or not tooltip.NumLines then
+        return false
+    end
+
+    local name = tooltip:GetName()
+    if not name then
+        return false
+    end
+
+    for index = 1, tooltip:NumLines() do
+        local leftLine = _G[name .. "TextLeft" .. index]
+        if leftLine and leftLine.GetText and leftLine:GetText() == text then
+            return true
+        end
+    end
+    return false
+end
+
 local function IsSpellUnaffordable(spell)
     return spell
         and spell.cost
@@ -166,6 +185,9 @@ end
 
 function Training:AddTrainingTooltipDetails(tooltip, spell)
     local stateColor = GetStateColor(spell.state)
+    if spell.rank and spell.rank ~= "" and not TooltipContainsLine(tooltip, spell.rank) then
+        tooltip:AddLine(spell.rank, 0.5, 0.5, 0.5, true)
+    end
     tooltip:AddLine(" ")
     tooltip:AddLine(self:GetStateLabel(spell.state, spell.level), stateColor.r, stateColor.g, stateColor.b, true)
     if spell.cost and spell.cost > 0 and type(GetCoinTextureString) == "function" then
