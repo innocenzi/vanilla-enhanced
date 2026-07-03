@@ -33,6 +33,7 @@ export type Cluster = {
   dr?: DropRatePair[];
   oi?: number;
   p?: OutlinePoint[];
+  exact?: OutlinePoint[];
 };
 
 type OutlinePoint = {
@@ -721,12 +722,13 @@ function cluster(points: Point[]): Record<number, Cluster[]> {
 }
 
 function splitSpatialClusters(points: Point[]): Point[][] {
-  if (points.length < 3) {
+  const minimumClusterSize = points[0]?.kind === "slay" ? 2 : 3;
+  if (points.length < minimumClusterSize) {
     return points.map((point) => [point]);
   }
 
   if (points[0]?.kind === "slay") {
-    return splitSparseClusters(splitBoundedConnectivityClusters(points));
+    return splitSparseClusters(splitBoundedConnectivityClusters(points), minimumClusterSize);
   }
 
   const maxDistance = 8;
@@ -752,15 +754,15 @@ function splitSpatialClusters(points: Point[]): Point[][] {
     }
   }
 
-  return splitSparseClusters(groups);
+  return splitSparseClusters(groups, minimumClusterSize);
 }
 
-function splitSparseClusters(groups: Point[][]): Point[][] {
-  return groups.flatMap((group) => (group.length < 3 ? group.map((point) => [point]) : [group]));
+function splitSparseClusters(groups: Point[][], minimumClusterSize = 3): Point[][] {
+  return groups.flatMap((group) => (group.length < minimumClusterSize ? group.map((point) => [point]) : [group]));
 }
 
 function splitBoundedConnectivityClusters(points: Point[]): Point[][] {
-  const maxEdgeDistance = 3;
+  const maxEdgeDistance = 3.5;
   const maxClusterRadius = 5;
   const edges: Array<{ left: Point; right: Point; distance: number }> = [];
   let groups = points.map((point) => [point]);
@@ -835,6 +837,7 @@ function buildCluster(group: Point[]): Cluster {
     dr: dropRates,
     oi: group[0].objectiveIndex,
     p: buildOutline(group),
+    exact: buildExactPoints(group),
   };
 }
 
@@ -860,6 +863,21 @@ function buildOutline(group: Point[]): OutlinePoint[] | undefined {
   }));
   const simplified = simplifyOutline(hull, 16);
   return simplified.length >= 3 ? simplified : undefined;
+}
+
+function buildExactPoints(group: Point[]): OutlinePoint[] | undefined {
+  const unique = new Map<string, OutlinePoint>();
+
+  for (const point of group) {
+    const rounded = {
+      x: Number(point.x.toFixed(2)),
+      y: Number(point.y.toFixed(2)),
+    };
+    const key = `${rounded.x.toFixed(2)}:${rounded.y.toFixed(2)}`;
+    if (!unique.has(key)) unique.set(key, rounded);
+  }
+
+  return unique.size ? [...unique.values()] : undefined;
 }
 
 function convexHull(points: Point[]): Point[] {
@@ -932,6 +950,7 @@ function formatCluster(c: Cluster): string {
     c.dr?.length ? `{${c.dr.flatMap(([npcId, rate]) => [npcId, rate]).join(",")}}` : undefined,
     c.oi ? String(c.oi) : undefined,
     c.p ? `{${c.p.flatMap((point) => [point.x.toFixed(2), point.y.toFixed(2)]).join(",")}}` : undefined,
+    c.exact ? `{${c.exact.flatMap((point) => [point.x.toFixed(2), point.y.toFixed(2)]).join(",")}}` : undefined,
   ];
 
   let lastFieldIndex = fields.length - 1;

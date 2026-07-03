@@ -1545,6 +1545,29 @@ local questsPanel = BuildOptionsPanel({
             indent = 1,
         },
         {
+            type = "dropdown",
+            name = "VanillaEnhancedOptionsQuestsObjectiveLocationDisplayMode",
+            settingKey = "objectiveLocationDisplayMode",
+            labelKey = "options.quests.objectiveLocationDisplayMode.label",
+            helpKey = "options.quests.objectiveLocationDisplayMode.help",
+            enabledWhenSetting = "showMapMarkers",
+            indent = 1,
+            width = 170,
+            defaultValue = "area",
+            options = {
+                {
+                    value = "area",
+                    labelKey = "options.quests.objectiveLocationDisplayMode.area",
+                    descriptionKey = "options.quests.objectiveLocationDisplayMode.area.description",
+                },
+                {
+                    value = "points",
+                    labelKey = "options.quests.objectiveLocationDisplayMode.points",
+                    descriptionKey = "options.quests.objectiveLocationDisplayMode.points.description",
+                },
+            },
+        },
+        {
             type = "section",
             name = "VanillaEnhancedOptionsQuestsTooltipsSection",
             labelKey = "options.quests.section.tooltips",

@@ -13,6 +13,7 @@ local CLUSTER_TOOLTIP_NPCS = 9
 local CLUSTER_DROP_RATES = 10
 local CLUSTER_OBJECTIVE_INDEX = 11
 local CLUSTER_POINTS = 12
+local CLUSTER_EXACT_POINTS = 13
 
 local KIND_BY_ID = {
     "slay",
@@ -85,8 +86,11 @@ function Quests:GetClusterPoints(cluster)
     return cluster and (cluster.p or cluster[CLUSTER_POINTS])
 end
 
-function Quests:GetClusterPointCount(cluster)
-    local points = self:GetClusterPoints(cluster)
+function Quests:GetClusterExactPoints(cluster)
+    return cluster and (cluster.exact or cluster[CLUSTER_EXACT_POINTS])
+end
+
+local function GetPackedPointCount(points)
     if not points then
         return 0
     end
@@ -96,8 +100,7 @@ function Quests:GetClusterPointCount(cluster)
     return math.floor(#points / 2)
 end
 
-function Quests:GetClusterPoint(cluster, index)
-    local points = self:GetClusterPoints(cluster)
+local function GetPackedPoint(points, index)
     if not points then
         return nil, nil
     end
@@ -109,6 +112,22 @@ function Quests:GetClusterPoint(cluster, index)
 
     local offset = (index * 2) - 1
     return points[offset], points[offset + 1]
+end
+
+function Quests:GetClusterPointCount(cluster)
+    return GetPackedPointCount(self:GetClusterPoints(cluster))
+end
+
+function Quests:GetClusterPoint(cluster, index)
+    return GetPackedPoint(self:GetClusterPoints(cluster), index)
+end
+
+function Quests:GetClusterExactPointCount(cluster)
+    return GetPackedPointCount(self:GetClusterExactPoints(cluster))
+end
+
+function Quests:GetClusterExactPoint(cluster, index)
+    return GetPackedPoint(self:GetClusterExactPoints(cluster), index)
 end
 
 function Quests:GetClusterDropRate(cluster, npcId)

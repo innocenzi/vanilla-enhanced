@@ -7,6 +7,7 @@ local DEFAULT_AVAILABLE_QUEST_LEVELS_BELOW_PLAYER = 5
 local DEFAULT_AVAILABLE_QUEST_LEVELS_ABOVE_PLAYER = 3
 local DEFAULT_AUTO_FOLLOW_QUESTS_MODE = "disabled"
 local DEFAULT_AUTO_FOLLOW_QUESTS_RANGE = "nearby"
+local DEFAULT_OBJECTIVE_LOCATION_DISPLAY_MODE = "area"
 
 local AUTO_FOLLOW_QUESTS_MODES = {
     disabled = true,
@@ -18,6 +19,11 @@ local AUTO_FOLLOW_QUESTS_RANGES = {
     close = true,
     nearby = true,
     wide = true,
+}
+
+local OBJECTIVE_LOCATION_DISPLAY_MODES = {
+    area = true,
+    points = true,
 }
 
 local defaults = {
@@ -39,6 +45,7 @@ local defaults = {
     showDistantMinimapQuestMarkers = false,
     showIncompleteDungeonTurnins = false,
     showMinimapObjectiveAreas = true,
+    objectiveLocationDisplayMode = DEFAULT_OBJECTIVE_LOCATION_DISPLAY_MODE,
     onlyShowNearbyAvailableQuests = false,
     onlyShowAvailableQuestsAroundPlayerLevel = false,
     availableQuestLevelsBelowPlayer = DEFAULT_AVAILABLE_QUEST_LEVELS_BELOW_PLAYER,
@@ -95,6 +102,9 @@ function Quests:GetSettings()
     end
     if not AUTO_FOLLOW_QUESTS_RANGES[settings.autoFollowQuestsRange] then
         settings.autoFollowQuestsRange = DEFAULT_AUTO_FOLLOW_QUESTS_RANGE
+    end
+    if not OBJECTIVE_LOCATION_DISPLAY_MODES[settings.objectiveLocationDisplayMode] then
+        settings.objectiveLocationDisplayMode = DEFAULT_OBJECTIVE_LOCATION_DISPLAY_MODE
     end
     settings.availableQuestLevelsBelowPlayer = ClampAvailableQuestLevelWindowSetting(
         settings.availableQuestLevelsBelowPlayer,

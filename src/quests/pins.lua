@@ -2,6 +2,10 @@ local VanillaEnhanced = _G.VanillaEnhanced
 local Quests = VanillaEnhanced:GetModule("quests")
 
 local SELECTED_QUEST_DIRECTION_OWNER = "quests-selected"
+local POINT_MODE_EXCLUDED_KINDS = {
+    available = true,
+    turnin = true,
+}
 
 local function GetMapModule()
     local map = VanillaEnhanced.modules and VanillaEnhanced.modules.map
@@ -157,6 +161,20 @@ local function HasAreaGeometry(cluster)
     return Quests:GetClusterPointCount(cluster) >= 3 or Quests:GetClusterRadius(cluster) > 0
 end
 
+local function ShouldUseExactObjectivePoints(self, kind)
+    local settings = self:GetSettings()
+    return settings.objectiveLocationDisplayMode == "points"
+        and POINT_MODE_EXCLUDED_KINDS[kind] ~= true
+end
+
+local function GetExactObjectivePointCount(self, cluster)
+    local count = self:GetClusterExactPointCount(cluster)
+    if count and count > 0 then
+        return count
+    end
+    return 0
+end
+
 local function CanCreateDistanceGatedMinimapPin(self, uiMapId, x, y)
     local settings = self:GetSettings()
     if settings.showDistantMinimapQuestMarkers ~= true then
@@ -175,6 +193,28 @@ local function CanCreateDistanceGatedMinimapPin(self, uiMapId, x, y)
     end
 
     return self.hbd:GetZoneDistance(playerMapId, playerX, playerY, uiMapId, x / 100, y / 100) ~= nil
+end
+
+local function AddMinimapMarkerAtPoint(self, uiMapId, x, y, pinData, kind, quest, dbQuest, distanceGated)
+    local marker = self:AcquirePinFrame("marker", "minimapMarker", Minimap)
+    marker.questsData = pinData
+    marker.questsMinimapUiMapId = uiMapId
+    local texture = self:GetPinMarkerTexture(kind)
+    local color = self:GetRepeatableQuestMarkerColor(dbQuest)
+    if texture then
+        self:ConfigurePinIcon(marker, texture, nil, color)
+    else
+        self:ConfigurePinSymbol(marker, self:GetPinMarkerSymbol(kind, quest.number), nil, color)
+    end
+    self:ApplyMinimapFloorDimming(marker)
+
+    marker:Hide()
+    self:RaiseMinimapMarkerFrame(marker)
+    self.hbdPins:AddMinimapIconMap(self, marker, uiMapId, x / 100, y / 100, true, false)
+    if distanceGated then
+        self:SetMinimapPinDistanceGate(marker, uiMapId, x / 100, y / 100)
+    end
+    self:TrackMinimapPinFrame(marker)
 end
 
 function Quests:AddPins(uiMapId, clusters, quest)
@@ -246,6 +286,19 @@ function Quests:AddMinimapPin(uiMapId, x, y, quest, cluster)
     end
 
     local pinData = self:BuildQuestPinData(quest, cluster)
+    if ShouldUseExactObjectivePoints(self, kind) then
+        local exactPointCount = GetExactObjectivePointCount(self, cluster)
+        if exactPointCount > 0 then
+            for index = 1, exactPointCount do
+                local pointX, pointY = self:GetClusterExactPoint(cluster, index)
+                if pointX and pointY then
+                    AddMinimapMarkerAtPoint(self, uiMapId, pointX, pointY, pinData, kind, quest, dbQuest, false)
+                end
+            end
+            return
+        end
+    end
+
     if not distanceGated and HasAreaGeometry(cluster) and (self:IsQuestObjectiveAreaKind(kind) or self:GetClusterRadius(cluster) > 2) then
         if self:GetSettings().showMinimapObjectiveAreas == false then
             return
@@ -255,40 +308,40 @@ function Quests:AddMinimapPin(uiMapId, x, y, quest, cluster)
         end
     end
 
-    local marker = self:AcquirePinFrame("marker", "minimapMarker", Minimap)
-    marker.questsData = pinData
-    marker.questsMinimapUiMapId = uiMapId
-    local texture = self:GetPinMarkerTexture(kind)
-    local color = self:GetRepeatableQuestMarkerColor(dbQuest)
-    if texture then
-        self:ConfigurePinIcon(marker, texture, nil, color)
-    else
-        self:ConfigurePinSymbol(marker, self:GetPinMarkerSymbol(kind, quest.number), nil, color)
-    end
-    self:ApplyMinimapFloorDimming(marker)
-
-    marker:Hide()
-    self:RaiseMinimapMarkerFrame(marker)
-    self.hbdPins:AddMinimapIconMap(self, marker, uiMapId, x / 100, y / 100, true, false)
-    if distanceGated then
-        self:SetMinimapPinDistanceGate(marker, uiMapId, x / 100, y / 100)
-    end
-    self:TrackMinimapPinFrame(marker)
+    AddMinimapMarkerAtPoint(self, uiMapId, x, y, pinData, kind, quest, dbQuest, distanceGated)
 end
 
 function Quests:AddPin(uiMapId, x, y, quest, cluster)
     if not self.hbdPins or not uiMapId or not x or not y then
         return
     end
-    if self.IsQuestWorldMapLocationVisible and not self:IsQuestWorldMapLocationVisible(uiMapId, x, y, true, "objective") then
+
+    local kind = self:GetClusterKind(cluster)
+    local useExactPoints = ShouldUseExactObjectivePoints(self, kind)
+    if not useExactPoints and self.IsQuestWorldMapLocationVisible and not self:IsQuestWorldMapLocationVisible(uiMapId, x, y, true, "objective") then
         return
     end
 
-    local kind = self:GetClusterKind(cluster)
     local areaOnly = self:IsQuestObjectiveAreaKind(kind)
     local dbQuest = VanillaEnhancedQuestsDB and VanillaEnhancedQuestsDB.quests and VanillaEnhancedQuestsDB.quests[quest.id]
     local pinData = self:BuildQuestPinData(quest, cluster)
     local area
+    local symbol = self:GetPinMarkerSymbol(kind, quest.number)
+    local color = self:GetRepeatableQuestMarkerColor(dbQuest)
+    local texture = self:GetPinMarkerTexture(kind)
+
+    if useExactPoints then
+        local exactPointCount = GetExactObjectivePointCount(self, cluster)
+        if exactPointCount > 0 then
+            for index = 1, exactPointCount do
+                local pointX, pointY = self:GetClusterExactPoint(cluster, index)
+                if pointX and pointY then
+                    self:AddMarkerCandidate(uiMapId, pointX, pointY, pinData, symbol, nil, nil, color, texture, "objective")
+                end
+            end
+            return
+        end
+    end
 
     if HasAreaGeometry(cluster) and (areaOnly or self:GetClusterRadius(cluster) > 2) then
         area = self:AcquirePinFrame("area", "area", WorldMapFrame)
@@ -305,11 +358,11 @@ function Quests:AddPin(uiMapId, x, y, quest, cluster)
         x,
         y,
         pinData,
-        self:GetPinMarkerSymbol(kind, quest.number),
+        symbol,
         area,
         nil,
-        self:GetRepeatableQuestMarkerColor(dbQuest),
-        self:GetPinMarkerTexture(kind),
+        color,
+        texture,
         "objective"
     )
 end
