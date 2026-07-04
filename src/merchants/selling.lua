@@ -268,7 +268,7 @@ function Merchants:SellScrapsBatch(limit)
         return
     end
     if self.Api and self.Api:HasCursorItem() then
-        self:PrintMessage(T("merchants.sellScraps.errorCursor"))
+        self:PrintMessage(T("merchants.sellScraps.errorCursor"), "error")
         return
     end
 

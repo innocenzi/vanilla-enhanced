@@ -595,7 +595,7 @@ function Map:AddMarker(uiMapId, x, y, options)
     x = RoundCoordinate(x)
     y = RoundCoordinate(y)
     if x < 0 or x > 1 or y < 0 or y > 1 or not self:CanPlaceMarker(uiMapId, x, y) then
-        VanillaEnhanced:PrintMessage(T("map.marker.unsupportedMap"))
+        VanillaEnhanced:PrintMessage(T("map.marker.unsupportedMap"), "error")
         return nil
     end
     if self:IsMarkerPositionReached(uiMapId, x, y) then

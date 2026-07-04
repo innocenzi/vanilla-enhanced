@@ -418,12 +418,12 @@ function Bags:HandleItemLockOverlayClick(button, mouseButton)
 
     if IsMerchantOpen() then
         local message = mouseButton == "RightButton" and T("bags.lock.cannotSell") or T("bags.lock.cannotMove")
-        self:PrintMessage(message)
+        self:PrintMessage(message, "error")
         return true
     end
 
     if HasCursorItem() or mouseButton == "LeftButton" then
-        self:PrintMessage(T("bags.lock.cannotMove"))
+        self:PrintMessage(T("bags.lock.cannotMove"), "error")
         return true
     end
 
@@ -443,7 +443,7 @@ function Bags:HandleBlockedItemLockInteraction(button, mouseButton)
     local message = mouseButton == "RightButton" and IsMerchantOpen()
         and T("bags.lock.cannotSell")
         or T("bags.lock.cannotMove")
-    self:PrintMessage(message)
+    self:PrintMessage(message, "error")
     return true
 end
 
@@ -468,7 +468,7 @@ function Bags:HandleItemLockPostClick(button, mouseButton)
         ok = pcall(PickupContainerItem, bagID, slot)
     end
 
-    self:PrintMessage(T("bags.lock.cannotMove"))
+    self:PrintMessage(T("bags.lock.cannotMove"), "error")
     return ok
 end
 

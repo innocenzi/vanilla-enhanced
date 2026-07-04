@@ -604,7 +604,7 @@ function Bags:SortItems(suppressErrors)
 
     if self.sorting then
         if not suppressErrors then
-            self:PrintMessage(T("bags.sort.errorRunning"))
+            self:PrintMessage(T("bags.sort.errorRunning"), "error")
         end
         return
     end
@@ -619,7 +619,7 @@ function Bags:SortBankItems(suppressErrors)
 
     if self.sorting then
         if not suppressErrors then
-            self:PrintMessage(T("bags.sort.errorRunning"))
+            self:PrintMessage(T("bags.sort.errorRunning"), "error")
         end
         return
     end
@@ -634,7 +634,7 @@ function Bags:StackItemsToBank(suppressErrors)
 
     if self.sorting then
         if not suppressErrors then
-            self:PrintMessage(T("bags.sort.errorRunning"))
+            self:PrintMessage(T("bags.sort.errorRunning"), "error")
         end
         return
     end
@@ -697,7 +697,7 @@ function Bags:StopManualSort(message)
     self:QueueUpdate()
 
     if message and not suppressErrors then
-        self:PrintMessage(message)
+        self:PrintMessage(message, "error")
     end
 end
 
@@ -712,7 +712,7 @@ function Bags:PrepareManualOperation(suppressErrors)
 
     if not self.Api or not self.Api:HasManualSortApis() then
         if not self.suppressSortErrors then
-            self:PrintMessage(T("bags.sort.errorUnavailableClient"))
+            self:PrintMessage(T("bags.sort.errorUnavailableClient"), "error")
         end
         self.suppressSortErrors = nil
         return false
@@ -720,7 +720,7 @@ function Bags:PrepareManualOperation(suppressErrors)
 
     if IsInCombatLockdown() then
         if not self.suppressSortErrors then
-            self:PrintMessage(T("bags.sort.errorCombat"))
+            self:PrintMessage(T("bags.sort.errorCombat"), "error")
         end
         self.suppressSortErrors = nil
         return false
@@ -728,7 +728,7 @@ function Bags:PrepareManualOperation(suppressErrors)
 
     if self.Api:HasCursorItem() then
         if not self.suppressSortErrors then
-            self:PrintMessage(T("bags.sort.errorCursor"))
+            self:PrintMessage(T("bags.sort.errorCursor"), "error")
         end
         self.suppressSortErrors = nil
         return false

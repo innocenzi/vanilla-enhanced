@@ -465,7 +465,7 @@ end
 
 function Training:EnterTrainingPages()
     if InCombat() then
-        VanillaEnhanced:PrintMessage(T("training.error.combat"))
+        VanillaEnhanced:PrintMessage(T("training.error.combat"), "error")
         return
     end
     if not self:CanUseSpellbookExtension() then

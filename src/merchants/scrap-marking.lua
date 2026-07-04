@@ -331,7 +331,7 @@ function Merchants:ToggleCustomScrapItem(itemContext)
     if not IsSellableScrapCandidate(itemContext) then
         self:PrintMessage(T("merchants.scrapMark.cannotMark", {
             item = self:GetItemDisplayText(itemContext),
-        }))
+        }), "error")
         return false
     end
 

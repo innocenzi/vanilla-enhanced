@@ -53,8 +53,8 @@ function Merchants:IsMerchantOpen()
     return self.merchantOpen == true
 end
 
-function Merchants:PrintMessage(message)
-    VanillaEnhanced:PrintMessage(message)
+function Merchants:PrintMessage(message, level)
+    VanillaEnhanced:PrintMessage(message, level)
 end
 
 function Merchants:RefreshBagScrapIcons()

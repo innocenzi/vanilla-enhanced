@@ -175,8 +175,8 @@ function Bags:AutoCloseBags(reason)
     end
 end
 
-function Bags:PrintMessage(message)
-    VanillaEnhanced:PrintMessage(message)
+function Bags:PrintMessage(message, level)
+    VanillaEnhanced:PrintMessage(message, level)
 end
 
 local function IsShown(frame)

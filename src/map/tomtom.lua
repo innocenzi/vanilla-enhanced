@@ -293,7 +293,7 @@ end
 function Map:HandleWayCommand(message)
     if self:IsTomTomInstalled() then
         self:UnregisterTomTomCommands()
-        VanillaEnhanced:PrintMessage(T("map.tomtom.error.tomTomDetected"))
+        VanillaEnhanced:PrintMessage(T("map.tomtom.error.tomTomDetected"), "error")
         if VanillaEnhanced.RefreshOptions then
             VanillaEnhanced:RefreshOptions()
         end
@@ -302,13 +302,13 @@ function Map:HandleWayCommand(message)
 
     local settings = self:GetSettings()
     if not self:IsEnabled() or settings.enableTomTomCommands ~= true then
-        VanillaEnhanced:PrintMessage(T("map.tomtom.error.disabled"))
+        VanillaEnhanced:PrintMessage(T("map.tomtom.error.disabled"), "error")
         return
     end
 
     local parsed, errorKey, errorVars = self:ParseWayCommand(message)
     if not parsed then
-        VanillaEnhanced:PrintMessage(T("map.tomtom.error." .. (errorKey or "invalid"), errorVars))
+        VanillaEnhanced:PrintMessage(T("map.tomtom.error." .. (errorKey or "invalid"), errorVars), "error")
         return
     end
 

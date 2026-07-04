@@ -30,7 +30,7 @@ function Merchants:AutoRepair()
     if type(GetMoney) == "function" and GetMoney() < cost then
         self:PrintMessage(T("merchants.autoRepair.notEnoughMoney", {
             money = FormatMoney(cost),
-        }))
+        }), "error")
         return true
     end
 

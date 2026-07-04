@@ -1290,10 +1290,17 @@ local mainPanel = BuildOptionsPanel({
         },
         {
             type = "addonCheck",
-            name = "VanillaEnhancedOptionsMainChatMessagesEnabled",
-            settingKey = "chatMessagesEnabled",
-            labelKey = "options.main.chatMessagesEnabled.label",
-            helpKey = "options.main.chatMessagesEnabled.help",
+            name = "VanillaEnhancedOptionsMainInformationalChatMessagesEnabled",
+            settingKey = "informationalChatMessagesEnabled",
+            labelKey = "options.main.informationalChatMessagesEnabled.label",
+            helpKey = "options.main.informationalChatMessagesEnabled.help",
+        },
+        {
+            type = "addonCheck",
+            name = "VanillaEnhancedOptionsMainErrorChatMessagesEnabled",
+            settingKey = "errorChatMessagesEnabled",
+            labelKey = "options.main.errorChatMessagesEnabled.label",
+            helpKey = "options.main.errorChatMessagesEnabled.help",
         },
         {
             type = "addonCheck",

@@ -13,7 +13,8 @@ local DEFAULT_SETTINGS = {
     modules = {},
     locale = "auto",
     configurationPreset = "explorer",
-    chatMessagesEnabled = true,
+    informationalChatMessagesEnabled = true,
+    errorChatMessagesEnabled = true,
     showChatMessagePrefix = false,
 }
 
@@ -112,10 +113,20 @@ function VanillaEnhanced:GetModule(key)
 end
 
 function VanillaEnhanced:GetSettings()
-    VanillaEnhancedSettings = CopyDefaults(VanillaEnhancedSettings, GetAddonDefaults(self))
+    local existingSettings = VanillaEnhancedSettings
+    local oldChatMessagesEnabled = type(existingSettings) == "table" and existingSettings.chatMessagesEnabled or nil
+    local hadInformationalChatSetting = type(existingSettings) == "table"
+        and existingSettings.informationalChatMessagesEnabled ~= nil
+
+    VanillaEnhancedSettings = CopyDefaults(existingSettings, GetAddonDefaults(self))
     if type(VanillaEnhancedSettings.modules) ~= "table" then
         VanillaEnhancedSettings.modules = {}
     end
+
+    if oldChatMessagesEnabled == false and not hadInformationalChatSetting then
+        VanillaEnhancedSettings.informationalChatMessagesEnabled = false
+    end
+
     return VanillaEnhancedSettings
 end
 
@@ -166,12 +177,24 @@ function VanillaEnhanced:IsChatMessagePrefixEnabled()
     return self:GetSettings().showChatMessagePrefix ~= false
 end
 
-function VanillaEnhanced:AreChatMessagesEnabled()
-    return self:GetSettings().chatMessagesEnabled ~= false
+function VanillaEnhanced:AreInformationalChatMessagesEnabled()
+    return self:GetSettings().informationalChatMessagesEnabled ~= false
 end
 
-function VanillaEnhanced:PrintMessage(message)
-    if not self:AreChatMessagesEnabled() then
+function VanillaEnhanced:AreErrorChatMessagesEnabled()
+    return self:GetSettings().errorChatMessagesEnabled ~= false
+end
+
+function VanillaEnhanced:AreChatMessagesEnabled()
+    return self:AreInformationalChatMessagesEnabled() or self:AreErrorChatMessagesEnabled()
+end
+
+function VanillaEnhanced:PrintMessage(message, level)
+    if level == "error" then
+        if not self:AreErrorChatMessagesEnabled() then
+            return
+        end
+    elseif not self:AreInformationalChatMessagesEnabled() then
         return
     end
 
