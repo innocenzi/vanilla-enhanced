@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.1 - 2026-07-04
+
+
+### Fixes
+- **quests:** ensure announcements are sent in party chat
+- **quests:** don't display slay quests as points
+- **quests:** show minimap quest markers in Classic Era
+
 ## 0.8.0 - 2026-07-04
 
 
