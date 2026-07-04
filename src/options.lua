@@ -5,6 +5,7 @@ local settingChecks = {}
 local addonSettingChecks = {}
 local dropdowns = {}
 local sliders = {}
+local textInputs = {}
 local optionPanels = {}
 local moduleTitleKeys = {}
 local categoryTitleKeys = {}
@@ -21,6 +22,10 @@ local SLIDER_VISIBLE_OFFSET_X = 10
 local ACTION_BUTTON_MIN_WIDTH = 140
 local ACTION_BUTTON_HEIGHT = 22
 local ACTION_BUTTON_HORIZONTAL_PADDING = 32
+local TEXT_INPUT_WIDTH = 330
+local TEXT_INPUT_HEIGHT = 20
+local TEXT_INPUT_RESET_WIDTH = 72
+local TEXT_INPUT_MAX_LETTERS = 180
 
 local function T(key, vars)
     return VanillaEnhanced:T(key, vars)
@@ -420,6 +425,91 @@ local function ApplyModuleSliderSetting(moduleKey, settingKey, value)
     end
 end
 
+local function ApplyModuleTextSetting(moduleKey, settingKey, value)
+    if not settingKey then
+        return
+    end
+
+    local settings = GetModuleOptionSettings(moduleKey)
+    settings[settingKey] = value or ""
+
+    local module = VanillaEnhanced:GetModule(moduleKey)
+    if module and module.Update then
+        module:Update()
+    end
+
+    if VanillaEnhanced.RefreshOptions then
+        VanillaEnhanced:RefreshOptions()
+    end
+end
+
+local function GetTextInputSettingKey(input)
+    if input.settingKeyProvider then
+        return input.settingKeyProvider()
+    end
+    return input.settingKey
+end
+
+local function GetTextInputDefaultValue(input)
+    if input.defaultValueProvider then
+        return input.defaultValueProvider()
+    end
+    return input.defaultValue or ""
+end
+
+local function GetTextInputValue(input)
+    local settings = GetModuleOptionSettings(input.moduleKey)
+    local settingKey = GetTextInputSettingKey(input)
+    local value = settingKey and settings[settingKey] or nil
+    if type(value) ~= "string" then
+        value = GetTextInputDefaultValue(input)
+    end
+    return value or "", settingKey
+end
+
+local function CommitTextInputValue(input)
+    if input.refreshing then
+        return
+    end
+
+    local value = input:GetText() or ""
+    local currentValue, settingKey = GetTextInputValue(input)
+    if value == currentValue then
+        return
+    end
+
+    ApplyModuleTextSetting(input.moduleKey, settingKey, value)
+end
+
+local function SetTextInputText(input, value)
+    input.refreshing = true
+    input:SetText(value or "")
+    if input.SetCursorPosition then
+        input:SetCursorPosition(0)
+    end
+    input.refreshing = false
+end
+
+local function ResetTextInputValue(input)
+    local defaultValue = GetTextInputDefaultValue(input)
+    local _, settingKey = GetTextInputValue(input)
+    SetTextInputText(input, defaultValue)
+    ApplyModuleTextSetting(input.moduleKey, settingKey, defaultValue)
+end
+
+local function UpdateTextInputPreview(input)
+    if not input.previewText or not input.previewProvider then
+        return
+    end
+
+    local value = input.GetText and input:GetText() or nil
+    if value == nil then
+        value = GetTextInputValue(input)
+    end
+
+    input.previewText:SetText(input.previewProvider(value, input) or "")
+end
+
 local function SetCheckEnabled(check, enabled)
     if check.SetEnabled then
         check:SetEnabled(enabled)
@@ -467,6 +557,44 @@ local function SetSliderEnabled(slider, enabled)
     end
     if slider.trackBackground then
         SetSliderTrackColor(slider, enabled)
+    end
+end
+
+local function SetTextInputEnabled(input, enabled)
+    if input.EnableMouse then
+        input:EnableMouse(enabled)
+    end
+    if enabled then
+        if input.Enable then
+            input:Enable()
+        end
+    elseif input.Disable then
+        input:Disable()
+    end
+
+    local red, green, blue = 0.5, 0.5, 0.5
+    if enabled then
+        red, green, blue = 1, 1, 1
+    end
+
+    if input.labelText then
+        input.labelText:SetTextColor(red, green, blue)
+    end
+    if input.resetButton then
+        if input.resetButton.SetEnabled then
+            input.resetButton:SetEnabled(enabled)
+        elseif enabled and input.resetButton.Enable then
+            input.resetButton:Enable()
+        elseif input.resetButton.Disable then
+            input.resetButton:Disable()
+        end
+    end
+    if input.previewText then
+        if enabled then
+            input.previewText:SetTextColor(0.82, 0.82, 0.82)
+        else
+            input.previewText:SetTextColor(0.5, 0.5, 0.5)
+        end
     end
 end
 
@@ -944,6 +1072,97 @@ local function CreateModuleSlider(panel, option, moduleKey, label, anchor)
     return slider
 end
 
+local function CreateModuleTextInput(panel, option, moduleKey, label, anchor)
+    local content = GetPanelContent(panel)
+    local labelText = content:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+    local input = CreateFrame("EditBox", option.name, content, "InputBoxTemplate")
+    local width = option.width or TEXT_INPUT_WIDTH
+
+    SetOptionIndentLevel(input, option.indent or GetOptionIndentLevel(anchor))
+    labelText:SetPoint(
+        "TOPLEFT",
+        anchor.optionHelpBottomAnchor or anchor,
+        "BOTTOMLEFT",
+        GetOptionIndentOffset(input, anchor),
+        -18
+    )
+    labelText:SetText(label)
+    labelText:SetJustifyH("LEFT")
+
+    input:SetPoint("TOPLEFT", labelText, "BOTTOMLEFT", 6, -6)
+    input:SetSize(width, TEXT_INPUT_HEIGHT)
+    input:SetAutoFocus(false)
+    input:SetMaxLetters(option.maxLetters or TEXT_INPUT_MAX_LETTERS)
+    if input.SetTextInsets then
+        input:SetTextInsets(6, 4, 0, 0)
+    end
+    if input.SetFontObject then
+        input:SetFontObject(GameFontHighlightSmall)
+    end
+
+    input.moduleKey = moduleKey
+    input.settingKey = option.settingKey
+    input.settingKeyProvider = option.settingKeyProvider
+    input.defaultValue = option.defaultValue
+    input.defaultValueProvider = option.defaultValueProvider
+    input.previewProvider = option.previewProvider
+    input.labelText = labelText
+    input.optionHelpTextAnchor = labelText
+    input.optionHelpLeftOffset = 0
+    input.optionHelpTopOffset = -5
+    input.optionHelpNextOffset = 0
+
+    if option.resetLabelKey then
+        local resetButton = CreateFrame("Button", option.name .. "Reset", content, "UIPanelButtonTemplate")
+        resetButton:SetPoint("LEFT", input, "RIGHT", 8, 0)
+        resetButton.optionMinWidth = option.resetWidth or TEXT_INPUT_RESET_WIDTH
+        resetButton:SetSize(resetButton.optionMinWidth, ACTION_BUTTON_HEIGHT)
+        resetButton:SetText(T(option.resetLabelKey))
+        ResizeActionButtonToText(resetButton)
+        resetButton:SetScript("OnClick", function()
+            ResetTextInputValue(input)
+        end)
+        input.resetButton = resetButton
+        input.resetLabelKey = option.resetLabelKey
+    end
+
+    local helpPointAnchor = CreateFrame("Frame", nil, content)
+    helpPointAnchor:SetSize(1, 1)
+    if input.previewProvider then
+        local previewText = content:CreateFontString(nil, "ARTWORK", "GameFontDisableSmall")
+        previewText:SetPoint("TOPLEFT", input, "BOTTOMLEFT", 0, -7)
+        previewText:SetWidth(GetOptionHelpWidth(input))
+        previewText:SetJustifyH("LEFT")
+        input.previewText = previewText
+        helpPointAnchor:SetPoint("TOPLEFT", previewText, "BOTTOMLEFT", -6, 0)
+    else
+        helpPointAnchor:SetPoint("TOPLEFT", input, "BOTTOMLEFT", -6, 0)
+    end
+    input.optionHelpPointAnchor = helpPointAnchor
+    input.optionHelpBottomAnchor = helpPointAnchor
+
+    input:SetScript("OnTextChanged", function(self)
+        UpdateTextInputPreview(self)
+    end)
+    input:SetScript("OnEnterPressed", function(self)
+        CommitTextInputValue(self)
+        self:ClearFocus()
+    end)
+    input:SetScript("OnEditFocusLost", function(self)
+        CommitTextInputValue(self)
+    end)
+    input:SetScript("OnEscapePressed", function(self)
+        local value = GetTextInputValue(self)
+        SetTextInputText(self, value)
+        UpdateTextInputPreview(self)
+        self:ClearFocus()
+    end)
+
+    table.insert(textInputs, input)
+    UpdateTextInputPreview(input)
+    return input
+end
+
 local function CreateHelpText(panel, text, anchor)
     local content = GetPanelContent(panel)
     local help = content:CreateFontString(nil, "ARTWORK", "GameFontDisableSmall")
@@ -1062,6 +1281,8 @@ local function BuildOptionControl(panel, option, anchor, moduleKey)
         end
     elseif option.type == "slider" then
         control = CreateModuleSlider(panel, option, optionModuleKey, T(option.labelKey), anchor)
+    elseif option.type == "textInput" then
+        control = CreateModuleTextInput(panel, option, optionModuleKey, T(option.labelKey), anchor)
     else
         control = CreateModuleSettingCheck(
             panel,
@@ -1225,6 +1446,15 @@ function VanillaEnhanced:RefreshLocalizedOptions()
                 end
             elseif control.optionType == "dropdown" or control.optionType == "addonDropdown" then
                 RefreshDropdownText(control)
+            elseif control.optionType == "textInput" then
+                if label and control.labelText then
+                    control.labelText:SetText(label)
+                end
+                if control.resetButton and control.resetLabelKey then
+                    control.resetButton:SetText(T(control.resetLabelKey))
+                    ResizeActionButtonToText(control.resetButton)
+                end
+                UpdateTextInputPreview(control)
             elseif control.labelText then
                 if label then
                     control.labelText:SetText(label)
@@ -1321,6 +1551,70 @@ local mainPanel = BuildOptionsPanel({
         },
     },
 })
+
+local function GetQuestAnnouncementFormatLocale()
+    local settings = GetModuleOptionSettings("quests")
+    local quests = VanillaEnhanced:GetModule("quests")
+    return quests:NormalizeGroupQuestAnnouncementLocale(settings.groupQuestAnnouncementsLanguage)
+end
+
+local function GetQuestAnnouncementFormatSettingKey(kind)
+    local locale = GetQuestAnnouncementFormatLocale()
+    if kind == "objective" then
+        return locale == "frFR"
+            and "groupQuestObjectiveAnnouncementFormatFrFR"
+            or "groupQuestObjectiveAnnouncementFormatEnUS"
+    end
+    return locale == "frFR"
+        and "groupQuestCompleteAnnouncementFormatFrFR"
+        or "groupQuestCompleteAnnouncementFormatEnUS"
+end
+
+local function GetQuestAnnouncementFormatDefault(kind)
+    local quests = VanillaEnhanced:GetModule("quests")
+    return quests:GetGroupQuestAnnouncementFormatDefault(GetQuestAnnouncementFormatLocale(), kind)
+end
+
+local QUEST_ANNOUNCEMENT_PREVIEW_VALUES = {
+    enUS = {
+        quest = "Westfall Stew",
+        objective = "Stringy Vulture Meat",
+    },
+    frFR = {
+        quest = "Le ragoût de la marche de l'Ouest",
+        objective = "Viande filandreuse de vautour",
+    },
+}
+
+local function IsBlankText(value)
+    return type(value) ~= "string" or not string.find(value, "%S")
+end
+
+local function GetQuestAnnouncementPreviewValues(kind)
+    local locale = GetQuestAnnouncementFormatLocale()
+    local sample = QUEST_ANNOUNCEMENT_PREVIEW_VALUES[locale] or QUEST_ANNOUNCEMENT_PREVIEW_VALUES.enUS
+
+    return {
+        quest = sample.quest,
+        objective = kind == "objective" and sample.objective or "",
+        current = kind == "objective" and "3" or "",
+        total = kind == "objective" and "3" or "",
+    }
+end
+
+local function GetQuestAnnouncementFormatPreview(kind, value)
+    local template = value
+    if IsBlankText(template) then
+        template = GetQuestAnnouncementFormatDefault(kind)
+    end
+
+    local quests = VanillaEnhanced:GetModule("quests")
+    local message = quests:RenderGroupQuestAnnouncementTemplate(template, GetQuestAnnouncementPreviewValues(kind))
+    if not message then
+        return T("options.quests.groupQuestAnnouncementFormat.previewInvalid")
+    end
+    return T("options.quests.groupQuestAnnouncementFormat.preview", { message = message })
+end
 
 local questsPanel = BuildOptionsPanel({
     name = "VanillaEnhancedQuestsOptionsPanel",
@@ -1601,6 +1895,115 @@ local questsPanel = BuildOptionsPanel({
             helpKey = "options.quests.alwaysShowTooltipDropRates.help",
             enabledWhenSetting = "showObjectiveTooltipHints",
             indent = 1,
+        },
+        {
+            type = "section",
+            name = "VanillaEnhancedOptionsQuestsGroupAnnouncementsSection",
+            labelKey = "options.quests.section.groupAnnouncements",
+        },
+        {
+            type = "dropdown",
+            name = "VanillaEnhancedOptionsQuestsGroupQuestAnnouncementsMode",
+            settingKey = "groupQuestAnnouncementsMode",
+            labelKey = "options.quests.groupQuestAnnouncementsMode.label",
+            helpKey = "options.quests.groupQuestAnnouncementsMode.help",
+            indent = 0,
+            width = 230,
+            defaultValue = "disabled",
+            options = {
+                {
+                    value = "disabled",
+                    labelKey = "options.quests.groupQuestAnnouncementsMode.disabled",
+                    descriptionKey = "options.quests.groupQuestAnnouncementsMode.disabled.description",
+                },
+                {
+                    value = "objectives",
+                    labelKey = "options.quests.groupQuestAnnouncementsMode.objectives",
+                    descriptionKey = "options.quests.groupQuestAnnouncementsMode.objectives.description",
+                },
+                {
+                    value = "questComplete",
+                    labelKey = "options.quests.groupQuestAnnouncementsMode.questComplete",
+                    descriptionKey = "options.quests.groupQuestAnnouncementsMode.questComplete.description",
+                },
+                {
+                    value = "objectivesAndQuestComplete",
+                    labelKey = "options.quests.groupQuestAnnouncementsMode.objectivesAndQuestComplete",
+                    descriptionKey = "options.quests.groupQuestAnnouncementsMode.objectivesAndQuestComplete.description",
+                },
+            },
+        },
+        {
+            type = "dropdown",
+            name = "VanillaEnhancedOptionsQuestsGroupQuestAnnouncementsLanguage",
+            settingKey = "groupQuestAnnouncementsLanguage",
+            labelKey = "options.quests.groupQuestAnnouncementsLanguage.label",
+            helpKey = "options.quests.groupQuestAnnouncementsLanguage.help",
+            enabledWhen = function()
+                return GetModuleOptionSettings("quests").groupQuestAnnouncementsMode ~= "disabled"
+            end,
+            indent = 1,
+            width = 150,
+            defaultValue = "enUS",
+            options = {
+                {
+                    value = "auto",
+                    labelKey = "options.quests.groupQuestAnnouncementsLanguage.auto",
+                    descriptionKey = "options.quests.groupQuestAnnouncementsLanguage.auto.description",
+                },
+                {
+                    value = "enUS",
+                    labelKey = "options.quests.groupQuestAnnouncementsLanguage.enUS",
+                    descriptionKey = "options.quests.groupQuestAnnouncementsLanguage.enUS.description",
+                },
+                {
+                    value = "frFR",
+                    labelKey = "options.quests.groupQuestAnnouncementsLanguage.frFR",
+                    descriptionKey = "options.quests.groupQuestAnnouncementsLanguage.frFR.description",
+                },
+            },
+        },
+        {
+            type = "textInput",
+            name = "VanillaEnhancedOptionsQuestsGroupQuestObjectiveAnnouncementFormat",
+            labelKey = "options.quests.groupQuestObjectiveAnnouncementFormat.label",
+            helpKey = "options.quests.groupQuestObjectiveAnnouncementFormat.help",
+            settingKeyProvider = function()
+                return GetQuestAnnouncementFormatSettingKey("objective")
+            end,
+            defaultValueProvider = function()
+                return GetQuestAnnouncementFormatDefault("objective")
+            end,
+            previewProvider = function(value)
+                return GetQuestAnnouncementFormatPreview("objective", value)
+            end,
+            enabledWhen = function()
+                return GetModuleOptionSettings("quests").groupQuestAnnouncementsMode ~= "disabled"
+            end,
+            indent = 1,
+            width = 320,
+            resetLabelKey = "options.quests.groupQuestAnnouncementFormat.reset",
+        },
+        {
+            type = "textInput",
+            name = "VanillaEnhancedOptionsQuestsGroupQuestCompleteAnnouncementFormat",
+            labelKey = "options.quests.groupQuestCompleteAnnouncementFormat.label",
+            helpKey = "options.quests.groupQuestCompleteAnnouncementFormat.help",
+            settingKeyProvider = function()
+                return GetQuestAnnouncementFormatSettingKey("complete")
+            end,
+            defaultValueProvider = function()
+                return GetQuestAnnouncementFormatDefault("complete")
+            end,
+            previewProvider = function(value)
+                return GetQuestAnnouncementFormatPreview("complete", value)
+            end,
+            enabledWhen = function()
+                return GetModuleOptionSettings("quests").groupQuestAnnouncementsMode ~= "disabled"
+            end,
+            indent = 1,
+            width = 320,
+            resetLabelKey = "options.quests.groupQuestAnnouncementFormat.reset",
         },
     },
 })
@@ -2323,6 +2726,19 @@ function VanillaEnhanced:RefreshOptions()
         slider.currentValue = selected
         UpdateSliderValueText(slider, selected)
         SetSliderEnabled(slider, enabled)
+    end
+    for _, input in ipairs(textInputs) do
+        local selected = GetTextInputValue(input)
+        local enabled = self:IsModuleEnabled(input.moduleKey)
+        if input.enabledWhen then
+            enabled = enabled and input.enabledWhen()
+        end
+
+        if not input.HasFocus or not input:HasFocus() then
+            SetTextInputText(input, selected)
+        end
+        UpdateTextInputPreview(input)
+        SetTextInputEnabled(input, enabled)
     end
 end
 

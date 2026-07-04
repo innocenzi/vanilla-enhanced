@@ -8,6 +8,19 @@ local DEFAULT_AVAILABLE_QUEST_LEVELS_ABOVE_PLAYER = 3
 local DEFAULT_AUTO_FOLLOW_QUESTS_MODE = "disabled"
 local DEFAULT_AUTO_FOLLOW_QUESTS_RANGE = "nearby"
 local DEFAULT_OBJECTIVE_LOCATION_DISPLAY_MODE = "area"
+local DEFAULT_GROUP_QUEST_ANNOUNCEMENTS_MODE = "disabled"
+local DEFAULT_GROUP_QUEST_ANNOUNCEMENTS_LANGUAGE = "enUS"
+
+local GROUP_QUEST_ANNOUNCEMENT_FORMAT_DEFAULTS = {
+    enUS = {
+        objective = "[Vanilla Enhanced] I am done with \"{objective}\" ({current}/{total})",
+        complete = "[Vanilla Enhanced] I completed quest \"{quest}\"",
+    },
+    frFR = {
+        objective = "[Vanilla Enhanced] J'ai fini \"{objective}\" ({current}/{total})",
+        complete = "[Vanilla Enhanced] J'ai terminé la quête \"{quest}\"",
+    },
+}
 
 local AUTO_FOLLOW_QUESTS_MODES = {
     disabled = true,
@@ -25,6 +38,35 @@ local OBJECTIVE_LOCATION_DISPLAY_MODES = {
     area = true,
     points = true,
 }
+
+local GROUP_QUEST_ANNOUNCEMENTS_MODES = {
+    disabled = true,
+    objectives = true,
+    questComplete = true,
+    objectivesAndQuestComplete = true,
+}
+
+local GROUP_QUEST_ANNOUNCEMENTS_LANGUAGES = {
+    auto = true,
+    enUS = true,
+    frFR = true,
+}
+
+function Quests:NormalizeGroupQuestAnnouncementLocale(locale)
+    if locale == "auto" or not locale then
+        locale = VanillaEnhanced.GetLocaleKey and VanillaEnhanced:GetLocaleKey() or "enUS"
+    end
+    return locale == "frFR" and "frFR" or "enUS"
+end
+
+function Quests:GetGroupQuestAnnouncementFormatDefault(locale, kind)
+    locale = self:NormalizeGroupQuestAnnouncementLocale(locale)
+    kind = kind == "complete" and "complete" or "objective"
+
+    local defaultsForLocale = GROUP_QUEST_ANNOUNCEMENT_FORMAT_DEFAULTS[locale]
+        or GROUP_QUEST_ANNOUNCEMENT_FORMAT_DEFAULTS.enUS
+    return defaultsForLocale[kind] or GROUP_QUEST_ANNOUNCEMENT_FORMAT_DEFAULTS.enUS[kind]
+end
 
 local defaults = {
     enabled = true,
@@ -54,7 +96,17 @@ local defaults = {
     showCompletedTooltipObjectives = true,
     showObjectiveTooltipHints = true,
     alwaysShowTooltipDropRates = true,
+    groupQuestAnnouncementsMode = DEFAULT_GROUP_QUEST_ANNOUNCEMENTS_MODE,
+    groupQuestAnnouncementsLanguage = DEFAULT_GROUP_QUEST_ANNOUNCEMENTS_LANGUAGE,
+    groupQuestObjectiveAnnouncementFormatEnUS = Quests:GetGroupQuestAnnouncementFormatDefault("enUS", "objective"),
+    groupQuestCompleteAnnouncementFormatEnUS = Quests:GetGroupQuestAnnouncementFormatDefault("enUS", "complete"),
+    groupQuestObjectiveAnnouncementFormatFrFR = Quests:GetGroupQuestAnnouncementFormatDefault("frFR", "objective"),
+    groupQuestCompleteAnnouncementFormatFrFR = Quests:GetGroupQuestAnnouncementFormatDefault("frFR", "complete"),
 }
+
+local function IsBlankString(value)
+    return type(value) ~= "string" or not string.find(value, "%S")
+end
 
 local function ClampAvailableQuestLevelWindowSetting(value, defaultValue)
     value = tonumber(value) or defaultValue
@@ -67,6 +119,25 @@ local function ClampAvailableQuestLevelWindowSetting(value, defaultValue)
         return AVAILABLE_QUEST_LEVEL_WINDOW_MAX
     end
     return value
+end
+
+local function NormalizeGroupQuestAnnouncementFormats(settings)
+    if IsBlankString(settings.groupQuestObjectiveAnnouncementFormatEnUS) then
+        settings.groupQuestObjectiveAnnouncementFormatEnUS =
+            Quests:GetGroupQuestAnnouncementFormatDefault("enUS", "objective")
+    end
+    if IsBlankString(settings.groupQuestCompleteAnnouncementFormatEnUS) then
+        settings.groupQuestCompleteAnnouncementFormatEnUS =
+            Quests:GetGroupQuestAnnouncementFormatDefault("enUS", "complete")
+    end
+    if IsBlankString(settings.groupQuestObjectiveAnnouncementFormatFrFR) then
+        settings.groupQuestObjectiveAnnouncementFormatFrFR =
+            Quests:GetGroupQuestAnnouncementFormatDefault("frFR", "objective")
+    end
+    if IsBlankString(settings.groupQuestCompleteAnnouncementFormatFrFR) then
+        settings.groupQuestCompleteAnnouncementFormatFrFR =
+            Quests:GetGroupQuestAnnouncementFormatDefault("frFR", "complete")
+    end
 end
 
 function Quests:GetSettings()
@@ -97,6 +168,7 @@ function Quests:GetSettings()
         settings.alwaysShowTooltipDropRates = settings.showTooltipDropRates
         settings.showTooltipDropRates = nil
     end
+    NormalizeGroupQuestAnnouncementFormats(settings)
     if not AUTO_FOLLOW_QUESTS_MODES[settings.autoFollowQuestsMode] then
         settings.autoFollowQuestsMode = DEFAULT_AUTO_FOLLOW_QUESTS_MODE
     end
@@ -105,6 +177,12 @@ function Quests:GetSettings()
     end
     if not OBJECTIVE_LOCATION_DISPLAY_MODES[settings.objectiveLocationDisplayMode] then
         settings.objectiveLocationDisplayMode = DEFAULT_OBJECTIVE_LOCATION_DISPLAY_MODE
+    end
+    if not GROUP_QUEST_ANNOUNCEMENTS_MODES[settings.groupQuestAnnouncementsMode] then
+        settings.groupQuestAnnouncementsMode = DEFAULT_GROUP_QUEST_ANNOUNCEMENTS_MODE
+    end
+    if not GROUP_QUEST_ANNOUNCEMENTS_LANGUAGES[settings.groupQuestAnnouncementsLanguage] then
+        settings.groupQuestAnnouncementsLanguage = DEFAULT_GROUP_QUEST_ANNOUNCEMENTS_LANGUAGE
     end
     settings.availableQuestLevelsBelowPlayer = ClampAvailableQuestLevelWindowSetting(
         settings.availableQuestLevelsBelowPlayer,

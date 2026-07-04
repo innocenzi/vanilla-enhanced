@@ -112,6 +112,32 @@ local STRINGS = {
         ["options.quests.showObjectiveTooltipHints.help"] = "Adds quest objective hints to matching unit tooltips.",
         ["options.quests.alwaysShowTooltipDropRates.label"] = "Always show drop rates",
         ["options.quests.alwaysShowTooltipDropRates.help"] = "Shows item drop percentages in tooltips without requiring holding SHIFT.",
+        ["options.quests.section.groupAnnouncements"] = "Group announcements",
+        ["options.quests.groupQuestAnnouncementsMode.label"] = "Party progress announcements",
+        ["options.quests.groupQuestAnnouncementsMode.help"] = "Sends messages to party chat when a quest objective is completed.",
+        ["options.quests.groupQuestAnnouncementsMode.disabled"] = "Off",
+        ["options.quests.groupQuestAnnouncementsMode.disabled.description"] = "Does not send quest progress messages.",
+        ["options.quests.groupQuestAnnouncementsMode.objectives"] = "Objectives",
+        ["options.quests.groupQuestAnnouncementsMode.objectives.description"] = "Announces newly completed quest objectives.",
+        ["options.quests.groupQuestAnnouncementsMode.questComplete"] = "Quest complete",
+        ["options.quests.groupQuestAnnouncementsMode.questComplete.description"] = "Announces when a quest becomes complete.",
+        ["options.quests.groupQuestAnnouncementsMode.objectivesAndQuestComplete"] = "Objectives + quest complete",
+        ["options.quests.groupQuestAnnouncementsMode.objectivesAndQuestComplete.description"] = "Announces newly completed objectives and full quest completions.",
+        ["options.quests.groupQuestAnnouncementsLanguage.label"] = "Announcement language",
+        ["options.quests.groupQuestAnnouncementsLanguage.help"] = "Chooses the language used for outgoing party quest messages.",
+        ["options.quests.groupQuestAnnouncementsLanguage.auto"] = "Auto",
+        ["options.quests.groupQuestAnnouncementsLanguage.auto.description"] = "Uses Vanilla Enhanced's current addon language.",
+        ["options.quests.groupQuestAnnouncementsLanguage.enUS"] = "English",
+        ["options.quests.groupQuestAnnouncementsLanguage.enUS.description"] = "Sends quest progress messages in English when data is available.",
+        ["options.quests.groupQuestAnnouncementsLanguage.frFR"] = "French",
+        ["options.quests.groupQuestAnnouncementsLanguage.frFR.description"] = "Sends quest progress messages in French when data is available.",
+        ["options.quests.groupQuestObjectiveAnnouncementFormat.label"] = "Objective message format",
+        ["options.quests.groupQuestObjectiveAnnouncementFormat.help"] = "Available placeholders: {quest}, {objective}, {current}, {total}.",
+        ["options.quests.groupQuestCompleteAnnouncementFormat.label"] = "Quest complete message format",
+        ["options.quests.groupQuestCompleteAnnouncementFormat.help"] = "Available placeholders: {quest}, {objective}, {current}, {total}.",
+        ["options.quests.groupQuestAnnouncementFormat.reset"] = "Reset",
+        ["options.quests.groupQuestAnnouncementFormat.preview"] = "{message}",
+        ["options.quests.groupQuestAnnouncementFormat.previewInvalid"] = "The format is invalid",
 
         ["options.map.subtitle"] = "Improves map interactions with custom markers and minimap directions.",
         ["options.map.enable.label"] = "Enable",
@@ -403,6 +429,7 @@ local STRINGS = {
         ["quests.static.multipleObjectives"] = "Multiple objectives",
         ["quests.static.nearbyMarkers"] = "Nearby quests",
         ["quests.static.objectiveDifferentLevel"] = "Objective is on a different level.",
+        ["quests.announcement.complete"] = "complete",
     },
 
     frFR = {
@@ -516,6 +543,32 @@ local STRINGS = {
         ["options.quests.showObjectiveTooltipHints.help"] = "Ajoute des indices d'objectif de quête aux infobulles des unités correspondantes.",
         ["options.quests.alwaysShowTooltipDropRates.label"] = "Toujours afficher les taux de butin",
         ["options.quests.alwaysShowTooltipDropRates.help"] = "Affiche les pourcentages de butin dans les infobulles des unités sans devoir maintenir MAJ.",
+        ["options.quests.section.groupAnnouncements"] = "Annonces de groupe",
+        ["options.quests.groupQuestAnnouncementsMode.label"] = "Annonces de progression en groupe",
+        ["options.quests.groupQuestAnnouncementsMode.help"] = "Envoie un message dans le canal de groupe quand un objectif de quête est complété.",
+        ["options.quests.groupQuestAnnouncementsMode.disabled"] = "Désactivé",
+        ["options.quests.groupQuestAnnouncementsMode.disabled.description"] = "N'envoie aucun message de progression de quête.",
+        ["options.quests.groupQuestAnnouncementsMode.objectives"] = "Objectifs",
+        ["options.quests.groupQuestAnnouncementsMode.objectives.description"] = "Annonce les objectifs de quête nouvellement terminés.",
+        ["options.quests.groupQuestAnnouncementsMode.questComplete"] = "Quête terminée",
+        ["options.quests.groupQuestAnnouncementsMode.questComplete.description"] = "Annonce quand une quête devient terminée.",
+        ["options.quests.groupQuestAnnouncementsMode.objectivesAndQuestComplete"] = "Objectifs + quête terminée",
+        ["options.quests.groupQuestAnnouncementsMode.objectivesAndQuestComplete.description"] = "Annonce les objectifs nouvellement terminés et les quêtes terminées.",
+        ["options.quests.groupQuestAnnouncementsLanguage.label"] = "Langue des annonces",
+        ["options.quests.groupQuestAnnouncementsLanguage.help"] = "Choisit la langue utilisée pour les messages de quête envoyés au groupe.",
+        ["options.quests.groupQuestAnnouncementsLanguage.auto"] = "Auto",
+        ["options.quests.groupQuestAnnouncementsLanguage.auto.description"] = "Utilise la langue actuelle de Vanilla Enhanced.",
+        ["options.quests.groupQuestAnnouncementsLanguage.enUS"] = "Anglais",
+        ["options.quests.groupQuestAnnouncementsLanguage.enUS.description"] = "Envoie les messages de progression de quête en anglais.",
+        ["options.quests.groupQuestAnnouncementsLanguage.frFR"] = "Français",
+        ["options.quests.groupQuestAnnouncementsLanguage.frFR.description"] = "Envoie les messages de progression de quête en français.",
+        ["options.quests.groupQuestObjectiveAnnouncementFormat.label"] = "Format du message d'objectif",
+        ["options.quests.groupQuestObjectiveAnnouncementFormat.help"] = "Variables disponibles : {quest}, {objective}, {current}, {total}.",
+        ["options.quests.groupQuestCompleteAnnouncementFormat.label"] = "Format du message de quête terminée",
+        ["options.quests.groupQuestCompleteAnnouncementFormat.help"] = "Variables disponibles : {quest}, {objective}, {current}, {total}.",
+        ["options.quests.groupQuestAnnouncementFormat.reset"] = "Réinitialiser",
+        ["options.quests.groupQuestAnnouncementFormat.preview"] = "{message}",
+        ["options.quests.groupQuestAnnouncementFormat.previewInvalid"] = "Le format est invalide",
 
         ["options.map.subtitle"] = "Ajoute des fonctionnalités à la carte du monde.",
         ["options.map.enable.label"] = "Activer",
@@ -807,6 +860,7 @@ local STRINGS = {
         ["quests.static.multipleObjectives"] = "Objectifs multiples",
         ["quests.static.nearbyMarkers"] = "Quêtes proches",
         ["quests.static.objectiveDifferentLevel"] = "L'objectif est à un autre étage.",
+        ["quests.announcement.complete"] = "terminée",
     },
 }
 
@@ -908,20 +962,40 @@ local function Lookup(strings, key)
     return strings and strings[key] or nil
 end
 
-function VanillaEnhanced:T(key, vars)
-    self:RefreshLocaleState()
-
-    local text = Lookup(localeState.activeStrings, key) or Lookup(localeState.fallbackStrings, key) or key
+local function FormatLocalizedText(text, vars)
     if type(vars) ~= "table" then
         return text
     end
 
-    local localized = string.gsub(text, "{([%w_]+)}", function(name)
+    return string.gsub(text, "{([%w_]+)}", function(name)
         local value = vars[name]
         if value == nil then
             return "{" .. name .. "}"
         end
         return tostring(value)
     end)
-    return localized
+end
+
+function VanillaEnhanced:TForLocale(locale, key, vars)
+    self:RefreshLocaleState()
+
+    if locale == "auto" or not locale then
+        locale = self:GetLocaleKey()
+    else
+        locale = NormalizeLocaleSetting(locale)
+        if locale == "auto" then
+            locale = GetAutoLocaleKey()
+        end
+    end
+
+    local strings = STRINGS[locale] or localeState.fallbackStrings
+    local text = Lookup(strings, key) or Lookup(localeState.fallbackStrings, key) or key
+    return FormatLocalizedText(text, vars)
+end
+
+function VanillaEnhanced:T(key, vars)
+    self:RefreshLocaleState()
+
+    local text = Lookup(localeState.activeStrings, key) or Lookup(localeState.fallbackStrings, key) or key
+    return FormatLocalizedText(text, vars)
 end

@@ -147,6 +147,10 @@ function Quests:Refresh()
     local activeQuestSignature = BuildActiveQuestSignature(quests)
     local pinStateSignature = BuildQuestPinStateSignature(quests)
 
+    if self.ProcessGroupQuestAnnouncements then
+        self:ProcessGroupQuestAnnouncements(quests, settings)
+    end
+
     if activeQuestSignature ~= self.availableQuestActiveSignature then
         self.availableQuestActiveSignature = activeQuestSignature
         if self.InvalidateAvailableQuestCache then

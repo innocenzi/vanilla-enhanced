@@ -1,36 +1,44 @@
 local VanillaEnhanced = _G.VanillaEnhanced
 local Quests = VanillaEnhanced:GetModule("quests")
 
-local function T(key, vars)
+local function T(key, vars, locale)
+    if locale and VanillaEnhanced.TForLocale then
+        return VanillaEnhanced:TForLocale(locale, key, vars)
+    end
     return VanillaEnhanced:T(key, vars)
 end
 
-local cachedLocale
-local cachedLocaleData
+local localeDataCache = {}
 
-local function LocaleData()
-    local locale = VanillaEnhanced:GetLocaleKey()
-    if cachedLocale == locale then
-        return cachedLocaleData, cachedLocale
+local function NormalizeLocale(locale)
+    if locale then
+        return locale == "frFR" and "frFR" or "enUS"
     end
-
-    cachedLocale = locale
-    if locale == "frFR" and VanillaEnhancedQuestsLocaleDB and VanillaEnhancedQuestsLocaleDB.frFR then
-        cachedLocaleData = VanillaEnhancedQuestsLocaleDB.frFR
-        return cachedLocaleData, cachedLocale
-    end
-
-    cachedLocaleData = nil
-    return nil, cachedLocale
+    return VanillaEnhanced:GetLocaleKey()
 end
 
-local function QuestLocaleData(questId)
-    local localeData = LocaleData()
+local function LocaleData(locale)
+    locale = NormalizeLocale(locale)
+    if localeDataCache[locale] ~= nil then
+        return localeDataCache[locale], locale
+    end
+
+    local localeData
+    if locale == "frFR" and VanillaEnhancedQuestsLocaleDB and VanillaEnhancedQuestsLocaleDB.frFR then
+        localeData = VanillaEnhancedQuestsLocaleDB.frFR
+    end
+
+    localeDataCache[locale] = localeData or false
+    return localeData, locale
+end
+
+local function QuestLocaleData(questId, locale)
+    local localeData = LocaleData(locale)
     return localeData and localeData.quests and localeData.quests[questId] or nil
 end
 
-local function LookupSource(cluster)
-    local localeData = LocaleData()
+local function LookupSource(cluster, locale)
+    local localeData = LocaleData(locale)
     local sourceType = Quests:GetClusterSourceType(cluster)
     local sourceId = Quests:GetClusterSourceId(cluster)
     if not localeData or not cluster or not sourceType or not sourceId then
@@ -49,8 +57,8 @@ local function LookupSource(cluster)
     return nil
 end
 
-local function LookupNpc(npcId)
-    local localeData = LocaleData()
+local function LookupNpc(npcId, locale)
+    local localeData = LocaleData(locale)
     return localeData and localeData.npcs and localeData.npcs[npcId] or nil
 end
 
@@ -62,7 +70,7 @@ local function ObjectiveFromQuestLog(quest, cluster)
     return quest.objectives[objectiveIndex]
 end
 
-local function ObjectiveFromQuestLocale(quest, cluster)
+local function ObjectiveFromQuestLocale(quest, cluster, locale)
     if not quest or not cluster or Quests:GetClusterKind(cluster) ~= "event" then
         return nil
     end
@@ -70,16 +78,25 @@ local function ObjectiveFromQuestLocale(quest, cluster)
         return nil
     end
 
-    local questLocale = QuestLocaleData(quest.id)
+    local questLocale = QuestLocaleData(quest.id, locale)
     return questLocale and questLocale.d and questLocale.d[1] or nil
 end
 
-function Quests:GetLocalizedQuestTitle(quest, questId, fallback)
+function Quests:GetLocalizedQuestTitle(quest, questId, fallback, locale)
+    if locale == "frFR" then
+        local questLocale = QuestLocaleData(questId, locale)
+        if questLocale and questLocale.t and questLocale.t ~= "" then
+            return questLocale.t
+        end
+    elseif locale == "enUS" and fallback and fallback ~= "" then
+        return fallback
+    end
+
     if quest and quest.title and quest.title ~= "" then
         return quest.title
     end
 
-    local questLocale = QuestLocaleData(questId)
+    local questLocale = QuestLocaleData(questId, locale)
     if questLocale and questLocale.t and questLocale.t ~= "" then
         return questLocale.t
     end
@@ -87,8 +104,8 @@ function Quests:GetLocalizedQuestTitle(quest, questId, fallback)
     return fallback or ""
 end
 
-function Quests:GetLocalizedSourceName(cluster)
-    local sourceName = LookupSource(cluster)
+function Quests:GetLocalizedSourceName(cluster, locale)
+    local sourceName = LookupSource(cluster, locale)
     if sourceName and sourceName ~= "" then
         return sourceName
     end
@@ -101,23 +118,47 @@ function Quests:GetLocalizedSourceName(cluster)
     return nil
 end
 
-function Quests:GetLocalizedNpcName(npcId)
-    return LookupNpc(npcId)
+function Quests:GetLocalizedNpcName(npcId, locale)
+    return LookupNpc(npcId, locale)
 end
 
-function Quests:GetLocalizedObjective(quest, cluster)
-    local questObjective = ObjectiveFromQuestLog(quest, cluster)
-    if questObjective and questObjective ~= "" then
-        return questObjective
+function Quests:GetLocalizedObjective(quest, cluster, locale)
+    if not locale then
+        local questObjective = ObjectiveFromQuestLog(quest, cluster)
+        if questObjective and questObjective ~= "" then
+            return questObjective
+        end
     end
 
-    local sourceName = LookupSource(cluster)
+    local sourceName = LookupSource(cluster, locale)
     if sourceName and sourceName ~= "" then
         return sourceName
     end
 
     if Quests:GetClusterKind(cluster) == "turnin" then
-        return T("quests.static.turnin")
+        return T("quests.static.turnin", nil, locale)
+    end
+
+    if locale ~= "frFR" then
+        local objective = Quests:GetClusterObjective(cluster)
+        if objective and objective ~= "" then
+            return objective
+        end
+    end
+
+    local localeObjective = ObjectiveFromQuestLocale(quest, cluster, locale)
+    if localeObjective and localeObjective ~= "" then
+        return localeObjective
+    end
+
+    local questLocale = quest and QuestLocaleData(quest.id, locale)
+    if questLocale and questLocale.d and questLocale.d[1] then
+        return questLocale.d[1]
+    end
+
+    local questObjective = ObjectiveFromQuestLog(quest, cluster)
+    if questObjective and questObjective ~= "" then
+        return questObjective
     end
 
     local objective = Quests:GetClusterObjective(cluster)
@@ -125,25 +166,15 @@ function Quests:GetLocalizedObjective(quest, cluster)
         return objective
     end
 
-    local localeObjective = ObjectiveFromQuestLocale(quest, cluster)
-    if localeObjective and localeObjective ~= "" then
-        return localeObjective
-    end
-
-    local questLocale = quest and QuestLocaleData(quest.id)
-    if questLocale and questLocale.d and questLocale.d[1] then
-        return questLocale.d[1]
-    end
-
     return nil
 end
 
-function Quests:GetLocalizedObjectives(quest, cluster)
+function Quests:GetLocalizedObjectives(quest, cluster, locale)
     if cluster and cluster.parts then
         local objectives = {}
         local seen = {}
         for _, part in ipairs(cluster.parts) do
-            local objective = self:GetLocalizedObjective(quest, part)
+            local objective = self:GetLocalizedObjective(quest, part, locale)
             if objective and objective ~= "" and not seen[objective] then
                 seen[objective] = true
                 objectives[#objectives + 1] = objective
@@ -152,7 +183,7 @@ function Quests:GetLocalizedObjectives(quest, cluster)
         return objectives
     end
 
-    local objective = self:GetLocalizedObjective(quest, cluster)
+    local objective = self:GetLocalizedObjective(quest, cluster, locale)
     if objective and objective ~= "" then
         return { objective }
     end
