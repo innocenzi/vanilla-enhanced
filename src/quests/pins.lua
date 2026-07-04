@@ -165,6 +165,7 @@ local function ShouldUseExactObjectivePoints(self, kind)
     local settings = self:GetSettings()
     return settings.objectiveLocationDisplayMode == "points"
         and POINT_MODE_EXCLUDED_KINDS[kind] ~= true
+        and not self:IsQuestObjectiveAreaKind(kind)
 end
 
 local function GetExactObjectivePointCount(self, cluster)
