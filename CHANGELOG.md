@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.0 - 2026-07-04
+
+
+### Features
+- support toggling info/error messages in chat
+- **quests:** add quest objective announcements
+
 ## 0.7.2 - 2026-07-03
 
 
