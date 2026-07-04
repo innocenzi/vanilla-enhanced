@@ -176,24 +176,39 @@ local function GetExactObjectivePointCount(self, cluster)
     return 0
 end
 
-local function CanCreateDistanceGatedMinimapPin(self, uiMapId, x, y)
-    local settings = self:GetSettings()
-    if settings.showDistantMinimapQuestMarkers ~= true then
+local function IsBurningCrusadeClient()
+    if type(GetBuildInfo) ~= "function" then
         return false
     end
+
+    local interfaceVersion = select(4, GetBuildInfo())
+    interfaceVersion = tonumber(interfaceVersion)
+    return interfaceVersion and math.floor(interfaceVersion / 10000) == 2
+end
+
+local function CanShowMinimapQuestMarker(self, uiMapId, x, y)
+    local settings = self:GetSettings()
+    if settings.showDistantMinimapQuestMarkers ~= true then
+        return false, false
+    end
+
+    if not IsBurningCrusadeClient() then
+        return true, false
+    end
+
     if not self.SetMinimapPinDistanceGate
         or not self.hbd
         or not self.hbd.GetPlayerZonePosition
         or not self.hbd.GetZoneDistance then
-        return false
+        return false, false
     end
 
     local playerX, playerY, playerMapId = self.hbd:GetPlayerZonePosition(true)
     if not playerX or not playerY or not playerMapId then
-        return false
+        return false, false
     end
 
-    return self.hbd:GetZoneDistance(playerMapId, playerX, playerY, uiMapId, x / 100, y / 100) ~= nil
+    return self.hbd:GetZoneDistance(playerMapId, playerX, playerY, uiMapId, x / 100, y / 100) ~= nil, true
 end
 
 local function AddMinimapMarkerAtPoint(self, uiMapId, x, y, pinData, kind, quest, dbQuest, distanceGated)
@@ -282,8 +297,12 @@ function Quests:AddMinimapPin(uiMapId, x, y, quest, cluster)
     local kind = self:GetClusterKind(cluster)
     local dbQuest = VanillaEnhancedQuestsDB and VanillaEnhancedQuestsDB.quests and VanillaEnhancedQuestsDB.quests[quest.id]
     local distanceGated = kind == "turnin"
-    if distanceGated and not CanCreateDistanceGatedMinimapPin(self, uiMapId, x, y) then
-        return
+    if distanceGated then
+        local canShow
+        canShow, distanceGated = CanShowMinimapQuestMarker(self, uiMapId, x, y)
+        if not canShow then
+            return
+        end
     end
 
     local pinData = self:BuildQuestPinData(quest, cluster)
@@ -396,7 +415,9 @@ function Quests:AddAvailableMinimapPin(uiMapId, x, y, questId, dbQuest, cluster,
     if not self.hbdPins or not uiMapId or not x or not y then
         return
     end
-    if not CanCreateDistanceGatedMinimapPin(self, uiMapId, x, y) then
+
+    local canShow, distanceGated = CanShowMinimapQuestMarker(self, uiMapId, x, y)
+    if not canShow then
         return
     end
 
@@ -417,6 +438,8 @@ function Quests:AddAvailableMinimapPin(uiMapId, x, y, questId, dbQuest, cluster,
     marker:Hide()
     self:RaiseMinimapMarkerFrame(marker)
     self.hbdPins:AddMinimapIconMap(self, marker, uiMapId, x / 100, y / 100, true, false)
-    self:SetMinimapPinDistanceGate(marker, uiMapId, x / 100, y / 100)
+    if distanceGated then
+        self:SetMinimapPinDistanceGate(marker, uiMapId, x / 100, y / 100)
+    end
     self:TrackMinimapPinFrame(marker)
 end
