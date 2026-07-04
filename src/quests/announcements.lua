@@ -26,21 +26,29 @@ local function ShouldAnnounceQuestComplete(mode)
     return mode == MODE_QUEST_COMPLETE or mode == MODE_OBJECTIVES_AND_QUEST_COMPLETE
 end
 
-local function IsInstanceGroup()
+local function IsInGroupCategory(category)
     if type(IsInGroup) ~= "function" then
         return false
     end
 
+    if category ~= nil then
+        local ok, inGroup = pcall(IsInGroup, category)
+        return ok and inGroup == true
+    end
+
+    local ok, inGroup = pcall(IsInGroup)
+    return ok and inGroup == true
+end
+
+local function IsInstanceGroup()
     local instanceCategory = _G.LE_PARTY_CATEGORY_INSTANCE
     if instanceCategory ~= nil then
-        local ok, inInstanceGroup = pcall(IsInGroup, instanceCategory)
-        if ok and inInstanceGroup then
+        if IsInGroupCategory(instanceCategory) then
             return true
         end
     end
 
-    local ok, inInstanceGroup = pcall(IsInGroup, "instance")
-    return ok and inInstanceGroup == true
+    return false
 end
 
 local function IsPartyOnly()
@@ -51,16 +59,13 @@ local function IsPartyOnly()
         return false
     end
 
-    if type(IsInGroup) == "function" then
-        local ok, inParty = pcall(IsInGroup, "party")
-        if ok and inParty then
-            return true
-        end
+    local homeCategory = _G.LE_PARTY_CATEGORY_HOME
+    if homeCategory ~= nil and IsInGroupCategory(homeCategory) then
+        return true
+    end
 
-        ok, inParty = pcall(IsInGroup)
-        if ok and inParty then
-            return true
-        end
+    if IsInGroupCategory(nil) then
+        return true
     end
 
     if type(GetNumSubgroupMembers) == "function" then
@@ -95,6 +100,7 @@ local function SendPartyMessage(message)
     if not IsPartyOnly() then
         return
     end
+    
     if type(SendChatMessage) == "function" then
         SendChatMessage(message, "PARTY")
     end
