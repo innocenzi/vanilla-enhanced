@@ -130,28 +130,29 @@ function Quests:GetLocalizedObjective(quest, cluster, locale)
         end
     end
 
-    local sourceName = LookupSource(cluster, locale)
+    local normalizedLocale = NormalizeLocale(locale)
+    local sourceName = LookupSource(cluster, normalizedLocale)
     if sourceName and sourceName ~= "" then
         return sourceName
     end
 
     if Quests:GetClusterKind(cluster) == "turnin" then
-        return T("quests.static.turnin", nil, locale)
+        return T("quests.static.turnin", nil, normalizedLocale)
     end
 
-    if locale ~= "frFR" then
+    if normalizedLocale ~= "frFR" then
         local objective = Quests:GetClusterObjective(cluster)
         if objective and objective ~= "" then
             return objective
         end
     end
 
-    local localeObjective = ObjectiveFromQuestLocale(quest, cluster, locale)
+    local localeObjective = ObjectiveFromQuestLocale(quest, cluster, normalizedLocale)
     if localeObjective and localeObjective ~= "" then
         return localeObjective
     end
 
-    local questLocale = quest and QuestLocaleData(quest.id, locale)
+    local questLocale = quest and QuestLocaleData(quest.id, normalizedLocale)
     if questLocale and questLocale.d and questLocale.d[1] then
         return questLocale.d[1]
     end
