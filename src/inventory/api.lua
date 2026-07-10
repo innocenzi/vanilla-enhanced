@@ -238,3 +238,13 @@ function Api:IsUsableItem(item)
     end
     return true
 end
+
+function Api:CanPlayerUseItem(itemID)
+    if C_PlayerInfo and type(C_PlayerInfo.CanUseItem) == "function" and itemID then
+        local ok, canUse = pcall(C_PlayerInfo.CanUseItem, itemID)
+        if ok and canUse ~= nil then
+            return canUse and true or false
+        end
+    end
+    return nil
+end

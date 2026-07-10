@@ -162,6 +162,10 @@ function Api:IsUsableItem(item)
     return InventoryApi:IsUsableItem(item)
 end
 
+function Api:CanPlayerUseItem(itemID)
+    return InventoryApi:CanPlayerUseItem(itemID)
+end
+
 function Api:UseContainerItem(bagID, slot)
     return InventoryApi:UseContainerItem(bagID, slot)
 end
@@ -226,7 +230,7 @@ function Api:ReadContainerItem(bagID, slot)
         subclassID = itemInfo and itemInfo.subclassID,
         bindType = itemInfo and itemInfo.bindType,
         isEquippable = self:IsEquippableItem(item),
-        isUsable = self:IsUsableItem(item),
+        canPlayerUse = self:CanPlayerUseItem(itemID),
         isBound = isBound,
         isLocked = containerItem.isLocked == true,
         isUserLocked = IsUserLockedItem(bagID, slot),

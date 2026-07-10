@@ -95,7 +95,7 @@ end
 
 local function MatchUnusableEquipment(itemContext, settings)
     return settings.scrapUnusableEquipment == true and IsBoundEquipmentCandidate(itemContext)
-        and itemContext.quality ~= QUALITY_POOR and itemContext.isUsable == false
+        and itemContext.quality ~= QUALITY_POOR and itemContext.canPlayerUse == false
 end
 
 local function MatchOutdatedEquipment(itemContext, settings)

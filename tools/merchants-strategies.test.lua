@@ -140,7 +140,7 @@ local function item(overrides)
         subclassID = 0,
         isEquippable = false,
         isBound = false,
-        isUsable = true,
+        canPlayerUse = true,
     }
     for key, value in pairs(overrides or {}) do result[key] = value end
     return result
@@ -152,11 +152,13 @@ expectEqual(Merchants:EvaluateScrapItem(gray).ruleKey, "poor-quality", "gray ite
 expect(Merchants:EvaluateScrapItem(gray, "automatic") ~= nil, "gray items auto-sell by default")
 
 Merchants:ApplyScrapPreset("aggressive")
-local unusable = item({ classID = 4, isEquippable = true, isBound = true, isUsable = false, quality = 2 })
+local unusable = item({ classID = 4, isEquippable = true, isBound = true, canPlayerUse = false, quality = 2 })
 expectEqual(Merchants:EvaluateScrapItem(unusable).ruleKey, "unusable-equipment", "unusable gear matches")
 expectEqual(Merchants:EvaluateScrapItem(unusable, "automatic"), nil, "unusable gear is manual by default")
 settings.autoSellUnusableEquipment = true
 expect(Merchants:EvaluateScrapItem(unusable, "automatic") ~= nil, "unusable gear auto-sells when permitted")
+unusable.canPlayerUse = nil
+expectEqual(Merchants:EvaluateScrapItem(unusable), nil, "gear with unknown usability is protected")
 
 equippedLevels[INVSLOT_HEAD] = 60
 local outdated = item({ classID = 4, isEquippable = true, isBound = true, quality = 2, equipLoc = "INVTYPE_HEAD", itemLevel = 40 })
@@ -293,6 +295,24 @@ local apiItemInfo = {
     },
 }
 
+local canUseResult = true
+C_PlayerInfo = {
+    CanUseItem = function(itemID)
+        expectEqual(itemID, 1001, "shared character eligibility receives the item ID")
+        return canUseResult
+    end,
+}
+assert(loadfile("src/inventory/api.lua"))()
+expectEqual(VanillaEnhanced.InventoryApi:CanPlayerUseItem(1001), true,
+    "shared character eligibility keeps usable items")
+canUseResult = false
+expectEqual(VanillaEnhanced.InventoryApi:CanPlayerUseItem(1001), false,
+    "shared character eligibility keeps unusable items")
+C_PlayerInfo = nil
+expectEqual(VanillaEnhanced.InventoryApi:CanPlayerUseItem(1001), nil,
+    "missing character eligibility API returns unknown")
+
+local canPlayerUseItemID
 VanillaEnhanced.InventoryApi = {
     FindContainer = function() end,
     FindItem = function() end,
@@ -310,6 +330,10 @@ VanillaEnhanced.InventoryApi = {
     end,
     IsEquippableItem = function() return true end,
     IsUsableItem = function() return true end,
+    CanPlayerUseItem = function(_, itemID)
+        canPlayerUseItemID = itemID
+        return true
+    end,
     UseContainerItem = function() end,
     HasCursorItem = function() return false end,
     IsContainerItemBound = function() return true end,
@@ -328,6 +352,8 @@ local scanned = Merchants.Api:ReadContainerItem(0, 1)
 expect(scanned.isUnique == true, "tooltip scanner detects unique items")
 expect(scanned.hasUseEffect == true, "tooltip scanner detects use effects")
 expect(scanned.isInEquipmentSet == true, "read container context includes equipment-set state")
+expect(scanned.canPlayerUse == true, "read container context includes character item eligibility")
+expectEqual(canPlayerUseItemID, 1001, "character item eligibility receives the numeric item ID")
 
 Merchants.Api:ClearEquipmentSetCache()
 C_EquipmentSet = nil
