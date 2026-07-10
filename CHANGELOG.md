@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.3 - 2026-07-10
+
+
+### Fixes
+- update burning crusade interface version
+
 ## 0.8.2 - 2026-07-05
 
 
