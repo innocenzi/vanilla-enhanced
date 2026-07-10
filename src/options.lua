@@ -2661,11 +2661,114 @@ local merchantsPanel = BuildOptionsPanel({
             helpKey = "options.merchants.enable.help",
         },
         {
+            name = "VanillaEnhancedOptionsMerchantsAutoRepair",
+            settingKey = "autoRepair",
+            labelKey = "options.merchants.autoRepair.label",
+            helpKey = "options.merchants.autoRepair.help",
+            indent = 0,
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsShowVendorSellPrice",
+            settingKey = "showVendorSellPrice",
+            labelKey = "options.merchants.showVendorSellPrice.label",
+            helpKey = "options.merchants.showVendorSellPrice.help",
+            indent = 0,
+        },
+        {
+            type = "section",
+            name = "VanillaEnhancedOptionsMerchantsScraps",
+            labelKey = "options.merchants.scraps.label",
+        },
+        {
             name = "VanillaEnhancedOptionsMerchantsSellScraps",
             settingKey = "sellScrapsEnabled",
             labelKey = "options.merchants.sellScraps.label",
             helpKey = "options.merchants.sellScraps.help",
             indent = 0,
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsSafeManualSell",
+            settingKey = "safeManualSell",
+            labelKey = "options.merchants.safeManualSell.label",
+            helpKey = "options.merchants.safeManualSell.help",
+            enabledWhenSetting = "sellScrapsEnabled",
+            indent = 0,
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsSortBagsAfterSellingScraps",
+            settingKey = "sortBagsAfterSellingScraps",
+            labelKey = "options.merchants.sortBagsAfterSellingScraps.label",
+            helpKey = "options.merchants.sortBagsAfterSellingScraps.help",
+            enabledWhen = function()
+                return IsSettingEnabled("merchants", "sellScrapsEnabled")
+                    and VanillaEnhanced:IsModuleEnabled("bags")
+            end,
+            indent = 0,
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsAutoSellScraps",
+            settingKey = "autoSellScraps",
+            labelKey = "options.merchants.autoSellScraps.label",
+            helpKey = "options.merchants.autoSellScraps.help",
+            enabledWhenSetting = "sellScrapsEnabled",
+            indent = 0,
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsSafeAutoSell",
+            settingKey = "safeAutoSell",
+            labelKey = "options.merchants.safeAutoSell.label",
+            helpKey = "options.merchants.safeAutoSell.help",
+            enabledWhenSettings = { "sellScrapsEnabled", "autoSellScraps" },
+            indent = 1,
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsAutoSellPoorQuality",
+            settingKey = "autoSellPoorQuality",
+            labelKey = "options.merchants.autoRule.poorQuality.label",
+            enabledWhen = function()
+                return IsSettingEnabled("merchants", "sellScrapsEnabled")
+                    and IsSettingEnabled("merchants", "autoSellScraps")
+                    and IsSettingEnabled("merchants", "scrapPoorQuality")
+            end,
+            indent = 1,
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsAutoSellUnusableEquipment",
+            settingKey = "autoSellUnusableEquipment",
+            labelKey = "options.merchants.autoRule.unusableEquipment.label",
+            enabledWhen = function()
+                return IsSettingEnabled("merchants", "sellScrapsEnabled")
+                    and IsSettingEnabled("merchants", "autoSellScraps")
+                    and IsSettingEnabled("merchants", "scrapUnusableEquipment")
+            end,
+            indent = 1,
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsAutoSellOutdatedEquipment",
+            settingKey = "autoSellOutdatedEquipment",
+            labelKey = "options.merchants.autoRule.outdatedEquipment.label",
+            enabledWhen = function()
+                return IsSettingEnabled("merchants", "sellScrapsEnabled")
+                    and IsSettingEnabled("merchants", "autoSellScraps")
+                    and IsSettingEnabled("merchants", "scrapOutdatedEquipment")
+            end,
+            indent = 1,
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsAutoSellOutdatedConsumables",
+            settingKey = "autoSellOutdatedConsumables",
+            labelKey = "options.merchants.autoRule.outdatedConsumables.label",
+            enabledWhen = function()
+                return IsSettingEnabled("merchants", "sellScrapsEnabled")
+                    and IsSettingEnabled("merchants", "autoSellScraps")
+                    and IsSettingEnabled("merchants", "scrapOutdatedConsumables")
+            end,
+            indent = 1,
+        },
+        {
+            type = "section",
+            name = "VanillaEnhancedOptionsMerchantsScrapRules",
+            labelKey = "options.merchants.scrapRules.label",
         },
         {
             type = "dropdown",
@@ -2674,7 +2777,7 @@ local merchantsPanel = BuildOptionsPanel({
             labelKey = "options.merchants.scrapPreset.label",
             helpKey = "options.merchants.scrapPreset.help",
             enabledWhenSetting = "sellScrapsEnabled",
-            indent = 1,
+            indent = 0,
             width = 190,
             defaultValue = "poor-only",
             options = {
@@ -2699,11 +2802,6 @@ local merchantsPanel = BuildOptionsPanel({
                     descriptionKey = "options.merchants.scrapPreset.custom.description",
                 },
             },
-        },
-        {
-            type = "section",
-            name = "VanillaEnhancedOptionsMerchantsScrapRules",
-            labelKey = "options.merchants.scrapRules.label",
         },
         {
             name = "VanillaEnhancedOptionsMerchantsScrapPoorQuality",
@@ -2749,6 +2847,7 @@ local merchantsPanel = BuildOptionsPanel({
             labelKey = "options.merchants.scrapRule.outdatedConsumables.label",
             helpKey = "options.merchants.scrapRule.outdatedConsumables.help",
             enabledWhenSetting = "sellScrapsEnabled",
+            indent = 0,
         },
         {
             type = "slider",
@@ -2773,105 +2872,13 @@ local merchantsPanel = BuildOptionsPanel({
             labelKey = "options.merchants.scrapRule.unusedTradeGoods.label",
             helpKey = "options.merchants.scrapRule.unusedTradeGoods.help",
             enabledWhenSetting = "sellScrapsEnabled",
-        },
-        {
-            name = "VanillaEnhancedOptionsMerchantsSafeManualSell",
-            settingKey = "safeManualSell",
-            labelKey = "options.merchants.safeManualSell.label",
-            helpKey = "options.merchants.safeManualSell.help",
-            enabledWhenSetting = "sellScrapsEnabled",
-            indent = 1,
-        },
-        {
-            name = "VanillaEnhancedOptionsMerchantsSortBagsAfterSellingScraps",
-            settingKey = "sortBagsAfterSellingScraps",
-            labelKey = "options.merchants.sortBagsAfterSellingScraps.label",
-            helpKey = "options.merchants.sortBagsAfterSellingScraps.help",
-            enabledWhen = function()
-                return IsSettingEnabled("merchants", "sellScrapsEnabled")
-                    and VanillaEnhanced:IsModuleEnabled("bags")
-            end,
-            indent = 1,
-        },
-        {
-            name = "VanillaEnhancedOptionsMerchantsAutoSellScraps",
-            settingKey = "autoSellScraps",
-            labelKey = "options.merchants.autoSellScraps.label",
-            helpKey = "options.merchants.autoSellScraps.help",
-            enabledWhenSetting = "sellScrapsEnabled",
-            indent = 1,
-        },
-        {
-            name = "VanillaEnhancedOptionsMerchantsSafeAutoSell",
-            settingKey = "safeAutoSell",
-            labelKey = "options.merchants.safeAutoSell.label",
-            helpKey = "options.merchants.safeAutoSell.help",
-            enabledWhenSettings = { "sellScrapsEnabled", "autoSellScraps" },
-            indent = 2,
-        },
-        {
-            name = "VanillaEnhancedOptionsMerchantsAutoSellPoorQuality",
-            settingKey = "autoSellPoorQuality",
-            labelKey = "options.merchants.autoRule.poorQuality.label",
-            enabledWhen = function()
-                return IsSettingEnabled("merchants", "sellScrapsEnabled")
-                    and IsSettingEnabled("merchants", "autoSellScraps")
-                    and IsSettingEnabled("merchants", "scrapPoorQuality")
-            end,
-            indent = 2,
-        },
-        {
-            name = "VanillaEnhancedOptionsMerchantsAutoSellUnusableEquipment",
-            settingKey = "autoSellUnusableEquipment",
-            labelKey = "options.merchants.autoRule.unusableEquipment.label",
-            enabledWhen = function()
-                return IsSettingEnabled("merchants", "sellScrapsEnabled")
-                    and IsSettingEnabled("merchants", "autoSellScraps")
-                    and IsSettingEnabled("merchants", "scrapUnusableEquipment")
-            end,
-            indent = 2,
-        },
-        {
-            name = "VanillaEnhancedOptionsMerchantsAutoSellOutdatedEquipment",
-            settingKey = "autoSellOutdatedEquipment",
-            labelKey = "options.merchants.autoRule.outdatedEquipment.label",
-            enabledWhen = function()
-                return IsSettingEnabled("merchants", "sellScrapsEnabled")
-                    and IsSettingEnabled("merchants", "autoSellScraps")
-                    and IsSettingEnabled("merchants", "scrapOutdatedEquipment")
-            end,
-            indent = 2,
-        },
-        {
-            name = "VanillaEnhancedOptionsMerchantsAutoSellOutdatedConsumables",
-            settingKey = "autoSellOutdatedConsumables",
-            labelKey = "options.merchants.autoRule.outdatedConsumables.label",
-            enabledWhen = function()
-                return IsSettingEnabled("merchants", "sellScrapsEnabled")
-                    and IsSettingEnabled("merchants", "autoSellScraps")
-                    and IsSettingEnabled("merchants", "scrapOutdatedConsumables")
-            end,
-            indent = 2,
+            indent = 0,
         },
         {
             type = "addonAction",
             name = "VanillaEnhancedOptionsMerchantsClearCustomScraps",
             labelKey = "options.merchants.clearCustomScraps.label",
             onClick = ConfirmClearCustomScraps,
-            indent = 0,
-        },
-        {
-            name = "VanillaEnhancedOptionsMerchantsAutoRepair",
-            settingKey = "autoRepair",
-            labelKey = "options.merchants.autoRepair.label",
-            helpKey = "options.merchants.autoRepair.help",
-            indent = 0,
-        },
-        {
-            name = "VanillaEnhancedOptionsMerchantsShowVendorSellPrice",
-            settingKey = "showVendorSellPrice",
-            labelKey = "options.merchants.showVendorSellPrice.label",
-            helpKey = "options.merchants.showVendorSellPrice.help",
             indent = 0,
         },
     },
