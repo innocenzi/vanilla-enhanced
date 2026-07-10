@@ -288,6 +288,7 @@ local function OnTooltipSetUnit(tooltip)
 
     local expanded = IsTooltipDetailsExpanded()
     tooltip.VanillaEnhancedQuestUnit = unit or "mouseover"
+    tooltip.VanillaEnhancedQuestUnitGuid = guid
     for _, entry in ipairs(entriesToShow) do
         tooltip:AddLine(" ")
         tooltip:AddLine(FormatTooltipEntryTitle(entry, expanded), 0.9, 0.82, 0.55, true)
@@ -307,6 +308,7 @@ local function OnTooltipCleared(tooltip)
         return
     end
     tooltip.VanillaEnhancedQuestUnit = nil
+    tooltip.VanillaEnhancedQuestUnitGuid = nil
 end
 
 local function RefreshUnitTooltip()
@@ -317,13 +319,16 @@ local function RefreshUnitTooltip()
     if type(tooltip.IsShown) == "function" and not tooltip:IsShown() then
         return
     end
-    if type(tooltip.SetUnit) ~= "function" or type(tooltip.ClearLines) ~= "function" then
+    if type(tooltip.SetUnit) ~= "function" then
+        return
+    end
+
+    local unit = tooltip.VanillaEnhancedQuestUnit
+    if not tooltip.VanillaEnhancedQuestUnitGuid or UnitGUID(unit) ~= tooltip.VanillaEnhancedQuestUnitGuid then
         return
     end
 
     tooltip.VanillaEnhancedQuestRefreshing = true
-    local unit = tooltip.VanillaEnhancedQuestUnit
-    tooltip:ClearLines()
     pcall(tooltip.SetUnit, tooltip, unit)
     tooltip.VanillaEnhancedQuestRefreshing = nil
 end
