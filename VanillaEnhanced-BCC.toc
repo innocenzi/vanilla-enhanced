@@ -1,4 +1,4 @@
-## Interface: 20505
+## Interface: 20506
 ## Title: Vanilla Enhanced
 ## Notes: Lightweight improvements for a better experience while keeping a classic feeling.
 ## Notes-frFR: Améliorations de l'interface pour une meilleure expérience de jeu tout en gardant un feeling classique.
