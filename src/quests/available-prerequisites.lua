@@ -1,9 +1,5 @@
 local Quests = _G.VanillaEnhanced:GetModule("quests")
 
-local function HasFlag(mask, flag)
-    return mask and flag and flag > 0 and (mask % (flag * 2)) >= flag
-end
-
 local function GetCompletedQuests()
     if GetQuestsCompleted then
         local ok, completed = pcall(GetQuestsCompleted)
@@ -144,9 +140,6 @@ function Quests:MeetsAvailableQuestPrerequisites(questId, dbQuest, active, compl
         return false
     end
     if not HasNoExclusiveQuest(dbQuest, active, completed) then
-        return false
-    end
-    if HasFlag(dbQuest.sf, 2) then
         return false
     end
     if dbQuest.nc and IsActiveOrComplete(dbQuest.nc, active, completed) then
