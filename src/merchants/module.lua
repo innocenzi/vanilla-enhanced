@@ -2,12 +2,52 @@ local VanillaEnhanced = _G.VanillaEnhanced
 local Merchants = VanillaEnhanced:CreateModule("merchants", VanillaEnhanced:T("module.merchants"))
 
 local MERCHANT_OPEN_REFRESH_SECONDS = 2.0
-local DEFAULT_SCRAP_STRATEGY = "poor-sellable"
+local SCRAP_CONFIGURATION_VERSION = 1
+local DEFAULT_SCRAP_PRESET = "poor-only"
 
-local VALID_SCRAP_STRATEGIES = {
-    ["poor-sellable"] = true,
-    ["low-level"] = true,
-    ["smart"] = true,
+local SCRAP_PRESETS = {
+    ["poor-only"] = {
+        scrapPoorQuality = true,
+        scrapUnusableEquipment = false,
+        scrapOutdatedEquipment = false,
+        scrapOutdatedConsumables = false,
+        scrapUnusedTradeGoods = false,
+    },
+    aggressive = {
+        scrapPoorQuality = true,
+        scrapUnusableEquipment = true,
+        scrapOutdatedEquipment = true,
+        scrapOutdatedConsumables = true,
+        scrapUnusedTradeGoods = false,
+    },
+    ["very-aggressive"] = {
+        scrapPoorQuality = true,
+        scrapUnusableEquipment = true,
+        scrapOutdatedEquipment = true,
+        scrapOutdatedConsumables = true,
+        scrapUnusedTradeGoods = true,
+    },
+}
+
+local AUTOMATIC_RULE_KEYS = {
+    "autoSellPoorQuality",
+    "autoSellUnusableEquipment",
+    "autoSellOutdatedEquipment",
+    "autoSellOutdatedConsumables",
+}
+
+local SCRAP_CONFIGURATION_KEYS = {
+    scrapPoorQuality = true,
+    scrapUnusableEquipment = true,
+    scrapOutdatedEquipment = true,
+    scrapOutdatedConsumables = true,
+    scrapUnusedTradeGoods = true,
+    autoSellPoorQuality = true,
+    autoSellUnusableEquipment = true,
+    autoSellOutdatedEquipment = true,
+    autoSellOutdatedConsumables = true,
+    outdatedEquipmentLevelGap = true,
+    outdatedConsumableLevelGap = true,
 }
 
 local defaults = {
@@ -19,7 +59,19 @@ local defaults = {
     safeManualSell = true,
     safeAutoSell = true,
     sortBagsAfterSellingScraps = false,
-    scrapStrategy = "poor-sellable",
+    scrapConfigurationVersion = SCRAP_CONFIGURATION_VERSION,
+    scrapPreset = DEFAULT_SCRAP_PRESET,
+    scrapPoorQuality = true,
+    scrapUnusableEquipment = false,
+    scrapOutdatedEquipment = false,
+    scrapOutdatedConsumables = false,
+    scrapUnusedTradeGoods = false,
+    autoSellPoorQuality = true,
+    autoSellUnusableEquipment = false,
+    autoSellOutdatedEquipment = false,
+    autoSellOutdatedConsumables = false,
+    outdatedEquipmentLevelGap = 20,
+    outdatedConsumableLevelGap = 20,
 }
 
 local characterDefaults = {
@@ -31,26 +83,75 @@ local eventFrame = CreateFrame("Frame")
 local refreshFrame = CreateFrame("Frame")
 
 Merchants.eventFrame = eventFrame
-Merchants.scrapStrategies = Merchants.scrapStrategies or {}
-Merchants.scrapStrategyOrder = Merchants.scrapStrategyOrder or {}
 Merchants.merchantOpen = false
 Merchants.refreshRemaining = 0
 Merchants.pendingAutoSellScraps = false
 Merchants.pendingAutoRepair = false
 Merchants.scrapMarkMode = false
 
+local function ApplyScrapPresetValues(settings, presetKey)
+    local preset = SCRAP_PRESETS[presetKey]
+    if not preset then
+        return false
+    end
+
+    for settingKey, value in pairs(preset) do
+        settings[settingKey] = value
+    end
+    for _, settingKey in ipairs(AUTOMATIC_RULE_KEYS) do
+        settings[settingKey] = settingKey == "autoSellPoorQuality"
+    end
+    settings.outdatedEquipmentLevelGap = 20
+    settings.outdatedConsumableLevelGap = 20
+    settings.scrapPreset = presetKey
+    return true
+end
+
 function Merchants:GetSettings()
+    local addonSettings = VanillaEnhanced:GetSettings()
+    local storedSettings = addonSettings.modules and addonSettings.modules.merchants
+    local needsMigration = type(storedSettings) ~= "table"
+        or storedSettings.scrapConfigurationVersion ~= SCRAP_CONFIGURATION_VERSION
     local settings = VanillaEnhanced:GetModuleSettings("merchants", defaults)
     settings.customScrapItemIds = nil
     settings.ignoredScrapItemIds = nil
-    if not VALID_SCRAP_STRATEGIES[settings.scrapStrategy] then
-        settings.scrapStrategy = DEFAULT_SCRAP_STRATEGY
+    settings.scrapStrategy = nil
+    if needsMigration then
+        ApplyScrapPresetValues(settings, DEFAULT_SCRAP_PRESET)
+        settings.scrapConfigurationVersion = SCRAP_CONFIGURATION_VERSION
+    elseif settings.scrapPreset ~= "custom" and not SCRAP_PRESETS[settings.scrapPreset] then
+        ApplyScrapPresetValues(settings, DEFAULT_SCRAP_PRESET)
     end
     return settings
 end
 
 function Merchants:GetCharacterSettings()
     return VanillaEnhanced:GetCharacterModuleSettings("merchants", characterDefaults)
+end
+
+function Merchants:ApplyScrapPreset(presetKey)
+    if presetKey == "custom" then
+        self:GetSettings().scrapPreset = "custom"
+        return true
+    end
+
+    local applied = ApplyScrapPresetValues(self:GetSettings(), presetKey)
+    if applied then
+        self:Update()
+    end
+    return applied
+end
+
+function Merchants:MarkScrapConfigurationCustom()
+    self:GetSettings().scrapPreset = "custom"
+end
+
+function Merchants:OnOptionChanged(settingKey, value)
+    if settingKey == "scrapPreset" then
+        self:ApplyScrapPreset(value)
+    elseif SCRAP_CONFIGURATION_KEYS[settingKey] then
+        self:MarkScrapConfigurationCustom()
+    end
 end
 
 function Merchants:IsSellScrapsEnabled()
@@ -76,22 +177,6 @@ end
 function Merchants:Update()
     self:RefreshBagScrapIcons()
     self:RequestRefresh(0.2)
-end
-
-function Merchants:RegisterScrapStrategy(strategy)
-    if type(strategy) ~= "table" or type(strategy.key) ~= "string" or type(strategy.isScrap) ~= "function" then
-        return
-    end
-
-    if not self.scrapStrategies[strategy.key] then
-        table.insert(self.scrapStrategyOrder, strategy.key)
-    end
-    self.scrapStrategies[strategy.key] = strategy
-end
-
-function Merchants:GetScrapStrategy()
-    local settings = self:GetSettings()
-    return self.scrapStrategies[settings.scrapStrategy] or self.scrapStrategies["poor-sellable"]
 end
 
 function Merchants:IterateBagItems()
@@ -173,7 +258,10 @@ function Merchants:RequestRefresh(duration)
 
         if Merchants.pendingAutoSellScraps and Merchants:IsMerchantOpen() and MerchantFrame then
             Merchants.pendingAutoSellScraps = false
-            Merchants:SellScrapsBatch(Merchants:GetSellLimit(Merchants:GetSettings().safeAutoSell ~= false))
+            Merchants:SellScrapsBatch(
+                Merchants:GetSellLimit(Merchants:GetSettings().safeAutoSell ~= false),
+                "automatic"
+            )
         end
         if Merchants.pendingAutoRepair and Merchants:IsMerchantOpen() and MerchantFrame then
             Merchants.pendingAutoRepair = not Merchants:AutoRepair()
@@ -283,6 +371,21 @@ eventFrame:SetScript("OnEvent", function(_, event, loadedAddonName)
         return
     end
 
+    if event == "PLAYER_EQUIPMENT_CHANGED" or event == "EQUIPMENT_SETS_CHANGED"
+        or event == "PLAYER_LEVEL_UP" or event == "SKILL_LINES_CHANGED"
+        or event == "LEARNED_SPELL_IN_SKILL_LINE" then
+        if Merchants.Api and Merchants.Api.ClearEquipmentSetCache
+            and (event == "PLAYER_EQUIPMENT_CHANGED" or event == "EQUIPMENT_SETS_CHANGED") then
+            Merchants.Api:ClearEquipmentSetCache()
+        end
+        Merchants:RefreshBagScrapIcons()
+        Merchants:RequestRefresh(0.2)
+        if Merchants.RefreshVendorSellPriceTooltips then
+            Merchants:RefreshVendorSellPriceTooltips()
+        end
+        return
+    end
+
     if event == "MERCHANT_UPDATE" then
         if Merchants:IsMerchantOpen() and Merchants:GetSettings().autoRepair == true then
             Merchants.pendingAutoRepair = true
@@ -297,3 +400,8 @@ eventFrame:RegisterEvent("MERCHANT_SHOW")
 eventFrame:RegisterEvent("MERCHANT_CLOSED")
 eventFrame:RegisterEvent("BAG_UPDATE_DELAYED")
 pcall(eventFrame.RegisterEvent, eventFrame, "MERCHANT_UPDATE")
+pcall(eventFrame.RegisterEvent, eventFrame, "PLAYER_EQUIPMENT_CHANGED")
+pcall(eventFrame.RegisterEvent, eventFrame, "EQUIPMENT_SETS_CHANGED")
+pcall(eventFrame.RegisterEvent, eventFrame, "PLAYER_LEVEL_UP")
+pcall(eventFrame.RegisterEvent, eventFrame, "SKILL_LINES_CHANGED")
+pcall(eventFrame.RegisterEvent, eventFrame, "LEARNED_SPELL_IN_SKILL_LINE")

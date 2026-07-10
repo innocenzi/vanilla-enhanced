@@ -10,6 +10,7 @@ local optionPanels = {}
 local moduleTitleKeys = {}
 local categoryTitleKeys = {}
 local OPTION_WITH_HELP_OFFSET = -15
+local OPTION_CHECKBOX_COMPACT_OFFSET = -5
 local OPTION_INDENT_WIDTH = 18
 local OPTION_HELP_WIDTH = 430
 local OPTION_SECTION_OFFSET_Y = -36
@@ -211,6 +212,9 @@ local function ApplyModuleSetting(moduleKey, settingKey, value)
     settings[settingKey] = not not value
 
     local module = VanillaEnhanced:GetModule(moduleKey)
+    if module and module.OnOptionChanged then
+        module:OnOptionChanged(settingKey, settings[settingKey])
+    end
     if module and module.Update then
         module:Update()
     end
@@ -329,6 +333,9 @@ local function ApplyModuleDropdownSetting(moduleKey, settingKey, value)
     settings[settingKey] = value
 
     local module = VanillaEnhanced:GetModule(moduleKey)
+    if module and module.OnOptionChanged then
+        module:OnOptionChanged(settingKey, value)
+    end
     if module and module.Update then
         module:Update()
     end
@@ -423,6 +430,9 @@ local function ApplyModuleSliderSetting(moduleKey, settingKey, value)
     settings[settingKey] = value
 
     local module = VanillaEnhanced:GetModule(moduleKey)
+    if module and module.OnOptionChanged then
+        module:OnOptionChanged(settingKey, value)
+    end
     if module and module.Update then
         module:Update()
     end
@@ -644,15 +654,20 @@ local function CreateSubtitle(panel, text)
     return subtitle
 end
 
-local function AnchorBelowHelp(check, anchor, indentLevel)
+local function AnchorBelowHelp(check, anchor, indentLevel, hasHelpText)
     local bottomAnchor = anchor.optionHelpBottomAnchor or anchor
+    local offsetY = OPTION_WITH_HELP_OFFSET
 
     if indentLevel then
         SetOptionIndentLevel(check, indentLevel)
     end
 
+    if not hasHelpText and bottomAnchor == anchor and anchor.GetChecked and check.GetChecked then
+        offsetY = OPTION_CHECKBOX_COMPACT_OFFSET
+    end
+
     check:ClearAllPoints()
-    check:SetPoint("TOPLEFT", bottomAnchor, "BOTTOMLEFT", GetOptionIndentOffset(check, anchor), OPTION_WITH_HELP_OFFSET)
+    check:SetPoint("TOPLEFT", bottomAnchor, "BOTTOMLEFT", GetOptionIndentOffset(check, anchor), offsetY)
 end
 
 local function CreateModuleEnabledCheck(panel, name, moduleKey, label, anchor)
@@ -717,12 +732,13 @@ end
 local function CreateAddonActionButton(panel, name, label, anchor, onClick, option)
     local button = CreateFrame("Button", name, GetPanelContent(panel), "UIPanelButtonTemplate")
     local bottomAnchor = anchor.optionHelpBottomAnchor or anchor
+    SetOptionIndentLevel(button, option and option.indent or GetOptionIndentLevel(anchor))
     if option and option.inlineWithPrevious then
         button:SetPoint("LEFT", anchor, "RIGHT", option.inlineOffsetX or 0, option.inlineOffsetY or 2)
         button.optionHelpBottomAnchor = bottomAnchor
         panel.optionBottomAnchor = bottomAnchor
     else
-        button:SetPoint("TOPLEFT", bottomAnchor, "BOTTOMLEFT", 0, -16)
+        button:SetPoint("TOPLEFT", bottomAnchor, "BOTTOMLEFT", GetOptionIndentOffset(button, anchor), -16)
         panel.optionBottomAnchor = button
     end
     button.optionMinWidth = option and option.width or ACTION_BUTTON_MIN_WIDTH
@@ -1300,7 +1316,7 @@ local function BuildOptionControl(panel, option, anchor, moduleKey)
             anchor,
             option.indent
         )
-        AnchorBelowHelp(control, anchor, option.indent)
+        AnchorBelowHelp(control, anchor, option.indent, option.helpKey ~= nil)
     end
 
     control.optionType = option.type
@@ -2580,31 +2596,110 @@ local merchantsPanel = BuildOptionsPanel({
         },
         {
             type = "dropdown",
-            name = "VanillaEnhancedOptionsMerchantsScrapStrategy",
-            settingKey = "scrapStrategy",
-            labelKey = "options.merchants.scrapStrategy.label",
-            helpKey = "options.merchants.scrapStrategy.help",
+            name = "VanillaEnhancedOptionsMerchantsScrapPreset",
+            settingKey = "scrapPreset",
+            labelKey = "options.merchants.scrapPreset.label",
+            helpKey = "options.merchants.scrapPreset.help",
             enabledWhenSetting = "sellScrapsEnabled",
             indent = 1,
             width = 190,
-            defaultValue = "poor-sellable",
+            defaultValue = "poor-only",
             options = {
                 {
-                    value = "poor-sellable",
-                    labelKey = "options.merchants.scrapStrategy.poorSellable",
-                    descriptionKey = "options.merchants.scrapStrategy.poorSellable.description",
+                    value = "poor-only",
+                    labelKey = "options.merchants.scrapPreset.poorOnly",
+                    descriptionKey = "options.merchants.scrapPreset.poorOnly.description",
                 },
                 {
-                    value = "low-level",
-                    labelKey = "options.merchants.scrapStrategy.lowLevel",
-                    descriptionKey = "options.merchants.scrapStrategy.lowLevel.description",
+                    value = "aggressive",
+                    labelKey = "options.merchants.scrapPreset.aggressive",
+                    descriptionKey = "options.merchants.scrapPreset.aggressive.description",
                 },
                 {
-                    value = "smart",
-                    labelKey = "options.merchants.scrapStrategy.smart",
-                    descriptionKey = "options.merchants.scrapStrategy.smart.description",
+                    value = "very-aggressive",
+                    labelKey = "options.merchants.scrapPreset.veryAggressive",
+                    descriptionKey = "options.merchants.scrapPreset.veryAggressive.description",
+                },
+                {
+                    value = "custom",
+                    labelKey = "options.merchants.scrapPreset.custom",
+                    descriptionKey = "options.merchants.scrapPreset.custom.description",
                 },
             },
+        },
+        {
+            type = "section",
+            name = "VanillaEnhancedOptionsMerchantsScrapRules",
+            labelKey = "options.merchants.scrapRules.label",
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsScrapPoorQuality",
+            settingKey = "scrapPoorQuality",
+            labelKey = "options.merchants.scrapRule.poorQuality.label",
+            helpKey = "options.merchants.scrapRule.poorQuality.help",
+            enabledWhenSetting = "sellScrapsEnabled",
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsScrapUnusableEquipment",
+            settingKey = "scrapUnusableEquipment",
+            labelKey = "options.merchants.scrapRule.unusableEquipment.label",
+            helpKey = "options.merchants.scrapRule.unusableEquipment.help",
+            enabledWhenSetting = "sellScrapsEnabled",
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsScrapOutdatedEquipment",
+            settingKey = "scrapOutdatedEquipment",
+            labelKey = "options.merchants.scrapRule.outdatedEquipment.label",
+            helpKey = "options.merchants.scrapRule.outdatedEquipment.help",
+            enabledWhenSetting = "sellScrapsEnabled",
+        },
+        {
+            type = "slider",
+            name = "VanillaEnhancedOptionsMerchantsOutdatedEquipmentGap",
+            settingKey = "outdatedEquipmentLevelGap",
+            labelKey = "options.merchants.scrapRule.outdatedEquipmentGap.label",
+            helpKey = "options.merchants.scrapRule.outdatedEquipmentGap.help",
+            valueKey = "options.merchants.levelGap.value",
+            min = 5,
+            max = 50,
+            step = 5,
+            defaultValue = 20,
+            indent = 1,
+            enabledWhen = function()
+                return IsSettingEnabled("merchants", "sellScrapsEnabled")
+                    and IsSettingEnabled("merchants", "scrapOutdatedEquipment")
+            end,
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsScrapOutdatedConsumables",
+            settingKey = "scrapOutdatedConsumables",
+            labelKey = "options.merchants.scrapRule.outdatedConsumables.label",
+            helpKey = "options.merchants.scrapRule.outdatedConsumables.help",
+            enabledWhenSetting = "sellScrapsEnabled",
+        },
+        {
+            type = "slider",
+            name = "VanillaEnhancedOptionsMerchantsOutdatedConsumableGap",
+            settingKey = "outdatedConsumableLevelGap",
+            labelKey = "options.merchants.scrapRule.outdatedConsumableGap.label",
+            helpKey = "options.merchants.scrapRule.outdatedConsumableGap.help",
+            valueKey = "options.merchants.levelGap.value",
+            min = 5,
+            max = 40,
+            step = 5,
+            defaultValue = 20,
+            indent = 1,
+            enabledWhen = function()
+                return IsSettingEnabled("merchants", "sellScrapsEnabled")
+                    and IsSettingEnabled("merchants", "scrapOutdatedConsumables")
+            end,
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsScrapUnusedTradeGoods",
+            settingKey = "scrapUnusedTradeGoods",
+            labelKey = "options.merchants.scrapRule.unusedTradeGoods.label",
+            helpKey = "options.merchants.scrapRule.unusedTradeGoods.help",
+            enabledWhenSetting = "sellScrapsEnabled",
         },
         {
             name = "VanillaEnhancedOptionsMerchantsSafeManualSell",
@@ -2642,10 +2737,55 @@ local merchantsPanel = BuildOptionsPanel({
             indent = 2,
         },
         {
+            name = "VanillaEnhancedOptionsMerchantsAutoSellPoorQuality",
+            settingKey = "autoSellPoorQuality",
+            labelKey = "options.merchants.autoRule.poorQuality.label",
+            enabledWhen = function()
+                return IsSettingEnabled("merchants", "sellScrapsEnabled")
+                    and IsSettingEnabled("merchants", "autoSellScraps")
+                    and IsSettingEnabled("merchants", "scrapPoorQuality")
+            end,
+            indent = 2,
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsAutoSellUnusableEquipment",
+            settingKey = "autoSellUnusableEquipment",
+            labelKey = "options.merchants.autoRule.unusableEquipment.label",
+            enabledWhen = function()
+                return IsSettingEnabled("merchants", "sellScrapsEnabled")
+                    and IsSettingEnabled("merchants", "autoSellScraps")
+                    and IsSettingEnabled("merchants", "scrapUnusableEquipment")
+            end,
+            indent = 2,
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsAutoSellOutdatedEquipment",
+            settingKey = "autoSellOutdatedEquipment",
+            labelKey = "options.merchants.autoRule.outdatedEquipment.label",
+            enabledWhen = function()
+                return IsSettingEnabled("merchants", "sellScrapsEnabled")
+                    and IsSettingEnabled("merchants", "autoSellScraps")
+                    and IsSettingEnabled("merchants", "scrapOutdatedEquipment")
+            end,
+            indent = 2,
+        },
+        {
+            name = "VanillaEnhancedOptionsMerchantsAutoSellOutdatedConsumables",
+            settingKey = "autoSellOutdatedConsumables",
+            labelKey = "options.merchants.autoRule.outdatedConsumables.label",
+            enabledWhen = function()
+                return IsSettingEnabled("merchants", "sellScrapsEnabled")
+                    and IsSettingEnabled("merchants", "autoSellScraps")
+                    and IsSettingEnabled("merchants", "scrapOutdatedConsumables")
+            end,
+            indent = 2,
+        },
+        {
             type = "addonAction",
             name = "VanillaEnhancedOptionsMerchantsClearCustomScraps",
             labelKey = "options.merchants.clearCustomScraps.label",
             onClick = ConfirmClearCustomScraps,
+            indent = 0,
         },
         {
             name = "VanillaEnhancedOptionsMerchantsAutoRepair",

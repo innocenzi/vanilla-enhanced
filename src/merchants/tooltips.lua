@@ -126,7 +126,36 @@ local function ResetTooltipState(tooltip)
     if tooltip and not tooltip.VanillaEnhancedMerchantTooltipRefreshing then
         tooltip.VanillaEnhancedMerchantTooltipLink = nil
         tooltip.VanillaEnhancedMerchantTooltipPriceLink = nil
+        tooltip.VanillaEnhancedMerchantTooltipScrapLink = nil
     end
+end
+
+function Merchants:AddScrapReasonTooltipLine(tooltip, itemLink)
+    if not self:IsSellScrapsEnabled() or not tooltip or not itemLink or not self.Api then
+        return false
+    end
+    if tooltip.VanillaEnhancedMerchantTooltipScrapLink == itemLink then
+        return false
+    end
+
+    local bagID, slot = GetTooltipBagSlot(tooltip)
+    if bagID == nil or slot == nil then
+        return false
+    end
+    local itemContext = self.Api:ReadContainerItem(bagID, slot)
+    local evaluation = itemContext and self:EvaluateScrapItem(itemContext)
+    if not evaluation then
+        return false
+    end
+
+    if tooltip.VanillaEnhancedMerchantTooltipPriceLink ~= itemLink then
+        tooltip:AddLine(" ")
+    end
+    tooltip:AddLine(T("merchants.tooltip.scrapReason", {
+        reason = T(evaluation.reasonKey),
+    }), 1, 0.35, 0.35, true)
+    tooltip.VanillaEnhancedMerchantTooltipScrapLink = itemLink
+    return true
 end
 
 function Merchants:IsVendorSellPriceTooltipEnabled()
@@ -181,7 +210,11 @@ local function OnTooltipSetItem(tooltip)
     end
 
     tooltip.VanillaEnhancedMerchantTooltipLink = itemLink
-    if Merchants:AddVendorSellPriceTooltipLine(tooltip, itemLink) then
+    local changed = Merchants:AddVendorSellPriceTooltipLine(tooltip, itemLink)
+    if Merchants:AddScrapReasonTooltipLine(tooltip, itemLink) then
+        changed = true
+    end
+    if changed then
         tooltip:Show()
     end
 end
@@ -211,6 +244,7 @@ local function RefreshTooltip(tooltip)
     local itemLink = tooltip.VanillaEnhancedMerchantTooltipLink
     tooltip.VanillaEnhancedMerchantTooltipRefreshing = true
     tooltip.VanillaEnhancedMerchantTooltipPriceLink = nil
+    tooltip.VanillaEnhancedMerchantTooltipScrapLink = nil
     tooltip:ClearLines()
     pcall(tooltip.SetHyperlink, tooltip, itemLink)
     tooltip.VanillaEnhancedMerchantTooltipRefreshing = nil
@@ -240,6 +274,12 @@ eventFrame:SetScript("OnEvent", function(_, event, itemID, success)
     end
     if success then
         Merchants:RefreshVendorSellPriceTooltips()
+        if type(Merchants.RefreshBagScrapIcons) == "function" then
+            Merchants:RefreshBagScrapIcons()
+        end
+        if type(Merchants.RequestRefresh) == "function" then
+            Merchants:RequestRefresh(0.2)
+        end
     end
 end)
 

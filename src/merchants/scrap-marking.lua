@@ -26,14 +26,6 @@ local function GetContainerFrameCount()
     return 13
 end
 
-local function IsSellableScrapCandidate(itemContext)
-    return itemContext
-        and itemContext.isLocked ~= true
-        and itemContext.isUserLocked ~= true
-        and itemContext.isQuestItem ~= true
-        and (itemContext.sellPrice or 0) > 0
-end
-
 local function GetItemButtonIcon(button)
     if not button then
         return nil
@@ -330,8 +322,8 @@ function Merchants:ToggleCustomScrapItem(itemContext)
 
     local isCustomMarked = self:IsCustomScrapItem(itemContext)
     local isIgnored = self:IsIgnoredScrapItem(itemContext)
-    local strategy = self:GetScrapStrategy()
-    local isStrategyScrap = strategy and strategy.isScrap(itemContext) == true
+    local strategyMatch = self:EvaluateStrategyItem(itemContext)
+    local isStrategyScrap = strategyMatch and strategyMatch.isScrap == true
 
     if isIgnored then
         if self:SetIgnoredScrapItem(itemContext.itemID, false) then
@@ -369,7 +361,7 @@ function Merchants:ToggleCustomScrapItem(itemContext)
         return false
     end
 
-    if not IsSellableScrapCandidate(itemContext) then
+    if not self:IsSellableScrapCandidate(itemContext) then
         self:PrintMessage(T("merchants.scrapMark.cannotMark", {
             item = self:GetItemDisplayText(itemContext),
         }), "error")
@@ -408,17 +400,33 @@ function Merchants:ToggleCustomScrapItemForSlot(bagID, slot)
     return toggled
 end
 
-function Merchants:IsScrapItem(itemContext)
+function Merchants:EvaluateScrapItem(itemContext, saleMode)
+    if not self:IsSellableScrapCandidate(itemContext) then
+        return nil
+    end
     if self:IsIgnoredScrapItem(itemContext) then
-        return false
+        return nil
     end
 
     if self:IsCustomScrapItem(itemContext) then
-        return IsSellableScrapCandidate(itemContext)
+        return {
+            isScrap = true,
+            ruleKey = "manual",
+            reasonKey = "merchants.scrapReason.manual",
+            automatic = true,
+        }
     end
 
-    local strategy = self:GetScrapStrategy()
-    return strategy and strategy.isScrap(itemContext) == true
+    local evaluation = self:EvaluateStrategyItem(itemContext)
+    if saleMode == "automatic" and evaluation and evaluation.automatic ~= true then
+        return nil
+    end
+    return evaluation
+end
+
+function Merchants:IsScrapItem(itemContext, saleMode)
+    local evaluation = self:EvaluateScrapItem(itemContext, saleMode)
+    return evaluation and evaluation.isScrap == true
 end
 
 function Merchants:ApplyScrapMarkCursorOverride(button)

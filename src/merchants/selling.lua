@@ -60,6 +60,12 @@ local function ShowSellTooltip(button)
             count = report.items,
             money = FormatMoney(report.value),
         }), 1, 1, 1, true)
+        for _, reason in ipairs(report.reasons or {}) do
+            GameTooltip:AddLine(T("merchants.sellScraps.tooltipReason", {
+                count = reason.items,
+                reason = T(reason.reasonKey),
+            }), 0.82, 0.82, 0.82, true)
+        end
     else
         GameTooltip:AddLine(T("merchants.sellScraps.tooltipEmpty"), 1, 1, 1, true)
     end
@@ -90,31 +96,43 @@ function Merchants:CanSortBagsAfterSellingScraps()
     return Bags and Bags.IsSortEnabled and Bags:IsSortEnabled() and Bags.QueueAutoSort
 end
 
-function Merchants:GetScrapReport()
+function Merchants:GetScrapReport(saleMode)
     local report = {
         stacks = 0,
         items = 0,
         value = 0,
+        reasons = {},
     }
+    local reasonsByKey = {}
 
     if not self:IsSellScrapsEnabled() then
         return report
     end
 
     for itemContext in self:IterateBagItems() do
-        if self:IsScrapItem(itemContext) then
+        local evaluation = self:EvaluateScrapItem(itemContext, saleMode)
+        if evaluation then
+            local itemCount = math.max(1, itemContext.stackCount or 1)
             report.stacks = report.stacks + 1
-            report.items = report.items + math.max(1, itemContext.stackCount or 1)
-            report.value = report.value + ((itemContext.sellPrice or 0) * math.max(1, itemContext.stackCount or 1))
+            report.items = report.items + itemCount
+            report.value = report.value + ((itemContext.sellPrice or 0) * itemCount)
+            local reason = reasonsByKey[evaluation.reasonKey]
+            if not reason then
+                reason = { reasonKey = evaluation.reasonKey, stacks = 0, items = 0 }
+                reasonsByKey[evaluation.reasonKey] = reason
+                report.reasons[#report.reasons + 1] = reason
+            end
+            reason.stacks = reason.stacks + 1
+            reason.items = reason.items + itemCount
         end
     end
 
     return report
 end
 
-function Merchants:GetScrapReportSafely()
+function Merchants:GetScrapReportSafely(saleMode)
     local ok, report = pcall(function()
-        return self:GetScrapReport()
+        return self:GetScrapReport(saleMode)
     end)
     if ok and type(report) == "table" then
         return report
@@ -123,6 +141,7 @@ function Merchants:GetScrapReportSafely()
         stacks = 0,
         items = 0,
         value = 0,
+        reasons = {},
     }
 end
 
@@ -260,7 +279,7 @@ function Merchants:UpdateButton()
     end
 end
 
-function Merchants:SellScrapsBatch(limit)
+function Merchants:SellScrapsBatch(limit, saleMode)
     if not self:IsSellScrapsEnabled() or not self:IsMerchantOpen() then
         return
     end
@@ -279,7 +298,7 @@ function Merchants:SellScrapsBatch(limit)
         if limit and soldStacks >= limit then
             break
         end
-        if self:IsScrapItem(itemContext) then
+        if self:IsScrapItem(itemContext, saleMode) then
             local ok = pcall(self.Api.UseContainerItem, self.Api, itemContext.bagID, itemContext.slot)
             if ok then
                 soldStacks = soldStacks + 1
