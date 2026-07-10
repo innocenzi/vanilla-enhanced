@@ -2169,6 +2169,29 @@ local targetThreatPanel = BuildOptionsPanel({
     },
 })
 
+local function GetSafeguardPartyMessageLocale()
+    local settings = GetModuleOptionSettings("safeguard")
+    return VanillaEnhanced:NormalizeOutgoingMessageLocale(settings.partyMessageLanguage)
+end
+
+local function GetSafeguardLowHealthMessageSettingKey()
+    return GetSafeguardPartyMessageLocale() == "frFR"
+        and "lowHealthPartyMessageFormatFrFR"
+        or "lowHealthPartyMessageFormatEnUS"
+end
+
+local function GetSafeguardLowHealthMessageDefault()
+    return VanillaEnhanced:GetModule("safeguard")
+        :GetLowHealthPartyMessageFormatDefault(GetSafeguardPartyMessageLocale())
+end
+
+local function GetSafeguardLowHealthMessagePreview(value)
+    if IsBlankText(value) then value = GetSafeguardLowHealthMessageDefault() end
+    local message = VanillaEnhanced:GetModule("safeguard"):RenderLowHealthPartyMessage(value, 24)
+    if not message then return T("options.safeguard.partyMessageFormat.previewInvalid") end
+    return T("options.safeguard.partyMessageFormat.preview", { message = message })
+end
+
 local safeguardPanel = BuildOptionsPanel({
     name = "VanillaEnhancedSafeguardOptionsPanel",
     categoryKey = "safeguard",
@@ -2232,6 +2255,101 @@ local safeguardPanel = BuildOptionsPanel({
             onValueChanged = function(value)
                 VanillaEnhanced:GetModule("safeguard"):PreviewHeartbeat(value)
             end,
+        },
+        {
+            type = "section",
+            name = "VanillaEnhancedOptionsSafeguardPartyMessagesSection",
+            labelKey = "options.safeguard.section.partyMessages",
+        },
+        {
+            type = "dropdown",
+            name = "VanillaEnhancedOptionsSafeguardPartyMessageLanguage",
+            settingKey = "partyMessageLanguage",
+            labelKey = "options.safeguard.partyMessageLanguage.label",
+            helpKey = "options.safeguard.partyMessageLanguage.help",
+            defaultValue = "enUS",
+            width = 150,
+            options = {
+                {
+                    value = "auto",
+                    labelKey = "options.safeguard.partyMessageLanguage.auto",
+                    descriptionKey = "options.safeguard.partyMessageLanguage.auto.description",
+                },
+                {
+                    value = "enUS",
+                    labelKey = "options.safeguard.partyMessageLanguage.enUS",
+                    descriptionKey = "options.safeguard.partyMessageLanguage.enUS.description",
+                },
+                {
+                    value = "frFR",
+                    labelKey = "options.safeguard.partyMessageLanguage.frFR",
+                    descriptionKey = "options.safeguard.partyMessageLanguage.frFR.description",
+                },
+            },
+        },
+        {
+            type = "dropdown",
+            name = "VanillaEnhancedOptionsSafeguardMessageDestination",
+            settingKey = "messageDestination",
+            labelKey = "options.safeguard.messageDestination.label",
+            helpKey = "options.safeguard.messageDestination.help",
+            defaultValue = "party",
+            width = 170,
+            options = {
+                {
+                    value = "raid",
+                    labelKey = "options.safeguard.messageDestination.raid",
+                    descriptionKey = "options.safeguard.messageDestination.raid.description",
+                },
+                {
+                    value = "party",
+                    labelKey = "options.safeguard.messageDestination.party",
+                    descriptionKey = "options.safeguard.messageDestination.party.description",
+                },
+            },
+        },
+        {
+            name = "VanillaEnhancedOptionsSafeguardLowHealthPartyMessageEnabled",
+            settingKey = "lowHealthPartyMessageEnabled",
+            labelKey = "options.safeguard.lowHealthPartyMessageEnabled.label",
+            helpKey = "options.safeguard.lowHealthPartyMessageEnabled.help",
+            defaultValue = false,
+        },
+        {
+            name = "VanillaEnhancedOptionsSafeguardLowHealthNearbyEmoteEnabled",
+            settingKey = "lowHealthNearbyEmoteEnabled",
+            labelKey = "options.safeguard.lowHealthNearbyEmoteEnabled.label",
+            helpKey = "options.safeguard.lowHealthNearbyEmoteEnabled.help",
+            defaultValue = false,
+            enabledWhenSetting = "lowHealthPartyMessageEnabled",
+            indent = 1,
+        },
+        {
+            type = "slider",
+            name = "VanillaEnhancedOptionsSafeguardLowHealthPartyMessageThreshold",
+            settingKey = "lowHealthPartyMessageThreshold",
+            labelKey = "options.safeguard.lowHealthPartyMessageThreshold.label",
+            helpKey = "options.safeguard.lowHealthPartyMessageThreshold.help",
+            valueKey = "options.safeguard.heartbeatThreshold.value",
+            min = 1,
+            max = 100,
+            step = 1,
+            defaultValue = 25,
+            enabledWhenSetting = "lowHealthPartyMessageEnabled",
+            indent = 1,
+        },
+        {
+            type = "textInput",
+            name = "VanillaEnhancedOptionsSafeguardLowHealthPartyMessageFormat",
+            labelKey = "options.safeguard.lowHealthPartyMessageFormat.label",
+            helpKey = "options.safeguard.lowHealthPartyMessageFormat.help",
+            settingKeyProvider = GetSafeguardLowHealthMessageSettingKey,
+            defaultValueProvider = GetSafeguardLowHealthMessageDefault,
+            previewProvider = GetSafeguardLowHealthMessagePreview,
+            enabledWhenSetting = "lowHealthPartyMessageEnabled",
+            indent = 1,
+            width = 320,
+            resetLabelKey = "options.safeguard.partyMessageFormat.reset",
         },
     },
 })

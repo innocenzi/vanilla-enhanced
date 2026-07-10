@@ -53,10 +53,7 @@ local GROUP_QUEST_ANNOUNCEMENTS_LANGUAGES = {
 }
 
 function Quests:NormalizeGroupQuestAnnouncementLocale(locale)
-    if locale == "auto" or not locale then
-        locale = VanillaEnhanced.GetLocaleKey and VanillaEnhanced:GetLocaleKey() or "enUS"
-    end
-    return locale == "frFR" and "frFR" or "enUS"
+    return VanillaEnhanced:NormalizeOutgoingMessageLocale(locale)
 end
 
 function Quests:GetGroupQuestAnnouncementFormatDefault(locale, kind)

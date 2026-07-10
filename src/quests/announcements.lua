@@ -5,8 +5,6 @@ local MODE_DISABLED = "disabled"
 local MODE_OBJECTIVES = "objectives"
 local MODE_QUEST_COMPLETE = "questComplete"
 local MODE_OBJECTIVES_AND_QUEST_COMPLETE = "objectivesAndQuestComplete"
-local DEBUG_SEND_TO_SELF_ONLY = false
-
 local TEMPLATE_VALUES = {
     quest = true,
     objective = true,
@@ -15,7 +13,7 @@ local TEMPLATE_VALUES = {
 }
 
 local function ResolveAnnouncementLocale(settings)
-    return Quests:NormalizeGroupQuestAnnouncementLocale(settings and settings.groupQuestAnnouncementsLanguage)
+    return VanillaEnhanced:NormalizeOutgoingMessageLocale(settings and settings.groupQuestAnnouncementsLanguage)
 end
 
 local function ShouldAnnounceObjectives(mode)
@@ -26,84 +24,8 @@ local function ShouldAnnounceQuestComplete(mode)
     return mode == MODE_QUEST_COMPLETE or mode == MODE_OBJECTIVES_AND_QUEST_COMPLETE
 end
 
-local function IsInGroupCategory(category)
-    if type(IsInGroup) ~= "function" then
-        return false
-    end
-
-    if category ~= nil then
-        local ok, inGroup = pcall(IsInGroup, category)
-        return ok and inGroup == true
-    end
-
-    local ok, inGroup = pcall(IsInGroup)
-    return ok and inGroup == true
-end
-
-local function IsInstanceGroup()
-    local instanceCategory = _G.LE_PARTY_CATEGORY_INSTANCE
-    if instanceCategory ~= nil then
-        if IsInGroupCategory(instanceCategory) then
-            return true
-        end
-    end
-
-    return false
-end
-
-local function IsPartyOnly()
-    if type(IsInRaid) == "function" and IsInRaid() then
-        return false
-    end
-    if IsInstanceGroup() then
-        return false
-    end
-
-    local homeCategory = _G.LE_PARTY_CATEGORY_HOME
-    if homeCategory ~= nil and IsInGroupCategory(homeCategory) then
-        return true
-    end
-
-    if IsInGroupCategory(nil) then
-        return true
-    end
-
-    if type(GetNumSubgroupMembers) == "function" then
-        local count = GetNumSubgroupMembers()
-        if type(count) == "number" and count > 0 then
-            return true
-        end
-    end
-
-    if type(GetNumPartyMembers) == "function" then
-        local count = GetNumPartyMembers()
-        if type(count) == "number" and count > 0 then
-            return true
-        end
-    end
-
-    return type(UnitExists) == "function" and UnitExists("party1") == true
-end
-
 local function SendPartyMessage(message)
-    if not message or message == "" then
-        return
-    end
-
-    if DEBUG_SEND_TO_SELF_ONLY then
-        if DEFAULT_CHAT_FRAME and DEFAULT_CHAT_FRAME.AddMessage then
-            DEFAULT_CHAT_FRAME:AddMessage(message)
-        end
-        return
-    end
-
-    if not IsPartyOnly() then
-        return
-    end
-    
-    if type(SendChatMessage) == "function" then
-        SendChatMessage(message, "PARTY")
-    end
+    return VanillaEnhanced:SendPartyMessage(message)
 end
 
 local function ParseObjectiveProgress(objectiveText)
@@ -195,23 +117,7 @@ local function GetTemplate(settings, locale, kind)
 end
 
 function Quests:RenderGroupQuestAnnouncementTemplate(template, values)
-    if type(template) ~= "string" or not string.find(template, "%S") then
-        return nil
-    end
-
-    local invalid = false
-    local message = string.gsub(template, "{([%w_]+)}", function(name)
-        if not TEMPLATE_VALUES[name] then
-            invalid = true
-            return ""
-        end
-        return values[name] or ""
-    end)
-
-    if invalid or string.find(message, "{.-}") or not string.find(message, "%S") then
-        return nil
-    end
-    return message
+    return VanillaEnhanced:RenderOutgoingMessageTemplate(template, TEMPLATE_VALUES, values)
 end
 
 local function BuildQuestState(quest)

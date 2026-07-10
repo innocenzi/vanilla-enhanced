@@ -7,10 +7,36 @@ local FAST_INTERVAL = 0.4
 local MAX_SPEED_HEALTH_PERCENT = 20
 local DEFAULT_HEARTBEAT_THRESHOLD = 50
 local DEFAULT_SOUND_CHANNEL = "SFX"
-local ACCOUNT_SETTING_KEYS = { "heartbeatEnabled", "heartbeatThreshold", "heartbeatSoundChannel" }
+local DEFAULT_LOW_HEALTH_MESSAGE_THRESHOLD = 25
+local LOW_HEALTH_MESSAGE_COOLDOWN = 10
+local LOW_HEALTH_TEMPLATE_DEFAULTS = {
+    enUS = "Help! I have less than {percent}% health!",
+    frFR = "À l'aide ! J'ai moins de {percent}% de vie !",
+}
+local LOW_HEALTH_TEMPLATE_VALUES = { percent = true }
+local ACCOUNT_SETTING_KEYS = {
+    "heartbeatEnabled",
+    "heartbeatThreshold",
+    "heartbeatSoundChannel",
+    "lowHealthPartyMessageEnabled",
+    "lowHealthNearbyEmoteEnabled",
+    "lowHealthPartyMessageThreshold",
+    "partyMessageLanguage",
+    "messageDestination",
+    "lowHealthPartyMessageFormatEnUS",
+    "lowHealthPartyMessageFormatFrFR",
+}
 
 local function ClampThreshold(value)
     return math.max(1, math.min(100, tonumber(value) or DEFAULT_HEARTBEAT_THRESHOLD))
+end
+
+local function ClampLowHealthMessageThreshold(value)
+    return math.max(1, math.min(100, tonumber(value) or DEFAULT_LOW_HEALTH_MESSAGE_THRESHOLD))
+end
+
+local function IsBlankString(value)
+    return type(value) ~= "string" or not string.find(value, "%S")
 end
 
 local function IsHardcoreCharacter()
@@ -32,11 +58,37 @@ function Safeguard:GetSettings()
         characterSafeguard[key] = nil
     end
 
-    return VanillaEnhanced:GetModuleSettings("safeguard", {
+    local settings = VanillaEnhanced:GetModuleSettings("safeguard", {
         heartbeatEnabled = true,
         heartbeatThreshold = DEFAULT_HEARTBEAT_THRESHOLD,
         heartbeatSoundChannel = DEFAULT_SOUND_CHANNEL,
+        lowHealthPartyMessageEnabled = false,
+        lowHealthNearbyEmoteEnabled = false,
+        lowHealthPartyMessageThreshold = DEFAULT_LOW_HEALTH_MESSAGE_THRESHOLD,
+        partyMessageLanguage = "enUS",
+        messageDestination = "party",
+        lowHealthPartyMessageFormatEnUS = LOW_HEALTH_TEMPLATE_DEFAULTS.enUS,
+        lowHealthPartyMessageFormatFrFR = LOW_HEALTH_TEMPLATE_DEFAULTS.frFR,
     })
+    settings.lowHealthPartyMessageThreshold = ClampLowHealthMessageThreshold(settings.lowHealthPartyMessageThreshold)
+    if settings.partyMessageLanguage ~= "auto"
+        and settings.partyMessageLanguage ~= "enUS"
+        and settings.partyMessageLanguage ~= "frFR" then
+        settings.partyMessageLanguage = "enUS"
+    end
+    if settings.messageDestination == "proximity" or settings.messageDestination == "nearby" then
+        settings.lowHealthNearbyEmoteEnabled = true
+        settings.messageDestination = "party"
+    elseif settings.messageDestination ~= "raid" and settings.messageDestination ~= "party" then
+        settings.messageDestination = "raid"
+    end
+    if IsBlankString(settings.lowHealthPartyMessageFormatEnUS) then
+        settings.lowHealthPartyMessageFormatEnUS = LOW_HEALTH_TEMPLATE_DEFAULTS.enUS
+    end
+    if IsBlankString(settings.lowHealthPartyMessageFormatFrFR) then
+        settings.lowHealthPartyMessageFormatFrFR = LOW_HEALTH_TEMPLATE_DEFAULTS.frFR
+    end
+    return settings
 end
 
 function Safeguard:GetCharacterSettings()
@@ -47,6 +99,72 @@ end
 
 function Safeguard:IsEnabled()
     return self:GetCharacterSettings().enabled == true
+end
+
+function Safeguard:GetPartyMessageLocale()
+    return VanillaEnhanced:NormalizeOutgoingMessageLocale(self:GetSettings().partyMessageLanguage)
+end
+
+function Safeguard:GetLowHealthPartyMessageFormatDefault(locale)
+    locale = VanillaEnhanced:NormalizeOutgoingMessageLocale(locale)
+    return LOW_HEALTH_TEMPLATE_DEFAULTS[locale] or LOW_HEALTH_TEMPLATE_DEFAULTS.enUS
+end
+
+function Safeguard:RenderLowHealthPartyMessage(template, percent)
+    return VanillaEnhanced:RenderOutgoingMessageTemplate(template, LOW_HEALTH_TEMPLATE_VALUES, {
+        percent = tostring(math.floor((tonumber(percent) or 0) + 0.5)),
+    })
+end
+
+function Safeguard:GetLowHealthPartyMessage(settings, healthPercent)
+    local locale = VanillaEnhanced:NormalizeOutgoingMessageLocale(settings.partyMessageLanguage)
+    local template = locale == "frFR"
+        and settings.lowHealthPartyMessageFormatFrFR
+        or settings.lowHealthPartyMessageFormatEnUS
+    if IsBlankString(template) then template = self:GetLowHealthPartyMessageFormatDefault(locale) end
+    return self:RenderLowHealthPartyMessage(template, healthPercent)
+end
+
+function Safeguard:ResetLowHealthMessageState()
+    self.previousHealth = nil
+    self.previousHealthPercent = nil
+    self.lastLowHealthMessageAt = nil
+end
+
+function Safeguard:ProcessLowHealthPartyMessage()
+    local maximum = UnitHealthMax("player") or 0
+    local current = UnitHealth("player") or 0
+    local healthPercent = maximum > 0 and (current / maximum) * 100 or nil
+    local previousHealth = self.previousHealth
+    local previousHealthPercent = self.previousHealthPercent
+    self.previousHealth = current
+    self.previousHealthPercent = healthPercent
+
+    if previousHealth == nil or previousHealthPercent == nil or not healthPercent then return false end
+
+    local settings = self:GetSettings()
+    if not self:IsEnabled() or not settings.lowHealthPartyMessageEnabled or UnitIsDeadOrGhost("player") then
+        return false
+    end
+
+    local threshold = ClampLowHealthMessageThreshold(settings.lowHealthPartyMessageThreshold)
+    local crossedThreshold = previousHealthPercent >= threshold and healthPercent < threshold
+    local tookDamageBelowThreshold = current < previousHealth and healthPercent < threshold
+    if not crossedThreshold and not tookDamageBelowThreshold then return false end
+
+    local now = type(GetTime) == "function" and GetTime() or 0
+    if not crossedThreshold and self.lastLowHealthMessageAt
+        and now - self.lastLowHealthMessageAt < LOW_HEALTH_MESSAGE_COOLDOWN then
+        return false
+    end
+
+    local message = self:GetLowHealthPartyMessage(settings, healthPercent)
+    local destination = settings.lowHealthNearbyEmoteEnabled and "nearby" or settings.messageDestination
+    if VanillaEnhanced:SendOutgoingMessage(message, destination) then
+        self.lastLowHealthMessageAt = now
+        return true
+    end
+    return false
 end
 
 function Safeguard:GetHeartbeatInterval(healthPercent)
@@ -137,6 +255,7 @@ function Safeguard:ScheduleHeartbeat(interval)
 end
 
 function Safeguard:Update()
+    self:ProcessLowHealthPartyMessage()
     if self.previewActive then self:CancelHeartbeat() end
     local active, healthPercent = self:IsHeartbeatActive()
     if not active then self:CancelHeartbeat(); return end
@@ -151,8 +270,11 @@ function Safeguard:SetEnabled(enabled)
     if VanillaEnhanced.RefreshOptions then VanillaEnhanced:RefreshOptions() end
 end
 
-function Safeguard:OnOptionChanged()
+function Safeguard:OnOptionChanged(settingKey)
     self:CancelHeartbeat()
+    if settingKey == "lowHealthPartyMessageEnabled" or settingKey == "lowHealthPartyMessageThreshold" then
+        self:ResetLowHealthMessageState()
+    end
 end
 
 local eventFrame = CreateFrame("Frame")
@@ -163,6 +285,7 @@ eventFrame:SetScript("OnEvent", function(_, event, unit)
     end
     if event == "PLAYER_ENTERING_WORLD" then
         Safeguard:CancelHeartbeat()
+        Safeguard:ResetLowHealthMessageState()
     end
     Safeguard:Update()
 end)
