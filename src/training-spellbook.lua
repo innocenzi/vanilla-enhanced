@@ -13,7 +13,7 @@ local TRAINING_SKILL_LINE_TAB = ((type(MAX_SKILLLINE_TABS) == "number" and MAX_S
 local TRAINING_TAB_TEXTURE = "Interface\\Icons\\INV_Misc_Book_09"
 local STATE_COLORS = {
     trainable = { r = 0.1, g = 0.9, b = 0.25 },
-    future = { r = 1, g = 0.82, b = 0 },
+    future = { r = 1, g = 0.1, b = 0.1 },
     ["missing-requirement"] = { r = 1, g = 0.35, b = 0.2 },
     ["missing-talent"] = { r = 1, g = 0.35, b = 0.2 },
 }
@@ -165,7 +165,7 @@ local function ApplyButtonColors(button, spell)
     button.name:SetTextColor(1, 0.82, 0)
     SetFontStringColor(button.rank, button.rankDefaultColor)
     SetFontStringColor(button.level, button.levelDefaultColor)
-    SetTextureDesaturated(button.icon, true)
+    SetTextureDesaturated(button.icon, spell.state ~= "trainable")
     if IsSpellUnaffordable(spell) then
         button.icon:SetVertexColor(1, 0.25, 0.25)
     else
@@ -384,13 +384,8 @@ function Training:RenderFakeButton(button, spell)
     button.trainingSpell = spell
     button.icon:SetTexture(spell.icon)
     button.name:SetText(spell.name)
-    if spell.rank and spell.rank ~= "" then
-        button.rank:SetText(spell.rank)
-        button.level:SetText("")
-    else
-        button.rank:SetText(T("training.spellbook.level", { level = spell.level }))
-        button.level:SetText("")
-    end
+    button.rank:SetText(T("training.spellbook.level", { level = spell.level }))
+    button.level:SetText("")
     self:PositionFakeSpellText(button)
     ApplyButtonColors(button, spell)
     button:Show()
