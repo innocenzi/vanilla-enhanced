@@ -81,25 +81,14 @@ function Safeguard:IsHeartbeatActive()
     return true, healthPercent
 end
 
-function Safeguard:StopHeartbeatSound()
-    if self.soundHandle and type(StopSound) == "function" then
-        StopSound(self.soundHandle)
-    end
-    self.soundHandle = nil
-end
-
 function Safeguard:PlayHeartbeat()
     if type(PlaySoundFile) ~= "function" then
         return false
     end
-    self:StopHeartbeatSound()
-    local played, handle = PlaySoundFile(
+    local played = PlaySoundFile(
         HEARTBEAT_SOUND,
         self:GetSettings().heartbeatSoundChannel or DEFAULT_SOUND_CHANNEL
     )
-    if played and handle then
-        self.soundHandle = handle
-    end
     return played
 end
 
@@ -110,7 +99,6 @@ function Safeguard:CancelHeartbeat()
         self.heartbeatTimer:Cancel()
     end
     self.heartbeatTimer = nil
-    self:StopHeartbeatSound()
 end
 
 function Safeguard:SchedulePreviewHeartbeat(healthPercent, interval)
