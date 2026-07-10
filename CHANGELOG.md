@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.9.1 - 2026-07-10
+
+
+### Features
+- **merchants:** reorganize merchant options
+
 ## 0.9.0 - 2026-07-10
 
 
