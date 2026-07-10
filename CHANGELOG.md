@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.10.1 - 2026-07-10
+
+
+### Fixes
+- **quests:** prevent tooltips from being cleared after being stale
+- **quests:** clean up advanced map markers tooltips
+- **quests:** show exploration quests
+- **quests:** harden available quest eligibility
+
 ## 0.10.0 - 2026-07-10
 
 
