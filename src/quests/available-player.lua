@@ -104,6 +104,8 @@ local RIDING_SKILL_BY_SPELL = {
     [90265] = 375,
 }
 
+local GetReputationThresholds
+
 local function HasBit(mask, flag)
     if not mask or mask == 0 or not flag or flag == 0 then
         return true
@@ -169,31 +171,44 @@ local function BuildProfessionLookup()
 end
 
 local function BuildPlayerProfessions()
-    if not GetNumSkillLines or not GetSkillLineInfo then
-        return nil
-    end
-
     if Quests.buildingAvailablePlayerProfessions then
         return Quests.availablePlayerProfessions
     end
     Quests.buildingAvailablePlayerProfessions = true
 
-    if ExpandSkillHeader then
-        pcall(ExpandSkillHeader, 0)
-    end
-
-    local okCount, count = pcall(GetNumSkillLines)
-    if not okCount or type(count) ~= "number" then
-        Quests.buildingAvailablePlayerProfessions = false
-        return nil
-    end
-
-    local lookup = BuildProfessionLookup()
     local professions = {}
-    for index = 1, count do
-        local ok, skillName, isHeader, isExpanded, skillRank = pcall(GetSkillLineInfo, index)
-        if ok and skillName and not isHeader and lookup[skillName] then
-            professions[lookup[skillName]] = skillRank or 0
+    local reliable = false
+    if GetProfessions and GetProfessionInfo then
+        local ok, profession1, profession2, archaeology, fishing, cooking, firstAid = pcall(GetProfessions)
+        if ok then
+            reliable = true
+            local indexes = {profession1, profession2, archaeology, fishing, cooking, firstAid}
+            for _, index in ipairs(indexes) do
+                if index then
+                    local infoOk, name, _, skillRank, _, _, skillLine = pcall(GetProfessionInfo, index)
+                    local professionId = skillLine or (name and BuildProfessionLookup()[name])
+                    if infoOk and professionId then
+                        professions[professionId] = skillRank or 0
+                    else
+                        reliable = false
+                    end
+                end
+            end
+        end
+    end
+    if not reliable and GetNumSkillLines and GetSkillLineInfo then
+        local okCount, count = pcall(GetNumSkillLines)
+        if okCount and type(count) == "number" then
+            reliable = true
+            local lookup = BuildProfessionLookup()
+            for index = 1, count do
+                local ok, skillName, isHeader, isExpanded, skillRank = pcall(GetSkillLineInfo, index)
+                if ok and isHeader and isExpanded == false then
+                    reliable = false
+                elseif ok and skillName and not isHeader and lookup[skillName] then
+                    professions[lookup[skillName]] = skillRank or 0
+                end
+            end
         end
     end
 
@@ -207,40 +222,49 @@ local function BuildPlayerProfessions()
     end
 
     Quests.availablePlayerProfessions = professions
+    Quests.availablePlayerProfessionsReliable = reliable
     Quests.availablePlayerProfessionSignature = Quests:BuildAvailableQuestProfessionSignature(professions)
     Quests.buildingAvailablePlayerProfessions = false
     return professions
 end
 
 local function BuildPlayerReputations()
-    if not GetNumFactions or not GetFactionInfo then
-        return nil
-    end
-
     if Quests.buildingAvailablePlayerReputations then
         return Quests.availablePlayerReputations
     end
     Quests.buildingAvailablePlayerReputations = true
 
-    if ExpandFactionHeader then
-        pcall(ExpandFactionHeader, 0)
-    end
-
-    local okCount, count = pcall(GetNumFactions)
-    if not okCount or type(count) ~= "number" then
-        Quests.buildingAvailablePlayerReputations = false
-        return nil
-    end
-
     local reputations = {}
-    for index = 1, count do
-        local ok, name, description, standingId, barMin, barMax, barValue, atWar, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionId = pcall(GetFactionInfo, index)
-        if ok and factionId and description then
-            reputations[factionId] = barValue or 0
+    local reliable = false
+    local thresholds = GetReputationThresholds and GetReputationThresholds() or nil
+    if GetFactionInfoByID and thresholds then
+        reliable = true
+        for factionId in pairs(thresholds) do
+            local ok, name, _, _, _, _, barValue = pcall(GetFactionInfoByID, factionId)
+            if ok and name then
+                reputations[factionId] = barValue or 0
+            else
+                reliable = false
+            end
+        end
+    elseif GetNumFactions and GetFactionInfo then
+        local okCount, count = pcall(GetNumFactions)
+        if okCount and type(count) == "number" then
+            reliable = true
+            for index = 1, count do
+                local ok, _, _, _, _, _, barValue, _, _, isHeader, isCollapsed, _, _, _, factionId =
+                    pcall(GetFactionInfo, index)
+                if ok and isHeader and isCollapsed then
+                    reliable = false
+                elseif ok and factionId then
+                    reputations[factionId] = barValue or 0
+                end
+            end
         end
     end
 
     Quests.availablePlayerReputations = reputations
+    Quests.availablePlayerReputationsReliable = reliable
     Quests.availablePlayerReputationThresholdSignature =
         Quests:BuildAvailableQuestReputationThresholdSignature(reputations)
     Quests.buildingAvailablePlayerReputations = false
@@ -267,7 +291,8 @@ local function BuildSortedNumberSignature(values)
 end
 
 function Quests:BuildAvailableQuestProfessionSignature(professions)
-    return BuildSortedNumberSignature(professions)
+    return (Quests.availablePlayerProfessionsReliable and "reliable;" or "partial;")
+        .. BuildSortedNumberSignature(professions)
 end
 
 local function AddReputationThreshold(thresholds, requirement)
@@ -309,7 +334,7 @@ local function BuildAvailableQuestReputationThresholds()
     return thresholds
 end
 
-local function GetReputationThresholds()
+GetReputationThresholds = function()
     if not Quests.availableQuestReputationThresholds then
         Quests.availableQuestReputationThresholds = BuildAvailableQuestReputationThresholds()
     end
@@ -342,7 +367,8 @@ function Quests:BuildAvailableQuestReputationThresholdSignature(reputations)
         buckets[factionId] = thresholdBucket
     end
 
-    return BuildSortedNumberSignature(buckets)
+    return (Quests.availablePlayerReputationsReliable and "reliable;" or "partial;")
+        .. BuildSortedNumberSignature(buckets)
 end
 
 function Quests:HasAvailableQuestProfessionStateChanged()
@@ -377,6 +403,9 @@ local function GetReputationValue(requiredRep, context)
         return value
     end
 
+    if context.reputationsReliable ~= true then
+        return nil
+    end
     if FACTIONS_STARTING_BELOW_NEUTRAL[factionId] then
         return -36000
     end
@@ -388,16 +417,18 @@ local function HasRequiredReputation(dbQuest, context)
         return true
     end
     if not context or not context.reputations then
-        return true
+        return nil
     end
 
     local minValue = GetReputationValue(dbQuest.rmin, context)
-    if dbQuest.rmin and minValue ~= nil and minValue < dbQuest.rmin[2] then
+    if dbQuest.rmin and minValue == nil then return nil end
+    if dbQuest.rmin and minValue < dbQuest.rmin[2] then
         return false
     end
 
     local maxValue = GetReputationValue(dbQuest.rmax, context)
-    if dbQuest.rmax and maxValue ~= nil and maxValue >= dbQuest.rmax[2] then
+    if dbQuest.rmax and maxValue == nil then return nil end
+    if dbQuest.rmax and maxValue >= dbQuest.rmax[2] then
         return false
     end
 
@@ -409,13 +440,16 @@ local function HasRequiredSkill(requiredSkill, context)
         return true
     end
     if not context or not context.professions then
-        return true
+        return nil
     end
 
     local professionId = requiredSkill[1]
     local requiredLevel = requiredSkill[2]
     local playerLevel = context.professions[professionId]
-    return playerLevel ~= nil and playerLevel >= requiredLevel
+    if playerLevel == nil then
+        return context.professionsReliable == true and false or nil
+    end
+    return playerLevel >= requiredLevel
 end
 
 local function HasRankLevel(professionId, rankLevel, exactRank)
@@ -451,51 +485,41 @@ local function HasRequiredRanks(requiredRanks, context)
         return true
     end
     if not context or not context.professions then
-        return true
+        return nil
     end
 
-    local hasProfession = false
-    local hasRankLevel = false
-    local hasNegativeRanks = false
+    local hasPositiveRequirement = false
+    local positiveMatched = false
+    local unknown = false
 
     for _, requirement in ipairs(requiredRanks) do
         local professionId = requirement[1]
         local rankLevel = requirement[2]
         if rankLevel > 0 then
+            hasPositiveRequirement = true
             if context.professions[professionId] ~= nil then
-                hasProfession = true
                 local rankMatches = HasRankLevel(professionId, rankLevel, false)
-                if rankMatches == nil then
-                    return true
-                end
-                if not hasRankLevel and rankMatches then
-                    hasRankLevel = true
-                end
+                if rankMatches == nil then unknown = true end
+                if rankMatches == true then positiveMatched = true end
+            elseif context.professionsReliable ~= true then
+                unknown = true
             end
         else
             rankLevel = math.abs(rankLevel)
-            hasNegativeRanks = true
             if context.professions[professionId] ~= nil then
-                hasProfession = true
                 local rankMatches = HasRankLevel(professionId, rankLevel, true)
-                if rankMatches == nil then
-                    return true
-                end
-                if not hasRankLevel and rankMatches then
-                    hasRankLevel = true
-                end
+                if rankMatches == true then return false end
+                if rankMatches == nil then unknown = true end
+            elseif context.professionsReliable ~= true then
+                unknown = true
             end
         end
     end
 
-    if hasNegativeRanks and hasProfession then
-        hasRankLevel = not hasRankLevel
+    if hasPositiveRequirement and not positiveMatched then
+        return unknown and nil or false
     end
-
-    if hasNegativeRanks then
-        return not (hasProfession and not hasRankLevel)
-    end
-    return hasProfession and hasRankLevel
+    return unknown and nil or true
 end
 
 local function HasNoSpecializationFromGroup(professionId)
@@ -507,7 +531,7 @@ local function HasNoSpecializationFromGroup(professionId)
     for _, spellId in ipairs(spells) do
         local known = IsSpellKnownCompat(spellId)
         if known == nil then
-            return true
+            return nil
         end
         if known then
             return false
@@ -524,17 +548,17 @@ local function HasRequiredSpecialization(requiredSpecialization, context)
 
     if PROFESSION_RANK_SPELLS[requiredSpecialization] then
         if not context or not context.professions then
-            return true
+            return nil
         end
         if context.professions[requiredSpecialization] == nil then
-            return false
+            return context.professionsReliable == true and false or nil
         end
         return HasNoSpecializationFromGroup(requiredSpecialization)
     end
 
     if SPECIALIZATION_SPELLS[requiredSpecialization] then
         local known = IsSpellKnownCompat(requiredSpecialization)
-        return known == nil or known == true
+        return known
     end
 
     return true
@@ -547,7 +571,7 @@ local function HasRequiredSpell(requiredSpell)
 
     local known = IsSpellKnownCompat(requiredSpell)
     if known == nil then
-        return true
+        return nil
     end
     if requiredSpell > 0 then
         return known == true
@@ -559,21 +583,49 @@ function Quests:BuildAvailableQuestPlayerContext()
     return {
         professions = BuildPlayerProfessions(),
         reputations = BuildPlayerReputations(),
+        professionsReliable = Quests.availablePlayerProfessionsReliable == true,
+        reputationsReliable = Quests.availablePlayerReputationsReliable == true,
     }
 end
 
 function Quests:MeetsAvailableQuestPlayerRequirements(dbQuest, context)
-    if not HasBit(dbQuest.rr, PlayerRaceMask()) or not HasBit(dbQuest.rc, PlayerClassMask()) then
-        return false
+    local uncertainties
+    local raceMask = PlayerRaceMask()
+    local classMask = PlayerClassMask()
+    if dbQuest.rr and not raceMask then
+        uncertainties = self:AddAvailableQuestUncertaintyReason(uncertainties, "race-unknown")
+    elseif not HasBit(dbQuest.rr, raceMask) then
+        return false, "race"
     end
-    if not HasRequiredReputation(dbQuest, context) then
-        return false
+    if dbQuest.rc and not classMask then
+        uncertainties = self:AddAvailableQuestUncertaintyReason(uncertainties, "class-unknown")
+    elseif not HasBit(dbQuest.rc, classMask) then
+        return false, "class"
     end
-    if not HasRequiredSkill(dbQuest.sk, context) or not HasRequiredRanks(dbQuest.rk, context) then
-        return false
+    local reputationState = HasRequiredReputation(dbQuest, context)
+    if reputationState == false then return false, "reputation" end
+    if reputationState == nil and (dbQuest.rmin or dbQuest.rmax) then
+        uncertainties = self:AddAvailableQuestUncertaintyReason(uncertainties, "reputation-unknown")
     end
-    if not HasRequiredSpecialization(dbQuest.spec, context) or not HasRequiredSpell(dbQuest.spell) then
-        return false
+    local skillState = HasRequiredSkill(dbQuest.sk, context)
+    if skillState == false then return false, "profession" end
+    if skillState == nil and dbQuest.sk then
+        uncertainties = self:AddAvailableQuestUncertaintyReason(uncertainties, "profession-unknown")
     end
-    return true
+    local rankState = HasRequiredRanks(dbQuest.rk, context)
+    if rankState == false then return false, "profession-rank" end
+    if rankState == nil and dbQuest.rk then
+        uncertainties = self:AddAvailableQuestUncertaintyReason(uncertainties, "profession-rank-unknown")
+    end
+    local specializationState = HasRequiredSpecialization(dbQuest.spec, context)
+    if specializationState == false then return false, "specialization" end
+    if specializationState == nil and dbQuest.spec then
+        uncertainties = self:AddAvailableQuestUncertaintyReason(uncertainties, "specialization-unknown")
+    end
+    local spellState = HasRequiredSpell(dbQuest.spell)
+    if spellState == false then return false, "spell" end
+    if spellState == nil and dbQuest.spell then
+        uncertainties = self:AddAvailableQuestUncertaintyReason(uncertainties, "spell-unknown")
+    end
+    return true, nil, uncertainties
 end

@@ -496,6 +496,7 @@ local STRINGS = {
 
         ["quests.static.turnin"] = "Turn in",
         ["quests.static.available"] = "Available quest",
+        ["quests.static.availabilityUncertain"] = "Availability could not be fully verified.",
         ["quests.static.availableQuestLevel"] = "Level {level} quest available",
         ["quests.static.activeQuestLevel"] = "Level {level} quest in progress",
         ["quests.static.questLevel"] = "Quest level {level}",
@@ -1006,6 +1007,7 @@ local STRINGS = {
 
         ["quests.static.turnin"] = "Rendre la quête",
         ["quests.static.available"] = "Quête disponible",
+        ["quests.static.availabilityUncertain"] = "La disponibilité n’a pas pu être entièrement vérifiée.",
         ["quests.static.availableQuestLevel"] = "Quête de niveau {level} disponible",
         ["quests.static.activeQuestLevel"] = "Quête de niveau {level} en cours",
         ["quests.static.questLevel"] = "Niveau de quête {level}",

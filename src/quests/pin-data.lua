@@ -6,6 +6,8 @@ local HIGH_LEVEL_AVAILABLE_MARKER_RED_COLOR = { 1, 0.18, 0.12 }
 local HIGH_LEVEL_AVAILABLE_MARKER_ORANGE_LEVEL_DELTA = 3
 local HIGH_LEVEL_AVAILABLE_MARKER_RED_LEVEL_DELTA = 6
 local LOW_LEVEL_AVAILABLE_MARKER_ALPHA = 0.30
+local UNCERTAIN_AVAILABLE_MARKER_ALPHA = 0.65
+local UNCERTAIN_AVAILABLE_MARKER_COLOR = { 0.58, 0.68, 0.78 }
 local TOOLTIP_AVAILABLE_FALLBACK_COLOR = { 0.7, 0.9, 0.65 }
 local TOOLTIP_DIFFICULTY_COLORS = {
     trivial = { 0.55, 0.55, 0.55 },
@@ -249,7 +251,7 @@ function Quests:RefreshOwnedQuestPinTooltipData(quests)
     return false
 end
 
-function Quests:BuildAvailableQuestPinData(questId, dbQuest, cluster, uiMapId, x, y)
+function Quests:BuildAvailableQuestPinData(questId, dbQuest, cluster, uiMapId, x, y, context)
     local metadataLines = {}
 
     local questLevel = GetAvailableQuestLevel(dbQuest)
@@ -269,6 +271,10 @@ function Quests:BuildAvailableQuestPinData(questId, dbQuest, cluster, uiMapId, x
     if hasQuestLevel and dbQuest.rl and dbQuest.rl > 0 and UnitLevel and UnitLevel("player") < dbQuest.rl then
         metadataLines[#metadataLines + 1] = VanillaEnhanced:T("quests.static.requiresLevel", { level = dbQuest.rl })
     end
+    local uncertaintyReasons = context and context.uncertaintyReasons
+    if uncertaintyReasons and #uncertaintyReasons > 0 then
+        metadataLines[#metadataLines + 1] = VanillaEnhanced:T("quests.static.availabilityUncertain")
+    end
 
     return {
         availableQuestId = questId,
@@ -280,10 +286,14 @@ function Quests:BuildAvailableQuestPinData(questId, dbQuest, cluster, uiMapId, x
         markerUiMapId = uiMapId,
         markerX = x and x / 100 or nil,
         markerY = y and y / 100 or nil,
+        availabilityUncertaintyReasons = uncertaintyReasons,
     }
 end
 
 function Quests:GetAvailableQuestMarkerColor(dbQuest, context)
+    if context and context.uncertaintyReasons and #context.uncertaintyReasons > 0 then
+        return UNCERTAIN_AVAILABLE_MARKER_COLOR
+    end
     local playerLevel = context and context.playerLevel or (UnitLevel and UnitLevel("player") or 0)
     local questLevel = GetAvailableQuestLevel(dbQuest)
 
@@ -305,6 +315,9 @@ function Quests:GetAvailableQuestMarkerColor(dbQuest, context)
 end
 
 function Quests:GetAvailableQuestMarkerOpacity(dbQuest, context)
+    if context and context.uncertaintyReasons and #context.uncertaintyReasons > 0 then
+        return UNCERTAIN_AVAILABLE_MARKER_ALPHA
+    end
     if self.IsAvailableQuestBelowPlayerLevel and self:IsAvailableQuestBelowPlayerLevel(dbQuest, context) then
         return LOW_LEVEL_AVAILABLE_MARKER_ALPHA
     end

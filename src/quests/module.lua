@@ -338,6 +338,7 @@ local AVAILABLE_QUEST_CACHE_EVENTS = {
     SPELLS_CHANGED = true,
     LEARNED_SPELL_IN_TAB = true,
     PLAYER_LEVEL_UP = true,
+    CALENDAR_UPDATE_EVENT_LIST = true,
 }
 
 local function InvalidateRefreshCaches(event)
@@ -383,6 +384,7 @@ RegisterEventIfAvailable(eventFrame, "UPDATE_FACTION")
 RegisterEventIfAvailable(eventFrame, "SKILL_LINES_CHANGED")
 RegisterEventIfAvailable(eventFrame, "SPELLS_CHANGED")
 RegisterEventIfAvailable(eventFrame, "LEARNED_SPELL_IN_TAB")
+RegisterEventIfAvailable(eventFrame, "CALENDAR_UPDATE_EVENT_LIST")
 
 eventFrame:SetScript("OnEvent", function(_, event, loadedAddonName)
     if event == "ADDON_LOADED" and loadedAddonName == VanillaEnhanced.addonName then

@@ -56,8 +56,15 @@ function AvailableQuestEvaluator:IsEligible(questId, dbQuest)
     local active = context.active or {}
     local completed = context.completed or {}
 
-    if not self.owner:MeetsAvailableQuestPrerequisites(questId, dbQuest, active, completed) then
-        return false, "prerequisites"
+    local prerequisitesMet, prerequisiteReason, uncertaintyReasons = self.owner:MeetsAvailableQuestPrerequisites(
+        questId,
+        dbQuest,
+        active,
+        completed,
+        context.completedAuthoritative
+    )
+    if not prerequisitesMet then
+        return false, prerequisiteReason or "prerequisite"
     end
     if not self:MeetsRequiredLevel(dbQuest) then
         return false, "required-level"
@@ -68,14 +75,26 @@ function AvailableQuestEvaluator:IsEligible(questId, dbQuest)
     if not self:MeetsConfiguredLevelWindow(dbQuest) then
         return false, "level-window"
     end
-    if not self.owner:HasActiveAvailableQuestEventWindow(dbQuest) then
-        return false, "event-window"
+    local eventState, eventReason = self.owner:GetAvailableQuestEventState(dbQuest, context)
+    if eventState == false then
+        return false, eventReason or "event-inactive"
     end
-    if not self.owner:MeetsAvailableQuestPlayerRequirements(dbQuest, context) then
-        return false, "player-requirements"
+    local requirementsMet, requirementReason, playerUncertaintyReasons =
+        self.owner:MeetsAvailableQuestPlayerRequirements(dbQuest, context)
+    if not requirementsMet then
+        return false, requirementReason or "player-requirements"
+    end
+    for _, uncertaintyReason in ipairs(playerUncertaintyReasons or {}) do
+        uncertaintyReasons = self.owner:AddAvailableQuestUncertaintyReason(uncertaintyReasons, uncertaintyReason)
     end
 
-    return true
+    if eventState == nil then
+        uncertaintyReasons = self.owner:AddAvailableQuestUncertaintyReason(
+            uncertaintyReasons,
+            eventReason or "event-unknown"
+        )
+    end
+    return true, nil, uncertaintyReasons
 end
 
 function AvailableQuestEvaluator:HasVisibleStart(dbQuest)
@@ -88,7 +107,7 @@ function AvailableQuestEvaluator:HasVisibleStart(dbQuest)
 end
 
 function AvailableQuestEvaluator:IsRenderable(questId, dbQuest)
-    local eligible, reason = self:IsEligible(questId, dbQuest)
+    local eligible, reason, uncertaintyReasons = self:IsEligible(questId, dbQuest)
     if not eligible then
         return false, reason
     end
@@ -96,7 +115,7 @@ function AvailableQuestEvaluator:IsRenderable(questId, dbQuest)
         return false, "visible-start"
     end
 
-    return true
+    return true, nil, uncertaintyReasons
 end
 
 function Quests:CreateAvailableQuestEvaluator(context)
@@ -117,9 +136,21 @@ function Quests:BuildAvailableQuestEvaluatorContext(settings, active, completed,
     context.settings = settings
     context.active = active or context.active or {}
     context.completed = completed or context.completed or {}
+    if context.completedAuthoritative == nil and extraContext then
+        context.completedAuthoritative = extraContext.completedAuthoritative
+    end
     context.playerLevel = context.playerLevel or (UnitLevel and UnitLevel("player") or 0)
     context.professions = context.professions or playerContext.professions
     context.reputations = context.reputations or playerContext.reputations
+    if context.professionsReliable == nil then
+        context.professionsReliable = playerContext.professionsReliable
+    end
+    if context.reputationsReliable == nil then
+        context.reputationsReliable = playerContext.reputationsReliable
+    end
+    if context.calendarDay == nil and self.GetAvailableQuestCalendarDate then
+        context.calendarDay, context.calendarMonth, context.calendarYear = self:GetAvailableQuestCalendarDate()
+    end
 
     if settings then
         context.onlyAroundPlayerLevel = settings.onlyShowAvailableQuestsAroundPlayerLevel == true
@@ -133,6 +164,35 @@ function Quests:BuildAvailableQuestEvaluatorContext(settings, active, completed,
     end
 
     return context
+end
+
+function Quests:AddAvailableQuestUncertaintyReason(reasons, reason)
+    if not reason then
+        return reasons
+    end
+    reasons = reasons or {}
+    for _, existing in ipairs(reasons) do
+        if existing == reason then
+            return reasons
+        end
+    end
+    reasons[#reasons + 1] = reason
+    return reasons
+end
+
+function Quests:ExplainAvailableQuest(questId, context)
+    local dbQuest = VanillaEnhancedQuestsDB and VanillaEnhancedQuestsDB.quests
+        and VanillaEnhancedQuestsDB.quests[questId]
+    if not dbQuest then
+        return false, "missing-quest"
+    end
+    context = self:BuildAvailableQuestEvaluatorContext(
+        context and context.settings or (self.GetSettings and self:GetSettings() or nil),
+        context and context.active,
+        context and context.completed,
+        context
+    )
+    return self:CreateAvailableQuestEvaluator(context):IsRenderable(questId, dbQuest)
 end
 
 function Quests:IsAvailableQuestEligible(questId, dbQuest, context)

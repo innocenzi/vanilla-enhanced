@@ -4,16 +4,19 @@ local function GetCompletedQuests()
     if GetQuestsCompleted then
         local ok, completed = pcall(GetQuestsCompleted)
         if ok and type(completed) == "table" then
-            return completed
+            return completed, true
         end
     end
 
-    return {}
+    return {}, false
 end
 
-local function IsQuestCompleted(questId, completed)
+local function IsQuestCompleted(questId, completed, completedAuthoritative)
     if not questId then
         return false
+    end
+    if completedAuthoritative then
+        return completed and completed[questId] == true
     end
     if completed and completed[questId] then
         return true
@@ -33,17 +36,17 @@ local function IsQuestCompleted(questId, completed)
     return false
 end
 
-local function IsActiveOrComplete(questId, active, completed)
-    return active[questId] == true or IsQuestCompleted(questId, completed)
+local function IsActiveOrComplete(questId, active, completed, completedAuthoritative)
+    return active[questId] == true or IsQuestCompleted(questId, completed, completedAuthoritative)
 end
 
-local function IsPreQuestSingleFulfilled(preQuestSingle, completed)
+local function IsPreQuestSingleFulfilled(preQuestSingle, completed, completedAuthoritative)
     if not preQuestSingle then
         return true
     end
 
     for _, questId in ipairs(preQuestSingle) do
-        if IsQuestCompleted(questId, completed) then
+        if IsQuestCompleted(questId, completed, completedAuthoritative) then
             return true
         end
     end
@@ -51,14 +54,14 @@ local function IsPreQuestSingleFulfilled(preQuestSingle, completed)
     return false
 end
 
-local function IsAnyExclusiveComplete(questId, completed)
+local function IsAnyExclusiveComplete(questId, completed, completedAuthoritative)
     local dbQuest = VanillaEnhancedQuestsDB and VanillaEnhancedQuestsDB.quests and VanillaEnhancedQuestsDB.quests[questId]
     if not dbQuest or not dbQuest.ex then
         return false
     end
 
     for _, exclusiveQuestId in ipairs(dbQuest.ex) do
-        if IsQuestCompleted(exclusiveQuestId, completed) then
+        if IsQuestCompleted(exclusiveQuestId, completed, completedAuthoritative) then
             return true
         end
     end
@@ -66,17 +69,18 @@ local function IsAnyExclusiveComplete(questId, completed)
     return false
 end
 
-local function IsPreQuestGroupFulfilled(preQuestGroup, completed)
+local function IsPreQuestGroupFulfilled(preQuestGroup, completed, completedAuthoritative)
     if not preQuestGroup then
         return true
     end
 
     for _, questId in ipairs(preQuestGroup) do
         if questId < 0 then
-            if not IsQuestCompleted(-questId, completed) then
+            if not IsQuestCompleted(-questId, completed, completedAuthoritative) then
                 return false
             end
-        elseif not IsQuestCompleted(questId, completed) and not IsAnyExclusiveComplete(questId, completed) then
+        elseif not IsQuestCompleted(questId, completed, completedAuthoritative)
+            and not IsAnyExclusiveComplete(questId, completed, completedAuthoritative) then
             return false
         end
     end
@@ -84,13 +88,13 @@ local function IsPreQuestGroupFulfilled(preQuestGroup, completed)
     return true
 end
 
-local function HasNoExclusiveQuest(dbQuest, active, completed)
+local function HasNoExclusiveQuest(dbQuest, active, completed, completedAuthoritative)
     if not dbQuest.ex then
         return true
     end
 
     for _, questId in ipairs(dbQuest.ex) do
-        if IsActiveOrComplete(questId, active, completed) then
+        if IsActiveOrComplete(questId, active, completed, completedAuthoritative) then
             return false
         end
     end
@@ -98,8 +102,9 @@ local function HasNoExclusiveQuest(dbQuest, active, completed)
     return true
 end
 
-local function HasNoBreadcrumbConflict(dbQuest, active, completed)
-    if dbQuest.bf and dbQuest.bf ~= 0 and IsActiveOrComplete(dbQuest.bf, active, completed) then
+local function HasNoBreadcrumbConflict(dbQuest, active, completed, completedAuthoritative)
+    if dbQuest.bf and dbQuest.bf ~= 0
+        and IsActiveOrComplete(dbQuest.bf, active, completed, completedAuthoritative) then
         return false
     end
 
@@ -123,39 +128,72 @@ function Quests:BuildAvailableQuestState(quests)
         end
     end
 
-    return active, GetCompletedQuests()
+    local completed, completedAuthoritative = GetCompletedQuests()
+    return active, completed, completedAuthoritative
 end
 
-function Quests:MeetsAvailableQuestPrerequisites(questId, dbQuest, active, completed)
+function Quests:MeetsAvailableQuestPrerequisites(questId, dbQuest, active, completed, completedAuthoritative)
     if active[questId] then
-        return false
+        return false, "active"
     end
-    if IsQuestCompleted(questId, completed) and (not self:IsRepeatableQuest(dbQuest) or self:IsResettableQuest(dbQuest)) then
-        return false
+    local completionStateAvailable = completedAuthoritative == true
+        or IsQuestFlaggedCompleted ~= nil
+        or (C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted) ~= nil
+    if not completionStateAvailable then
+        if dbQuest.pq and not active[dbQuest.pq] then
+            return false, "parent-inactive"
+        end
+        if dbQuest.db and active[dbQuest.db] then
+            return false, "disabled-by-active-quest"
+        end
+        if dbQuest.nc and active[dbQuest.nc] then
+            return false, "chain-advanced"
+        end
+        if dbQuest.ex then
+            for _, exclusiveQuestId in ipairs(dbQuest.ex) do
+                if active[exclusiveQuestId] then return false, "exclusive" end
+            end
+        end
+        if dbQuest.bf and dbQuest.bf ~= 0 and active[dbQuest.bf] then
+            return false, "breadcrumb-conflict"
+        end
+        if dbQuest.bc then
+            for _, breadcrumbQuestId in ipairs(dbQuest.bc) do
+                if active[breadcrumbQuestId] then return false, "breadcrumb-conflict" end
+            end
+        end
+        return true, nil, {"completion-unknown"}
     end
-    if not IsPreQuestSingleFulfilled(dbQuest.ps, completed) then
-        return false
+    if IsQuestCompleted(questId, completed, completedAuthoritative)
+        and (not self:IsRepeatableQuest(dbQuest) or self:IsResettableQuest(dbQuest)) then
+        return false, "completed"
     end
-    if not dbQuest.ps and not IsPreQuestGroupFulfilled(dbQuest.pg, completed) then
-        return false
+    if not IsPreQuestSingleFulfilled(dbQuest.ps, completed, completedAuthoritative) then
+        return false, "prerequisite"
     end
-    if not HasNoExclusiveQuest(dbQuest, active, completed) then
-        return false
+    if not dbQuest.ps and not IsPreQuestGroupFulfilled(dbQuest.pg, completed, completedAuthoritative) then
+        return false, "prerequisite"
     end
-    if dbQuest.nc and IsActiveOrComplete(dbQuest.nc, active, completed) then
-        return false
+    if not HasNoExclusiveQuest(dbQuest, active, completed, completedAuthoritative) then
+        return false, "exclusive"
+    end
+    if dbQuest.nc and IsActiveOrComplete(dbQuest.nc, active, completed, completedAuthoritative) then
+        return false, "chain-advanced"
     end
     if dbQuest.pq and not active[dbQuest.pq] then
-        return false
+        return false, "parent-inactive"
     end
-    if dbQuest.au and IsQuestCompleted(dbQuest.au, completed) then
-        return false
+    if dbQuest.au and IsQuestCompleted(dbQuest.au, completed, completedAuthoritative) then
+        return false, "availability-ended"
     end
-    if dbQuest["as"] and not IsActiveOrComplete(dbQuest["as"], active, completed) then
-        return false
+    if dbQuest["as"] and not IsActiveOrComplete(dbQuest["as"], active, completed, completedAuthoritative) then
+        return false, "availability-not-started"
     end
     if dbQuest.db and active[dbQuest.db] then
-        return false
+        return false, "disabled-by-active-quest"
     end
-    return HasNoBreadcrumbConflict(dbQuest, active, completed)
+    if not HasNoBreadcrumbConflict(dbQuest, active, completed, completedAuthoritative) then
+        return false, "breadcrumb-conflict"
+    end
+    return true
 end
