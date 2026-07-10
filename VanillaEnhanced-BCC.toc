@@ -77,4 +77,5 @@ src\map\tomtom.lua
 src\professions\gathering.lua
 src\professions\gathering-nodes.lua
 src\target-threat\module.lua
+src\safeguard\module.lua
 src\options.lua

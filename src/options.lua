@@ -1040,6 +1040,8 @@ local function CreateModuleSlider(panel, option, moduleKey, label, anchor)
         slider.defaultValue = minValue
     end
     slider.valueKey = option.valueKey
+    slider.previewOnly = option.previewOnly == true
+    slider.onValueChanged = option.onValueChanged
     slider.labelText = _G[option.name .. "Text"]
     slider.lowText = _G[option.name .. "Low"]
     slider.highText = _G[option.name .. "High"]
@@ -1088,6 +1090,10 @@ local function CreateModuleSlider(panel, option, moduleKey, label, anchor)
         end
 
         self.currentValue = normalized
+        if self.previewOnly then
+            if self.onValueChanged then self.onValueChanged(normalized) end
+            return
+        end
         ApplyModuleSliderSetting(self.moduleKey, self.settingKey, normalized)
     end)
 
@@ -2163,6 +2169,73 @@ local targetThreatPanel = BuildOptionsPanel({
     },
 })
 
+local safeguardPanel = BuildOptionsPanel({
+    name = "VanillaEnhancedSafeguardOptionsPanel",
+    categoryKey = "safeguard",
+    titleKey = "module.safeguard",
+    subtitleKey = "options.safeguard.subtitle",
+    parent = VanillaEnhanced.displayName,
+    moduleKey = "safeguard",
+    options = {
+        {
+            type = "moduleEnabled",
+            name = "VanillaEnhancedOptionsSafeguardEnabled",
+            labelKey = "options.safeguard.enable.label",
+            helpKey = "options.safeguard.enable.help",
+        },
+        {
+            name = "VanillaEnhancedOptionsSafeguardHeartbeatEnabled",
+            settingKey = "heartbeatEnabled",
+            labelKey = "options.safeguard.heartbeatEnabled.label",
+            helpKey = "options.safeguard.heartbeatEnabled.help",
+        },
+        {
+            type = "slider",
+            name = "VanillaEnhancedOptionsSafeguardHeartbeatThreshold",
+            settingKey = "heartbeatThreshold",
+            labelKey = "options.safeguard.heartbeatThreshold.label",
+            helpKey = "options.safeguard.heartbeatThreshold.help",
+            valueKey = "options.safeguard.heartbeatThreshold.value",
+            min = 10,
+            max = 100,
+            step = 5,
+            defaultValue = 50,
+            enabledWhenSetting = "heartbeatEnabled",
+        },
+        {
+            type = "dropdown",
+            name = "VanillaEnhancedOptionsSafeguardHeartbeatSoundChannel",
+            settingKey = "heartbeatSoundChannel",
+            labelKey = "options.safeguard.heartbeatSoundChannel.label",
+            helpKey = "options.safeguard.heartbeatSoundChannel.help",
+            defaultValue = "SFX",
+            enabledWhenSetting = "heartbeatEnabled",
+            options = {
+                { value = "Master", labelKey = "options.safeguard.soundChannel.master" },
+                { value = "SFX", labelKey = "options.safeguard.soundChannel.sfx" },
+                { value = "Dialog", labelKey = "options.safeguard.soundChannel.dialog" },
+                { value = "Ambience", labelKey = "options.safeguard.soundChannel.ambience" },
+            },
+        },
+        {
+            type = "slider",
+            previewOnly = true,
+            name = "VanillaEnhancedOptionsSafeguardTestHeartbeat",
+            labelKey = "options.safeguard.testHeartbeat.label",
+            helpKey = "options.safeguard.testHeartbeat.help",
+            valueKey = "options.safeguard.heartbeatThreshold.value",
+            min = 0,
+            max = 100,
+            step = 5,
+            defaultValue = 100,
+            enabledWhenSetting = "heartbeatEnabled",
+            onValueChanged = function(value)
+                VanillaEnhanced:GetModule("safeguard"):PreviewHeartbeat(value)
+            end,
+        },
+    },
+})
+
 local trainingPanel = BuildOptionsPanel({
     name = "VanillaEnhancedTrainingOptionsPanel",
     categoryKey = "training",
@@ -2862,7 +2935,7 @@ function VanillaEnhanced:RefreshOptions()
     for _, slider in ipairs(sliders) do
         local settings = GetModuleOptionSettings(slider.moduleKey)
         local selected = NormalizeSliderValue(
-            settings[slider.settingKey],
+            slider.previewOnly and slider.defaultValue or settings[slider.settingKey],
             slider.minValue,
             slider.maxValue,
             slider.step,
@@ -2906,6 +2979,12 @@ bagsPanel:SetScript("OnShow", RefreshOnShow)
 merchantsPanel:SetScript("OnShow", RefreshOnShow)
 mapPanel:SetScript("OnShow", RefreshOnShow)
 targetThreatPanel:SetScript("OnShow", RefreshOnShow)
+safeguardPanel:SetScript("OnShow", RefreshOnShow)
+safeguardPanel:SetScript("OnHide", function()
+    local safeguard = VanillaEnhanced:GetModule("safeguard")
+    safeguard:CancelHeartbeat()
+    safeguard:Update()
+end)
 professionsPanel:SetScript("OnShow", RefreshOnShow)
 trainingPanel:SetScript("OnShow", RefreshOnShow)
 
@@ -2916,6 +2995,7 @@ local function RegisterInterfaceOptions()
     InterfaceOptions_AddCategory(merchantsPanel)
     InterfaceOptions_AddCategory(mapPanel)
     InterfaceOptions_AddCategory(targetThreatPanel)
+    InterfaceOptions_AddCategory(safeguardPanel)
     InterfaceOptions_AddCategory(professionsPanel)
     InterfaceOptions_AddCategory(trainingPanel)
 
@@ -2926,6 +3006,7 @@ local function RegisterInterfaceOptions()
         merchants = merchantsPanel,
         map = mapPanel,
         targetThreat = targetThreatPanel,
+        safeguard = safeguardPanel,
         professions = professionsPanel,
         training = trainingPanel,
     }
@@ -2970,6 +3051,7 @@ local function RegisterSettingsOptions()
             targetThreatPanel,
             targetThreatPanel.name
         )
+        local safeguardOk, safeguardCategory = pcall(Settings.RegisterCanvasLayoutSubcategory, mainCategory, safeguardPanel, safeguardPanel.name)
         local professionsOk, professionsCategory = pcall(
             Settings.RegisterCanvasLayoutSubcategory,
             mainCategory,
@@ -2983,12 +3065,13 @@ local function RegisterSettingsOptions()
             trainingPanel.name
         )
 
-        if questOk and mapOk and targetOk and trainingOk and professionsOk and bagsOk and merchantsOk then
+        if questOk and mapOk and targetOk and safeguardOk and trainingOk and professionsOk and bagsOk and merchantsOk then
             VanillaEnhanced.optionsCategories.quests = questsCategory
             VanillaEnhanced.optionsCategories.bags = bagsCategory
             VanillaEnhanced.optionsCategories.merchants = merchantsCategory
             VanillaEnhanced.optionsCategories.map = mapCategory
             VanillaEnhanced.optionsCategories.targetThreat = targetThreatCategory
+            VanillaEnhanced.optionsCategories.safeguard = safeguardCategory
             VanillaEnhanced.optionsCategories.professions = professionsCategory
             VanillaEnhanced.optionsCategories.training = trainingCategory
             return
@@ -3000,6 +3083,7 @@ local function RegisterSettingsOptions()
     local merchantsCategory = Settings.RegisterCanvasLayoutCategory(merchantsPanel, merchantsPanel.name)
     local mapCategory = Settings.RegisterCanvasLayoutCategory(mapPanel, mapPanel.name)
     local targetThreatCategory = Settings.RegisterCanvasLayoutCategory(targetThreatPanel, targetThreatPanel.name)
+    local safeguardCategory = Settings.RegisterCanvasLayoutCategory(safeguardPanel, safeguardPanel.name)
     local professionsCategory = Settings.RegisterCanvasLayoutCategory(professionsPanel, professionsPanel.name)
     local trainingCategory = Settings.RegisterCanvasLayoutCategory(trainingPanel, trainingPanel.name)
     Settings.RegisterAddOnCategory(questsCategory)
@@ -3007,6 +3091,7 @@ local function RegisterSettingsOptions()
     Settings.RegisterAddOnCategory(merchantsCategory)
     Settings.RegisterAddOnCategory(mapCategory)
     Settings.RegisterAddOnCategory(targetThreatCategory)
+    Settings.RegisterAddOnCategory(safeguardCategory)
     Settings.RegisterAddOnCategory(professionsCategory)
     Settings.RegisterAddOnCategory(trainingCategory)
 
@@ -3015,6 +3100,7 @@ local function RegisterSettingsOptions()
     VanillaEnhanced.optionsCategories.merchants = merchantsCategory
     VanillaEnhanced.optionsCategories.map = mapCategory
     VanillaEnhanced.optionsCategories.targetThreat = targetThreatCategory
+    VanillaEnhanced.optionsCategories.safeguard = safeguardCategory
     VanillaEnhanced.optionsCategories.professions = professionsCategory
     VanillaEnhanced.optionsCategories.training = trainingCategory
 end
