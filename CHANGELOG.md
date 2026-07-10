@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.10.0 - 2026-07-10
+
+
+### Features
+- **safeguard:** add low health messages
+
+
+### Fixes
+- **safeguard:** prevent heartbeat crackling
+- **scrap:** detect equipment eligibility correctly
+
 ## 0.9.1 - 2026-07-10
 
 
