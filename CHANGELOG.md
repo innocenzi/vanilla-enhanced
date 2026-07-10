@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.8.4 - 2026-07-10
+
+
+### Features
+- **presets:** improve default presets
+- **training:** improve training clarity
+
+
+### Fixes
+- **bags:** ignore accents when searching
+
 ## 0.8.3 - 2026-07-10
 
 
