@@ -151,9 +151,7 @@ function Merchants:AddScrapReasonTooltipLine(tooltip, itemLink)
     if tooltip.VanillaEnhancedMerchantTooltipPriceLink ~= itemLink then
         tooltip:AddLine(" ")
     end
-    tooltip:AddLine(T("merchants.tooltip.scrapReason", {
-        reason = T(evaluation.reasonKey),
-    }), 1, 0.35, 0.35, true)
+    tooltip:AddLine(T(evaluation.reasonKey), 1, 0.35, 0.35, true)
     tooltip.VanillaEnhancedMerchantTooltipScrapLink = itemLink
     return true
 end
