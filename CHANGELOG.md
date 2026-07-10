@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.9.0 - 2026-07-10
+
+
+### Features
+- **merchants:** save scraps toggling per character
+- **merchants:** scrap strategy improvements
+- **quests:** greatly improve readability of map with a lot of quest areas
+- **safeguard:** add safeguard module with heartbeat
+
+
+### Fixes
+- **merchants:** remove scrap reason prefix
+
 ## 0.8.4 - 2026-07-10
 
 
