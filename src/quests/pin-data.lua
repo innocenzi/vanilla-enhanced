@@ -170,7 +170,9 @@ local function RefreshQuestPinDataObject(data, questsById, seen)
         return
     end
 
+    local destinationCount = data.destinationCount
     CopyPinData(data, Quests:BuildQuestPinData(quest, data.cluster))
+    data.destinationCount = destinationCount
 end
 
 local function RepaintOwnedPinTooltip(frame)

@@ -2,7 +2,10 @@ local Quests = _G.VanillaEnhanced:GetModule("quests")
 
 local MARKER_FRAME_SIZE = 16
 local AREA_COLOR = { 0.5, 0.7, 0.9 }
-local AREA_FILL_ALPHA = 0.5
+local AREA_REVEALED_FILL_ALPHA = 0.10
+local AREA_REVEALED_OUTLINE_ALPHA = 0.55
+local AREA_HOVERED_FILL_ALPHA = 0.14
+local AREA_HOVERED_OUTLINE_ALPHA = 0.85
 local AREA_FILL_STEP = 2
 local AREA_FILL_OVERLAP = 0
 local AREA_CIRCLE_SEGMENTS = 64
@@ -178,16 +181,35 @@ local function ConfigureCircleOutline(frame, radius, color, alpha, segments)
     return true
 end
 
+local function GetAreaStyleKey(frame)
+    return frame and frame.questsHovered == true and "hovered" or "revealed"
+end
+
 local function SetAreaRevealed(frame, revealed)
     if not frame or frame.kind ~= "area" then
         return
     end
 
+    local styleKey = revealed and GetAreaStyleKey(frame) or nil
+    if frame.questsAreaRevealStyle ~= styleKey then
+        frame.questsAreaRevealStyle = styleKey
+        frame.questsAreaPreparedKey = nil
+    end
     if revealed and Quests.PrepareWorldMapPinArea then
         Quests:PrepareWorldMapPinArea(frame)
     end
     frame:SetAlpha(revealed and 1 or 0)
     frame:EnableMouse(false)
+end
+
+local function GetCurrentWorldMapId()
+    if not WorldMapFrame then
+        return nil
+    end
+    if WorldMapFrame.GetMapID then
+        return WorldMapFrame:GetMapID()
+    end
+    return WorldMapFrame.mapID
 end
 
 local function ShouldRevealArea(frame)
@@ -196,8 +218,21 @@ local function ShouldRevealArea(frame)
         return false
     end
 
-    return frame.questsHovered == true
-        or (Quests.selectedQuestAreaQuestId and data.questId == Quests.selectedQuestAreaQuestId)
+    local currentMapId = GetCurrentWorldMapId()
+    if not currentMapId or frame.questsAreaUiMapId ~= currentMapId then
+        return false
+    end
+
+    if frame.questsHovered == true then
+        return true
+    end
+    if not Quests.selectedQuestAreaQuestId or data.questId ~= Quests.selectedQuestAreaQuestId then
+        return false
+    end
+    if type(IsShiftKeyDown) == "function" and IsShiftKeyDown() then
+        return true
+    end
+    return frame.questsAreaCluster == Quests.selectedQuestAreaCluster
 end
 
 local function PinDataMatchesQuestId(data, questId)
@@ -267,7 +302,10 @@ local function ConfigurePolygonArea(frame, cluster)
         return false
     end
 
-    ConfigurePolygonFill(frame, points, minY or 0, maxFillY or 0, color, math.min(0.28, (settings.opacity or 0.85) * AREA_FILL_ALPHA))
+    local hovered = frame.questsHovered == true
+    local fillAlpha = hovered and AREA_HOVERED_FILL_ALPHA or AREA_REVEALED_FILL_ALPHA
+    local outlineAlpha = hovered and AREA_HOVERED_OUTLINE_ALPHA or AREA_REVEALED_OUTLINE_ALPHA
+    ConfigurePolygonFill(frame, points, minY or 0, maxFillY or 0, color, (settings.opacity or 1) * fillAlpha)
 
     for index, point in ipairs(points) do
         local nextPoint = points[(index % #points) + 1]
@@ -280,7 +318,7 @@ local function ConfigurePolygonArea(frame, cluster)
         line:SetSize(length, AREA_OUTLINE_THICKNESS)
         line:SetPoint("CENTER", frame, "CENTER", point.x + (dx / 2), point.y + (dy / 2))
         line:SetRotation(Atan2(dy, dx))
-        line:SetVertexColor(color[1], color[2], color[3], math.min(0.95, (settings.opacity or 0.85) * 0.95))
+        line:SetVertexColor(color[1], color[2], color[3], (settings.opacity or 1) * outlineAlpha)
     end
 
     for index = #points + 1, #(frame.lines or {}) do
@@ -299,8 +337,11 @@ local function ConfigureCircleArea(frame, radius)
     frame:SetSize(size, size)
     ConfigureMarkerFrame(frame, settings, false)
     frame.texture:Hide()
-    ConfigureCircleFill(frame, circleRadius, color, math.min(0.28, (settings.opacity or 0.85) * AREA_FILL_ALPHA))
-    ConfigureCircleOutline(frame, circleRadius, color, math.min(0.95, (settings.opacity or 0.85) * 0.95))
+    local hovered = frame.questsHovered == true
+    local fillAlpha = hovered and AREA_HOVERED_FILL_ALPHA or AREA_REVEALED_FILL_ALPHA
+    local outlineAlpha = hovered and AREA_HOVERED_OUTLINE_ALPHA or AREA_REVEALED_OUTLINE_ALPHA
+    ConfigureCircleFill(frame, circleRadius, color, (settings.opacity or 1) * fillAlpha)
+    ConfigureCircleOutline(frame, circleRadius, color, (settings.opacity or 1) * outlineAlpha)
     HideMarkerText(frame.text)
 end
 
@@ -369,6 +410,8 @@ function Quests:SetSelectedQuestAreaQuest(questId)
     end
 
     self.selectedQuestAreaQuestId = questId
+    self.selectedQuestAreaCluster = nil
+    self.selectedQuestAreaUiMapId = nil
     if questId then
         self.selectedQuestDirectionQuestId = questId
     end
@@ -418,4 +461,10 @@ function Quests:PrepareWorldMapPinArea(frame)
     ConfigureCircleArea(frame, self:GetClusterRadius(cluster))
     frame.questsAreaPreparedKey = preparedKey
     return true
+end
+
+if VanillaEnhanced.RegisterTooltipDetailsRefresh then
+    VanillaEnhanced:RegisterTooltipDetailsRefresh(function()
+        Quests:RefreshQuestAreaVisibility()
+    end)
 end

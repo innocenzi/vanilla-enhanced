@@ -61,7 +61,9 @@ local function ResetPinFrame(frame)
     frame.questsAreaFrame = nil
     frame.questsAreaFrames = nil
     frame.questsAreaCluster = nil
+    frame.questsAreaUiMapId = nil
     frame.questsAreaPreparedKey = nil
+    frame.questsAreaRevealStyle = nil
     frame.questsHovered = nil
     frame.questsPassThroughClicks = nil
     frame.questsMinimapArea = nil
@@ -80,6 +82,7 @@ local function ResetPinFrame(frame)
     frame.questsMinimapDistanceGateElapsed = nil
     frame.questsMinimapDistanceGateHidden = nil
     frame.questsMarkerStyle = nil
+    frame.questsDensityOpacity = nil
     frame.UiMapID = nil
     frame.x = nil
     frame.y = nil
@@ -467,24 +470,26 @@ function Quests:SetPinMarkerHighlighted(frame, highlighted)
         return
     end
 
+    local opacity = (style.opacity or 1) * (frame.questsDensityOpacity or 1)
+
     if highlighted then
         if style.kind == "symbol" then
-            frame.text:SetTextColor(SELECTED_MARKER_COLOR[1], SELECTED_MARKER_COLOR[2], SELECTED_MARKER_COLOR[3], style.opacity or 1)
+            frame.text:SetTextColor(SELECTED_MARKER_COLOR[1], SELECTED_MARKER_COLOR[2], SELECTED_MARKER_COLOR[3], opacity)
         elseif style.kind == "icon" then
             frame.texture:SetVertexColor(
                 SELECTED_MARKER_COLOR[1],
                 SELECTED_MARKER_COLOR[2],
                 SELECTED_MARKER_COLOR[3],
-                style.opacity or 1
+                opacity
             )
         end
         return
     end
 
     if style.kind == "symbol" then
-        frame.text:SetTextColor(style.color[1], style.color[2], style.color[3], style.opacity or 1)
+        frame.text:SetTextColor(style.color[1], style.color[2], style.color[3], opacity)
     elseif style.kind == "icon" then
-        frame.texture:SetVertexColor(style.color[1], style.color[2], style.color[3], style.opacity or 1)
+        frame.texture:SetVertexColor(style.color[1], style.color[2], style.color[3], opacity)
     end
 end
 

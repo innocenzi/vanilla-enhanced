@@ -66,6 +66,24 @@ local function AddTooltipObjectiveLines(tooltip, data)
     AddTooltipLine(tooltip, data.objective, TOOLTIP_OBJECTIVE_COLOR, true)
 end
 
+local function AddDestinationGuidance(tooltip, destinationCount, questId)
+    destinationCount = tonumber(destinationCount) or 0
+    if destinationCount <= 1 then
+        return
+    end
+
+    local alternativeCount = destinationCount - 1
+    local alternativeKey = alternativeCount == 1
+        and "quests.static.alternativeArea"
+        or "quests.static.alternativeAreas"
+    AddTooltipLine(tooltip, VanillaEnhanced:T(alternativeKey, {
+        count = alternativeCount,
+    }), TOOLTIP_METADATA_COLOR, true)
+    if questId and questId == Quests.selectedQuestAreaQuestId then
+        AddTooltipLine(tooltip, VanillaEnhanced:T("quests.static.showAllAreasHint"), TOOLTIP_METADATA_COLOR, true)
+    end
+end
+
 local function AddPinTooltipEntry(tooltip, data)
     if not data then
         return
@@ -77,6 +95,7 @@ local function AddPinTooltipEntry(tooltip, data)
     AddTooltipLines(tooltip, data.lines, TOOLTIP_OBJECTIVE_COLOR)
     AddTooltipObjectiveLines(tooltip, data)
     AddTooltipLine(tooltip, data.countText, TOOLTIP_COUNT_COLOR)
+    AddDestinationGuidance(tooltip, data.destinationCount, data.questId)
 end
 
 local function AddUniqueLine(lines, seen, line)
@@ -365,6 +384,7 @@ local function AddQuestTooltipGroupEntry(group, data)
     AddUniqueLines(group.lines, group.linesSeen, data.lines)
     AddQuestTooltipGroupObjective(group, data)
     AddUniqueLine(group.countTexts, group.countTextsSeen, data.countText)
+    group.destinationCount = math.max(group.destinationCount or 0, tonumber(data.destinationCount) or 0)
 end
 
 local function BuildQuestTooltipGroup(data)
@@ -430,6 +450,7 @@ local function AddQuestTooltipGroup(tooltip, group)
     AddTooltipLines(tooltip, group.lines, TOOLTIP_OBJECTIVE_COLOR)
     AddTooltipLines(tooltip, group.objectives, TOOLTIP_OBJECTIVE_COLOR)
     AddTooltipLines(tooltip, group.countTexts, TOOLTIP_COUNT_COLOR)
+    AddDestinationGuidance(tooltip, group.destinationCount, data.questId)
 end
 
 local function AddClusterTooltipEntry(tooltip, entry)

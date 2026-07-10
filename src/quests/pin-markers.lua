@@ -1,6 +1,8 @@
 local Quests = _G.VanillaEnhanced:GetModule("quests")
 
 local MARKER_CLUSTER_PIXEL_DISTANCE = 18
+local DENSE_QUEST_MARKER_COUNT = 4
+local DENSE_QUEST_MARKER_OPACITY = 0.60
 local WORLD_MAP_ID = 947
 
 local function GetCurrentMapId()
@@ -223,6 +225,8 @@ local function BuildMarkerRenderCandidate(self, candidate, currentMapId)
     local renderCandidate = {
         uiMapId = candidate.uiMapId,
         renderMapId = candidate.uiMapId,
+        sourceX = candidate.x,
+        sourceY = candidate.y,
         x = candidate.x,
         y = candidate.y,
         data = candidate.data,
@@ -272,6 +276,129 @@ local function BuildMarkerRenderCandidate(self, candidate, currentMapId)
     end
 
     return renderCandidate
+end
+
+local function GetPlayerPosition(self)
+    if not self.hbd or not self.hbd.GetPlayerZonePosition then
+        return nil
+    end
+
+    local x, y, uiMapId = self.hbd:GetPlayerZonePosition(true)
+    if not x or not y or not uiMapId then
+        return nil
+    end
+    return { x = x, y = y, uiMapId = uiMapId }
+end
+
+local function GetEntryDistance(self, playerPosition, entry)
+    if not playerPosition or not self.hbd or not self.hbd.GetZoneDistance then
+        return nil
+    end
+    if not entry.uiMapId or not entry.sourceX or not entry.sourceY then
+        return nil
+    end
+
+    return self.hbd:GetZoneDistance(
+        playerPosition.uiMapId,
+        playerPosition.x,
+        playerPosition.y,
+        entry.uiMapId,
+        entry.sourceX / 100,
+        entry.sourceY / 100
+    )
+end
+
+local function IsGroupReferenceBefore(left, right)
+    if not right then
+        return true
+    end
+    if left.renderMapId ~= right.renderMapId then
+        return left.renderMapId < right.renderMapId
+    end
+    if left.x ~= right.x then
+        return left.x < right.x
+    end
+    return left.y < right.y
+end
+
+local function BuildQuestGroupDensity(self, groupsByMap)
+    local playerPosition = GetPlayerPosition(self)
+    local groupsByQuestId = {}
+
+    for renderMapId, groups in pairs(groupsByMap) do
+        for _, group in ipairs(groups) do
+            local referencesByQuestId = {}
+
+            for _, entry in ipairs(group.entries) do
+                local data = entry.data
+                local questId = data and data.questId
+                if questId and not data.availableQuestId then
+                    local distance = GetEntryDistance(self, playerPosition, entry)
+                    local reference = referencesByQuestId[questId]
+                    if not reference or (distance and (not reference.distance or distance < reference.distance)) then
+                        referencesByQuestId[questId] = {
+                            group = group,
+                            renderMapId = renderMapId,
+                            x = group.x,
+                            y = group.y,
+                            distance = distance,
+                        }
+                    end
+                end
+            end
+
+            for questId, reference in pairs(referencesByQuestId) do
+                local questGroups = groupsByQuestId[questId]
+                if not questGroups then
+                    questGroups = {}
+                    groupsByQuestId[questId] = questGroups
+                end
+                questGroups[#questGroups + 1] = reference
+            end
+        end
+    end
+
+    local densityByQuestId = {}
+    for questId, questGroups in pairs(groupsByQuestId) do
+        if #questGroups >= DENSE_QUEST_MARKER_COUNT then
+            local nearest
+            for _, reference in ipairs(questGroups) do
+                if reference.distance then
+                    if not nearest or not nearest.distance or reference.distance < nearest.distance then
+                        nearest = reference
+                    end
+                elseif (not nearest or not nearest.distance) and IsGroupReferenceBefore(reference, nearest) then
+                    nearest = reference
+                end
+            end
+            densityByQuestId[questId] = {
+                dense = true,
+                nearestGroup = nearest and nearest.group,
+            }
+        end
+    end
+
+    return densityByQuestId
+end
+
+local function GetGroupDensityOpacity(group, densityByQuestId)
+    local sawActiveQuest
+
+    for _, entry in ipairs(group.entries) do
+        local data = entry.data
+        local questId = data and data.questId
+        if not questId or data.availableQuestId then
+            return 1
+        end
+
+        sawActiveQuest = true
+        local density = densityByQuestId[questId]
+        if not density or density.nearestGroup == group then
+            return 1
+        end
+    end
+
+    return sawActiveQuest and DENSE_QUEST_MARKER_OPACITY or 1
 end
 
 local function GetMarkerFogFilterPosition(self, candidate, renderCandidate)
@@ -358,6 +485,8 @@ function Quests:RenderMarkerGroups()
         end
     end
 
+    local densityByQuestId = BuildQuestGroupDensity(self, groupsByMap)
+
     for uiMapId, groups in pairs(groupsByMap) do
         local showFlag = currentMapId and uiMapId == currentMapId
             and (HBD_PINS_WORLDMAP_SHOW_CURRENT or -1)
@@ -369,6 +498,7 @@ function Quests:RenderMarkerGroups()
 
             marker.questsAreaFrame = nil
             marker.questsAreaFrames = nil
+            marker.questsDensityOpacity = GetGroupDensityOpacity(group, densityByQuestId)
             SetMarkerPassThroughClicks(marker, currentMapId and uiMapId == currentMapId and GroupContainsChildMapEntries(group, uiMapId))
 
             if #tooltipEntries == 1 then

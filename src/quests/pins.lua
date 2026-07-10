@@ -76,7 +76,20 @@ local function IsSelectedDirectionClusterVisible(self, quest, dbQuest, cluster)
     return quest.isComplete or self:ShouldShowObjectiveCluster(quest, cluster, "map", dbQuest)
 end
 
-local function GetBestSelectedDirectionCluster(self, quest, dbQuest, maps)
+local function IsDestinationBefore(left, right)
+    if not right then
+        return true
+    end
+    if left.uiMapId ~= right.uiMapId then
+        return left.uiMapId < right.uiMapId
+    end
+    if left.x ~= right.x then
+        return left.x < right.x
+    end
+    return left.y < right.y
+end
+
+function Quests:GetBestSelectedQuestDestination(quest, dbQuest, maps)
     local position = GetPlayerPosition(self)
     local best
     local bestDistance
@@ -85,19 +98,20 @@ local function GetBestSelectedDirectionCluster(self, quest, dbQuest, maps)
         for _, cluster in ipairs(clusters or {}) do
             if self:GetClusterX(cluster) and self:GetClusterY(cluster) and IsSelectedDirectionClusterVisible(self, quest, dbQuest, cluster) then
                 local distance = GetClusterDistance(self, position, uiMapId, cluster)
+                local candidate = {
+                    uiMapId = uiMapId,
+                    cluster = cluster,
+                    x = self:GetClusterX(cluster) / 100,
+                    y = self:GetClusterY(cluster) / 100,
+                    distance = distance,
+                }
                 if distance then
                     if not bestDistance or distance < bestDistance then
-                        best = {
-                            uiMapId = uiMapId,
-                            cluster = cluster,
-                        }
+                        best = candidate
                         bestDistance = distance
                     end
-                elseif not best then
-                    best = {
-                        uiMapId = uiMapId,
-                        cluster = cluster,
-                    }
+                elseif not bestDistance and IsDestinationBefore(candidate, best) then
+                    best = candidate
                 end
             end
         end
@@ -109,7 +123,7 @@ end
 local function BuildSelectedQuestDirectionTarget(self, quest, dbQuest)
     local maps = quest.isComplete and dbQuest.turnins or dbQuest.maps
     maps = maps or dbQuest.maps
-    local best = GetBestSelectedDirectionCluster(self, quest, dbQuest, maps)
+    local best = self:GetBestSelectedQuestDestination(quest, dbQuest, maps)
     local cluster = best and best.cluster
     if not best or not cluster then
         return nil
@@ -117,8 +131,8 @@ local function BuildSelectedQuestDirectionTarget(self, quest, dbQuest)
 
     return {
         uiMapId = best.uiMapId,
-        x = self:GetClusterX(cluster) / 100,
-        y = self:GetClusterY(cluster) / 100,
+        x = best.x,
+        y = best.y,
         title = quest.title,
     }
 end
@@ -126,6 +140,31 @@ end
 function Quests:RefreshSelectedQuestDirection(quests, settings)
     settings = settings or self:GetSettings()
     local selectedQuestId = self.selectedQuestAreaQuestId or self.selectedQuestDirectionQuestId
+    local selectedAreaQuestId = self.selectedQuestAreaQuestId
+
+    self.selectedQuestAreaCluster = nil
+    self.selectedQuestAreaUiMapId = nil
+
+    if selectedAreaQuestId and VanillaEnhancedQuestsDB and VanillaEnhancedQuestsDB.quests then
+        local selectedQuest = FindQuestById(quests or self:GetCachedQuestLogSnapshot(), selectedAreaQuestId)
+        local selectedDbQuest = selectedQuest and VanillaEnhancedQuestsDB.quests[selectedQuest.id]
+        if selectedQuest and selectedDbQuest then
+            local selectedMaps = selectedQuest.isComplete and selectedDbQuest.turnins or selectedDbQuest.maps
+            selectedMaps = selectedMaps or selectedDbQuest.maps
+            local destination = self:GetBestSelectedQuestDestination(selectedQuest, selectedDbQuest, selectedMaps)
+            if destination then
+                self.selectedQuestAreaCluster = destination.cluster
+                self.selectedQuestAreaUiMapId = destination.uiMapId
+            end
+        end
+    end
+
+    if self.RefreshQuestAreaVisibility then
+        self:RefreshQuestAreaVisibility()
+    end
+    if self.RefreshQuestMarkerHighlights then
+        self:RefreshQuestMarkerHighlights()
+    end
 
     if not settings.enabled
         or settings.showMapMarkers == false
@@ -233,6 +272,21 @@ local function AddMinimapMarkerAtPoint(self, uiMapId, x, y, pinData, kind, quest
     self:TrackMinimapPinFrame(marker)
 end
 
+local function CountVisibleQuestDestinations(self, quest, dbQuest)
+    local maps = quest.isComplete and dbQuest and dbQuest.turnins or dbQuest and dbQuest.maps
+    maps = maps or (dbQuest and dbQuest.maps)
+    local count = 0
+
+    for _, clusters in pairs(maps or {}) do
+        for _, cluster in ipairs(clusters or {}) do
+            if self:ShouldShowObjectiveCluster(quest, cluster, "map", dbQuest) then
+                count = count + 1
+            end
+        end
+    end
+    return count
+end
+
 function Quests:AddPins(uiMapId, clusters, quest)
     local visibleClusters = {}
     local dbQuest = VanillaEnhancedQuestsDB and VanillaEnhancedQuestsDB.quests and VanillaEnhancedQuestsDB.quests[quest.id]
@@ -243,15 +297,15 @@ function Quests:AddPins(uiMapId, clusters, quest)
         end
     end
 
-    self:AddVisibleWorldMapPins(uiMapId, visibleClusters, quest)
+    self:AddVisibleWorldMapPins(uiMapId, visibleClusters, quest, CountVisibleQuestDestinations(self, quest, dbQuest))
     for _, cluster in ipairs(visibleClusters) do
         self:AddMinimapPin(uiMapId, self:GetClusterX(cluster), self:GetClusterY(cluster), quest, cluster)
     end
 end
 
-function Quests:AddVisibleWorldMapPins(uiMapId, visibleClusters, quest)
+function Quests:AddVisibleWorldMapPins(uiMapId, visibleClusters, quest, destinationCount)
     for _, cluster in ipairs(self:MergeParentMapIconClusters(uiMapId, visibleClusters)) do
-        self:AddPin(uiMapId, self:GetClusterX(cluster), self:GetClusterY(cluster), quest, cluster)
+        self:AddPin(uiMapId, self:GetClusterX(cluster), self:GetClusterY(cluster), quest, cluster, destinationCount or #visibleClusters)
     end
 end
 
@@ -265,7 +319,7 @@ function Quests:AddWorldMapPins(uiMapId, clusters, quest)
         end
     end
 
-    self:AddVisibleWorldMapPins(uiMapId, visibleClusters, quest)
+    self:AddVisibleWorldMapPins(uiMapId, visibleClusters, quest, CountVisibleQuestDestinations(self, quest, dbQuest))
 end
 
 function Quests:AddAvailablePins(questId, dbQuest, context)
@@ -331,7 +385,7 @@ function Quests:AddMinimapPin(uiMapId, x, y, quest, cluster)
     AddMinimapMarkerAtPoint(self, uiMapId, x, y, pinData, kind, quest, dbQuest, distanceGated)
 end
 
-function Quests:AddPin(uiMapId, x, y, quest, cluster)
+function Quests:AddPin(uiMapId, x, y, quest, cluster, destinationCount)
     if not self.hbdPins or not uiMapId or not x or not y then
         return
     end
@@ -345,6 +399,7 @@ function Quests:AddPin(uiMapId, x, y, quest, cluster)
     local areaOnly = self:IsQuestObjectiveAreaKind(kind)
     local dbQuest = VanillaEnhancedQuestsDB and VanillaEnhancedQuestsDB.quests and VanillaEnhancedQuestsDB.quests[quest.id]
     local pinData = self:BuildQuestPinData(quest, cluster)
+    pinData.destinationCount = destinationCount
     local area
     local symbol = self:GetPinMarkerSymbol(kind, quest.number)
     local color = self:GetRepeatableQuestMarkerColor(dbQuest)
@@ -367,6 +422,7 @@ function Quests:AddPin(uiMapId, x, y, quest, cluster)
         area = self:AcquirePinFrame("area", "area", WorldMapFrame)
         area.questsData = pinData
         area.questsHovered = false
+        area.questsAreaUiMapId = uiMapId
         self:ConfigureWorldMapPinArea(area, cluster)
         self.hbdPins:AddWorldMapIconMap(self, area, uiMapId, x / 100, y / 100, HBD_PINS_WORLDMAP_SHOW_CURRENT or -1)
         self:TrackWorldMapPinFrame(area)

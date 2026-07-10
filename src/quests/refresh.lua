@@ -119,8 +119,12 @@ local function AddWorldMapPinsForQuests(self, quests, settings)
     end
     if self.UpdateSelectedQuestAreaFromLog then
         self:UpdateSelectedQuestAreaFromLog()
-    elseif self.RefreshQuestAreaVisibility then
+    end
+    if self.RefreshQuestAreaVisibility then
         self:RefreshQuestAreaVisibility()
+    end
+    if self.RefreshQuestMarkerHighlights then
+        self:RefreshQuestMarkerHighlights()
     end
 end
 
@@ -230,8 +234,12 @@ function Quests:Refresh()
     end
     if self.UpdateSelectedQuestAreaFromLog then
         self:UpdateSelectedQuestAreaFromLog()
-    elseif self.RefreshQuestAreaVisibility then
+    end
+    if self.RefreshQuestAreaVisibility then
         self:RefreshQuestAreaVisibility()
+    end
+    if self.RefreshQuestMarkerHighlights then
+        self:RefreshQuestMarkerHighlights()
     end
     if self.RefreshMinimapAreaLayouts then
         self:RefreshMinimapAreaLayouts()
