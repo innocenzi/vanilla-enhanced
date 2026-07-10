@@ -66,9 +66,9 @@ local function AddTooltipObjectiveLines(tooltip, data)
     AddTooltipLine(tooltip, data.objective, TOOLTIP_OBJECTIVE_COLOR, true)
 end
 
-local function AddDestinationGuidance(tooltip, destinationCount, questId)
+local function AddDestinationGuidance(tooltip, destinationCount)
     destinationCount = tonumber(destinationCount) or 0
-    if destinationCount <= 1 then
+    if destinationCount <= 1 or not IsTooltipDetailsExpanded() then
         return
     end
 
@@ -79,9 +79,6 @@ local function AddDestinationGuidance(tooltip, destinationCount, questId)
     AddTooltipLine(tooltip, VanillaEnhanced:T(alternativeKey, {
         count = alternativeCount,
     }), TOOLTIP_METADATA_COLOR, true)
-    if questId and questId == Quests.selectedQuestAreaQuestId then
-        AddTooltipLine(tooltip, VanillaEnhanced:T("quests.static.showAllAreasHint"), TOOLTIP_METADATA_COLOR, true)
-    end
 end
 
 local function AddPinTooltipEntry(tooltip, data)
@@ -95,7 +92,7 @@ local function AddPinTooltipEntry(tooltip, data)
     AddTooltipLines(tooltip, data.lines, TOOLTIP_OBJECTIVE_COLOR)
     AddTooltipObjectiveLines(tooltip, data)
     AddTooltipLine(tooltip, data.countText, TOOLTIP_COUNT_COLOR)
-    AddDestinationGuidance(tooltip, data.destinationCount, data.questId)
+    AddDestinationGuidance(tooltip, data.destinationCount)
 end
 
 local function AddUniqueLine(lines, seen, line)
@@ -450,7 +447,7 @@ local function AddQuestTooltipGroup(tooltip, group)
     AddTooltipLines(tooltip, group.lines, TOOLTIP_OBJECTIVE_COLOR)
     AddTooltipLines(tooltip, group.objectives, TOOLTIP_OBJECTIVE_COLOR)
     AddTooltipLines(tooltip, group.countTexts, TOOLTIP_COUNT_COLOR)
-    AddDestinationGuidance(tooltip, group.destinationCount, data.questId)
+    AddDestinationGuidance(tooltip, group.destinationCount)
 end
 
 local function AddClusterTooltipEntry(tooltip, entry)

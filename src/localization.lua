@@ -508,7 +508,6 @@ local STRINGS = {
         ["quests.static.objectiveDifferentLevel"] = "Objective is on a different level.",
         ["quests.static.alternativeArea"] = "1 other area",
         ["quests.static.alternativeAreas"] = "{count} other areas",
-        ["quests.static.showAllAreasHint"] = "Hold Shift to show all areas.",
         ["quests.announcement.complete"] = "complete",
     },
 
@@ -1019,7 +1018,6 @@ local STRINGS = {
         ["quests.static.objectiveDifferentLevel"] = "L'objectif est à un autre étage.",
         ["quests.static.alternativeArea"] = "1 autre zone",
         ["quests.static.alternativeAreas"] = "{count} autres zones",
-        ["quests.static.showAllAreasHint"] = "Maintenez Maj pour afficher toutes les zones.",
         ["quests.announcement.complete"] = "terminée",
     },
 }
