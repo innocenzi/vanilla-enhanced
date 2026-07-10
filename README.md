@@ -8,6 +8,8 @@ A lightweight utility addon for Burning Crusade Classic and Classic Era. It keep
 - Backpack sorting, searching and locking, scrap selling
 - Automatic quest tracking by location
 - Custom map markers and directions on the minimap
+- Tracking of known herbs and ores on the map
+- Heartbeat sound and automatic party help message on low health for hardcore
 - UI quality of life, like binding quest log to the map, automatically opening bags, showing recipes on item tooltips
 - Options presets to catter to your playstyle (explorer, adventurer, guided)
 
