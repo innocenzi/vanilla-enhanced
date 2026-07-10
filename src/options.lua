@@ -312,6 +312,13 @@ local function ConfirmClearGatheringSharedNodes()
     end
 end
 
+local function ConfirmClearCustomScraps()
+    local merchants = VanillaEnhanced:GetModule("merchants")
+    if merchants and merchants.ConfirmClearCustomScraps then
+        merchants:ConfirmClearCustomScraps()
+    end
+end
+
 local function IsSettingEnabled(moduleKey, settingKey)
     local settings = GetModuleOptionSettings(moduleKey)
     return settings[settingKey] ~= false
@@ -2633,6 +2640,12 @@ local merchantsPanel = BuildOptionsPanel({
             helpKey = "options.merchants.safeAutoSell.help",
             enabledWhenSettings = { "sellScrapsEnabled", "autoSellScraps" },
             indent = 2,
+        },
+        {
+            type = "addonAction",
+            name = "VanillaEnhancedOptionsMerchantsClearCustomScraps",
+            labelKey = "options.merchants.clearCustomScraps.label",
+            onClick = ConfirmClearCustomScraps,
         },
         {
             name = "VanillaEnhancedOptionsMerchantsAutoRepair",

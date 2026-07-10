@@ -203,7 +203,7 @@ local function PositionClickOverlay(overlay, button)
 end
 
 function Merchants:GetCustomScrapItemIds()
-    local settings = self:GetSettings()
+    local settings = self:GetCharacterSettings()
     if type(settings.customScrapItemIds) ~= "table" then
         settings.customScrapItemIds = {}
     end
@@ -211,11 +211,52 @@ function Merchants:GetCustomScrapItemIds()
 end
 
 function Merchants:GetIgnoredScrapItemIds()
-    local settings = self:GetSettings()
+    local settings = self:GetCharacterSettings()
     if type(settings.ignoredScrapItemIds) ~= "table" then
         settings.ignoredScrapItemIds = {}
     end
     return settings.ignoredScrapItemIds
+end
+
+function Merchants:ClearCustomScraps()
+    local settings = self:GetCharacterSettings()
+    settings.customScrapItemIds = {}
+    settings.ignoredScrapItemIds = {}
+    if self.UpdateButton then
+        self:UpdateButton()
+    end
+    self:RequestRefresh(0.2)
+    self:RefreshBagScrapIcons()
+    if self.ShouldShowScrapHighlights and self:ShouldShowScrapHighlights() then
+        self:RefreshScrapHighlights()
+    end
+    self:PrintMessage(T("merchants.scrapMark.cleared"))
+end
+
+function Merchants:ConfirmClearCustomScraps()
+    if StaticPopupDialogs and StaticPopup_Show then
+        StaticPopupDialogs.VANILLAENHANCED_CLEAR_CUSTOM_SCRAPS =
+            StaticPopupDialogs.VANILLAENHANCED_CLEAR_CUSTOM_SCRAPS or {
+                text = T("merchants.scrapMark.clearConfirm"),
+                button1 = T("merchants.scrapMark.clearAccept"),
+                button2 = CANCEL or T("options.main.resetSettings.cancel"),
+                OnAccept = function()
+                    Merchants:ClearCustomScraps()
+                end,
+                timeout = 0,
+                whileDead = true,
+                hideOnEscape = true,
+                preferredIndex = 3,
+            }
+        local dialog = StaticPopupDialogs.VANILLAENHANCED_CLEAR_CUSTOM_SCRAPS
+        dialog.text = T("merchants.scrapMark.clearConfirm")
+        dialog.button1 = T("merchants.scrapMark.clearAccept")
+        dialog.button2 = CANCEL or T("options.main.resetSettings.cancel")
+        StaticPopup_Show("VANILLAENHANCED_CLEAR_CUSTOM_SCRAPS")
+        return
+    end
+
+    self:ClearCustomScraps()
 end
 
 function Merchants:IsCustomScrapItem(itemContext)

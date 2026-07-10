@@ -20,6 +20,9 @@ local defaults = {
     safeAutoSell = true,
     sortBagsAfterSellingScraps = false,
     scrapStrategy = "poor-sellable",
+}
+
+local characterDefaults = {
     customScrapItemIds = {},
     ignoredScrapItemIds = {},
 }
@@ -38,10 +41,16 @@ Merchants.scrapMarkMode = false
 
 function Merchants:GetSettings()
     local settings = VanillaEnhanced:GetModuleSettings("merchants", defaults)
+    settings.customScrapItemIds = nil
+    settings.ignoredScrapItemIds = nil
     if not VALID_SCRAP_STRATEGIES[settings.scrapStrategy] then
         settings.scrapStrategy = DEFAULT_SCRAP_STRATEGY
     end
     return settings
+end
+
+function Merchants:GetCharacterSettings()
+    return VanillaEnhanced:GetCharacterModuleSettings("merchants", characterDefaults)
 end
 
 function Merchants:IsSellScrapsEnabled()

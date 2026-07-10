@@ -348,6 +348,7 @@ local STRINGS = {
         ["options.merchants.scrapStrategy.smart"] = "Smart cleanup",
         ["options.merchants.scrapStrategy.smart.description"] = "Uses low level cleanup and also sells trade goods that are not used by recipes from your professions.",
         ["options.merchants.scrapStrategy.help"] = "Chooses which items count as scraps. Smart cleanup takes your professions into account when deciding whether trade goods are useful.",
+        ["options.merchants.clearCustomScraps.label"] = "Reset custom scraps",
 
         ["bags.sort.button"] = "Sort",
         ["bags.sort.tooltipTitle"] = "Sort bags",
@@ -393,6 +394,9 @@ local STRINGS = {
         ["merchants.scrapMark.cannotMark"] = "Cannot mark {item} as scrap.",
         ["merchants.scrapMark.itemFallback"] = "item {itemID}",
         ["merchants.scrapMark.itemUnknown"] = "this item",
+        ["merchants.scrapMark.clearConfirm"] = "Clear all manually marked and protected scrap items for this character?",
+        ["merchants.scrapMark.clearAccept"] = "Clear",
+        ["merchants.scrapMark.cleared"] = "Cleared custom scraps for this character.",
         ["merchants.autoRepair.repaired"] = "Repaired equipment for {money}.",
         ["merchants.autoRepair.notEnoughMoney"] = "Cannot repair equipment ({money} required).",
 
@@ -779,6 +783,7 @@ local STRINGS = {
         ["options.merchants.scrapStrategy.smart"] = "Nettoyage intelligent",
         ["options.merchants.scrapStrategy.smart.description"] = "Utilise le nettoyage bas niveau et vend aussi les marchandises qui ne servent à aucune recette de vos métiers.",
         ["options.merchants.scrapStrategy.help"] = "Choisit quels objets comptent comme camelote. Le nettoyage intelligent tient compte de vos métiers pour décider si les marchandises sont utiles.",
+        ["options.merchants.clearCustomScraps.label"] = "Réinitialiser la camelote personnalisée",
 
         ["bags.sort.button"] = "Trier",
         ["bags.sort.tooltipTitle"] = "Trier les sacs",
@@ -824,6 +829,9 @@ local STRINGS = {
         ["merchants.scrapMark.cannotMark"] = "Impossible de marquer {item} comme camelote.",
         ["merchants.scrapMark.itemFallback"] = "objet {itemID}",
         ["merchants.scrapMark.itemUnknown"] = "cet objet",
+        ["merchants.scrapMark.clearConfirm"] = "Effacer tous les objets manuellement marqués comme camelote ou protégés pour ce personnage ?",
+        ["merchants.scrapMark.clearAccept"] = "Effacer",
+        ["merchants.scrapMark.cleared"] = "Camelote personnalisée effacée pour ce personnage.",
         ["merchants.autoRepair.repaired"] = "Équipement réparé pour {money}.",
         ["merchants.autoRepair.notEnoughMoney"] = "Impossible de réparer l'équipement ({money} requis).",
 
