@@ -269,15 +269,33 @@ local function Trim(text)
     return text
 end
 
+local SEARCH_ACCENT_FOLD = {
+    ["À"] = "a", ["Á"] = "a", ["Â"] = "a", ["Ã"] = "a", ["Ä"] = "a", ["Å"] = "a",
+    ["à"] = "a", ["á"] = "a", ["â"] = "a", ["ã"] = "a", ["ä"] = "a", ["å"] = "a",
+    ["Æ"] = "ae", ["æ"] = "ae", ["Ç"] = "c", ["ç"] = "c",
+    ["È"] = "e", ["É"] = "e", ["Ê"] = "e", ["Ë"] = "e",
+    ["è"] = "e", ["é"] = "e", ["ê"] = "e", ["ë"] = "e",
+    ["Ì"] = "i", ["Í"] = "i", ["Î"] = "i", ["Ï"] = "i",
+    ["ì"] = "i", ["í"] = "i", ["î"] = "i", ["ï"] = "i",
+    ["Ñ"] = "n", ["ñ"] = "n",
+    ["Ò"] = "o", ["Ó"] = "o", ["Ô"] = "o", ["Õ"] = "o", ["Ö"] = "o", ["Ø"] = "o",
+    ["ò"] = "o", ["ó"] = "o", ["ô"] = "o", ["õ"] = "o", ["ö"] = "o", ["ø"] = "o",
+    ["Œ"] = "oe", ["œ"] = "oe", ["Š"] = "s", ["š"] = "s", ["ß"] = "ss",
+    ["Ù"] = "u", ["Ú"] = "u", ["Û"] = "u", ["Ü"] = "u",
+    ["ù"] = "u", ["ú"] = "u", ["û"] = "u", ["ü"] = "u",
+    ["Ý"] = "y", ["Ÿ"] = "y", ["ý"] = "y", ["ÿ"] = "y", ["Ž"] = "z", ["ž"] = "z",
+}
+
 local function NormalizeSearchText(text)
-    return string.lower(Trim(text))
+    text = string.gsub(Trim(text), "[\192-\244][\128-\191]+", SEARCH_ACCENT_FOLD)
+    return string.lower(text)
 end
 
 local function TextContains(text, query)
     if type(text) ~= "string" or text == "" then
         return false
     end
-    return string.find(string.lower(text), query, 1, true) ~= nil
+    return string.find(NormalizeSearchText(text), query, 1, true) ~= nil
 end
 
 local function EnsureSearchTooltipScanner()
