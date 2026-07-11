@@ -29,6 +29,10 @@ function Api:GetContainerItemLink(bagID, slot)
     return InventoryApi:GetContainerItemLink(bagID, slot)
 end
 
+function Api:GetContainerItemID(bagID, slot)
+    return InventoryApi:GetContainerItemID(bagID, slot)
+end
+
 function Api:GetContainerItemQuestInfo(bagID, slot)
     return InventoryApi:GetContainerItemQuestInfo(bagID, slot)
 end

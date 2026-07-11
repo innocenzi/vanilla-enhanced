@@ -14,13 +14,9 @@ local function GetItemID(link)
     return tonumber(string.match(link, "item:(%d+)"))
 end
 
-local function GetFingerprint(containerItem, link)
-    if type(link) == "string" and link ~= "" then
-        return "link:" .. link
-    end
-
-    local itemID = containerItem and containerItem.itemID or GetItemID(link)
-    if type(itemID) == "number" and itemID > 0 then
+local function GetFingerprint(itemID)
+    itemID = tonumber(itemID)
+    if itemID and itemID > 0 then
         return "id:" .. itemID
     end
 end
@@ -44,6 +40,9 @@ function Bags:BuildRecentItemSnapshot()
         if type(slotCount) ~= "number" then
             return nil
         end
+        if slotCount < 0 or (bagID == 0 and slotCount == 0) then
+            return nil
+        end
 
         for slot = 1, slotCount do
             local containerItem = self.Api:GetContainerItemInfo(bagID, slot)
@@ -55,14 +54,19 @@ function Bags:BuildRecentItemSnapshot()
                 local link = containerItem.hyperlink or self.Api:GetContainerItemLink(bagID, slot)
                 local hasItem = link or containerItem.itemID or containerItem.iconFileID
                 if hasItem then
-                    local fingerprint = GetFingerprint(containerItem, link)
+                    local itemID = tonumber(containerItem.itemID)
+                    if not itemID and self.Api.GetContainerItemID then
+                        itemID = tonumber(self.Api:GetContainerItemID(bagID, slot))
+                    end
+                    itemID = itemID or GetItemID(link)
+                    local fingerprint = GetFingerprint(itemID)
                     if not fingerprint then
                         return nil
                     end
 
-                    local count = tonumber(containerItem.stackCount) or 1
-                    if count < 1 then
-                        count = 1
+                    local count = tonumber(containerItem.stackCount)
+                    if not count or count < 1 then
+                        return nil
                     end
 
                     local slotInfo = {
