@@ -694,6 +694,9 @@ function Bags:StopManualSort(message)
     if self.SetBankStackButtonBusy then
         self:SetBankStackButtonBusy(false)
     end
+    if self.ReconcileRecentItems then
+        self:ReconcileRecentItems(self.recentItemsBankOpen == true)
+    end
     self:QueueUpdate()
 
     if message and not suppressErrors then
@@ -1074,5 +1077,8 @@ function Bags:OnBagUpdateDelayed()
         return
     end
 
+    if self.ReconcileRecentItems then
+        self:ReconcileRecentItems(self.recentItemsBankOpen == true)
+    end
     self:QueueUpdate()
 end

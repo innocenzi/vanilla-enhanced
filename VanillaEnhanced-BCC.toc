@@ -58,6 +58,7 @@ src\quests\announcements.lua
 src\quests\refresh.lua
 src\bags\module.lua
 src\bags\api.lua
+src\bags\recent-items.lua
 src\bags\item-locking.lua
 src\bags\item-overlays.lua
 src\bags\sorting.lua

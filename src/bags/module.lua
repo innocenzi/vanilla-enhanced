@@ -8,6 +8,7 @@ local defaults = {
     showScrapIcon = false,
     showQuestIcon = false,
     showBoundIcon = false,
+    highlightRecentItems = true,
     showScrapToggleButton = false,
     sortOrder = "category",
     sortFillDirection = "backpack-first",
@@ -1181,6 +1182,9 @@ function Bags:Update()
         if self.ClearItemOverlays then
             self:ClearItemOverlays()
         end
+        if self.ClearRecentItems then
+            self:ClearRecentItems()
+        end
         self:ClearSearchText()
         self:ClearBankSearchText()
         self:HideControls()
@@ -1332,6 +1336,9 @@ function Bags:SetEnabled(enabled)
     end
 
     self:ClearAutoOpenBagTracking()
+    if self.ClearRecentItems then
+        self:ClearRecentItems()
+    end
     if self.ClearItemOverlays then
         self:ClearItemOverlays()
     end
@@ -1339,6 +1346,13 @@ function Bags:SetEnabled(enabled)
     self:ClearBankSearchText()
     self:HideControls()
     self:HideBankControls()
+end
+
+function Bags:OnOptionChanged(settingKey, value)
+    if settingKey == "highlightRecentItems" and value ~= true and self.ClearRecentItems then
+        self:ClearRecentItems()
+    end
+    self:QueueUpdate()
 end
 
 function Bags:HookBagFunctions()
@@ -1415,6 +1429,10 @@ eventFrame:SetScript("OnEvent", function(_, event, loadedAddonName)
     Bags:HookContainerFrames()
     Bags:HookCharacterFrame()
 
+    if (event == "ADDON_LOADED" or event == "PLAYER_LOGIN") and Bags.InitializeRecentItemTracking then
+        Bags:InitializeRecentItemTracking()
+    end
+
     if event == "MERCHANT_SHOW" then
         Bags:AutoOpenBags("merchant")
         Bags:QueueUpdate()
@@ -1437,7 +1455,18 @@ eventFrame:SetScript("OnEvent", function(_, event, loadedAddonName)
         return
     end
 
+    if event == "BANKFRAME_OPENED" then
+        if Bags.OnRecentItemsBankStateChanged then
+            Bags:OnRecentItemsBankStateChanged(true)
+        end
+        Bags:QueueUpdate()
+        return
+    end
+
     if event == "BANKFRAME_CLOSED" then
+        if Bags.OnRecentItemsBankStateChanged then
+            Bags:OnRecentItemsBankStateChanged(false)
+        end
         Bags:ClearBankSearchText()
         Bags:HideBankControls()
         Bags:QueueUpdate()

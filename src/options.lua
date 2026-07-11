@@ -2813,6 +2813,13 @@ local bagsPanel = BuildOptionsPanel({
             indent = 0,
         },
         {
+            name = "VanillaEnhancedOptionsBagsHighlightRecentItems",
+            settingKey = "highlightRecentItems",
+            labelKey = "options.bags.highlightRecentItems.label",
+            helpKey = "options.bags.highlightRecentItems.help",
+            indent = 0,
+        },
+        {
             name = "VanillaEnhancedOptionsBagsShowScrapIcon",
             settingKey = "showScrapIcon",
             labelKey = "options.bags.showScrapIcon.label",

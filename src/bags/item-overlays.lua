@@ -27,6 +27,12 @@ local BOUND_ICON_RED = 0.62
 local BOUND_ICON_GREEN = 0.82
 local BOUND_ICON_BLUE = 1
 local BOUND_ICON_ALPHA = 0.95
+local RECENT_BORDER_TEXTURE = "Interface\\Buttons\\UI-ActionButton-Border"
+local RECENT_BORDER_SIZE = 62
+local RECENT_BORDER_RED = 1
+local RECENT_BORDER_GREEN = 0.82
+local RECENT_BORDER_BLUE = 0
+local RECENT_BORDER_ALPHA = 0.9
 local MAX_CONTAINER_BUTTONS = 100
 
 local function IsShown(frame)
@@ -205,6 +211,44 @@ local function EnsureBoundIconOverlay(button)
     return overlay
 end
 
+local function EnsureRecentItemHighlight(button)
+    if button.VanillaEnhancedRecentItemHighlight then
+        return button.VanillaEnhancedRecentItemHighlight
+    end
+
+    local overlay = button:CreateTexture(nil, "OVERLAY")
+    overlay:SetTexture(RECENT_BORDER_TEXTURE)
+    overlay:SetBlendMode("ADD")
+    overlay:SetVertexColor(RECENT_BORDER_RED, RECENT_BORDER_GREEN, RECENT_BORDER_BLUE, RECENT_BORDER_ALPHA)
+    overlay:SetSize(RECENT_BORDER_SIZE, RECENT_BORDER_SIZE)
+    overlay:Hide()
+
+    local icon = GetItemButtonIcon(button)
+    if icon then
+        overlay:SetPoint("CENTER", icon, "CENTER", 0, 0)
+    else
+        overlay:SetPoint("CENTER", button, "CENTER", 0, 0)
+    end
+
+    button.VanillaEnhancedRecentItemHighlight = overlay
+    return overlay
+end
+
+local function EnsureRecentItemHoverHook(button)
+    if button.VanillaEnhancedRecentItemHoverHooked or not button.HookScript then
+        return
+    end
+
+    button:HookScript("OnEnter", function(hoveredButton)
+        local bagID = hoveredButton.VanillaEnhancedRecentItemBagID
+        local slot = hoveredButton.VanillaEnhancedRecentItemSlot
+        if bagID ~= nil and slot ~= nil and Bags.AcknowledgeRecentItem then
+            Bags:AcknowledgeRecentItem(bagID, slot)
+        end
+    end)
+    button.VanillaEnhancedRecentItemHoverHooked = true
+end
+
 function Bags:IsScrapIconEnabled()
     local settings = self:GetSettings()
     if self.sorting == true or not self:IsSortEnabled() or settings.showScrapIcon ~= true then
@@ -265,10 +309,22 @@ function Bags:ClearBoundIconOverlays()
     end
 end
 
+function Bags:ClearRecentItemHighlights()
+    for button in pairs(self.recentItemHighlightButtons or {}) do
+        if button.VanillaEnhancedRecentItemHighlight then
+            button.VanillaEnhancedRecentItemHighlight:Hide()
+        end
+        button.VanillaEnhancedRecentItemBagID = nil
+        button.VanillaEnhancedRecentItemSlot = nil
+        self.recentItemHighlightButtons[button] = nil
+    end
+end
+
 function Bags:ClearItemOverlays()
     self:ClearScrapIconOverlays()
     self:ClearQuestIconOverlays()
     self:ClearBoundIconOverlays()
+    self:ClearRecentItemHighlights()
     self:ClearItemLockButtonHooks()
 
     for button in pairs(self.itemLockOverlayButtons or {}) do
@@ -291,13 +347,21 @@ function Bags:RefreshItemOverlays()
     self.scrapIconOverlayButtons = self.scrapIconOverlayButtons or {}
     self.questIconOverlayButtons = self.questIconOverlayButtons or {}
     self.boundIconOverlayButtons = self.boundIconOverlayButtons or {}
+    self.recentItemHighlightButtons = self.recentItemHighlightButtons or {}
 
     local lockEnabled = self:IsItemLockingEnabled()
     local scrapIconEnabled = self:IsScrapIconEnabled()
     local scrapShortcutEnabled = IsScrapShortcutEnabled()
     local questIconEnabled = self:IsQuestIconEnabled()
     local boundIconEnabled = self:IsBoundIconEnabled()
-    if not lockEnabled and not scrapIconEnabled and not scrapShortcutEnabled and not questIconEnabled and not boundIconEnabled then
+    local recentItemHighlightEnabled = self:IsRecentItemHighlightEnabled()
+    if not lockEnabled
+        and not scrapIconEnabled
+        and not scrapShortcutEnabled
+        and not questIconEnabled
+        and not boundIconEnabled
+        and not recentItemHighlightEnabled
+    then
         return
     end
 
@@ -330,6 +394,14 @@ function Bags:RefreshItemOverlays()
                 local slot = button.GetID and button:GetID() or buttonIndex
                 local containerItem = IsShown(button) and self.Api and self.Api:GetContainerItemInfo(bagID, slot)
                 local hasItem = containerItem and (containerItem.hyperlink or containerItem.itemID or containerItem.iconFileID)
+                if recentItemHighlightEnabled and hasItem and self:IsRecentItem(bagID, slot) then
+                    local overlay = EnsureRecentItemHighlight(button)
+                    EnsureRecentItemHoverHook(button)
+                    button.VanillaEnhancedRecentItemBagID = bagID
+                    button.VanillaEnhancedRecentItemSlot = slot
+                    overlay:Show()
+                    self.recentItemHighlightButtons[button] = true
+                end
                 local locked = lockEnabled and hasItem and self:IsItemLocked(bagID, slot)
                 if locked then
                     self:EnsureItemLockButtonHooks(button)
