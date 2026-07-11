@@ -6,6 +6,7 @@ local addonSettingChecks = {}
 local dropdowns = {}
 local sliders = {}
 local textInputs = {}
+local statisticValues = {}
 local optionPanels = {}
 local moduleTitleKeys = {}
 local categoryTitleKeys = {}
@@ -1274,6 +1275,28 @@ local function CreateOptionSection(panel, name, label, anchor)
     return section
 end
 
+local function CreateStatisticValue(panel, option, label, anchor)
+    local content = GetPanelContent(panel)
+    local row = CreateFrame("Frame", option.name, content)
+    SetOptionIndentLevel(row, option.indent or GetOptionIndentLevel(anchor))
+    row:SetSize(430, 18)
+    row:SetPoint("TOPLEFT", anchor.optionHelpBottomAnchor or anchor, "BOTTOMLEFT", GetOptionIndentOffset(row, anchor), -16)
+
+    local labelText = row:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+    labelText:SetPoint("LEFT", row, "LEFT", 0, 0)
+    labelText:SetText(label)
+    local valueText = row:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    valueText:SetPoint("LEFT", row, "LEFT", 235, 0)
+    valueText:SetJustifyH("LEFT")
+
+    row.labelText = labelText
+    row.valueText = valueText
+    row.valueProvider = option.valueProvider
+    panel.optionBottomAnchor = row
+    statisticValues[#statisticValues + 1] = row
+    return row
+end
+
 local function BuildOptionControl(panel, option, anchor, moduleKey)
     local control
     local optionModuleKey = option.moduleKey or moduleKey
@@ -1290,6 +1313,8 @@ local function BuildOptionControl(panel, option, anchor, moduleKey)
         control = CreateModuleEnabledCheck(panel, option.name, optionModuleKey, T(option.labelKey), anchor)
     elseif option.type == "section" then
         control = CreateOptionSection(panel, option.name, T(option.labelKey), anchor)
+    elseif option.type == "statisticValue" then
+        control = CreateStatisticValue(panel, option, T(option.labelKey), anchor)
     elseif option.type == "dropdown" or option.type == "addonDropdown" then
         control = CreateDropdown(
             panel,
@@ -1364,8 +1389,10 @@ local function BuildOptionsPanel(definition)
     local anchor = subtitle
 
     for _, option in ipairs(definition.options or {}) do
-        anchor = BuildOptionControl(panel, option, anchor, definition.moduleKey)
-        panel.localizedControls[#panel.localizedControls + 1] = anchor
+        if not option.includeWhen or option.includeWhen() then
+            anchor = BuildOptionControl(panel, option, anchor, definition.moduleKey)
+            panel.localizedControls[#panel.localizedControls + 1] = anchor
+        end
     end
 
     optionPanels[#optionPanels + 1] = panel
@@ -1484,6 +1511,8 @@ function VanillaEnhanced:RefreshLocalizedOptions()
                     ResizeActionButtonToText(control.resetButton)
                 end
                 UpdateTextInputPreview(control)
+            elseif control.optionType == "statisticValue" then
+                if label and control.labelText then control.labelText:SetText(label) end
             elseif control.labelText then
                 if label then
                     control.labelText:SetText(label)
@@ -2174,6 +2203,34 @@ local function GetSafeguardPartyMessageLocale()
     return VanillaEnhanced:NormalizeOutgoingMessageLocale(settings.partyMessageLanguage)
 end
 
+local function ResetSurvivalStatistics()
+    local module = VanillaEnhanced:GetModule("survivalStatistics")
+    if module and module.ResetStatistics then module:ResetStatistics() end
+end
+
+local function ConfirmResetSurvivalStatistics()
+    if StaticPopupDialogs and StaticPopup_Show then
+        StaticPopupDialogs.VANILLAENHANCED_RESET_SURVIVAL_STATISTICS =
+            StaticPopupDialogs.VANILLAENHANCED_RESET_SURVIVAL_STATISTICS or {
+                text = T("options.survivalStatistics.reset.confirm"),
+                button1 = T("options.survivalStatistics.reset.accept"),
+                button2 = CANCEL or T("options.survivalStatistics.reset.cancel"),
+                OnAccept = ResetSurvivalStatistics,
+                timeout = 0,
+                whileDead = true,
+                hideOnEscape = true,
+                preferredIndex = 3,
+            }
+        local dialog = StaticPopupDialogs.VANILLAENHANCED_RESET_SURVIVAL_STATISTICS
+        dialog.text = T("options.survivalStatistics.reset.confirm")
+        dialog.button1 = T("options.survivalStatistics.reset.accept")
+        dialog.button2 = CANCEL or T("options.survivalStatistics.reset.cancel")
+        StaticPopup_Show("VANILLAENHANCED_RESET_SURVIVAL_STATISTICS")
+        return
+    end
+    ResetSurvivalStatistics()
+end
+
 local function GetSafeguardLowHealthMessageSettingKey()
     return GetSafeguardPartyMessageLocale() == "frFR"
         and "lowHealthPartyMessageFormatFrFR"
@@ -2350,6 +2407,126 @@ local safeguardPanel = BuildOptionsPanel({
             indent = 1,
             width = 320,
             resetLabelKey = "options.safeguard.partyMessageFormat.reset",
+        },
+    },
+})
+
+local function GetSurvivalStatistic(key)
+    local module = VanillaEnhanced:GetModule("survivalStatistics")
+    local statistics = module and module.GetStatistics and module:GetStatistics() or {}
+    return statistics[key]
+end
+
+local function IsHardcoreCharacter()
+    if not (C_GameRules and type(C_GameRules.IsHardcoreActive) == "function") then return false end
+    local ok, active = pcall(C_GameRules.IsHardcoreActive)
+    return ok and active == true
+end
+
+local function FormatLowestHealth()
+    local value = GetSurvivalStatistic("lowestHealthPercent")
+    if value == nil then return T("options.survivalStatistics.lowestHealth.default") end
+    return string.format("%.1f%%", value)
+end
+
+local function FormatPlayedTime()
+    local module = VanillaEnhanced:GetModule("survivalStatistics")
+    local total = module and module.GetPlayedTimeSeconds and module:GetPlayedTimeSeconds()
+        or GetSurvivalStatistic("totalPlayedSeconds")
+    total = math.max(0, tonumber(total) or 0)
+    local days = math.floor(total / 86400)
+    local hours = math.floor((total % 86400) / 3600)
+    local minutes = math.floor((total % 3600) / 60)
+    return T("options.survivalStatistics.playedTime.value", {
+        days = days,
+        hours = hours,
+        minutes = minutes,
+    })
+end
+
+local function FormatStatisticMoney(key)
+    local copper = math.max(0, tonumber(GetSurvivalStatistic(key)) or 0)
+    if type(GetCoinTextureString) == "function" then
+        local ok, formatted = pcall(GetCoinTextureString, copper)
+        if ok and formatted then return formatted end
+    end
+
+    local gold = math.floor(copper / 10000)
+    local silver = math.floor((copper % 10000) / 100)
+    local remainingCopper = copper % 100
+    return string.format(
+        "%d%s %d%s %d%s",
+        gold,
+        GOLD_AMOUNT_SYMBOL or "g",
+        silver,
+        SILVER_AMOUNT_SYMBOL or "s",
+        remainingCopper,
+        COPPER_AMOUNT_SYMBOL or "c"
+    )
+end
+
+local survivalStatisticsPanel = BuildOptionsPanel({
+    name = "VanillaEnhancedSurvivalStatisticsOptionsPanel",
+    categoryKey = "survivalStatistics",
+    titleKey = "module.survivalStatistics",
+    subtitleKey = "options.survivalStatistics.subtitle",
+    parent = VanillaEnhanced.displayName,
+    moduleKey = "survivalStatistics",
+    options = {
+        {
+            type = "statisticValue",
+            name = "VanillaEnhancedStatisticsEnemyKills",
+            labelKey = "options.survivalStatistics.enemyKills",
+            valueProvider = function() return tostring(GetSurvivalStatistic("enemyKills") or 0) end,
+        },
+        {
+            type = "statisticValue",
+            name = "VanillaEnhancedStatisticsEliteKills",
+            labelKey = "options.survivalStatistics.eliteKills",
+            valueProvider = function() return tostring(GetSurvivalStatistic("eliteKills") or 0) end,
+        },
+        {
+            type = "statisticValue",
+            name = "VanillaEnhancedStatisticsDeaths",
+            labelKey = "options.survivalStatistics.deaths",
+            includeWhen = function() return not IsHardcoreCharacter() end,
+            valueProvider = function() return tostring(GetSurvivalStatistic("deaths") or 0) end,
+        },
+        {
+            type = "statisticValue",
+            name = "VanillaEnhancedStatisticsNearDeaths",
+            labelKey = "options.survivalStatistics.nearDeaths",
+            valueProvider = function() return tostring(GetSurvivalStatistic("nearDeathExperiences") or 0) end,
+        },
+        {
+            type = "statisticValue",
+            name = "VanillaEnhancedStatisticsLowestHealth",
+            labelKey = "options.survivalStatistics.lowestHealth",
+            valueProvider = FormatLowestHealth,
+        },
+        {
+            type = "statisticValue",
+            name = "VanillaEnhancedStatisticsPlayedTime",
+            labelKey = "options.survivalStatistics.playedTime",
+            valueProvider = FormatPlayedTime,
+        },
+        {
+            type = "statisticValue",
+            name = "VanillaEnhancedStatisticsGoldAccumulated",
+            labelKey = "options.survivalStatistics.goldAccumulated",
+            valueProvider = function() return FormatStatisticMoney("goldAccumulatedCopper") end,
+        },
+        {
+            type = "statisticValue",
+            name = "VanillaEnhancedStatisticsGoldSpent",
+            labelKey = "options.survivalStatistics.goldSpent",
+            valueProvider = function() return FormatStatisticMoney("goldSpentCopper") end,
+        },
+        {
+            type = "addonAction",
+            name = "VanillaEnhancedStatisticsReset",
+            labelKey = "options.survivalStatistics.reset.label",
+            onClick = ConfirmResetSurvivalStatistics,
         },
     },
 })
@@ -3091,6 +3268,16 @@ function VanillaEnhanced:RefreshOptions()
         UpdateTextInputPreview(input)
         SetTextInputEnabled(input, enabled)
     end
+    self:RefreshSurvivalStatisticsOptions()
+end
+
+function VanillaEnhanced:RefreshSurvivalStatisticsOptions()
+    if not survivalStatisticsPanel or not survivalStatisticsPanel:IsShown() then return end
+    for _, value in ipairs(statisticValues) do
+        if value.valueText and value.valueProvider then
+            value.valueText:SetText(value.valueProvider())
+        end
+    end
 end
 
 local function RefreshOnShow(panel)
@@ -3105,6 +3292,11 @@ merchantsPanel:SetScript("OnShow", RefreshOnShow)
 mapPanel:SetScript("OnShow", RefreshOnShow)
 targetThreatPanel:SetScript("OnShow", RefreshOnShow)
 safeguardPanel:SetScript("OnShow", RefreshOnShow)
+survivalStatisticsPanel:SetScript("OnShow", function(panel)
+    local module = VanillaEnhanced:GetModule("survivalStatistics")
+    if module and module.EnsurePlayedTimeInitialized then module:EnsurePlayedTimeInitialized() end
+    RefreshOnShow(panel)
+end)
 safeguardPanel:SetScript("OnHide", function()
     local safeguard = VanillaEnhanced:GetModule("safeguard")
     safeguard:CancelHeartbeat()
@@ -3123,6 +3315,7 @@ local function RegisterInterfaceOptions()
     InterfaceOptions_AddCategory(safeguardPanel)
     InterfaceOptions_AddCategory(professionsPanel)
     InterfaceOptions_AddCategory(trainingPanel)
+    InterfaceOptions_AddCategory(survivalStatisticsPanel)
 
     VanillaEnhanced.optionsCategories = {
         main = mainPanel,
@@ -3134,6 +3327,7 @@ local function RegisterInterfaceOptions()
         safeguard = safeguardPanel,
         professions = professionsPanel,
         training = trainingPanel,
+        survivalStatistics = survivalStatisticsPanel,
     }
 end
 
@@ -3189,8 +3383,14 @@ local function RegisterSettingsOptions()
             trainingPanel,
             trainingPanel.name
         )
+        local statisticsOk, statisticsCategory = pcall(
+            Settings.RegisterCanvasLayoutSubcategory,
+            mainCategory,
+            survivalStatisticsPanel,
+            survivalStatisticsPanel.name
+        )
 
-        if questOk and mapOk and targetOk and safeguardOk and trainingOk and professionsOk and bagsOk and merchantsOk then
+        if questOk and mapOk and targetOk and safeguardOk and statisticsOk and trainingOk and professionsOk and bagsOk and merchantsOk then
             VanillaEnhanced.optionsCategories.quests = questsCategory
             VanillaEnhanced.optionsCategories.bags = bagsCategory
             VanillaEnhanced.optionsCategories.merchants = merchantsCategory
@@ -3199,6 +3399,7 @@ local function RegisterSettingsOptions()
             VanillaEnhanced.optionsCategories.safeguard = safeguardCategory
             VanillaEnhanced.optionsCategories.professions = professionsCategory
             VanillaEnhanced.optionsCategories.training = trainingCategory
+            VanillaEnhanced.optionsCategories.survivalStatistics = statisticsCategory
             return
         end
     end
@@ -3211,6 +3412,7 @@ local function RegisterSettingsOptions()
     local safeguardCategory = Settings.RegisterCanvasLayoutCategory(safeguardPanel, safeguardPanel.name)
     local professionsCategory = Settings.RegisterCanvasLayoutCategory(professionsPanel, professionsPanel.name)
     local trainingCategory = Settings.RegisterCanvasLayoutCategory(trainingPanel, trainingPanel.name)
+    local statisticsCategory = Settings.RegisterCanvasLayoutCategory(survivalStatisticsPanel, survivalStatisticsPanel.name)
     Settings.RegisterAddOnCategory(questsCategory)
     Settings.RegisterAddOnCategory(bagsCategory)
     Settings.RegisterAddOnCategory(merchantsCategory)
@@ -3219,6 +3421,7 @@ local function RegisterSettingsOptions()
     Settings.RegisterAddOnCategory(safeguardCategory)
     Settings.RegisterAddOnCategory(professionsCategory)
     Settings.RegisterAddOnCategory(trainingCategory)
+    Settings.RegisterAddOnCategory(statisticsCategory)
 
     VanillaEnhanced.optionsCategories.quests = questsCategory
     VanillaEnhanced.optionsCategories.bags = bagsCategory
@@ -3228,6 +3431,7 @@ local function RegisterSettingsOptions()
     VanillaEnhanced.optionsCategories.safeguard = safeguardCategory
     VanillaEnhanced.optionsCategories.professions = professionsCategory
     VanillaEnhanced.optionsCategories.training = trainingCategory
+    VanillaEnhanced.optionsCategories.survivalStatistics = statisticsCategory
 end
 
 if type(InterfaceOptions_AddCategory) == "function" then
