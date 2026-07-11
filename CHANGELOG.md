@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.11.1 - 2026-07-11
+
+
+### Features
+- **safeguard:** improve heartbeat timings
+
+
+### Performance
+- **bags:** prevent lockin interactions from refreshing data
+
 ## 0.11.0 - 2026-07-11
 
 
