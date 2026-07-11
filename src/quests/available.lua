@@ -44,21 +44,16 @@ local function RebuildAvailableQuestCache(self, quests, settings)
     })
     local evaluator = self:CreateAvailableQuestEvaluator(context)
     local questIds = {}
-    local uncertainQuestReasons = {}
 
     for questId, dbQuest in pairs(VanillaEnhancedQuestsDB.quests) do
         local eligible, _, uncertaintyReasons = evaluator:IsEligible(questId, dbQuest)
-        if eligible then
+        if eligible and (not uncertaintyReasons or #uncertaintyReasons == 0) then
             questIds[#questIds + 1] = questId
-            if uncertaintyReasons and #uncertaintyReasons > 0 then
-                uncertainQuestReasons[questId] = uncertaintyReasons
-            end
         end
     end
 
     self.availableQuestCache = {
         questIds = questIds,
-        uncertainQuestReasons = uncertainQuestReasons,
         eligibilityContext = context,
     }
     self.availableQuestCacheDirty = false
@@ -91,7 +86,6 @@ function Quests:AddAvailableQuestPins(quests)
     for _, questId in ipairs(cache.questIds or {}) do
         local dbQuest = VanillaEnhancedQuestsDB.quests[questId]
         if dbQuest and self:ShouldShowQuestOnMaps(dbQuest, settings) then
-            context.uncertaintyReasons = cache.uncertainQuestReasons and cache.uncertainQuestReasons[questId]
             self:AddAvailablePins(questId, dbQuest, context)
         end
     end

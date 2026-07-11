@@ -37,6 +37,7 @@ assert(loadfile("src/quests/available-player.lua"))()
 assert(loadfile("src/quests/available-prerequisites.lua"))()
 assert(loadfile("src/quests/available-evaluator.lua"))()
 assert(loadfile("src/quests/pin-data.lua"))()
+assert(loadfile("src/quests/available.lua"))()
 
 local fallbackCompletionCalls = 0
 local completedSnapshot = {}
@@ -123,7 +124,7 @@ context = Quests:BuildAvailableQuestEvaluatorContext({}, {}, {}, {
     professions = {}, reputations = {}, professionsReliable = false, reputationsReliable = true,
 })
 eligible, reason, uncertainties = Quests:CreateAvailableQuestEvaluator(context):IsEligible(1001, professionQuest)
-expect(eligible and reason == nil, "unknown profession state fails open")
+expect(eligible and reason == nil, "unknown profession state remains diagnostically eligible")
 expect(uncertainties and uncertainties[1] == "profession-unknown", "unknown profession is reported")
 
 local knownSpells = {}
@@ -152,7 +153,7 @@ context.reputations = {}
 context.reputationsReliable = false
 eligible, reason, uncertainties = Quests:CreateAvailableQuestEvaluator(context):IsEligible(2000, reputationQuest)
 expect(eligible and reason == nil and uncertainties[1] == "reputation-unknown",
-    "unknown reputation remains visible and annotated")
+    "unknown reputation remains diagnostically eligible")
 
 playerRace = "Orc"
 context = Quests:BuildAvailableQuestEvaluatorContext({}, {}, {}, {
@@ -176,16 +177,6 @@ local wrappedEvent = Quests:GetAvailableQuestEventState({ z = -404 }, {
 })
 expect(wrappedEvent == true, "event date range supports year boundaries")
 
-local pinContext = { uncertaintyReasons = {"profession-unknown"} }
-local pinData = Quests:BuildAvailableQuestPinData(1001, professionQuest, {1, 1}, 1, 1, 1, pinContext)
-expect(pinData.availabilityUncertaintyReasons, "pin data carries uncertainty")
-expectEqual(pinData.metadataLines[#pinData.metadataLines], "quests.static.availabilityUncertain",
-    "uncertain pin explains its state")
-expect(Quests:GetAvailableQuestMarkerOpacity(professionQuest, pinContext) < 1,
-    "uncertain marker is visually subdued")
-expect(Quests:GetAvailableQuestMarkerColor(professionQuest, pinContext) ~= nil,
-    "uncertain marker has a distinct color")
-
 GetQuestsCompleted = nil
 IsQuestFlaggedCompleted = nil
 C_QuestLog = nil
@@ -198,6 +189,46 @@ eligible, reason, uncertainties = Quests:CreateAvailableQuestEvaluator(context):
     starts = { [1] = {{1, 1}} }, ps = {2999},
 })
 expect(eligible and reason == nil and uncertainties[1] == "completion-unknown",
-    "missing completion APIs fail open with an explicit uncertainty")
+    "missing completion APIs retain an explicit diagnostic uncertainty")
+
+local renderedQuestIds = {}
+local verifiedQuest = { starts = { [1] = {{1, 1}} }, t = "Verified" }
+local unverifiableQuest = { starts = { [1] = {{1, 1}} }, t = "Unverifiable", sk = {202, 200} }
+VanillaEnhancedQuestsDB.quests = {
+    [4000] = verifiedQuest,
+    [4001] = unverifiableQuest,
+}
+function GetQuestsCompleted() return {} end
+function Quests:GetSettings() return { showAvailableQuests = true } end
+function Quests:ShouldShowQuestOnMaps() return true end
+function Quests:BuildAvailableQuestPlayerContext()
+    return {
+        professions = {},
+        reputations = {},
+        professionsReliable = false,
+        reputationsReliable = true,
+    }
+end
+function Quests:AddAvailablePins(questId)
+    renderedQuestIds[#renderedQuestIds + 1] = questId
+end
+
+Quests:InvalidateAvailableQuestCache()
+Quests:AddAvailableQuestPins({})
+expectEqual(#renderedQuestIds, 1, "only fully verified quests reach map rendering")
+expectEqual(renderedQuestIds[1], 4000, "verified colocated quest remains visible")
+
+renderedQuestIds = {}
+function Quests:BuildAvailableQuestPlayerContext()
+    return {
+        professions = { [202] = 225 },
+        reputations = {},
+        professionsReliable = true,
+        reputationsReliable = true,
+    }
+end
+Quests:InvalidateAvailableQuestCache()
+Quests:AddAvailableQuestPins({})
+expectEqual(#renderedQuestIds, 2, "quest appears after its eligibility becomes verifiable")
 
 print("quest availability assertions passed")

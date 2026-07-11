@@ -451,9 +451,7 @@ function Quests:AddAvailablePin(uiMapId, x, y, questId, dbQuest, cluster, contex
     end
 
     local opacityMultiplier = self:GetAvailableQuestMarkerOpacity(dbQuest, context)
-    local uncertain = context and context.uncertaintyReasons and #context.uncertaintyReasons > 0
-    local color = uncertain and self:GetAvailableQuestMarkerColor(dbQuest, context)
-        or self:GetRepeatableQuestMarkerColor(dbQuest)
+    local color = self:GetRepeatableQuestMarkerColor(dbQuest)
         or self:GetAvailableQuestMarkerColor(dbQuest, context)
 
     self:AddMarkerCandidate(
@@ -481,9 +479,7 @@ function Quests:AddAvailableMinimapPin(uiMapId, x, y, questId, dbQuest, cluster,
     end
 
     local opacityMultiplier = self:GetAvailableQuestMarkerOpacity(dbQuest, context)
-    local uncertain = context and context.uncertaintyReasons and #context.uncertaintyReasons > 0
-    local color = uncertain and self:GetAvailableQuestMarkerColor(dbQuest, context)
-        or self:GetRepeatableQuestMarkerColor(dbQuest)
+    local color = self:GetRepeatableQuestMarkerColor(dbQuest)
         or self:GetAvailableQuestMarkerColor(dbQuest, context)
     local marker = self:AcquirePinFrame("marker", "minimapMarker", Minimap)
 
