@@ -1,5 +1,5 @@
 {
-  "version": "0.10.1",
+  "version": "0.11.0",
   "scripts": {
     "build:db": "bun run tools/build-db.ts",
     "build:db:classic": "bun run tools/build-db.ts -- --expansion Classic",

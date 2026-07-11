@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.11.0 - 2026-07-11
+
+
+### Features
+- **statistics:** add survival statistics
+- **bags:** highlight new items in bags
+- **spellbook:** improve readability
+- **statistics:** add finished quests counter
+
+
+### Fixes
+- **quests:** hide non eligible quests on the maps
+- **bags:** more reliable highlights
+
 ## 0.10.1 - 2026-07-10
 
 
