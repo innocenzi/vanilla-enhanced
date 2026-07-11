@@ -645,7 +645,11 @@ function Bags:HandleItemLockClick(button, mouseButton)
 end
 
 function Bags:RefreshItemLockClickOverlays()
-    self:RefreshItemOverlays()
+    if self.RefreshItemLockInteractionOverlays then
+        self:RefreshItemLockInteractionOverlays()
+    else
+        self:RefreshItemOverlays()
+    end
 
     local Merchants = VanillaEnhanced:GetModule("merchants")
     if Merchants and Merchants.RefreshScrapHighlights and Merchants.scrapMarkMode == true then

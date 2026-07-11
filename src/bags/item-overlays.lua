@@ -448,6 +448,55 @@ function Bags:RefreshItemOverlays()
     end
 end
 
+function Bags:RefreshItemLockInteractionOverlays()
+    self.itemLockClickOverlayButtons = self.itemLockClickOverlayButtons or {}
+    for button in pairs(self.itemLockClickOverlayButtons) do
+        self:ClearItemLockClickOverlay(button)
+        self.itemLockClickOverlayButtons[button] = nil
+    end
+
+    local lockEnabled = self:IsItemLockingEnabled()
+    local scrapShortcutEnabled = IsScrapShortcutEnabled()
+    if not lockEnabled and not scrapShortcutEnabled then
+        return
+    end
+
+    local altDown = type(IsAltKeyDown) == "function" and IsAltKeyDown()
+    local cursorHasItem = HasCursorItem()
+    local merchantOpen = IsMerchantOpen()
+    local suppressClickOverlays = IsScrapMarkModeActive()
+    if suppressClickOverlays or (not altDown and not cursorHasItem and not merchantOpen) then
+        return
+    end
+
+    for frameIndex = 1, GetContainerFrameCount() do
+        local frame = _G["ContainerFrame" .. frameIndex]
+        if IsShown(frame) and frame.GetID then
+            local bagID = frame:GetID()
+            local slotCount = self.Api and self.Api:GetContainerNumSlots(bagID) or 0
+            local buttonCount = math.min(math.max(slotCount or 0, frame.size or 0), MAX_CONTAINER_BUTTONS)
+            for buttonIndex = 1, buttonCount do
+                local button = GetContainerItemButton(frame, buttonIndex)
+                if not button then
+                    break
+                end
+
+                local slot = button.GetID and button:GetID() or buttonIndex
+                local containerItem = IsShown(button) and self.Api and self.Api:GetContainerItemInfo(bagID, slot)
+                local hasItem = containerItem and (containerItem.hyperlink or containerItem.itemID or containerItem.iconFileID)
+                if hasItem then
+                    local locked = lockEnabled and self:IsItemLocked(bagID, slot)
+                    if (lockEnabled and (altDown or (locked and (cursorHasItem or merchantOpen))))
+                        or (scrapShortcutEnabled and altDown)
+                    then
+                        self:EnsureItemLockClickOverlay(button)
+                    end
+                end
+            end
+        end
+    end
+end
+
 function Bags:ClearItemLockOverlays()
     self:ClearItemOverlays()
 end
