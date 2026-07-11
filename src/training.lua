@@ -17,6 +17,7 @@ Training.displayModes = {
 Training.spellInfoCache = Training.spellInfoCache or {}
 Training.overriddenSpellsMap = Training.overriddenSpellsMap or {}
 Training.rankIndex = Training.rankIndex or {}
+Training.previousRankById = Training.previousRankById or {}
 Training.spells = Training.spells or {}
 Training.pages = Training.pages or {}
 Training.dirty = true
@@ -202,6 +203,18 @@ function Training:BuildRankIndex(classKey)
     end
 
     self.rankIndex = rankIndex
+    self.previousRankById = previousById
+end
+
+function Training:IsSpellUpgrade(spellId)
+    local previousId = self.previousRankById and self.previousRankById[spellId]
+    while previousId do
+        if self:IsAbilityKnown(previousId) then
+            return true
+        end
+        previousId = self.previousRankById[previousId]
+    end
+    return false
 end
 
 function Training:GetSpellRankText(spellId, rank)
@@ -302,6 +315,7 @@ function Training:Rebuild()
                         cost = spell.cost or 0,
                         level = level,
                         state = state,
+                        isUpgrade = self:IsSpellUpgrade(spell.id),
                     }
                 end
             end

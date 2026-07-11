@@ -11,6 +11,8 @@ local FAKE_SPELL_TEXT_OFFSET_X = 7
 local FAKE_SPELL_TEXT_GAP = 0
 local TRAINING_SKILL_LINE_TAB = ((type(MAX_SKILLLINE_TABS) == "number" and MAX_SKILLLINE_TABS) or 8) - 1
 local TRAINING_TAB_TEXTURE = "Interface\\Icons\\INV_Misc_Book_09"
+local DEFAULT_SPELL_NAME_COLOR = { r = 1, g = 0.82, b = 0 }
+local UPGRADE_SPELL_NAME_COLOR = { r = 0.45, g = 0.7, b = 1 }
 local STATE_COLORS = {
     trainable = { r = 0.1, g = 0.9, b = 0.25 },
     future = { r = 1, g = 0.1, b = 0.1 },
@@ -162,7 +164,7 @@ local function IsSpellUnaffordable(spell)
 end
 
 local function ApplyButtonColors(button, spell)
-    button.name:SetTextColor(1, 0.82, 0)
+    SetFontStringColor(button.name, spell.isUpgrade and UPGRADE_SPELL_NAME_COLOR or DEFAULT_SPELL_NAME_COLOR)
     SetFontStringColor(button.rank, button.rankDefaultColor)
     SetFontStringColor(button.level, button.levelDefaultColor)
     SetTextureDesaturated(button.icon, spell.state ~= "trainable")
