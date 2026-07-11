@@ -7,6 +7,8 @@ local FAST_INTERVAL = 0.4
 local MAX_SPEED_HEALTH_PERCENT = 20
 local DEFAULT_HEARTBEAT_THRESHOLD = 50
 local DEFAULT_SOUND_CHANNEL = "SFX"
+local HEARTBEAT_GRACE_SECONDS = 3
+local OUT_OF_COMBAT_HEARTBEAT_COOLDOWN = 10
 local DEFAULT_LOW_HEALTH_MESSAGE_THRESHOLD = 25
 local LOW_HEALTH_MESSAGE_COOLDOWN = 10
 local LOW_HEALTH_TEMPLATE_DEFAULTS = {
@@ -178,24 +180,36 @@ function Safeguard:GetHeartbeatInterval(healthPercent)
     return FAST_INTERVAL + ((SLOW_INTERVAL - FAST_INTERVAL) * progress)
 end
 
-function Safeguard:IsHeartbeatActive()
+function Safeguard:GetHeartbeatHealthState()
+    local maximum = UnitHealthMax("player") or 0
+    local current = UnitHealth("player") or 0
+    if maximum <= 0 or current <= 0 then
+        return current, maximum, nil, false
+    end
+    local healthPercent = (current / maximum) * 100
+    return current, maximum, healthPercent, healthPercent < ClampThreshold(self:GetSettings().heartbeatThreshold)
+end
+
+function Safeguard:IsRuntimeHeartbeatEnabled()
     local settings = self:GetSettings()
     if not self:IsEnabled() or not settings.heartbeatEnabled or UnitIsDeadOrGhost("player") then
         return false
     end
-    local maximum = UnitHealthMax("player") or 0
-    if maximum <= 0 then
-        return false
+    local current, maximum = self:GetHeartbeatHealthState()
+    return maximum > 0 and current > 0
+end
+
+function Safeguard:IsPlayerInCombat()
+    if type(UnitAffectingCombat) == "function" then
+        return UnitAffectingCombat("player") == true
     end
-    local current = UnitHealth("player") or 0
-    if current <= 0 then
-        return false
-    end
-    local healthPercent = (current / maximum) * 100
-    local threshold = ClampThreshold(settings.heartbeatThreshold)
-    if healthPercent >= threshold then
-        return false
-    end
+    return self.inCombat == true
+end
+
+function Safeguard:IsHeartbeatActive()
+    if not self:IsRuntimeHeartbeatEnabled() then return false end
+    local _, _, healthPercent, belowThreshold = self:GetHeartbeatHealthState()
+    if not belowThreshold then return false end
     return true, healthPercent
 end
 
@@ -212,6 +226,18 @@ end
 
 function Safeguard:CancelHeartbeat()
     self.previewActive = false
+    self.heartbeatMode = nil
+    self.graceEndsAt = nil
+    self.timerGeneration = (self.timerGeneration or 0) + 1
+    if self.heartbeatTimer and self.heartbeatTimer.Cancel then
+        self.heartbeatTimer:Cancel()
+    end
+    self.heartbeatTimer = nil
+end
+
+function Safeguard:StopRuntimeHeartbeat()
+    self.heartbeatMode = nil
+    self.graceEndsAt = nil
     self.timerGeneration = (self.timerGeneration or 0) + 1
     if self.heartbeatTimer and self.heartbeatTimer.Cancel then
         self.heartbeatTimer:Cancel()
@@ -248,20 +274,115 @@ function Safeguard:ScheduleHeartbeat(interval)
         if generation ~= (Safeguard.timerGeneration or 0) then return end
         Safeguard.heartbeatTimer = nil
         local active, healthPercent = Safeguard:IsHeartbeatActive()
-        if not active then return end
+        if not active then Safeguard:StopRuntimeHeartbeat(); return end
+        if Safeguard.heartbeatMode == "grace" then
+            local now = type(GetTime) == "function" and GetTime() or 0
+            if not Safeguard.graceEndsAt or now >= Safeguard.graceEndsAt then
+                Safeguard:StopRuntimeHeartbeat()
+                return
+            end
+        elseif Safeguard.heartbeatMode ~= "combat" or not Safeguard:IsPlayerInCombat() then
+            Safeguard:StopRuntimeHeartbeat()
+            return
+        end
         Safeguard:PlayHeartbeat()
-        Safeguard:ScheduleHeartbeat(Safeguard:GetHeartbeatInterval(healthPercent))
+        local nextInterval = Safeguard:GetHeartbeatInterval(healthPercent)
+        if Safeguard.heartbeatMode == "grace" then
+            local remaining = Safeguard.graceEndsAt - (type(GetTime) == "function" and GetTime() or 0)
+            nextInterval = math.min(nextInterval, remaining)
+        end
+        Safeguard:ScheduleHeartbeat(nextInterval)
     end)
+end
+
+function Safeguard:StartCombatHeartbeat(playImmediately)
+    local active, healthPercent = self:IsHeartbeatActive()
+    if not active or not self:IsPlayerInCombat() then self:StopRuntimeHeartbeat(); return end
+    self.heartbeatMode = "combat"
+    self.graceEndsAt = nil
+    if self.heartbeatTimer then return end
+    if playImmediately then self:PlayHeartbeat() end
+    self:ScheduleHeartbeat(self:GetHeartbeatInterval(healthPercent))
+end
+
+function Safeguard:EnterHeartbeatGrace()
+    local active, healthPercent = self:IsHeartbeatActive()
+    if not active or self.heartbeatMode ~= "combat" then self:StopRuntimeHeartbeat(); return end
+    self.heartbeatMode = "grace"
+    self.graceEndsAt = (type(GetTime) == "function" and GetTime() or 0) + HEARTBEAT_GRACE_SECONDS
+    if not self.heartbeatTimer then
+        self:ScheduleHeartbeat(math.min(self:GetHeartbeatInterval(healthPercent), HEARTBEAT_GRACE_SECONDS))
+    end
+end
+
+function Safeguard:InitializeHeartbeatState()
+    self:StopRuntimeHeartbeat()
+    self.inCombat = self:IsPlayerInCombat()
+    local current, _, healthPercent, belowThreshold = self:GetHeartbeatHealthState()
+    self.previousHeartbeatHealth = current
+    self.previousHeartbeatHealthPercent = healthPercent
+    if not self.inCombat and belowThreshold then
+        self.lastOutOfCombatHeartbeatAt = type(GetTime) == "function" and GetTime() or 0
+    end
+    if self.inCombat then self:StartCombatHeartbeat(true) end
+end
+
+function Safeguard:HandleHeartbeatHealthChanged(event)
+    local current, _, healthPercent, belowThreshold = self:GetHeartbeatHealthState()
+    local previousHealth = self.previousHeartbeatHealth
+    local previousPercent = self.previousHeartbeatHealthPercent
+    self.previousHeartbeatHealth = current
+    self.previousHeartbeatHealthPercent = healthPercent
+
+    if not self:IsRuntimeHeartbeatEnabled() or not belowThreshold then
+        self:StopRuntimeHeartbeat()
+        return
+    end
+    if self:IsPlayerInCombat() then
+        self.inCombat = true
+        self:StartCombatHeartbeat(self.heartbeatMode ~= "combat")
+        return
+    end
+    self.inCombat = false
+    if self.heartbeatMode == "grace" then return end
+    self:StopRuntimeHeartbeat()
+    if event ~= "UNIT_HEALTH" or previousHealth == nil or previousPercent == nil or current >= previousHealth then return end
+
+    local now = type(GetTime) == "function" and GetTime() or 0
+    local crossedThreshold = previousPercent >= ClampThreshold(self:GetSettings().heartbeatThreshold)
+    local cooldownElapsed = self.lastOutOfCombatHeartbeatAt == nil
+        or now - self.lastOutOfCombatHeartbeatAt >= OUT_OF_COMBAT_HEARTBEAT_COOLDOWN
+    if crossedThreshold or cooldownElapsed then
+        self:PlayHeartbeat()
+        self.lastOutOfCombatHeartbeatAt = now
+    end
+end
+
+function Safeguard:HandleCombatStarted()
+    self.inCombat = true
+    if self.previewActive then self:CancelHeartbeat() end
+    self:StartCombatHeartbeat(true)
+end
+
+function Safeguard:HandleCombatEnded()
+    self.inCombat = false
+    if self.previewActive then return end
+    self:EnterHeartbeatGrace()
 end
 
 function Safeguard:Update()
     self:ProcessLowHealthPartyMessage()
     if self.previewActive then self:CancelHeartbeat() end
-    local active, healthPercent = self:IsHeartbeatActive()
-    if not active then self:CancelHeartbeat(); return end
-    if self.heartbeatTimer then return end
-    self:PlayHeartbeat()
-    self:ScheduleHeartbeat(self:GetHeartbeatInterval(healthPercent))
+    local current, _, healthPercent = self:GetHeartbeatHealthState()
+    self.previousHeartbeatHealth = current
+    self.previousHeartbeatHealthPercent = healthPercent
+    if self:IsPlayerInCombat() then
+        self.inCombat = true
+        self:StartCombatHeartbeat(true)
+    else
+        self.inCombat = false
+        self:StopRuntimeHeartbeat()
+    end
 end
 
 function Safeguard:SetEnabled(enabled)
@@ -272,6 +393,9 @@ end
 
 function Safeguard:OnOptionChanged(settingKey)
     self:CancelHeartbeat()
+    local current, _, healthPercent = self:GetHeartbeatHealthState()
+    self.previousHeartbeatHealth = current
+    self.previousHeartbeatHealthPercent = healthPercent
     if settingKey == "lowHealthPartyMessageEnabled" or settingKey == "lowHealthPartyMessageThreshold" then
         self:ResetLowHealthMessageState()
     end
@@ -284,13 +408,30 @@ eventFrame:SetScript("OnEvent", function(_, event, unit)
         return
     end
     if event == "PLAYER_ENTERING_WORLD" then
-        Safeguard:CancelHeartbeat()
         Safeguard:ResetLowHealthMessageState()
+        Safeguard.lastOutOfCombatHeartbeatAt = nil
+        Safeguard:InitializeHeartbeatState()
+        return
+    elseif event == "PLAYER_ALIVE" then
+        Safeguard:InitializeHeartbeatState()
+        return
+    elseif event == "PLAYER_DEAD" then
+        Safeguard:StopRuntimeHeartbeat()
+        return
+    elseif event == "PLAYER_REGEN_DISABLED" then
+        Safeguard:HandleCombatStarted()
+        return
+    elseif event == "PLAYER_REGEN_ENABLED" then
+        Safeguard:HandleCombatEnded()
+        return
     end
-    Safeguard:Update()
+    Safeguard:ProcessLowHealthPartyMessage()
+    Safeguard:HandleHeartbeatHealthChanged(event)
 end)
 eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 eventFrame:RegisterEvent("PLAYER_ALIVE")
 eventFrame:RegisterEvent("PLAYER_DEAD")
 eventFrame:RegisterEvent("UNIT_HEALTH")
 eventFrame:RegisterEvent("UNIT_MAXHEALTH")
+eventFrame:RegisterEvent("PLAYER_REGEN_DISABLED")
+eventFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
