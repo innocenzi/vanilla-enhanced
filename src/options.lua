@@ -2487,6 +2487,12 @@ local survivalStatisticsPanel = BuildOptionsPanel({
         },
         {
             type = "statisticValue",
+            name = "VanillaEnhancedStatisticsQuestsCompleted",
+            labelKey = "options.survivalStatistics.questsCompleted",
+            valueProvider = function() return tostring(GetSurvivalStatistic("questsCompleted") or 0) end,
+        },
+        {
+            type = "statisticValue",
             name = "VanillaEnhancedStatisticsDeaths",
             labelKey = "options.survivalStatistics.deaths",
             includeWhen = function() return not IsHardcoreCharacter() end,

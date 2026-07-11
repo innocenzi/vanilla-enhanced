@@ -10,6 +10,7 @@ local money = 12345
 local now = 100
 local dead = false
 local requestTimePlayedCalls = 0
+local completedQuests = { [1] = true, [2] = true, [3] = false }
 local unitGuids = { player = "Player-1" }
 local unitClassifications = {}
 local combatEvent
@@ -63,6 +64,7 @@ function UnitIsDeadOrGhost() return dead end
 function GetMoney() return money end
 function GetTime() return now end
 function RequestTimePlayed() requestTimePlayedCalls = requestTimePlayedCalls + 1 end
+function GetQuestsCompleted() return completedQuests end
 function CombatLogGetCurrentEventInfo() return Unpack(combatEvent) end
 
 bit = {}
@@ -91,6 +93,11 @@ Fire("PLAYER_LOGIN")
 local statistics = statisticsModule:GetStatistics()
 AssertEqual(statistics.goldAccumulatedCopper, 12345, "initial gold baseline")
 AssertEqual(statistics.goldSpentCopper, 0, "initial spent gold")
+AssertEqual(statistics.questsCompleted, 2, "completed quests initialized from API")
+
+completedQuests[4] = true
+Fire("QUEST_TURNED_IN")
+AssertEqual(statistics.questsCompleted, 3, "completed quests refreshed after turn-in")
 
 health = 12
 Fire("UNIT_HEALTH", "player")
@@ -148,6 +155,7 @@ AssertEqual(statistics.goldSpentCopper, 1345, "spent gold decrease")
 statisticsModule:ResetStatistics()
 AssertEqual(statistics.goldAccumulatedCopper, 12000, "reset gold baseline")
 AssertEqual(statistics.goldSpentCopper, 0, "reset spent gold")
+AssertEqual(statistics.questsCompleted, 3, "reset preserves completed quests")
 money = 11000
 Fire("PLAYER_MONEY")
 AssertEqual(statistics.goldSpentCopper, 1000, "post-reset money baseline")

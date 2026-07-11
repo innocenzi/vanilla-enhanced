@@ -13,6 +13,7 @@ local defaults = {
     playedTimeInitialized = false,
     goldAccumulatedCopper = 0,
     goldSpentCopper = 0,
+    questsCompleted = 0,
 }
 
 local function NormalizeCounter(value)
@@ -45,6 +46,7 @@ function SurvivalStatistics:GetStatistics()
     statistics.nearDeathExperiences = NormalizeCounter(statistics.nearDeathExperiences)
     statistics.goldAccumulatedCopper = NormalizeCounter(statistics.goldAccumulatedCopper)
     statistics.goldSpentCopper = NormalizeCounter(statistics.goldSpentCopper)
+    statistics.questsCompleted = NormalizeCounter(statistics.questsCompleted)
     if not hasRecordedAccumulatedGold then
         SetGoldBaseline(statistics)
     end
@@ -149,6 +151,22 @@ function SurvivalStatistics:ProcessMoney()
     self:NotifyOptionsChanged()
 end
 
+function SurvivalStatistics:RefreshQuestsCompleted()
+    if type(GetQuestsCompleted) ~= "function" then return end
+    local ok, completedQuests = pcall(GetQuestsCompleted)
+    if not ok or type(completedQuests) ~= "table" then return end
+
+    local count = 0
+    for _, completed in pairs(completedQuests) do
+        if completed == true then count = count + 1 end
+    end
+
+    local statistics = self:GetStatistics()
+    if statistics.questsCompleted == count then return end
+    statistics.questsCompleted = count
+    self:NotifyOptionsChanged()
+end
+
 local function IsEliteClassification(classification)
     return classification == "elite" or classification == "rareelite" or classification == "worldboss"
 end
@@ -232,6 +250,7 @@ eventFrame:SetScript("OnEvent", function(_, event, unit)
         SurvivalStatistics.playerGUID = UnitGUID("player")
         SurvivalStatistics.isDead = UnitIsDeadOrGhost("player") == true
         SurvivalStatistics:GetStatistics()
+        SurvivalStatistics:RefreshQuestsCompleted()
         SurvivalStatistics:InitializeHealthState()
         if SurvivalStatistics.previousMoney == nil then SurvivalStatistics:InitializeMoney() end
         SurvivalStatistics:ObserveUnit("target", "target")
@@ -243,6 +262,8 @@ eventFrame:SetScript("OnEvent", function(_, event, unit)
         SurvivalStatistics:ObserveUnit("mouseover", "mouseover")
     elseif event == "PLAYER_MONEY" then
         SurvivalStatistics:ProcessMoney()
+    elseif event == "QUEST_TURNED_IN" then
+        SurvivalStatistics:RefreshQuestsCompleted()
     elseif event == "PLAYER_DEAD" then
         if not SurvivalStatistics.isDead then
             SurvivalStatistics.isDead = true
@@ -273,3 +294,4 @@ eventFrame:RegisterEvent("TIME_PLAYED_MSG")
 eventFrame:RegisterEvent("PLAYER_TARGET_CHANGED")
 eventFrame:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
 eventFrame:RegisterEvent("PLAYER_MONEY")
+eventFrame:RegisterEvent("QUEST_TURNED_IN")
